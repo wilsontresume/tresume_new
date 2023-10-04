@@ -83,6 +83,7 @@ import { CcpaPopupModule } from './onboarding/ccpa-popup.module';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
+import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 
 //import { jsPDF } from 'jspdf';
 
@@ -119,7 +120,8 @@ import { AppService } from './app.service';
     HarvestViewComponent,
     AdobesignComponent1,
     AdobesignComponent,
-    LoginComponent
+    LoginComponent,
+    TimesheetCreateComponent
 
   ],
   imports: [

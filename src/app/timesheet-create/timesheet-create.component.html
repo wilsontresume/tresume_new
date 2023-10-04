@@ -1,0 +1,95 @@
+<div class="container mt-4">
+    <h2>Create Timesheet</h2>
+  
+    <div class="card">
+      <div class="card-body">
+        <!-- Date Selector -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="selectedDate">Select a Sunday:</label>
+                    <input type="date" id="selectedDate" class="form-control" [min]="minDate" [max]="maxDate" #datePicker (change)="selectSunday(datePicker.value)" [(ngModel)]="selectedSunday">
+
+                  </div>
+            </div>
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-6">
+                <!-- Save and Cancel Buttons -->
+        <div class="text-right">
+            <button class="btn btn-primary" (click)="saveTimesheet()">Save</button>
+            <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          </div>
+            </div>
+        </div>
+        
+  
+        
+  
+        <!-- Timesheet Table -->
+        <table class="table mt-4">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Sun</th>
+              <th>Mon</th>
+              <th>Tue</th>
+              <th>Wed</th>
+              <th>Thu</th>
+              <th>Fri</th>
+              <th>Sat</th>
+              <th>Comments</th>
+              <th>Total hours</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of timesheetRows; let i = index">
+              <td>
+                <select class="form-control" [(ngModel)]="row.project">
+                  <!-- Populate project options here -->
+                </select>
+              </td>
+              <!-- Add input fields for each day and other columns as needed -->
+              <!-- Use [(ngModel)] to bind the input fields to your component's data -->
+              <!-- Example: <td><input type="text" class="form-control" [(ngModel)]="row.sunHours" required></td> -->
+              <td><input type="text" class="form-control" [(ngModel)]="row.sunHours" required></td>
+              <td><input type="text" class="form-control" [(ngModel)]="row.monHours" required></td>
+              <td><input type="text" class="form-control" [(ngModel)]="row.tueHours" required></td>
+              <td><input type="text" class="form-control" [(ngModel)]="row.wedHours" required></td>
+              <td><input type="text" class="form-control" [(ngModel)]="row.thrHours" required></td>
+              <td><input type="text" class="form-control" [(ngModel)]="row.friHours" required></td>
+              <td><input type="text" class="form-control" [(ngModel)]="row.satHours" required></td>
+              <td><textarea class="form-control" [(ngModel)]="row.comments"></textarea></td>
+              <td><input type="text" class="form-control" [(ngModel)]="row.totalHours" required></td>
+              <td><button class="btn btn-danger" (click)="removeRow(i)">Remove</button></td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <!-- Add Row Button -->
+        <div class="text-center">
+          <button class="btn btn-success" (click)="addRow()">Add Row</button>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mt-4">
+                    <label for="fileUpload">Please upload client-approved Timesheet:</label>
+                    <input type="file" id="fileUpload" class="form-control-file">
+                  </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mt-4">
+                    <label for="fileUpload">Please upload your status report for the selected period:</label>
+                    <input type="file" id="fileUpload" class="form-control-file">
+                  </div>
+            </div>
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
+  

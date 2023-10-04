@@ -25,6 +25,7 @@ import { HarvestViewComponent } from './harvest/harvestview.component';
 import { AuthGuard } from './auth.guard';
 import { AdobesignComponent1 } from './adobesign/adobesign.component';
 import { LoginComponent } from './login/login.component';
+import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,7 @@ const routes: Routes = [
   { path: 'divisionaudit', component: DivisionAuditComponent, canActivate: [AuthGuard] },
   { path: 'adobesign', component: AdobesignComponent1   },
   { path: 'adobesign/token/:token', component: AdobesignComponent1   },
+  { path: 'timesheet/create', component: TimesheetCreateComponent   },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full', }
