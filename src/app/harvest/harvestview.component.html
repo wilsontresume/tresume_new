@@ -1,0 +1,74 @@
+<div class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6 float-start">
+                <h1 class="m-0">Candidate List</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spinner-overlay" *ngIf="loading">
+    <div class="spinner"></div>
+</div>
+<div class="section">
+    <div class="container">
+        <div *ngIf="resultsFound" [ngStyle]="loading ? { opacity: '0.2' } : { opacity: '1' }">
+            <div class="align-right total">Total Results: {{ totalResults }}</div>
+            <div *ngFor="let jobDetail of rowData; let i = index" style="padding: 10px">
+                <mat-card class="example-card">
+                    <mat-card-title class="border-title">
+                        <div class="card-footer-actions">
+                            <div>
+                                {{ jobDetail.FullName }}
+                            </div>
+                            <div>
+                                <p-message *ngIf="jobDetail.migrated" severity="info" text="Profile Migrated"
+                                    styleClass="mr-2"></p-message>
+                                <i class="fa fa-eye clickable" *ngIf="jobDetail.showmigrated"
+                                    (click)="download(jobDetail.id)"></i>
+                                <i class="fa fa-eye clickable" *ngIf="!showcrediterror"
+                                    (click)="download(jobDetail)"></i>
+                            </div>
+                        </div>
+                    </mat-card-title>
+                    <mat-card-content style="height: 200px; overflow-y: auto">
+                        <div class="container-flex">
+                            <div class="card-body">
+                                <div class="card-job-info" style="width: 50%">
+                                    <h2>{{ jobDetail.TraineeTitle }}</h2>
+                                    <i class="label fa fa-location-arrow">
+                                        {{ jobDetail.CurrentLocation }}
+                                    </i>
+                                    <i class="label fa fa-building">
+                                        {{ jobDetail.Source }}
+                                    </i>
+                                    <i class="label fa fa-calendar">
+                                        {{ jobDetail.LastUpdateTime | date }}
+                                    </i>
+                                    <i *ngIf="jobDetail.YearsOfExpInMonths" class="label fa fa-briefcase">
+                                        Years of Experience:
+                                        {{ jobDetail.YearsOfExpInMonths / 12 | number : "1.1-1" }}
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <p-sidebar #pTemplate [(visible)]="visibleSidebar2" position="right" [baseZIndex]="1000000" [appendTo]="'body'"
+        [style]="{ width: '60rem' }" [blockScroll]="true">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Resume View</h4>
+        <div>
+            <span [innerHTML]="resumeHTMLContent"></span>
+        </div>
+        <div style="display: flex; flex-direction: row">
+            <div>
+                <button type="submit" class="btn btn-primary" (click)="downloadAsPdf()">
+                    Download
+                </button>
+            </div>
+        </div>
+    </p-sidebar>
+</div>

@@ -1,0 +1,46 @@
+<!-- <div class="col-md-6" style="background-color: white; margin-left: auto; margin-right: auto;"> -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12" style="display: flex;
+                justify-content: center;
+                align-items: center;">
+                <h1 class="m-0">Welcome to Tresume Onboarding Process</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;padding-top: 100px;">
+    <div class="col-md-4" style="padding: 20px;">
+        <label for="recruiter">Select a Candidate to Onboard</label>
+        <input [(ngModel)]="selectedState" [typeahead]="candidateNames" typeaheadOptionField="CandidateName"
+            [isAnimated]="true" typeaheadMinLength="3" (typeaheadOnSelect)="typeaheadOnSelect($event)"
+            class="form-control">
+    </div>
+
+
+    <!-- <div class="col-md-4" style="padding: 20px;display: flex;
+        justify-content: center;">
+        Or
+    </div>
+
+    <div class="col-md-4" style="padding: 20px;display: flex;
+        justify-content: center;">
+        <button type="button" class="btn btn-info action-button" [disabled]="true">
+            Add New Candidate
+        </button>
+    </div> -->
+
+    <div class="col-md-4" style="padding: 20px;display: flex;
+        justify-content: center;">
+        <button type="button" class="btn btn-primary action-button" [disabled]="!isCandidateSelected" (click)="startOnboard()">
+            Start Onboarding
+        </button>
+    </div>
+</div>
+
+<!-- </div> -->

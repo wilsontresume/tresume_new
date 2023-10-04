@@ -1,0 +1,99 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Profile</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section *ngIf="loaded" class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- <div class="col-md-3">
+
+                <div class="card card-primary card-outline" style="border-top: 3px solid #49274A;">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                src="https://tresume.us/Images/Profile_icon.PNG" alt="User profile picture">
+                        </div>
+                        <h3 class="profile-username text-center">{{employeeDetails.FirstName}}
+                            {{employeeDetails.LastName}}</h3>
+                        <p class="text-muted text-center">{{employeeDetails.Title}}</p>
+                        <div class="card-body">
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                            <p class="text-muted">{{employeeDetails.CurrentLocation}}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div> -->
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" style="background-color: #49274A;"
+                                    href="#activity" data-toggle="tab">Document
+                                    Requests</a></li>
+                        </ul>
+                    </div>
+                    <div *ngIf="!isCompleted" class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="activity">
+
+                                <ul class="list-group">
+                                    <li class="list-group-item" *ngFor="let item of requestedList let i = index">
+                                        <strong>{{item.DocTypeName}}</strong>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex">
+                                                <strong>Note:</strong>
+                                                {{item.DocNotes}}
+                                            </div>
+                                            <div class="ml-auto">
+                                                <a *ngIf="item.filepath" class="btn btn-app bg-secondary"
+                                                    (click)="download(item.DocTypeID)">
+                                                    <i class="fas fa-download"></i> Download
+                                                </a>
+                                                <input type="file" id="upload" hidden />
+                                                <label *ngIf="!item.isUpload" class="btn btn-app bg-primary">
+                                                    <i class="fas fa-file-upload"></i>
+
+                                                    <input type="file" class="uploadButton" [(ngModel)]="uploadFile[i]"
+                                                        (change)="upload(item,i)" />
+                                                    Upload
+                                                </label>
+                                                <a *ngIf="item.isUpload" class="btn btn-app bg-success">
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active d-flex" style="padding: 10px;">
+                                <button type="button" class="btn btn-primary ml-auto" style="background-color: #49274A;"
+                                    (click)=" submitDocs()">
+                                    Submit to Employer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="isCompleted" class="card-body">
+                        Thanks for uploading. You can close the window.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

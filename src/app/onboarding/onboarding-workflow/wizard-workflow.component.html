@@ -1,0 +1,509 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12" style="display: flex;
+            justify-content: center;
+            align-items: center;">
+                <h1 class="m-0">Tresume Onboarding Process</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center; align-items: center;
+flex-direction: column;padding-top: 100px; padding-top: 30px;">
+
+
+    <div *ngIf="typeSelector" class="col-md-4" style="padding: 20px;">
+        <label for="recruiter">Select the type of Employee</label>
+        <div *ngFor="let list of cards; let i = index" style="padding: 10px;" class="card-hover">
+            <mat-card class="card-shadow" (click)="enableStepper(list.ListID)">
+                <mat-card-title>{{list.ListName}}</mat-card-title>
+                <!-- <mat-card-content style="height: 182px; overflow-y: auto;">
+                    <ul *ngFor="let docs of list.selectedDocs">
+                        <li>{{docs}}</li>
+                    </ul>
+                </mat-card-content> -->
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="enableSteps">
+    <mat-stepper #stepper2 linear>
+
+        <mat-step [editable]="isEditable" completed="false">
+            <ng-template matStepLabel>Send Welcome Email</ng-template>
+            <section id="about">
+                <div class="container px-4">
+                    <div class="row gx-4 justify-content-center">
+                        <div class="col-lg-8">
+                            <h2>Welcome Email for {{candidateDetails.FirstName}} {{candidateDetails.LastName}}</h2>
+                            <form [formGroup]="emailform">
+                                <formly-form [model]="model" [fields]="emailfields" [options]="options"
+                                    [form]="emailform">
+                                </formly-form>
+                            </form>
+                            <p-editor [(ngModel)]="text" [style]="{'height':'320px', 'width':'100%'}"
+                                placeholder="Enter the email content to be sent"></p-editor>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div style="display: flex; justify-content: center; padding-top: 20px;">
+                <button mat-button matStepperNext class="btn btn-primary action-button" [disabled]="!emailform.valid"
+                    (click)="EmailOffer()">
+                    Send Welcome Email
+                </button>
+            </div>
+        </mat-step>
+
+        <mat-step [editable]="isEditable" completed="false">
+            <ng-template matStepLabel>Documents</ng-template>
+            <!-- <mat-stepper #stepper linear style="height:50vh" [orientation]="(stepperOrientation | async)!"> -->
+            <mat-stepper #stepper linear orientation="vertical">
+                <div *ngFor="let item of steps let i = index">
+                    <mat-step [stepControl]="firstFormGroup" [editable]=true style="height:100vh" completed="false">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>{{item.DocTypeName}}</ng-template>
+                            <section id="about">
+                                <div class="container px-4">
+                                    <div class="row gx-4 justify-content-center" style="padding-top: 30px;">
+                                        <div class="col-lg-8">
+                                            <h2>Upload/Request {{item.DocTypeName}} Document from Employee</h2>
+                                            <div [formGroup]="secondFormGroup" class="form-group">
+                                                <label for="note">Note</label>
+                                                <input type="note" class="form-control" formControlName="note" id="note"
+                                                    placeholder="Enter note for Employee" [(ngModel)]="item.note"
+                                                    autocomplete="off">
+                                            </div>
+                                            <p-fileUpload name="file[]" [auto]="true" chooseLabel="Upload Document"
+                                                (onSelect)="onUpload($event, i)">
+                                            </p-fileUpload>
+                                            <!-- <hr class="hr-text" data-content="OR"> -->
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <mat-checkbox color="primary" [(ngModel)]="requested[i]"
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        (change)="onRequest(item)">Request
+                                                        Employee to Review/Upload
+                                                    </mat-checkbox>
+                                                </div>
+                                            </div>
+                                            <div
+                                                style="display: flex; justify-content: space-evenly; padding-top: 30px;">
+                                                <button mat-button matStepperNext class="btn btn-primary action-button"
+                                                    (click)="uploadFiles(item,i)">
+                                                    Upload/Request
+                                                </button>
+                                                <!-- <button mat-button matStepperNext class="btn btn-secondary"
+                                                    (click)="uploadFiles(item,i,true)">
+                                                    Request with Docusign
+                                                </button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </form>
+
+                    </mat-step>
+                </div>
+                <mat-step>
+                    <ng-template matStepLabel>Submit</ng-template>
+                    <!-- <p>Onboard Complete</p> -->
+                    <div class="col-sm-12" style="display: flex;
+            justify-content: center;
+            align-items: center;">
+                        <h2 class="m-0">Uploads Complete</h2>
+                        <!-- <p>Email sent to Employee and Approvers</p> -->
+                    </div>
+                    <div class="col-sm-12" style="display: flex;
+            justify-content: center;
+            align-items: center;">
+                        <h2 class="m-0">Email will be sent to Employee requesting the documents</h2>
+                        <!-- <p>Email sent to Employee and Approvers</p> -->
+                    </div>
+                    <div>
+                    </div>
+                </mat-step>
+            </mat-stepper>
+            <div *ngIf="stepper.selectedIndex === steps.length" style="display: flex; justify-content: center;">
+                <button mat-button matStepperNext class="btn btn-primary action-button" (click)="afterUploads()">
+                    Next
+                </button>
+            </div>
+        </mat-step>
+        <mat-step [editable]="isEditable" completed="false">
+            <ng-template matStepLabel>Review & Approve</ng-template>
+            <section id="about">
+                <div class="container px-4">
+                    <div class="row gx-4 justify-content-center" style="padding-top: 30px;">
+                        <div class="col-lg-8">
+                            <h2>Status of Requested Documents</h2>
+                            <ul class="list-group">
+                                <li class="list-group-item" *ngFor="let item of requestedList let i = index">
+                                    {{item.DocTypeName}}
+                                    <div class="d-flex">
+                                        <strong>Note:</strong>
+                                        {{item.note}}
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <strong>Pending...</strong>
+                                        <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div style="display: flex; justify-content: center; padding-top: 30px;">
+                <button mat-button matStepperNext class="btn btn-primary action-button" (click)="save()">
+                    Save and Exit
+                </button>
+            </div>
+        </mat-step>
+
+    </mat-stepper>
+</div>
+
+<div *ngIf="approvalView" style="padding: 25px;">
+    <section id="about">
+        <div class="container-fluid px-4">
+            <div class="row gx-4 justify-content-center" style="padding-top: 30px;">
+                <div class="col-lg-12">
+                    <h2>Status of Requested Documents</h2>
+                    <div style="display: flex;
+                    justify-content: flex-end;">
+                        <button type="text" pButton label="Add Additional Checklist"
+                            (click)="createAdditionalChecklist(AdditionalTemplate)"></button>
+                    </div>
+                    <ul class="list-group">
+                        <mat-tab-group>
+                            <mat-tab *ngFor="let category of categories" [label]="category">
+                                <div style="padding-top: 40px;">
+                                    <div *ngIf="groupedItems[category][0].AdditionalChecklistID!=-998" style=" display: flex;
+                                    flex-direction: column;">
+                                        <progressbar style="margin-bottom: 20px;" [max]="100"
+                                            [value]="calPercentage(category)" [type]="success" [striped]="true"
+                                            [animate]="true">
+                                            <i>{{calPercentage(category) | number: '1.0-2'}}%</i>
+                                        </progressbar>
+                                        <!-- <li *ngFor="let item of groupedItems[category]">{{ item.DocTypeName }}</li> -->
+                                        <div class="list-group-item block"
+                                            *ngFor="let item of groupedItems[category] let i = index">
+                                            <strong>{{item.DocTypeName}}</strong>
+                                            <div class="d-flex align-items-center">
+                                                <div *ngIf="item.DocNotes" class="d-flex">
+                                                    <strong>Note:</strong>
+                                                    {{item.DocNotes}}
+                                                </div>
+                                                <div class="ml-auto">
+                                                    <div *ngIf="!item.isUpload" class="d-flex align-items-center">
+                                                        <!-- <strong>Pending Upload...</strong> -->
+                                                        <div class="spinner-border ml-auto" role="status"
+                                                            aria-hidden="true"></div>
+                                                        <a class="btn btn-app bg-info">
+                                                            <i class="fas fa-ban" (click)="delete(item)"></i> Cancel
+                                                        </a>
+                                                    </div>
+                                                    <div *ngIf="item.isUpload" class="d-flex align-items-center">
+                                                        <!-- <strong>Review</strong> -->
+                                                        <a class="btn btn-app bg-secondary ml-auto"
+                                                            (click)="viewDoc(item.DocTypeID)">
+                                                            <i class="fas fa-eye"></i> View
+                                                        </a>
+                                                        <a class="btn btn-app bg-secondary ml-auto"
+                                                            (click)="download(item.DocTypeID)">
+                                                            <i class="fas fa-download"></i> Download
+                                                        </a>
+                                                        <a *ngIf="item.Status!=1" class="btn btn-app bg-primary ml-auto"
+                                                            (click)="approveValidation(item, approvalTemplate)">
+                                                            <i class="fas fa-thumbs-up"></i> Approve
+                                                        </a>
+                                                        <a *ngIf="item.Status!=1" class="btn btn-app bg-danger ml-auto"
+                                                            (click)="rejectItem(item,RejectTemplate)">
+                                                            <i class="fas fa-thumbs-down"></i> Reject
+                                                        </a>
+                                                        <a *ngIf="item.Status==1"
+                                                            class="btn btn-app bg-success ml-auto">
+                                                            <i class="fas fa-check"></i> Approved
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item block"
+                                            style="border: 3px dotted black; opacity: 0.6; display: flex; justify-content: center; padding: 10px; position: relative;"
+                                            (click)="createAdhocDoc(template, groupedItems[category])">
+                                            <div class="d-flex align-items-center" style="padding: 10px;">
+                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="groupedItems[category][0].AdditionalChecklistID==-998">
+                                        <app-adobesign #esign [docItems]="groupedItems[category]"></app-adobesign>
+                                        <div class="list-group-item block"
+                                            style="border: 3px dotted black; opacity: 0.6; display: flex; justify-content: center; padding: 10px; position: relative;"
+                                            (click)="createEsignDoc(esignTemplate, groupedItems[category])">
+                                            <div class="d-flex align-items-center" style="padding: 10px;">
+                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                        <!-- <li class="list-group-item" *ngFor="let item of requestedList let i = index">
+                            <strong>{{item.DocTypeName}}</strong>
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex">
+                                    <strong>Note:</strong>
+                                    {{item.DocNotes}}
+                                </div>
+                                <div class="ml-auto">
+                                    <div *ngIf="!item.isUpload" class="d-flex align-items-center">
+                                        <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                                        <a class="btn btn-app bg-info">
+                                            <i class="fas fa-ban" (click)="delete(item)"></i> Cancel
+                                        </a>
+                                    </div>
+                                    <div *ngIf="item.isUpload" class="d-flex align-items-center">
+                                        <a class="btn btn-app bg-secondary ml-auto" (click)="download(item.DocTypeID)">
+                                            <i class="fas fa-download"></i> Review
+                                        </a>
+                                        <a *ngIf="item.Status!=1" class="btn btn-app bg-primary ml-auto"
+                                            (click)="approveItem(item)">
+                                            <i class="fas fa-thumbs-up"></i> Approve
+                                        </a>
+                                        <a *ngIf="item.Status==1" class="btn btn-app bg-success ml-auto">
+                                            <i class="fas fa-check"></i> Approved
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--     <div style="display: flex; justify-content: center; padding-top: 30px;">
+        <button mat-button class="btn btn-info info-button" (click)="onTabChange()">
+            Add new step
+        </button>
+    </div> -->
+    <div style="display: flex; justify-content: center; padding-top: 30px;">
+        <button mat-button class="btn btn-primary action-button" (click)="complete()">
+            Complete Onboarding
+        </button>
+    </div>
+    <div style="display: flex; justify-content: center; padding-top: 10px;">
+        <button mat-button class="btn btn-info info-button" (click)="resendEmail()">
+            Resend Email
+        </button>
+    </div>
+    <div style="display: flex; justify-content: center; padding-top: 10px;">
+        <button mat-button class="btn btn-secondary info-button" (click)="goback()">
+            Go Back
+        </button>
+    </div>
+</div>
+<p-toast position="bottom-right"></p-toast>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Requesting New Document</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-lg-12">
+            <div class="flex-column">
+                <label>Document Type</label>
+                <p-dropdown name="docType" placeholder="Select a Document Type" [options]="docTypes"
+                    [(ngModel)]="adhocDocItem.selectedDocType" optionLabel="name" [filter]="true" filterBy="name"
+                    [showClear]="true" placeholder="Select a Document"></p-dropdown>
+            </div>
+            <div style="font-style: italic; opacity: 0.6;">Note: Uploading the document is not required</div>
+
+            <p-fileUpload name="file[]" [auto]="true" chooseLabel="Upload Document" (onSelect)="onAdhocUpload($event)">
+            </p-fileUpload>
+            <div [formGroup]="secondFormGroup" class="form-group">
+                <label for="note">Note</label>
+                <input type="note" class="form-control" formControlName="note" id="note"
+                    placeholder="Enter note for Employee" [(ngModel)]="adhocDocItem.note" autocomplete="off">
+            </div>
+            <div style="display: flex; justify-content: space-evenly; padding-top: 30px;">
+                <button mat-button class="btn btn-primary action-button" (click)="uploadAdhocDoc(adhocDocItem)">
+                    Upload and Request
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #AdditionalTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Creating an Additional Checklist</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="p-field-radiobutton">
+                    <p-radioButton name="checkType" value="1" [(ngModel)]="checkType"
+                        inputId="tresumeCheck"></p-radioButton>
+                    <label class="labelType" for="tresumeCheck">Tresume Checklist</label>
+                </div>
+                <div class="p-field-radiobutton">
+                    <p-radioButton name="checkType" value="2" [(ngModel)]="checkType"
+                        inputId="esignCheck"></p-radioButton>
+                    <label class="labelType" for="esignCheck">E-Sign</label>
+                </div>
+            </div>
+            <div class="flex-column">
+                <label>Checklist Name</label>
+                <input type="text" pInputText [(ngModel)]="adhocDocItem.checklistName" />
+            </div>
+            <div *ngIf="checkType==1">
+                <div class="flex-column">
+                    <label for="docType">Document Type</label>
+                    <p-dropdown id="docType" name="docType" [options]="docTypes"
+                        [(ngModel)]="adhocDocItem.selectedDocType" optionLabel="name" [filter]="true" filterBy="name"
+                        [showClear]="true" placeholder="Select a Document Type" [style.width]="'100%'"></p-dropdown>
+                </div>
+
+                <div style="font-style: italic; opacity: 0.6;">Note: Uploading the document is not required</div>
+
+                <p-fileUpload name="file[]" [auto]="true" chooseLabel="Upload Document"
+                    (onSelect)="onAdhocUpload($event)">
+                </p-fileUpload>
+                <div [formGroup]="secondFormGroup" class="form-group">
+                    <label for="note">Note</label>
+                    <input type="note" class="form-control" formControlName="note" id="note"
+                        placeholder="Enter note for Employee" [(ngModel)]="adhocDocItem.note" autocomplete="off">
+                </div>
+                <div style="display: flex; justify-content: space-evenly; padding-top: 30px;">
+                    <button mat-button class="btn btn-primary action-button" (click)="uploadAdhocDoc(adhocDocItem)">
+                        Upload and Request
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="checkType==2">
+                <div style="display: flex; justify-content: space-evenly; padding-top: 30px;">
+                    <button mat-button class="btn btn-primary action-button" (click)="connectAdobe()">
+                        Login to Adobe E-Sign
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #RejectTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Reject this Document</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div [formGroup]="secondFormGroup" class="form-group">
+            <label for="note">Reason for Rejection</label>
+            <input type="note" class="form-control" formControlName="note" id="note"
+                placeholder="Enter reason for rejection and request re-upload" [(ngModel)]="rejectDocItem.note"
+                autocomplete="off">
+        </div>
+        <div style="display: flex; justify-content: space-evenly; padding-top: 30px;">
+            <button mat-button class="btn btn-primary" (click)="updateRejectNote(rejectDocItem)">
+                Reject and Request re-upload
+            </button>
+            <button mat-button class="btn btn-secondary" (click)="delete(rejectDocItem)">
+                Reject and Cancel
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #approvalTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Info required to Approve</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <h4>Please provide the below info need to approve the document</h4>
+        </div>
+        <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
+            <p>Document Start Date</p>
+            <input type="text" placeholder="Start Date" bsDatepicker #dp="bsDatepicker" class="form-control"
+                [bsConfig]="bsConfig" [(ngModel)]="approveDocItem.startDate">
+        </div>
+        <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
+            <p>Document Expiry Date</p>
+            <input type="text" placeholder="Expiry Date" bsDatepicker #dp="bsDatepicker" class="form-control"
+                [bsConfig]="bsConfig" [(ngModel)]="approveDocItem.expiryDate">
+        </div>
+        <div style="display: flex; justify-content: space-evenly; padding-top: 30px;">
+            <button [disabled]=!approveDocItem.expiryDate mat-button class="btn btn-primary"
+                (click)="approveItem(approveDocItem)">
+                Approve
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #esignTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Requesting New E-Sign Document</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-lg-12">
+            <div class="flex-column">
+                <label>Document Type</label>
+                <p-dropdown name="docType" placeholder="Select a Document Type" [options]="docTypes"
+                    [(ngModel)]="adhocDocItem.selectedDocType" optionLabel="name" [filter]="true" filterBy="name"
+                    [showClear]="true" placeholder="Select a Document"></p-dropdown>
+            </div>
+            <div style="font-style: italic; opacity: 0.6;">Note: Uploading the document is not required</div>
+
+            <p-fileUpload name="file[]" [auto]="true" chooseLabel="Upload Document" (onSelect)="onAdhocUpload($event)">
+            </p-fileUpload>
+            <div [formGroup]="secondFormGroup" class="form-group">
+                <label for="note">Note</label>
+                <input type="note" class="form-control" formControlName="note" id="note"
+                    placeholder="Enter note for Employee" [(ngModel)]="adhocDocItem.note" autocomplete="off">
+            </div>
+            <div style="display: flex; justify-content: space-evenly; padding-top: 30px;">
+                <button mat-button class="btn btn-primary action-button" (click)="uploadeSignDoc(adhocDocItem)">
+                    Upload and Request
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<p-sidebar #pTemplate [(visible)]="visibleSidebar2" position="right" [baseZIndex]="1000000" [appendTo]='"body"'
+    [style]="{'width':'60rem'}" [blockScroll]="true" (onHide)="close()">
+    <div class="card-footer-actions">
+        <h1 id="dialog-sizes-name1" class="modal-title" style="text-align: center;">Quick Resume View</h1>
+    </div>
+    <div>
+        <ngx-extended-pdf-viewer *ngIf="visibleSidebar2" [src]="fileRoute" [height]="'90vh'" [useBrowserLocale]="true"
+            (pdfLoadingStarts)="onReady()" [showPagingButtons]="false" [showOpenFileButton]="false"
+            [showRotateButton]="false" [showFindButton]="true" [textLayer]="true">
+        </ngx-extended-pdf-viewer>
+    </div>
+</p-sidebar>

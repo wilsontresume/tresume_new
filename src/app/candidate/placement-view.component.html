@@ -1,0 +1,235 @@
+<div *ngIf="loaded">
+    <form [formGroup]="myForm">
+        <div class="p-bodycard">
+            <legend>Placement Details</legend>
+            <div class="p-grid p-fluid flex-row">
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="notes">Placement Notes</label>
+                        <input id="notes" type="text" formControlName="Notes" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <label for="BillRate">Bill Rate<span class="required">*</span></label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">$</span>
+                        <input id="BillRate" type="text" formControlName="BillRate" class="p-inputtext" />
+                        <div class="p-inputgroup-addon" style="background-color: #F2F2F2; width: 30%;border: 1px solid #883cae;
+                        border-radius: 3px;">
+                            <select formControlName="BillType" class="p-inputgroup-select" style="width: 100%;">
+                                <option value="true">Hourly</option>
+                                <option value="false">Annual</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="MarketerName">Marketer Name<span class="required">*</span></label>
+                        <p-autoComplete formControlName="MarketerName" [suggestions]="marketersAuto" [minLength]="2"
+                            (completeMethod)="search($event)" (onSelect)="setMarketer($event)" field="Name"
+                            required="true" forceSelection="true"></p-autoComplete>
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="PrimaryPlacement">Primary Placement</label>
+                        <p-inputSwitch class="p-switchClass" formControlName="PrimaryPlacement"></p-inputSwitch>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Client details section -->
+        <div class="p-bodycard">
+            <legend>Client Details</legend>
+            <div class="p-grid p-fluid flex-row">
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="ClientState">State<span class="required">*</span></label>
+                        <!-- <input id="ClientState" type="text" formControlName="ClientState" class="p-inputtext" /> -->
+                        <p-dropdown name="tester" placeholder="Select a State" formControlName="ClientState"
+                            [options]="states" optionLabel="name" optionValue="code"></p-dropdown>
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="StartDate">Start Date<span class="required">*</span></label>
+                        <input type="text" class="p-inputtext" style="background: #F2F2F2;border: none;" bsDatepicker
+                            #dp="bsDatepicker" class="form-control" formControlName="StartDate" [bsConfig]="bsConfig">
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="EndDate">End Date<span class="required">*</span></label>
+                        <input type="text" class="p-inputtext" style="background: #F2F2F2;border: none;" bsDatepicker
+                            #dp="bsDatepicker" class="form-control" formControlName="EndDate" [bsConfig]="bsConfig">
+                    </div>
+                </div>
+                <div class=" col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="DatePlaced">Date Placed</label>
+                        <input type="text" class="p-inputtext" style="background: #F2F2F2;border: none;" bsDatepicker
+                            #dp="bsDatepicker" class="form-control" formControlName="DatePlaced" [bsConfig]="bsConfig">
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="Title">Position Title<span class="required">*</span></label>
+                        <input id="Title" type="text" formControlName="Title" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="WorkEmailID">Candidate's Work(Client) Email Id</label>
+                        <input id="WorkEmailID" type="text" formControlName="CandidateEmailId" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="ClientName">End Client Name<span class="required">*</span></label>
+                        <input id="ClientName" type="text" formControlName="ClientName" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="POStartDate">PO Start Date</label>
+                        <input type="text" class="p-inputtext" style="background: #F2F2F2;border: none;" bsDatepicker
+                            #dp="bsDatepicker" class="form-control" formControlName="POStartDate" [bsConfig]="bsConfig">
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="POEndDate">PO End Date</label>
+                        <input type="text" class="p-inputtext" style="background: #F2F2F2;border: none;" bsDatepicker
+                            #dp="bsDatepicker" class="form-control" formControlName="POEndDate" [bsConfig]="bsConfig">
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="ClientManagerName">End Client Manager Name</label>
+                        <input id="ClientManagerName" type="text" formControlName="ClientManagerName"
+                            class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="ClientEmail">End Client Email</label>
+                        <input id="ClientEmail" type="text" formControlName="ClientEmail" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="ClientPhone">End Client Manager Phone Number</label>
+                        <input id="ClientPhone" type="text" formControlName="ClientPhone" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding: 10px;">
+                    <div class="">
+                        <label for="ClientAddress">End Client Address</label>
+                        <input id="ClientAddress" type="text" formControlName="ClientAddress" class="p-inputtext" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vender details section -->
+
+        <div class="p-bodycard">
+            <legend>Vendor Details</legend>
+            <div class="p-grid p-fluid flex-row">
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="VendorName">Vendor Name</label>
+                        <input id="VendorName" type="text" formControlName="VendorName" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="VendorContact">Vendor Contact Name</label>
+                        <input id="VendorContact" type="text" formControlName="VendorContact" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="VendorEmail">Vendor Email</label>
+                        <input id="VendorEmail" type="text" formControlName="VendorEmail" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="VendorPhone">Vendor Phone</label>
+                        <input id="VendorPhone" type="text" formControlName="VendorPhone" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding: 10px;">
+                    <div class="">
+                        <label for="VendorAddress">Vendor Address</label>
+                        <input id="VendorAddress" type="text" formControlName="VendorAddress" class="p-inputtext" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sub Vender details section -->
+
+        <div class="p-bodycard">
+            <legend>Sub Vendor Details</legend>
+            <div class="p-grid p-fluid flex-row">
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="SubVendorName">Sub Vendor Name</label>
+                        <input id="SubVendorName" type="text" formControlName="SubVendorName" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="SubVendorContact">Sub Vendor Contact Name</label>
+                        <input id="SubVendorContact" type="text" formControlName="SubVendorContact"
+                            class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="SubVendorEmail">Sub Vendor Email</label>
+                        <input id="SubVendorEmail" type="text" formControlName="SubVendorEmail" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding: 10px;">
+                    <div class="">
+                        <label for="SubVendorPhone">Sub Vendor Phone</label>
+                        <input id="SubVendorPhone" type="text" formControlName="SubVendorPhone" class="p-inputtext" />
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding: 10px;">
+                    <div class="">
+                        <label for="SubVendorAddress">Sub Vendor Address</label>
+                        <input id="SubVendorAddress" type="text" formControlName="SubVendorAddress"
+                            class="p-inputtext" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-bodycard">
+            <div class="p-grid p-fluid flex-row" style="justify-content: center;">
+                <button *ngIf="!saved" type="submit" class="btn btn-primary brand-actionbutton"
+                    [disabled]="!myForm.valid" (click)="onSubmit()" style="margin: 10px;">
+                    Save
+                </button>
+                <button type="submit" class="btn btn-secondary" style="margin: 10px;" (click)="backToList()">
+                    Back
+                </button>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="loaded && isEditView" class="p-bodycard">
+        <div class="documents-container">
+            <legend>All Client/MSA Work Order Documents</legend>
+            <div>
+                <ag-grid-angular style="width: 100%; height: 322px;" class="ag-theme-alpine" [rowData]="rowData"
+                    [columnDefs]="columnDefs" [gridOptions]="gridOptions" (gridReady)="onGridReady($event)">
+                </ag-grid-angular>
+            </div>
+        </div>
+    </div>
+</div>

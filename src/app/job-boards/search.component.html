@@ -1,0 +1,79 @@
+<!-- <p-tabView>
+    <p-tabPanel header="Header 1">
+        <app-search-resumes></app-search-resumes>
+    </p-tabPanel>
+    <p-tabPanel header="Header 2">
+        <app-search-cb-resumes></app-search-cb-resumes>
+    </p-tabPanel>
+    <p-tabPanel header="Header 3">
+        <app-search-monster-resumes></app-search-monster-resumes>
+    </p-tabPanel>
+    <p-tabPanel header="Header 4">
+        <app-integrated-search></app-integrated-search>
+    </p-tabPanel>
+</p-tabView> -->
+
+<mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+    <mat-tab label="BasicSearch">
+        <ng-template mat-tab-label>
+            <div>
+                <img src="assets/img/logo_new.png" alt="TresumeLogo" height="50%" width="50%">
+            </div>
+        </ng-template>
+        <ng-template matTabContent>
+            <app-search-resumes></app-search-resumes>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Dice">
+        <ng-template mat-tab-label>
+            <div class="sc-gYMRRK iPGXmU"><img
+                    src="https://www.dice.com/products/wp-content/uploads/2016/11/dice-logo-md.png" width="60"
+                    height="32" alt="Dice Logo"></div>
+        </ng-template>
+        <ng-template matTabContent>
+            <app-search-dice-resumes></app-search-dice-resumes>
+        </ng-template>
+
+    </mat-tab>
+    <mat-tab label="Career Builder">
+        <ng-template mat-tab-label>
+            <div>
+                <img src="assets/img/cb_logo.svg" alt="CBLogo" height="70%" width="70%">
+            </div>
+        </ng-template>
+        <ng-template matTabContent>
+            <app-search-cb-resumes></app-search-cb-resumes>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Monster">
+        <ng-template mat-tab-label>
+            <div>
+                <img src="assets/img/monster_logo.svg" alt="MonsterLogo" height="70%" width="70%">
+            </div>
+        </ng-template>
+        <ng-template matTabContent>
+            <app-search-monster-resumes></app-search-monster-resumes>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Jooble">
+        <ng-template mat-tab-label>
+            <div>
+                <img src="https://in.jooble.org/job-description/wp-content/uploads/2020/03/logo2.svg" alt="JoobleLogo" height="40%" width="40%">
+                
+            </div>
+        </ng-template>
+        <ng-template matTabContent>
+            <app-search-jooble-resumes></app-search-jooble-resumes>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Integrated Search">
+        <ng-template mat-tab-label>
+            <div>
+                <img src="assets/img/integrated_search.png"alt="TresumeLogo" height="100%" width="100%">
+            </div>
+        </ng-template>
+        <ng-template matTabContent>
+            <app-integrated-search></app-integrated-search>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

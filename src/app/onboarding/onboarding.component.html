@@ -1,0 +1,86 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Document Checklists</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div style="display: flex; padding-bottom: 50px; flex-wrap: wrap;">
+            <div *ngFor="let list of cards; let i = index" style="padding: 10px;">
+                <mat-card class="example-card">
+                    <mat-card-title class="border-title">{{list.name}}</mat-card-title>
+                    <!-- <mat-card-subtitle>{{list.category}}</mat-card-subtitle> -->
+                    <mat-card-content style="height: 182px; overflow-y: auto;">
+                        <span *ngFor="let docs of list.selectedDocs">
+                            <li>{{docs.DocTypeName}}</li>
+                        </span>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button color="primary" (click)="modifyCard(list,i)">Modify</button>
+                        <button mat-stroked-button style="color:#940571" (click)="deleteCard(list.id)">Delete</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <!-- <div style="padding: 10px;">
+                <mat-card class="example-card">
+                    <mat-card-title>GC Employee Paperwork</mat-card-title>
+                    <mat-card-subtitle>Employee Task</mat-card-subtitle>
+                    <mat-card-content>
+                        <ul *ngFor="let docs of selectedDocs">
+                            <li>{{docs}}</li>
+                        </ul>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button color="primary">Modify</button>
+                        <button mat-button color="warn">Delete</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div> -->
+            <div style="padding: 10px;">
+                <mat-card class="add-card" matRipple [matRippleColor]="myColor" (click)="addNewList()">
+                    <div class="add-card-content">
+                        <i class="fa fa-plus fa-3" style="font-size: 2rem;" aria-hidden="true"></i>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div *ngIf="toggleAdd" class="container">
+            <div class="row" style="padding-bottom: 20px;">
+                <mat-form-field class="half-width">
+                    <mat-label style="color:#940571">Enter Checklist Name</mat-label>
+                    <input matInput placeholder="Enter a Checklist Name" [formControl]="formControl"
+                        [(ngModel)]="checklistName">
+                    <mat-error *ngIf="formControl.hasError('required')">
+                        Checklist Name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="example-container">
+                <h2 class="border-title">Available Documents</h2>
+                <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="availableItems"
+                    [cdkDropListConnectedTo]="[doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of availableItems" cdkDrag>{{item.DocTypeName}}</div>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <h2 class="border-title">Selected Documents</h2>
+                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]"
+                    class="example-list" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item.DocTypeName}}</div>
+                </div>
+            </div>
+            <div class="example-container ml-auto">
+                <button mat-raised-button style="color:#940571" [disabled]="!checklistName"
+                    (click)="save()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</section>

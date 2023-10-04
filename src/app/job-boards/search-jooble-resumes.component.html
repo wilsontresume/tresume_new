@@ -1,0 +1,84 @@
+<section class="content">
+    <div class="container-fluid">
+        <accordion [isAnimated]="true">
+            <accordion-group heading="Jooble Resume Search" [isOpen]=true>
+                <div class="row">
+                    <div class="col-md-6" style="padding: 20px;">
+                        <form [formGroup]="form">
+                            <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
+                            </formly-form>
+                        </form>
+                    </div>
+                    <div class="col-md-3" style="padding: 20px;">
+                        <label for="recruiter">Location (State, City, Zipcode)</label>
+                        <input [(ngModel)]="selectedState" [typeahead]="states" typeaheadOptionField="name"
+                            [isAnimated]="true" class="form-control">
+                    </div>
+                    <div class="col-md-2" style="padding: 45px;">
+                        <button type="submit" class="btn btn-primary" [disabled]="!form.valid" (click)="onSearch()">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</section>
+
+<div *ngIf="loading" class="spinner">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+        fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+</div>
+<div *ngIf="resultsFound" [ngStyle]="loading ? { opacity:'0.2'}: {opacity:'1'}">
+    <div class="align-right">Total Results: {{totalResults}}</div>
+    <div *ngFor=" let jobDetail of rowData; let i=index" style="padding: 10px;">
+        <mat-card class="example-card">
+            <mat-card-title class="border-title">
+                <div class="card-footer-actions">
+                    <div>
+                        {{jobDetail.title}}
+                    </div>
+                    <div>
+                        <p-message *ngIf="jobDetail.migrated" severity="info" text="Profile Migrated"
+                            styleClass="mr-2"></p-message>
+                        <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-rounded"
+                            (click)="download(jobDetail)"></button>
+                        <!-- <i class="fa fa-download clickable" (click)="onPreview(jobDetail)"></i> -->
+                    </div>
+                    <!-- <button type="submit" class="btn btn-primary" (click)="onPreview(jobDetail)">
+                        View Resume
+                    </button> -->
+                </div>
+            </mat-card-title>
+            <mat-card-content style="height: 182px; overflow-y: auto;">
+                <div class="container-flex">
+                    <div class="card-body">
+                        <div class="card-job-info" style="width: 50%;">
+                            <h2>{{jobDetail.source}}</h2>
+                            <i class="label fa fa-location-arrow"> {{jobDetail.Location?.City}},
+                                {{jobDetail.location}} </i>
+                            <i class="label fa fa-building"> {{jobDetail.company}}
+                            </i>
+                            <i class="label fa fa-calendar"> {{jobDetail.updated | date}} </i>
+                        </div>
+                        <div class="card-job-skills flex align-items-left">
+                            <i class="label fa fa-graduation-cap">Snippet</i>
+                            <div class="card-job-skilllist">
+                                <div>
+                                    <p-chip [innerHtml]="jobDetail.snippet"></p-chip>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<div *ngIf="resultsFound" class="pagination-footer">
+    <pagination [totalItems]="totalResults" [maxSize]="20" (pageChanged)="pageChanged($event)" [itemsPerPage]="10"
+        [align]="true"></pagination>
+</div>
+<div *ngIf="loading" class="loader-container">
+    <app-loader class="loader"></app-loader>
+  </div>

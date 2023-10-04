@@ -1,0 +1,153 @@
+.card-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-job-info {
+    display: flex;
+    flex-direction: column;
+    //flex-grow: 1;
+}
+
+.card-job-skills {
+    display: flex;
+    flex-direction: column;
+    //flex-grow: 2;
+}
+
+.card-job-skilllist {
+    display: flex;
+    flex-direction: row;
+}
+
+.label {
+    padding: 5px 0px;
+    opacity: 80%;
+}
+.custom-chip {
+    color: purple;
+}
+
+.card-salary {
+    display: flex;
+    padding: 15px 0px;
+}
+
+.card-footer-actions {
+    display: flex;
+    justify-content: space-between;
+    border-width: 3px;
+    border-style: solid;
+    border-image: linear-gradient(to right, #883cae, rgba(0, 0, 0, 0)) 1 100%;
+    border-image-slice: 0% 0% 100%;
+    padding-bottom: 5px;
+}
+
+.pagination-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.spinner {
+    /* display: flex;
+    justify-content: center;
+    padding: 50px; */
+    position: absolute;
+    top: 500px;
+    left: 50%;
+    z-index: 1;
+}
+
+.align-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.custom-spinner {
+    animation: custom-progress-spinner-color 6s ease-in-out infinite;
+}
+
+.p-field-radiobutton {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.labelType {
+    margin-left: 0.5rem;
+    line-height: 1;
+    margin-bottom: 0px;
+    font-weight: 500;
+}
+
+.total {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0px 10px;
+}
+
+.customSelect {
+    .p-multiselect {
+        display: flex !important;
+    }
+}
+
+@keyframes custom-progress-spinner-color {
+    100%,
+    0% {
+        stroke: #883cae;
+    }
+    40% {
+        stroke: #883cae;
+    }
+    66% {
+        stroke: #883cae;
+    }
+    80%,
+    90% {
+        stroke: #883cae;
+    }
+}
+
+@keyframes custom-progress-spinner-dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+    }
+    100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+    }
+}
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  }
+  
+  .loader {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

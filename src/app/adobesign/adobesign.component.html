@@ -1,0 +1,38 @@
+<a
+  href="https://secure.na4.adobesign.com/public/oauth/v2?response_type=code&client_id=CBJCHBCAABAApA85epC6yGOUGFJailUdDMcf8UgYnCL6&redirect_uri=https://tresume-adobe-url.loca.lt/getAdobeAccessToken&scope=user_read:account+user_write:account+user_login:account+agreement_read:account+agreement_write:account+agreement_send:account+widget_read:account+widget_write:account+library_read:account+library_write:account+workflow_read:account+workflow_write:account"
+  class="btn btn-primary"
+  >Get Token</a
+>
+<br />
+<input type="file" (change)="onFileSelected($event)" />
+<button (click)="uploadPDF()" class="btn btn-primary">Upload</button>
+
+<br />
+<input
+  type="text"
+  [(ngModel)]="transientDocumentId"
+  placeholder="Transient Document ID"
+/><br />
+<input
+  type="text"
+  [(ngModel)]="recipientEmail"
+  placeholder="Recipient Email"
+/><br />
+<input
+  type="text"
+  [(ngModel)]="agreementName"
+  placeholder="Agreement Name"
+/><br />
+<button (click)="createAgreement()">Create Agreement</button><br />
+
+<input type="text" [(ngModel)]="agreementId" placeholder="Agreement ID" /><br />
+<button (click)="getAgreementDetails()">Get Agreement Details</button>
+<button (click)="downloadAgreementDetails()">Download Agreement Details</button>
+<button (click)="downloadPdf()">Download Agreement Details</button>
+<button (click)="downloadCombainedPdf()">Download Combained</button><br />
+<div *ngIf="agreement">
+  <h3>{{ agreement.name }}</h3>
+  <p>Agreement ID: {{ agreement[0].id }}</p>
+  <p>File Name: {{ agreement[0].name }}</p>
+  <p>Agreement Label: {{ agreement[0].label }}</p>
+</div>

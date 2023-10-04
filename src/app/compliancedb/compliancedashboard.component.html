@@ -1,0 +1,343 @@
+<!-- Content Wrapper. Contains page content -->
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Compliance Dashboard</h1>
+      </div><!-- /.col -->
+      <!-- <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard v1</li>
+              </ol>
+            </div> -->
+      <!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+
+
+<section class="content">
+  <div class="row" style="padding:10px">
+    <div *ngIf="false" class="col-lg-4">
+      <div  class="card">
+        <div class="card-header" style="text-align: center;">
+          <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">Timesheet Compliance</h3>
+          <div class="card-tools">
+            <a class="btn btn-info bg-light" (click)="compReportMore()">
+              <span class="badge">
+                View
+                More
+              </span>
+            </a>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+
+          <div class="col-md-12">
+            <div class="chart-responsive">
+              <div class="chartjs-size-monitor">
+                <div class="chartjs-size-monitor-expand">
+                  <div class=""></div>
+                </div>
+                <div class="chartjs-size-monitor-shrink">
+                  <div class=""></div>
+                </div>
+              </div>
+              <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
+              <div class="col-md-12 text-center">
+                <canvas baseChart [data]="complianceChartData" [labels]="complianceChartLabels"
+                  [chartType]="doughnutChartType" [options]="complianceChartOptions" [colors]="chartColors">
+                </canvas>
+              </div>
+            </div>
+            <!-- ./chart-responsive -->
+          </div>
+          <!-- /.col -->
+          <!-- <div class="col-md-4">
+            <ul class="chart-legend clearfix">
+              <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
+              <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
+              <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
+              <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
+              <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
+              <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
+            </ul>
+          </div> -->
+          <!-- /.col -->
+          <!-- /.row -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer bg-light p-0">
+          <!-- <ul class="nav nav-pills flex-column">
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Nanditha
+                              <span class="float-right text-danger">
+                                  <i class="fas fa-arrow-down text-sm"></i>
+                                  12%</span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Usha
+                              <span class="float-right text-success">
+                                  <i class="fas fa-arrow-up text-sm"></i> 4%
+                              </span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Shabab
+                              <span class="float-right text-warning">
+                                  <i class="fas fa-arrow-left text-sm"></i> 0%
+                              </span>
+                          </a>
+                      </li>
+                  </ul> -->
+        </div>
+        <!-- /.footer -->
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header" style="text-align: center;">
+          <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">I9 Compliance</h3>
+          <!-- <div class="card-tools">
+              <a class="btn btn-info bg-light" (click)="compReportMore()"><span class="badge">View
+                      More</span></a>
+          </div> -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+
+          <div class="col-md-12">
+            <div class="chart-responsive">
+              <div class="chartjs-size-monitor">
+                <div class="chartjs-size-monitor-expand">
+                  <div class=""></div>
+                </div>
+                <div class="chartjs-size-monitor-shrink">
+                  <div class=""></div>
+                </div>
+              </div>
+              <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
+              <div class="col-md-12 text-center">
+                <canvas baseChart [data]="I9ChartData" [labels]="I9ChartLabels" [chartType]="doughnutChartType"
+                  [options]="complianceChartOptions" [colors]="chartColors">
+                </canvas>
+              </div>
+            </div>
+            <!-- ./chart-responsive -->
+          </div>
+          <!-- /.col -->
+          <!-- <div class="col-md-4">
+      <ul class="chart-legend clearfix">
+        <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
+        <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
+        <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
+        <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
+        <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
+        <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
+      </ul>
+    </div> -->
+          <!-- /.col -->
+
+          <!-- /.row -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer bg-light p-0">
+          <!-- <ul class="nav nav-pills flex-column">
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Nanditha
+                              <span class="float-right text-danger">
+                                  <i class="fas fa-arrow-down text-sm"></i>
+                                  12%</span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Usha
+                              <span class="float-right text-success">
+                                  <i class="fas fa-arrow-up text-sm"></i> 4%
+                              </span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Shabab
+                              <span class="float-right text-warning">
+                                  <i class="fas fa-arrow-left text-sm"></i> 0%
+                              </span>
+                          </a>
+                      </li>
+                  </ul> -->
+        </div>
+        <!-- /.footer -->
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header" style="text-align: center;">
+          <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">Employees Document Compliance</h3>
+          <!-- <div class="card-tools">
+              <a class="btn btn-info bg-light" (click)="compReportMore()"><span class="badge">View
+                      More</span></a>
+          </div> -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+
+          <div class="col-md-12">
+            <div class="chart-responsive">
+              <div class="chartjs-size-monitor">
+                <div class="chartjs-size-monitor-expand">
+                  <div class=""></div>
+                </div>
+                <div class="chartjs-size-monitor-shrink">
+                  <div class=""></div>
+                </div>
+              </div>
+              <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
+              <div class="col-md-12 text-center">
+                <canvas baseChart [data]="DocChartData" [labels]="DocChartLabels" [chartType]="doughnutChartType"
+                  [options]="complianceChartOptions" [colors]="chartColors">
+                </canvas>
+              </div>
+            </div>
+            <!-- ./chart-responsive -->
+          </div>
+          <!-- /.col -->
+          <!-- <div class="col-md-4">
+      <ul class="chart-legend clearfix">
+        <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
+        <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
+        <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
+        <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
+        <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
+        <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
+      </ul>
+    </div> -->
+          <!-- /.col -->
+
+          <!-- /.row -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer bg-light p-0">
+          <!-- <ul class="nav nav-pills flex-column">
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Nanditha
+                              <span class="float-right text-danger">
+                                  <i class="fas fa-arrow-down text-sm"></i>
+                                  12%</span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Usha
+                              <span class="float-right text-success">
+                                  <i class="fas fa-arrow-up text-sm"></i> 4%
+                              </span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Shabab
+                              <span class="float-right text-warning">
+                                  <i class="fas fa-arrow-left text-sm"></i> 0%
+                              </span>
+                          </a>
+                      </li>
+                  </ul> -->
+        </div>
+        <!-- /.footer -->
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header" style="text-align: center;">
+          <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">H1B Compliance</h3>
+          <!-- <div class="card-tools">
+              <a class="btn btn-info bg-light" (click)="compReportMore()"><span class="badge">View
+                      More</span></a>
+          </div> -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+
+          <div class="col-md-12">
+            <div class="chart-responsive">
+              <div class="chartjs-size-monitor">
+                <div class="chartjs-size-monitor-expand">
+                  <div class=""></div>
+                </div>
+                <div class="chartjs-size-monitor-shrink">
+                  <div class=""></div>
+                </div>
+              </div>
+              <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
+              <div class="col-md-12 text-center">
+                <canvas baseChart [data]="HChartData" [labels]="HChartLabels" [chartType]="doughnutChartType"
+                  [options]="complianceChartOptions" [colors]="chartColors">
+                </canvas>
+              </div>
+            </div>
+            <!-- ./chart-responsive -->
+          </div>
+          <!-- /.col -->
+          <!-- <div class="col-md-4">
+      <ul class="chart-legend clearfix">
+        <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
+        <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
+        <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
+        <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
+        <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
+        <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
+      </ul>
+    </div> -->
+          <!-- /.col -->
+
+          <!-- /.row -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer bg-light p-0">
+          <!-- <ul class="nav nav-pills flex-column">
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Nanditha
+                              <span class="float-right text-danger">
+                                  <i class="fas fa-arrow-down text-sm"></i>
+                                  12%</span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Usha
+                              <span class="float-right text-success">
+                                  <i class="fas fa-arrow-up text-sm"></i> 4%
+                              </span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              Shabab
+                              <span class="float-right text-warning">
+                                  <i class="fas fa-arrow-left text-sm"></i> 0%
+                              </span>
+                          </a>
+                      </li>
+                  </ul> -->
+        </div>
+        <!-- /.footer -->
+      </div>
+    </div>
+  </div>
+</section>

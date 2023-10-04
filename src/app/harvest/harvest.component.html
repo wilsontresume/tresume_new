@@ -1,0 +1,416 @@
+<div class="content-header">
+  <div class="container">
+    <div class="row mb-2">
+      <div class="col-sm-6 float-start">
+        <h1 class="m-0">Harvest</h1>
+      </div>
+      <div class="col-sm-6">
+        <button type="button" class="btn btn-primary" data-toggle="modal" style="float: right"
+          data-target="#CreateHarvest">
+          Create Harvest
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2>Harvest List</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Job board</th>
+              <th scope="col">Downloaded</th>
+              <th scope="col">Scheduled at</th>
+              <th scope="col">Recruiter</th>
+              <th scope="col">status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of harvestlist">
+              <td>{{ data.JobBoardName }}</td>
+              <td>{{ data.downloadlimit }}</td>
+              <td>{{ data.scheduledtime | date : "MMM d, y h:mm:ss a" : 'UTC' }}</td>
+              <td>{{ data.FirstName }} {{ data.LastName }}</td>
+              <td>
+                <p *ngIf="data.status == 1">Pending</p>
+                <p *ngIf="data.status == 2">Completed</p>
+              </td>
+
+              <td>
+                <button class="btn btn-primary" *ngIf="data.status == 2" (click)="fetchharvestcandidate(data.id)">
+                  View
+                </button>
+                <button class="btn btn-danger" *ngIf="data.status == 1"
+                  (click)="deleteHarvest(data.id, data.downloadlimit)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="CreateHarvest" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="max-width: 80% !important" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">Harvest Scheduling</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start" [selectedIndex]="0">
+          <mat-tab label="Monster" active>
+            <form class="mt-3">
+              <div class="form-row">
+                <!-- <div class="form-group col-md-6">
+                  <label for="keywords">Keywords</label>
+                  <input type="keywords" class="form-control" [(ngModel)]="keywords" [ngModelOptions]="{ standalone: true }" id="keyword" placeholder="keywords,boolean query" />
+                </div> -->
+                <div class="form-group col-md-6">
+                  <label for="jobtitle">Job title *</label>
+                  <input type="text" class="form-control" [(ngModel)]="mJobTitle"
+                    [ngModelOptions]="{ standalone: true }" id="jobtitle" placeholder="Job title" required />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="location">Location</label>
+                  <input type="text" [(ngModel)]="mLocation" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Radius">Radius</label>
+                  <input type="text" [(ngModel)]="mRadius" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lasupdated">Last updated</label>
+                  <input [(ngModel)]="mLastupdated" type="text" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="jobdescription">Job Description *</label>
+                  <textarea [(ngModel)]="mJobdescription" [ngModelOptions]="{ standalone: true }" class="form-control"
+                    rows="5" required="">
+                  </textarea>
+                </div>
+              </div>
+
+              <hr />
+              <table class="table">
+                <thead class="table-dark">
+                  <tr>
+                    <td>Job Board</td>
+                    <td>Credit Available</td>
+                    <td>Download Limit</td>
+                    <td>Shedule</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Monster</td>
+                    <td>{{ creditcount - usedcount }}</td>
+                    <td>
+                      <input type="number" [(ngModel)]="mdownlodlimit" (input)="onInputChange(mdownlodlimit)"
+                        [ngModelOptions]="{ standalone: true }" />
+                    </td>
+                    <td>
+                      <input type="datetime-local" [(ngModel)]="mshedule" [ngModelOptions]="{ standalone: true }"
+                        required="" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="form-group"></div>
+            </form>
+          </mat-tab>
+          <!-- <mat-tab label="Dice">
+            <form class="mt-3">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="jobtitle">Boolean Query *</label>
+                  <input type="text" class="form-control" [(ngModel)]="dkeywords"
+                    [ngModelOptions]="{ standalone: true }" id="dkeywords" placeholder="Keywords" required />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="location">Location</label>
+                  <input type="text" [(ngModel)]="dLocation" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Radius">Radius</label>
+                  <input type="text" [(ngModel)]="dRadius" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lasupdated">Last updated</label>
+                  <input [(ngModel)]="dLastupdated" type="text" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Radius">Min Experience</label>
+                  <input type="text" [(ngModel)]="dRadius" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lasupdated">Max Experience</label>
+                  <input [(ngModel)]="dLastupdated" type="text" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Radius">Work Status</label>
+                  <input type="text" [(ngModel)]="dRadius" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lasupdated">Highest Education Degree</label>
+                  <input [(ngModel)]="dLastupdated" type="text" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Radius">Job Title</label>
+                  <input type="text" [(ngModel)]="dRadius" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lasupdated">Willing To Relocate</label>
+                  <input [(ngModel)]="dLastupdated" type="text" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+
+              <hr />
+              <table class="table">
+                <thead class="table-dark">
+                  <tr>
+                    <td>Job Board</td>
+                    <td>Credit Available</td>
+                    <td>Download Limit</td>
+                    <td>Shedule</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Dice</td>
+                    <td>{{ creditcount - usedcount }}</td>
+                    <td>
+                      <input type="number" [(ngModel)]="ddownlodlimit" (input)="onInputChange(ddownlodlimit)"
+                        [ngModelOptions]="{ standalone: true }" />
+                    </td>
+                    <td>
+                      <input type="datetime-local" [(ngModel)]="dshedule" [ngModelOptions]="{ standalone: true }"
+                        required="" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="form-group"></div>
+            </form>
+          </mat-tab>
+          <mat-tab label="Career Builder">
+            <form class="mt-3">
+              <div class="form-row">
+                
+                <div class="form-group col-md-6">
+                  <label for="jobtitle">Keywords *</label>
+                  <input type="text" class="form-control" [(ngModel)]="cJobTitle"
+                    [ngModelOptions]="{ standalone: true }" id="jobtitle" placeholder="Job title" required />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="location">Location</label>
+                  <input type="text" [(ngModel)]="cLocation" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Radius">Radius</label>
+                  <input type="text" [(ngModel)]="cRadius" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lasupdated">Last updated</label>
+                  <input [(ngModel)]="cLastupdated" type="text" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Radius">Job Title</label>
+                  <input type="text" [(ngModel)]="cRadius" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lasupdated">Skill</label>
+                  <input [(ngModel)]="cLastupdated" type="text" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Radius">Years of Experience</label>
+                  <input type="text" [(ngModel)]="cRadius" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lasupdated">School</label>
+                  <input [(ngModel)]="cLastupdated" type="text" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Radius">Work Status</label>
+                  <input type="text" [(ngModel)]="cRadius" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lasupdated">Highest Education Degree</label>
+                  <input [(ngModel)]="cLastupdated" type="text" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Radius">Willing To Relocate</label>
+                  <input type="text" [(ngModel)]="cRadius" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lasupdated">Require Security Clearance</label>
+                  <input [(ngModel)]="cLastupdated" type="text" [ngModelOptions]="{ standalone: true }"
+                    class="form-control" />
+                </div>
+              </div>
+
+              <hr />
+              <table class="table">
+                <thead class="table-dark">
+                  <tr>
+                    <td>Job Board</td>
+                    <td>Credit Available</td>
+                    <td>Download Limit</td>
+                    <td>Shedule</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Career builder</td>
+                    <td>{{ creditcount - usedcount }}</td>
+                    <td>
+                      <input type="number" [(ngModel)]="cdownlodlimit" (input)="onInputChange(cdownlodlimit)"
+                        [ngModelOptions]="{ standalone: true }" />
+                    </td>
+                    <td>
+                      <input type="datetime-local" [(ngModel)]="cshedule" [ngModelOptions]="{ standalone: true }"
+                        required="" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="form-group"></div>
+            </form>
+          </mat-tab> -->
+        </mat-tab-group>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!showcrediterror"
+          (click)="Oncreate()">
+          Add harvest
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="HarvestList" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="max-width: 80% !important" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">Candidate List</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="resultsFound" [ngStyle]="loading ? { opacity: '0.2' } : { opacity: '1' }">
+          <div class="align-right total">Total Results: {{ totalResults }}</div>
+          <div *ngFor="let jobDetail of rowData; let i = index" style="padding: 10px">
+            <mat-card class="example-card">
+              <mat-card-title class="border-title">
+                <div class="card-footer-actions">
+                  <div>
+                    {{ jobDetail.FullName }}
+                  </div>
+                  <div>
+                    <p-message *ngIf="jobDetail.migrated" severity="info" text="Profile Migrated"
+                      styleClass="mr-2"></p-message>
+                    <i class="fa fa-eye clickable" *ngIf="jobDetail.showmigrated" (click)="download(jobDetail.id)"></i>
+                    <i class="fa fa-eye clickable" *ngIf="!showcrediterror" (click)="download(jobDetail)"></i>
+                  </div>
+                </div>
+              </mat-card-title>
+              <mat-card-content style="height: 200px; overflow-y: auto">
+                <div class="container-flex">
+                  <div class="card-body">
+                    <div class="card-job-info" style="width: 50%">
+                      <h2>{{ jobDetail.TraineeTitle }}</h2>
+                      <i class="label fa fa-location-arrow">
+                        {{ jobDetail.CurrentLocation }}
+                      </i>
+                      <i class="label fa fa-building">
+                        {{ jobDetail.Source }}
+                      </i>
+                      <i class="label fa fa-calendar">
+                        {{ jobDetail.LastUpdateTime | date }}
+                      </i>
+                      <i *ngIf="jobDetail.YearsOfExpInMonths" class="label fa fa-briefcase">
+                        Years of Experience:
+                        {{
+                        jobDetail.YearsOfExpInMonths / 12 | number : "1.1-1"
+                        }}
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

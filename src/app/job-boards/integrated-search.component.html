@@ -1,0 +1,346 @@
+<section class="content">
+    <div class="container-fluid col-md-12">
+        <accordion [isAnimated]="true">
+            <accordion-group heading="Integrated Multi Job Board Search" [isOpen]=true>
+                <!-- <div class="row">
+                    <i class="fa fa-arrow-left clickable" (click)="goBack()"> Back to ATS Search</i>
+                </div> -->
+                <!-- <div class="row" *ngIf="searchType == 1">
+
+                    <div class="col-md-6" style="padding: 20px;">
+                        <form [formGroup]="form">
+                            <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
+                            </formly-form>
+                        </form>
+                    </div>
+                    <div class="col-md-3" style="padding: 20px;">
+                        <label for="recruiter">Location (State, City, Zipcode)</label>
+                        <input [(ngModel)]="selectedState" [typeahead]="states" typeaheadOptionField="name"
+                            [isAnimated]="true" class="form-control" placeholder="Enter Location">
+                    </div>
+                    <div class="col-md-1" style="padding: 20px;">
+                        <label for="recruiter">Radius</label>
+                        <input placeholder="Miles" [(ngModel)]="searchRequestItem.locationRadius" class="form-control">
+                    </div>
+                    <div class="col-md-2" style="padding: 45px;">
+                        <button type="submit" class="btn btn-primary" [disabled]="!form.valid" (click)="onSearch()">
+                            Search
+                        </button>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- <h4>Job Board :</h4> -->
+                        <h4>Credit Usage :</h4>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <!-- <h4>Dice</h4> -->
+                        <!-- <h4>{{diceusedcount}}/{{dicecreditcount}}</h4> -->
+                        <button type="button" class="btn btn-danger btn-sm">Dice : {{adice}}</button>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <!-- <h4>Career Builder</h4> -->
+                        <!-- <h4>{{cbusedcount}}/{{cbcreditcount}}</h4> -->
+                        <button type="button" class="btn btn-secondary  btn-sm">Career Builder : {{acb}}</button>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <!-- <h4>Monster</h4> -->
+                        <!-- <h4>{{monsterusedcount}}/{{monstercreditcount}}</h4> -->
+                        <button type="button" class="btn btn-primary btn-sm">Monster : {{amonster}}</button>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <!-- <h4>Total Credits</h4> -->
+                        <!-- <h4>{{monsterusedcount+diceusedcount+cbusedcount}}/{{monstercreditcount+dicecreditcount+monstercreditcount}}</h4> -->
+                        <button type="button" class="btn btn-success btn-sm">Total Credits :{{adice+acb+amonster}}</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="padding: 20px;">
+                        <form [formGroup]="form">
+                            <formly-form [model]="model" [fields]="fieldBool" [options]="options" [form]="form1">
+                            </formly-form>
+                        </form>
+                    </div>
+                    <div class="col-md-3" style="padding: 20px;">
+                        <label for="recruiter">Location (State, City, Zipcode)</label>
+                        <input [(ngModel)]="selectedState" [typeahead]="states" typeaheadOptionField="name"
+                            [isAnimated]="true" class="form-control" placeholder="Enter Location">
+                    </div>
+                    <div class="col-md-1" style="padding: 20px;">
+                        <label for="recruiter">Radius</label>
+                        <input placeholder="Miles" [(ngModel)]="searchRequestItem.locationRadius" class="form-control">
+                    </div>
+                    <div class="col-md-2" style="padding: 45px;">
+                        <button type="submit" class="btn btn-primary" [disabled]="!form1.valid" (click)="onSearch()">
+                            Search
+                        </button>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="searchType" value="1" [(ngModel)]="searchType"
+                            inputId="jobDetail"></p-radioButton>
+                        <label class="labelType" for="jobDetail">Monster AI Search</label>
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="searchType" value="2" [(ngModel)]="searchType"
+                            inputId="semantic"></p-radioButton>
+                        <label class="labelType" for="semantic">Boolean Search</label>
+                    </div>
+                </div> -->
+
+            </accordion-group>
+            <!-- <accordion-group *ngIf="searchType==2" heading="Advanced Filters" [isOpen]=false>
+                <div class="row">
+                    <div class="col-md-3" style="padding: 20px;">
+                        <label for="recruiter">Resume Posted Within Days</label>
+                        <input placeholder="Posted within days" [(ngModel)]="daysWithin" class="form-control">
+                    </div>
+                    <div class="col-md-3" style="padding: 20px;">
+                        <label for="recruiter">Years of Experience</label>
+                        <input [(ngModel)]="yearsOfExp" class="form-control">
+                    </div>
+                    <div class="col-md-6" style="padding: 5px 20px;">
+                        <h4 style="font-weight: bold; font-size:14px;margin: 8px;">Work Status</h4>
+                        <p-multiSelect styleClass="customSelect" [options]="workStatus" [(ngModel)]="selectedWorkstatus"
+                            display="chip" optionLabel="name">
+                        </p-multiSelect>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3" style="padding: 20px;">
+                        <h4 style="font-weight: bold; font-size:14px;margin: 8px;">Highest Education Degree</h4>
+                        <p-dropdown name="tester" placeholder="Select a Degree" [options]="educationDegree"
+                            [(ngModel)]="selectedEducationDegree" [showClear]="true" optionLabel="name"></p-dropdown>
+                    </div>
+                    <div class="col-md-2" style="padding: 40px 20px; margin-top: 20px;">
+                        <mat-checkbox class="example-margin" [(ngModel)]="willingToRelocate">Willing To Relocate
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+            </accordion-group> -->
+        </accordion>
+    </div>
+</section>
+
+<!-- <div>
+    <ag-grid-angular style="width: 100%; height: 622px;" class="ag-theme-alpine" [rowData]="rowData"
+        [columnDefs]="columnDefs" [gridOptions]="gridOptions" (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+</div> -->
+<div *ngIf="loading" class="spinner">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+        fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+</div>
+<div *ngIf="!resultsFound && rowData" class="pagination-footer">
+    No results found
+</div>
+<div *ngIf="resultsFound" [ngStyle]="loading ? { opacity:'0.2'}: {opacity:'1'}">
+    <div class="align-right total">Total Results: {{totalResults}}</div>
+    <!--     <div class="align-right">Monthly Quota: {{quota['us monthly']}}</div>
+    <div class="align-right">Daily Quota: {{quota['us daily']}}</div> -->
+    <div *ngFor=" let jobDetail of rowData; let i=index" style="padding: 10px;">
+        <mat-card *ngIf="jobDetail.type=='monster'" class="example-card">
+            <mat-card-title class="border-title">
+                <div class="card-footer-actions">
+                    {{jobDetail.identity.name}}
+                    <div>
+                        <img src="assets/img/monster_logo.svg" alt="MonsterLogo" height="70%" width="70%">
+                    </div>
+                    <i class="fa fa-download clickable" *ngIf="!showmonstererror" (click)="download(jobDetail)"></i>
+                    <i class="fa fa-eye clickable" *ngIf="showmonstererror" (click)="nocredits()"></i>
+                    <!-- <button type="submit" class="btn btn-primary" (click)="onSearch()">
+                    View Resume
+                </button> -->
+                </div>
+            </mat-card-title>
+            <mat-card-content style=" overflow-y: auto;">
+                <div class="container-flex">
+                    <div class="card-body">
+                        <div class="card-job-info" style="width: 50%;">
+                            <h2>{{jobDetail.relevance.experience.title.name}}</h2>
+                            <i class="label fa fa-location-arrow"> {{jobDetail.location?.city}},
+                                {{jobDetail.location?.state}} </i>
+                                <i class="label fa fa-building">
+                                    Experience: 
+                                    {{
+                                    jobDetail.relevance.experience &&
+                                    jobDetail.relevance?.experience?.company.name && jobDetail.yearsOfExperience
+                                    }} Yrs
+                                  </i>
+                            <i class="label fa fa-calendar"> {{jobDetail.identity.resumeModifiedDate | date}} </i>
+                            <!-- <i class="label"> Years of Experience: {{jobDetail.yearsOfExperience}} </i> -->
+                        </div>
+                        <div class="card-job-skills flex align-items-left">
+                            <i class="label fa fa-graduation-cap">Skills</i>
+                            <div class="card-job-skilllist">
+                                <div *ngFor="let skill of jobDetail.skills" class="" style="padding: 5px;">
+                                    <p-chip label="{{skill}}"></p-chip>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="jobDetail.type=='cb'" class="example-card">
+            <mat-card-title class="border-title">
+                <div class="card-footer-actions">
+                    {{jobDetail.Name}}
+                    <div>
+                        <img src="assets/img/cb_logo.svg" alt="CBLogo" height="70%" width="70%">
+                    </div>
+                    <i class="fa fa-download clickable" *ngIf="!showcberror" (click)="download(jobDetail)"></i>
+                    <i class="fa fa-eye clickable" *ngIf="showcberror" (click)="nocredits()"></i>
+                    <!-- <button type="submit" class="btn btn-primary" (click)="onSearch()">
+                    View Resume
+                </button> -->
+                </div>
+            </mat-card-title>
+            <mat-card-content style="overflow-y: auto;">
+                <div class="container-flex">
+                    <div class="card-body">
+                        <div class="card-job-info" style="width: 50%;">
+                            <h2>{{jobDetail.JobTitle}}</h2>
+                            <i class="label fa fa-location-arrow"> {{jobDetail.Location?.City}},
+                                {{jobDetail.Location?.Country}} </i>
+                            <i class="label fa fa-building"> {{jobDetail.Employments &&
+                                jobDetail.Employments[0]?.Employer}}
+                            </i>
+                            <i class="label fa fa-calendar"> {{jobDetail.ResumeLastModified | date}} </i>
+                        </div>
+                        <div class="card-job-skills flex align-items-left">
+                            <i class="label fa fa-graduation-cap">Skills</i>
+                            <div class="card-job-skilllist">
+                                <div *ngFor="let skill of jobDetail.skills" class="">
+                                    <p-chip label="{{skill}}"></p-chip>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="jobDetail.type=='dice'" class="example-card">
+            <mat-card-title class="border-title">
+                <div class="card-footer-actions">
+                    {{jobDetail.fullName}}
+                    <div>
+                        <img src="https://www.dice.com/products/wp-content/uploads/2016/11/dice-logo-md.png" alt="diceLogo" height="70%" width="70%">
+                    </div>
+                    <i class="fa fa-download clickable" *ngIf="!showdiceerror" (click)="dicedownload(jobDetail.id)"></i>
+                    <i class="fa fa-eye clickable" *ngIf="showdiceerror" (click)="nocredits()"></i>
+                    <!-- <button type="submit" class="btn btn-primary" (click)="onSearch()">
+                    View Resume
+                </button> -->
+                </div>
+            </mat-card-title>
+            <mat-card-content style="overflow-y: auto;">
+                <div class="container-flex">
+                    <div class="card-body">
+                        <div class="card-job-info" style="width: 50%;">
+                            <h2>{{ jobDetail.currentJobTitle }}</h2>
+                            <i class="label fa fa-location-arrow"> {{ jobDetail.city }}, {{ jobDetail.country }} </i>
+                            <i class="label fa fa-building"> {{ jobDetail.currentCompany }}
+                            </i>
+                            <i class="label fa fa-calendar"> {{ jobDetail.dateResumeLastUpdated | date }} </i>
+                            <i *ngIf="jobDetail.yearsOfExperience" class="label fa fa-briefcase">
+                                Years of Experience: {{ jobDetail.yearsOfExperience }}
+                            </i>
+                        </div>
+                        <div class="card-job-skills flex align-items-left">
+                            <i class="label fa fa-graduation-cap">Skills</i>
+                            <div
+                  *ngFor="let skill of jobDetail.diceSkills; index as i"
+                  class=""
+                  style="padding: 5px"
+                >
+                  <p-chip label="{{ skill }}"></p-chip>
+                </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="jobDetail.type=='tresume'" class="example-card">
+            <mat-card-title class="border-title">
+                <div class="card-footer-actions">
+                    {{jobDetail.FullName}}
+                    <div>
+                        <img src="https://tresume.us/img_Home/logo_new.png" alt="TresumeLogo" style="height: auto;width:150px">
+                    </div>
+                    <i class="fa fa-download clickable" (click)="downloadAsPdf(jobDetail.UserName)"></i>
+                    <!-- <button type="submit" class="btn btn-primary" (click)="onSearch()">
+                    View Resume
+                </button> -->
+                </div>
+            </mat-card-title>
+            <mat-card-content style="overflow-y: auto;">
+                <div class="container-flex">
+                    <div class="card-body">
+                        <div class="card-job-info" style="width: 50%;">
+                            <h2>{{ jobDetail.TraineeTitle }}</h2>
+                            <i class="label fa fa-location-arrow"> {{ jobDetail.CurrentLocation }}</i>
+                            <i class="label fa fa-building"> {{ jobDetail.YearsOfExpInMonths }} Months Exp
+                            </i>
+                            <i class="label fa fa-calendar"> {{ jobDetail.LastUpdateTime | date }} </i>
+                        </div>
+                        <div class="card-job-skills flex align-items-left">
+                            <i class="label fa fa-graduation-cap">Skills</i>
+                            
+                  <p-chip label="{{ jobDetail.skill | slice:0:100 }}{{jobDetail.skill.length > 100 ? '...' : ''}}"></p-chip>
+                </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<div *ngIf="resultsFound" class="pagination-footer">
+    <pagination [totalItems]="totalResults" [maxSize]="20" (pageChanged)="pageChanged($event)" [itemsPerPage]="10"
+        [align]="true"></pagination>
+</div>
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-sizes-name1" class="modal-title pull-left">Resume View</h4>
+                <button type="button" class="btn-close close pull-right" (click)="lgModal.hide()" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <button type="submit" class="btn btn-primary" (click)="downloadAsPdf()">Download</button> -->
+                <span [innerHTML]="resumeHTMLContent"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<p-sidebar #pTemplate [(visible)]="visibleSidebar2" position="right" [baseZIndex]="1000000" [appendTo]="'body'"
+  [style]="{ width: '60rem' }" [blockScroll]="true" (onHide)="close()">
+  <div class="card-footer-actions">
+    <h1 id="dialog-sizes-name1" class="modal-title" style="text-align: center">
+      Quick Resume View
+    </h1>
+    <i *ngIf="fileReady && !isPDFSrc" class="fa fa-download clickable" (click)="dicedownloadDoc()"></i>
+  </div>
+  <div>
+    <div *ngIf="fileReady && isPDFSrc">
+      <ngx-extended-pdf-viewer [base64Src]="currentResumeResp.resumeData" [height]="'90vh'"
+        (pdfLoadingStarts)="onReady()" [showPagingButtons]="false" [showOpenFileButton]="false"
+        [showRotateButton]="false" [showFindButton]="true" [textLayer]="true">
+      </ngx-extended-pdf-viewer>
+    </div>
+    <div *ngIf="fileReady && !isPDFSrc" style="padding: 30px 0px">
+      <div [innerHTML]="objUrl"></div>
+    </div>
+  </div>
+</p-sidebar>
+
+<p-toast position="bottom-right"></p-toast>
+
+<div *ngIf="loading" class="loader-container">
+    <app-loader class="loader"></app-loader>
+  </div>
