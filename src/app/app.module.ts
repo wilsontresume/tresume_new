@@ -84,6 +84,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
+import { ViewDetailsComponent } from './view-details/view-details.component';
 
 //import { jsPDF } from 'jspdf';
 
@@ -121,7 +122,8 @@ import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.co
     AdobesignComponent1,
     AdobesignComponent,
     LoginComponent,
-    TimesheetCreateComponent
+    TimesheetCreateComponent,
+    ViewDetailsComponent
 
   ],
   imports: [

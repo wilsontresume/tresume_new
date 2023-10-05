@@ -1,0 +1,82 @@
+<div class="container">
+<div>
+    <h1 class="title-container">Details</h1>
+    <a href="#" (click)="goBack()">Back to main view</a>
+  </div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Project Name</th>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Total</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Project 1</td>
+        <td>Sun Data</td>
+        <td>Mon Data</td>
+        <td>Tue Data</td>
+        <td>Wed Data</td>
+        <td>Thu Data</td>
+        <td>Fri Data</td>
+        <td>Sat Data</td>
+        <td>Total Data</td>
+        <td>Description</td>
+      </tr>
+      <tr>
+        <td>Project 2</td>
+        <td>Sun Data</td>
+        <td>Mon Data</td>
+        <td>Tue Data</td>
+        <td>Wed Data</td>
+        <td>Thu Data</td>
+        <td>Fri Data</td>
+        <td>Sat Data</td>
+        <td>Total Data</td>
+        <td>Description</td>
+      </tr>
+      <tr>
+        <td>Project 3</td>
+        <td>Sun Data</td>
+        <td>Mon Data</td>
+        <td>Tue Data</td>
+        <td>Wed Data</td>
+        <td>Thu Data</td>
+        <td>Fri Data</td>
+        <td>Sat Data</td>
+        <td>Total Data</td>
+        <td>Description</td>
+      </tr>
+      <tr>
+        <td>Project 4</td>
+        <td>Sun Data</td>
+        <td>Mon Data</td>
+        <td>Tue Data</td>
+        <td>Wed Data</td>
+        <td>Thu Data</td>
+        <td>Fri Data</td>
+        <td>Sat Data</td>
+        <td>Total Data</td>
+        <td>Description</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div class="actions buttons" *ngIf="isAdmin">
+    <button class="btn btn-1" (click)="approveAllProjects()">Approve</button>
+    <button class="btn btn-2" (click)="rejectAllProjects()">Reject</button>
+  </div>
+  <div *ngIf="!isAdmin">
+    <p>Status: Approved</p>
+  </div>
+</div>
+  
