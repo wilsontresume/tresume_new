@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from 'express';
 @Component({
   selector: 'app-timesheet-create',
   templateUrl: './timesheet-create.component.html',
@@ -17,7 +17,9 @@ export class TimesheetCreateComponent implements OnInit {
   selectedSunday: string; // Store the selected Sunday date
   timesheetRows: any[] = []; // Store timesheet row data
   isSundaySelected: boolean = false;
-  
+
+  CAselectedFile: File | null = null;
+  SRselectedFile: File | null = null;
   constructor() {
 
     this.timesheetRows.push({
@@ -79,12 +81,46 @@ export class TimesheetCreateComponent implements OnInit {
   }
 
   saveTimesheet() {
-    // Implement the logic to send data to the "timesheetCreate" service
-    // Ensure that all fields are filled and valid before sending
+    // Create a FormData object to send both timesheetData and the file
+    const formData = new FormData();
+    if (this.CAselectedFile) {
+      formData.append('CAfile', this.CAselectedFile, this.CAselectedFile.name);
+    }
+    if (this.SRselectedFile) {
+      formData.append('CAfile', this.SRselectedFile, this.SRselectedFile.name);
+    }
+    formData.append('timesheetData', JSON.stringify(this.timesheetRows));
+
+    fetch('yourServiceEndpoint', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => {
+        // Handle the response from the server as needed
+        console.log(response);
+      })
+      .catch(error => {
+        // Handle errors
+        console.error(error);
+      });
   }
 
   cancel() {
     // Implement the logic to navigate back to the timesheet page
+  }
+
+  onFileSelected(event: Event,Type:string) {
+    const inputElement = event.target as HTMLInputElement;
+    if(Type == "1"){
+      if (inputElement.files) {
+        this.CAselectedFile = inputElement.files[0];
+      }
+    }else{
+      if (inputElement.files) {
+        this.SRselectedFile = inputElement.files[0];
+      }
+    }
+   
   }
 
 }

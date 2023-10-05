@@ -87,6 +87,8 @@ import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.co
 import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { GeneralComponent } from './general/general.component';
+import { ViewDetailsComponent } from './view-details/view-details.component';
+
 
 //import { jsPDF } from 'jspdf';
 
@@ -127,7 +129,8 @@ import { GeneralComponent } from './general/general.component';
     TimesheetCreateComponent,
     InterviewComponent,
     SubmissionComponent,
-    GeneralComponent
+    GeneralComponent,
+    ViewDetailsComponent
 
   ],
   imports: [
