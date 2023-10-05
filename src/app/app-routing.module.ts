@@ -26,6 +26,7 @@ import { AuthGuard } from './auth.guard';
 import { AdobesignComponent1 } from './adobesign/adobesign.component';
 import { LoginComponent } from './login/login.component';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
+import { AllTimeSheetComponent } from './all-time-sheet/all-time-sheet.component';
 
 
 const routes: Routes = [
@@ -58,6 +59,7 @@ const routes: Routes = [
   { path: 'adobesign', component: AdobesignComponent1   },
   { path: 'adobesign/token/:token', component: AdobesignComponent1   },
   { path: 'timesheet/create', component: TimesheetCreateComponent   },
+  { path: 'alltimesheet', component: AllTimeSheetComponent },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full', }

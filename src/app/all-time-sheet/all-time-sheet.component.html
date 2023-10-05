@@ -1,0 +1,95 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h4 class="bg-primary text-white p-2">All Time Sheet</h4>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <div class="form-group">
+                <label for="show">Show</label>
+                <select class="custom-select custom-select-style ml-2 mr-2" id="show">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <label for="entries">entries</label>
+            </div>
+        </div>
+        <div class="col text-right">
+            <div class="form-group">
+                <label for="search">Search:</label>
+                <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>From_Date</th>
+                        <th>To_Date</th>
+                        <th>Total_Hours</th>
+                        <th>Created_On</th>
+                        <th>Status</th>
+                        <th>Comments</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>Date 1</td>
+                        <td>Date 2</td>
+                        <td>8</td>
+                        <td>2023-10-05</td>
+                        <td>Approved</td>
+                        <td>Sample Comment</td>
+                        <td><i class="fa fa-eye fa-fw" data-toggle="modal" data-target="#myModal"></i>
+                            <div class="modal fade" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Details Page</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Timesheet Details</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="text-muted">Showing 1 to 10 rows</p>
+        </div>
+
+        <div class="col text-right">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
