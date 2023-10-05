@@ -27,6 +27,8 @@ import { AdobesignComponent1 } from './adobesign/adobesign.component';
 import { LoginComponent } from './login/login.component';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 import { AllTimeSheetComponent } from './all-time-sheet/all-time-sheet.component';
+import { ViewDetailsComponent } from './view-details/view-details.component';
+
 
 
 const routes: Routes = [
@@ -61,6 +63,7 @@ const routes: Routes = [
   { path: 'timesheet/create', component: TimesheetCreateComponent   },
   { path: 'alltimesheet', component: AllTimeSheetComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'timesheet/viewdetails', component: ViewDetailsComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full', }
 ];
