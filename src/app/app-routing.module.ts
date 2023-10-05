@@ -28,7 +28,9 @@ import { LoginComponent } from './login/login.component';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
+import { AllTimeSheetComponent } from './all-time-sheet/all-time-sheet.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
+
 
 
 const routes: Routes = [
@@ -61,6 +63,7 @@ const routes: Routes = [
   { path: 'adobesign', component: AdobesignComponent1   },
   { path: 'adobesign/token/:token', component: AdobesignComponent1   },
   { path: 'timesheet/create', component: TimesheetCreateComponent   },
+  { path: 'alltimesheet', component: AllTimeSheetComponent },
   { path: 'login', component: LoginComponent },
   { path: 'searchtresume/reviewtresume/interview', component: InterviewComponent},
   { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent},

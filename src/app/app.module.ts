@@ -90,6 +90,7 @@ import { GeneralComponent } from './general/general.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
 
 
+
 //import { jsPDF } from 'jspdf';
 
 
@@ -130,7 +131,9 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
     InterviewComponent,
     SubmissionComponent,
     GeneralComponent,
-    ViewDetailsComponent
+    ViewDetailsComponent,
+    TimesheetCreateComponent
+
 
   ],
   imports: [
