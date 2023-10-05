@@ -84,6 +84,12 @@ import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 import { RouterModule } from '@angular/router';
+import { InterviewComponent } from './interview/interview.component';
+import { SubmissionComponent } from './submission/submission.component';
+import { GeneralComponent } from './general/general.component';
+import { ViewDetailsComponent } from './view-details/view-details.component';
+
+
 
 //import { jsPDF } from 'jspdf';
 
@@ -121,7 +127,13 @@ import { RouterModule } from '@angular/router';
     AdobesignComponent1,
     AdobesignComponent,
     LoginComponent,
+    TimesheetCreateComponent,
+    InterviewComponent,
+    SubmissionComponent,
+    GeneralComponent,
+    ViewDetailsComponent,
     TimesheetCreateComponent
+
 
   ],
   imports: [
