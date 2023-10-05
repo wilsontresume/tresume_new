@@ -72,7 +72,6 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextModule } from 'primeng/inputtext';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { InputSwitchModule } from 'primeng/inputswitch';
-
 import { DivisionComponent } from './division/division.component';
 import { DivisionAuditComponent } from './division-audit/division-audit.component';
 import { HarvestComponent } from './harvest/harvest.component';
@@ -84,6 +83,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
+import { RouterModule } from '@angular/router';
 
 //import { jsPDF } from 'jspdf';
 
@@ -165,6 +165,7 @@ import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.co
     FileUploadModule,
     EditorModule,
     ToastModule,
+    RouterModule,
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({
       validationMessages: [

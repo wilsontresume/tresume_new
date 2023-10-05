@@ -63,7 +63,7 @@ const routes: Routes = [
   { path: 'timesheet/create', component: TimesheetCreateComponent   },
   { path: 'alltimesheet', component: AllTimeSheetComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'timesheet/viewdetails', component: ViewDetailsComponent },
+  { path: 'timesheet/viewdetails/:id', component: ViewDetailsComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full', }
 ];
