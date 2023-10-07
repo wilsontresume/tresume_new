@@ -88,8 +88,14 @@ import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { GeneralComponent } from './general/general.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
-
-
+import { AllclientComponent } from './allclient/allclient.component';
+import { AddclientComponent } from './addclient/addclient.component';
+import { ViewclientComponent } from './viewclient/viewclient.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 //import { jsPDF } from 'jspdf';
 
@@ -132,11 +138,16 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
     SubmissionComponent,
     GeneralComponent,
     ViewDetailsComponent,
-    TimesheetCreateComponent
-
-
+    TimesheetCreateComponent,
+    AllclientComponent,
+    AddclientComponent,
+    ViewclientComponent,
+    
   ],
   imports: [
+    MatTableModule,
+    MatIconModule,
+    MatSortModule,
     BrowserModule,
     AppRoutingModule,
     ChartsModule,
@@ -178,6 +189,7 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
     EditorModule,
     ToastModule,
     RouterModule,
+    
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({
       validationMessages: [
@@ -191,6 +203,7 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
     FormlyBootstrapModule,
     MatStepperModule,
     ProgressSpinnerModule,
+    MatDialogModule,
     DropdownModule,
     MultiSelectModule,
     MatSlideToggleModule,
