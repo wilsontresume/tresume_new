@@ -1,0 +1,58 @@
+<div class="container mt-6 mb-6">
+    <div class="row bg-clr">
+        <div class="col">
+            <h4 class=" text-white ml-3 mt-3">ALL CLIENTS</h4>
+        </div>
+        <div><button class="btn btn-light btn-sm mt-3 mr-3" [routerLink]="['/addclient']">Add Client</button></div>
+    </div>
+    <div class="row mt-4">
+        <div class="col text-right">
+            <div class="form-group">
+                <label for="search">Search:</label>
+                <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Client Name</th>
+                              <th>Email ID</th>
+                              <th> Website</th>
+                              <th>Owner</th>
+                              <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <tr *ngFor="let item of items">
+                            <td>{{ item.clientName }}</td>
+                            <td>{{ item.EmailID }}</td>
+                            <td>{{ item.Website }}</td>
+                            <td>{{ item.Owner}}</td>
+                            <td> 
+
+                              <div><button class="btn btn-light" [routerLink]="['/viewclient']"><i class="fa fa-eye fa-fw mr-2"></i></button>
+                                <button class="btn btn-light" (click)="openConfirmationDialog()">
+                                    <i class="fa fa-trash fa-fw ml-2 mr-2"></i>
+                                  </button>
+                              </div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <div>
+                  <ag-grid-angular style="width: 100%; height: 622px;" class="ag-theme-alpine" [rowData]="rowData"
+                      [columnDefs]="columnDefs" [gridOptions]="gridOptions" [frameworkComponents]="frameworkComponents"
+                      (gridReady)="onGridReady($event)">
+                  </ag-grid-angular>
+              </div> -->
+            </div>
+        </div>
+    </div>
+</div>

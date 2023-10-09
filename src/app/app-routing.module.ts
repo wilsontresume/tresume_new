@@ -26,11 +26,14 @@ import { AuthGuard } from './auth.guard';
 import { AdobesignComponent1 } from './adobesign/adobesign.component';
 import { LoginComponent } from './login/login.component';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
+import { InterviewComponent } from './interview/interview.component';
+import { SubmissionComponent } from './submission/submission.component';
 import { AllTimeSheetComponent } from './all-time-sheet/all-time-sheet.component';
+import { AllclientComponent } from './allclient/allclient.component';
+import { AddclientComponent } from './addclient/addclient.component';
+import { ViewclientComponent } from './viewclient/viewclient.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
-import { FinancialInfoComponent } from './financial-info/financial-info.component';
-import { PopupForFinancialInfoComponent } from './popup-for-financial-info/popup-for-financial-info.component';
-
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 
 const routes: Routes = [
@@ -65,11 +68,15 @@ const routes: Routes = [
   { path: 'timesheet/create', component: TimesheetCreateComponent   },
   { path: 'alltimesheet', component: AllTimeSheetComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'searchtresume/reviewtresume/interview', component: InterviewComponent},
+  { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent},
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent },
-  { path: 'searchtresume/followup/financialinfo', component: FinancialInfoComponent},
-  { path: 'searchtresume/financialinfo/popup', component: PopupForFinancialInfoComponent},
+  { path: 'addclient',component: AddclientComponent},
+  { path: 'allclient',component: AllclientComponent},
+  { path: 'viewclient',component: ViewclientComponent},
+  { path: 'confirmation-dialog',component: ConfirmationDialogComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full', }
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
 ];
 
 @NgModule({

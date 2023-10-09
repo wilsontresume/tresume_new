@@ -72,7 +72,6 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextModule } from 'primeng/inputtext';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { InputSwitchModule } from 'primeng/inputswitch';
-
 import { DivisionComponent } from './division/division.component';
 import { DivisionAuditComponent } from './division-audit/division-audit.component';
 import { HarvestComponent } from './harvest/harvest.component';
@@ -84,8 +83,19 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
-import { FinancialInfoComponent } from './financial-info/financial-info.component';
-import { PopupForFinancialInfoComponent } from './popup-for-financial-info/popup-for-financial-info.component';
+import { RouterModule } from '@angular/router';
+import { InterviewComponent } from './interview/interview.component';
+import { SubmissionComponent } from './submission/submission.component';
+import { GeneralComponent } from './general/general.component';
+import { ViewDetailsComponent } from './view-details/view-details.component';
+import { AllclientComponent } from './allclient/allclient.component';
+import { AddclientComponent } from './addclient/addclient.component';
+import { ViewclientComponent } from './viewclient/viewclient.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 //import { jsPDF } from 'jspdf';
 
@@ -124,11 +134,20 @@ import { PopupForFinancialInfoComponent } from './popup-for-financial-info/popup
     AdobesignComponent,
     LoginComponent,
     TimesheetCreateComponent,
-    FinancialInfoComponent,
-    PopupForFinancialInfoComponent
-
+    InterviewComponent,
+    SubmissionComponent,
+    GeneralComponent,
+    ViewDetailsComponent,
+    TimesheetCreateComponent,
+    AllclientComponent,
+    AddclientComponent,
+    ViewclientComponent,
+    
   ],
   imports: [
+    MatTableModule,
+    MatIconModule,
+    MatSortModule,
     BrowserModule,
     AppRoutingModule,
     ChartsModule,
@@ -169,6 +188,8 @@ import { PopupForFinancialInfoComponent } from './popup-for-financial-info/popup
     FileUploadModule,
     EditorModule,
     ToastModule,
+    RouterModule,
+    
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({
       validationMessages: [
@@ -182,6 +203,7 @@ import { PopupForFinancialInfoComponent } from './popup-for-financial-info/popup
     FormlyBootstrapModule,
     MatStepperModule,
     ProgressSpinnerModule,
+    MatDialogModule,
     DropdownModule,
     MultiSelectModule,
     MatSlideToggleModule,
