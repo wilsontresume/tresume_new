@@ -1,0 +1,196 @@
+<div class="container">
+  <div class="row textarea">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="financialNotes">Financial Notes</label>
+        <textarea class="form-control" id="financialNotes" rows="4"></textarea>
+      </div>
+    </div>
+    <div class="col-md-4 text-center top-titles">
+      <button type="button" class="btn">Email Recruitment Tracker</button>
+    </div>
+    <div class="col-md-4 top-titles">
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="healthInsurance" value="healthInsurance">
+          <label class="form-check-label" for="healthInsurance">Health Insurance</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="lifeInsurance" value="lifeInsurance">
+          <label class="form-check-label" for="lifeInsurance">Life Insurance</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="firstName">Salary (Per hour)</label>
+      <input type="text" class="form-control" id="firstName" placeholder="Salary Per hours">
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="middleName">Perdeium</label>
+      <input type="text" class="form-control" id="middleName" placeholder="Perdeium">
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="lastName">Legal Status</label>
+      <input type="text" class="form-control" id="lastName" placeholder="0">
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+            <label for="interviewMode">Marital Status</label>
+            <select class="form-control" id="legalStatus" name="Legal Status">
+           <option value="In-Person">SELECT</option>
+         <option value="single">Single</option>
+          <option value="married">Married</option>
+          <option value="marriedwith">Married With Hold</option>
+         </select>
+  </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="firstName">State Tax Allowance</label>
+      <input type="text" class="form-control" id="firstName" placeholder="State Tax Allowance">
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="middleName">State Tax Exemptions</label>
+      <input type="text" class="form-control" id="middleName" placeholder="State Tax Exemptions">
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="lastName">Federal Tax Allowance</label>
+      <input type="text" class="form-control" id="lastName" placeholder="Federal Tax Allowance">
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="lastName">Federal Tax Additional Allowance</label>
+      <input type="text" class="form-control" id="lastName" placeholder="Federal Tax Additional Allowance">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="firstName">LCA Rate</label>
+      <input type="text" class="form-control" id="firstName" placeholder="LCA Rate">
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="middleName">LCA Date</label>
+      <input type="text" class="form-control" id="middleName" placeholder="LCA Date">
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="lastName">GC Wages</label>
+      <input type="text" class="form-control" id="lastName" placeholder="GC Wages">
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="lastName">GC Date</label>
+      <input type="text" class="form-control" id="lastName" placeholder="GC Date">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="interviewMode">State</label>
+       <select class="form-control" id="legalStatus" name="Legal Status">
+        <option value="In-Person">--Select State--</option>
+         <option value="In-Person">Face to face</option>
+          <option value="Phone">Zoom</option>
+            </select>
+    </div>
+  </div>
+  <div class="col-md-3"></div>
+  <div class="col-md-3"></div>
+</div>
+</div>
+<div class="container">
+
+<table class="table">
+  <thead>
+    <tr class="col-md-4">
+      <th></th>
+      <th>Bank 1</th>
+      <th>Bank 2 (Split Salary)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="col-md-4">
+      <th>Bank Name</th>
+      <td>
+      <input type="text" class="form-control" id="Bankname1" placeholder="1st Bank name">
+      </td>
+      <td>
+        <input type="text" class="form-control" id="Bankname2" placeholder="2nd Bank name">
+      </td>
+    </tr>
+    <tr class="col-md-4">
+      <th>Account Type</th>
+      <td>
+        <input type="text" class="form-control" id="account-type1" placeholder="1st Bank Account Type">
+      </td>
+      <td>
+        <input type="text" class="form-control" id="account-type2" placeholder="2nd Bank Account Type">
+      </td>
+    </tr>
+    <tr class="col-md-4">
+      <th>Account number <i class="fa fa-eye" (click)="openPopup()"> </i>  </th>
+      <td>
+        <input type="text" class="form-control" id="account-num1" placeholder="1st Bank Account Number">
+      </td>
+      <td>
+        <input type="text" class="form-control" id="account-num2" placeholder="2nd Bank Account Number">
+      </td>
+    </tr>
+
+    <tr class="col-md-4">
+      <th>Routing Number</th>
+      <td>
+        <input type="text" class="form-control" id="routing-num1" placeholder="1st Bank Routing Number">
+      </td>
+      <td>
+        <input type="text" class="form-control" id="routing-num2" placeholder="2nd Bank Routing Number">
+      </td>
+    </tr>
+    <tr class="col-md-4">
+      <th>Salary Deposit Type</th>
+      <td>
+        <select class="form-control" id="legalStatus" name="Legal Status">
+         <option value="In-Person">--Select Salary Deposit--</option>
+          <option value="In-Person">Fixed Amount</option>
+           <option value="Phone">Percentage</option>
+             </select>
+      </td>
+      <td class="tdata">
+        Remaining salary(if any) will be deposited in this 2nd Account
+      </td>
+    </tr>
+    <tr class="col-md-4">
+      <th>How Much?</th>
+      <td>
+        <input type="text" class="form-control" id="account-num1" placeholder="How much salary in this Account?">
+      </td>
+          </tr>
+  </tbody>
+</table>
+</div>

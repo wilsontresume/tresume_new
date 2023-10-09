@@ -28,6 +28,8 @@ import { LoginComponent } from './login/login.component';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 import { AllTimeSheetComponent } from './all-time-sheet/all-time-sheet.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
+import { FinancialInfoComponent } from './financial-info/financial-info.component';
+import { PopupForFinancialInfoComponent } from './popup-for-financial-info/popup-for-financial-info.component';
 
 
 
@@ -64,6 +66,8 @@ const routes: Routes = [
   { path: 'alltimesheet', component: AllTimeSheetComponent },
   { path: 'login', component: LoginComponent },
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent },
+  { path: 'searchtresume/followup/financialinfo', component: FinancialInfoComponent},
+  { path: 'searchtresume/financialinfo/popup', component: PopupForFinancialInfoComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full', }
 ];
