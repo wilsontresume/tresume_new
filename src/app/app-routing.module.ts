@@ -33,7 +33,7 @@ import { AllclientComponent } from './allclient/allclient.component';
 import { AddclientComponent } from './addclient/addclient.component';
 import { ViewclientComponent } from './viewclient/viewclient.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { DeleteclientComponent } from './deleteclient/deleteclient.component';
 
 
 const routes: Routes = [
@@ -74,7 +74,7 @@ const routes: Routes = [
   { path: 'addclient',component: AddclientComponent},
   { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
-  { path: 'confirmation-dialog',component: ConfirmationDialogComponent},
+  { path: 'deleteclient',component: DeleteclientComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
 ];
