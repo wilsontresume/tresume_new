@@ -7,13 +7,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./addclient.component.scss']
 })
 export class AddclientComponent {
+  content: string = '';
   activeTab: string = 'basicInfo';
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    // Initialize the form and form controls, including "description"
+    
     this.form = this.fb.group({
-      description: [''], // Initialize with an empty string or any default text
+      description: [''], 
     });
   }
 

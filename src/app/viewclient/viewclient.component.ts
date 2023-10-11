@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./viewclient.component.scss'] 
 })
 export class ViewclientComponent implements OnInit { 
+  content: string = '';
   items: any[] = [
     {
       clientName: 'Client A',
