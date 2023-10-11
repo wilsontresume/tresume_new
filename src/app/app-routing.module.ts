@@ -75,7 +75,6 @@ const routes: Routes = [
   { path: 'addclient',component: AddclientComponent},
   { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
-  { path: 'deleteclient',component: DeleteclientComponent},
   { path: 'jobposting' , component: AllJobPostingsComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
