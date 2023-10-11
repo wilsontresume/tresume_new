@@ -95,6 +95,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 //import { jsPDF } from 'jspdf';
 
 
@@ -140,6 +141,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AllclientComponent,
     AddclientComponent,
     ViewclientComponent,
+    AllJobPostingsComponent,
+    
     
   ],
   imports: [
