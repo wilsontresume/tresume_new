@@ -101,6 +101,7 @@ import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.com
 
 //import { jsPDF } from 'jspdf';
 
+//import { jsPDF } from 'jspdf';
 
 @NgModule({
   declarations: [
@@ -149,6 +150,7 @@ import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.com
     AllJobPostingsComponent,
   ],
   imports: [
+    HttpClientModule,
     MatTableModule,
     MatIconModule,
     MatSortModule,
@@ -193,6 +195,8 @@ import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.com
     EditorModule,
     ToastModule,
     RouterModule,
+    
+    
     
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({

@@ -39,6 +39,7 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 
 
+
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
   { path: 'compliancedashboard', component: ComplianceDashboardComponent   },
