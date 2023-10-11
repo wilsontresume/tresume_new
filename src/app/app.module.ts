@@ -90,6 +90,14 @@ import { GeneralComponent } from './general/general.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
 import { PasswordFormComponent } from './password-form/password-form.component';
 import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.component';
+import { AllclientComponent } from './allclient/allclient.component';
+import { AddclientComponent } from './addclient/addclient.component';
+import { ViewclientComponent } from './viewclient/viewclient.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 
 //import { jsPDF } from 'jspdf';
 
@@ -135,8 +143,15 @@ import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.compon
     TimesheetCreateComponent,
     PasswordFormComponent,
     CreateNewJobsComponent,
+    AllclientComponent,
+    AddclientComponent,
+    ViewclientComponent,
+    AllJobPostingsComponent,
   ],
   imports: [
+    MatTableModule,
+    MatIconModule,
+    MatSortModule,
     BrowserModule,
     AppRoutingModule,
     ChartsModule,
@@ -178,6 +193,7 @@ import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.compon
     EditorModule,
     ToastModule,
     RouterModule,
+    
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({
       validationMessages: [
@@ -191,6 +207,7 @@ import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.compon
     FormlyBootstrapModule,
     MatStepperModule,
     ProgressSpinnerModule,
+    MatDialogModule,
     DropdownModule,
     MultiSelectModule,
     MatSlideToggleModule,

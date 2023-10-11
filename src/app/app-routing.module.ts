@@ -32,8 +32,11 @@ import { GeneralComponent } from './general/general.component';
 import { PasswordFormComponent } from './password-form/password-form.component';
 import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.component';
 import { AllTimeSheetComponent } from './all-time-sheet/all-time-sheet.component';
+import { AllclientComponent } from './allclient/allclient.component';
+import { AddclientComponent } from './addclient/addclient.component';
+import { ViewclientComponent } from './viewclient/viewclient.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
-
+import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 
 
 const routes: Routes = [
@@ -75,7 +78,14 @@ const routes: Routes = [
   { path: 'password-form' , component: PasswordFormComponent },
   { path: 'Myjobs/createnewjob', component:  CreateNewJobsComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full', }
+  { path: '**', redirectTo: 'login', pathMatch: 'full'},
+  { path: 'viewdetails', component: ViewDetailsComponent },
+  { path: 'addclient',component: AddclientComponent},
+  { path: 'allclient',component: AllclientComponent},
+  { path: 'viewclient',component: ViewclientComponent},
+  { path: 'jobposting' , component: AllJobPostingsComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
 
 ];
 
