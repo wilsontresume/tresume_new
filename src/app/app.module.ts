@@ -95,8 +95,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
-//import { jsPDF } from 'jspdf';
 
+//import { jsPDF } from 'jspdf';
 
 @NgModule({
   declarations: [
@@ -140,9 +140,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     AllclientComponent,
     AddclientComponent,
     ViewclientComponent,
-    
   ],
   imports: [
+    HttpClientModule,
     MatTableModule,
     MatIconModule,
     MatSortModule,
@@ -187,6 +187,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     EditorModule,
     ToastModule,
     RouterModule,
+    
+    
     
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({
