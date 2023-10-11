@@ -28,6 +28,9 @@ import { LoginComponent } from './login/login.component';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
+import { GeneralComponent } from './general/general.component';
+import { PasswordFormComponent } from './password-form/password-form.component';
+import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.component';
 import { AllTimeSheetComponent } from './all-time-sheet/all-time-sheet.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
 
@@ -68,8 +71,12 @@ const routes: Routes = [
   { path: 'searchtresume/reviewtresume/interview', component: InterviewComponent},
   { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent},
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent },
+  { path: 'searchtresume/reviewtresume/general', component: GeneralComponent },
+  { path: 'password-form' , component: PasswordFormComponent },
+  { path: 'Myjobs/createnewjob', component:  CreateNewJobsComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full', }
+
 ];
 
 @NgModule({

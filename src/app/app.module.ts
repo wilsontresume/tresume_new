@@ -88,8 +88,8 @@ import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { GeneralComponent } from './general/general.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
-
-
+import { PasswordFormComponent } from './password-form/password-form.component';
+import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.component';
 
 //import { jsPDF } from 'jspdf';
 
@@ -132,9 +132,9 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
     SubmissionComponent,
     GeneralComponent,
     ViewDetailsComponent,
-    TimesheetCreateComponent
-
-
+    TimesheetCreateComponent,
+    PasswordFormComponent,
+    CreateNewJobsComponent,
   ],
   imports: [
     BrowserModule,

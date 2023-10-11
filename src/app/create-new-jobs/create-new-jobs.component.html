@@ -1,0 +1,287 @@
+<div class="header">
+  <h1><u> CREATE AND JOB POSTING</u></h1>
+</div>
+
+<div class="container">
+  <div class="row mt-1">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs" id="myTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basicinfo-tab" data-toggle="tab" href="#basicinfo" role="tab"
+            aria-controls="basicinfo" aria-selected="true">Basic info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="requirementinfo-tab" data-toggle="tab" href="#requirementinfo" role="tab"
+            aria-controls="requirementinfo" aria-selected="false">Requirement information</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="organizationalinfo-tab" data-toggle="tab" href="#organizationalinfo" role="tab"
+            aria-controls="organizationalinfo" aria-selected="false">Organizational information</a>
+        </li>
+      </ul>
+
+      <div class="tab-content mt-3" id="myTabContent">
+        <div class="tab-pane fade show active" id="basicinfo" role="tabpanel" aria-labelledby="basicinfo-tab">
+          <!-- Content for the Basic Info Tab -->
+          <br>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4 form-group text-center">
+                <label for="basicinfo1">Ex.Tresume</label>
+                <input type="text" class="form-control" id="basicinfo1" placeholder="Navil software">
+              </div>
+            </div>
+          </div>
+          <br>
+
+
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                  <label for="basicinfo">Job Code</label>
+                  <input type="text" class="form-control" id="basicinfo" placeholder="1322" disabled>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                  <label for="basicinfo">Ex. QA Lead *</label>
+                  <input type="text" class="form-control" id="basicinfo" placeholder="job Title">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                  <label for="basicinfo">Country</label>
+                  <select class="form-control" id="basicinfo">
+                    <option value="Bachelors">United States</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                  <label for="basicinfo">State *</label>
+                  <select class="form-control" id="basicinfo">
+                    <option value="Bachelors">Georgia</option>
+                    <option value="Bachelors">District of columbia</option>
+                    <option value="Bachelors">Florida</option>
+                    <option value="Bachelors">Hawaii</option>
+                    <option value="Bachelors">Idaho</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group text-center"> <label for="basicinfo">City *</label>
+                  <select class="form-control" id="basicinfo">
+                    <option value="Bachelors">New York</option>
+                    <option value="Bachelors">Los Angelesk</option>
+                    <option value="Bachelors">Chicago</option>
+                    <option value="Bachelors">Houston</option>
+                    <option value="Bachelors">Phoenix</option>
+                    <option value="Bachelors">Philadelphia</option>
+                    <option value="Bachelors">San Antonio</option>
+                    <option value="Bachelors">San Diego</option>
+                    <option value="Bachelors">Dallas</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                  <label for="basicinfo">Ex. 98001</label>
+                  <input type="text" class="form-control" id="basicinfo" placeholder="Zipcode">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                  <label for="basicinfo">Ex. 980</label>
+                  <input type="text" class="form-control" id="basicinfo" placeholder="City code">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                  <label for="address">Address</label>
+                  <textarea class="form-control" id="address" rows="4" placeholder="Enter your address here"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="tab-pane fade" id="requirementinfo" role="tabpanel" aria-labelledby="requirementinfo-tab">
+          <!-- Content for the Requirement Information Tab -->
+
+          <div class="row ">
+            <!-- /.col -->
+            <div class="col-md-4 text-center">
+              <label class="post_jobs_contant post_jobs_font_clr">Client Bill Rate/Salary</label>
+              <div class="row ">
+                <div class="col-md-6 ">
+                  <div class="form-group text-center">
+                    <select name="Currency" id="Currency"
+                      class="form-control ">
+                      <option selected="selected" value="1">USD</option>
+                      <option value="2">EUR</option>
+                      <option value="3">INR</option>
+
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 ">
+                  <div class="form-group text-center">
+                    <input name="BillRate" type="text" maxlength="500" id="BillRate"
+                      class="form-control " placeholder="Bill Rate">
+                  </div>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-6 ">
+                  <div class="form-group text-center">
+                    <select name="PayType" id="PayType"
+                      class="form-control ">
+                      <option value="">Select</option>
+                      <option selected="selected" value="hour">Hourly</option>
+                      <option value="day">Daily</option>
+                      <option value="week">Weekly</option>
+                      <option value="bi-week">Bi-Weekly</option>
+                      <option value="month">Monthly</option>
+                      <option value="year">Yearly</option>
+
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 ">
+                  <div class="form-group text-center">
+                    <select name="TaxTerm" id="TaxTerm"
+                      class="form-control">
+                      <option selected="selected" value="">Select</option>
+                      <option value="1">1099</option>
+                      <option value="2">C2C</option>
+                      <option value="3">C2H</option>
+                      <option value="4">Full Time</option>
+                      <option value="5">Intern</option>
+                      <option value="6">Other</option>
+                      <option value="7">Part Time</option>
+                      <option value="8">Seasonal</option>
+                      <option value="9">W-2</option>
+
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <label class="post_jobs_contant post_jobs_font_clr">Pay Rate / Salary</label>
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="form-group text-center">
+                    <select name="RCurrency" id="Currency"
+                      class="form-control">
+                      <option selected="selected" value="1">USD</option>
+                      <option value="2">EUR</option>
+                      <option value="3">INR</option>
+
+                    </select>
+
+
+
+                  </div>
+                </div>
+                <div class="col-md-6 ">
+                  <div class="form-group text-center">
+                    <input name="PayRate" type="text" maxlength="500"
+                      id="PayRate" class="form-control" placeholder="Pay Rate">
+
+
+                  </div>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-6 ">
+                  <div class="form-group text-center">
+                    <select name="PayType" id="PayType"
+                      class="form-control">
+                      <option value="">Select</option>
+                      <option selected="selected" value="hour">Hourly</option>
+                      <option value="day">Daily</option>
+                      <option value="week">Weekly</option>
+                      <option value="bi-week">Bi-Weekly</option>
+                      <option value="month">Monthly</option>
+                      <option value="year">Yearly</option>
+
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 ">
+                  <div class="form-group text-center">
+                    <select name="TaxTerm" id="TaxTerm"
+                      class="form-control">
+                      <option selected="selected" value="">Select</option>
+                      <option value="1">1099</option>
+                      <option value="2">C2C</option>
+                      <option value="3">C2H</option>
+                      <option value="4">Full Time</option>
+                      <option value="5">Intern</option>
+                      <option value="6">Other</option>
+                      <option value="7">Part Time</option>
+                      <option value="8">Seasonal</option>
+                      <option value="9">W-2</option>
+
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <div class="col-md-4 text-center">
+              <div class="col-md-6">
+                <label class="post_jobs_contant post_jobs_font_clr">Respond By *</label>
+
+                <select name="RespondBy" id="RespondBy"
+                  class="form-control">
+                  <option selected="selected" value="1">Open until filled</option>
+                  <option value="2">Specific Date</option>
+
+                </select>
+              </div>
+              <div class="col-md-6 ">
+                <div class="respondDate" style="display: none;">
+                  <input name="RespondBy" type="text" maxlength="500" id="RespondBy"
+                    class="form-control" placeholder="Respond Date">
+                </div>
+              </div>
+
+              <div class="row mt-2"></div>
+              <div class="col-md-6 ">
+                <div class="form-group text-center">
+                  <!-- Add an additional input here -->
+                  <input name="NewInput" type="text" maxlength="500" id="NewInput" class="form-control" placeholder="New Input">
+                </div>
+              </div>
+            </div>
+          </div>
+              
+            
+            
+              <div class="tab-pane fade" id="organizationalinfo" role="tabpanel" aria-labelledby="organizationalinfo-tab">
+                <!-- Content for the Organizational Information Tab -->
+                <!-- Your content for the Organizational Information tab goes here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
