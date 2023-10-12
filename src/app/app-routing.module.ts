@@ -78,8 +78,6 @@ const routes: Routes = [
   { path: 'searchtresume/reviewtresume/general', component: GeneralComponent },
   { path: 'password-form' , component: PasswordFormComponent },
   { path: 'Myjobs/createnewjob', component:  CreateNewJobsComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full'},
   { path: 'viewdetails', component: ViewDetailsComponent },
   { path: 'addclient',component: AddclientComponent},
   { path: 'allclient',component: AllclientComponent},

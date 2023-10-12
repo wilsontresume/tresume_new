@@ -297,13 +297,11 @@
                 <div class="col-md-4">
                     <div class="form-group text-center">
                         <label>Ownership</label>
-                        <select size="4" name="Ownership" multiple="multiple" id="Ownership" class="form-control">
-                            <option value="1">ABC</option>
-                            <option value="2">DEF</option>
-                            <option value="3">abc</option>
-                            <option value="4">def</option>
-                            <option value="5" selected="selected">Wilson AM</option>
-                        </select>
+                        <div class=" flex text-center">
+                            <p-multiSelect [options]="Ownership" [(ngModel)]="selectedOwnership" defaultLabel="Ownership"
+                                optionLabel="name" (onSearch)="onOwnershipSearch($event)" [filter]="true" display="chip">
+                            </p-multiSelect>
+                        </div>
                     </div>
                     <div class="custom-control pull-left custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="customCheck1">
@@ -313,14 +311,11 @@
                 <div class="col-md-4">
                     <div class="form-group text-center">
                         <label>Client Lead</label>
-                        <select size="4" name="ClientLead" multiple="" id="ClientLead" class="form-control">
-                            <option selected="selected" value="0">Select</option>
-                            <option value="1">ABC</option>
-                            <option value="2">DEF</option>
-                            <option value="3">abc</option>
-                            <option value="4">def</option>
-                            <option value="5" selected="selected">Wilson AM</option>
-                        </select>
+                        <div class=" flex text-center">
+                            <p-multiSelect [options]="clientLeads" [(ngModel)]="selectedClientLeads"
+                                defaultLabel="Client Lead" optionLabel="name" (onSearch)="onClientLeadsSearch($event)" [filter]="true" display="chip">
+                            </p-multiSelect>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -328,15 +323,13 @@
                 <div class="col-md-4">
                     <div class="form-group text-center">
                         <label>Required Documents</label>
-
-                        <select name="RequiredDocuments" multiple="" id="RequiredDocuments" class="form-control">
-                            <option selected="selected" value="0">Select</option>
-                            <option value="DrivingLicense">Driving License</option>
-                            <option value="Resume">Resume</option>
-                            <option value="EMLFile">EMLFile</option>
-                            <option value="Passport">SSN</option>
-                            <option value="Transcripts">Transcripts</option>
-                        </select>
+                        <div class=" flex text-center">
+                            <p-multiSelect [options]="requiredDocuments" [(ngModel)]="selectedRequiredDocuments"
+                                defaultLabel="Required Documents" optionLabel="name" 
+                                (onSearch)="onRequiredDocumentsSearch($event)" display="chip"[filter]="true">
+                            </p-multiSelect>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="col-md-4">
