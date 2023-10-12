@@ -1,0 +1,117 @@
+<div class="container-1">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="form-group">
+                <label for="numberOfPositions">Number of Positions <span class="text-dark">*</span></label>
+                <input type="number" id="numberOfPositions" class="form-control" placeholder="no of Positions" required>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="form-group">
+                <label for="taxTerms">Tax Terms <span class="text-dark">*</span></label>
+                <select id="taxTerms" class="form-control" [(ngModel)]="selectedTaxTerm" required>
+                    <option value="">Select tax terms</option>
+                    <option *ngFor="let term of taxTermsOptions" [value]="term">{{ term.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select id="department" class="form-control" [(ngModel)]="selectedDepartment" required>
+                    <option value="">Select department</option>
+                    <option *ngFor="let dept of departmentOptions" [value]="dept">{{ dept.name }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="recruitmentManager">Recruitment Manager</label>
+                <select id="recruitmentManager" class="form-control" [(ngModel)]="selectedrecmanger" required>
+                    <option value="">Select Recruitment Manager</option>
+                    <option *ngFor="let recruit of recruitManager" [value]="recruit">{{ recruit.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="salesManager">Sales Manager</label>
+                <select id="salesManager" class="form-control" [(ngModel)]="selectedsalesManager" required>
+                    <option value="">Selected term</option>
+                    <option *ngFor="let sales of salesManager" [value]="sales">{{ sales.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="accountManager">Account Manager</label>
+                <select id="accountManager" class="form-control" [(ngModel)]="selectedaccountManager" required>
+                    <option value="">Selected term</option>
+                    <option *ngFor="let account of accountManager" [value]="account">{{ account.name }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group text-start">
+                <label class="">Primary Recruiter *</label>
+                <br>
+                <select name="PrimaryRecruiter" id="PrimaryRecruiter"
+                    class="form-control frm-control classic-select  text-capitalize PrimaryRecruiter " tabindex="-1"
+                    aria-hidden="true">
+                    <option selected="selected" value="">Select</option>
+                    <option value="28803">nhbh b</option>
+
+
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4  text-center">
+            <label class="">Additional Recruiters</label>
+            <br>
+            <div class="row">
+                <div class="col-md-6 col-xs-6 0-selected m-0">
+                    <div class="form-group text-center p-2 selct0">
+                        <div class="div_class" id="assignedCount">0 Selected</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6 assignRecruit">
+                    <div class="form-group text-center p-2 ass-rec m-0">
+                        <div class="bg-color div_class" data-toggle="modal" data-target="#AdditionalRecruitersModal">
+                            Assign Recruiters</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group text-start">
+                <label class="post_jobs_contant post_jobs_font_clr">Comments</label>
+                <textarea name="RecruiterContent" id="RecruiterContent" rows="4" class="form-control"
+                    placeholder="Comments"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <p-editor [(ngModel)]="content" [style]="{'height':'320px', 'width':'100%'}"
+                placeholder="Enter the email content to be sent"></p-editor>
+
+        </div>
+        <div class="col">
+            <div class="col post-job-boards"> 
+              
+                    <h4>Post on job Boards</h4>
+                    <div *ngFor="let checkbox of checkboxes; let i = index">
+                      <label>
+                        <input type="checkbox" (change)="updateArray(i)" [checked]="checkbox.checked"> {{ checkbox.label }}
+                      </label><br>
+   
+        </div>
+        </div>
+    </div>
+</div>

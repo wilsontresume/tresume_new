@@ -37,6 +37,8 @@ import { AddclientComponent } from './addclient/addclient.component';
 import { ViewclientComponent } from './viewclient/viewclient.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
+import { OrganinfoComponent } from './organinfo/organinfo.component';
+import { FinancialInfoComponent } from './financial-info/financial-info.component';
 
 
 
@@ -78,13 +80,13 @@ const routes: Routes = [
   { path: 'searchtresume/reviewtresume/general', component: GeneralComponent },
   { path: 'password-form' , component: PasswordFormComponent },
   { path: 'Myjobs/createnewjob', component:  CreateNewJobsComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full'},
   { path: 'viewdetails', component: ViewDetailsComponent },
   { path: 'addclient',component: AddclientComponent},
   { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobposting' , component: AllJobPostingsComponent},
+  { path: 'organizationinfo' , component:OrganinfoComponent},
+  { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
 
