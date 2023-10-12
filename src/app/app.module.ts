@@ -43,6 +43,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { FinancialInfoComponent } from './financial-info/financial-info.component';
 import { ProgressRenderer } from './onboarding/progress-cell.component'
 import { ImportDetailsComponent } from './onboarding/onboarding-workflow/import-details.component';
 import { EmployeeViewComponent } from './onboarding/onboarding-workflow/employee-view.component';
@@ -96,8 +97,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
+import { OrganinfoComponent } from './organinfo/organinfo.component';
 //import { jsPDF } from 'jspdf';
-
 
 @NgModule({
   declarations: [
@@ -142,6 +143,8 @@ import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.com
     AddclientComponent,
     ViewclientComponent,
     AllJobPostingsComponent,
+    OrganinfoComponent,
+    FinancialInfoComponent,
     
     
   ],
