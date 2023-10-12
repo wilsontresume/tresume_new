@@ -6,10 +6,20 @@ import { Component} from '@angular/core';
   styleUrls: ['./financial-info.component.scss']
 })
 export class FinancialInfoComponent{
-  isPopupOpen = false;
+  options = ['Single', 'Married', 'Married with hold'];
+  selectedOptions: string[] = [];
 
-  openPopup() {
-    this.isPopupOpen = true;
+
+  updateArray(option: string): void {
+    if (this.selectedOptions.includes(option)) {
+      this.selectedOptions = this.selectedOptions.filter(item => item !== option);
+    } else {
+      this.selectedOptions.push(option);
+    }
   }
+  
+
+  legalStatusOptions: string[] = ['Alabama', 'Alaska', 'Arizona', 'Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa']; 
+  selectedOption: string = '';
 
 }
