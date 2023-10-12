@@ -366,6 +366,8 @@
 
                 <div class="col-md-8">
                     <p class="fnt-clr text-center"><u>Notes</u></p>
+                    <p-editor [(ngModel)]="content" [style]="{'height':'320px', 'width':'100%'}"
+                                placeholder="Enter the email content to be sent"></p-editor>
                 </div>
 
                 <div class="col-md-4">
@@ -395,7 +397,7 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mt-5">
                 <button class="btn btn-wdth text-white" [routerLink]="['/viewclient']">Add Client</button>
             </div>
 
