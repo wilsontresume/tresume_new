@@ -52,8 +52,8 @@
               <div class="col-md-4">
                 <div class="form-group text-center">
                   <label for="basicinfo">Country</label>
-                  <select class="form-control" id="basicinfo">
-                    <option value="Bachelors">United States</option>
+                  <select [(ngModel)]="selectedCountry" name="country" id="country" class="form-control">
+                    <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
                   </select>
                 </div>
               </div>
@@ -67,28 +67,19 @@
               <div class="col-md-4">
                 <div class="form-group text-center">
                   <label for="basicinfo">State *</label>
-                  <select class="form-control" id="basicinfo">
-                    <option value="Bachelors">Georgia</option>
-                    <option value="Bachelors">District of columbia</option>
-                    <option value="Bachelors">Florida</option>
-                    <option value="Bachelors">Hawaii</option>
-                    <option value="Bachelors">Idaho</option>
+                  <select [(ngModel)]="selectedState" name="state" id="state" class="form-control">
+                    <option *ngFor="let state of states" [value]="state">{{ state }}</option>
                   </select>
                 </div>
               </div>
+
+
               <div class="col-md-4">
                 <div class="form-group text-center"> <label for="basicinfo">City *</label>
-                  <select class="form-control" id="basicinfo">
-                    <option value="Bachelors">New York</option>
-                    <option value="Bachelors">Los Angelesk</option>
-                    <option value="Bachelors">Chicago</option>
-                    <option value="Bachelors">Houston</option>
-                    <option value="Bachelors">Phoenix</option>
-                    <option value="Bachelors">Philadelphia</option>
-                    <option value="Bachelors">San Antonio</option>
-                    <option value="Bachelors">San Diego</option>
-                    <option value="Bachelors">Dallas</option>
-                  </select>
+                  <label for="basicinfo">City *</label>
+  <select [(ngModel)]="selectedCity" name="city" id="city" class="form-control">
+    <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+  </select>
                 </div>
               </div>
               <div class="col-md-4">
@@ -119,7 +110,7 @@
           </div>
         </div>
 
-
+ 
 
 
         <div class="tab-pane fade" id="requirementinfo" role="tabpanel" aria-labelledby="requirementinfo-tab">
@@ -128,155 +119,238 @@
           <div class="row ">
             <!-- /.col -->
             <div class="col-md-4 text-center">
-              <label class="post_jobs_contant post_jobs_font_clr">Client Bill Rate/Salary</label>
-              <div class="row ">
-                <div class="col-md-6 ">
-                  <div class="form-group text-center">
-                    <select name="Currency" id="Currency"
-                      class="form-control ">
-                      <option selected="selected" value="1">USD</option>
-                      <option value="2">EUR</option>
-                      <option value="3">INR</option>
+                <label class="post_jobs_contant post_jobs_font_clr">Client Bill Rate/Salary</label>
+                <div class="row ">
+                    <div class="col-md-6 ">
+                        <div class="form-group text-center">
+                          <select [(ngModel)]="selectedCurrency" name="currency" id="currency" class="form-control">
+                            <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+                          </select>
+                        </div>
+                    </div>
 
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6 ">
-                  <div class="form-group text-center">
-                    <input name="BillRate" type="text" maxlength="500" id="BillRate"
-                      class="form-control " placeholder="Bill Rate">
-                  </div>
-                </div>
-              </div>
-              <div class="row ">
-                <div class="col-md-6 ">
-                  <div class="form-group text-center">
-                    <select name="PayType" id="PayType"
-                      class="form-control ">
-                      <option value="">Select</option>
-                      <option selected="selected" value="hour">Hourly</option>
-                      <option value="day">Daily</option>
-                      <option value="week">Weekly</option>
-                      <option value="bi-week">Bi-Weekly</option>
-                      <option value="month">Monthly</option>
-                      <option value="year">Yearly</option>
 
-                    </select>
-                  </div>
+                    <div class="col-md-6 ">
+                        <div class="form-group text-center">
+                            <input name="BillRate" type="text" maxlength="500" id="BillRate" class="form-control post_jobs_contant" placeholder="Bill Rate">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                  <div class="form-group text-center">
-                    <select name="TaxTerm" id="TaxTerm"
-                      class="form-control">
-                      <option selected="selected" value="">Select</option>
-                      <option value="1">1099</option>
-                      <option value="2">C2C</option>
-                      <option value="3">C2H</option>
-                      <option value="4">Full Time</option>
-                      <option value="5">Intern</option>
-                      <option value="6">Other</option>
-                      <option value="7">Part Time</option>
-                      <option value="8">Seasonal</option>
-                      <option value="9">W-2</option>
+                <div class="row ">
+                    <div class="col-md-6 ">
+                        <div class="form-group text-center">
+                             <select [(ngModel)]="selectedPayType" name="payType" id="payType" class="form-control">
+    <option value="">Select</option>
+    <option *ngFor="let payType of payTypes" [value]="payType">{{ payType }}</option>
+  </select>
+                        </div>
+                    </div>
 
-                    </select>
-                  </div>
+                    <div class="col-md-6 ">
+                        <div class="form-group text-center">
+                            <select [(ngModel)]="selectedTaxTerm" name="taxTerm" id="taxTerm" class="form-control">
+    <option *ngFor="let term of taxTerms" [value]="term.value">{{ term.label }}</option>
+  </select>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
+            
             <div class="col-md-4 text-center">
-              <label class="post_jobs_contant post_jobs_font_clr">Pay Rate / Salary</label>
-              <div class="row">
-                <div class="col-md-6 ">
-                  <div class="form-group text-center">
-                    <select name="RCurrency" id="Currency"
-                      class="form-control">
-                      <option selected="selected" value="1">USD</option>
-                      <option value="2">EUR</option>
-                      <option value="3">INR</option>
+                <label class="post_jobs_contant post_jobs_font_clr">Pay Rate / Salary</label>
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="form-group text-center">
+                          <select [(ngModel)]="selectedCurrency" name="currency" id="currency" class="form-control">
+                            <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+                          </select>
+                        </div>
+                    </div>
 
-                    </select>
-
-
-
-                  </div>
+                    
+                    <div class="col-md-6 ">
+                        <div class="form-group text-center">
+                            <input name="PayRate" type="text" maxlength="500" id="PayRate" class="form-control post_jobs_contant" placeholder="Pay Rate">
+        
+                            
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                  <div class="form-group text-center">
-                    <input name="PayRate" type="text" maxlength="500"
-                      id="PayRate" class="form-control" placeholder="Pay Rate">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group text-center">
+                          <select [(ngModel)]="selectedPayType" name="payType" id="payType" class="form-control">
+                            <option value="">Select</option>
+                            <option *ngFor="let payType of payTypes" [value]="payType">{{ payType }}</option>
+                          </select>
+                        </div>
+                    </div>
 
-
-                  </div>
-                </div>
+                    <div class="col-md-6 ">
+                        <div class="form-group text-center">
+                            <select [(ngModel)]="selectedTaxTerm" name="taxTerm" id="taxTerm" class="form-control">
+    <option *ngFor="let term of taxTerms" [value]="term.value">{{ term.label }}</option>
+  </select>
               </div>
-              <div class="row ">
-                <div class="col-md-6 ">
-                  <div class="form-group text-center">
-                    <select name="PayType" id="PayType"
-                      class="form-control">
-                      <option value="">Select</option>
-                      <option selected="selected" value="hour">Hourly</option>
-                      <option value="day">Daily</option>
-                      <option value="week">Weekly</option>
-                      <option value="bi-week">Bi-Weekly</option>
-                      <option value="month">Monthly</option>
-                      <option value="year">Yearly</option>
-
-                    </select>
-                  </div>
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                  <div class="form-group text-center">
-                    <select name="TaxTerm" id="TaxTerm"
-                      class="form-control">
-                      <option selected="selected" value="">Select</option>
-                      <option value="1">1099</option>
-                      <option value="2">C2C</option>
-                      <option value="3">C2H</option>
-                      <option value="4">Full Time</option>
-                      <option value="5">Intern</option>
-                      <option value="6">Other</option>
-                      <option value="7">Part Time</option>
-                      <option value="8">Seasonal</option>
-                      <option value="9">W-2</option>
-
-                    </select>
-                  </div>
-                </div>
-              </div>
             </div>
-          
+            <!-- <div class="form-group text-center">                                        
+                        </div> -->
+        
             <div class="col-md-4 text-center">
-              <div class="col-md-6">
-                <label class="post_jobs_contant post_jobs_font_clr">Respond By *</label>
-
-                <select name="RespondBy" id="RespondBy"
-                  class="form-control">
-                  <option selected="selected" value="1">Open until filled</option>
-                  <option value="2">Specific Date</option>
-
+                <div class="col-md-6 ">
+                  <label for="RespondBy">Respond By *</label>
+                  <select [(ngModel)]="selectedRespondBy" name="RespondBy" id="RespondBy" class="form-control">
+                    <option *ngFor="let option of respondByOptions" [value]="option.value">{{ option.label }}</option>
+                  </select>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="respondDate" style="display: none;">
+                        <input name="RespondBy" type="text" maxlength="500" id="RespondBy" class="form-control frm-control respondDate respondDate1 respontxt" placeholder="Respond Date">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-md-4">
+            <div class="form-group text-center">
+                <label for="JobType">Job Type</label>
+  <select [(ngModel)]="selectedJobType" name="JobType" id="JobType" class="form-control">
+    <option *ngFor="let option of jobTypeOptions" [value]="option.value">{{ option.label }}</option>
+  </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group text-center">
+                <label class="post_jobs_contant post_jobs_font_clr">Priority</label>
+                <br>
+                <select [(ngModel)]="selectedPriority" name="Priority" id="Priority" class="form-control">
+                  <option *ngFor="let option of priorityOptions" [value]="option.value">{{ option.label }}</option>
                 </select>
-              </div>
-              <div class="col-md-6 ">
-                <div class="respondDate" style="display: none;">
-                  <input name="RespondBy" type="text" maxlength="500" id="RespondBy"
-                    class="form-control" placeholder="Respond Date">
-                </div>
-              </div>
+            </div>
+        </div>
 
-              <div class="row mt-2"></div>
-              <div class="col-md-6 ">
-                <div class="form-group text-center">
-                  <!-- Add an additional input here -->
-                  <input name="NewInput" type="text" maxlength="500" id="NewInput" class="form-control" placeholder="New Input">
-                </div>
+        <div class="col-md-4">
+            <div class="form-group text-center">
+                <label class="post_jobs_contant post_jobs_font_clr">Job Status *</label>
+                <select [(ngModel)]="selectedJobStatus" name="JobStatus" id="JobStatus" class="form-control">
+    <option *ngFor="let option of jobStatusOptions" [value]="option.value">{{ option.label }}</option>
+  </select>       
+            </div>
+        </div>
+        </div>
+        
+        
+        
+        <div class="row">
+          <div class="col-md-4">
+              <div class="form-group text-center">
+                  <label class="post_jobs_contant post_jobs_font_clr">Client</label>
+                  <br>
+                  <select [(ngModel)]="selectedClient" name="client" id="client" class="form-control">
+                    <option *ngFor="let option of clientOptions" [value]="option.value">{{ option.label }}</option>
+                  </select>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group text-center">
+                <label for="reqinfo">End Client</label>
+                <input type="text" class="form-control" id="basicinfo" placeholder="End Client">
               </div>
             </div>
+          <div class="col-md-4">
+              <div class="form-group text-center">
+                <label for="reqinfo">Client Job ID</label>
+                <input type="text" class="form-control" id="clientjobid" placeholder="Client Job ID">
+              </div>
+            </div>    
+              </div>
+            
+            
+  
+              <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group text-center">
+                      <label for="reqinfo">Duration</label>
+                      <input type="text" class="form-control" id="duration" placeholder="Duration">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group text-center">
+                      <label class="post_jobs_contant post_jobs_font_clr">Interview Mode</label>
+                  <br>
+                  <select [(ngModel)]="selectedInterviewMode" name="interviewmode" id="interviewmode" class="form-control">
+                    <option *ngFor="let option of interviewModeOptions" [value]="option.value">{{ option.label }}</option>
+                  </select>
+
+                    </div>
+                  </div>
+                <div class="col-md-4">
+                    <div class="form-group text-center">
+                      <label class="post_jobs_contant post_jobs_font_clr">Minimum Experience</label>
+                  
+                  
+          <div>
+            <select [(ngModel)]="selectedExperience" name="minimumexperience" id="minimumexperience" class="form-control">
+              <option value="">Select</option>
+              <option *ngFor="let option of experienceOptions" [value]="option">{{ option }}</option>
+            </select>
           </div>
+                    </div>
+                  </div>    
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-4">
+                      <div class="form-group text-center">
+                          <label class="post_jobs_contant post_jobs_font_clr">Legal Status</label>
+                          <br>
+             <div class="col-md-4 multiSelect">             
+<p-multiSelect [options]="statusOptions" [(ngModel)]="selectedStatus" optionLabel="name"
+                            (onSearch)="onLegalstatusSearch($event)">
+                        </p-multiSelect>
+
+                      
+
+
+                      </div>
+                      </div>
+                  </div>
+                    <div class="col-md-4">
+                      <div class="form-group text-center">
+                          <label class="post_jobs_contant post_jobs_font_clr">Ex. Java Programming, singing, cooking</label>
+                          <br>
+                          <textarea name="Skills" id="RecruiterContent_txtSkills" rows="4" class="form-control" placeholder="Skills: (comma seperated skills)"></textarea>
+                          
+                          
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group text-center">
+                          <label class="post_jobs_contant post_jobs_font_clr">Security Clearance</label>
+                          <div class="radio">
+                              <label>
+                                  <input value="1" name="securityClearance" type="radio" id="ClearanceYes" class="post_jobs_contant radio-btn01">
+                                  Yes
+                              </label>
+                              &nbsp;&nbsp;
+                              <label>
+                                  <input value="0" name="securityClearance" type="radio" id="ClearanceNo" class="post_jobs_contant radio-btn01" checked="checked">
+                                  No
+                              </label>
+                              <input type="hidden" name="SecurityClearance" id="SecurityClearance" value="No">
+                          </div>
+                          
+                      </div>
+                  </div>
+              </div>
               
-            
-            
+                  
+
               <div class="tab-pane fade" id="organizationalinfo" role="tabpanel" aria-labelledby="organizationalinfo-tab">
                 <!-- Content for the Organizational Information Tab -->
                 <!-- Your content for the Organizational Information tab goes here -->
