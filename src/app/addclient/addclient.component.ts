@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./addclient.component.scss']
 })
 export class AddclientComponent {
+
   content: string = '';
   activeTab: string = 'basicInfo';
   form: FormGroup;
@@ -19,6 +20,10 @@ export class AddclientComponent {
   selectedRequiredDocuments: any[] = [];
   filteredClientLeads: any[] = [];
   filteredRequiredDocuments: any[] = [];
+
+  addClient() {
+    console.log('Client added successfully.');
+  }
 
   onClientLeadsSearch(event: any) {
     this.filteredClientLeads = this.clientLeads.filter(option =>
