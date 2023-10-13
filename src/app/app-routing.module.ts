@@ -39,7 +39,7 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
-
+import { HrmsComponent } from './hrms/hrms.component';
 
 
 const routes: Routes = [
@@ -83,6 +83,7 @@ const routes: Routes = [
   { path: 'jobposting' , component: AllJobPostingsComponent, canActivate: [AuthGuard]},
   { path: 'organizationinfo' , component:OrganinfoComponent, canActivate: [AuthGuard]},
   { path: 'financialinfo' , component:FinancialInfoComponent, canActivate: [AuthGuard]},
+  { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 

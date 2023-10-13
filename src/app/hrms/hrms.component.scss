@@ -1,0 +1,36 @@
+.bg-clr {
+    background-color: #46103d ; 
+  }
+
+  .table-container {
+    height: 300px;
+    overflow-x: scroll; 
+    
+}
+.table-container::-webkit-scrollbar-track-horizontal {
+  background-color: #f1f1f1;
+}
+
+.table-container::-webkit-scrollbar-thumb-horizontal {
+  background-color: #888;
+}
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  
+  .th, td {
+    padding: 10px;
+    text-align: left;
+    border: none;
+  }
+  .btn-wdth {
+    background-color: #46103d ; 
+    text-align: center;
+
+  }
+  .small-datepicker {
+    height: 30px;   
+    width: 50px;    
+  }

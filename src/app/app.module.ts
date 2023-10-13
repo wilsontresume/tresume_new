@@ -100,6 +100,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
+import { HrmsComponent } from './hrms/hrms.component';
 //import { jsPDF } from 'jspdf';
 
 
@@ -154,6 +155,7 @@ import { OrganinfoComponent } from './organinfo/organinfo.component';
     AllJobPostingsComponent,
     OrganinfoComponent,
     FinancialInfoComponent,
+    HrmsComponent,
     
     
   ],
@@ -199,6 +201,7 @@ import { OrganinfoComponent } from './organinfo/organinfo.component';
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     FileUploadModule,
     EditorModule,
     ToastModule,
