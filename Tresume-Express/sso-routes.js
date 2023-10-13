@@ -70,6 +70,7 @@ const config = {
     try {
       // const apiUrl = `https://tresume.us/api/Member/Login/${UserName}/${PWD}`;
       const apiUrl = `http://localhost:59983/api/Member/Login/${UserName}/${PWD}`;
+      console.log(apiUrl);
       const response = await axios.get(apiUrl);
   
       const responseData = response.data; 
