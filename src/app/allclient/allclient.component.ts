@@ -15,7 +15,7 @@ export class AllclientComponent implements OnInit {
       Owner: 'John Doe',
     },
   ];
-
+  showConfirmationDialog: boolean = false;
   sortByColumn: string = '';
   sortDirection: string = 'asc';
 
@@ -29,10 +29,7 @@ export class AllclientComponent implements OnInit {
     this.sortBy('Action');
   }
 
-  // navigateToviewclient(clientId: number, event: Event) {
-  //   this.router.navigate(['/viewclient', clientId]);
-  //   event.preventDefault();
-  // }
+  
 
   sortBy(columnName: string) {
     if (this.sortByColumn === columnName) {
@@ -42,5 +39,18 @@ export class AllclientComponent implements OnInit {
       this.sortDirection = 'asc';
     } 
    this.items.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
+  }
+
+  deleteClient(){
+    this.showConfirmationDialog = true;
+   }
+   confirmDelete() {
+   
+    this.showConfirmationDialog = false;
+  }
+
+  cancelDelete() {
+    
+    this.showConfirmationDialog = false;
   }
 }

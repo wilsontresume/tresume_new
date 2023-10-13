@@ -32,7 +32,7 @@
     </div>
     <div class="row mt-4">
         <div class="col">
-            <table class="table table-bordered">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>From_Date</th>
@@ -45,17 +45,20 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    <tr>
-                        <td>Date 1</td>
-                        <td>Date 2</td>
-                        <td>8</td>
-                        <td>2023-10-05</td>
-                        <td>Approved</td>
-                        <td>Sample Comment</td>
-                        <td> <a (click)="navigateToViewDetails(1)">
-                            <i class="fa fa-eye fa-fw"></i>
-                          </a></td>
+                    <tr *ngFor="let item of items">
+                        <td>{{ item.From_Date }}</td>
+                        <td>{{ item.To_Date }}</td>
+                        <td>{{ item.Total_Hours }}</td>
+                        <td>{{ item.Created_On }}</td>
+                        <td>{{ item.Status }}</td>
+                        <td>{{ item.Comments }}</td>
+                        <td>
+                            <div>
+                                <button class="btn btn-light" [routerLink]="['/timesheet/viewdetails']">
+                                    <i class="fa fa-eye fa-fw mr-2"></i>View
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

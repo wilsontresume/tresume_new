@@ -28,15 +28,18 @@ import { LoginComponent } from './login/login.component';
 import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
+import { GeneralComponent } from './general/general.component';
+import { PasswordFormComponent } from './password-form/password-form.component';
+import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.component';
 import { AllTimeSheetComponent } from './all-time-sheet/all-time-sheet.component';
 import { AllclientComponent } from './allclient/allclient.component';
 import { AddclientComponent } from './addclient/addclient.component';
 import { ViewclientComponent } from './viewclient/viewclient.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
-import { DeleteclientComponent } from './deleteclient/deleteclient.component';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
+
 
 
 const routes: Routes = [
@@ -73,16 +76,22 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'searchtresume/reviewtresume/interview', component: InterviewComponent},
   { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent},
+  { path: 'timesheet/viewdetails', component: ViewDetailsComponent },
+  { path: 'searchtresume/reviewtresume/general', component: GeneralComponent },
+  { path: 'password-form' , component: PasswordFormComponent },
+  { path: 'Myjobs/createnewjob', component:  CreateNewJobsComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login', pathMatch: 'full'},
   { path: 'viewdetails', component: ViewDetailsComponent },
   { path: 'addclient',component: AddclientComponent},
   { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
-  { path: 'deleteclient',component: DeleteclientComponent},
   { path: 'jobposting' , component: AllJobPostingsComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
+
 ];
 
 @NgModule({

@@ -89,6 +89,8 @@ import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { GeneralComponent } from './general/general.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
+import { PasswordFormComponent } from './password-form/password-form.component';
+import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.component';
 import { AllclientComponent } from './allclient/allclient.component';
 import { AddclientComponent } from './addclient/addclient.component';
 import { ViewclientComponent } from './viewclient/viewclient.component';
@@ -98,6 +100,11 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
+//import { jsPDF } from 'jspdf';
+
+
+//import { jsPDF } from 'jspdf';
+
 //import { jsPDF } from 'jspdf';
 
 @NgModule({
@@ -139,6 +146,8 @@ import { OrganinfoComponent } from './organinfo/organinfo.component';
     GeneralComponent,
     ViewDetailsComponent,
     TimesheetCreateComponent,
+    PasswordFormComponent,
+    CreateNewJobsComponent,
     AllclientComponent,
     AddclientComponent,
     ViewclientComponent,
@@ -149,6 +158,7 @@ import { OrganinfoComponent } from './organinfo/organinfo.component';
     
   ],
   imports: [
+    HttpClientModule,
     MatTableModule,
     MatIconModule,
     MatSortModule,
@@ -193,6 +203,8 @@ import { OrganinfoComponent } from './organinfo/organinfo.component';
     EditorModule,
     ToastModule,
     RouterModule,
+    
+    
     
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({

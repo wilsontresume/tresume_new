@@ -1,20 +1,20 @@
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GeneralComponent } from './general.component';
 
-describe('GeneralComponent', () => {
-  let component: GeneralComponent;
-  let fixture: ComponentFixture<GeneralComponent>;
+import { PasswordFormComponent } from './password-form.component';
+
+describe('PasswordFormComponent', () => {
+  let component: PasswordFormComponent;
+  let fixture: ComponentFixture<PasswordFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GeneralComponent ]
+      declarations: [ PasswordFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GeneralComponent);
+    fixture = TestBed.createComponent(PasswordFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
