@@ -100,6 +100,13 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
+import { HrmsComponent } from './hrms/hrms.component';
+//import { jsPDF } from 'jspdf';
+
+
+//import { jsPDF } from 'jspdf';
+
+//import { jsPDF } from 'jspdf';
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
@@ -157,6 +164,7 @@ import { JobBoardAccountComponent } from './job-board-account/job-board-account.
     OrganinfoComponent,
     ApplicantDetailsComponent,
     FinancialInfoComponent,
+    HrmsComponent,
     ConfirmationPopupComponent,
     SubmittedCandiatesComponent,
     JobBoardAccountComponent,    
@@ -203,6 +211,7 @@ import { JobBoardAccountComponent } from './job-board-account/job-board-account.
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     FileUploadModule,
     EditorModule,
     ToastModule,

@@ -19,8 +19,38 @@ export class ViewclientComponent implements OnInit {
   showConfirmationDialog: boolean = false;
   sortByColumn: string = '';
   sortDirection: string = 'asc';
+  Ownership: any[]=[{name:'Parvathy'}, {name:'abc'}, {name:'DEF'}, {name:'def'}];
+  selectedOwnership: any[] = [];
+  filteredOwnership: any[] = [];
+  clientLeads: any[] ;
+  requiredDocuments: any[] ;
+  selectedClientLeads: any[] = [];
+  selectedRequiredDocuments: any[] = [];
+  filteredClientLeads: any[] = [];
+  filteredRequiredDocuments: any[] = [];
 
-  constructor(private router: Router) { }
+  onClientLeadsSearch(event: any) {
+    this.filteredClientLeads = this.clientLeads.filter(option =>
+      option.toLowerCase().includes(event.query.toLowerCase())
+    );
+  }
+
+  onRequiredDocumentsSearch(event: any) {
+    this.filteredRequiredDocuments = this.requiredDocuments.filter(option =>
+      option.toLowerCase().includes(event.query.toLowerCase())
+    );
+  }
+
+  onOwnershipSearch(event: any) {
+    this.filteredOwnership = this.Ownership.filter(option =>
+      option.toLowerCase().includes(event.query.toLowerCase())
+    );
+  }
+  
+  constructor(private router: Router) { 
+    this.clientLeads = [{name:'Lead 1'}, {name:'Lead 2'}, {name:'Lead 3'}, {name:'Lead 4'}];
+    this.requiredDocuments = [{name:'Document 1'}, {name:'Document 2'}, {name:'Document 3'}, {name:'Document 4'}];
+  }
 
   ngOnInit(): void {
     this.sortBy('ClientName');
@@ -30,6 +60,7 @@ export class ViewclientComponent implements OnInit {
     this.sortBy('Action');
   }
 
+  
   sortBy(columnName: string) {
     if (this.sortByColumn === columnName) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';

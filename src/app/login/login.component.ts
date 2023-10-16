@@ -43,7 +43,8 @@ export class LoginComponent {
         this.cookieService.set('TraineeID',traineeID);
         this.cookieService.set('accesstoken',accesstoken);
         var url = '/dashboard/'+traineeID;
-        this.router.navigate([url]);
+        this.router.navigateByUrl(url);
+        
       },
       (error) => {
         // Handle the error response
