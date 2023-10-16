@@ -1,110 +1,107 @@
-<div class="container">
-    <div class="row bg-clr">
-        <div class="col">
-            <h1 class=" text-white text-center mt-3">HRMS</h1>
-        </div>
-    </div>
-    <div class="row ">
-        <div class="col-md-8">
-            <div class="form-group text-center">
-                <br><label>Select Candidate</label><br>
-                <select class="form-select form-control" aria-label="Default select">
-                    <option selected>Select Candidate</option>
-                    <option value="1">ABCD</option>
-                    <option value="2">EFGH</option>
-                    <option value="3">IJKL</option>
-                    <option value="3">MNOP</option>
-                    <option value="3">WILSON AM</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group text-center mt-5 float-right">
-                <button class="btn btn-wdth text-white btn-sm " [routerLink]="['/']">Add Candidate</button>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group text-center">
-                <label>Follow_Up_On</label>
-                <br>
-                <div class="range-picker">
-                    <input [disabled]="!isPickerOpen" type="text" (click)="togglePicker()" placeholder="Select Date Range">
-                    <button (click)="togglePicker()"><i class="fa fa-calendar"></i></button>
-                    <div *ngIf="isPickerOpen" class="calendar-picker">
-                     
-                    </div>
-                  </div>
-                <!-- <div>
-                    <input type="text" id="date-txt" disabled value="Select Date" class="form-control datepicker"
-                        bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" placeholder="Select Date">
-                </div> -->
-
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group text-center">
-                <label>Date_Created</label>
-                <br>
-                <div>
-                    <input type="text" id="date-txt" disabled value="Select Date" class="form-control datepicker"
-                        bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" placeholder="Select Date">
+<div class="card">
+    <div class="content-header">
+        <div class="container">
+            <div class="row main">
+                <div class="col-md-4">
+                    <h2 class="text-left mt-4">HRMS</h2>
                 </div>
-
+                <div class="col-md-4">
+                    <div class="form-group text-center mt-4">
+                        <select class="form-select form-control" aria-label="Default select">
+                            <option selected>Select Candidate</option>
+                            <option value="1">ABCD</option>
+                            <option value="2">EFGH</option>
+                            <option value="3">IJKL</option>
+                            <option value="3">MNOP</option>
+                            <option value="3">WILSON AM</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group text-center mt-4 ">
+                        <button class="btn btn-wdth text-white btn-sm " [routerLink]="['/']">Add Candidate</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col md-8">
-            <p>Displaying 1 of 100 candidates</p>
-        </div>
-        <div class="col md-4 text-right">
-            <div class="form-group">
-                <label for="search">Search:</label>
-                <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
+    <div class="section">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group text-center">
+                        <label>Follow_Up_On</label>
+                        <br>
+                        <div>   
+                            <label>start date:</label>                         
+                            <input type="date" placeholder="start date">
+                            <label>End date:</label> 
+                            <input type="date" placeholder="End date">                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group text-center">
+                        <label>Date_Created</label>
+                        <br>
+                        <div>   
+                            <label>start date:</label>                     
+                            <input type="date" placeholder="start date">
+                            <label>End date:</label>
+                            <input type="date" placeholder="End date">                 
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="container mt-6 mb-6">
-    <div class="row mt-4">
-        <div class="col">
-            <div class="table-container">
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th>Viewed By</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Legal_Status</th>
-                            <th>Candidate_Status</th>
-                            <th>Date_Created</th>
-                            <th>Follow_Up_On</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr *ngFor="let item of items">
-                            <td>{{ item.Viewed_By }}</td>
-                            <td>{{ item.Name }}</td>
-                            <td>{{ item.Email }}</td>
-                            <td>{{ item.Phone}}</td>
-                            <td>{{ item.Legal_Status}}</td>
-                            <td>{{ item.Candidate_Status}}</td>
-                            <td>{{ item.Date_Created}}</td>
-                            <td>
-                                <input type="text" class="form-control small-datepicker" bsDatepicker
-                                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" placeholder="Date">
-                                <button class="btn btn-light" [routerLink]="['/']"><i
-                                        class="fa fa-eye fa-fw mr-2"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
+            <div class="row pt-4">
+                <div class="col md-8 ">
+                    <p>Displaying {{ displayedCandidates }} of {{ totalCandidates }} candidates</p>
+                </div>
+                <div class="col md-4 text-right">
+                    <div class="form-group">
+                        <label for="search">Search:</label>
+                        <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="table-container">
+                        <table class="table text-center">
+                            <thead>
+                                <tr>
+                                    <th>Viewed By</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Legal Status</th>
+                                    <th>Candidate Status</th>
+                                    <th>Date Created</th>
+                                    <th>Follow_Up_On</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let candidate of candidates">
+                                    <td>{{ candidate.Viewed_By }}</td>
+                                    <td>{{ candidate.Name }}</td>
+                                    <td>{{ candidate.Email }}</td>
+                                    <td>{{ candidate.Phone }}</td>
+                                    <td>{{ candidate.Legal_Status }}</td>
+                                    <td>{{ candidate.Candidate_Status }}</td>
+                                    <td>{{ candidate.Date_Created }}</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" placeholder="Follow Up On" style="width: 100px;">
+                                            <a routerLink="/" class=" nav-link"><i class="fa fa-eye fa-fw"
+                                                    style="font-size: 24px;"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

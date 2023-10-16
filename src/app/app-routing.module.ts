@@ -39,14 +39,11 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
-
 import { SearchTresumeComponent } from './search-tresume/search-tresume.component';
-
-
 import { HrmsComponent } from './hrms/hrms.component';
-
-
-
+import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
+import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
   { path: 'compliancedashboard', component: ComplianceDashboardComponent, canActivate: [AuthGuard]   },
@@ -90,7 +87,15 @@ const routes: Routes = [
   { path: 'organizationinfo' , component:OrganinfoComponent},
   { path: 'searchtresume' , component:SearchTresumeComponent},
   { path: 'financialinfo' , component:FinancialInfoComponent},
-
+  { path: 'addclient',component: AddclientComponent},
+  { path: 'allclient',component: AllclientComponent},
+  { path: 'viewclient',component: ViewclientComponent},
+  { path: 'jobpostings',component:AllJobPostingsComponent},
+  { path: 'organizationinfo' , component:OrganinfoComponent},
+  { path: 'financialinfo' , component:FinancialInfoComponent},
+  { path: 'applicantdetails', component:ApplicantDetailsComponent},
+  { path: 'confirmpopup', component:ConfirmationPopupComponent},
+  { path: 'submittedcandidates', component:SubmittedCandiatesComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
   { path: 'adobesign/token/:token', component: AdobesignComponent1  , canActivate: [AuthGuard] },
   { path: 'timesheet/create', component: TimesheetCreateComponent  , canActivate: [AuthGuard] },
