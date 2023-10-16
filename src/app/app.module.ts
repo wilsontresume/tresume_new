@@ -101,6 +101,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
 import { SearchTresumeComponent } from './search-tresume/search-tresume.component';
+import { HrmsComponent } from './hrms/hrms.component';
+
 //import { jsPDF } from 'jspdf';
 
 
@@ -156,6 +158,7 @@ import { SearchTresumeComponent } from './search-tresume/search-tresume.componen
     OrganinfoComponent,
     FinancialInfoComponent,
     SearchTresumeComponent,
+    HrmsComponent,
     
     
   ],
@@ -201,6 +204,7 @@ import { SearchTresumeComponent } from './search-tresume/search-tresume.componen
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     FileUploadModule,
     EditorModule,
     ToastModule,
