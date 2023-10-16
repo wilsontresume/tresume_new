@@ -115,6 +115,7 @@ import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-po
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
 import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
 
 
 
@@ -174,6 +175,7 @@ import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.
     SubmittedCandiatesComponent,
     JobBoardAccountComponent,
     AccountsAddUserComponent,    
+    SubscriptionComponent,    
   ],
   imports: [
     HttpClientModule,

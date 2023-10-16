@@ -7,7 +7,7 @@
     <div class="col-md-12">
       <ul class="nav nav-tabs" #myTabs>
         <li class="nav-item">
-          <a class="nav-link {{basicactive}}" id="basicinfo-tab" data-toggle="tab" href="#basicinfo" role="tab"
+          <a class="nav-link {{basicactive}}" id="basicinfo-tab"  data-toggle="tab" href="#basicinfo" role="tab"
             aria-controls="basicinfo" aria-selected="true">Basic info</a>
         </li>
         <li class="nav-item">
@@ -257,7 +257,7 @@
               <div class="form-group text-center">
                 <label class="post_jobs_contant post_jobs_font_clr">Job Status *</label>
                 <select [(ngModel)]="selectedJobStatus" name="JobStatus" id="JobStatus" class="form-control">
-                  <option *ngFor="let option of jobStatusOptions" [value]="option.value">{{ option.label }}</option>
+                  <option *ngFor="let option of jobStatusOptions"  [value]="option.label">{{ option.label }}</option>
                 </select>
               </div>
             </div>
@@ -326,7 +326,7 @@
                 <label class="post_jobs_contant post_jobs_font_clr">Legal Status</label>
                 <br>
                 <div class="col-md-4 multiSelect">
-                  <p-multiSelect [options]="statusOptions" [(ngModel)]="selectedStatus" optionLabel="name"
+                  <p-multiSelect [options]="statusOptions" [(ngModel)]="selectedLegalstatus" optionLabel="name"
                     (onSearch)="onLegalstatusSearch($event)">
                   </p-multiSelect>
 
@@ -436,15 +436,9 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group text-start">
-                  <label class="">Primary Recruiter *</label>
-                  <br>
-                  <select name="PrimaryRecruiter" id="PrimaryRecruiter"
-                    class="form-control frm-control classic-select  text-capitalize PrimaryRecruiter " tabindex="-1"
-                    aria-hidden="true">
-                    <option selected="selected" value="">Select</option>
-                    <option value="28803">nhbh b</option>
-
-
+                  <label class="post_jobs_contant post_jobs_font_clr">Primary recruiter</label>
+                  <select [(ngModel)]="selectedPrimaryRecruiter" name="JobStatus" id="JobStatus" class="form-control">
+                    <option *ngFor="let option of RecruiterStatusOptionsons"  [value]="option.label">{{ option.label }}</option>
                   </select>
                 </div>
               </div>
@@ -553,10 +547,14 @@
             <div class="col-sm-4 invoice-col">
               <h4>REQUIREMENT INFORMATION:</h4>
               <address>
-                <strong>MIN. EXPERIENCE :</strong><span id="RecruiterContent_lblMinExp"></span><br>
-                <strong>Job Status :</strong><span id="RecruiterContent_lblJobStatus"></span><br>
+                <strong>MIN. EXPERIENCE :</strong><span id="RecruiterContent_lblMinExp">{{selectedExperience}}</span><br>
+                <strong>Job Status :</strong><span id="RecruiterContent_lblJobStatus">{{selectedJobStatus}}</span><br>
                 <strong>Legal Status:</strong>
-                <span id="RecruiterContent_lblLegalStatus"></span><br>
+                <span id="RecruiterContent_lblLegalStatus">
+                  <div *ngFor="let data of selectedLegalstatus">
+                    {{data.name}},
+                </div>
+              </span><br>
                 <strong>Pay Rate :</strong>
                 <span id="RecruiterContent_lblPay"></span>{{selectedPayType}}<br>
                 <strong>Bill Rate :</strong>
@@ -566,7 +564,7 @@
             <div class="col-sm-4 invoice-col">
               <h4>ORGANIZATIONAL INFORMATION</h4>
               <address>
-                <span id="RecruiterContent_lblAssignedTo">Assigned To -</span><br>
+                <span id="RecruiterContent_lblAssignedTo">Assigned To - {{selectedPrimaryRecruiter}} </span><br>
               </address>
             </div>
 

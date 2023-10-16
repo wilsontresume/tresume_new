@@ -44,6 +44,8 @@ import { HrmsComponent } from './hrms/hrms.component';
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
   { path: 'compliancedashboard', component: ComplianceDashboardComponent, canActivate: [AuthGuard]   },
