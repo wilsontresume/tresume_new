@@ -100,12 +100,14 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
-//import { jsPDF } from 'jspdf';
+import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
+import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
+import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
 
 
-//import { jsPDF } from 'jspdf';
 
-//import { jsPDF } from 'jspdf';
+
 
 @NgModule({
   declarations: [
@@ -153,9 +155,11 @@ import { OrganinfoComponent } from './organinfo/organinfo.component';
     ViewclientComponent,
     AllJobPostingsComponent,
     OrganinfoComponent,
+    ApplicantDetailsComponent,
     FinancialInfoComponent,
-    
-    
+    ConfirmationPopupComponent,
+    SubmittedCandiatesComponent,
+    JobBoardAccountComponent,    
   ],
   imports: [
     HttpClientModule,
