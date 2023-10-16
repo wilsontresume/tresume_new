@@ -108,9 +108,8 @@
                     <h4>Post on job Boards</h4>
                     <div *ngFor="let checkbox of checkboxes; let i = index">
                       <label>
-                        <input type="checkbox" (change)="updateArray(i)" [checked]="checkbox.checked"> {{ checkbox.label }}
-                      </label><br>
-   
+               <input type="checkbox" (change)="updateArray(i)" [checked]="checkbox.checked"> {{ checkbox.label }}
+            </label><br>
         </div>
         </div>
     </div>

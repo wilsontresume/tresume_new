@@ -109,6 +109,14 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 //import { jsPDF } from 'jspdf';
 
 //import { jsPDF } from 'jspdf';
+import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
+import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
+import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -156,10 +164,12 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ViewclientComponent,
     AllJobPostingsComponent,
     OrganinfoComponent,
+    ApplicantDetailsComponent,
     FinancialInfoComponent,
     HrmsComponent,
-    
-    
+    ConfirmationPopupComponent,
+    SubmittedCandiatesComponent,
+    JobBoardAccountComponent,    
   ],
   imports: [
     HttpClientModule,
