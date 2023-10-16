@@ -39,12 +39,11 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
+import { SearchTresumeComponent } from './search-tresume/search-tresume.component';
+import { HrmsComponent } from './hrms/hrms.component';
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
-import { HrmsComponent } from './hrms/hrms.component';
-import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
-
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
   { path: 'compliancedashboard', component: ComplianceDashboardComponent, canActivate: [AuthGuard]   },
@@ -80,6 +79,14 @@ const routes: Routes = [
   { path: 'searchtresume/reviewtresume/general', component: GeneralComponent },
   { path: 'password-form' , component: PasswordFormComponent },
   { path: 'Myjobs/createnewjob', component:  CreateNewJobsComponent },
+  { path: 'viewdetails', component: ViewDetailsComponent },
+  { path: 'addclient',component: AddclientComponent},
+  { path: 'allclient',component: AllclientComponent},
+  { path: 'viewclient',component: ViewclientComponent},
+  { path: 'jobposting' , component: AllJobPostingsComponent},
+  { path: 'organizationinfo' , component:OrganinfoComponent},
+  { path: 'searchtresume' , component:SearchTresumeComponent},
+  { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: 'addclient',component: AddclientComponent},
   { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},

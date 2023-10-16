@@ -43,4 +43,44 @@ select.form-control option:hover {
   padding: 25px 10px 10px 10px;
 }
 
+*{
+  box-sizing: border-box;
  
+}
+
+.selct0{
+ border: 1px solid #ced4da;;
+ height: 38px;
+ cursor: text;
+ background-color: #fff;
+}
+.ass-rec{
+  border: 1px solid #ced4da;;
+ height: 38px;
+ cursor: text;
+ background-color: #2d012d;
+ color: #fff;
+}
+.container-1{
+ padding: 30px;
+}
+.post-job-boards{
+ background-color:#fff ;
+ border: 1px solid #ced4da;
+ padding: 10px;
+}
+.btn{
+  color: white;
+  background-color: rgb(56, 8, 56);
+  border-color: rgb(56, 8, 56) ;
+}
+.custom-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.btnl{
+  margin-left: 10px;
+}
