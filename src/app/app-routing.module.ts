@@ -43,6 +43,7 @@ import { ApplicantDetailsComponent } from './applicant-details/applicant-details
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
 import { HrmsComponent } from './hrms/hrms.component';
+import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -106,6 +107,7 @@ const routes: Routes = [
   { path: 'organizationinfo' , component:OrganinfoComponent, canActivate: [AuthGuard]},
   { path: 'financialinfo' , component:FinancialInfoComponent, canActivate: [AuthGuard]},
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
+  { path: 'accounts-add-user', component:AccountsAddUserComponent},
   { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 

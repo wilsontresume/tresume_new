@@ -113,6 +113,7 @@ import { ApplicantDetailsComponent } from './applicant-details/applicant-details
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
 import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
+import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 
 
 
@@ -169,7 +170,8 @@ import { JobBoardAccountComponent } from './job-board-account/job-board-account.
     HrmsComponent,
     ConfirmationPopupComponent,
     SubmittedCandiatesComponent,
-    JobBoardAccountComponent,    
+    JobBoardAccountComponent,
+    AccountsAddUserComponent,    
   ],
   imports: [
     HttpClientModule,
