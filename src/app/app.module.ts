@@ -100,6 +100,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
+import { SearchTresumeComponent } from './search-tresume/search-tresume.component';
 //import { jsPDF } from 'jspdf';
 
 
@@ -154,6 +155,7 @@ import { OrganinfoComponent } from './organinfo/organinfo.component';
     AllJobPostingsComponent,
     OrganinfoComponent,
     FinancialInfoComponent,
+    SearchTresumeComponent,
     
     
   ],

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-new-jobs',
@@ -6,8 +9,49 @@ import { Component } from '@angular/core';
   styleUrls: ['./create-new-jobs.component.scss']
 })
 export class CreateNewJobsComponent{
- 
   
+  @ViewChild('myTabs') myTabs: TabsetComponent;
+  basicactive:string='active';
+  reqactive:string = '';
+  orginfoactive = '';
+  previewinfo = '';
+  address:string='';
+
+  companyname:string='';
+  jobtitle:string='';
+  zipcode:string='';
+  citycode:string='';
+  billrate:string='';
+  payrate:string='';
+
+  nextTab(tab:number) {
+    if(tab == 1){
+      this.basicactive = 'active';
+      this.reqactive = '';
+      this.orginfoactive = '';
+      this.previewinfo = '';
+    } else if(tab == 2){
+      this.basicactive = '';
+      this.reqactive = 'active';
+      this.orginfoactive = '';
+      this.previewinfo = '';
+    }else if(tab == 3){
+      this.basicactive = '';
+      this.reqactive = '';
+      this.orginfoactive = 'active';
+      this.previewinfo = '';
+    }else if(tab == 4){
+      this.basicactive = '';
+      this.reqactive = '';
+      this.orginfoactive = '';
+      this.previewinfo = 'active';
+    } 
+  
+  }
+
+
+
+
   filteredOwnership: any[] = [];
   selectedStatus: any[] = [];
   statusOptions: any[]=[{name:'Eligible to work in the US'},{name:'US Citizen'}, {name:'GC'}, {name:'F1'}, {name:'F1-CPT'},{name:'F1-OPT EAD'},{name:'GC-EAD'},{name:'H4-EAD'},{name:'L2-EAD'},{name:'Other EAD'},{name:'L1-Visa'},];
@@ -37,7 +81,7 @@ selectedCurrency: string = 'USD';
 
 
 
-  selectedTaxTerm: string = '';
+  selectedTaxTerms: string = '';
   taxTerms: any[] = [
     { value: '', label: 'Select' },
     { value: '1', label: '1099' },
@@ -120,12 +164,46 @@ selectedCurrency: string = 'USD';
   ];
 
 
-  constructor() { 
+  public content:any;
+  taxTermsOptions = [
+    { id: 1, name: 'Option 1' },
+    { id: 2, name: 'Option 2' },
+    { id: 3, name: 'Option 3' }
+  ];
+  selectedTaxTerm: any;
 
-  }
-  
+  departmentOptions = [
+    { id: 1, name: 'Department A' },
+    { id: 2, name: 'Department B' },
+    { id: 3, name: 'Department C' }
+  ];
+  selectedDepartment: any;
 
-  ngOnInit(): void {
-  }
+  recruitManager = [
+    { id: 1, name: 'Department A' },
+    { id: 2, name: 'Department B' },
+    { id: 3, name: 'Department C' }
+  ];
+  selectedrecmanger: any;
+
+  salesManager = [
+    { id: 1, name: 'Department A' },
+    { id: 2, name: 'Department B' },
+    { id: 3, name: 'Department C' }
+  ];
+  selectedsalesManager: any;
+
+  accountManager = [
+    { id: 1, name: 'Department A' },
+    { id: 2, name: 'Department B' },
+    { id: 3, name: 'Department C' }
+  ];
+  selectedaccountManager: any;
+
+  checkboxes = [
+    { label: 'ZipRecruiter', checked: false },
+    { label: 'Dice', checked: false }
+  ];
+
 
 }

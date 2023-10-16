@@ -39,6 +39,7 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
+import { SearchTresumeComponent } from './search-tresume/search-tresume.component';
 
 
 
@@ -86,6 +87,7 @@ const routes: Routes = [
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobposting' , component: AllJobPostingsComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
+  { path: 'searchtresume' , component:SearchTresumeComponent},
   { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
