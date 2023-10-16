@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-hrms',
   templateUrl: './hrms.component.html',
   styleUrls: ['./hrms.component.scss']
 })
-export class HrmsComponent implements OnInit {
-  
-  isPickerOpen: boolean = false;
-
-  togglePicker() {
-    this.isPickerOpen = !this.isPickerOpen;
-  }
-  items: any[] = [
+export class HrmsComponent {
+  datecreated:Date[];
+  followupon:Date[];
+  candidates: any[] = [
     {
       Viewed_By: 'Wilson AM',
       Name: 'client A',
@@ -24,9 +22,22 @@ export class HrmsComponent implements OnInit {
     },
   ];
 
-  constructor() { }
-
-  ngOnInit(): void {
+ 
+  constructor() {
+    
+   
   }
+  displayedCandidates: number = this.candidates.length;
+  totalCandidates: number = this.candidates.length;
 
+ 
+  performSearch(searchTerm: string) {
+    this.candidates = this.candidates.filter(candidate =>
+      candidate.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    this.displayedCandidates = this.candidates.length;
+  }
+ 
+ 
 }

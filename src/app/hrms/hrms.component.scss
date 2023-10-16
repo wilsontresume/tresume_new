@@ -2,29 +2,45 @@
     background-color: #46103d ; 
   }
 
-  .table-container {
-    height: 300px;
-    overflow-x: scroll; 
-    
-}
-.table-container::-webkit-scrollbar-track-horizontal {
-  background-color: #f1f1f1;
-}
-
-.table-container::-webkit-scrollbar-thumb-horizontal {
-  background-color: #888;
-}
-  .table {
+  table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
   }
   
-  
-  .th, td {
+  th, td {
+    border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
-    border: none;
   }
+  
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tr:hover {
+    background-color: #e0e0e0;
+  }
+  
+  i{
+    margin: 5px;
+    color: #94618e;
+  }
+ 
+  td{
+    color: #94618e;
+  }
+  i:hover {
+    color:#46103d;
+  }
+
+
+
   .btn-wdth {
     background-color: #46103d ; 
     text-align: center;
@@ -34,3 +50,34 @@
     height: 30px;   
     width: 50px;    
   }
+
+.host {
+  display: block;
+  padding: 1rem;
+  max-width: 600px;
+}
+ .main{
+  margin-top: 10px;
+  border-top: 2px solid #46103d;
+  border-bottom: 2px solid #46103d;
+ }
+
+ .fa-eye{
+  color: #46103d;
+ }
+
+ label {
+  flex-direction: row;
+  text-align: center;
+  width: 100px;
+  line-height: 26px;
+  margin-bottom: 10px;
+}
+
+input {
+  
+  height: 30px;
+  flex: 0 0 200px;
+  margin-left: 10px;
+}
+

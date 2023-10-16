@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { ChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AgGridModule } from 'ag-grid-angular';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
@@ -101,6 +100,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AllJobPostingsComponent } from './all-job-postings/all-job-postings.component';
 import { OrganinfoComponent } from './organinfo/organinfo.component';
 import { HrmsComponent } from './hrms/hrms.component';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 //import { jsPDF } from 'jspdf';
 
 
@@ -231,7 +233,7 @@ import { HrmsComponent } from './hrms/hrms.component';
     ProgressbarModule.forRoot(),
     PaginationModule.forRoot()
   ],
-  providers: [CookieService, AuthGuard, AppService],
+  providers: [CookieService,BsLocaleService, AuthGuard, AppService, ],
   bootstrap: [AppComponent],
   entryComponents: [ProgressRenderer]
 })
