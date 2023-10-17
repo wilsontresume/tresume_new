@@ -29,7 +29,6 @@ import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.co
 import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { GeneralComponent } from './general/general.component';
-import { PasswordFormComponent } from './password-form/password-form.component';
 import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.component';
 import { AllTimeSheetComponent } from './all-time-sheet/all-time-sheet.component';
 import { AllclientComponent } from './allclient/allclient.component';
@@ -41,11 +40,12 @@ import { OrganinfoComponent } from './organinfo/organinfo.component';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
 import { SearchTresumeComponent } from './search-tresume/search-tresume.component';
 import { HrmsComponent } from './hrms/hrms.component';
-import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
-
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
+import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
   { path: 'compliancedashboard', component: ComplianceDashboardComponent, canActivate: [AuthGuard]   },
@@ -79,10 +79,9 @@ const routes: Routes = [
   { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent},
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent },
   { path: 'searchtresume/reviewtresume/general', component: GeneralComponent },
-  { path: 'password-form' , component: PasswordFormComponent },
   { path: 'Myjobs/createnewjob', component:  CreateNewJobsComponent },
   { path: 'viewdetails', component: ViewDetailsComponent },
-  { path: 'addclient',component: AddclientComponent},
+
   { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobposting' , component: AllJobPostingsComponent},
@@ -94,27 +93,27 @@ const routes: Routes = [
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobpostings',component:AllJobPostingsComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
-  { path: 'financialinfo' , component:FinancialInfoComponent},
+  // { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
   { path: 'confirmpopup', component:ConfirmationPopupComponent},
   { path: 'submittedcandidates', component:SubmittedCandiatesComponent},
+  { path: 'reviewtresume', component:ReviewTresumeComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
   { path: 'adobesign/token/:token', component: AdobesignComponent1  , canActivate: [AuthGuard] },
   { path: 'timesheet/create', component: TimesheetCreateComponent  , canActivate: [AuthGuard] },
   { path: 'alltimesheet', component: AllTimeSheetComponent , canActivate: [AuthGuard]},
-  { path: 'searchtresume/reviewtresume/interview', component: InterviewComponent, canActivate: [AuthGuard]},
-  { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent, canActivate: [AuthGuard]},
+  // { path: 'searchtresume/reviewtresume/interview', component: InterviewComponent, canActivate: [AuthGuard]},
+  // { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent, canActivate: [AuthGuard]},
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard] },
-  { path: 'searchtresume/reviewtresume/general', component: GeneralComponent, canActivate: [AuthGuard] },
-  { path: 'password-form' , component: PasswordFormComponent, canActivate: [AuthGuard] },
-  { path: 'Myjobs/createnewjob', component:  CreateNewJobsComponent, canActivate: [AuthGuard] },
+  // { path: 'searchtresume/reviewtresume/general', component: GeneralComponent, canActivate: [AuthGuard] },
   { path: 'viewdetails', component: ViewDetailsComponent , canActivate: [AuthGuard]},
   { path: 'addclient',component: AddclientComponent, canActivate: [AuthGuard]},
   { path: 'allclient',component: AllclientComponent, canActivate: [AuthGuard]},
   { path: 'viewclient',component: ViewclientComponent, canActivate: [AuthGuard]},
   { path: 'jobposting' , component: AllJobPostingsComponent, canActivate: [AuthGuard]},
+  { path: 'subscription', component:SubscriptionComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent, canActivate: [AuthGuard]},
-  { path: 'financialinfo' , component:FinancialInfoComponent, canActivate: [AuthGuard]},
+  // { path: 'financialinfo' , component:FinancialInfoComponent, canActivate: [AuthGuard]},
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accounts-add-user', component:AccountsAddUserComponent},
   { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
