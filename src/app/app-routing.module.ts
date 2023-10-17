@@ -41,9 +41,11 @@ import { OrganinfoComponent } from './organinfo/organinfo.component';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
 import { SearchTresumeComponent } from './search-tresume/search-tresume.component';
 import { HrmsComponent } from './hrms/hrms.component';
+import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
+
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
   { path: 'compliancedashboard', component: ComplianceDashboardComponent, canActivate: [AuthGuard]   },

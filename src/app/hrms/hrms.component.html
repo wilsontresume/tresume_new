@@ -33,11 +33,11 @@
                     <div class="form-group text-center">
                         <label>Follow_Up_On</label>
                         <br>
-                        <div>   
-                            <label>start date:</label>                         
+                        <div>
+                            <label>start date:</label>
                             <input type="date" placeholder="start date">
-                            <label>End date:</label> 
-                            <input type="date" placeholder="End date">                           
+                            <label>End date:</label>
+                            <input type="date" placeholder="End date">
                         </div>
                     </div>
                 </div>
@@ -45,11 +45,11 @@
                     <div class="form-group text-center">
                         <label>Date_Created</label>
                         <br>
-                        <div>   
-                            <label>start date:</label>                     
+                        <div>
+                            <label>start date:</label>
                             <input type="date" placeholder="start date">
                             <label>End date:</label>
-                            <input type="date" placeholder="End date">                 
+                            <input type="date" placeholder="End date">
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,9 @@
                                     <td>{{ candidate.Date_Created }}</td>
                                     <td>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" placeholder="Follow Up On" style="width: 100px;">
+                                            <input type="text" class="form-control"
+                                                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                                placeholder="Follow Up On" style="width: 100px;">
                                             <a routerLink="/" class=" nav-link"><i class="fa fa-eye fa-fw"
                                                     style="font-size: 24px;"></i></a>
                                         </div>
