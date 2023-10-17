@@ -46,12 +46,14 @@
                         </tr>
                     </tbody>
                 </table>
+                
                 <!-- <div>
                   <ag-grid-angular style="width: 100%; height: 622px;" class="ag-theme-alpine" [rowData]="rowData"
                       [columnDefs]="columnDefs" [gridOptions]="gridOptions" [frameworkComponents]="frameworkComponents"
                       (gridReady)="onGridReady($event)">
                   </ag-grid-angular>
               </div> -->
+
                 <div *ngIf="showConfirmationDialog" class="modal align-center">
                     <div class="modal-content justify-content-center ">
                         <button type="button" class="close close-modal" (click)="cancelDelete()">

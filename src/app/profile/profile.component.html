@@ -1,0 +1,203 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1> User Profile</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <h4 class="card-title">Wilson AM</h4>
+                            <p class="card-text">LEAD TECHNICAL RECRUITER </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link" href="#aboutme" data-toggle="tab">About me</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="#Password" data-toggle="tab">Password</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link active" href="#Company" data-toggle="tab">Company
+                                    Information</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane" id="aboutme">
+                                <br>
+                                <div class="container">
+                                    <div class="row">
+                                      <div class="col">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" class="form-control custom-input" id="firstName" placeholder="First Name" [(ngModel)]="firstName">
+                                      </div>
+                                      <div class="col">
+                                        <label for="middleName">Middle Name</label>
+                                        <input type="text" class="form-control custom-input" id="middleName" placeholder="Middle Name" [(ngModel)]="middleName">
+                                      </div>
+                                      <div class="col">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" class="form-control custom-input" id="lastName" placeholder="Last Name" [(ngModel)]="lastName">
+                                      </div>
+                                    </div>
+                                  
+                                    <div class="row mt-3">
+                                      <div class="col">
+                                        <label for="userName">User Name</label>
+                                        <input type="text" class="form-control custom-input" id="userName" placeholder="User Name" [(ngModel)]="userName">
+                                      </div>
+                                      <div class="col">
+                                        <label for="yearsOfExperience">Years of Experience</label>
+                                        <select class="form-control custom-input" id="yearsOfExperience" [(ngModel)]="yearsOfExperience">
+                                          <option value="0">0 years</option>
+                                          <option value="1">1 year</option>
+                                          <option value="2">2 years</option>
+                                          <option value="3">3 years</option>
+                                          <option value="4">4 years</option>
+                                        </select>
+                                      </div>
+                                      <div class="col">
+                                        <label for="monthsOfExperience">Months of Experience</label>
+                                        <select class="form-control custom-input" id="monthsOfExperience" [(ngModel)]="monthsOfExperience">
+                                          <option value="0">0 months</option>
+                                          <option value="1">1 month</option>
+                                          <option value="2">2 months</option>
+                                          <option value="3">3 months</option>
+                                          <option value="4">4 months</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  
+                                    <div class="row mt-3">
+                                      <div class="col">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control custom-input" id="title" placeholder="Title" [(ngModel)]="title">
+                                      </div>
+                                      <div class="col">
+                                        <label for="dob">DOB</label>
+                                        <input type="date" class="form-control custom-input" id="dob" [(ngModel)]="dob">
+                                      </div>
+                                      <div class="col">
+                                        <label for="phoneNumber">Phone</label>
+                                        <input type="text" class="form-control custom-input" id="phoneNumber" placeholder="Phone Number" [(ngModel)]="phoneNumber">
+                                      </div>
+                                    </div>
+                                  
+                                    <div class="row mt-3">
+                                      <div class="col text-right">
+                                        <button class="btn btn-secondary">Cancel</button>
+                                        <button class="btn btn-primary ml-2" (click)="onSave()">Save</button>
+                                      </div>
+                                    </div>
+                                  </div>        
+                            </div>
+                            <div class="tab-pane" id="Password">
+                                <div class="container mt-4">
+                                  <h2>Password </h2>
+                                  <div class="form-row mt-4">
+                                    <div class="form-group col">
+                                      <label for="oldPassword">Old Password</label>
+                                      <input type="password" class="form-control" id="oldPassword" placeholder="Old Password" [(ngModel)]="oldPassword">
+                                    </div>
+                                    <div class="form-group col">
+                                      <label for="newPassword">New Password</label>
+                                      <input type="password" class="form-control" id="newPassword" placeholder="New Password" [(ngModel)]="newPassword">
+                                    </div>
+                                    <div class="form-group col">
+                                      <label for="confirmPassword">Confirm Password</label>
+                                      <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" [(ngModel)]="confirmPassword">
+                                    </div>
+                                  </div>
+                              
+                                  <div class="row mt-4">
+                                    <div class="col text-right">
+                                      <button class="btn btn-secondary">Cancel</button>
+                                      <button class="btn btn-primary ml-2" (click)="onSave()">Save</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div class="tab-pane active" id="Company">
+                                <div class="container mt-4">
+                                  <div class="container mt-4">
+                                    <!-- Row 1 -->
+                                    <div class="form-row mt-4">
+                                      <div class="form-group col-6">
+                                        <label for="companyName">
+                                          <h2>Organisation</h2>
+                                        </label>
+                                        <input type="text" class="form-control custom-input" id="companyName" placeholder="Enter Company Name" [(ngModel)]="companyName">
+                                      </div>
+                                    </div>
+                                    <!-- Row 2 -->
+                                    <div class="form-row mt-2">
+                                      <div class="form-group col-6">
+                                        <label for="logo">Logo Type:</label>
+                                        <img src="" alt="">
+                                      </div>
+                                    </div>
+                                    <!-- Row 3 -->
+                                    <div class="form-row mt-2">
+                                      <div class="form-group col-6">
+                                        <label for="state">State:</label>
+                                        <select class="form-control custom-input" id="state" [(ngModel)]="selectedState">
+                                          <option value="Georgia">Georgia</option>
+                                          <option value="Florida">Florida</option>
+                                          <option value="Hawaii">Hawaii</option>
+                                          <option value="Idaho">Idaho</option>
+                                          <option value="District of Columbia">District of Columbia</option>
+                                          <option value="Illinois">Illinois</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <!-- Row 4 -->
+                                    <div class="form-row mt-2">
+                                      <div class="form-group col-6">
+                                        <label for="city">City:</label>
+                                        <select class="form-control custom-input" id="city" [(ngModel)]="selectedCity">
+                                          <option value="Roswell">Roswell</option>
+                                          <option value="Rupert">Rupert</option>
+                                          <option value="Rydul">Rydul</option>
+                                          <option value="Rudledge">Rudledge</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <!-- Row 5 -->
+                                    <div class="form-row mt-2">
+                                      <div class="form-group col-6">
+                                        <label for="zipcode">Zip Code:</label>
+                                        <input type="text" class="form-control custom-input" id="zipcode" placeholder="Enter Zip Code" [(ngModel)]="zipcode">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group mt-4">
+                                    <p-editor [(ngModel)]="content" placeholder="textediter....." [style]="{'height':'320px', 'width':'100%'}" placeholder="Enter the email content to be sent......"></p-editor>
+                                  </div>
+                                  <div class="row mt-4">
+                                    <div class="col text-right">
+                                      <button class="btn btn-secondary">Cancel</button>
+                                      <button class="btn btn-primary ml-2" (click)="onSave()">Save</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
