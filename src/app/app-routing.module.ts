@@ -46,6 +46,10 @@ import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-po
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
+import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
+
+
+
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
   { path: 'compliancedashboard', component: ComplianceDashboardComponent, canActivate: [AuthGuard]   },
@@ -97,6 +101,7 @@ const routes: Routes = [
   { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
   { path: 'confirmpopup', component:ConfirmationPopupComponent},
+  { path: 'jobboardaccount', component:JobBoardAccountComponent},
   { path: 'submittedcandidates', component:SubmittedCandiatesComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
   { path: 'adobesign/token/:token', component: AdobesignComponent1  , canActivate: [AuthGuard] },
