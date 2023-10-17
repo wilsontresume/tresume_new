@@ -116,6 +116,7 @@ import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-can
 import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
 
 
 
@@ -175,7 +176,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
     SubmittedCandiatesComponent,
     JobBoardAccountComponent,
     AccountsAddUserComponent,    
-    SubscriptionComponent,    
+    SubscriptionComponent, ReviewTresumeComponent,    
   ],
   imports: [
     HttpClientModule,

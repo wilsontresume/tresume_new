@@ -86,7 +86,7 @@
           <div class="input-group">
           <input type="text" class="form-control" id="ssn" placeholder="SSN">
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" [routerLink]="['/password-form']">
+            <button class="btn btn-outline-secondary">
                 <i class="fa fa-eye"></i>
               </button>
           </div>
@@ -110,18 +110,13 @@
    
     <div class="row mt-2">
         <div class="col-md-4">
-            <label for="interviewMode">Current Status</label>
-            <select class="form-control" id="form-control" name="PLACED/WORKING AT CLIENT LOCATION">
-              <option value="current">-PLACED/WORKING AT CLIENT LOCATION-</option>
-              <option value="current">ON TRAINING</option>
-              <option value="current">DIRECT MARKETTING</option>
-              <option value="current">ON BENCH</option>
-              <option value="current">MARKETTING ON HOLD</option>
-              <option value="current">HAS OFFER</option>
-              <option value="current">FIRST TIME CALLER</option>
-              <option value="current">DROPPED TRAINING</option>
-            </select>
+          <label for="general">Current Status</label>
+          <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-control">
+            <option [ngValue]="null">Select</option>
+            <option *ngFor="let status of statuss" [value]="status">{{ status }}</option>
+          </select>
           </div>
+
         <div class="col-md-4">
           <label for="assistedBy">Legal Status Validity Start Date</label>
           <input type="text" class="form-control" id="assistedBy" name="assistedBy"placeholder="Legal Status Validity Start Date">
@@ -134,18 +129,14 @@
 
       <div class="row mt-2">
         <div class="col-md-4">
-            <label for="interviewMode">Legal Status</label>
-            <select class="form-control" id="legalStatus" name="Legal Status">
-              <option value="legalstatus">--Select--</option>
-              <option value="legalstatus">US CITIZEN</option>
-              <option value="legalstatus">GC</option>
-              <option value="legalstatus">F-1</option>
-              <option value="legalstatus">F1-CPT</option>
-              <option value="legalstatus">TSP-EAD</option>
-              <option value="legalstatus">GC-EAD</option>
-              <option value="legalstatus">L2-EAD</option>
-            </select>
+            <label for="general">Legal Status</label>
+          <select [(ngModel)]="selectedLegalStatus" name="legalstatus" id="legalstatus" class="form-control">
+            <option value="legalstatus">--SELECT--</option>
+            <option *ngFor="let legalstatus of legalstatuss" [value]="legalstatus">{{ legalstatus }}</option>
+          </select>
           </div>
+
+          
         <div class="col-md-4">
           <label for="assistedBy">FTC Notes</label>
           <input type="text" class="form-control" id="assistedBy" name="assistedBy"placeholder="FTC Notes">
@@ -160,6 +151,14 @@
 
       <div class="row mt-2">
         <div class="col-md-4">
+
+
+          <label for="general">Division</label>
+          <select [(ngModel)]="selectedDivision" name="division" id="division" class="form-control">
+            <option [ngValue]="null">Select</option>
+            <option *ngFor="let Division of Divisions" [value]="division">{{ division }}</option>
+          </select>
+<!-- 
             <label for="interviewMode">Division</label>
             <select class="form-control" id="division" name="division">
               <option value="division">--Select--</option>
@@ -170,7 +169,7 @@
               <option value="division">DEVOPS</option>
               <option value="division">SYSTEM ANALYST</option>
               <option value="division">DATA</option>
-            </select>
+            </select> -->
           </div>
         <div class="col-md-4">
           <label for="assistedBy">FTC Notes</label>
