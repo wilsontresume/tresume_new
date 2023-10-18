@@ -1,6 +1,6 @@
 
 .form-control{
-    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    box-shadow: rgb(193, 193, 193) 0px 2px 12px !important;
     // width: 200%;
 }
 h4.card-title {
@@ -28,7 +28,26 @@ h4.card-title {
 }
 button.btn.btn-secondary {
     background-color: #49274a;
+    width: 200px;
 }
 button.btn.btn-primary.ml-2 {
     background-color: #49274a;
+    width: 200px;
+}
+.edit-prf {
+    margin-top: 10px;
+    margin-right: 11px;
+}
+.icon{
+    font-size: 20px;
+    padding: 8px;
+    color: #8d086d;
+}
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    justify-content: space-between;
 }
