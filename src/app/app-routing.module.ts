@@ -81,7 +81,6 @@ const routes: Routes = [
   { path: 'searchtresume/reviewtresume/general', component: GeneralComponent },
   { path: 'Myjobs/createnewjob', component:  CreateNewJobsComponent },
   { path: 'viewdetails', component: ViewDetailsComponent },
-
   { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobposting' , component: AllJobPostingsComponent},
