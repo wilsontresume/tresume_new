@@ -401,8 +401,50 @@
         <!-- placement -->
         
         
-        <mat-tab label="Placement">Content for Placement
-          
+        <mat-tab label="Placement">
+          <table>
+            <tbody>
+              <tr class="text-dark">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th class="text-dark">Click to view placement form</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+
+                  <a [routerLink]="['/placementview']" routerLinkActive="active">
+                    <i class="fas fa-eye" font-size="24px"></i>
+                  </a>
+                  <!-- <a routerLink= class="quick-view-link">
+                    <i class="btn fa fa-eye"></i> 
+                  </a> -->
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <!-- <a [routerLink]="['/Myjobs/createnewjob']"><i class="fas fa-pencil-alt" (click)="editJob(job)"></i></a>
+                  <a [routerLink]="['/submittedcandidates']"><i class="fas fa-id-badge" (click)="viewProfile(job)"></i></a>
+                  <a [routerLink]="['/jobpostings']"> <i class="fas fa-trash-alt" (click)="confirmDeleteJob(job)"></i></a> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
        
         </mat-tab>
   
@@ -645,6 +687,44 @@
 site visit
 <mat-tab label="Site Visit">
   <div class="container">
+
+    <table>
+      <tbody>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th class="text-dark">Click to site visit</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+
+            <a [routerLink]="['/candidateView', 31466, 'sitevisit']" routerLinkActive="active">
+              <i class="fas fa-eye" style="font-size: 24px;"></i>
+            </a>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>    
   </mat-tab>
   </mat-tab>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { CandidateComponent } from '../candidate/candidate.component';
+import { Routes } from '@angular/router';
 
 @Component({
   selector: 'app-review-tresume',
@@ -7,7 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./review-tresume.component.scss']
 })
 export class ReviewTresumeComponent {
-  
   
 //generalinfo
 
@@ -107,3 +107,10 @@ constructor() { }
   selectedOption: string = ''; 
 
 }
+const routes: Routes = [
+  // ...other routes
+  {
+    path: 'candidateView/:id/sitevisit',
+    component: CandidateComponent, // Replace with the actual component for the site visit
+  },
+];
