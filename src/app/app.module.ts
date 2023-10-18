@@ -118,6 +118,8 @@ import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.
 import { ProfileComponent } from './profile/profile.component';
 import { AboutmeComponent } from './aboutme/aboutme.component';
 import { InformationComponent } from './information/information.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
 
 
 
@@ -180,6 +182,8 @@ import { InformationComponent } from './information/information.component';
     ProfileComponent,
     AboutmeComponent,
     InformationComponent,    
+    AccountsAddUserComponent,    
+    SubscriptionComponent, ReviewTresumeComponent,    
   ],
   imports: [
     HttpClientModule,

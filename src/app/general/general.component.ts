@@ -16,7 +16,30 @@ export class GeneralComponent implements OnInit {
   value6:'Name 6',
 }
 ]
+firstName: string = '';
+middleName: string = '';
+lastName: string = '';
+phoneNumber: number;
+email: string = '';
+dealOffered: string = '';
+referredByExternal: string = '';
+statusDate: string='';
+duiFelonyInfo: string=''; 
+statusStartDate: string='';
+statusEndtDate: string='';
 
+
+
+selectedStatus: string = '-PLACED/WORKING AT CLIENT LOCATION-'; 
+statuss: string[] = ['ON TRAINING', 'DIRECT MARKETTING', 'ON BENCH', 'MARKETTING ON HOLD', 'HAS OFFER','FIRST TIME CALLER','DROPPED TRAINING'];
+
+
+selectedLegalStatus: string = '-eligible to work in US-'; 
+legalstatuss: string[] = ['eligible to work in US', 'US CITIZEN', 'GC', 'F-1', 'F1-CPT','TSP-EAD','GC-EAD','L2-EAD'];
+
+
+selectedDivision: string = '-select-'; 
+Divisions: string[] = ['PROJECT COORDINATOR', 'SALES FORCE', 'SALESFORCE DEVELOPER & SALESFORCE/BA/DA/QA', 'DEVOPS', 'SYSTEM ANALYST','DATA',];
 
   
   constructor() { }

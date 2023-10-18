@@ -16,6 +16,7 @@ export class CreateNewJobsComponent{
   orginfoactive = '';
   previewinfo = '';
   address:string='';
+  selectedLegalstatus:string = '';
 
   companyname:string='';
   jobtitle:string='';
@@ -46,7 +47,7 @@ export class CreateNewJobsComponent{
       this.orginfoactive = '';
       this.previewinfo = 'active';
     } 
-  
+  console.log(this.selectedLegalstatus);
   }
 
 
@@ -78,7 +79,6 @@ selectedCurrency: string = 'USD';
 
   selectedPayType: string = 'hour';
   payTypes: string[] = ['hour', 'day', 'week', 'bi-week', 'month', 'year'];
-
 
 
   selectedTaxTerms: string = '';
@@ -119,7 +119,7 @@ selectedCurrency: string = 'USD';
     { value: '4', label: 'Medium' }
   ];
 
-  selectedJobStatus: string = '0';
+  selectedJobStatus: string = '';
   jobStatusOptions: any[] = [
     { value: '0', label: 'Select' },
     { value: '1', label: 'Open' },
@@ -130,6 +130,7 @@ selectedCurrency: string = 'USD';
     { value: '6', label: 'On Hold by Lead' }
   ];
 
+  
   selectedClient: string = ''; 
   clientOptions: any[] = [
     { value: '', label: 'Select' },
@@ -148,6 +149,7 @@ selectedCurrency: string = 'USD';
     { value: '4', label: 'Hangouts' },
     { value: '5', label: 'WebEx' }
   ];
+
 
   
   selectedExperience: string = ''; 
@@ -204,6 +206,20 @@ selectedCurrency: string = 'USD';
     { label: 'ZipRecruiter', checked: false },
     { label: 'Dice', checked: false }
   ];
+
+  selectedPrimaryRecruiter: string = '';
+ RecruiterStatusOptionsons: any[] = [
+    { value: '', label: 'Select' },
+    { value: '1', label: 'PORKODI BASKARAN' },
+    { value: '2', label: 'PORKODI B' },
+    { value: '3', label: 'RENUKA Aed' },
+    { value: '4', label: 'WILSON AM' },
+    { value: '5', label: 'TEST1' },
+    { value: '6', label: 'TEST V2' }
+  ];
+
+  
+
 
 
 }
