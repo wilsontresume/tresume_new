@@ -1,1 +1,124 @@
-<p>job-board-account works!</p>
+<div class="header">
+<div class="container ml-4 pt-4">
+    <h3 class="title pt-2">JOB BOARD ACCOUNT</h3>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#integrations">Integrations</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#productivity">Productivity Apps</a>
+      </li>
+    </ul>
+  
+    <div class="tab-content">
+      <div id="integrations" class="tab-pane fade show active">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card mt-4">
+            <div class="card-body">
+          <p class="text-center">Add New Account</p>
+          <label for="accountName">Account Name</label>
+          <input type="text" id="accountName" [(ngModel)]="accountName" class="form-control" placeholder="Enter account name" required>
+          <p class="text-center mt-4">Subscription Valid</p>
+          <div class="form-group">
+            <label for="fromDate">From</label>
+            <input type="date" id="fromDate" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="toDate">To</label>
+            <input type="date" id="toDate" class="form-control">
+          </div>
+          <p class="text-center">Select Job Board</p>
+          <div class="form-group">
+            <select id="optionSelect" class="form-control" [(ngModel)]="selectedJobBoard" >
+                <option>ZipRecruiter</option>
+            <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+              </select>
+          </div>
+            </div>
+            </div>
+            </div>
+          <div class="col-md-3">
+            <div class="card mt-4">
+              <div class="card-body">
+                <p class="text-center">ZipRecruiter</p>
+
+        
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input [type]="passwordInputType" id="password" class="form-control">
+        </div>
+
+        
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="showPassword" (change)="togglePasswordVisibility()">
+          <label class="form-check-label" for="showPassword">Show Password</label>
+        </div>
+
+     
+        <button type="button" class="btn btn-primary float-right mt-2" (click)="addAccount()" >Add Account</button>
+      
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mt-4">
+              <div class="card-body">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Board</th>
+                        <th>Account Name</th>
+                        <th>Posting</th>
+                        <th>Search</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let account of accounts; let i = index">
+                        <td>{{ selectedJobBoard }}</td>
+                        <td>{{ account.accountName }}</td>
+                        <td>active</td>
+                        <td>active</td>
+                        <td>
+                          <select [(ngModel)]="account.status" class="form-control">
+                            <option value="active">on</option>
+                            <option value="inactive">off</option>
+                          </select>
+                        </td>
+                        <td><i (click)="deleteAccount(i)" class="fa fa-trash"></i></td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div id="productivity" class="tab-pane fade">
+        <div class="row">
+          <div class="col-md-3 mt-5">
+            <div class="card">
+              <div class="card-body">
+                Card 1 - Productivity App
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mt-5">
+            <div class="card">
+              <div class="card-body">
+                Card 2 - Productivity App
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
