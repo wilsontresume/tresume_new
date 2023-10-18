@@ -43,9 +43,17 @@ import { HrmsComponent } from './hrms/hrms.component';
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
+import { ProfileComponent } from './profile/profile.component';
+import { InformationComponent } from './information/information.component';
+import { PasswordComponent } from './password/password.component';
+import { AboutmeComponent } from './aboutme/aboutme.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
+import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
+
+
+
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
   { path: 'compliancedashboard', component: ComplianceDashboardComponent, canActivate: [AuthGuard]   },
@@ -74,7 +82,7 @@ const routes: Routes = [
   { path: 'adobesign/token/:token', component: AdobesignComponent1   },
   { path: 'timesheet/create', component: TimesheetCreateComponent   },
   { path: 'alltimesheet', component: AllTimeSheetComponent },
-  { path: 'login', component: LoginComponent },
+  // { path: 'login', component: LoginComponent },
   { path: 'searchtresume/reviewtresume/interview', component: InterviewComponent},
   { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent},
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent },
@@ -96,6 +104,7 @@ const routes: Routes = [
   // { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
   { path: 'confirmpopup', component:ConfirmationPopupComponent},
+  { path: 'jobboardaccount', component:JobBoardAccountComponent},
   { path: 'submittedcandidates', component:SubmittedCandiatesComponent},
   { path: 'reviewtresume', component:ReviewTresumeComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
@@ -117,8 +126,13 @@ const routes: Routes = [
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accounts-add-user', component:AccountsAddUserComponent},
   { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
+  {path:'profile',component:ProfileComponent},
+  {path:'information',component:InformationComponent},
+  {path:'password',component:PasswordComponent},
+  {path:'aboutme',component:AboutmeComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
+  
 
 ];
 

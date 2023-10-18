@@ -185,13 +185,15 @@
               <i class="nav-icon fas fa-address-book "></i>
               <p> HRMS</p>
             </a>
+          </li>
+          
             <!-- <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=SearchResumes" class="nav-link">
               <i class="nav-icon fas fa-search"></i>
               <p>
                 Search Tresume
               </p>
             </a> -->
-          </li>
+          
           <li class="nav-item">
             <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=JobApplication1" class="nav-link">
               <i class="nav-icon fas fa-clone"></i>
@@ -312,11 +314,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=Profile" class="nav-link">
+            <!-- <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=Profile" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 My Profile
               </p>
+            </a> -->
+            <a routerLink="/profile" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>  My Profile</p>
             </a>
           </li>
           <li class="nav-item">

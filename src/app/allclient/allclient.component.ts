@@ -14,12 +14,18 @@ export class AllclientComponent implements OnInit {
       Website: 'www.clienta.com',
       Owner: 'John Doe',
     },
+    {
+      clientName: 'Client A',
+      EmailID: 'clienta@example.com',
+      Website: 'www.clienta.com',
+      Owner: 'John Doe',
+    },
   ];
   showConfirmationDialog: boolean = false;
   sortByColumn: string = '';
   sortDirection: string = 'asc';
 
-  constructor(private router: Router) { }
+
 
   ngOnInit(): void {
     this.sortBy('ClientName');
@@ -45,9 +51,13 @@ export class AllclientComponent implements OnInit {
     this.showConfirmationDialog = true;
    }
    confirmDelete() {
-   
+    const index = 1; 
+    if (index >= 0 && index < this.items.length) {
+      this.items.splice(index, 1);
+    }
     this.showConfirmationDialog = false;
   }
+    
 
   cancelDelete() {
     
