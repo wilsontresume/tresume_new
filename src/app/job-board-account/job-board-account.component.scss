@@ -1,0 +1,42 @@
+ 
+  .card {
+    margin-top: 50px;
+  }
+  .card-body{
+    border-top: 3px solid #550355;
+  }
+  
+ .title{
+    border-top: 3px solid #550355;
+
+ }
+  .card{
+    border: none;
+  }
+  input {
+    border-radius: 0;
+  }
+  
+.table {
+    width: 100%;
+    margin-bottom: 0;
+  }
+  
+  .table thead th {
+    text-align: center;
+  }
+  
+  .table tbody td {
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  .table tbody td select {
+    width: 100%;
+  }
+  
+  .table tbody td button {
+    margin: 0 auto;
+    display: block;
+  }
+  

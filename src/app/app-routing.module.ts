@@ -50,12 +50,16 @@ import { AboutmeComponent } from './aboutme/aboutme.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
+import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
+
+
+
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
   { path: 'compliancedashboard', component: ComplianceDashboardComponent, canActivate: [AuthGuard]   },
   { path: 'candidateView/:traineeId', component: CandidateComponent, canActivate: [AuthGuard]   },
-  { path: 'candidateView/:traineeId/sitevisit', component: SiteVisitComponent, canActivate: [AuthGuard]   },
-  { path: 'candidateView/:traineeId/placement/:placementID', component: PlacementViewComponent, canActivate: [AuthGuard]   },
+  { path: 'candidateView/31466/sitevisit', component: SiteVisitComponent, canActivate: [AuthGuard]   },
+  { path: 'placementview', component: PlacementViewComponent, canActivate: [AuthGuard]   },
   { path: 'candidateView/:traineeId/create', component: PlacementViewComponent, canActivate: [AuthGuard]   },
   { path: 'search', component: SearchResumesComponent, canActivate: [AuthGuard]  },
   { path: 'search/cb', component: SearchResumesCBComponent , canActivate: [AuthGuard]  },
@@ -93,13 +97,14 @@ const routes: Routes = [
   { path: 'searchtresume' , component:SearchTresumeComponent},
   { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: 'addclient',component: AddclientComponent},
-  { path: 'allclient',component: AllclientComponent},
+  // { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobpostings',component:AllJobPostingsComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   // { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
   { path: 'confirmpopup', component:ConfirmationPopupComponent},
+  { path: 'jobboardaccount', component:JobBoardAccountComponent},
   { path: 'submittedcandidates', component:SubmittedCandiatesComponent},
   { path: 'reviewtresume', component:ReviewTresumeComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
@@ -110,13 +115,13 @@ const routes: Routes = [
   // { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent, canActivate: [AuthGuard]},
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard] },
   // { path: 'searchtresume/reviewtresume/general', component: GeneralComponent, canActivate: [AuthGuard] },
-  { path: 'viewdetails', component: ViewDetailsComponent , canActivate: [AuthGuard]},
-  { path: 'addclient',component: AddclientComponent, canActivate: [AuthGuard]},
-  { path: 'allclient',component: AllclientComponent, canActivate: [AuthGuard]},
-  { path: 'viewclient',component: ViewclientComponent, canActivate: [AuthGuard]},
-  { path: 'jobposting' , component: AllJobPostingsComponent, canActivate: [AuthGuard]},
-  { path: 'subscription', component:SubscriptionComponent},
-  { path: 'organizationinfo' , component:OrganinfoComponent, canActivate: [AuthGuard]},
+  // { path: 'viewdetails', component: ViewDetailsComponent , canActivate: [AuthGuard]},
+  // { path: 'addclient',component: AddclientComponent, canActivate: [AuthGuard]},
+  // { path: 'allclient',component: AllclientComponent, canActivate: [AuthGuard]},
+  // { path: 'viewclient',component: ViewclientComponent, canActivate: [AuthGuard]},
+  // { path: 'jobposting' , component: AllJobPostingsComponent, canActivate: [AuthGuard]},
+  // { path: 'subscription', component:SubscriptionComponent},
+  // { path: 'organizationinfo' , component:OrganinfoComponent, canActivate: [AuthGuard]},
   // { path: 'financialinfo' , component:FinancialInfoComponent, canActivate: [AuthGuard]},
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accounts-add-user', component:AccountsAddUserComponent},
