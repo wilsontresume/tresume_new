@@ -58,3 +58,52 @@ select#referedBy option:hover {
     color: #94618e;
   }
   
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tr:hover {
+    background-color: #e0e0e0;
+  }
+  
+  i{
+    margin: 5px;
+    color: #94618e;
+  }
+ 
+tr th{
+  color: black;
+}
+  i:hover {
+    color: darkviolet;
+  }
+ .main-container{
+  background:#fff;
+  margin-top: 0;
+  border-radius: 5px;
+ }
+tbody{
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+.btn:hover{
+  background-color: rgb(56, 8, 56);
+  border-color: rgb(56, 8, 56) ;
+}

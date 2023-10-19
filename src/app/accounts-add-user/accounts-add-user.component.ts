@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -8,9 +9,46 @@ import { Component } from '@angular/core';
 })
 export class AccountsAddUserComponent {
 
+  userForm: FormGroup;
   CreatedDate: Date = new Date();
   RemainingDate: Number = 52;
   Recruiters: Number = 14;
+  
+constructor(private fb: FormBuilder){ this.userForm = this.fb.group({
+  First_Name: ['', Validators.required],
+  Last_Name: ['', Validators.required],
+  User_Email: ['', [Validators.required, Validators.email]],
+  Dice_Allocated: ['0', Validators.min(0)],
+  Dice_Used: ['0', Validators.min(0)],
+  CB_Allocated: ['0', Validators.min(0)],
+  CB_Used: ['0', Validators.min(0)],
+  Role: ['Admin', Validators.required],
+  Lead: [[]],
+  corporateDocs: [false],
+  tracker: [false],
+});}
+
+isEditMode = false; 
+  userToEdit: any;
+
+  enterEditMode(user: any) {
+    this.isEditMode = true;
+    this.userToEdit = user;
+    
+  }
+
+  
+  exitEditMode() {
+    this.isEditMode = false;
+    this.userToEdit = null;
+    
+  }
+
+ 
+  saveEditChanges() {
+    
+    this.exitEditMode(); 
+  }
 
   User_Accounts: any[] = [
     {
@@ -48,7 +86,27 @@ export class AccountsAddUserComponent {
 
     this.displayedUsers = this.User_Accounts.length;
   }
+
+  showAddUser: boolean = false;
+
+  addUser() {
+    this.showAddUser = true;
+  }
+
+  confirmAddUser() {
+   
+  }
+
+  cancelAddUser() {
+    
+    console.log(this.showAddUser);
+    
+    this.showAddUser = false;
+  }
+
+
   showAddRole: boolean = false;
+
   addRole() {
     this.showAddRole = true;
   }
@@ -82,10 +140,44 @@ export class AccountsAddUserComponent {
   }
 
   cancelDelete() {
-    
     console.log(this.showConfirmationDialog);
     this.deleteIndex = -1;
     this.showConfirmationDialog = false;
   }
 
+  tableData = [
+    { contents: 'Job Boards', assigned: true, team: true, all: true },
+    { contents: 'Hrms', assigned: true, team: true, all: true },
+    { contents: 'Jobs', assigned: true, team: true, all: true },
+    { contents: 'Reports', assigned: true, team: true, all: true },
+    { contents: 'Harvest', assigned: true, team: true, all: true },
+    { contents: 'Timesheet', assigned: true, team: true, all: true },
+    { contents: 'Clients', assigned: true, team: true, all: true },
+    { contents: 'Talent Bench', assigned: true, team: true, all: true },
+    { contents: 'Batch', assigned: true, team: true, all: true },
+    { contents: 'Workforce', assigned: true, team: true, all: true },
+  ];
+
+  tableData1 = [
+    { contents1: 'Job Boards', viewonly: true, fullaccess: true },
+    { contents1: 'Hrms', viewonly: true, fullaccess: true },
+    { contents1: 'Jobs', viewonly: true, fullaccess: true },
+    { contents1: 'Reports', viewonly: true, fullaccess: true },
+    { contents1: 'Harvest', viewonly: true, fullaccess: true },
+    { contents1: 'Timesheet', viewonly: true, fullaccess: true },
+    { contents1: 'Clients', viewonly: true, fullaccess: true },
+    { contents1: 'Talent Bench', viewonly: true, fullaccess: true },
+    { contents1: 'Batch', viewonly: true, fullaccess: true },
+    { contents1: 'Workforce', viewonly: true, fullaccess: true },
+  ];
+  Teamlead: any[]=[{name:'Parvathy'}, {name:'abc'}, {name:'DEF'}, {name:'def'}];
+  selectedTeamlead: any[] = [];
+  filteredTeamlead: any[] = [];
+  onTeamleadSearch(event: any) {
+    this.filteredTeamlead = this.Teamlead.filter(option =>
+      option.toLowerCase().includes(event.query.toLowerCase())
+    );
+  }
+
+ 
 }

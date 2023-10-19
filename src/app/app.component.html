@@ -159,7 +159,7 @@
           <!-- Add icons to the links using the .nav-icon class
   with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a class="nav-link" routerLink="/dashboard/{{traineeID}}" routerLinkActive="active">
+            <a class="nav-link" routerLink="/dashboard/{{traineeID}}" >
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
                 Dashboard
@@ -167,7 +167,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/compliancedashboard" routerLinkActive="active">
+            <a class="nav-link" routerLink="/compliancedashboard">
               <i class="nav-icon fas fa-chart-bar"></i>
               <p>
                 Compliance Dashboard
@@ -175,7 +175,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="/jobboardaccount" class=" nav-link">
+            <a routerLink="/job-boards" class=" nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>Job Boards</p>
             </a>
@@ -195,7 +195,7 @@
             </a> -->
           
           <li class="nav-item">
-            <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=JobApplication1" class="nav-link">
+            <a routerLink="/jobapplication" class="nav-link">
               <i class="nav-icon fas fa-clone"></i>
               <p>
                 Job Applications
@@ -249,83 +249,6 @@
             </a>
           </li> -->
           <li class="nav-item">
-            <a routerLink="/alltimesheet" class=" nav-link">
-              <i class="nav-icon fas fa-clock"></i>
-              <p>Timesheet</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a routerLink="/allclient" class=" nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>Clients</p>
-            </a>
-          </li>
-          <!-- <li class="nav-item">
-            <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=ShowClients" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Clients
-              </p>
-            </a>
-          </li> -->
-          <li class="nav-item">
-            <a routerLink="/talentbench" class=" nav-link">
-              <i class="nav-icon fas fa-user-circle"></i>
-              <p>
-                Talent Bench
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=Batch" class="nav-link">
-              <i class="nav-icon fas fa-id-card"></i>
-              <p>
-                Batch
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-                My Account
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=WorkFlowPayment" class="nav-link">
-                  <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                  <p>Subscription</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=AccountMembers" class="nav-link">
-                  <i class="nav-icon far fa-user"></i>
-                  <p>Add Users</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a routerLink="/division" class=" nav-link">
-              <i class="nav-icon fas fa-sitemap"></i>
-              <p>Division</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <!-- <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=Profile" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                My Profile
-              </p>
-            </a> -->
-            <a routerLink="/profile" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>  My Profile</p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
@@ -348,6 +271,93 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a routerLink="/alltimesheet" class=" nav-link">
+              <i class="nav-icon fas fa-clock"></i>
+              <p>Timesheet</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a routerLink="/allclient" class=" nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Clients</p>
+            </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=ShowClients" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Clients
+              </p>
+            </a>
+          </li> -->
+          
+          <li class="nav-item">
+            <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=TalentBench1" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>
+                Talent Bench
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/batch" class="nav-link">
+              <i class="nav-icon fas fa-id-card"></i>
+              <p>
+                Batch
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                My Account
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=WorkFlowPayment" class="nav-link">
+                  <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                  <p>Subscription</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="/accounts-add-user" class="nav-link">
+                  <i class="nav-icon fas fa-user "></i>
+                  <p> Add Users </p>
+                </a>
+              </li>
+              <!-- <li class="nav-item">
+                <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=AccountMembers" class="nav-link">
+                  <i class="nav-icon far fa-user"></i>
+                  <p>Add Users</p>
+                </a>
+              </li> -->
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/division" class=" nav-link">
+              <i class="nav-icon fas fa-sitemap"></i>
+              <p>Division</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <!-- <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=Profile" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                My Profile
+              </p>
+            </a> -->
+            <a routerLink="/profile" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>  My Profile</p>
+            </a>
+          </li>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
