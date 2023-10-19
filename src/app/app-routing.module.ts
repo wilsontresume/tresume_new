@@ -51,7 +51,12 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
+
+import { application } from 'express';
+import { JobAppicationComponent } from './job-appication/job-appication.component';
+
 import { BatchComponent } from './batch/batch.component';
+
 
 
 
@@ -92,7 +97,6 @@ const routes: Routes = [
   { path: 'viewdetails', component: ViewDetailsComponent },
   { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
-  { path: 'jobposting' , component: AllJobPostingsComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   { path: 'searchtresume' , component:SearchTresumeComponent},
   { path: 'financialinfo' , component:FinancialInfoComponent},
@@ -100,6 +104,7 @@ const routes: Routes = [
   // { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobpostings',component:AllJobPostingsComponent},
+  { path: 'jobapplication',component:JobAppicationComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   // { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
