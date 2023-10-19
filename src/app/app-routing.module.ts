@@ -52,6 +52,12 @@ import { ReviewTresumeComponent } from './review-tresume/review-tresume.componen
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
 
+import { application } from 'express';
+import { JobAppicationComponent } from './job-appication/job-appication.component';
+
+import { BatchComponent } from './batch/batch.component';
+
+
 
 
 const routes: Routes = [
@@ -90,13 +96,13 @@ const routes: Routes = [
   { path: 'viewdetails', component: ViewDetailsComponent },
   { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
-  { path: 'jobposting' , component: AllJobPostingsComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   { path: 'searchtresume' , component:SearchTresumeComponent},
   { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: 'addclient',component: AddclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobpostings',component:AllJobPostingsComponent},
+  { path: 'jobapplication',component:JobAppicationComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
   { path: 'confirmpopup', component:ConfirmationPopupComponent},
@@ -115,6 +121,7 @@ const routes: Routes = [
   {path:'information',component:InformationComponent},
   {path:'password',component:PasswordComponent},
   {path:'aboutme',component:AboutmeComponent},
+  {path:'batch',component:BatchComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
   

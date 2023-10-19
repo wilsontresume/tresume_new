@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
     // });
   }
   onSave() {
-    
+    console.log(this.firstName)
   }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -77,5 +77,7 @@ export class ProfileComponent implements OnInit {
     }
  // this.editmode = !this.editmode;
    }
-
+   selectDateOption(option: string) {
+    console.log(`Selected date option: ${option}`);
+}
 }
