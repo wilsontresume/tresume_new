@@ -51,6 +51,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
+import { BatchComponent } from './batch/batch.component';
 
 
 
@@ -130,6 +131,7 @@ const routes: Routes = [
   {path:'information',component:InformationComponent},
   {path:'password',component:PasswordComponent},
   {path:'aboutme',component:AboutmeComponent},
+  {path:'batch',component:BatchComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
   
