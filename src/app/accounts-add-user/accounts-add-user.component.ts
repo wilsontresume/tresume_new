@@ -48,7 +48,27 @@ export class AccountsAddUserComponent {
 
     this.displayedUsers = this.User_Accounts.length;
   }
+
+  showAddUser: boolean = false;
+
+  addUser() {
+    this.showAddUser = true;
+  }
+
+  confirmAddUser() {
+   
+  }
+
+  cancelAddUser() {
+    
+    console.log(this.showAddUser);
+    
+    this.showAddUser = false;
+  }
+
+
   showAddRole: boolean = false;
+
   addRole() {
     this.showAddRole = true;
   }
@@ -82,10 +102,21 @@ export class AccountsAddUserComponent {
   }
 
   cancelDelete() {
-    
     console.log(this.showConfirmationDialog);
     this.deleteIndex = -1;
     this.showConfirmationDialog = false;
   }
 
+  tableData = [
+    { contents: 'Job Boards', assigned: true, team: true, all: true },
+    { contents: 'Hrms', assigned: true, team: true, all: true },
+    { contents: 'Jobs', assigned: true, team: true, all: true },
+    { contents: 'Reports', assigned: true, team: true, all: true },
+    { contents: 'Harvest', assigned: true, team: true, all: true },
+    { contents: 'Timesheet', assigned: true, team: true, all: true },
+    { contents: 'Clients', assigned: true, team: true, all: true },
+    { contents: 'Talent Bench', assigned: true, team: true, all: true },
+    { contents: 'Batch', assigned: true, team: true, all: true },
+    { contents: 'Workforce', assigned: true, team: true, all: true },
+  ];
 }
