@@ -51,6 +51,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
 import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
+import { TalentBenchComponent } from './talent-bench/talent-bench.component';
 
 
 
@@ -100,6 +101,7 @@ const routes: Routes = [
   { path: 'allclient',component: AllclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobpostings',component:AllJobPostingsComponent},
+  { path: 'talentbench',component: TalentBenchComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   // { path: 'financialinfo' , component:FinancialInfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
