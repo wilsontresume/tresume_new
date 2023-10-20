@@ -1,7 +1,7 @@
 <div class="row1">
     <div class="row bg-clr ml-0 mr-0">
         <div class="col">
-            <h3 class="text-white ml-3 mt-3">CLIENT DETAILS</h3>
+            <h3 class="text-white ml-3 mt-3">VENDOR DETAILS</h3>
         </div>
     </div>
 </div>
@@ -23,16 +23,16 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group text-center">
-                        <label>Client Name *</label>
-                        <input name="ClientName" type="text" maxlength="500" id="ClientName" class="form-control"
-                            placeholder="Client Name">
+                        <label>Vendor Name *</label>
+                        <input name="vendorName" type="text" maxlength="500" id="vendorName" class="form-control"
+                            placeholder="vendor Name">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-center">
-                        <label>VMS Client Name</label>
-                        <input name="VMSClientName" type="text" maxlength="500" id="VMSClientName" class="form-control"
-                            placeholder="VMS Client Name">
+                        <label>VMS Vendor Name</label>
+                        <input name="VMSvendorName" type="text" maxlength="500" id="VMSvendorName" class="form-control"
+                            placeholder="VMS vendor Name">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -56,7 +56,7 @@
                 <div class="col-md-4">
                     <div class="form-group text-center">
                         <label>Email ID *</label>
-                        <input name="ClientEmailID" type="text" maxlength="500" id="ClientEmailID" class="form-control"
+                        <input name="vendorEmailID" type="text" maxlength="500" id="vendorEmailID" class="form-control"
                             placeholder="Email ID">
                         <p>Email ID is required</p>
                     </div>
@@ -158,7 +158,7 @@
                 <div class="col-md-4 ">
                     <div class="form-group text-center">
                         <label>Website</label>
-                        <input name="ClientWebsite" type="text" maxlength="500" id="ClientWebsite" class="form-control"
+                        <input name="vendorWebsite" type="text" maxlength="500" id="vendorWebsite" class="form-control"
                             placeholder="Website">
                     </div>
                 </div>
@@ -258,7 +258,7 @@
                 <div class="col-md-4">
                     <div class="form-group text-center">
                         <label>Status</label>
-                        <select name="ClientStatus" id="ClientStatus" class="form-control">
+                        <select name="vendorStatus" id="vendorStatus" class="form-control">
                             <option selected="selected" value="0">Select</option>
                             <option value="1">Active</option>
                             <option value="2">Archive</option>
@@ -272,7 +272,7 @@
                 <div class="col-md-4">
                     <div class="form-group text-center">
                         <label>Category</label>
-                        <select name="ClientCategory" id="ClientCategory" class="form-control">
+                        <select name="vendorCategory" id="vendorCategory" class="form-control">
                             <option selected="selected" value="0">Select</option>
                             <option value="1">Direct</option>
                             <option value="2">Tier 1</option>
@@ -298,22 +298,24 @@
                     <div class="form-group text-center">
                         <label>Ownership</label>
                         <div class=" flex text-center">
-                            <p-multiSelect [options]="Ownership" [(ngModel)]="selectedOwnership" defaultLabel="Ownership"
-                                optionLabel="name" (onSearch)="onOwnershipSearch($event)" [filter]="true" display="chip">
+                            <p-multiSelect [options]="Ownership" [(ngModel)]="selectedOwnership"
+                                defaultLabel="Ownership" optionLabel="name" (onSearch)="onOwnershipSearch($event)"
+                                [filter]="true" display="chip">
                             </p-multiSelect>
                         </div>
                     </div>
-                    <div class="custom-control justify-content-center custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1">Allow Access to All users</label>
+                    <div class="d-flex custom-control justify-content-center custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                        <label class="custom-control-label" for="customCheck">Allow Access to All users</label><br>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-center">
-                        <label>Client Lead</label>
+                        <label>Vendor Lead</label>
                         <div class=" flex text-center">
-                            <p-multiSelect [options]="clientLeads" [(ngModel)]="selectedClientLeads"
-                                defaultLabel="Client Lead" optionLabel="name" (onSearch)="onClientLeadsSearch($event)" [filter]="true" display="chip">
+                            <p-multiSelect [options]="vendorLeads" [(ngModel)]="selectedvendorLeads"
+                                defaultLabel="vendor Lead" optionLabel="name" (onSearch)="onvendorLeadsSearch($event)"
+                                [filter]="true" display="chip">
                             </p-multiSelect>
                         </div>
                     </div>
@@ -325,11 +327,11 @@
                         <label>Required Documents</label>
                         <div class=" flex text-center">
                             <p-multiSelect [options]="requiredDocuments" [(ngModel)]="selectedRequiredDocuments"
-                                defaultLabel="Required Documents" optionLabel="name" 
-                                (onSearch)="onRequiredDocumentsSearch($event)" display="chip"[filter]="true">
+                                defaultLabel="Required Documents" optionLabel="name"
+                                (onSearch)="onRequiredDocumentsSearch($event)" display="chip" [filter]="true">
                             </p-multiSelect>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -359,7 +361,7 @@
                 <div class="col-md-8">
                     <p class="fnt-clr text-center"><u>Notes</u></p>
                     <p-editor [(ngModel)]="content" [style]="{'height':'320px', 'width':'100%'}"
-                                placeholder="Enter the email content to be sent"></p-editor>
+                        placeholder="Enter the email content to be sent"></p-editor>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-center">
@@ -378,11 +380,11 @@
                                 No
                             </label>
                         </div>
-
+                       
                         <div class="custom-control pull-left custom-checkbox mt-4">
-                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                            <label class="custom-control-label" for="customCheck">You want to stop sending
-                                email notification to client contact while doing Submit to Client?</label>
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">You want to stop sending
+                                email notification to vendor contact while doing Submit to vendor?</label>
                         </div>
                     </div>
                 </div>
@@ -408,7 +410,7 @@
                             <table class="table text-center">
                                 <thead>
                                     <tr>
-                                        <th>Client Name</th>
+                                        <th>Vendor Name</th>
                                         <th>Email ID</th>
                                         <th>Designation</th>
                                         <th>Owner</th>
@@ -418,15 +420,15 @@
                                 <tbody>
                                     <tr>
                                     <tr *ngFor="let item of items">
-                                        <td>{{ item.clientName }}</td>
+                                        <td>{{ item.VendorName }}</td>
                                         <td>{{ item.EmailID }}</td>
                                         <td>{{ item.Designation }}</td>
                                         <td>{{ item.Owner}}</td>
                                         <td>
 
-                                            <div><button class="btn btn-light" [routerLink]="['/viewclient']"><i
+                                            <div><button class="btn btn-light" [routerLink]="['/viewvendor']"><i
                                                         class="fa fa-eye fa-fw mr-2"></i></button>
-                                                <button class="btn btn-light" (click)="deleteClient()"><i
+                                                <button class="btn btn-light" (click)="deletevendor()"><i
                                                         class="fa fa-trash fa-fw ml-2 mr-2"></i>
                                                 </button>
                                             </div>

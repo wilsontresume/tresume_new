@@ -55,9 +55,9 @@ import { application } from 'express';
 import { JobApplicationComponent } from './job-application/job-application.component';
 import { BatchComponent } from './batch/batch.component';
 import { TalentBenchComponent } from './talent-bench/talent-bench.component';
-
-
-
+import { VendorComponent } from './vendor/vendor.component';
+import { ViewvendorComponent } from './viewvendor/viewvendor.component';
+import { AddvendorComponent } from './addvendor/addvendor.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -101,7 +101,8 @@ const routes: Routes = [
   { path: 'addclient',component: AddclientComponent},
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobpostings',component:AllJobPostingsComponent},
-  { path:'jobapplication',component:JobApplicationComponent},
+  { path: 'jobapplication',component:JobApplicationComponent},
+  { path: 'jobapplication',component:JobApplicationComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
   { path: 'confirmpopup', component:ConfirmationPopupComponent},
@@ -117,11 +118,20 @@ const routes: Routes = [
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accounts-add-user', component:AccountsAddUserComponent},
   { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
-  { path:'profile',component:ProfileComponent},
-  { path:'information',component:InformationComponent},
-  { path:'password',component:PasswordComponent},
-  { path:'aboutme',component:AboutmeComponent},
-  { path:'batch',component:BatchComponent},
+  { path: 'profile',component:ProfileComponent},
+  { path: 'information',component:InformationComponent},
+  { path: 'password',component:PasswordComponent},
+  { path: 'aboutme',component:AboutmeComponent},
+  { path: 'batch',component:BatchComponent},
+  { path: 'profile',component:ProfileComponent},
+  { path: 'information',component:InformationComponent},
+  { path: 'password',component:PasswordComponent},
+  { path: 'aboutme',component:AboutmeComponent},
+  { path: 'batch',component:BatchComponent},
+  { path: 'vendor',component:VendorComponent},
+  { path: 'viewvendor',component:ViewvendorComponent},
+  { path: 'addvendor',component:AddvendorComponent},
+
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
   
