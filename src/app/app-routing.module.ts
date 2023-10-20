@@ -109,7 +109,7 @@ const routes: Routes = [
   { path: 'reviewtresume', component:ReviewTresumeComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
   { path: 'adobesign/token/:token', component: AdobesignComponent1  , canActivate: [AuthGuard] },
-  { path: 'timesheet/create', component: TimesheetCreateComponent  , canActivate: [AuthGuard] },
+  { path: 'sheet/creattimee', component: TimesheetCreateComponent  , canActivate: [AuthGuard] },
   { path: 'alltimesheet', component: AllTimeSheetComponent , canActivate: [AuthGuard]},
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard] },
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},

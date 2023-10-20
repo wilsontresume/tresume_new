@@ -6,7 +6,10 @@ import { Router } from '@angular/router';
   templateUrl: './all-time-sheet.component.html',
   styleUrls: ['./all-time-sheet.component.scss'] 
 })
+
 export class AllTimeSheetComponent implements OnInit { 
+ 
+ 
   items: any[] = [
     {
       From_Date: 'Date1',
@@ -42,6 +45,8 @@ export class AllTimeSheetComponent implements OnInit {
     }
     this.items.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
   }
-
+  Gotonext() {
+    this.router.navigate(['timesheet/create']); 
+  }
  
 }
