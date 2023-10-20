@@ -1,0 +1,98 @@
+<div class="content-header">
+    <div class="container main-container mt-4">
+  
+      <div class="row main pt-3">
+        <div class="col-4">
+          <h2> JOB APPLICATIONS</h2>
+        </div>
+        <div class="col-4 text-right">
+          <div class="input-group">
+            <input type="date" class="form-control" id="datepicker" [(ngModel)]="selectedDate"
+              (click)="showDateOptions = !showDateOptions">
+            <div class="date-options input-group-append" *ngIf="showDateOptions">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dateDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Select Date Range
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dateDropdown">
+                      <a class="dropdown-item" (click)="selectDateOption('today')">Today</a>
+                      <a class="dropdown-item" (click)="selectDateOption('yesterday')">Yesterday</a>
+                      <a class="dropdown-item" (click)="selectDateOption('last7days')">Last 7 Days</a>
+                      <a class="dropdown-item" (click)="selectDateOption('last30days')">Last 30 Days</a>
+                      <a class="dropdown-item" (click)="selectDateOption('thisMonth')">This Month</a>
+                      <a class="dropdown-item" (click)="selectDateOption('lastMonth')">Last Month</a>
+                      <a class="dropdown-item" (click)="selectDateOption('thisYear')">This Year</a>
+                      <a class="dropdown-item" (click)="selectDateOption('lastYear')">Last Year</a>
+                      <div class="buttons input-group-append">
+                        <button class="btn btn-primary" (click)="saveDate()">Save</button>
+                        <button class="btn btn-primary" (click)="cancelDate()">Cancel</button>
+                      </div>
+                    </div>
+                  </div>                           
+                </div>             
+              </div>
+            </div>       
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content1">
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <i class="fa fa-download"></i> Save As
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#" (click)="saveAs('excel')">As Excel</a>
+        <a class="dropdown-item" href="#" (click)="saveAs('pdf')">As PDF</a>
+      </div>
+    </div>
+    <div class="display d-flex justify-content-center align-items-center">
+      <span>Displaying 0 of 0 Applications</span>
+    </div>
+  </div>
+  <div class="container main-container d-flex justify-content-end">
+    <div class="form-group d-flex mt-2">
+      <label for="searchInput" class="search-label">Search</label>
+      <input type="text" id="searchInput" class="form-control">
+    </div>
+  </div>
+  <div class="container main-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Job Tittle</th>
+          <th>Legal Status</th>
+          <th>Pay Rate</th>
+          <th>Source</th>
+          <th>job Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let job of jobs">
+          <td>{{ job.Date }}</td>
+          <td>{{ job.Name }}</td>
+          <td>{{ job.jobTittle }}</td>
+          <td>{{ job.PayRate }}</td>
+          <td>{{ job.Source }}</td>
+          <td>
+            {{ job.totalApplicants }}
+            <a [routerLink]="['/applicantdetails']">
+              <i class="fas fa-external-link-alt"></i></a>
+          </td>
+          <td>{{ job.postedOn | date }}</td>
+          <td>{{ job.postedBy }}</td>
+          <td>{{ job.jobType }}</td>
+          <td>{{ job.assignee }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="container">
+      <span class="found">No Application Found..</span>
+    </div>
+  </div>
