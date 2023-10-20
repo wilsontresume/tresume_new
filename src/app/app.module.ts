@@ -122,6 +122,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
 import { JobAppicationComponent } from './job-appication/job-appication.component';
 import { BatchComponent } from './batch/batch.component';
+import { VendorComponent } from './vendor/vendor.component';
 
 
 
@@ -184,7 +185,7 @@ import { BatchComponent } from './batch/batch.component';
     InformationComponent,    
     AccountsAddUserComponent,    
     SubscriptionComponent, ReviewTresumeComponent, JobAppicationComponent,
-    SubscriptionComponent, ReviewTresumeComponent,BatchComponent,
+    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, VendorComponent,
   ],
   imports: [
     HttpClientModule,
