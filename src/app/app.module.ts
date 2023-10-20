@@ -120,14 +120,8 @@ import { AboutmeComponent } from './aboutme/aboutme.component';
 import { InformationComponent } from './information/information.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
-<<<<<<< HEAD
 import { JobAppicationComponent } from './job-appication/job-appication.component';
-=======
 import { BatchComponent } from './batch/batch.component';
-
->>>>>>> 850165fedbeeb5effb4a7d6519e02c28247586a2
-
-
 
 
 
@@ -189,11 +183,8 @@ import { BatchComponent } from './batch/batch.component';
     AboutmeComponent,
     InformationComponent,    
     AccountsAddUserComponent,    
-<<<<<<< HEAD
-    SubscriptionComponent, ReviewTresumeComponent, JobAppicationComponent   
-=======
+    SubscriptionComponent, ReviewTresumeComponent, JobAppicationComponent,
     SubscriptionComponent, ReviewTresumeComponent,BatchComponent,
->>>>>>> 850165fedbeeb5effb4a7d6519e02c28247586a2
   ],
   imports: [
     HttpClientModule,
