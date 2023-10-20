@@ -103,6 +103,7 @@ import { SearchTresumeComponent } from './search-tresume/search-tresume.componen
 import { HrmsComponent } from './hrms/hrms.component';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TalentBenchComponent } from './talent-bench/talent-bench.component';
 
 //import { jsPDF } from 'jspdf';
 
@@ -129,6 +130,7 @@ import { JobApplicationComponent } from './job-application/job-application.compo
 @NgModule({
   declarations: [
     AppComponent,
+    TalentBenchComponent,
     DashboardComponent,
     ComplianceDashboardComponent,
     CandidateComponent,
@@ -183,11 +185,12 @@ import { JobApplicationComponent } from './job-application/job-application.compo
     ProfileComponent,
     AboutmeComponent,
     InformationComponent,    
-    AccountsAddUserComponent,    
-    SubscriptionComponent, ReviewTresumeComponent, JobAppicationComponent,
-    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, VendorComponent,
-    SubscriptionComponent, ReviewTresumeComponent,
-    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, JobApplicationComponent,
+    AccountsAddUserComponent,
+     VendorComponent,
+    SubscriptionComponent,
+     ReviewTresumeComponent,
+     BatchComponent,
+     JobApplicationComponent,
   ],
   imports: [
     HttpClientModule,
