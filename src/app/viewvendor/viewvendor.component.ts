@@ -16,7 +16,7 @@ export class ViewvendorComponent implements OnInit {
       Owner: 'John Doe',
     },
   ];
-  showConfirmationDialog: boolean = false;
+ 
   sortByColumn: string = '';
   sortDirection: string = 'asc';
   Ownership: any[]=[{name:'Parvathy'}, {name:'abc'}, {name:'DEF'}, {name:'def'}];
@@ -71,4 +71,20 @@ export class ViewvendorComponent implements OnInit {
     this.items.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
   }
 
+  showConfirmationDialog: boolean = false;
+  
+  deleteContact(){
+    this.showConfirmationDialog = true;
+   }
+   confirmDelete() {
+    const index = 1; 
+    if (index >= 0 && index < this.items.length) {
+      this.items.splice(index, 1);
+    }
+    this.showConfirmationDialog = false;
+  }
+  cancelDelete() {
+    
+    this.showConfirmationDialog = false;
+  }
 }

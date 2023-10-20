@@ -125,7 +125,6 @@ isEditMode = false;
 
   showConfirmationDialog: boolean = false;
   deleteIndex: number = -1;
-
   deleteAccount(index: number) {
     this.deleteIndex = index;
     this.showConfirmationDialog = true;
