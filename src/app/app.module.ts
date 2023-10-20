@@ -120,6 +120,7 @@ import { AboutmeComponent } from './aboutme/aboutme.component';
 import { InformationComponent } from './information/information.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
+import { JobAppicationComponent } from './job-appication/job-appication.component';
 
 
 
@@ -183,7 +184,7 @@ import { ReviewTresumeComponent } from './review-tresume/review-tresume.componen
     AboutmeComponent,
     InformationComponent,    
     AccountsAddUserComponent,    
-    SubscriptionComponent, ReviewTresumeComponent,    
+    SubscriptionComponent, ReviewTresumeComponent, JobAppicationComponent   
   ],
   imports: [
     HttpClientModule,
