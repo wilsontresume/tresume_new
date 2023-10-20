@@ -31,9 +31,9 @@ export class TalentBenchComponent  {
   tableData: any[] = [
     {
       benchId: 1,
-      name: 'John Doe',
-      email: 'john@example.com',
-      location: 'New York',
+      name: 'Wilson',
+      email: 'wilson@example.com',
+      location: 'Chennai',
       timeOnBench: 30,
       title: 'Developer',
       phone: '123-456-7890',
@@ -45,7 +45,7 @@ export class TalentBenchComponent  {
   ];
 
   onIconClick() {
-    alert('Icon was clicked!'); 
+    alert('are you sure want to delete?'); 
   }
   
 }

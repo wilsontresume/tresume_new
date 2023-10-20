@@ -54,6 +54,7 @@ import { JobBoardAccountComponent } from './job-board-account/job-board-account.
 import { application } from 'express';
 import { JobApplicationComponent } from './job-application/job-application.component';
 import { BatchComponent } from './batch/batch.component';
+import { TalentBenchComponent } from './talent-bench/talent-bench.component';
 import { VendorComponent } from './vendor/vendor.component';
 import { ViewvendorComponent } from './viewvendor/viewvendor.component';
 import { AddvendorComponent } from './addvendor/addvendor.component';
@@ -101,10 +102,12 @@ const routes: Routes = [
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobpostings',component:AllJobPostingsComponent},
   { path: 'jobapplication',component:JobApplicationComponent},
+  { path: 'jobapplication',component:JobApplicationComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
   { path: 'confirmpopup', component:ConfirmationPopupComponent},
   { path: 'jobboardaccount', component:JobBoardAccountComponent},
+  { path: 'TalentBenchComponent', component:TalentBenchComponent},
   { path: 'submittedcandidates', component:SubmittedCandiatesComponent},
   { path: 'reviewtresume', component:ReviewTresumeComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
@@ -115,6 +118,11 @@ const routes: Routes = [
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accounts-add-user', component:AccountsAddUserComponent},
   { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
+  { path: 'profile',component:ProfileComponent},
+  { path: 'information',component:InformationComponent},
+  { path: 'password',component:PasswordComponent},
+  { path: 'aboutme',component:AboutmeComponent},
+  { path: 'batch',component:BatchComponent},
   { path: 'profile',component:ProfileComponent},
   { path: 'information',component:InformationComponent},
   { path: 'password',component:PasswordComponent},

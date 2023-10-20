@@ -5,10 +5,15 @@
     background-color: #49274A;
     color: #ffffff;
 }
-
+button{
+  border: none;
+}
 .btn:hover{
     background-color: #94618E;
     color: #ffffff;
+}
+i{
+  color: #94618E;
 }
 .title{
     border-top: 3px solid #550355;
@@ -17,9 +22,11 @@
 .header{
     padding-top: 25px;
 }
-
+h1{
+  color: #94618e;
+}
 h2{
-    color: #94618e ;
+    color: #94618e;
 }
   
   form {

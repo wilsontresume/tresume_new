@@ -103,6 +103,7 @@ import { SearchTresumeComponent } from './search-tresume/search-tresume.componen
 import { HrmsComponent } from './hrms/hrms.component';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TalentBenchComponent } from './talent-bench/talent-bench.component';
 
 //import { jsPDF } from 'jspdf';
 
@@ -131,6 +132,7 @@ import { AddvendorComponent } from './addvendor/addvendor.component';
 @NgModule({
   declarations: [
     AppComponent,
+    TalentBenchComponent,
     DashboardComponent,
     ComplianceDashboardComponent,
     CandidateComponent,
@@ -185,7 +187,14 @@ import { AddvendorComponent } from './addvendor/addvendor.component';
     ProfileComponent,
     AboutmeComponent,
     InformationComponent,    
+    AccountsAddUserComponent,
+     VendorComponent,
+    SubscriptionComponent,
+     ReviewTresumeComponent,
+     BatchComponent,
+     JobApplicationComponent,
     AccountsAddUserComponent,    
+<<<<<<< Updated upstream
     JobApplicationComponent,
     SubscriptionComponent,
     ReviewTresumeComponent,
@@ -195,6 +204,12 @@ import { AddvendorComponent } from './addvendor/addvendor.component';
     AddvendorComponent,
    
    
+=======
+    SubscriptionComponent, ReviewTresumeComponent, 
+    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, VendorComponent,
+    SubscriptionComponent, ReviewTresumeComponent,
+    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, JobApplicationComponent,
+>>>>>>> Stashed changes
   ],
   imports: [
     HttpClientModule,

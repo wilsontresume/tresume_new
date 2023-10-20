@@ -3,6 +3,10 @@
     "angular.enable-strict-mode-prompt": false,
     "cSpell.words": [
         "editmode",
+        "hrms",
+        "placementview",
+        "reviewtresume",
+        "searchtresume",
         "Tresume",
         "VONAGE"
     ]

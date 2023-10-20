@@ -49,12 +49,13 @@
       <tr *ngFor="let item of tableData">
         <td>{{ item.benchId }}</td>
         <td>
-          {{ item.name }}
+         <div class="ml-10"> {{ item.name }}</div>
           <a routerLink="/hrms"> <i class="fas fa-network-wired icon"></i></a>
-          <i class="far fa-clipboard icon" (click)="onIconClick()"></i>
-          <i class="fas fa-pencil-alt icon" (click)="onIconClick()"></i>
-          <i class="fas fa-wpforms" (click)="onIconClick()"></i>
-          <i class="fas fa-trash icon" (click)="onIconClick()"></i>
+          <i class="far fa-clipboard icon" [routerLink]="['/searchtresume/reviewtresume/interview']"></i>
+          <i class="fas fa-pencil-alt icon" [routerLink]="['/placementview']"></i>
+          <i class="far fa-file-alt icon" [routerLink]="['/searchtresume/reviewtresume/submission']"></i>
+          <i class="fas fa-trash icon" type="button" data-toggle="modal" data-target="#exampleModal"></i>
+          
         </td>
         <td>{{ item.email }}</td>
         <td>{{ item.location }}</td>
@@ -245,3 +246,25 @@
   </div>
 
   
+<!--Delete PopUp-->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel"><u>Remove from Talent Bench</u></h1>
+        
+      </div>
+      <div class="modal-body">
+      <h3>Are you sure to Remove that candidate from Talent Bench?</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
