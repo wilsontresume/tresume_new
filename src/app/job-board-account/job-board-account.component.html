@@ -1,18 +1,9 @@
 <div class="header">
 <div class="container ml-4 pt-4">
-    <h3 class="title pt-2">JOB BOARD ACCOUNT</h3>
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#integrations">Integrations</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#productivity">Productivity Apps</a>
-      </li>
-    </ul>
-  
-    <div class="tab-content">
-      <div id="integrations" class="tab-pane fade show active">
-        <div class="row">
+    <h2 class="title pt-2 m-0">JOB BOARD ACCOUNT</h2>
+    <h3 class="pt-2 m-0"><u>Integrations</u></h3>    
+
+   <div class="row">
           <div class="col-md-3">
             <div class="card mt-4">
             <div class="card-body">
@@ -30,11 +21,12 @@
           </div>
           <p class="text-center">Select Job Board</p>
           <div class="form-group">
-            <select id="optionSelect" class="form-control" [(ngModel)]="selectedJobBoard" >
+            <select id="optionSelect" class="form-control selectOption" [(ngModel)]="selectedJobBoard" >
                 <option>ZipRecruiter</option>
             <option *ngFor="let option of options" [value]="option">{{ option }}</option>
               </select>
           </div>
+          
             </div>
             </div>
             </div>
@@ -46,12 +38,12 @@
         
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" id="username" class="form-control">
+          <input type="text" id="username" class="form-control" required>
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input [type]="passwordInputType" id="password" class="form-control">
+          <input [type]="passwordInputType" id="password" class="form-control" required>
         </div>
 
         
@@ -61,7 +53,7 @@
         </div>
 
      
-        <button type="button" class="btn btn-primary float-right mt-2" (click)="addAccount()" >Add Account</button>
+        <button type="button" class="btn add-btn float-right mt-2" (click)="addAccount()" >Add Account</button>
       
               </div>
             </div>
@@ -81,12 +73,12 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let account of accounts; let i = index">
-                        <td>{{ selectedJobBoard }}</td>
-                        <td>{{ account.accountName }}</td>
-                        <td>active</td>
-                        <td>active</td>
+                        <td class="txt-color">{{ selectedJobBoard }}</td>
+                        <td class="txt-color">{{ account.accountName }}</td>
+                        <td class="active-col">active</td>
+                        <td class="active-col">active</td>
                         <td>
-                          <select [(ngModel)]="account.status" class="form-control">
+                          <select [(ngModel)]="account.status" class="form-control add-btn1">
                             <option value="active">on</option>
                             <option value="inactive">off</option>
                           </select>
@@ -98,27 +90,5 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-  
-      <div id="productivity" class="tab-pane fade">
-        <div class="row">
-          <div class="col-md-3 mt-5">
-            <div class="card">
-              <div class="card-body">
-                Card 1 - Productivity App
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 mt-5">
-            <div class="card">
-              <div class="card-body">
-                Card 2 - Productivity App
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+       
+      

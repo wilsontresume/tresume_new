@@ -121,6 +121,7 @@ import { InformationComponent } from './information/information.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
 import { BatchComponent } from './batch/batch.component';
+import { VendorComponent } from './vendor/vendor.component';
 import { JobApplicationComponent } from './job-application/job-application.component';
 
 
@@ -183,6 +184,8 @@ import { JobApplicationComponent } from './job-application/job-application.compo
     AboutmeComponent,
     InformationComponent,    
     AccountsAddUserComponent,    
+    SubscriptionComponent, ReviewTresumeComponent, JobAppicationComponent,
+    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, VendorComponent,
     SubscriptionComponent, ReviewTresumeComponent,
     SubscriptionComponent, ReviewTresumeComponent,BatchComponent, JobApplicationComponent,
   ],
