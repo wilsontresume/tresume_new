@@ -120,9 +120,9 @@ import { AboutmeComponent } from './aboutme/aboutme.component';
 import { InformationComponent } from './information/information.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ReviewTresumeComponent } from './review-tresume/review-tresume.component';
-import { JobAppicationComponent } from './job-appication/job-appication.component';
 import { BatchComponent } from './batch/batch.component';
 import { VendorComponent } from './vendor/vendor.component';
+import { JobApplicationComponent } from './job-application/job-application.component';
 
 
 
@@ -186,6 +186,8 @@ import { VendorComponent } from './vendor/vendor.component';
     AccountsAddUserComponent,    
     SubscriptionComponent, ReviewTresumeComponent, JobAppicationComponent,
     SubscriptionComponent, ReviewTresumeComponent,BatchComponent, VendorComponent,
+    SubscriptionComponent, ReviewTresumeComponent,
+    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, JobApplicationComponent,
   ],
   imports: [
     HttpClientModule,

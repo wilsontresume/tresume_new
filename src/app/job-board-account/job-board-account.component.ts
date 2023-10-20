@@ -23,8 +23,6 @@ export class JobBoardAccountComponent{
     this.passwordInputType = this.showPassword ? 'text' : 'password';
   }
 
-
-  
   accountName: string = '';
   selectedJobBoard: string = '';
   accounts: Account[] = [];
@@ -42,4 +40,8 @@ export class JobBoardAccountComponent{
     this.accounts.splice(index, 1);
   }
 
+
+  
+
+ 
 }

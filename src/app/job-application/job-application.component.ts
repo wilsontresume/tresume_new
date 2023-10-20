@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-job-appication',
-  templateUrl: './job-appication.component.html',
-  styleUrls: ['./job-appication.component.scss']
+  templateUrl: './job-application.component.html',
+  styleUrls: ['./job-application.component.scss']
 })
-export class JobAppicationComponent implements OnInit {
+export class JobApplicationComponent implements OnInit {
 jobs: any;
 editmode: boolean = false;
 selectedDate: string = ''; // You may initialize it with the current date
