@@ -2,10 +2,9 @@
     <div class="row">
         <div class="col" style="position: relative;">
             <h4 style="border-top: 3px solid #000; border-bottom: 3px solid #000; padding: 20px 0;">All Time Sheet</h4>
-            <a routerLink="/timesheet/create"  class="crt btn btn-primary" style="position: absolute; top: 15px; right: 10px;" (click)="Gotonext()">  Create</a>
+            <a routerLink="/timesheet/create" class="crt btn btn-primary"
+                style="position: absolute; top: 15px; right: 10px;" (click)="Gotonext()"> Create</a>
         </div>
-   
-
     </div>
     <div class="row mt-5">
         <div class="col">
@@ -33,46 +32,47 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4">
-        <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>From_Date</th>
-                        <th>To_Date</th>
-                        <th>Total_Hours</th>
-                        <th>Created_On</th>
-                        <th>Status</th>
-                        <th>Comments</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of items">
-                        <td>{{ item.From_Date }}</td>
-                        <td>{{ item.To_Date }}</td>
-                        <td>{{ item.Total_Hours }}</td>
-                        <td>{{ item.Created_On }}</td>
-                        <td>{{ item.Status }}</td>
-                        <td>{{ item.Comments }}</td>
-                        <td>
-                            <div>
-                                <button class="btn btn-light" [routerLink]="['/timesheet/viewdetails']">
-                                    <i class="fa fa-eye fa-fw mr-2"></i>View
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+</div>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>From_Date</th>
+                <th>To_Date</th>
+                <th>Total_Hours</th>
+                <th>Created_On</th>
+                <th>Status</th>
+                <th>Comments</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of tableData">
+                <td>{{ row.From_Date }}</td>
+                <td>{{ row.To_Date }}</td>
+                <td>{{ row.Total_Hours }}</td>
+                <td>{{ row.Created_On }}</td>
+                <td>{{ row.Status }}</td>
+                <td>{{ row.Comments }}</td>
+                <td>
+                    <div>
+                        <button class="btn btn-light" [routerLink]="['/timesheet/viewdetails']">
+                            <i class="fa fa-eye fa-fw mr-2"></i>View
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container mt-4">
     <div class="row">
-        <div class="col">
-            <p class="text-muted">Showing 1 to 10 rows</p>
+        <div class="col-6 text-left">
+            <p>Displaying {{ displayedTimesheets }} of {{ totalTimesheets }} timesheets</p>
         </div>
 
-        <div class="col text-right">
+        <div class="col-6 text-right">
             <nav>
                 <ul class="pagination">
                     <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
