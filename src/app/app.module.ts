@@ -194,6 +194,7 @@ import { AddvendorComponent } from './addvendor/addvendor.component';
      BatchComponent,
      JobApplicationComponent,
     AccountsAddUserComponent,    
+<<<<<<< Updated upstream
     JobApplicationComponent,
     SubscriptionComponent,
     ReviewTresumeComponent,
@@ -203,6 +204,12 @@ import { AddvendorComponent } from './addvendor/addvendor.component';
     AddvendorComponent,
    
    
+=======
+    SubscriptionComponent, ReviewTresumeComponent, 
+    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, VendorComponent,
+    SubscriptionComponent, ReviewTresumeComponent,
+    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, JobApplicationComponent,
+>>>>>>> Stashed changes
   ],
   imports: [
     HttpClientModule,
