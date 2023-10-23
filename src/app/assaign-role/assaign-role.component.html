@@ -1,0 +1,59 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Assign Admin and Project</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-header">
+    <div class="container main-container mt-4">
+      <div class="row main pt-2">
+          <div class="col-3 form-group">
+            <label>Admin</label>
+            <select id="adminselect" class="form-control">
+              <option *ngFor="let option of adminlist" [value]="option.id">{{ option.name }}</option>
+            </select>
+          </div>
+          <div class="col-3 form-group">
+            <label>Employee</label>
+            <select id="userselect" class="form-control">
+              <option *ngFor="let option of userlist" [value]="option.id">{{ option.name }}</option>
+            </select>
+          </div>
+          <div class="col-3 form-group">
+            <label>Project</label>
+            <select id="projectselect" class="form-control">
+              <option *ngFor="let option of project" [value]="option.id">{{ option.name }}</option>
+            </select>
+          </div>
+  
+          <div class="col-3 text-left mt-4">
+          <button class="btn createNew">Assign</button>
+           </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <div class="container main-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Admin</th>
+          <th>Project</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of allusers">
+          <td>{{ user.name }}</td>
+          <td>{{ user.admin }}</td>
+          <td>{{ user.project }}</td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>

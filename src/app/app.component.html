@@ -175,9 +175,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="/job-boards" class=" nav-link">
-              <i class="nav-icon fas fa-tasks"></i>
-              <p>Job Boards</p>
+            <a routerLink="/searchMain" class=" nav-link">
+              <i class="nav-icon fas fa-search"></i>
+              <p>JobBoard Search</p>
             </a>
           </li>
           <li class="nav-item">
@@ -272,10 +272,31 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a routerLink="/alltimesheet" class=" nav-link">
+            <a  class=" nav-link">
               <i class="nav-icon fas fa-clock"></i>
               <p>Timesheet</p>
+              <i class="right fas fa-angle-left"></i>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a class="nav-link" routerLink="all-time-list">
+                  <i class="nav-icon fas fa-list "></i>
+                  <p>All Time List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/assaign-role">
+                  <i class="nav-icon fas fa-highlighter"></i>
+                  <p> Assaign Role</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/create-project">
+                  <i class="nav-icon fas fa-plus"></i>
+                  <p> Create Project</p>
+                </a>
+              </li>
+            </ul>
           </li>
           
           <li class="nav-item">
@@ -299,7 +320,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=TalentBench1" class="nav-link">
+            <a routerLink="/talentBench" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>
                 Talent Bench
@@ -315,6 +336,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a routerLink="/jobboards" class=" nav-link">
+              <i class="nav-icon fas fa-tasks"></i>
+              <p>Job Boards</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-tie"></i>
               <p>
@@ -324,12 +351,12 @@
             </a>
 
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url}}Clogin.aspx?A={{accesstoken}}&R=WorkFlowPayment" class="nav-link">
+              <!-- <li class="nav-item">
+                <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-file-invoice-dollar"></i>
                   <p>Subscription</p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a routerLink="/accounts-add-user" class="nav-link">
                   <i class="nav-icon fas fa-user "></i>

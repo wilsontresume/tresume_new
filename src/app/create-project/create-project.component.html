@@ -1,0 +1,59 @@
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Create Project</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-header">
+    <div class="container main-container mt-4">
+      <div class="row main pt-2">
+          <div class="col-3 form-group">
+            <label>project Name</label>
+            <select id="adminselect" class="form-control">
+              <option *ngFor="let option of projectname" [value]="option.id">{{ option.name }}</option>
+            </select>
+          </div>
+          <div class="col-3 form-group">
+            <label>Client name</label>
+            <select id="userselect" class="form-control">
+              <option *ngFor="let option of clientname" [value]="option.id">{{ option.name }}</option>
+            </select>
+          </div>
+          <div class="col-3 form-group ">
+            <label>Net Terms</label>
+            <!-- <input type="text" id="projectselect" class="form-control"> -->
+            <input type="date"id="projectselect" class="form-control" *ngFor="let option of netterms" [value]="option.id">
+          </div>
+  
+          <div class="col-3 text-left mt-4">
+          <button class="btn createNew">Admin</button>
+           </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <div class="container main-container">
+    <table>
+      <thead>
+        <tr>
+          <th>project Name</th>
+          <th>Client Name </th>
+          <th>Netterms</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pro of project">
+          <td>{{ pro.name }}</td>
+          <td>{{ pro.admin }}</td>
+          <td>{{ pro.project }}</td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -58,6 +58,9 @@ import { TalentBenchComponent } from './talent-bench/talent-bench.component';
 import { VendorComponent } from './vendor/vendor.component';
 import { ViewvendorComponent } from './viewvendor/viewvendor.component';
 import { AddvendorComponent } from './addvendor/addvendor.component';
+import { CreateProjectComponent } from './create-project/create-project.component';
+import { AssaignRoleComponent } from './assaign-role/assaign-role.component';
+import { AllTimeListComponent } from './all-time-list/all-time-list.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -79,6 +82,8 @@ const routes: Routes = [
   { path: 'onboard/step/:id', component: WizardWorkflowComponent  , canActivate: [AuthGuard] },
   { path: 'onboard/employee/:id', component: EmployeeViewComponent , canActivate: [AuthGuard]  },
   { path: 'jobboards', component: JobBoardListComponent   , canActivate: [AuthGuard]},
+  { path: 'create-project', component: CreateProjectComponent   , canActivate: [AuthGuard]},
+  { path: 'all-time-list', component: AllTimeListComponent   , canActivate: [AuthGuard]},
   { path: 'division', component: DivisionComponent, canActivate: [AuthGuard] },
   { path: 'harvest', component: HarvestComponent, canActivate: [AuthGuard] },
   { path: 'harvestview/:id', component: HarvestViewComponent, canActivate: [AuthGuard] },
@@ -107,7 +112,7 @@ const routes: Routes = [
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
   { path: 'confirmpopup', component:ConfirmationPopupComponent},
   { path: 'jobboardaccount', component:JobBoardAccountComponent},
-  { path: 'TalentBenchComponent', component:TalentBenchComponent},
+  { path: 'talentBench', component:TalentBenchComponent},
   { path: 'submittedcandidates', component:SubmittedCandiatesComponent},
   { path: 'reviewtresume', component:ReviewTresumeComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
@@ -123,14 +128,10 @@ const routes: Routes = [
   { path: 'password',component:PasswordComponent},
   { path: 'aboutme',component:AboutmeComponent},
   { path: 'batch',component:BatchComponent},
-  { path: 'profile',component:ProfileComponent},
-  { path: 'information',component:InformationComponent},
-  { path: 'password',component:PasswordComponent},
-  { path: 'aboutme',component:AboutmeComponent},
-  { path: 'batch',component:BatchComponent},
   { path: 'vendor',component:VendorComponent},
   { path: 'viewvendor',component:ViewvendorComponent},
   { path: 'addvendor',component:AddvendorComponent},
+  { path: 'assaign-role', component: AssaignRoleComponent   , canActivate: [AuthGuard]},
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
