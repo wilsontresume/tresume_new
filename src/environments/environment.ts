@@ -8,8 +8,8 @@ export const environment = {
   // apiUrl: 'https://tresume.us/TresumeAPI/',
    apiUrl: 'http://localhost:3000/',
   // routeUrl: 'http://localhost:59983/'
-  routeUrl: 'https://beta.tresume.us/'
-  // routeUrl: 'https://tresume.us/'
+  // routeUrl: 'https://beta.tresume.us/'
+  routeUrl: 'https://tresume.us/'
 };
 
 /*
