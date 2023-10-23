@@ -7,20 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./allclient.component.scss']
 })
 export class AllclientComponent implements OnInit {
-  items: any[] = [
-    {
-      clientName: 'Client A',
-      EmailID: 'clienta@example.com',
-      Website: 'www.clienta.com',
-      Owner: 'John Doe',
-    },
-    {
-      clientName: 'Client A',
-      EmailID: 'clienta@example.com',
-      Website: 'www.clienta.com',
-      Owner: 'John Doe',
-    },
-  ];
+  items: any[];
   showConfirmationDialog: boolean = false;
   sortByColumn: string = '';
   sortDirection: string = 'asc';
@@ -33,6 +20,20 @@ export class AllclientComponent implements OnInit {
     this.sortBy('Website');
     this.sortBy('Owner');
     this.sortBy('Action');
+    this.items = [
+      {
+        clientName: 'Client A',
+        EmailID: 'clienta@example.com',
+        Website: 'www.clienta.com',
+        Owner: 'John Doe',
+      },
+      {
+        clientName: 'Client A',
+        EmailID: 'clienta@example.com',
+        Website: 'www.clienta.com',
+        Owner: 'John Doe',
+      },
+    ];
   }
 
   

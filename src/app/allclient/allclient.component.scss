@@ -1,31 +1,19 @@
-
-.bg-clr {
-    background-color: #46103d ; 
-  }
-
-  .table-container {
-    height: 300px;
-    overflow-x: scroll; 
-    
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
-.table-container::-webkit-scrollbar-track-horizontal {
-  background-color: #f1f1f1;
+.container{
+  margin: 20px;
+  border-top: 3px solid #49274a;
+  background-color: #fff;
 }
 
-.table-container::-webkit-scrollbar-thumb-horizontal {
-  background-color: #888;
-}
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  
-  .th, td {
-    padding: 10px;
-    text-align: left;
-    border: none;
-  }
+  // .th, td {
+  //   padding: 10px;
+  //   text-align: left;
+  //   border: none;
+  // }
   
   
   .modal {
@@ -60,18 +48,18 @@
    .btn-outline-bgcolor {
     background-color: #46103d ;
    }
-   .align-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000; 
-    background: rgba(0, 0, 0, 0.5);
-  }
+  //  .align-center {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   position: fixed;
+  //   top: 0;
+  //   bottom: 0;
+  //   left: 0;
+  //   right: 0;
+  //   z-index: 1000; 
+  //   background: rgba(0, 0, 0, 0.5);
+  // }
   
      .close-modal {
       margin: 0;
