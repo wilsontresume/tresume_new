@@ -7,10 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-time-sheet.component.scss'] 
 })
 
-export class AllTimeSheetComponent implements OnInit { 
+export class AllTimeSheetComponent { 
  
- 
-  items: any[] = [
+  tableData = [
     {
       From_Date: 'Date1',
       To_Date: 'Date2',
@@ -19,34 +18,37 @@ export class AllTimeSheetComponent implements OnInit {
       Status: 'Approved',
       Comments: 'Sample Comment',
     },
+    {
+      From_Date: 'Date1',
+      To_Date: 'Date2',
+      Total_Hours: '8',
+      Created_On: '2023-10-05',
+      Status: 'Approved',
+      Comments: 'Sample Comment',
+    }
   ];
+  
   showConfirmationDialog: boolean = false;
-  sortByColumn: string = '';
-  sortDirection: string = 'asc';
+  
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-    this.sortBy('From_Date');
-    this.sortBy('To_Date');
-    this.sortBy('Total_Hours');
-    this.sortBy('Created_On');
-    this.sortBy('Status');
-    this.sortBy('Comments');
-    this.sortBy('Details');
-  }
-
-  sortBy(columnName: string) {
-    if (this.sortByColumn === columnName) {
-      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortByColumn = columnName;
-      this.sortDirection = 'asc';
-    }
-    this.items.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
-  }
+  
   Gotonext() {
     this.router.navigate(['timesheet/create']); 
   }
+
+  displayedTimesheets: number = this.tableData.length;
+  totalTimesheets: number = this.tableData.length;
+
+ 
+  performSearch(searchTerm: string) {
+  this.tableData = this.tableData.filter(row =>
+    Object.values(row).some(value => value.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
+  this.displayedTimesheets = this.tableData.length;
+}
+
  
 }

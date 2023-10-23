@@ -9,15 +9,12 @@
     border-collapse: collapse;
   }
   
-  table, th, td {
-    border: 1px solid #ccc;
-  }
   
   th, td {
     padding: 10px;
-    text-align: center;
+    text-align: left;
+    border: none;
   }
-  
  
   .pagination {
     justify-content: flex-end;
@@ -28,12 +25,7 @@
     width: 70px; 
   }
   
-  .text-muted {
-    margin-top: 10px;
-  }
-  .crt{
-    background-color: #ccc;
-  }
+
   .crt{
     background-color: rgb(56, 8, 56);
     border-color: rgb(56, 8, 56) ;
