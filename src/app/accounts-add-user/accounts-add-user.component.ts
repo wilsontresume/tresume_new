@@ -13,6 +13,35 @@ export class AccountsAddUserComponent {
   CreatedDate: Date = new Date();
   RemainingDate: Number = 52;
   Recruiters: Number = 14;
+  RoleName:string='';
+  viewaccess:any;
+  fullaccess:any;
+  tableData = [
+    { contents: 'Job Boards', assigned: true, team: true, all: true },
+    { contents: 'Hrms', assigned: true, team: true, all: true },
+    { contents: 'Jobs', assigned: true, team: true, all: true },
+    { contents: 'Reports', assigned: true, team: true, all: true },
+    { contents: 'Harvest', assigned: true, team: true, all: true },
+    { contents: 'Timesheet', assigned: true, team: true, all: true },
+    { contents: 'Clients', assigned: true, team: true, all: true },
+    { contents: 'Talent Bench', assigned: true, team: true, all: true },
+    { contents: 'Batch', assigned: true, team: true, all: true },
+    { contents: 'Workforce', assigned: true, team: true, all: true },
+  ];
+
+  tableData1 = [
+    { id:1,contents1: 'Job Boards', viewonly: true, fullaccess: true },
+    { id:2,contents1: 'Hrms', viewonly: true, fullaccess: true },
+    { id:3,contents1: 'Job posting', viewonly: true, fullaccess: true },
+    { id:4,contents1: 'Harvest', viewonly: true, fullaccess: true },    
+    { id:5,contents1: 'Timesheet', viewonly: true, fullaccess: true },
+    { id:6,contents1: 'Talent Bench', viewonly: true, fullaccess: true },
+    { id:7,contents1: 'Clients', viewonly: true, fullaccess: true },
+    { id:8,contents1: 'Vendor', viewonly: true, fullaccess: true },
+    { id:9,contents1: 'Batch', viewonly: true, fullaccess: true },
+    { id:10,contents1: 'Workforce', viewonly: true, fullaccess: true },
+    { id:11, contents1: 'Reports', viewonly: true, fullaccess: true  },  
+  ];
   
 constructor(private fb: FormBuilder){ this.userForm = this.fb.group({
   First_Name: ['', Validators.required],
@@ -112,14 +141,27 @@ isEditMode = false;
   }
 
   confirmAddRole() {
+
+    this.viewaccess = this.tableData1
+      .filter((item) => item.viewonly)
+      .map((item) => item.id);
+
+    this.fullaccess = this.tableData1
+      .filter((item) => item.fullaccess)
+      .map((item) => item.id);
+  
    
+    console.log(this.viewaccess);
+    console.log(this.fullaccess);
+
   }
 
   cancelAddRole() {
     
     console.log(this.showAddRole);
-    
     this.showAddRole = false;
+
+
   }
 
 
@@ -144,31 +186,8 @@ isEditMode = false;
     this.showConfirmationDialog = false;
   }
 
-  tableData = [
-    { contents: 'Job Boards', assigned: true, team: true, all: true },
-    { contents: 'Hrms', assigned: true, team: true, all: true },
-    { contents: 'Jobs', assigned: true, team: true, all: true },
-    { contents: 'Reports', assigned: true, team: true, all: true },
-    { contents: 'Harvest', assigned: true, team: true, all: true },
-    { contents: 'Timesheet', assigned: true, team: true, all: true },
-    { contents: 'Clients', assigned: true, team: true, all: true },
-    { contents: 'Talent Bench', assigned: true, team: true, all: true },
-    { contents: 'Batch', assigned: true, team: true, all: true },
-    { contents: 'Workforce', assigned: true, team: true, all: true },
-  ];
 
-  tableData1 = [
-    { contents1: 'Job Boards', viewonly: true, fullaccess: true },
-    { contents1: 'Hrms', viewonly: true, fullaccess: true },
-    { contents1: 'Jobs', viewonly: true, fullaccess: true },
-    { contents1: 'Reports', viewonly: true, fullaccess: true },
-    { contents1: 'Harvest', viewonly: true, fullaccess: true },
-    { contents1: 'Timesheet', viewonly: true, fullaccess: true },
-    { contents1: 'Clients', viewonly: true, fullaccess: true },
-    { contents1: 'Talent Bench', viewonly: true, fullaccess: true },
-    { contents1: 'Batch', viewonly: true, fullaccess: true },
-    { contents1: 'Workforce', viewonly: true, fullaccess: true },
-  ];
+
   Teamlead: any[]=[{name:'Parvathy'}, {name:'abc'}, {name:'DEF'}, {name:'def'}];
   selectedTeamlead: any[] = [];
   filteredTeamlead: any[] = [];
