@@ -36,6 +36,7 @@ const adobesignRoutes = require('./adobe-sign');
 const harvestRoutes = require('./harvest-routes');
 const ssoRoutes = require('./sso-routes');
 const optRoutes = require('./optnation');
+const userRoles = require('./user-roles');
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -43,6 +44,7 @@ app.use('/', adobesignRoutes);
 app.use('/', harvestRoutes);
 app.use('/', ssoRoutes);
 app.use('/', optRoutes);
+app.use('/', userRoles);
 
 app.use(session({
   secret: 'Tresume@123',
