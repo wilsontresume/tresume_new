@@ -59,8 +59,8 @@ import { VendorComponent } from './vendor/vendor.component';
 import { ViewvendorComponent } from './viewvendor/viewvendor.component';
 import { AddvendorComponent } from './addvendor/addvendor.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
-import { AssaignRoleComponent } from './assaign-role/assaign-role.component';
 import { AllTimeListComponent } from './all-time-list/all-time-list.component';
+import { AssignRoleComponent } from './assign-role/assign-role.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -131,8 +131,7 @@ const routes: Routes = [
   { path: 'vendor',component:VendorComponent},
   { path: 'viewvendor',component:ViewvendorComponent},
   { path: 'addvendor',component:AddvendorComponent},
-  { path: 'assaign-role', component: AssaignRoleComponent   , canActivate: [AuthGuard]},
-
+  { path: 'assaign-role',component:AssignRoleComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
   
