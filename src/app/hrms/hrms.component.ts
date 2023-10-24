@@ -8,6 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./hrms.component.scss']
 })
 export class HrmsComponent {
+  candidates1: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
+  formData: any = {};
+
+ 
+  recruiterNames: string[] = ['Recruiter 1', 'Recruiter 2', 'Recruiter 3'];
+  candidateStatuses: string[] = ['Active', 'Inactive', 'On Hold'];
+  marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
+  referralTypes: string[] = ['Type 1', 'Type 2', 'Type 3'];
+
+  onSubmit() {
+   
+    console.log('Form Data:', this.formData);
+  }
+
   datecreated:Date[];
   followupon:Date[];
   candidates: any[] = [

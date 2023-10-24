@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 import { HrmsComponent } from './hrms.component';
+
+
+
 
 describe('HrmsComponent', () => {
   let component: HrmsComponent;
@@ -23,3 +27,6 @@ describe('HrmsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
+
