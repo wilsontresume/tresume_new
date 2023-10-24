@@ -1,6 +1,12 @@
  th{
   color: #94618e;
  }
+ .container{
+  background-color: #fff;
+ }
+ .header{
+  padding-top: 20px;
+ }
  .active-col{
   color: #0fc000;
  }
@@ -55,7 +61,7 @@
     background-color: #550355;
   }
   
- .title{
+ .container{
     border-top: 3px solid #550355;
 
  }

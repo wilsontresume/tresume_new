@@ -19,7 +19,7 @@ export class AddvendorComponent {
     selectedRequiredDocuments: any[] = [];
     filteredVendorLeads: any[] = [];
     filteredRequiredDocuments: any[] = [];
-   
+    vendor: string[] = [];
     
     onVendorLeadsSearch(event: any) {
       this.filteredVendorLeads = this.VendorLeads.filter(option =>
@@ -51,15 +51,13 @@ export class AddvendorComponent {
       this.activeTab = tabId;
     }
 
-    items: string[] = [];
-
     add () {
       console.log('Vendor added successfully.');
-      this.items.push("New Item"); 
+      this.vendor.push("New Item"); 
     } 
   
     cancel (){
-      this.items = [];
+      this.vendor = [];
     }  
   }
   

@@ -7,33 +7,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./allclient.component.scss']
 })
 export class AllclientComponent implements OnInit {
-  items: any[];
+  
   showConfirmationDialog: boolean = false;
   sortByColumn: string = '';
   sortDirection: string = 'asc';
-
-
-
-  ngOnInit(): void {
-    this.sortBy('ClientName');
+  
+  clients: any[] = [
+    {
+      clientName: 'client A',
+      EmailID: 'client_a@example.com',
+      Website: 'www.client_a.com',
+      Owner: 'John Doe',
+    },
+    {
+      clientName: 'client A',
+      EmailID: 'client_a@example.com',
+      Website: 'www.client_a.com',
+      Owner: 'John Doe',
+    },
+  ];
+ 
+ngOnInit(): void {
+    this.sortBy('clientName');
     this.sortBy('EmailID');
     this.sortBy('Website');
     this.sortBy('Owner');
     this.sortBy('Action');
-    this.items = [
-      {
-        clientName: 'Client A',
-        EmailID: 'clienta@example.com',
-        Website: 'www.clienta.com',
-        Owner: 'John Doe',
-      },
-      {
-        clientName: 'Client A',
-        EmailID: 'clienta@example.com',
-        Website: 'www.clienta.com',
-        Owner: 'John Doe',
-      },
-    ];
   }
 
   
@@ -45,16 +44,16 @@ export class AllclientComponent implements OnInit {
       this.sortByColumn = columnName;
       this.sortDirection = 'asc';
     } 
-   this.items.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
+   this.clients.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
   }
 
-  deleteClient(){
+  deleteclient(){
     this.showConfirmationDialog = true;
    }
    confirmDelete() {
     const index = 1; 
-    if (index >= 0 && index < this.items.length) {
-      this.items.splice(index, 1);
+    if (index >= 0 && index < this.clients.length) {
+      this.clients.splice(index, 1);
     }
     this.showConfirmationDialog = false;
   }

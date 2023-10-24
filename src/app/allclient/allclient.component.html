@@ -1,10 +1,10 @@
 <div class="header">
 <div class="container mt-6 mb-6">
-    <div class="row">
+    <div class="row main">
         <div class="col">
-            <h4 class="ml-3 mt-3">ALL CLIENTS</h4>
+            <h4 class="ml-3 mt-4">ALL CLIENTS</h4>
         </div>
-        <div><button class="btn btn-light btn-sm mt-3 mr-3" [routerLink]="['/addclient']">Add Client</button></div>
+        <div><button class="btn text-white btn-bgcolor mt-3 mr-5" [routerLink]="['/addclient']">Add Client</button></div>
     </div>
     <div class="row mt-4">
         <div class="col text-right">
@@ -29,18 +29,16 @@
                     </thead>
                     <tbody>
                         <tr>
-                        <tr *ngFor="let item of items">
-                            <td>{{ item.clientName }}</td>
-                            <td>{{ item.EmailID }}</td>
-                            <td>{{ item.Website }}</td>
-                            <td>{{ item.Owner}}</td>
+                        <tr *ngFor="let client of clients">
+                            <td>{{ client.clientName }}</td>
+                            <td>{{ client.EmailID }}</td>
+                            <td>{{ client.Website }}</td>
+                            <td>{{ client.Owner}}</td>
                             <td>
 
-                                <div><button class="btn btn-light" [routerLink]="['/viewclient']"><i
-                                            class="fa fa-eye fa-fw mr-2"></i></button>
-                                    <button class="btn btn-light" (click)="deleteClient()"><i
-                                            class="fa fa-trash fa-fw ml-2 mr-2"></i>
-                                    </button>
+                                <div>
+                                    <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewclient']"></i>
+                                    <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteclient()"></i>
                                 </div>
 
                             </td>

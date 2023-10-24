@@ -50,7 +50,7 @@
         <td>{{ item.benchId }}</td>
         <td>
          <div class="ml-10"> {{ item.name }}</div>
-          <a routerLink="/hrms"> <i class="fas fa-network-wired icon"></i></a>
+         <i [routerLink]="['/hrms']" class="fas fa-network-wired icon"></i>
           <i class="far fa-clipboard icon" [routerLink]="['/searchtresume/reviewtresume/interview']"></i>
           <i class="fas fa-pencil-alt icon" [routerLink]="['/placementview']"></i>
           <i class="far fa-file-alt icon" [routerLink]="['/searchtresume/reviewtresume/submission']"></i>
@@ -207,8 +207,8 @@
     </div>
     </div>
   </div>
-  <!--PopUp For Group-->
 
+  <!--PopUp For Group-->
   <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -222,8 +222,7 @@
         </div>
         
         <div class="modal-body">
-          
-        <!-- <button class="btn ">Add Group</button> -->
+         
         <div class="col-12 text-right">
           <button class="btn btn-primary">Add Group</button>
         </div>
@@ -246,11 +245,10 @@
   </div>
 
   
-<!--Delete PopUp-->
 
 
 
-<!-- Modal -->
+<!-- Confirmation PopUp for delete from Talent Bench-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
