@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit,OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { CookieService } from 'ngx-cookie-service';
+import { AccountService } from './accounts-add-user.service';
 
 @Component({
   selector: 'app-accounts-add-user',
   templateUrl: './accounts-add-user.component.html',
+  providers: [CookieService,AccountService],
   styleUrls: ['./accounts-add-user.component.scss']
 })
-export class AccountsAddUserComponent {
+export class AccountsAddUserComponent implements OnChanges {
 
   userForm: FormGroup;
   CreatedDate: Date = new Date();
@@ -16,7 +18,10 @@ export class AccountsAddUserComponent {
   RoleName:string='';
   viewaccess:any;
   fullaccess:any;
-  
+  OrgID:string = '';
+  userName:string = '';
+  TraineeID:string = '';
+
 
   tableData1 = [
     { id:1,contents1: 'Job Boards', viewonly: true, fullaccess: true },
@@ -32,24 +37,8 @@ export class AccountsAddUserComponent {
     { id:11, contents1: 'Reports', viewonly: true, fullaccess: true  },  
   ];
   
-  User_Accounts: any[] = [
-    {
-      First_Name: 'Wilson',
-      Last_Name: 'AM',
-      User_Email: 'wilson@gmail.com',
-      Role: 'Admin',
-      Lead: '--',
-    },
-    {
-      First_Name: 'Romanuse',
-      Last_Name: 'Ravi',
-      User_Email: 'romanuseravi@gmail.com',
-      Role: 'Admin',
-      Lead: '--',
-    },
-  ];
-  displayedUsers: number = this.User_Accounts.length;
-  totalUsers: number = this.User_Accounts.length;
+  User_Accounts: any[];
+
   Teamlead: any[] = [{ name: 'Parvathy' }, { name: 'abc' }, { name: 'DEF' }, { name: 'def' }];
   selectedTeamlead: any[] = [];
   filteredTeamlead: any[] = [];
@@ -60,7 +49,7 @@ export class AccountsAddUserComponent {
   isEditMode = false;
   userToEdit: any;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private cookieService: CookieService, private service:AccountService) {
     this.userForm = this.fb.group({
       First_Name: ['', Validators.required],
       Last_Name: ['', Validators.required],
@@ -76,6 +65,27 @@ export class AccountsAddUserComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.OrgID = this.cookieService.get('OrgID');
+    this.userName = this.cookieService.get('userName1');
+    this.TraineeID = this.cookieService.get('TraineeID');
+    this.fetchuserlist();
+  }
+
+  ngOnChanges(): void{
+    // this.fetchuserlist();
+  }
+
+
+  fetchuserlist(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.getOrgUserList(Req).subscribe((x: any) => {
+      this.User_Accounts = x.result;
+    });
+  }
+
  
   performSearch(searchTerm: string) {
     this.User_Accounts = this.User_Accounts.filter(userAccount =>
@@ -83,7 +93,6 @@ export class AccountsAddUserComponent {
       userAccount.Last_Name.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
-    this.displayedUsers = this.User_Accounts.length;
   }
   onTeamleadSearch(event: any) {
     this.filteredTeamlead = this.Teamlead.filter(option =>
@@ -156,16 +165,16 @@ export class AccountsAddUserComponent {
 
   }
 
-  deleteAccount(index: number) {
-    this.deleteIndex = index;
-    this.showConfirmationDialog = true;
+  deleteAccount(id: number) {
+    
+console.log(id);
+
   }
 
   confirmDelete() {
     if (this.deleteIndex >= 0 && this.deleteIndex < this.User_Accounts.length) {
       this.User_Accounts.splice(this.deleteIndex, 1);
       this.showConfirmationDialog = false;
-      this.displayedUsers = this.User_Accounts.length;
     }
   }
 

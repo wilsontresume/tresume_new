@@ -39,9 +39,7 @@
         <div class="section">
             <div class="container">
                 <div class="row pt-4">
-                    <div class="col md-8 ">
-                        <p>Displaying {{ displayedUsers }} of {{ totalUsers }} User Accounts</p>
-                    </div>
+                  
                     <div class="col md-4 text-right">
                         <div class="form-group">
                             <label for="search">Search:</label>
@@ -65,15 +63,15 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let User_Account of User_Accounts">
-                                        <td>{{ User_Account.First_Name }}</td>
-                                        <td>{{ User_Account.Last_Name }}</td>
-                                        <td>{{ User_Account.User_Email }}</td>
-                                        <td>{{ User_Account.Role }}</td>
-                                        <td>{{ User_Account.Lead }}</td>
+                                        <td>{{ User_Account.MemberFirstName }}</td>
+                                        <td>{{ User_Account.MemberLastName }}</td>
+                                        <td>{{ User_Account.useremail }}</td>
+                                        <td>{{ User_Account.RoleName }}</td>
+                                        <td>{{ User_Account.TeamLeads }}</td>
                                         <td>
                                             <div><button class="btn btn-light" (click)="enterEditMode()"><i
                                                         class="fa fa-edit fa-fw mr-2"></i></button>
-                                                <button class="btn btn-light" (click)="deleteAccount()"><i
+                                                <button class="btn btn-light" (click)="deleteAccount(User_Account.id)"><i
                                                         class="fa fa-trash fa-fw ml-2 mr-2"></i>
                                                 </button>
                                             </div>
