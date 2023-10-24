@@ -2,11 +2,12 @@ import { Component, OnInit,OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { AccountService } from './accounts-add-user.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-accounts-add-user',
   templateUrl: './accounts-add-user.component.html',
-  providers: [CookieService,AccountService],
+  providers: [CookieService,AccountService,MessageService],
   styleUrls: ['./accounts-add-user.component.scss']
 })
 export class AccountsAddUserComponent implements OnChanges {
@@ -44,12 +45,12 @@ export class AccountsAddUserComponent implements OnChanges {
   filteredTeamlead: any[] = [];
  
   showConfirmationDialog: boolean = false;
-  deleteIndex: number = -1;
+  deleteIndex: string = '';
   showAddUser: boolean = false;
   isEditMode = false;
   userToEdit: any;
 
-  constructor(private fb: FormBuilder,private cookieService: CookieService, private service:AccountService) {
+  constructor(private fb: FormBuilder,private cookieService: CookieService, private service:AccountService,private messageService: MessageService) {
     this.userForm = this.fb.group({
       First_Name: ['', Validators.required],
       Last_Name: ['', Validators.required],
@@ -84,38 +85,6 @@ export class AccountsAddUserComponent implements OnChanges {
     this.service.getOrgUserList(Req).subscribe((x: any) => {
       this.User_Accounts = x.result;
     });
-  }
-
- 
-  performSearch(searchTerm: string) {
-    this.User_Accounts = this.User_Accounts.filter(userAccount =>
-    (userAccount.First_Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      userAccount.Last_Name.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
-
-  }
-  onTeamleadSearch(event: any) {
-    this.filteredTeamlead = this.Teamlead.filter(option =>
-      option.toLowerCase().includes(event.query.toLowerCase())
-    );
-  }
-
-  enterEditMode(user: any) {
-    this.isEditMode = true;
-    this.userToEdit = user;
-
-  }
-
-
-  exitEditMode() {
-    this.isEditMode = false;
-    this.userToEdit = null;
-
-  }
-
-  saveEditChanges() {
-
-    this.exitEditMode();
   }
 
 
@@ -165,22 +134,40 @@ export class AccountsAddUserComponent implements OnChanges {
 
   }
 
-  deleteAccount(id: number) {
-    
-console.log(id);
-
+  deleteAccount(email: string) {
+    this.deleteIndex = email;
+    this.showConfirmationDialog = true;
+  
   }
 
   confirmDelete() {
-    if (this.deleteIndex >= 0 && this.deleteIndex < this.User_Accounts.length) {
-      this.User_Accounts.splice(this.deleteIndex, 1);
-      this.showConfirmationDialog = false;
-    }
+    console.log(this.deleteIndex);
+    let Req = {
+      email: this.deleteIndex,
+    };
+    this.service.deleteUserAccount(Req).subscribe((x: any) => {
+      var flag = x.flag;
+      this.fetchuserlist();
+      if(flag === 1){
+        this.messageService.add({
+          severity: 'success',
+          summary: 'User Account Deleted Sucessfully',
+        });
+      }else{
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Please try again later',
+        });
+      }
+      
+    });
+    this.deleteIndex = "";
+    this.showConfirmationDialog = false;
   }
 
   cancelDelete() {
     console.log(this.showConfirmationDialog);
-    this.deleteIndex = -1;
+    this.deleteIndex = "";
     this.showConfirmationDialog = false;
   }
 

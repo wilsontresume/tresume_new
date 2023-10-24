@@ -69,9 +69,10 @@
                                         <td>{{ User_Account.RoleName }}</td>
                                         <td>{{ User_Account.TeamLeads }}</td>
                                         <td>
-                                            <div><button class="btn btn-light" (click)="enterEditMode()"><i
-                                                        class="fa fa-edit fa-fw mr-2"></i></button>
-                                                <button class="btn btn-light" (click)="deleteAccount(User_Account.id)"><i
+                                            <div>
+                                                <!-- <button class="btn btn-light" (click)="enterEditMode()"><i
+                                                        class="fa fa-edit fa-fw mr-2"></i></button> -->
+                                                <button class="btn btn-light" (click)="deleteAccount(User_Account.useremail)"><i
                                                         class="fa fa-trash fa-fw ml-2 mr-2"></i>
                                                 </button>
                                             </div>
@@ -280,4 +281,4 @@
             <button class="btn btn-wdth btn-sm btn-bgcolor text-white ml-3" (click)="cancelDelete()">Cancel</button>
         </div>
     </div>
-</div>
+</div><p-toast></p-toast>
