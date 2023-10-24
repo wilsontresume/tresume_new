@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class ViewvendorComponent implements OnInit { 
   content: string = '';
-  items: any[] = [
+  vendors: any[] = [
     {
       VendorName: 'vendor A',
       EmailID: 'vendora@example.com',
@@ -68,7 +68,7 @@ export class ViewvendorComponent implements OnInit {
       this.sortByColumn = columnName;
       this.sortDirection = 'asc';
     }
-    this.items.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
+    this.vendors.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
   }
 
   showConfirmationDialog: boolean = false;
@@ -78,8 +78,8 @@ export class ViewvendorComponent implements OnInit {
    }
    confirmDelete() {
     const index = 1; 
-    if (index >= 0 && index < this.items.length) {
-      this.items.splice(index, 1);
+    if (index >= 0 && index < this.vendors.length) {
+      this.vendors.splice(index, 1);
     }
     this.showConfirmationDialog = false;
   }

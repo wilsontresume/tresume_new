@@ -7,7 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./vendor.component.scss']
 })
 export class VendorComponent implements OnInit {
-  items: any[] = [
+  showConfirmationDialog: boolean = false;
+  sortByColumn: string = '';
+  sortDirection: string = 'asc';
+  
+  vendors: any[] = [
     {
       VendorName: 'vendor A',
       EmailID: 'vendor_a@example.com',
@@ -21,13 +25,8 @@ export class VendorComponent implements OnInit {
       Owner: 'John Doe',
     },
   ];
-  showConfirmationDialog: boolean = false;
-  sortByColumn: string = '';
-  sortDirection: string = 'asc';
-
-
-
-  ngOnInit(): void {
+ 
+ngOnInit(): void {
     this.sortBy('vendorName');
     this.sortBy('EmailID');
     this.sortBy('Website');
@@ -44,7 +43,7 @@ export class VendorComponent implements OnInit {
       this.sortByColumn = columnName;
       this.sortDirection = 'asc';
     } 
-   this.items.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
+   this.vendors.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
   }
 
   deletevendor(){
@@ -52,8 +51,8 @@ export class VendorComponent implements OnInit {
    }
    confirmDelete() {
     const index = 1; 
-    if (index >= 0 && index < this.items.length) {
-      this.items.splice(index, 1);
+    if (index >= 0 && index < this.vendors.length) {
+      this.vendors.splice(index, 1);
     }
     this.showConfirmationDialog = false;
   }
