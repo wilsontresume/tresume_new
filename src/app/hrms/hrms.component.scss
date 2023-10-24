@@ -1,7 +1,10 @@
 .bg-clr {
     background-color: #46103d ; 
   }
-
+ 
+.container{
+  background-color: #fff;
+}
   table {
     width: 100%;
     border-collapse: collapse;
@@ -28,8 +31,9 @@
   }
   
   i{
-    margin: 5px;
+    margin-left: 2px;
     color: #94618e;
+    cursor: pointer;
   }
  
   td{
@@ -55,10 +59,8 @@
   max-width: 600px;
 }
 .main {
-  margin-top: 30px;
   border-top: 3px solid #46103d;
   border-bottom: 3px solid #46103d;
-  height: 80px;
 }
 
  .fa-eye{
@@ -68,15 +70,58 @@
  label {
   flex-direction: row;
   text-align: center;
-  width: 100px;
   line-height: 26px;
   margin-bottom: 10px;
 }
 
 input {
-  
-  height: 30px;
-  flex: 0 0 200px;
+   flex: 0 0 200px;
   margin-left: 10px;
 }
+label{
+  margin-left: 5px;
+}
+.btn{
+  background-color: #49274A;
+  color: #ffffff;
+}
+button{
+border: none;
+}
+.btn:hover{
+  background-color: #94618E;
+  color: #ffffff;
+}
+.row2{
+  margin-top: 10px;
+}
+ 
+.label {
+  display: block;
+  margin-bottom: 0;
+}
+form {
+  padding: 20px;
+}
+.container2{
+  background-color: #f2f2f2;
+}
+.input[type="text"],
+.input[type="file"],
+select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+
+}
+.modal-title{
+  color: #94618e;
+}
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
 

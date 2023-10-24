@@ -1,33 +1,29 @@
 
-<div class="content-header">
-  <div class="container main-container mt-4">
-
+<div class="content-header p-4">
+  <div class="container main-container">
     <div class="row main pt-3">
         <div class="col-4">
         <h2>All Job Postings</h2>
         </div>
-      
         <div class="col-4 form-group">
           <select id="jobOptionSelect" class="form-control">
             <option *ngFor="let option of jobOptions" [value]="option">{{ option }}</option>
           </select>
         </div>
-
         <div class="col-4 text-right">
         <button class="btn createNew" routerLink="/Myjobs/createnewjob">Create New Job</button>
-         </div>
+      </div>
     </div>
-
   </div>
-</div>
+
 
 <div class="container main-container d-flex justify-content-end">
-  <div class="form-group d-flex mt-2">
+  <div class="form-group d-flex mt-3">
     <label for="searchInput" class="search-label">Search</label>
     <input type="text" id="searchInput" class="form-control">
   </div>
 </div>
-<div class="container main-container">
+<div class="container main-container pb-1">
   <table>
     <thead>
       <tr>
@@ -68,4 +64,5 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>
