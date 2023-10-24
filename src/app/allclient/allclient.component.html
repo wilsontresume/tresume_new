@@ -1,7 +1,8 @@
+<div class="header">
 <div class="container mt-6 mb-6">
-    <div class="row bg-clr">
+    <div class="row">
         <div class="col">
-            <h4 class=" text-white ml-3 mt-3">ALL CLIENTS</h4>
+            <h4 class="ml-3 mt-3">ALL CLIENTS</h4>
         </div>
         <div><button class="btn btn-light btn-sm mt-3 mr-3" [routerLink]="['/addclient']">Add Client</button></div>
     </div>
@@ -47,12 +48,7 @@
                     </tbody>
                 </table>
                 
-                <!-- <div>
-                  <ag-grid-angular style="width: 100%; height: 622px;" class="ag-theme-alpine" [rowData]="rowData"
-                      [columnDefs]="columnDefs" [gridOptions]="gridOptions" [frameworkComponents]="frameworkComponents"
-                      (gridReady)="onGridReady($event)">
-                  </ag-grid-angular>
-              </div> -->
+               
 
                 <div *ngIf="showConfirmationDialog" class="modal align-center">
                     <div class="modal-content justify-content-center ">
@@ -72,4 +68,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
