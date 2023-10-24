@@ -1,14 +1,16 @@
 .container{
     padding: 25px 10px 10px 10px;
+    background-color: #fff;
 }
 .nav-tabs .nav-link {
     color:black;
 }
-
+.border{
+  border-top:2px solid #2d012d;
+}
 .nav-tabs .nav-item.show .nav-link.active, .nav-tabs .nav-link.active {
-    background-color: rgb(56, 8, 56);
-    border-color: rgb(56, 8, 56) ;
-    color: white;
+    background-color: #f2f2f2;
+    color: black;
 }
 select.form-control option:hover {
     background-color: purple;
