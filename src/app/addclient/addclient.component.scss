@@ -1,17 +1,35 @@
 
 .bg-clr {
-    background-color: #46103d ; 
-  }
-  
-  
+  background-color: #46103d ; 
+}
+
+
 .bg-color {
-    background-color: white ; 
-    
-  }
-  .btn-wdth {
-    width: 20%;
-    margin-bottom: 15px;
-    background-color: #46103d ; 
-    text-align: center;
-  }
- 
+  background-color: white ; 
+  
+}
+.btn-wdth {
+  margin-bottom: 15px;
+  background-color: #46103d ; 
+  text-align: center;
+}
+
+h2{
+  color: #46103d;
+}
+p{
+  color: #46103d;
+}
+button{
+  cursor: pointer;
+}
+.main {
+  margin-top: 30px;
+  border-top: 3px solid #46103d;
+  border-bottom: 3px solid #46103d;
+  height: 80px;
+}
+.container {
+  background-color: #fff;
+  width:auto;
+}

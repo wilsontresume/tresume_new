@@ -20,10 +20,7 @@ export class AddclientComponent {
   selectedRequiredDocuments: any[] = [];
   filteredClientLeads: any[] = [];
   filteredRequiredDocuments: any[] = [];
-
-  addClient() {
-    console.log('Client added successfully.');
-  }
+  client: string[] = [];
 
   onClientLeadsSearch(event: any) {
     this.filteredClientLeads = this.clientLeads.filter(option =>
@@ -54,4 +51,13 @@ export class AddclientComponent {
   selectTab(tabId: string) {
     this.activeTab = tabId;
   }
+  
+  add () {
+    console.log('Client added successfully.');
+    this.client.push("New client"); 
+  } 
+
+  cancel (){
+    this.client = [];
+  } 
 }

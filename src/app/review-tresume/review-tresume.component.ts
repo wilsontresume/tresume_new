@@ -84,6 +84,7 @@ interviewTime: string;
 
 selectedInterviewMode: string;
 interviewModes: string[] = ['--Select--', 'Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
+  router: any;
 
 constructor() { }
  
@@ -105,12 +106,16 @@ constructor() { }
 
   legalStatusOptions: string[] = ['Alabama', 'Alaska', 'Arizona', 'Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa']; 
   selectedOption: string = ''; 
-
+  GoTonext(){
+    this.router.navigate(['/candidateView/:id/sitevisit']);
+  }
 }
-const routes: Routes = [
-  // ...other routes
-  {
-    path: 'candidateView/:id/sitevisit',
-    component: CandidateComponent, // Replace with the actual component for the site visit
-  },
-];
+
+// const routes: Routes = [
+//   // ...other routes
+//   {
+//     path: 'candidateView/:id/sitevisit',
+//     component: CandidateComponent, // Replace with the actual component for the site visit
+//   },
+  
+// ];

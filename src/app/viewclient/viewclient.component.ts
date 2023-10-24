@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class ViewclientComponent implements OnInit { 
   content: string = '';
-  items: any[] = [
+  clients: any[] = [
     {
       clientName: 'Client A',
       EmailID: 'clienta@example.com',
@@ -60,6 +60,11 @@ export class ViewclientComponent implements OnInit {
     this.sortBy('Action');
   }
 
+  editing: boolean = false;
+
+  enableEditing() {
+    this.editing = true;
+  }
   
   sortBy(columnName: string) {
     if (this.sortByColumn === columnName) {
@@ -68,7 +73,7 @@ export class ViewclientComponent implements OnInit {
       this.sortByColumn = columnName;
       this.sortDirection = 'asc';
     }
-    this.items.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
+    this.clients.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
   }
 
 }
