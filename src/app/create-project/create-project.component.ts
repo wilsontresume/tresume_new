@@ -13,6 +13,7 @@ export class CreateProjectComponent implements OnInit {
   userlist:any;
   project:any;
   allusers:any;
+  NetTerms:any;
   constructor() { }
 
   ngOnInit(): void {

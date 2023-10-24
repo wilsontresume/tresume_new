@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-assaign-role',
-  templateUrl: './assaign-role.component.html',
-  styleUrls: ['./assaign-role.component.scss']
+  selector: 'app-assign-role',
+  templateUrl: './assign-role.component.html',
+  styleUrls: ['./assign-role.component.scss']
 })
-export class AssaignRoleComponent implements OnInit {
+export class AssignRoleComponent implements OnInit {
   adminlist:any;
   userlist:any;
   allusers:any;

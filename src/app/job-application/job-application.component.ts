@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JobApplicationService } from './job-application.service';
 
 @Component({
   selector: 'app-job-appication',
@@ -13,7 +14,7 @@ selectedOption: string = '';
 showDateOptions: boolean = false;
 
   container: any;
-  constructor() { }
+  constructor( private service: JobApplicationService,) { }
 
   ngOnInit(): void {
   }
@@ -40,4 +41,5 @@ showDateOptions: boolean = false;
     this.showDateOptions = false;
     // Add your cancel logic here
   }
-}
+  }
+

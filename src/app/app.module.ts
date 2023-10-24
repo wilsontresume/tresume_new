@@ -127,8 +127,8 @@ import { JobApplicationComponent } from './job-application/job-application.compo
 import { ViewvendorComponent } from './viewvendor/viewvendor.component';
 import { AddvendorComponent } from './addvendor/addvendor.component';
 import { AllTimeListComponent } from './all-time-list/all-time-list.component';
-import { AssaignRoleComponent } from './assaign-role/assaign-role.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
+import { AssignRoleComponent } from './assign-role/assign-role.component';
 
 
 
@@ -209,7 +209,7 @@ import { CreateProjectComponent } from './create-project/create-project.componen
     SubscriptionComponent, ReviewTresumeComponent, 
     SubscriptionComponent, ReviewTresumeComponent,BatchComponent, VendorComponent,
     SubscriptionComponent, ReviewTresumeComponent,
-    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, JobApplicationComponent, AllTimeListComponent, AssaignRoleComponent, CreateProjectComponent,
+    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, JobApplicationComponent, AllTimeListComponent, CreateProjectComponent,  AssignRoleComponent,
   ],
   imports: [
     HttpClientModule,

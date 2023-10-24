@@ -22,13 +22,12 @@
             <select id="userselect" class="form-control">
               <option *ngFor="let option of clientname" [value]="option.id">{{ option.name }}</option>
             </select>
-          </div>
-          <div class="col-3 form-group ">
-            <label>Net Terms</label>
-            <!-- <input type="text" id="projectselect" class="form-control"> -->
-            <input type="date"id="projectselect" class="form-control" *ngFor="let option of netterms" [value]="option.id">
-          </div>
-  
+          </div>   
+            
+<div class="col-3 form-group">
+  <label for="NetTerms">Net Terms</label>
+  <input type="text" class="form-control" id="NetTerms" name="NetTerms" placeholder="NetTerms" [(bsValue)]="NetTerms" bsDatepicker>
+</div>
           <div class="col-3 text-left mt-4">
           <button class="btn createNew">Admin</button>
            </div>
