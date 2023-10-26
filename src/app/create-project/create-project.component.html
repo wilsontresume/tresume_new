@@ -1,48 +1,36 @@
-
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Create Project</h1>
-            </div>
+  <div class="header p-4">
+    <div class="container">
+      <div class="row mb-2 main p-3">
+            <h2 class="m-0">CREATE PROJECT</h2>
+       </div>
+       <div class="row pt-4">
+        <div class="col-3 form-group">
+          <label>Project Name</label>
+          <select id="adminselect" class="form-control">
+            <option *ngFor="let option of projectname" [value]="option.id">{{ option.name }}</option>
+          </select>
         </div>
+        <div class="col-3 form-group">
+          <label>Client name</label>
+          <select id="userselect" class="form-control">
+            <option *ngFor="let option of clientname" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>   
+          
+      <div class="col-3 form-group">
+       <label for="NetTerms">Net Terms</label>
+      <input type="text" class="form-control" id="NetTerms" name="NetTerms" placeholder="Net Terms" [(bsValue)]="NetTerms" bsDatepicker>
     </div>
-</div>
-<div class="content-header">
-    <div class="container main-container mt-4">
-      <div class="row main pt-2">
-          <div class="col-3 form-group">
-            <label>project Name</label>
-            <select id="adminselect" class="form-control">
-              <option *ngFor="let option of projectname" [value]="option.id">{{ option.name }}</option>
-            </select>
-          </div>
-          <div class="col-3 form-group">
-            <label>Client name</label>
-            <select id="userselect" class="form-control">
-              <option *ngFor="let option of clientname" [value]="option.id">{{ option.name }}</option>
-            </select>
-          </div>   
-            
-<div class="col-3 form-group">
-  <label for="NetTerms">Net Terms</label>
-  <input type="text" class="form-control" id="NetTerms" name="NetTerms" placeholder="NetTerms" [(bsValue)]="NetTerms" bsDatepicker>
-</div>
-          <div class="col-3 text-left mt-4">
-          <button class="btn createNew">Admin</button>
-           </div>
-      </div>
-  
+        <div class="col-3 text-center mt-4">
+        <button class="btn createNew">Admin</button>
+         </div>
     </div>
-  </div>
-
-  <div class="container main-container">
-    <table>
+    <table class="pt-4">
       <thead>
         <tr>
-          <th>project Name</th>
+          <th>Project Name</th>
           <th>Client Name </th>
-          <th>Netterms</th>
+          <th>Net terms</th>
           
         </tr>
       </thead>
@@ -55,4 +43,5 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>

@@ -1,20 +1,13 @@
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
+
+<div class="header pt-4">
+    <div class="container">
+        <div class="row mb-2 p-4 main">
             <div class="col-sm-6">
-                <h1 class="m-0">Division</h1>
+                <h2 class="m-0">DIVISION</h2>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="section">
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h2>Add Division</h2>
-            </div>
-            <div class="card-body">
+            <div class="row ml-3"> <h2>Add Division</h2></div>
+                   
                 <div class="row">
                     <div class="col-md-2">
                         <input type="text" class="form-control" placeholder="Division Name"
@@ -49,6 +42,138 @@
                                 Create
                             </button>
                     </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">Divisions</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Division Name</th>
+                                    <th scope="col">CB</th>
+                                    <th scope="col">Dice</th>
+                                    <th scope="col">Monster</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cdata of division">
+                                    <th scope="row">{{index}}</th>
+                                    <td>{{cdata.DivisionName}}</td>
+                                    <td><input type="number" [disabled]="cdata.active" [(ngModel)]="cdata.cb" value="{{cdata.cb}}"></td>
+                                    <td><input type="number" [disabled]="cdata.active" [(ngModel)]="cdata.dice" value="{{cdata.dice}}"></td>
+                                    <td><input type="number" [disabled]="cdata.active" [(ngModel)]="cdata.monster" value="{{cdata.monster}}"></td>
+                                    <td>
+                                        <button (click)="toggle(cdata)" *ngIf="cdata.active">Edit</button>
+                                        <button (click)="toggle(cdata);editdata(cdata)" *ngIf="!cdata.active">Save</button>
+                                        <button (click)="deletedata(cdata)">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Add Recruiter to Division</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select class="form-control" [(ngModel)]="sRecruiter"
+                                            aria-label="Default select example">
+                                            <option *ngFor="let cdata of recruiter" [value]="cdata.TraineeID[0]">
+                                                {{ cdata.FirstName[0] }} {{ cdata.LastName[0] }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control" [(ngModel)]="sdivision"
+                                            aria-label="Default select example">
+                                            <option *ngFor="let cdata of division" [value]="cdata.id">
+                                                {{ cdata.DivisionName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 align-items-center">
+                                        <button class="btn btn-outline-primary" type="button" id="button-addon2"
+                                            (click)="assignrecruiter()">
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Recruiters</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Recruiter Name</th>
+                                    <th scope="col">Division Name</th>
+                                    <th scope="col">Monster Allocated</th>
+                                    <th scope="col">Monster Used</th>
+                                    <th scope="col">CB Allocated</th>
+                                    <th scope="col">CB Used</th>
+                                    <th scope="col">Dice Allocated</th>
+                                    <th scope="col">Dice Used</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cdata of divrecruiter">
+                                    <th scope="row">{{ index }}</th>
+                                    <td>{{ cdata.FirstName }} {{ cdata.LastName }}</td>
+                                    <td>{{ cdata.DivisionName }}</td>
+                                    <td>{{ cdata.monster }}</td>
+                                    <td>{{ cdata.monsterused }}</td>
+                                    <td>{{ cdata.cb }}</td>
+                                    <td>{{ cdata.cbused }}</td>
+                                    <td>{{ cdata.dice }}</td>
+                                    <td>{{ cdata.diceused }}</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+            
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="content-header">
+    <div class="container-fluid">
+       
+    </div>
+</div>
+
+<div class="section"> -->
+    <!-- <div class="container"> -->
+       
 
                     <!-- <div class="col-md-3"></div>
                     <div class="col-md-6">
@@ -63,9 +188,9 @@
                         </div>
                     </div>
                     <div class="col-md-3"></div> -->
-                </div>
-            </div>
-        </div>
+              
+            <!-- </div>
+        </div> -->
         <!-- <div class="card">
       <div class="card-header">
         <h2>Add Credit</h2>
@@ -123,111 +248,9 @@
         </div>
       </div>
     </div> -->
-        <div class="card">
-            <div class="card-header">Divisions</div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Division Name</th>
-                            <th scope="col">CB</th>
-                            <th scope="col">Dice</th>
-                            <th scope="col">Monster</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let cdata of division">
-                            <th scope="row">{{index}}</th>
-                            <td>{{cdata.DivisionName}}</td>
-                            <td><input type="number" [disabled]="cdata.active" [(ngModel)]="cdata.cb" value="{{cdata.cb}}"></td>
-                            <td><input type="number" [disabled]="cdata.active" [(ngModel)]="cdata.dice" value="{{cdata.dice}}"></td>
-                            <td><input type="number" [disabled]="cdata.active" [(ngModel)]="cdata.monster" value="{{cdata.monster}}"></td>
-                            <td>
-                                <button (click)="toggle(cdata)" *ngIf="cdata.active">Edit</button>
-                                <button (click)="toggle(cdata);editdata(cdata)" *ngIf="!cdata.active">Save</button>
-                                <button (click)="deletedata(cdata)">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <h2>Add Recruiter to Division</h2>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <select class="form-control" [(ngModel)]="sRecruiter"
-                                    aria-label="Default select example">
-                                    <option *ngFor="let cdata of recruiter" [value]="cdata.TraineeID[0]">
-                                        {{ cdata.FirstName[0] }} {{ cdata.LastName[0] }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-control" [(ngModel)]="sdivision"
-                                    aria-label="Default select example">
-                                    <option *ngFor="let cdata of division" [value]="cdata.id">
-                                        {{ cdata.DivisionName }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 align-items-center">
-                                <button class="btn btn-outline-primary" type="button" id="button-addon2"
-                                    (click)="assignrecruiter()">
-                                    Add
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3"></div>
-                </div>
-            </div>
-        </div>
+<!--        
+       
 
-        <div class="card">
-            <div class="card-header">
-                <h2>Recruiters</h2>
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Recruiter Name</th>
-                            <th scope="col">Division Name</th>
-                            <th scope="col">Monster Allocated</th>
-                            <th scope="col">Monster Used</th>
-                            <th scope="col">CB Allocated</th>
-                            <th scope="col">CB Used</th>
-                            <th scope="col">Dice Allocated</th>
-                            <th scope="col">Dice Used</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let cdata of divrecruiter">
-                            <th scope="row">{{ index }}</th>
-                            <td>{{ cdata.FirstName }} {{ cdata.LastName }}</td>
-                            <td>{{ cdata.DivisionName }}</td>
-                            <td>{{ cdata.monster }}</td>
-                            <td>{{ cdata.monsterused }}</td>
-                            <td>{{ cdata.cb }}</td>
-                            <td>{{ cdata.cbused }}</td>
-                            <td>{{ cdata.dice }}</td>
-                            <td>{{ cdata.diceused }}</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+      
     </div>
-</div>
+</div> -->

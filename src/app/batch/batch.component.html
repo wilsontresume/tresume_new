@@ -1,13 +1,42 @@
-<div class="container">
-  <h2>BATCH</h2>
-  <div class="container main-container mt-4">
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-      Add Batch
-    </button>
+    <div class="header">
+  <div class="container pb-1">
+    <div class="row main">
+      <div class="col-md-6 mt-2">  <h2>BATCH</h2></div>
+      <div class="col-md-6"> <button type="button" class="btn float-right mb-1 mt-2" data-toggle="modal" data-target="#exampleModalLong">
+        Add Batch
+      </button></div>
+    </div>
+  
+   
+    <table class="table table-bordered table-striped" style="margin-top: 20px;">
+      <thead>
+        <tr>
+          <th>Batch Name</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="button-container">
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+              <button class="btn btn-primary edit" (click)="editBatch()">Edit</button>
+              <button class="btn btn-danger edit" (click)="deleteBatch()">Delete</button>
+            </div>          
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </div>
+</div>
+
+<!--Models-->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -50,18 +79,9 @@
             </div>
           </div>
         </div>
-      </div>
-
-    </div>
-
-    <div class="header">
-      <div class="container">
-        <!-- Button trigger modal -->
-        <h2>Batch</h2>
-        <button type="button" class="btn float-right mb-1 mt-0" data-toggle="modal" data-target="#exampleModalLong">
-          Add Batch
-        </button>
-        <!-- Modal -->
+    
+  
+       
         <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalLongTitle" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -103,30 +123,5 @@
             </div>
           </div>
         </div>
-        <table class="table table-bordered table-striped" style="margin-top: 20px;">
-          <thead>
-            <tr>
-              <th>Batch Name</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <div class="button-container">
-
-                  <button class="btn btn-primary edit" (click)="editBatch()">Edit</button>
-                  <button class="btn btn-danger edit" (click)="deleteBatch()">Delete</button>
-                </div>          
-      </td>
-      </tr>
-      </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+       
+ 

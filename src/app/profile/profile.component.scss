@@ -1,8 +1,7 @@
 
 .form-control{
     box-shadow: rgb(193, 193, 193) 0px 2px 12px !important;
-    // width: 200%;
-}
+  }
 h4.card-title {
     margin-left: 85px;
     font-weight: bold;
@@ -11,8 +10,15 @@ h4.card-title {
     color: #fff;
     background-color: #49274a;
 }
-.btn btn-secondary{
+.card-outline{
+    border-top:3px solid #49274a;
+}
+.btn{
     background-color: #49274a;
+    color: #fff;
+}
+.container{
+    background-color: #fff;
 }
 .custom-input {
     width: 283px;
@@ -33,6 +39,10 @@ button.btn.btn-secondary {
 button.btn.btn-primary.ml-2 {
     background-color: #49274a;
     width: 200px;
+}
+.main{
+    border-top:3px solid #49274a;
+    border-bottom: 3px solid #49274a;
 }
 .edit-prf {
     margin-top: 10px;

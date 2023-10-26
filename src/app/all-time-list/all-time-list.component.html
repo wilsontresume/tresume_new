@@ -1,11 +1,18 @@
-<div class="container mt-4">
+<div class="header p-4">
+<div class="container pt-3 pl-3 pr-3">
     <div class="row">
-        <div class="col" style="position: relative;">
-            <h4 style="border-top: 3px solid #000; border-bottom: 3px solid #000; padding: 20px 0;">All Time Sheet</h4>
-            <a routerLink="/timesheet/create" class="crt btn btn-primary"
+        <!-- <div class="col" style="position: relative;">
+            <h4 style="border-top: 3px solid #000; border-bottom: 3px solid #000; padding: 20px 0;"></h4>
+            <a  class="crt btn btn-primary"
                 style="position: absolute; top: 15px; right: 10px;" (click)="Gotonext()"> Create</a>
-        </div>
+        </div> -->
+        <h2 class="col-md-6">ALL TIME SHEET</h2>
+        <div class="col-md-3"></div>
+        <div class="col-md-3" routerLink="/timesheet/create" (click)="Gotonext()">
+            <button class="btn float-right">Create</button></div>
     </div>
+</div>
+<div class="container">
     <div class="row mt-5">
         <div class="col">
             <div class="form-group">
@@ -31,55 +38,36 @@
                 <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
             </div>
         </div>
-    </div>
+        <table class="table m-3">
+            <thead>
+                <tr>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Total Hours</th>
+                    <th>CreatedOn</th>
+                    <th>Status</th>
+                    <th>Comments</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of tableData">
+                    <td>{{ row.From_Date }}</td>
+                    <td>{{ row.To_Date }}</td>
+                    <td>{{ row.Total_Hours }}</td>
+                    <td>{{ row.Created_On }}</td>
+                    <td>{{ row.Status }}</td>
+                    <td>{{ row.Comments }}</td>
+                    <td>
+                        <div>
+                            <button class="btn btn-light" [routerLink]="['/timesheet/viewdetails']">
+                                <i class="fa fa-eye fa-fw mr-2"></i>View
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 </div>
-<div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>From Date</th>
-                <th>To Date</th>
-                <th>Total Hours</th>
-                <th>CreatedOn</th>
-                <th>Status</th>
-                <th>Comments</th>
-                <th>Details</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let row of tableData">
-                <td>{{ row.From_Date }}</td>
-                <td>{{ row.To_Date }}</td>
-                <td>{{ row.Total_Hours }}</td>
-                <td>{{ row.Created_On }}</td>
-                <td>{{ row.Status }}</td>
-                <td>{{ row.Comments }}</td>
-                <td>
-                    <div>
-                        <button class="btn btn-light" [routerLink]="['/timesheet/viewdetails']">
-                            <i class="fa fa-eye fa-fw mr-2"></i>View
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </div>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-6 text-left">
-            <p>Displaying {{ displayedTimesheets }} of {{ totalTimesheets }} timesheets</p>
-        </div>
-
-        <div class="col-6 text-right">
-            <nav>
-                <ul class="pagination">
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>
