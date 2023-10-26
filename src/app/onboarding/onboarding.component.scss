@@ -16,7 +16,13 @@
     display: block;
     overflow-y: scroll;
 }
-
+.container{
+    background-color: #fff;
+}
+.main{
+    border-top: 3px solid #49274A;
+    border-bottom: 3px solid #49274A;
+}
 .example-box {
     padding: 20px 10px;
     border-bottom: solid 1px #ccc;
@@ -152,7 +158,10 @@
     width: 360px;
     background-color: #49274a;
 }
-
+.btn{
+    background-color: #49274a;
+    color: #fff;
+}
 .info-button {
     width: 360px;
     background-color: #963e6a;

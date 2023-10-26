@@ -20,9 +20,7 @@
   .card {
     margin-top: 50px;
   }
-  .card-body{
-    border-top: 3px solid #550355;
-  }
+
   .selectOption{
     cursor: pointer;
   }
@@ -61,15 +59,13 @@
     background-color: #550355;
   }
   
- .container{
+ .main{
     border-top: 3px solid #550355;
-
+    border-bottom: 3px solid #550355;
  }
  .container-product{
   padding-left: 300px;
  }
-
-
   .card{
     border: none;
   }

@@ -1,31 +1,17 @@
 
 .main {
-  margin-top: 30px;
   border-top: 3px solid #46103d;
   border-bottom: 3px solid #46103d;
-  height: 80px;
 }
 .container {
   background-color: #fff;
-  width:auto;
+  
 }
 .bg-clr {
   background-color: #46103d;
 }
 
-.table-container {
-  height: 300px;
-  overflow-x: scroll;
 
-}
-
-.table-container::-webkit-scrollbar-track-horizontal {
-  background-color: #f1f1f1;
-}
-
-.table-container::-webkit-scrollbar-thumb-horizontal {
-  background-color: #888;
-}
 
 .table {
   width: 100%;
@@ -114,7 +100,6 @@ h2{
   left: 0;
   right: 0;
   z-index: 1000;
-  /* Adjust the z-index as needed */
   background: rgba(0, 0, 0, 0.5);
 }
 

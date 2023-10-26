@@ -1,5 +1,9 @@
 .container {
-    margin-top: 20px; 
+    background-color: #fff;
+  }
+  .border1{
+    border-top:3px solid  #49274A;
+    border-bottom:3px solid  #49274A;
   }
   .createNew{
     background-color: #49274A;
@@ -11,10 +15,6 @@
   .createNew:active{
     background-color: #49274A ; 
   }
-  .main{
-    border-top:3px solid  #49274A;
-    border-bottom:3px solid  #49274A;
-  }
   .search-label{
     padding: 8px;
   }
@@ -23,7 +23,6 @@
     border-collapse: collapse;
     margin-bottom: 20px;
   }
-  
   th, td {
     border: 1px solid #ccc;
     padding: 10px;

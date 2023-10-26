@@ -1,16 +1,17 @@
 <div class="header">
 <div class="container">
+  <div class="row main pt-2">
     <h2 class="pt-2 ml-3">JOB BOARD ACCOUNT</h2>
-    <h3 class="ml-3"><u>Integrations</u></h3>    
-<hr>
+  </div>
+
    <div class="row ml-2 mr-2">
           <div class="col-md-3">
             <div class="card mt-4">
             <div class="card-body">
-          <p class="text-center">Add New Account</p>
+          <h3 class="text-center">Add New Account</h3>
           <label for="accountName">Account Name</label>
           <input type="text" id="accountName" [(ngModel)]="accountName" class="form-control" placeholder="Enter account name" required>
-          <p class="text-center mt-4">Subscription Valid</p>
+          <h3 class="text-center mt-4">Subscription Valid</h3>
           <div class="form-group">
             <label for="fromDate">From</label>
             <input type="date" id="fromDate" class="form-control">
@@ -19,7 +20,7 @@
             <label for="toDate">To</label>
             <input type="date" id="toDate" class="form-control">
           </div>
-          <p class="text-center">Select Job Board</p>
+          <h3 class="text-center">Select Job Board</h3>
           <div class="form-group">
             <select id="optionSelect" class="form-control selectOption" [(ngModel)]="selectedJobBoard" >
                 <option>ZipRecruiter</option>
@@ -33,7 +34,7 @@
           <div class="col-md-3">
             <div class="card mt-4">
               <div class="card-body">
-                <p class="text-center">ZipRecruiter</p>
+                <h3 class="text-center">ZipRecruiter</h3>
 
         
         <div class="form-group">

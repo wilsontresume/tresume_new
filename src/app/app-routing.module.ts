@@ -131,7 +131,7 @@ const routes: Routes = [
   { path: 'vendor',component:VendorComponent},
   { path: 'viewvendor',component:ViewvendorComponent},
   { path: 'addvendor',component:AddvendorComponent},
-  { path: 'assaign-role',component:AssignRoleComponent},
+  { path: 'assignrole',component:AssignRoleComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
   

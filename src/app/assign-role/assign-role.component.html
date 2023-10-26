@@ -1,43 +1,32 @@
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Assign Admin and Project</h1>
-            </div>
+  <div class="header pt-4">
+    <div class="container">
+      <div class="row border1">
+      <h2 class="mt-3 pl-3">ASSIGN ADMIN AND PROJECT</h2>
+    </div>
+      <div class="row main pt-2">      
+        <div class="col-3 form-group">
+          <label>Admin</label>
+          <select id="adminselect" class="form-control">
+            <option *ngFor="let option of adminlist" [value]="option.id">{{ option.name }}</option>
+          </select>
         </div>
-    </div>
-</div>
-<div class="content-header">
-    <div class="container main-container mt-4">
-      <div class="row main pt-2">
-          <div class="col-3 form-group">
-            <label>Admin</label>
-            <select id="adminselect" class="form-control">
-              <option *ngFor="let option of adminlist" [value]="option.id">{{ option.name }}</option>
-            </select>
-          </div>
-          <div class="col-3 form-group">
-            <label>Employee</label>
-            <select id="userselect" class="form-control">
-              <option *ngFor="let option of userlist" [value]="option.id">{{ option.name }}</option>
-            </select>
-          </div>
-          <div class="col-3 form-group">
-            <label>Project</label>
-            <select id="projectselect" class="form-control">
-              <option *ngFor="let option of project" [value]="option.id">{{ option.name }}</option>
-            </select>
-          </div>
+        <div class="col-3 form-group">
+          <label>Employee</label>
+          <select id="userselect" class="form-control">
+            <option *ngFor="let option of userlist" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>
+        <div class="col-3 form-group">
+          <label>Project</label>
+          <select id="projectselect" class="form-control">
+            <option *ngFor="let option of project" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>
   
-          <div class="col-3 text-left mt-4">
-          <button class="btn createNew">Assign</button>
-           </div>
-      </div>
-  
+        <div class="col-3 text-center mt-4">
+        <button class="btn createNew">Assign</button>
+         </div>
     </div>
-  </div>
-
-  <div class="container main-container">
     <table>
       <thead>
         <tr>
@@ -56,4 +45,6 @@
         </tr>
       </tbody>
     </table>
+
+    </div>
   </div>
