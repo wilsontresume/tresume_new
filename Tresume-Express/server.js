@@ -37,6 +37,8 @@ const harvestRoutes = require('./harvest-routes');
 const ssoRoutes = require('./sso-routes');
 const optRoutes = require('./optnation');
 const userRoles = require('./user-roles');
+const vendors = require('./vendors');
+const clients = require('./clients');
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -45,6 +47,8 @@ app.use('/', harvestRoutes);
 app.use('/', ssoRoutes);
 app.use('/', optRoutes);
 app.use('/', userRoles);
+app.use('/', vendors);
+app.use('/', clients);
 
 app.use(session({
   secret: 'Tresume@123',

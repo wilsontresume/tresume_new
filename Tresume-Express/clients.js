@@ -30,11 +30,12 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
-router.post('/getOrgUserList', async (req, res) => {
+router.post('/getTraineeClientList', async (req, res) => {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
-    var query = "SELECT  MD.id,  MD.useremail,  MD.firstname AS MemberFirstName,  MD.lastname AS MemberLastName, RN.RoleName, ISNULL( STRING_AGG( COALESCE(T.firstname, '--'), ', ' ) WITHIN GROUP (ORDER BY T.Traineeid),      '--'  ) AS TeamLeads FROM Memberdetails MD LEFT JOIN Trainee T ON CHARINDEX(CONVERT(NVARCHAR(10), T.Traineeid), MD.teamlead) > 0 LEFT JOIN RolesNew RN ON MD.roleid = RN.RoleID WHERE MD.orgID = '" + req.body.OrgID + "' and MD.active = 1 GROUP BY MD.id, MD.useremail, MD.firstname, MD.lastname, RN.RoleName";
+    var query = "select * from Clients where PrimaryOwner '"+ req.body.TraineeID +"' and active = 1";
+
     console.log(query);
     request.query(query,
       function (err, recordset) {
@@ -52,13 +53,12 @@ router.post('/getOrgUserList', async (req, res) => {
 
 })
 
-router.post('/deleteUserAccount', async (req, res) => {
-  const email = req.body.email;
-  try {
-    const dtrainee = await deactivatetrainee(email);
-    const dmemberdetails = await deactivatememberdetails(email);
+router.post('/deleteclient', async (req, res) => {
+  const TraineeID = req.body.TraineeID;
 
-    if (dtrainee && dmemberdetails) {
+  try {
+    const dclient = await deactivateclient(TraineeID);
+    if (dclient) {
       const result = {
         flag: 1,
       };
@@ -70,31 +70,27 @@ router.post('/deleteUserAccount', async (req, res) => {
       res.send(result);
     }
   } catch (error) {
+    console.error("Error deleting client:", error);
     const result = {
       flag: 0,
+      error: "An error occurred while deleting the client.",
     };
-    res.send(result);
-  }
+    res.status(500).send(result);
+  }  
 
 })
 
-async function deactivatetrainee(email){
+async function deactivateclient(TraineeID) {
   const pool = await sql.connect(config);
   const request = pool.request();
   const queryResult = await request.query(
-    `update trainee set active = 0 where username = '${email}'`
+    `update Clients set active = 0 where PrimaryOwner = '${TraineeID}'`
   );
+
+  if (queryResult.rowsAffected[0] === 0) {
+    throw new Error("No records found!");
+  }
+
   return queryResult;
 }
-
-async function deactivatememberdetails(email){
-  const pool = await sql.connect(config);
-  const request = pool.request();
-  const queryResult = await request.query(
-    `update memberdetails set active = 0 where  useremail ='${email}'`
-  );
-  return queryResult;
-}
-
 module.exports = router;
-
