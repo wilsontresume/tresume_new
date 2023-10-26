@@ -30,7 +30,7 @@ export class AppService {
 
     isLoggedIn(): boolean {
         this.cookieService.set('userName1','karthik@tresume.us');
-        this.cookieService.set('OrgID','9');
+        this.cookieService.set('OrgID','82');
         this.cookieService.set('TraineeID','36960');    
         // const userName = this.cookieService.get('userName1');
         // const orgID = this.cookieService.get('OrgID');

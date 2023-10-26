@@ -12,8 +12,8 @@ export class AccountService {
 
     constructor(private http: HttpClient) { }
 
-    addharvest(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'addharvest', request);
+    deleteUserAccount(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'deleteUserAccount', request);
     }
 
     getOrgUserList(request: any): Observable<ResponseDetails> {

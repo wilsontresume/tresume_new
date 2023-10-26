@@ -72,6 +72,41 @@
                             </tr>
                         </tbody>
                     </table>
+                <div class="row">
+                    <div class="col">
+                        <div class="table-container">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th>First_Name</th>
+                                        <th>Last_Name</th>
+                                        <th>User_Email</th>
+                                        <th>Role</th>
+                                        <th>Lead</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let User_Account of User_Accounts">
+                                        <td>{{ User_Account.MemberFirstName }}</td>
+                                        <td>{{ User_Account.MemberLastName }}</td>
+                                        <td>{{ User_Account.useremail }}</td>
+                                        <td>{{ User_Account.RoleName }}</td>
+                                        <td>{{ User_Account.TeamLeads }}</td>
+                                        <td>
+                                            <div>
+                                                <!-- <button class="btn btn-light" (click)="enterEditMode()"><i
+                                                        class="fa fa-edit fa-fw mr-2"></i></button> -->
+                                                <button class="btn btn-light" (click)="deleteAccount(User_Account.useremail)"><i
+                                                        class="fa fa-trash fa-fw ml-2 mr-2"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -274,3 +309,4 @@
         </div>
     </div>
 </div>
+</div><p-toast></p-toast>
