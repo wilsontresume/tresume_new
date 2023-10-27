@@ -129,6 +129,7 @@ import { AddvendorComponent } from './addvendor/addvendor.component';
 import { AllTimeListComponent } from './all-time-list/all-time-list.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { AssignRoleComponent } from './assign-role/assign-role.component';
+import { AddAdminComponent } from './add-admin/add-admin.component';
 
 
 
@@ -209,7 +210,7 @@ import { AssignRoleComponent } from './assign-role/assign-role.component';
     SubscriptionComponent, ReviewTresumeComponent, 
     SubscriptionComponent, ReviewTresumeComponent,BatchComponent, VendorComponent,
     SubscriptionComponent, ReviewTresumeComponent,
-    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, JobApplicationComponent, AllTimeListComponent, CreateProjectComponent,  AssignRoleComponent,
+    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, JobApplicationComponent, AllTimeListComponent, CreateProjectComponent,  AssignRoleComponent, AddAdminComponent,
   ],
   imports: [
     HttpClientModule,

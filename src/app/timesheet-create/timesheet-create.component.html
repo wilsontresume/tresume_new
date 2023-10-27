@@ -1,9 +1,10 @@
-<div class="container mt-4">
-    <h2>Create Timesheet</h2>
-  
-    <div class="card">
+<div class="header p-4">
+<div class="container">
+  <div class="row main">
+    <h2 class="pt-3 pl-2">Create Timesheet</h2>
+  </div>
+    <div class="card mt-3">
       <div class="card-body">
-        <!-- Date Selector -->
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group">
@@ -16,19 +17,14 @@
 
             </div>
             <div class="col-md-6">
-                <!-- Save and Cancel Buttons -->
                 <div class="text-right">
                   <button class="btn btn-primary" (click)="saveTimesheet()">Save</button>
-                  <span style="margin-left: 10px;"></span> <!-- Add space between buttons -->
+                  <span style="margin-left: 10px;"></span> 
                   <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
                 </div>
             </div>
         </div>
         
-  
-        
-  
-        <!-- Timesheet Table -->
         <table class="table mt-4">
           <thead>
             <tr>
@@ -49,12 +45,8 @@
             <tr *ngFor="let row of timesheetRows; let i = index">
               <td>
                 <select class="form-control" [(ngModel)]="row.project">
-                  <!-- Populate project options here -->
                 </select>
               </td>
-              <!-- Add input fields for each day and other columns as needed -->
-              <!-- Use [(ngModel)] to bind the input fields to your component's data -->
-              <!-- Example: <td><input type="text" class="form-control" [(ngModel)]="row.sunHours" required></td> -->
               <td><input type="text" class="form-control" [(ngModel)]="row.sunHours" required></td>
               <td><input type="text" class="form-control" [(ngModel)]="row.monHours" required></td>
               <td><input type="text" class="form-control" [(ngModel)]="row.tueHours" required></td>
@@ -64,13 +56,13 @@
               <td><input type="text" class="form-control" [(ngModel)]="row.satHours" required></td>
               <td><textarea class="form-control" [(ngModel)]="row.comments"></textarea></td>
               <td><input type="text" class="form-control" [(ngModel)]="row.totalHours" required></td>
-              <td><button class="btn btn-danger" (click)="removeRow(i)">Remove</button></td>
+              <td> <i class="fas fa-trash fa-lg p-3" (click)="removeRow(i)"></i>
+              </td>
             </tr>
           </tbody>
         </table>
   
-        <!-- Add Row Button -->
-        <div class="text-center">
+        <div class="text-center mt-1">
           <button class="btn btn-success" (click)="addRow()">Add Row</button>
         </div>
         
@@ -93,4 +85,5 @@
       </div>
     </div>
   </div>
+</div>
   

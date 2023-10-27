@@ -9,6 +9,10 @@
     border-top:3px solid #46103d;
     border-bottom:3px solid #46103d;
 }
+.modal-header{
+    border-top:3px solid #46103d;
+    border-bottom:3px solid #46103d;
+}
 .card-job-info {
     display: flex;
     flex-direction: column;
@@ -20,6 +24,7 @@
 .btn{
     background-color: #49274A;
     color: #ffffff;
+    border: none;
 }
 .card-job-skilllist {
     display: flex;

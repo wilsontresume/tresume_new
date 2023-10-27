@@ -32,9 +32,7 @@ export class AllTimeListComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  Gotonext() {
-    this.router.navigate(['timesheet/create']);
-  }
+  
   displayedTimesheets: number = this.tableData.length;
   totalTimesheets: number = this.tableData.length;
 

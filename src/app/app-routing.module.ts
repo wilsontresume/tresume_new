@@ -61,6 +61,7 @@ import { AddvendorComponent } from './addvendor/addvendor.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { AllTimeListComponent } from './all-time-list/all-time-list.component';
 import { AssignRoleComponent } from './assign-role/assign-role.component';
+import { AddAdminComponent } from './add-admin/add-admin.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -129,6 +130,7 @@ const routes: Routes = [
   { path: 'aboutme',component:AboutmeComponent},
   { path: 'batch',component:BatchComponent},
   { path: 'vendor',component:VendorComponent},
+  { path: 'addadmin', component:AddAdminComponent},
   { path: 'viewvendor',component:ViewvendorComponent},
   { path: 'addvendor',component:AddvendorComponent},
   { path: 'assignrole',component:AssignRoleComponent},
