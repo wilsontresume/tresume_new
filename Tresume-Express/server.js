@@ -39,6 +39,7 @@ const optRoutes = require('./optnation');
 const userRoles = require('./user-roles');
 const vendors = require('./vendors');
 const clients = require('./clients');
+const jobposting = require('./jobposting');
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -49,6 +50,7 @@ app.use('/', optRoutes);
 app.use('/', userRoles);
 app.use('/', vendors);
 app.use('/', clients);
+app.use('/', jobposting);
 
 app.use(session({
   secret: 'Tresume@123',
