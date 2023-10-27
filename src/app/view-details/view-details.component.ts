@@ -24,17 +24,8 @@ export class ViewDetailsComponent {
 
   constructor(private router: Router) { }
 
-  goBack() {
-    this.router.navigate(['/main-view']);
-  }
+ 
 
-  approveAllProjects() {
-    console.log('All projects approved.');
-  }
-
-  rejectAllProjects() {
-    console.log('All projects rejected.');
-  }
   
 }
 

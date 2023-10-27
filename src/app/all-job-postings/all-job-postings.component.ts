@@ -21,9 +21,6 @@ interface Job {
   styleUrls: ['./all-job-postings.component.scss']
 })
 export class AllJobPostingsComponent {
-
-
-
   public jobs: Job[] = [
     {
       jobTitle: 'Software Engineer',
