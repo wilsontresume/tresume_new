@@ -35,7 +35,7 @@ export class AccountsAddUserComponent implements OnChanges {
     { id:8,contents1: 'Vendor', viewonly: true, fullaccess: true },
     { id:9,contents1: 'Batch', viewonly: true, fullaccess: true },
     { id:10,contents1: 'Workforce', viewonly: true, fullaccess: true },
-    { id:11, contents1: 'Reports', viewonly: true, fullaccess: true  },  
+    { id:11,contents1: 'Reports', viewonly: true, fullaccess: true  },  
   ];
   
   User_Accounts: any[];
