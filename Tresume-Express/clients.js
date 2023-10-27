@@ -30,34 +30,45 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
+
 router.post('/getTraineeClientList', async (req, res) => {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    var query = "select * from Clients where PrimaryOwner '"+ req.body.TraineeID +"' and active = 1";
+  try {
+    const pool = await sql.connect(config);
+    const request = new sql.Request();
+    const query = "select * from Clients where PrimaryOwner = '" +req.body.TraineeID+ "' and active = 1";
 
     console.log(query);
-    request.query(query,
-      function (err, recordset) {
-        if (err) console.log(err);
 
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0],
-        };
+    const recordset = await request.query(query);
 
-        res.send(result);
-      }
-    );
-  });
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active clients found! ",
+      };
+      res.send(result); 
+    }
+  } catch (error) {
+    console.error("Error fetching client data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching client data!",
+    };
+    res.status(500).send(result);
+  }
+});
 
-})
-
-router.post('/deleteclient', async (req, res) => {
-  const TraineeID = req.body.TraineeID;
+router.post('/deleteClientAccount', async (req, res) => {
+  const ClientID = req.body.ClientID;
 
   try {
-    const dclient = await deactivateclient(TraineeID);
+    const dclient = await deactivateclient(ClientID);
     if (dclient) {
       const result = {
         flag: 1,
@@ -73,24 +84,30 @@ router.post('/deleteclient', async (req, res) => {
     console.error("Error deleting client:", error);
     const result = {
       flag: 0,
-      error: "An error occurred while deleting the client.",
+      error: "An error occurred while deleting the client!",
     };
     res.status(500).send(result);
   }  
 
 })
 
-async function deactivateclient(TraineeID) {
-  const pool = await sql.connect(config);
-  const request = pool.request();
-  const queryResult = await request.query(
-    `update Clients set active = 0 where PrimaryOwner = '${TraineeID}'`
-  );
 
-  if (queryResult.rowsAffected[0] === 0) {
-    throw new Error("No records found!");
+async function deactivateclient(ClientID) {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    const queryResult = await request.query(
+      `update Clients set active = 0 where ClientID = '${ClientID}'`
+    );
+    
+    if (queryResult.rowsAffected[0] === 0) {
+      throw new Error("No records found!");
+    }
+    
+    return queryResult;
+  } catch (error) {
+    console.error("Error while deleting client:", error);
+    throw error;
   }
-
-  return queryResult;
 }
 module.exports = router;

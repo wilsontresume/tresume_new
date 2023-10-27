@@ -13,36 +13,31 @@ import { Router } from '@angular/router';
 })
 export class VendorComponent implements OnInit {
 
-  indexMsg: String;
   deleteIndex: number;
   showConfirmationDialog: boolean = false;
-  sortByColumn: string = '';
-  sortDirection: string = 'asc';
-  userName: string = '';
   TraineeID: string = '';
   vendors: any[];
 
-  vendor1 = [
-    { id: 1, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
-    { id: 2, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
-  ];
+  // vendor1 = [
+  //   { id: 1, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
+  //   { id: 2, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
+  // ];
 
   constructor(private fb: FormBuilder, private cookieService: CookieService, private service: VendorService, private messageService: MessageService) {
 
   }
 
   ngOnInit(): void {
-    this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
-    this.fetchuserlist();
+    this.fetchvendorlist();
   }
 
   ngOnChanges(): void {
-    // this.fetchuserlist();
+    // this.fetchvendorlist();
   }
 
 
-  fetchuserlist() {
+  fetchvendorlist() {
     let Req = {
       TraineeID: this.TraineeID,
     };
@@ -52,8 +47,9 @@ export class VendorComponent implements OnInit {
   }
 
 
-  deletevendor(TraineeID: number) {
-    this.deleteIndex = TraineeID;
+  deletevendor(VendorID: number) {
+    this.deleteIndex = VendorID;
+    console.log(this.deleteIndex);
     this.showConfirmationDialog = true;
   }
 
@@ -61,15 +57,15 @@ export class VendorComponent implements OnInit {
   confirmDelete() {
     console.log(this.deleteIndex);
     let Req = {
-      TraineeID: this.deleteIndex,
+      VendorID: this.deleteIndex,
     };
     this.service.deleteVendorAccount(Req).subscribe((x: any) => {
       var flag = x.flag;
-      this.fetchuserlist();
+      this.fetchvendorlist();
       if (flag === 1) {
         this.messageService.add({
           severity: 'success',
-          summary: 'User Account Deleted Sucessfully',
+          summary: 'Vendor Deleted Sucessfully',
         });
       } else {
         this.messageService.add({
@@ -79,14 +75,11 @@ export class VendorComponent implements OnInit {
       }
 
     });
-    this.indexMsg = "";
     this.showConfirmationDialog = false;
   }
 
-
   cancelDelete() {
     console.log(this.showConfirmationDialog);
-    this.indexMsg = "";
     this.showConfirmationDialog = false;
   }
 }

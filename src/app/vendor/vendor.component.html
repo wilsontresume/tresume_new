@@ -1,137 +1,61 @@
-<div class="container mt-6 mb-6">
-    <div class="row main">
-        <div class="col">
-            <h4 class="ml-3 mt-4">ALL VENDORS</h4>
-        </div>
-        <div><button class="btn text-white bg-clr mt-3 mr-3" [routerLink]="['/addvendor']">Add vendor</button></div>
-    </div>
-    <div class="row mt-4">
-        <div class="col text-right">
-            <div class="form-group">
-                <label for="search">Search:</label>
-                <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
+<div class="header pt-4">
+    <div class="container">
+        <div class="row main">
+            <div class="col">
+                <h2 class="ml-3 mt-4">ALL VENDORS</h2>
+            </div>
+            <div><button class="btn text-white btn-bgcolor mt-3 mr-5" [routerLink]="['/addvendor']">Add vendor</button>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col text-right">
+                <div class="form-group">
+                    <label for="search">Search:</label>
+                    <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
+                </div>
+            </div>
+        </div>
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>Vendor Name</th>
+                    <th>Email ID</th>
+                    <th>Website</th>
+                    <th>Owner</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <tr *ngFor="let vendor of vendors">
+                    <td>{{ vendor.VendorName }}</td>
+                    <td>{{ vendor.EmailID }}</td>
+                    <td>{{ vendor.Website }}</td>
+                    <td>{{ vendor.PrimaryOwner}}</td>
+                    <td>
+
+                        <div>
+                            <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewvendor']"></i>
+                            <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deletevendor(vendor.VendorID)"></i>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="row mt-4">
-        <div class="col">
-            <div class="table-container">
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th>Vendor Name</th>
-                            <th>Email ID</th>
-                            <th>Website</th>
-                            <th>Owner</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <tr *ngFor="let vendor of vendors">
-                            <td>{{ vendor.VendorName }}</td>
-                            <td>{{ vendor.EmailID }}</td>
-                            <td>{{ vendor.Website }}</td>
-                            <td>{{ vendor.PrimaryOwner}}</td>
-                            <td>
+</div>
 
-                                <div>
-                                    <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewvendor']"></i>
-                                    <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deletevendor()"></i>
-                                </div>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div *ngIf="showConfirmationDialog" class="modal align-center">
-                    <div class="modal-content justify-content-center ">
-                        <button type="button" class="close close-modal" (click)="cancelDelete()">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h2 class="text-center"><u>Delete vendor</u></h2>
-                        <p class="text-center">Are you sure you want to delete this vendor?</p><br>
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-sm btn-bgcolor text-white mr-5"
-                                (click)="confirmDelete()">Delete</button>
-                            <button class="btn btn-sm btn-bgcolor text-white ml-5"
-                                (click)="cancelDelete()">Cancel</button>
-
-                            <div class="header pt-4">
-                                <div class="container">
-
-                                    <div class="row main">
-                                        <div class="col">
-                                            <h2 class="ml-3 mt-4 text-dark">ALL VENDORS</h2>
-                                        </div>
-                                        <div><button class="btn text-white bg-clr mt-3 mr-3"
-                                                [routerLink]="['/addvendor']">Add vendor</button></div>
-                                    </div>
-
-                                    <div class="row mt-4">
-                                        <div class="col text-right">
-                                            <div class="form-group">
-                                                <label for="search">Search:</label>
-                                                <input type="text" class="form-control1 ml-2 mr-2" id="search"
-                                                    placeholder="Search...">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-4">
-                                        <div class="col">
-                                            <div class="table-container">
-                                                <table class="table text-center">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Vendor Name</th>
-                                                            <th>Email ID</th>
-                                                            <th> Website</th>
-                                                            <th>Owner</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                        <tr *ngFor="let vendor of vendors">
-                                                            <td>{{ vendor.VendorName }}</td>
-                                                            <td>{{ vendor.EmailID }}</td>
-                                                            <td>{{ vendor.Website }}</td>
-                                                            <td>{{ vendor.Owner}}</td>
-                                                            <td>
-
-                                                                <div>
-                                                                    <i class="fa fa-eye fa-lg  mr-2"
-                                                                        [routerLink]="['/viewvendor']"></i>
-                                                                    <i class="fa fa-trash fa-lg ml-3 mr-2"
-                                                                        (click)="deletevendor()"></i>
-                                                                </div>
-
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div *ngIf="showConfirmationDialog" class="modal align-center">
-                                                    <div class="modal-content justify-content-center ">
-                                                        <button type="button" class="close close-modal"
-                                                            (click)="cancelDelete()">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                        <h2 class="text-center"><u>Delete vendor</u></h2>
-                                                        <p class="text-center">Are you sure you want to delete this
-                                                            vendor?</p><br>
-                                                        <div class="d-flex justify-content-center">
-                                                            <button class="btn btn-sm btn-bgcolor text-white mr-5"
-                                                                (click)="confirmDelete()">Delete</button>
-                                                            <button class="btn btn-sm btn-bgcolor text-white ml-5"
-                                                                (click)="cancelDelete()">Cancel</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<div *ngIf="showConfirmationDialog" class="modal align-center">
+    <div class="modal-content justify-content-center ">
+        <button type="button" class="close close-modal" (click)="cancelDelete()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h2 class="text-center"><u>Delete Vendor</u></h2>
+        <p class="text-center">Are you sure you want to delete this vendor?</p><br>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-bgcolor text-white mr-5" (click)="confirmDelete()">Delete</button>
+            <button class="btn btn-sm btn-bgcolor text-white ml-5" (click)="cancelDelete()">Cancel</button>
+        </div>
+    </div>
+</div>
