@@ -13,10 +13,8 @@ import { Router } from '@angular/router';
 })
 export class AllclientComponent implements OnInit {
 
-  indexMsg: String;
   deleteIndex: number;
   showConfirmationDialog: boolean = false;
-  userName: string = '';
   TraineeID: string = '';
   clients: any[];
 
@@ -30,17 +28,16 @@ export class AllclientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
-    this.fetchuserlist();
+    this.fetchclientlist();
   }
 
   ngOnChanges(): void {
-    // this.fetchuserlist();
+    // this.fetchclientlist();
   }
 
 
-  fetchuserlist() {
+  fetchclientlist() {
     let Req = {
       TraineeID: this.TraineeID,
     };
@@ -50,8 +47,9 @@ export class AllclientComponent implements OnInit {
   }
 
 
-  deleteclient(TraineeID: number) {
-    this.deleteIndex = TraineeID;
+  deleteclient(ClientID: number) {
+    this.deleteIndex = ClientID;
+    console.log(this.deleteIndex);
     this.showConfirmationDialog = true;
   }
 
@@ -59,15 +57,15 @@ export class AllclientComponent implements OnInit {
   confirmDelete() {
     console.log(this.deleteIndex);
     let Req = {
-      TraineeID: this.deleteIndex,
+      ClientID: this.deleteIndex,
     };
     this.service.deleteClientAccount(Req).subscribe((x: any) => {
       var flag = x.flag;
-      this.fetchuserlist();
+      this.fetchclientlist();
       if (flag === 1) {
         this.messageService.add({
           severity: 'success',
-          summary: 'User Account Deleted Sucessfully',
+          summary: 'Client Deleted Sucessfully',
         });
       } else {
         this.messageService.add({
@@ -77,14 +75,12 @@ export class AllclientComponent implements OnInit {
       }
 
     });
-    this.indexMsg = "";
     this.showConfirmationDialog = false;
   }
 
 
   cancelDelete() {
     console.log(this.showConfirmationDialog);
-    this.indexMsg = "";
     this.showConfirmationDialog = false;
   }
 }
