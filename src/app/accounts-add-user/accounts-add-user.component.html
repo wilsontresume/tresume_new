@@ -95,11 +95,8 @@
                                         <td>{{ User_Account.TeamLeads }}</td>
                                         <td>
                                             <div>
-                                                <!-- <button class="btn btn-light" (click)="enterEditMode()"><i
-                                                        class="fa fa-edit fa-fw mr-2"></i></button> -->
-                                                <button class="btn btn-light" (click)="deleteAccount(User_Account.useremail)"><i
-                                                        class="fa fa-trash fa-fw ml-2 mr-2"></i>
-                                                </button>
+                                               <!-- <i class="fa fa-edit fa-fw mr-2" (click)="enterEditMode()"></i> -->
+                                                <i class="fa fa-trash fa-fw ml-2 mr-2" (click)="deleteAccount(User_Account.useremail)"></i>
                                             </div>
                                         </td>
                                     </tr>
@@ -181,7 +178,7 @@
 
 
 
-<div *ngIf="isEditMode" id="edituser" class="modal3 align-center">
+<!-- <div *ngIf="isEditMode" id="edituser" class="modal3 align-center">
 
     <div class="modal-content3 justify-content-center ">
         <div>
@@ -246,7 +243,7 @@
         </div>
     </div>
 
-</div>
+</div> -->
 
 
 <div *ngIf="showAddRole" id="addrole" class="modal1 align-center">

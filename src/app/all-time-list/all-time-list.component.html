@@ -7,37 +7,17 @@
                 style="position: absolute; top: 15px; right: 10px;" (click)="Gotonext()"> Create</a>
         </div> -->
         <h2 class="col-md-6">ALL TIME SHEET</h2>
-        <div class="col-md-3"></div>
-        <div class="col-md-3" routerLink="/timesheet/create" (click)="Gotonext()">
-            <button class="btn float-right">Create</button></div>
+        <!-- <div class="col-md-3"></div> -->
+        <div class="col-md-6 text-end">
+            <button class="btn float-right" routerLink="/timesheet/create" >Create</button>
+            <button class="btn mr-3 float-right" routerLink="/addadmin" >Add Admin</button>
+        
+        </div>
     </div>
 </div>
 <div class="container">
     <div class="row mt-5">
-        <div class="col">
-            <div class="form-group">
-                <label for="show">Show</label>
-                <select class="custom-select custom-select-style ml-2 mr-2" id="show">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-                <label for="entries">entries</label>
-            </div>
-        </div>
-        <div class="col text-right">
-            <div class="form-group">
-                <label for="search">Search:</label>
-                <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
-            </div>
-        </div>
+      
         <table class="table m-3">
             <thead>
                 <tr>
@@ -64,9 +44,9 @@
                     <td>{{ row.Comments }}</td>
                     <td>
                         <div>
-                            <button class="btn btn-light" [routerLink]="['/timesheet/viewdetails']">
-                                <i class="fa fa-eye fa-fw mr-2"></i>View
-                            </button>
+                          
+                                <i class="fa fa-eye fa-fw fa-lg ml-4 text-center" [routerLink]="['/timesheet/viewdetails']"></i>
+                     
                         </div>
                     </td>
                 </tr>

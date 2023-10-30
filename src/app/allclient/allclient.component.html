@@ -28,15 +28,15 @@
             <tbody>
                 <tr>
                 <tr *ngFor="let client of clients">
-                    <td>{{ client.clientName }}</td>
+                    <td>{{ client.ClientName }}</td>
                     <td>{{ client.EmailID }}</td>
                     <td>{{ client.Website }}</td>
-                    <td>{{ client.Owner}}</td>
+                    <td>{{ client.PrimaryOwner}}</td>
                     <td>
 
                         <div>
                             <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewclient']"></i>
-                            <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteclient()"></i>
+                            <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteclient(client.ClientID)"></i>
                         </div>
 
                     </td>

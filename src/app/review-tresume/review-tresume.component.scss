@@ -8,7 +8,6 @@
     display: flex;
 }
 .iconstyle{
-   
     margin-left: 18px;
     padding:10px;
 }
@@ -16,7 +15,6 @@
     color:black;
 }
 .mt-2, .my-2 {
-  /* margin-top: 0.5rem!important; */
   margin: 0px;
 }
 
@@ -28,20 +26,11 @@
 select#referedBy option:hover {
     background-color: rgb(105, 10, 150); 
   }
-  .btn:hover{
-    background-color: rgb(56, 8, 56);
-    border-color: rgb(56, 8, 56) ;
-  }
+  
   .container{
     padding: 25px 10px 10px 10px;
 }
-.btn{
-    background-color: rgb(56, 8, 56);
-    border-color: rgb(56, 8, 56) ;
-}
-.container{
-    padding: 25px 10px 10px 10px;
-}
+
 .container{
     padding:30px;
   }
@@ -54,10 +43,7 @@ select#referedBy option:hover {
   .top-titles{
     padding-top:50px;
   }
-  .btn{
-    background-color: purple;
-    color: white;
-  }
+  
   .tdata{
     color: #94618e;
   }
@@ -95,9 +81,7 @@ select#referedBy option:hover {
 tr th{
   color: black;
 }
-  i:hover {
-    color: darkviolet;
-  }
+
  .main-container{
   background:#fff;
   margin-top: 0;
@@ -106,8 +90,4 @@ tr th{
 tbody{
   margin-bottom: 10px;
   padding-bottom: 10px;
-}
-.btn:hover{
-  background-color: rgb(56, 8, 56);
-  border-color: rgb(56, 8, 56) ;
 }

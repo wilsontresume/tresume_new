@@ -75,7 +75,6 @@
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
   }
   
   th, td {
@@ -88,7 +87,9 @@
     background-color: #f0f0f0;
     font-weight: bold;
   }
-  
+  i{
+    cursor: pointer;
+  }
   tr:nth-child(even) {
     background-color: #f9f9f9;
   }
@@ -98,7 +99,7 @@
   }
   
   i{
-    margin: 5px;
+    margin: 6px;
     color: #94618e;
   }
  

@@ -37,6 +37,9 @@ const harvestRoutes = require('./harvest-routes');
 const ssoRoutes = require('./sso-routes');
 const optRoutes = require('./optnation');
 const userRoles = require('./user-roles');
+const vendors = require('./vendors');
+const clients = require('./clients');
+const jobposting = require('./jobposting');
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -45,6 +48,9 @@ app.use('/', harvestRoutes);
 app.use('/', ssoRoutes);
 app.use('/', optRoutes);
 app.use('/', userRoles);
+app.use('/', vendors);
+app.use('/', clients);
+app.use('/', jobposting);
 
 app.use(session({
   secret: 'Tresume@123',
@@ -125,7 +131,7 @@ var config = {
   user: "sa",
   password: "Tresume@123",
   server: "92.204.128.44",
-  database: "Tresume",
+  database: "Tresume_Beta",
   trustServerCertificate: true,
 };
 

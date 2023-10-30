@@ -1,65 +1,85 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { VendorService } from './vendor.service';
+import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vendor',
   templateUrl: './vendor.component.html',
+  providers: [CookieService, VendorService, MessageService],
   styleUrls: ['./vendor.component.scss']
 })
 export class VendorComponent implements OnInit {
+
+  deleteIndex: number;
   showConfirmationDialog: boolean = false;
-  sortByColumn: string = '';
-  sortDirection: string = 'asc';
-  
-  vendors: any[] = [
-    {
-      VendorName: 'vendor A',
-      EmailID: 'vendor_a@example.com',
-      Website: 'www.vendor_a.com',
-      Owner: 'John Doe',
-    },
-    {
-      VendorName: 'vendor A',
-      EmailID: 'vendor_a@example.com',
-      Website: 'www.vendor_a.com',
-      Owner: 'John Doe',
-    },
-  ];
- 
-ngOnInit(): void {
-    this.sortBy('vendorName');
-    this.sortBy('EmailID');
-    this.sortBy('Website');
-    this.sortBy('Owner');
-    this.sortBy('Action');
+  TraineeID: string = '';
+  vendors: any[];
+
+  // vendor1 = [
+  //   { id: 1, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
+  //   { id: 2, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
+  // ];
+
+  constructor(private fb: FormBuilder, private cookieService: CookieService, private service: VendorService, private messageService: MessageService) {
+
   }
 
-  
-
-  sortBy(columnName: string) {
-    if (this.sortByColumn === columnName) {
-      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortByColumn = columnName;
-      this.sortDirection = 'asc';
-    } 
-   this.vendors.sort((a, b) => this.sortDirection === 'asc' ? a[columnName].localeCompare(b[columnName]) : b[columnName].localeCompare(a[columnName]));
+  ngOnInit(): void {
+    this.TraineeID = this.cookieService.get('TraineeID');
+    this.fetchvendorlist();
   }
 
-  deletevendor(){
+  ngOnChanges(): void {
+    // this.fetchvendorlist();
+  }
+
+
+  fetchvendorlist() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getTraineeVendorList(Req).subscribe((x: any) => {
+      this.vendors = x.result;
+    });
+  }
+
+
+  deletevendor(VendorID: number) {
+    this.deleteIndex = VendorID;
+    console.log(this.deleteIndex);
     this.showConfirmationDialog = true;
-   }
-   confirmDelete() {
-    const index = 1; 
-    if (index >= 0 && index < this.vendors.length) {
-      this.vendors.splice(index, 1);
-    }
+  }
+
+
+  confirmDelete() {
+    console.log(this.deleteIndex);
+    let Req = {
+      VendorID: this.deleteIndex,
+    };
+    this.service.deleteVendorAccount(Req).subscribe((x: any) => {
+      var flag = x.flag;
+      this.fetchvendorlist();
+      if (flag === 1) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Vendor Deleted Sucessfully',
+        });
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Please try again later',
+        });
+      }
+
+    });
     this.showConfirmationDialog = false;
   }
-    
 
   cancelDelete() {
-    
+    console.log(this.showConfirmationDialog);
     this.showConfirmationDialog = false;
   }
 }

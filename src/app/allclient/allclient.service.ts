@@ -5,22 +5,20 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 
-export class AllJobPostingsService {
+export class AllClientService {
     public endpoint = environment.apiUrl;
     // public endpoint = 'https://alpha.tresume.us/TresumeAPI/';
     // public endpoint = 'http://localhost:3000/';
 
     constructor(private http: HttpClient) { }
 
-    deleteUserAccount(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'deleteUserAccount', request);
+    deleteClientAccount(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'deleteClientAccount', request);
     }
 
-    getOrgUserList(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getOrgUserList', request);
+    getTraineeClientList(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeClientList', request);
     }
-   
-    
 }
 export interface ResponseDetails {
     flag?: any;
