@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class AllTimeListComponent implements OnInit {
   tableData = [
     {
+      Candidate: 'Wilson',
+      Month: 'November',
       From_Date: 'Date1',
       To_Date: 'Date2',
       Total_Hours: '8',
@@ -16,6 +18,8 @@ export class AllTimeListComponent implements OnInit {
       Comments: 'Sample Comment',
     },
     {
+      Candidate: 'Bala',
+      Month: 'April',
       From_Date: 'Date1',
       To_Date: 'Date2',
       Total_Hours: '8',
