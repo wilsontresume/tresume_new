@@ -27,6 +27,8 @@
                                 <input name="vendorName" type="text" maxlength="500" id="vendorName"
                                     class="form-control" placeholder="vendor Name">
                             </div>
+                            <div *ngIf="showFormError && vendorForm.get('VendorName')?.hasError('required')"
+                                class="error-message"> Vendor Name is required </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group text-center">
@@ -49,7 +51,14 @@
                                 <label>Contact Number *</label>
                                 <input name="ContactNumber" type="tel" maxlength="10" id="ContactNumber"
                                     class="form-control" placeholder="Contact Number" onkeypress="">
-                                <p>Contact Number is required</p>
+                            </div>
+                            <div *ngIf="showFormError && vendorForm.get('ContactNumber')?.hasError('required')"
+                                class="error-message">
+                                Contact Number is required
+                            </div>
+                            <div *ngIf="showFormError && vendorForm.get('ContactNumber')?.hasError('pattern')"
+                                class="error-message">
+                                Contact Number must be numeric
                             </div>
                         </div>
 
@@ -58,16 +67,23 @@
                                 <label>Email ID *</label>
                                 <input name="VendorEmailID" type="text" maxlength="500" id="VendorEmailID"
                                     class="form-control" placeholder="Email ID">
-                                <p>Email ID is required</p>
+                            </div>
+                            <div *ngIf="showFormError && vendorForm.get('VendorEmailID')?.hasError('required')"
+                                class="error-message">
+                                Email ID is required
+                            </div>
+                            <div *ngIf="showFormError && vendorForm.get('VendorEmailID')?.hasError('email')"
+                                class="error-message">
+                                Invalid email format
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group text-center">
                                 <label>Address *</label>
-                                <input name="Address" type="text" maxlength="500" id="Address" class="form-control"
-                                    placeholder="Address">
-                                <p>Address is required</p>
+                                <input name="Address" type="text" maxlength="500" id="Address" class="form-control" placeholder="Address">
                             </div>
+                            <div *ngIf="showFormError && vendorForm.get('Address')?.hasError('required')"
+                                class="error-message">Address is required</div>
                         </div>
                     </div>
                     <div class="row">
@@ -394,20 +410,17 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="d-flex row justify-content-center mt-5">
                         <button class="btn btn-wdth btn-sm text-white mr-3" (click)="cancel()">Cancel</button>
                         <button class="btn btn-wdth btn-sm text-white ml-3" (click)="add()">Add</button>
                     </div>
-
+                    <div *ngIf="showFormError" class="error-message">
+                        Form is invalid. Please correct the errors.
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contactsTab">
-
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </div>
