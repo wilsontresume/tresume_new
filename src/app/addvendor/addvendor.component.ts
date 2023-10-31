@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-addvendor',
   templateUrl: './addvendor.component.html',
   styleUrls: ['./addvendor.component.scss']
 })
-export class AddvendorComponent {
+export class AddvendorComponent implements OnInit {
   
     content: string = '';
     activeTab: string = 'basicInfo';
@@ -20,7 +20,17 @@ export class AddvendorComponent {
     filteredVendorLeads: any[] = [];
     filteredRequiredDocuments: any[] = [];
     vendor: string[] = [];
-    
+    vendorForm: FormGroup;
+    showFormError: boolean = false;
+
+    ngOnInit(): void {
+      this.vendorForm = this.fb.group({
+        VendorName: ['', Validators.required],
+        ContactNumber: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+        VendorEmailID: ['', [Validators.required, Validators.email]],
+        Address: ['', Validators.required],
+      });
+    }
     onVendorLeadsSearch(event: any) {
       this.filteredVendorLeads = this.VendorLeads.filter(option =>
         option.toLowerCase().includes(event.query.toLowerCase())
@@ -51,10 +61,14 @@ export class AddvendorComponent {
       this.activeTab = tabId;
     }
 
-    add () {
-      console.log('Vendor added successfully.');
-      this.vendor.push("New Item"); 
-    } 
+    add() {
+      if (this.vendorForm.valid) {
+        const formData = this.vendorForm.value;
+        console.log('Form Data:', formData);
+      } else {
+        this.showFormError = true;
+      }
+    }
   
     cancel (){
       this.vendor = [];

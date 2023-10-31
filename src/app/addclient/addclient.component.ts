@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-addclient',
   templateUrl: './addclient.component.html',
   styleUrls: ['./addclient.component.scss']
 })
-export class AddclientComponent {
+export class AddclientComponent implements OnInit {
 
   content: string = '';
   activeTab: string = 'basicInfo';
@@ -21,6 +23,17 @@ export class AddclientComponent {
   filteredClientLeads: any[] = [];
   filteredRequiredDocuments: any[] = [];
   client: string[] = [];
+  clientForm: FormGroup;
+  showFormError: boolean = false;
+
+  ngOnInit(): void {
+    this.clientForm = this.fb.group({
+      ClientName: ['', Validators.required],
+      ContactNumber: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      ClientEmailID: ['', [Validators.required, Validators.email]],
+      Address: ['', Validators.required],
+    });
+  }
 
   onClientLeadsSearch(event: any) {
     this.filteredClientLeads = this.clientLeads.filter(option =>
@@ -52,11 +65,19 @@ export class AddclientComponent {
     this.activeTab = tabId;
   }
   
-  add () {
-    console.log('Client added successfully.');
-    this.client.push("New client"); 
-  } 
-
+  add() {
+    if (this.clientForm.valid) {
+      // The form is valid, proceed with submission or other logic
+      const formData = this.clientForm.value;
+      console.log('Form Data:', formData);
+  
+      // You can send the data to your server or perform other actions here
+    } else {
+      // The form has validation errors, set a flag to display the error message
+      this.showFormError = true;
+    }
+  }
+  
   cancel (){
     this.client = [];
   } 
