@@ -40,6 +40,8 @@ const userRoles = require('./user-roles');
 const vendors = require('./vendors');
 const clients = require('./clients');
 const jobposting = require('./jobposting');
+const timesheet = require('./timesheet');
+
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -51,6 +53,7 @@ app.use('/', userRoles);
 app.use('/', vendors);
 app.use('/', clients);
 app.use('/', jobposting);
+app.use('/', timesheet);
 
 app.use(session({
   secret: 'Tresume@123',
