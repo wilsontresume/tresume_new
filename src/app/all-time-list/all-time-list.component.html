@@ -21,6 +21,8 @@
         <table class="table m-3">
             <thead>
                 <tr>
+                    <th>Candidate</th>
+                    <th>Month</th>
                     <th>From Date</th>
                     <th>To Date</th>
                     <th>Total Hours</th>
@@ -32,6 +34,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let row of tableData">
+                    <td>{{ row.Candidate }}</td>
+                    <td>{{ row.Month }}</td>
                     <td>{{ row.From_Date }}</td>
                     <td>{{ row.To_Date }}</td>
                     <td>{{ row.Total_Hours }}</td>

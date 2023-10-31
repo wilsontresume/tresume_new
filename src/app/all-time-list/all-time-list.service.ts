@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 
-export class AllJobPostingsService {
+export class TimesheetService {
     public endpoint = environment.apiUrl;
     // public endpoint = 'https://alpha.tresume.us/TresumeAPI/';
     // public endpoint = 'http://localhost:3000/';
