@@ -17,6 +17,8 @@ export class AllclientComponent implements OnInit {
   showConfirmationDialog: boolean = false;
   TraineeID: string = '';
   clients: any[];
+  noResultsFound: boolean = false;
+
 
   // client1 = [
   //   { id: 1, ClientName: 'client A', EmailID: 'client_a@example.com', Website: 'www.client_a.com', PrimaryOwner: 'John Doe', },
@@ -26,7 +28,7 @@ export class AllclientComponent implements OnInit {
   constructor(private fb: FormBuilder, private cookieService: CookieService, private service: AllClientService, private messageService: MessageService) {
 
   }
-
+  
   ngOnInit(): void {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchclientlist();
@@ -43,9 +45,10 @@ export class AllclientComponent implements OnInit {
     };
     this.service.getTraineeClientList(Req).subscribe((x: any) => {
       this.clients = x.result;
+      this.noResultsFound = this.clients.length === 0;
     });
   }
-
+  
 
   deleteclient(ClientID: number) {
     this.deleteIndex = ClientID;

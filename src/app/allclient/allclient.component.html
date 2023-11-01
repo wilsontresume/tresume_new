@@ -46,6 +46,10 @@
     </div>
 </div>
 
+<div *ngIf="noResultsFound">
+    No Results Found
+  </div>
+
 <div *ngIf="showConfirmationDialog" class="modal align-center">
     <div class="modal-content justify-content-center ">
         <button type="button" class="close close-modal" (click)="cancelDelete()">

@@ -1,48 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { TimesheetService } from './all-time-list.service';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-all-time-list',
   templateUrl: './all-time-list.component.html',
+  providers: [CookieService,TimesheetService,MessageService],
   styleUrls: ['./all-time-list.component.scss']
 })
-export class AllTimeListComponent implements OnInit {
-  tableData = [
-    {
-      From_Date: 'Date1',
-      To_Date: 'Date2',
-      Total_Hours: '8',
-      Created_On: '2023-10-05',
-      Status: 'Approved',
-      Comments: 'Sample Comment',
-    },
-    {
-      From_Date: 'Date1',
-      To_Date: 'Date2',
-      Total_Hours: '8',
-      Created_On: '2023-10-05',
-      Status: 'Approved',
-      Comments: 'Sample Comment',
-    }
-  ];
+export class AllTimeListComponent implements OnChanges {
 
+  tableData: any [];
   showConfirmationDialog: boolean = false;
   router: any;
+  OrgID:string = '';
+  TraineeID:string = '';
 
-  constructor() { }
+  constructor(private cookieService: CookieService, private service: TimesheetService, private messageService: MessageService)
+  {}
 
   ngOnInit(): void {
+    this.OrgID = this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
+    this.fetchtimesheet();
   }
-  
-  displayedTimesheets: number = this.tableData.length;
-  totalTimesheets: number = this.tableData.length;
 
-
-  performSearch(searchTerm: string) {
-    this.tableData = this.tableData.filter(row =>
-      Object.values(row).some(value => value.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
-
-    this.displayedTimesheets = this.tableData.length;
+  ngOnChanges(): void{
+    // this.fetchtimesheet();
   }
+  fetchtimesheet(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.getAllTimeList(Req).subscribe((x: any) => {
+      this.tableData = x.result;
+    });
+  }
+
+ 
 
 }

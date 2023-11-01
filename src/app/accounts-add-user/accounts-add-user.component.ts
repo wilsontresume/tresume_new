@@ -19,8 +19,8 @@ export class AccountsAddUserComponent implements OnChanges {
   RoleName:string='';
   viewaccess:any;
   fullaccess:any;
-  OrgID:string = '';
   userName:string = '';
+  OrgID:string = '';
   TraineeID:string = '';
 
 
@@ -39,11 +39,9 @@ export class AccountsAddUserComponent implements OnChanges {
   ];
   
   User_Accounts: any[];
-
   Teamlead: any[] = [{ name: 'Parvathy' }, { name: 'abc' }, { name: 'DEF' }, { name: 'def' }];
   selectedTeamlead: any[] = [];
   filteredTeamlead: any[] = [];
- 
   showConfirmationDialog: boolean = false;
   deleteIndex: string = '';
   showAddUser: boolean = false;
