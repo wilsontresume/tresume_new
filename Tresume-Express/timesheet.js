@@ -54,6 +54,29 @@ router.post('/getAllTimeList', async (req, res) => {
 
 })
 
+router.post('/createTimesheet', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+
+    var query = "SELECT t.firstname,t.lastname,TM.fromdate, TM.todate, TM.totalhrs, TM.approvalstatus, TM.comments FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID +"' ";
+
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      }
+    );
+  });
+
+})
 // router.post('/deleteUserAccount', async (req, res) => {
 //   const email = req.body.email;
 //   try {
