@@ -10,7 +10,7 @@ import { Routes } from '@angular/router';
 export class ReviewTresumeComponent {
   
 //generalinfo
-
+jobs:any[];
 items: any[] = [
   {
     value1:'Name 1',

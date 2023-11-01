@@ -40,6 +40,7 @@ const userRoles = require('./user-roles');
 const vendors = require('./vendors');
 const clients = require('./clients');
 const jobposting = require('./jobposting');
+const talentbench = require('./talentbench');
 const timesheet = require('./timesheet');
 
 
@@ -53,6 +54,7 @@ app.use('/', userRoles);
 app.use('/', vendors);
 app.use('/', clients);
 app.use('/', jobposting);
+app.use('/', talentbench);
 app.use('/', timesheet);
 
 app.use(session({
