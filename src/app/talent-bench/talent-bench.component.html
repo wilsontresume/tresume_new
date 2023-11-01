@@ -67,20 +67,22 @@
         <td>{{ item.refer }}</td>
         <td>
           <select class="form-control" [(ngModel)]="item.groupName">
-            <option value="group1">Group 1</option>
-            <option value="group2">Group 2</option>
-            <option value="group3">Group 3</option>
+            <option *ngFor="let option of groupOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
           </select>
         </td>
+      </tr>
+      <tr *ngIf="noResultsFound" >
+        <td colspan="11" class="text-center">
+         No results found.
+       </td>
       </tr>
     </tbody>
   </table>
 </div>
   </div>
 </div>
-
-  
-
 
 
 <!--PopUp For Add Client-->
@@ -243,10 +245,6 @@
       </div>
     </div>
   </div>
-
-  
-
-
 
 <!-- Confirmation PopUp for delete from Talent Bench-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

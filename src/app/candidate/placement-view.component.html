@@ -4,7 +4,7 @@
             <legend>Placement Details</legend>
             <div class="p-grid p-fluid flex-row">
                 <div class="col-md-3" style="padding: 10px;">
-                    <div class="">
+                    <div>
                         <label for="notes">Placement Notes</label>
                         <input id="notes" type="text" formControlName="Notes" class="p-inputtext" />
                     </div>
@@ -14,8 +14,7 @@
                     <div class="p-inputgroup">
                         <span class="p-inputgroup-addon">$</span>
                         <input id="BillRate" type="text" formControlName="BillRate" class="p-inputtext" />
-                        <div class="p-inputgroup-addon" style="background-color: #F2F2F2; width: 30%;border: 1px solid #883cae;
-                        border-radius: 3px;">
+                        <div class="p-inputgroup-addon">
                             <select formControlName="BillType" class="p-inputgroup-select" style="width: 100%;">
                                 <option value="true">Hourly</option>
                                 <option value="false">Annual</option>
@@ -29,7 +28,7 @@
                         <p-autoComplete formControlName="MarketerName" [suggestions]="marketersAuto" [minLength]="2"
                             (completeMethod)="search($event)" (onSelect)="setMarketer($event)" field="Name"
                             required="true" forceSelection="true"></p-autoComplete>
-                    </div>
+                        </div>
                 </div>
                 <div class="col-md-3" style="padding: 10px;">
                     <div class="">
@@ -233,3 +232,4 @@
         </div>
     </div>
 </div>
+

@@ -108,7 +108,6 @@ const routes: Routes = [
   { path: 'viewclient',component: ViewclientComponent},
   { path: 'jobpostings',component:AllJobPostingsComponent},
   { path: 'jobapplication',component:JobApplicationComponent},
-  { path: 'jobapplication',component:JobApplicationComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
   { path: 'confirmpopup', component:ConfirmationPopupComponent},

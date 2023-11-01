@@ -1,66 +1,51 @@
-import { Component } from '@angular/core';
+import { AllJobPostingsService } from './all-job-postings.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
-interface Job {
-  jobTitle: string;
-  company: string;
-  location: string;
-  payRate: number;
-  newApplicants: number;
-  totalApplicants: number;
-  postedOn: Date;
-  postedBy: string;
-  jobType: string;
-  assignee: string;
-  open: boolean;
-}
 @Component({
   selector: 'app-all-job-postings',
   templateUrl: './all-job-postings.component.html',
-  styleUrls: ['./all-job-postings.component.scss']
+  styleUrls: ['./all-job-postings.component.scss'],
+  providers: [AllJobPostingsService, CookieService,MessageService],
 })
-export class AllJobPostingsComponent {
-  public jobs: Job[] = [
-    {
-      jobTitle: 'Software Engineer',
-      company: 'Tech Corp',
-      location: 'New York',
-      payRate: 80000,
-      newApplicants: 10,
-      totalApplicants: 50,
-      postedOn: new Date(),
-      postedBy: 'John Doe',
-      jobType: 'Full-time',
-      assignee: 'Alice',
-      open: true
-    },
-  ];
+export class AllJobPostingsComponent implements OnInit{
+  OrgID:string = '';
+  JobID:string = '';
+  TraineeID:string = '';
+  jobs:any[];
+  noResultsFound:boolean = false;
 
- 
-  constructor(private dialog: MatDialog) {}
-
-  confirmDeleteJob(job: Job) {
-    const dialogRef = this.dialog.open(ConfirmationPopupComponent, {
-      width: '300px',
-      data: { message: `Are you sure you want to delete ${job.jobTitle}?` }
-    });
-  
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-        console.log('Deleting job:', job);
-        
-      }
-    });
-  
+roles: string[] = ["Recruiter", "Admin", "User"];
+ngOnInit(): void {
+  this.OrgID = this.cookieService.get('OrgID');
+  this.JobID = this.cookieService.get('userName1');
+  this.TraineeID = this.cookieService.get('TraineeID');
+  this.fetchjobpostinglist();
 }
-jobOptions = ['My Jobs', 'Assigned Jobs', 'All Jobs'];
-  selectedJobOption: string;
+  constructor(private dialog: MatDialog,private cookieService: CookieService, private service:AllJobPostingsService,private messageService: MessageService) {}
 
-  // onJobOptionChange(event: any) {
-  //   this.selectedJobOption = event.target.value;
-  //   console.log('Selected job option:', this.selectedJobOption);
-    
-  // }
+
+ngOnChanges(): void{
+  // this.fetchuserlist();
+}
+
+
+fetchjobpostinglist(){
+  let Req = {
+    OrgID: this.OrgID,
+  };
+  this.service.getJobPostingList(Req).subscribe((x: any) => {
+    this.jobs = x.result;
+    this.noResultsFound = this.jobs.length === 0;
+  });
+}
+
+jobOptions = ['My Jobs', 'Assigned Jobs', 'All Jobs'];
+
 
 }
