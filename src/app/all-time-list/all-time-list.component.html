@@ -1,23 +1,18 @@
 <div class="header p-4">
-<div class="container pt-3 pl-3 pr-3">
-    <div class="row">
-        <!-- <div class="col" style="position: relative;">
-            <h4 style="border-top: 3px solid #000; border-bottom: 3px solid #000; padding: 20px 0;"></h4>
-            <a  class="crt btn btn-primary"
-                style="position: absolute; top: 15px; right: 10px;" (click)="Gotonext()"> Create</a>
-        </div> -->
-        <h2 class="col-md-6">ALL TIME SHEET</h2>
-        <!-- <div class="col-md-3"></div> -->
-        <div class="col-md-6 text-end">
-            <button class="btn float-right" routerLink="/timesheet/create" >Create</button>
-            <button class="btn mr-3 float-right" routerLink="/addadmin" >Add Admin</button>
-        
+    <div class="container pt-3 pl-3 pr-3">
+        <div class="row">
+            <h2 class="col-md-6">ALL TIME SHEET</h2>
+            <div class="col-md-6 text-end">
+                <button class="btn float-right" routerLink="/timesheet/create">Create</button>
+                <button class="btn mr-3 float-right" routerLink="/addadmin">Add Admin</button>
+
+            </div>
         </div>
     </div>
 </div>
 <div class="container">
     <div class="row mt-5">
-      
+
         <table class="table m-3">
             <thead>
                 <tr>
@@ -43,13 +38,15 @@
                     <td>{{ row.Status }}</td>
                     <td>{{ row.Comments }}</td>
                     <td>
-                        <div>                         
-                                <i class="fa fa-eye fa-fw fa-lg ml-4 text-center" [routerLink]="['/timesheet/viewdetails']"></i>s                   
+                        <div>
+                            <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
+                                [routerLink]="['/timesheet/viewdetails']"></i>s
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
 </div>
-</div>
+
 

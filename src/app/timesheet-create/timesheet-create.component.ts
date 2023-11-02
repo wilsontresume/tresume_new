@@ -1,126 +1,113 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from 'express';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TimesheetCreateService } from './timesheet-create.service';
+import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
+
 @Component({
   selector: 'app-timesheet-create',
   templateUrl: './timesheet-create.component.html',
+  providers: [CookieService,TimesheetCreateService,MessageService],
   styleUrls: ['./timesheet-create.component.scss']
 })
 export class TimesheetCreateComponent implements OnInit {
+  timesheetData: any[];
 
-
-
-  ngOnInit(): void {
-  }
-
-  minDate: string; // Set the minimum date for Sunday selection
-  maxDate: string; // Set the maximum date for Sunday selection
-  selectedSunday: string; // Store the selected Sunday date
-  timesheetRows: any[] = []; // Store timesheet row data
+  minDate: string;
+  maxDate: string;
+  selectedSunday: string = '';
   isSundaySelected: boolean = false;
-
   CAselectedFile: File | null = null;
   SRselectedFile: File | null = null;
-  constructor() {
 
-    this.timesheetRows.push({
-      project: '',
-      sunHours: '',
-      monHours: '',
-      tueHours: '',
-      wedHours: '',
-      thuHours: '',
-      friHours: '',
-      satHours: '',
-      comments: '',
-      totalHours: ''
-    });
+  constructor(private cookieService: CookieService, private messageService: MessageService,private formBuilder: FormBuilder, private router: Router, private Service: TimesheetCreateService) {
+    this.addRow();
+  }
+
+  ngOnInit(): void {
+    
   }
 
   selectSunday(selectedDate: string) {
     const selectedDateObj = new Date(selectedDate);
-    const dayOfWeek = selectedDateObj.getDay(); // 0 = Sunday, 1 = Monday, ...
-  
-    // Check if the selected date is a Sunday (dayOfWeek === 0)
+    const dayOfWeek = selectedDateObj.getDay();
     if (dayOfWeek === 0) {
       this.selectedSunday = selectedDate;
       this.isSundaySelected = true;
     } else {
-      // If not a Sunday, calculate the previous Sunday date
       const previousSunday = new Date(selectedDateObj);
       previousSunday.setDate(selectedDateObj.getDate() - dayOfWeek);
-  
-      // Format the previous Sunday date as "YYYY-MM-DD"
       const formattedDate = previousSunday.toISOString().split('T')[0];
-  
+
       this.selectedSunday = formattedDate;
       this.isSundaySelected = true;
     }
   }
-  
-  
 
   addRow() {
-    this.timesheetRows.push({
-      project: '',
-      sunHours: '',
-      monHours: '',
-      tueHours: '',
-      wedHours: '',
-      thuHours: '',
-      friHours: '',
-      satHours: '',
-      comments: '',
-      totalHours: ''
+    const row = this.formBuilder.group({
+      project: ['', Validators.required],
+      sunHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      monHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      tueHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      wedHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      thuHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      friHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      satHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      comments: [''],
+      totalHours: ['']
     });
+
+    this.timesheetData.push(row);
   }
 
   removeRow(index: number) {
-    if (index >= 0 && index < this.timesheetRows.length) {
-      this.timesheetRows.splice(index, 1);
+    if (index >= 0 && index < this.timesheetData.length) {
+      this.timesheetData.splice(index, 1);
     }
   }
 
-  saveTimesheet() {
-    // Create a FormData object to send both timesheetData and the file
+  async saveTimesheet() {
     const formData = new FormData();
     if (this.CAselectedFile) {
       formData.append('CAfile', this.CAselectedFile, this.CAselectedFile.name);
     }
     if (this.SRselectedFile) {
-      formData.append('CAfile', this.SRselectedFile, this.SRselectedFile.name);
+      formData.append('SRfile', this.SRselectedFile, this.SRselectedFile.name);
     }
-    formData.append('timesheetData', JSON.stringify(this.timesheetRows));
-
-    fetch('yourServiceEndpoint', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => {
-        // Handle the response from the server as needed
-        console.log(response);
-      })
-      .catch(error => {
-        // Handle errors
-        console.error(error);
-      });
+    formData.append('timesheetData', JSON.stringify(this.timesheetData));
+  
+    try {
+      const response = await this.Service.createTimesheet(formData).toPromise();
+      console.log(response);
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
   }
 
   cancel() {
-    // Implement the logic to navigate back to the timesheet page
+    this.timesheetData = [];
+    this.CAselectedFile = null;
+    this.SRselectedFile = null;
+    this.addRow();
+    this.selectedSunday = '';
+    this.isSundaySelected = false;
+    this.router.navigate(['/all-time-list']).catch((error) => {
+      console.error('Navigation error:', error);
+    });
   }
 
-  onFileSelected(event: Event,Type:string) {
+  onFileSelected(event: Event, Type: string) {
     const inputElement = event.target as HTMLInputElement;
-    if(Type == "1"){
+    if (Type === "1") {
       if (inputElement.files) {
         this.CAselectedFile = inputElement.files[0];
       }
-    }else{
+    } else {
       if (inputElement.files) {
         this.SRselectedFile = inputElement.files[0];
       }
     }
-   
   }
-
 }

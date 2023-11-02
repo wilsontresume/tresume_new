@@ -12,15 +12,13 @@ export class AllJobPostingsService {
 
     constructor(private http: HttpClient) { }
 
-    deleteUserAccount(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'deleteUserAccount', request);
-    }
+    // deleteJobPosting(request: any): Observable<ResponseDetails> {
+    //     return this.http.post<ResponseDetails>(this.endpoint + 'deleteJobPosting', request);
+    // }
 
-    getOrgUserList(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getOrgUserList', request);
+    getJobPostingList(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getJobPostingList', request);
     }
-   
-    
 }
 export interface ResponseDetails {
     flag?: any;

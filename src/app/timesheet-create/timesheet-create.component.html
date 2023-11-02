@@ -42,7 +42,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let row of timesheetRows; let i = index">
+            <tr *ngFor="let row of timesheetData; let i = index">
               <td>
                 <select class="form-control" [(ngModel)]="row.project">
                 </select>
@@ -79,9 +79,7 @@
                     <input type="file" id="fileUpload" class="form-control-file">
                   </div>
             </div>
-        </div>
-
-        
+        </div> 
       </div>
     </div>
   </div>
