@@ -32,10 +32,10 @@
         </div>
 
         <div class="row pt-4">
-                  
+
             <div class="col md-4 text-right">
                 <div class="form-group">
-                    
+
                     <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
                 </div>
             </div>
@@ -62,120 +62,83 @@
                                 <td>{{ User_Account.RoleName }}</td>
                                 <td>{{ User_Account.TeamLeads }}</td>
                                 <td>
-                                    <div><button class="btn btn-light" (click)="enterEditMode()"><i
-                                                class="fa fa-edit fa-fw mr-2"></i></button>
-                                        <button class="btn btn-light" (click)="deleteAccount(User_Account.id)"><i
-                                                class="fa fa-trash fa-fw ml-2 mr-2"></i>
-                                        </button>
+                                    <div>
+                                        <i class="fa fa-trash fa-fw ml-2 mr-2"
+                                            (click)="deleteAccount(User_Account.useremail)"></i>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                <div class="row">
-                    <div class="col">
-                        <div class="table-container">
-                            <table class="table text-center">
-                                <thead>
-                                    <tr>
-                                        <th>First_Name</th>
-                                        <th>Last_Name</th>
-                                        <th>User_Email</th>
-                                        <th>Role</th>
-                                        <th>Lead</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let User_Account of User_Accounts">
-                                        <td>{{ User_Account.MemberFirstName }}</td>
-                                        <td>{{ User_Account.MemberLastName }}</td>
-                                        <td>{{ User_Account.useremail }}</td>
-                                        <td>{{ User_Account.RoleName }}</td>
-                                        <td>{{ User_Account.TeamLeads }}</td>
-                                        <td>
-                                            <div>
-                                               <!-- <i class="fa fa-edit fa-fw mr-2" (click)="enterEditMode()"></i> -->
-                                                <i class="fa fa-trash fa-fw ml-2 mr-2" (click)="deleteAccount(User_Account.useremail)"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div *ngIf="!isEditMode">
+
+
     <div *ngIf="showAddUser" id="adduser" class="modal2 align-center">
         <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
             <div class="modal-content2">
+                <div>
+                    <button type="button" class="close close-modal" (click)="cancelAddUser()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="form">
                     <div>
-                        <button type="button" class="close close-modal" (click)="cancelAddUser()">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h2 class="text-center">Add User</h2>
                     </div>
-        
-                    <div class="form">
-                        <div>
-                            <h2 class="text-center">Add User</h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="text-center p">First Name*</label>
+                            <input type="text" class="form-control" id="name" placeholder="First Name">
                         </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label class="text-center p">First Name*</label>
-                                <input type="text" class="form-control" id="name" placeholder="First Name">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="text-center p">Last Name*</label>
-                                <input type="text" class="form-control" id="name" placeholder="Last Name">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="text-center p">Email ID*</label>
-                                <input type="text" class="form-control" id="name" placeholder="Email ID">
-                            </div>
+                        <div class="col-md-4">
+                            <label class="text-center p">Last Name*</label>
+                            <input type="text" class="form-control" id="name" placeholder="Last Name">
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label class="text-center p">Role</label>
-                                    <select name="Role" id="Role" class="form-control">
-                                        <option selected="selected" value="0">--Select Role--</option>
-                                        <option value="1">Admin</option>
-                                        <option value="2">HR</option>
-                                    </select>
-                                </div>
-                            </div>
-        
-                            <div class="col-md-4">
-                                <label class="text-center p">Team Lead</label>
-                                <div class=" flex text-center">
-                                    <p-multiSelect [options]="Teamlead" [(ngModel)]="selectedTeamlead" defaultLabel="Teamlead"
-                                        optionLabel="name" (onSearch)="onTeamleadSearch($event)" [filter]="true" display="chip"
-                                        style="width: 300px;">
-                                    </p-multiSelect>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                            </div>
+                        <div class="col-md-4">
+                            <label class="text-center p">Email ID*</label>
+                            <input type="text" class="form-control" id="name" placeholder="Email ID">
                         </div>
                     </div>
-        
-        
-                    <div class="row justify-content-center mt-4">
-                        <div class="d-flex">
-                            <button class="btn btn-bgcolor text-white mr-5" (click)="cancelAddUser()">Cancel</button>
-                            <button class="btn btn-bgcolor text-white" (click)="confirmAddUser()">Add</button>
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <div class="form-group text-center">
+                                <label class="text-center p">Role</label>
+                                <select name="Role" id="Role" class="form-control">
+                                    <option selected="selected" value="0">--Select Role--</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">HR</option>
+                                </select>
+                            </div>
                         </div>
+
+                        <div class="col-md-4">
+                            <label class="text-center p">Team Lead</label>
+                            <div class=" flex text-center">
+                                <p-multiSelect [options]="Teamlead" [(ngModel)]="selectedTeamlead"
+                                    defaultLabel="Teamlead" optionLabel="name" (onSearch)="onTeamleadSearch($event)"
+                                    [filter]="true" display="chip" style="width: 300px;">
+                                </p-multiSelect>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-4">
+                    <div class="d-flex">
+                        <button class="btn btn-bgcolor text-white mr-5" (click)="cancelAddUser()">Cancel</button>
+                        <button class="btn btn-bgcolor text-white" (click)="confirmAddUser()">Add</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 
 <!-- <div *ngIf="isEditMode" id="edituser" class="modal3 align-center">
@@ -259,7 +222,8 @@
         <div>
             <h2 class="text-center">Add Role</h2>
             <p class="text-center p">Role Name*</p>
-            <input type="text" class="form-control form-control-sm" id="name" [(ngModel)]="RoleName" placeholder="Role Name">
+            <input type="text" class="form-control form-control-sm" id="name" [(ngModel)]="RoleName"
+                placeholder="Role Name">
         </div>
         <br>
         <div class="d-flex justify-content-center">
@@ -289,8 +253,6 @@
         </div>
     </div>
 </div>
-
-
 <div *ngIf="showConfirmationDialog" id="confirmationdialog" class="modal align-center">
     <div class="modal-content justify-content-center ">
         <div>
@@ -306,4 +268,4 @@
         </div>
     </div>
 </div>
-</div><p-toast></p-toast>
+<p-toast></p-toast>
