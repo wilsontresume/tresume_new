@@ -65,7 +65,6 @@ router.post('/gethrmscandidateList', async (req, res) => {
   
   router.post('/updatehrmscandidate', async (req, res) => {
 
-   
   })
  
   module.exports = router;
