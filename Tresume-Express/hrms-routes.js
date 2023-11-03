@@ -63,51 +63,9 @@ router.post('/gethrmscandidateList', async (req, res) => {
     }
   });
   
-  router.post('/deletehrmscandidateAccount', async (req, res) => {
-    const TraineeID = req.body.TraineeID;
-    try {
-      const candidate = await deactivatecandidate(TraineeID);
-      if (candidate) {
-        const result = {
-          flag: 1,
-        };
-        res.send(result);
-      } else {
-        const result = {
-          flag: 0,
-        };
-        res.send(result);
-      }
-    } catch (error) {
-      console.error("Error deleting candidates:", error);
-      const result = {
-        flag: 0,
-        error: "An error occurred while deleting the candidates!",
-      };
-      res.status(500).send(result);
-    }  
-  
+  router.post('/updatehrmscandidate', async (req, res) => {
+
+   
   })
-  
-  
-  async function deactivatecandidate(TraineeID) {
-    try {
-      const pool = await sql.connect(config);
-      const request = pool.request();
-      const queryResult = await request.query(
-        `update Trainee set active = 0 where TraineeID = '${TraineeID}'`
-      );
-      
-      if (queryResult.rowsAffected[0] === 0) {
-        throw new Error("No records found!");
-      }
-      
-      return queryResult;
-    } catch (error) {
-      console.error("Error while deleting candidate:", error);
-      throw error;
-    }
-  }
-
-
+ 
   module.exports = router;
