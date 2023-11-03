@@ -11,14 +11,15 @@ export class AllClientService {
     // public endpoint = 'http://localhost:3000/';
 
     constructor(private http: HttpClient) { }
+    
+    getTraineeClientList(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeClientList', request);
+    }
 
     deleteClientAccount(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'deleteClientAccount', request);
     }
 
-    getTraineeClientList(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeClientList', request);
-    }
 }
 export interface ResponseDetails {
     flag?: any;

@@ -12,7 +12,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./timesheet-create.component.scss']
 })
 export class TimesheetCreateComponent implements OnInit {
-  timesheetRows: FormGroup[] = [];
+  timesheetData: any[];
 
   minDate: string;
   maxDate: string;
@@ -59,12 +59,12 @@ export class TimesheetCreateComponent implements OnInit {
       totalHours: ['']
     });
 
-    this.timesheetRows.push(row);
+    this.timesheetData.push(row);
   }
 
   removeRow(index: number) {
-    if (index >= 0 && index < this.timesheetRows.length) {
-      this.timesheetRows.splice(index, 1);
+    if (index >= 0 && index < this.timesheetData.length) {
+      this.timesheetData.splice(index, 1);
     }
   }
 
@@ -76,20 +76,18 @@ export class TimesheetCreateComponent implements OnInit {
     if (this.SRselectedFile) {
       formData.append('SRfile', this.SRselectedFile, this.SRselectedFile.name);
     }
-    formData.append('timesheetData', JSON.stringify(this.timesheetRows));
+    formData.append('timesheetData', JSON.stringify(this.timesheetData));
   
     try {
       const response = await this.Service.createTimesheet(formData).toPromise();
       console.log(response);
-      // Handle the response data as needed.
     } catch (error) {
       console.error('An error occurred:', error);
-      // Handle other errors that are not related to the HTTP request.
     }
   }
 
   cancel() {
-    this.timesheetRows = [];
+    this.timesheetData = [];
     this.CAselectedFile = null;
     this.SRselectedFile = null;
     this.addRow();

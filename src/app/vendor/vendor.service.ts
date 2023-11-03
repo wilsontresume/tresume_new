@@ -12,15 +12,13 @@ export class VendorService {
 
     constructor(private http: HttpClient) { }
 
-    deleteVendorAccount(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'deleteVendorAccount', request);
-    }
-
     getTraineeVendorList(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeVendorList', request);
     }
-   
-    
+
+    deleteVendorAccount(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'deleteVendorAccount', request);
+    } 
 }
 export interface ResponseDetails {
     flag?: any;

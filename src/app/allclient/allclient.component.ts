@@ -1,9 +1,8 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { AllClientService } from './allclient.service';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-allclient',
@@ -18,13 +17,7 @@ export class AllclientComponent implements OnInit {
   TraineeID: string = '';
   clients: any[];
   noResultsFound: boolean = false;
-
-
-  // client1 = [
-  //   { id: 1, ClientName: 'client A', EmailID: 'client_a@example.com', Website: 'www.client_a.com', PrimaryOwner: 'John Doe', },
-  //   { id: 2, clientName: 'client A', EmailID: 'client_a@example.com', Website: 'www.client_a.com', PrimaryOwner: 'John Doe', },
-  // ];
-
+  
   constructor(private fb: FormBuilder, private cookieService: CookieService, private service: AllClientService, private messageService: MessageService) {
 
   }
