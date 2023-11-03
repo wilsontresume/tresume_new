@@ -163,7 +163,6 @@ clearInputFields() {
     this.showConfirmationDialog = true;
   }
 
-
   confirmDelete() {
     console.log(this.deleteIndex);
     let Req = {
