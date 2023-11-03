@@ -1,5 +1,5 @@
-const express = require('express')
-const bodyparser = require('body-parser')
+const express = require('express');
+const bodyparser = require('body-parser');
 const path = require('path');
 var mime = require('mime');
 const app = express();
@@ -42,6 +42,7 @@ const clients = require('./clients');
 const jobposting = require('./jobposting');
 const talentbench = require('./talentbench');
 const timesheet = require('./timesheet');
+const hrms = require('./hrms');
 
 
 app.use('/', onboardRoutes);
@@ -56,6 +57,7 @@ app.use('/', clients);
 app.use('/', jobposting);
 app.use('/', talentbench);
 app.use('/', timesheet);
+app.use('/', hrms)
 
 app.use(session({
   secret: 'Tresume@123',
@@ -3186,3 +3188,5 @@ var task = cron.schedule('*/15 * * * *', async () => {
 });
 
 task.start();
+
+

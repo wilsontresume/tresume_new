@@ -1,16 +1,22 @@
-import { Component } from '@angular/core';
-import { CandidateComponent } from '../candidate/candidate.component';
-import { Routes } from '@angular/router';
+import { Component,OnChanges } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { ReviewService } from './review.service';
+import { MessageService } from 'primeng/api';
+import { request } from 'express';
+
 
 @Component({
   selector: 'app-review-tresume',
   templateUrl: './review-tresume.component.html',
+  providers: [CookieService,ReviewService,MessageService],
   styleUrls: ['./review-tresume.component.scss']
 })
-export class ReviewTresumeComponent {
-  
-//generalinfo
-jobs:any[];
+
+
+
+export class ReviewTresumeComponent implements OnChanges {
+
+
 items: any[] = [
   {
     value1:'Name 1',
@@ -22,7 +28,7 @@ items: any[] = [
   }
   ]
   
-  SelectedRefered: string = ''; // Initialize with an empty string
+  SelectedRefered: string = ''; 
   referedby: string[] = [
     'Name 1',
     'Name 2',
@@ -57,7 +63,7 @@ items: any[] = [
   
   
   
-  SelectedDivision: string = ''; // Initialize with an empty string
+  SelectedDivision: string = ''; 
   divisions: string[] = [
     'PROJECT COORDINATOR',
     'SALES FORCE',
@@ -78,21 +84,120 @@ items: any[] = [
 
 //interview
 
+TraineeID: string;
 interviewDate: string; 
 interviewTime: string; 
- 
-
 selectedInterviewMode: string;
 interviewModes: string[] = ['--Select--', 'Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
-  router: any;
+router: any;
+  http: any;
+  editRowIndex: number;
+  showConfirmationDialog: boolean;
+  deleteIndex: number;
+constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService)
+ { }
+ngOnInit(): void {
+  
+  this.TraineeID = this.cookieService.get('TraineeID');
+  this.fetchinterviewlist();
+}
 
-constructor() { }
- 
+ngOnChanges(): void{
+  this.fetchinterviewlist();
+}
+fetchinterviewlist(){
+  let Req = {
+    TraineeID: this.TraineeID,
+  };
+  this.service.getInterviewList(Req).subscribe((x: any) => {
+    this.interview = x.result;
+  });
+}
+
+interviewInfo: string = '';
+client: string = '';
+vendor: string = '';
+subVendor: string = '';
+assistedBy: string = '';
+typeOfAssistance: string = '';
+
+interview: any[] = [];
+
+
+onSaveClick() {
+  const job = {
+    Date: this.interviewDate,
+    interviewTime: this.interviewTime,
+    Notes: this.interviewInfo,
+    client: this.client,
+    vendor: this.vendor,
+    subVendor: this.subVendor,
+    Assigned: this.assistedBy,
+    typeOfAssistance: this.typeOfAssistance,
+    InterviewMode: this.selectedInterviewMode,
+  };
+
+  this.interview.push(job);
+
+  console.log('Form Values:', job);
+
+  this.clearInputFields();
+}
+
+clearInputFields() {
+  this.interviewDate = '';
+  this.interviewTime = '';
+  this.interviewInfo = '';
+  this.client = '';
+  this.vendor = '';
+  this.subVendor = '';
+  this.assistedBy = '';
+  this.typeOfAssistance = '';
+  this.selectedInterviewMode = '';
+}
+
+  // EDIT - DELETE - UPDATE 
+  deleteinterviewdata(TraineeID: number) {
+    this.deleteIndex = TraineeID;
+    console.log(this.deleteIndex);
+    this.showConfirmationDialog = true;
+  }
+
+
+  confirmDelete() {
+    console.log(this.deleteIndex);
+    let Req = {
+      TraineeID: this.deleteIndex,
+    };
+    this.service.deleteinterviewdata(Req).subscribe((x: any) => {
+      var flag = x.flag;
+      this.fetchinterviewlist();
+      if (flag === 1) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'interviewdata Deleted Sucessfully',
+        });
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Please try again later',
+        });
+      }
+
+    });
+    this.showConfirmationDialog = false;
+  }
+
+
+  cancelDelete() {
+    console.log(this.showConfirmationDialog);
+    this.showConfirmationDialog = false;
+  }
 
   //financialinfo
 
   options = ['Single', 'Married', 'Married with hold'];
-  selectedOptions: string[] = [];
+  selectedOptions: string[] = []; 
 
 
   updateArray(option: string): void {
@@ -108,7 +213,9 @@ constructor() { }
   selectedOption: string = ''; 
   GoTonext(){
     this.router.navigate(['/candidateView/:id/sitevisit']);
+  
   }
+  
 }
 
 // const routes: Routes = [

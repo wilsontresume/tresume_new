@@ -61,3 +61,5 @@ router.post('/getTalentBenchList', async (req, res) => {
       return res.send(result);
     }
   });
+
+  module.exports = router;
