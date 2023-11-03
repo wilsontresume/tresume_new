@@ -59,25 +59,7 @@
               <option value="" disabled selected>Select a Referrer</option>
               <option *ngFor="let refered of referedby" [value]="refered">{{ refered }}</option>
             </select>
-            <!-- 
-          <label for="interviewMode">Refered By (Internal) (optional)</label>
-          <select class="form-control" id="referedBy" name="Refered By" >
-            <option value="select" class="">--Select--</option>
-            <option value="Refered">Name 1</option>
-            <option value="Refered">Name 2</option>
-            <option value="Refered">Name 3</option>
-            <option value="Refered">Name 4</option>
-            <option value="Refered">Name 5</option>
-            <option value="Refered">Name 6</option>
-            <option value="Refered">Name 7</option>
-            <option value="Refered">Name 8</option>
-            <option value="Refered">Name 9</option>
-            <option value="Refered">Name 10</option>
-            <option value="Refered">Name 11</option>
-            <option value="Refered">Name 12</option>
-            <option value="Refered">Name 13</option>
-            <option value="Refered">Name 14</option>
-          </select> -->
+            
           </div>
           <div class="col-md-4">
             <label for="assistedBy">Deal Offered (optional)</label>
@@ -443,50 +425,46 @@
 
 
                   <mat-tab label="Placement">
-                    <table>
-                      <tbody>
-                        <tr class="text-dark">
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th class="text-dark">Click to view placement form</th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                        </tr>
+                    <div class="row">
+                      <div class="col-md-3 mt-3">
+                        <button class="btn">Email Placement traker</button>
+                      </div>
+                      <div class="col-md-9 mt-3 text-right">
+                        <button class="btn">Add</button>
+                      </div>
+                    </div>
+                   
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="currentStatus">Selected Status</label>
+                          <select class="form-control" id="currentStatus" [(ngModel)]="selectOptions">
+                            <option value="">-- Select Current Status --</option>
+                            <option *ngFor="let option of  currentStatusOptions" [value]="option">{{ option }}</option>
+                          </select>
+                        </div>
+                      </div>
 
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>
+                    </div>
+                  
 
-                            <a [routerLink]="['/placementview']" routerLinkActive="active">
+ 
+
+                            <!-- <a [routerLink]="['/placementview']" routerLinkActive="active">
                               <i class="fas fa-eye" font-size="24px"></i>
-                            </a>
-                            <!-- <a routerLink= class="quick-view-link">
-                    <i class="btn fa fa-eye"></i> 
-                  </a> -->
-                          </td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>
+                            </a> -->
+                          
+                         
+
+
+
+
+
+
                             <!-- <a [routerLink]="['/Myjobs/createnewjob']"><i class="fas fa-pencil-alt" (click)="editJob(job)"></i></a>
                   <a [routerLink]="['/submittedcandidates']"><i class="fas fa-id-badge" (click)="viewProfile(job)"></i></a>
                   <a [routerLink]="['/jobpostings']"> <i class="fas fa-trash-alt" (click)="confirmDeleteJob(job)"></i></a> -->
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-
+                          
                   </mat-tab>
 
                   <mat-tab label="Submission">
