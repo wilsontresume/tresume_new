@@ -50,9 +50,6 @@
         </div>
     </div>
     <div class="row pt-4 pl-3">
-        <div class="col">
-            <p>Displaying {{ displayedCandidates }} of {{ totalCandidates }} candidates</p>
-        </div>
         <div class="col md-4 text-right">
             <div class="form-group">
                 <label for="search">Search:</label>
@@ -78,13 +75,13 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let candidate of candidates">
-                            <td>{{ candidate.Viewed_By }}</td>
+                            <td>{{ candidate.CreatedBy }}</td>
                             <td>{{ candidate.Name }}</td>
                             <td>{{ candidate.Email }}</td>
                             <td>{{ candidate.Phone }}</td>
-                            <td>{{ candidate.Legal_Status }}</td>
-                            <td>{{ candidate.Candidate_Status }}</td>
-                            <td>{{ candidate.Date_Created }}</td>
+                            <td>{{ candidate.LegalStatus }}</td>
+                            <td>{{ candidate.CandidateStatus }}</td>
+                            <td>{{ candidate.DateCreated }}</td>
                             <td>
                                 <div class="input-group">
                                     <input type="date" class="form-control"
