@@ -88,7 +88,10 @@ interviewModes: string[] = ['--Select--', 'Face to face', 'Zoom', 'Phone', 'Hang
 
 constructor() { }
  
+//placement tab
 
+currentStatusOptions: string[] = [ 'ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING','ON BENCH','MARKETING ON HOLD','HAS OFFER','PLACED/WORKING AT THE CLIENT LOCATION','FIRST TIME CALLER','DROPPED-TRAINING','DROPPED-MARKETING','DROPED-OTHER','TERMINATE','REPLACED AS CLIENT SITE']; 
+selectOptions: string = ''; 
   //financialinfo
 
   options = ['Single', 'Married', 'Married with hold'];
