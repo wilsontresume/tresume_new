@@ -4,8 +4,11 @@
     <div class="container">
       <button class="btn btn1">Save</button>
     </div>
+
+    <!-- General tab -->
     <mat-tab-group>
       <mat-tab label="General">
+      
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -158,16 +161,7 @@
               <option value="" disabled selected>Division</option>
               <option *ngFor="let division of divisions" [value]="division">{{ division }}</option>
             </select>
-            <!-- <select class="form-control" id="division" name="division">
-            <option value="division">--Select--</option>
-            <option value="division">PROJECT COORDINATOR</option>
-            <option value="division">SALES FORCE</option>
-            <option value="division">SALESFORCE ADMIN/BA</option>
-            <option value="division">SALESFORCE DEVELOPER & SALESFORCE/BA/DA/QA</option>
-            <option value="division">DEVOPS</option>
-            <option value="division">SYSTEM ANALYST</option>
-            <option value="division">DATA</option>
-          </select> -->
+            
           </div>
           <div class="col-md-4">
             <label for="dob">DOB</label>

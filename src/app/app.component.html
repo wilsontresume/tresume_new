@@ -284,13 +284,13 @@
                   <p>All Time List</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" *ngIf="timesheetrole == 1">
                 <a class="nav-link" routerLink="/assignrole">
                   <i class="nav-icon fas fa-highlighter"></i>
                   <p> Assign Role</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" *ngIf="timesheetrole == 1">
                 <a class="nav-link" routerLink="/create-project">
                   <i class="nav-icon fas fa-plus"></i>
                   <p> Create Project</p>

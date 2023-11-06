@@ -43,6 +43,7 @@ const jobposting = require('./jobposting');
 const talentbench = require('./talentbench');
 const timesheet = require('./timesheet');
 const hrms = require('./hrms-routes');
+const assignrole = require('./assignrole');
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -57,6 +58,8 @@ app.use('/', jobposting);
 app.use('/', talentbench);
 app.use('/', timesheet);
 app.use('/', hrms);
+app.use('/', assignrole);
+
 
 app.use(session({
   secret: 'Tresume@123',
