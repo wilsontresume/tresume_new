@@ -47,8 +47,8 @@ router.post('/getTalentBenchList', async (req, res) => {
         flag: 1,
         result: recordset.recordsets[0],
       };
-
-      res.send(result);
+      return res.send(result);
+     res.send(result);
     });
   } catch (error) {
     console.error(error);
