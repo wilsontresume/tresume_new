@@ -16,6 +16,31 @@ import { request } from 'express';
 
 export class ReviewTresumeComponent implements OnChanges {
 
+  
+//generalinfo
+
+jobs:any[];
+SelectedRefered: string = ''; 
+firstName: string = '';
+middleName: string = '';
+lastName: string = '';
+phoneNumber: number;
+email: string = '';
+dealOffered: string = '';
+referredByExternal: string = '';
+statusDate: string='';
+duiFelonyInfo: string=''; 
+statusStartDate: string='';
+statusEndtDate: string='';
+ftcNotes: string=''; 
+otherNotes: string=''; 
+dob: Date; 
+// degree: string='';
+// university: string='';
+// attendedFrom: string='';
+// attendedTo: string='';
+// u8niversityAddress: string='';
+SelectedDivision: string = ''; 
 
 items: any[] = [
   {
@@ -28,7 +53,6 @@ items: any[] = [
   }
   ]
   
-  SelectedRefered: string = ''; 
   referedby: string[] = [
     'Name 1',
     'Name 2',
@@ -41,29 +65,6 @@ items: any[] = [
     'Name 9',
   ];
   
-  firstName: string = '';
-  middleName: string = '';
-  lastName: string = '';
-  phoneNumber: number;
-  email: string = '';
-  dealOffered: string = '';
-  referredByExternal: string = '';
-  statusDate: string='';
-  duiFelonyInfo: string=''; 
-  statusStartDate: string='';
-  statusEndtDate: string='';
-  ftcNotes: string=''; 
-  otherNotes: string=''; 
-  dob: Date; 
-  // degree: string='';
-  // university: string='';
-  // attendedFrom: string='';
-  // attendedTo: string='';
-  // u8niversityAddress: string='';
-  
-  
-  
-  SelectedDivision: string = ''; 
   divisions: string[] = [
     'PROJECT COORDINATOR',
     'SALES FORCE',
@@ -192,6 +193,13 @@ clearInputFields() {
     console.log(this.showConfirmationDialog);
     this.showConfirmationDialog = false;
   }
+
+ 
+//placement tab
+
+currentStatusOptions: string[] = [ 'ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING','ON BENCH','MARKETING ON HOLD','HAS OFFER','PLACED/WORKING AT THE CLIENT LOCATION','FIRST TIME CALLER','DROPPED-TRAINING','DROPPED-MARKETING','DROPED-OTHER','TERMINATE','REPLACED AS CLIENT SITE']; 
+selectOptions: string = ''; 
+
 
   //financialinfo
 
