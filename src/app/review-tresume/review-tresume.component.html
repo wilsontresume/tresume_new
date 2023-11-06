@@ -7,7 +7,7 @@
     <!-- General tab -->
     <mat-tab-group>
       <mat-tab label="General">
-      
+
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -404,7 +404,7 @@
                         <td>{{ job.TypeofAssistance }}</td>
                         <td>
                           <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteinterviewdata(TraineeInterviewID)"></i>
-                        </td>                        
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -434,8 +434,49 @@
                         </select>
                       </div>
                     </div>
+
+                    <div class="table mt-4">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Work Start Date</th>
+                            <th>Work End Date</th>
+                            <th>Position Title</th>
+                            <th>Marketer</th>
+                            <th>End Client Name</th>
+                            <th>Vendor</th>
+                            <th>End Client Address</th>
+                            <th>Action
+                              <div [routerLink]="['/placementview']"
+                                routerLinkActive="active">
+                                <i class="fas fa-eye" style="font-size: 24px;"></i>
+                              </div>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let placement of placementList">
+                            <td>{{ placement.Date }}</td>
+                            <td>{{ placement.Marketer }}</td>
+                            <td>{{ placement.Assigned }}</td>
+                            <td>{{ placement.TraineeInterviewID }}</td>
+                            <td>{{ placement.InterviewMode }}</td>
+                            <td>{{ placement.Notes }}</td>
+                            <td>{{ placement.Client }}</td>
+                            <td>{{ placement.Vendor }}</td>
+                            <td>{{ placement.SubVendor }}</td>
+                            <td>{{ placement.TypeofAssistance }}</td>
+                            <td>
+                              <i class="fa fa-trash fa-lg ml-3 mr-2"></i>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </mat-tab>
+
+
 
                 <mat-tab label="Submission">
                   <!-- Content for Submission tab -->
@@ -738,14 +779,14 @@
 
 <div *ngIf="showConfirmationDialog" class="modal align-center">
   <div class="modal-content justify-content-center ">
-      <button type="button" class="close close-modal" (click)="cancelDelete()">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      <h2 class="text-center"><u>Delete Client</u></h2>
-      <p class="text-center">Are you sure you want to delete this client?</p><br>
-      <div class="d-flex justify-content-center">
-          <button class="btn btn-sm btn-bgcolor text-white mr-5" (click)="confirmDelete()">Delete</button>
-          <button class="btn btn-sm btn-bgcolor text-white ml-5" (click)="cancelDelete()">Cancel</button>
-      </div>
+    <button type="button" class="close close-modal" (click)="cancelDelete()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h2 class="text-center"><u>Delete Client</u></h2>
+    <p class="text-center">Are you sure you want to delete this client?</p><br>
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-sm btn-bgcolor text-white mr-5" (click)="confirmDelete()">Delete</button>
+      <button class="btn btn-sm btn-bgcolor text-white ml-5" (click)="cancelDelete()">Cancel</button>
+    </div>
   </div>
 </div>

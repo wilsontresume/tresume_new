@@ -105,6 +105,7 @@ console.log(query);
     res.status(500).json({ error: 'An error occurred.' });
   }
 });
+
 router.post('/deleteinterviewdata', async (req, res) => {
   try {
     const interviewdata = await deactivateinterviewdata(req.body.TraineeInterviewID);
@@ -147,5 +148,41 @@ async function deactivateinterviewdata(TraineeInterviewID) {
     throw error;
   }
 }
+
+// Placement - Table - List
+
+router.post('/getPlacementList', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const traineeID = '20742';
+
+    const query = `
+      SELECT CONVERT(NVARCHAR, TI.InterviewDate, 101) AS Date,
+      CONCAT(T1.FirstName, ' ', T1.LastName) AS Marketer,
+      ISNULL(TI.Assistedby, '') AS Assigned,
+      TI.TraineeInterviewID, TI.InterviewMode,
+      ISNULL(TI.Notes, '') AS Notes,
+      ISNULL(TI.ClientName, '') AS Client,
+      ISNULL(TI.VendorName, '') AS Vendor,
+      ISNULL(TI.SubVendor, '') AS SubVendor,
+      ISNULL(TI.TypeofAssistance, '') AS TypeofAssistance
+      FROM TraineeInterview TI
+      LEFT JOIN Trainee T1 ON T1.TraineeID = TI.RecruiterID
+      WHERE TI.active = 1 AND TI.TraineeID = ${traineeID}
+      ORDER BY TI.CreateTime DESC;
+    `;
+
+    const result = await pool.request().query(query);
+
+    res.json({
+      flag: 1,
+      result: result.recordset,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred.' });
+  }
+});
+
 module.exports = router;
  

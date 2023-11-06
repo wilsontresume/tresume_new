@@ -19,4 +19,9 @@ export class ReviewService {
   deleteinterviewdata(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'deleteinterviewdata', request);
   }
+
+  getPlacementList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getPlacementList', request);
+  }
+  
 }

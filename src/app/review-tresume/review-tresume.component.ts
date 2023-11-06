@@ -95,16 +95,22 @@ router: any;
   editRowIndex: number;
   showConfirmationDialog: boolean;
   deleteIndex: number;
+  reviewService: any;
+  placementList: any;
 constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService)
  { }
 ngOnInit(): void {
   
   this.TraineeID = this.cookieService.get('TraineeID');
   this.fetchinterviewlist();
+  this.reviewService.getPlacementList({}).subscribe((response: { result: any; }) => {
+    this.placementList = response.result;
+  });
 }
 
 ngOnChanges(): void{
   // this.fetchinterviewlist();
+  
 }
 fetchinterviewlist(){
   let Req = {
@@ -123,7 +129,6 @@ assistedBy: string = '';
 typeOfAssistance: string = '';
 
 interview: any[] = [];
-
 
 onSaveClick() {
   const job = {
@@ -199,6 +204,13 @@ clearInputFields() {
 
 currentStatusOptions: string[] = [ 'ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING','ON BENCH','MARKETING ON HOLD','HAS OFFER','PLACED/WORKING AT THE CLIENT LOCATION','FIRST TIME CALLER','DROPPED-TRAINING','DROPPED-MARKETING','DROPED-OTHER','TERMINATE','REPLACED AS CLIENT SITE']; 
 selectOptions: string = ''; 
+//Table-Heads
+workStartDate:string = '';
+workEndDate:string = '';
+positionTitle:string = '';
+endClientName:string = '';
+vendorplacement:string = '';
+endClientAddress:string = '';
 
 
   //financialinfo
