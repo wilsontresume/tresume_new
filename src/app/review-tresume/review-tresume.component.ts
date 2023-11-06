@@ -157,8 +157,8 @@ clearInputFields() {
 }
 
   // EDIT - DELETE - UPDATE 
-  deleteinterviewdata(TraineeID: number) {
-    this.deleteIndex = TraineeID;
+  deleteinterviewdata(TraineeInterviewID: number) {
+    this.deleteIndex = TraineeInterviewID;
     console.log(this.deleteIndex);
     this.showConfirmationDialog = true;
   }
@@ -166,7 +166,7 @@ clearInputFields() {
   confirmDelete() {
     console.log(this.deleteIndex);
     let Req = {
-      TraineeID: this.deleteIndex,
+      TraineeInterviewID: this.deleteIndex,
     };
     this.service.deleteinterviewdata(Req).subscribe((x: any) => {
       var flag = x.flag;

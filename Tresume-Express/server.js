@@ -42,7 +42,6 @@ const clients = require('./clients');
 const jobposting = require('./jobposting');
 const talentbench = require('./talentbench');
 const timesheet = require('./timesheet');
-
 const hrms = require('./hrms-routes');
 
 app.use('/', onboardRoutes);
