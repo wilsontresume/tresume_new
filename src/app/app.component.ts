@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   public userName: string
   public orgID: string;
   public accesstoken: string;
+  public timesheetrole:string;
   constructor(private route: ActivatedRoute, private service1: AppService, private router: Router, private cookieService: CookieService) {
     //this.traineeID = this.route.snapshot.params["traineeId"];
 
@@ -47,7 +48,7 @@ export class AppComponent implements OnInit {
     this.orgID = this.cookieService.get('OrgID');
     this.traineeID = this.cookieService.get('TraineeID');
     this.accesstoken = this.cookieService.get('accesstoken');
-    
+    this.timesheetrole = this.cookieService.get('TimesheetRole');
 
     await this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {

@@ -7,18 +7,14 @@
             <div class="col-md-6">
                 <label class="label">Select Recruiter</label>
                 <select [(ngModel)]="selectedOption">
-                    <option value="Recruiter">Nithya</option>
-                    <option value="Vengat">Vengat</option>
-                    <option value="Bala">Bala</option>
-                    <option value="Sherine">Sherine</option>
-                    <option value="wilson">Wilson</option>
-                    <option value="francy">Francy</option>
-                    <option value="nagaraj">Nagaraj</option>
+                    <option *ngFor="let user of allusers" [value]="user.traineeid">
+                      {{ user.firstname }} {{ user.lastname }}
+                    </option>
                   </select>
             </div>
             <div class="col-md-6">
               <div class="float-right">
-                <button class="btn mb-5" (click)="addRow()">Make as Admin</button>
+                <button class="btn mb-5" (click)="addtimesheetadmin()">Make as Admin</button>
               </div>
             </div>
         </div>
@@ -33,10 +29,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let role of roles">
-                    <td>{{ role }}</td>
+                  <tr *ngFor="let user of alladmins">
+                    <td> {{ user.firstname }} {{ user.lastname }}</td>
                     <td>
-                      <i class="fa fa-trash" (click)="deleteRow(i)"></i>
+                      <i class="fa fa-trash" (click)="deleteRow(user.traineeid)"></i>
                     </td>
                   </tr>
                 </tbody>

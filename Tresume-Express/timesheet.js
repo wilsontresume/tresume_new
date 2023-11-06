@@ -98,6 +98,220 @@ router.post('/createTimesheet', async (req, res) => {
     }
   });
 });
+
+router.post('/fetchtimesheetusers', async  (req, res) => {
+  
+  try {
+  const organizationid = req.body.OrgID;
+
+  if (!organizationid) {
+    return res.status(400).json({ error: 'organizationid is required' });
+  }
+
+
+  await sql.connect(config, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Database connection error' });
+    }
+
+    const query = 'SELECT traineeid, firstname, lastname FROM trainee WHERE organizationid = '+organizationid;
+    
+    console.log(query);
+    const request = new sql.Request();
+    // request.input('organizationid', sql.Int, organizationid);
+    request.query(query, (err, result) => {
+      if (err) {
+        console.error(err);
+        sql.close();
+        return res.status(500).json({ error: 'Database query error' });
+      }
+      sql.close();
+      console.log(result)
+        var result = {
+          flag: 1,
+          result: result.recordset,
+        };
+
+        res.send(result);
+
+    });
+  });
+} catch (err) {
+  var result = {
+    flag: 2,
+  };
+
+  res.send(result);
+// Pass the error to the error handling middleware
+}
+});
+
+router.post('/addtimesheetadmin', async (req, res) => {
+  try {
+    // Get the traineeid from the request body
+    const  traineeid  = req.body.TraineeID;
+
+    if (!traineeid) {
+      return res.status(400).json({ error: 'traineeid is required' });
+    }
+
+    // Connect to the database
+    await sql.connect(config);
+
+    // Define the SQL query to update the trainee's timesheet_role
+    const query = `
+      UPDATE trainee
+      SET timesheet_role = 2
+      WHERE traineeid = @traineeid;
+    `;
+
+    // Create a request object and execute the query
+    const request = new sql.Request();
+    request.input('traineeid', sql.Int, traineeid);
+    const result = await request.query(query);
+
+    // Close the database connection
+    await sql.close();
+
+    // Return a success message
+    res.json({ message: 'Admin role added successfully' });
+  } catch (err) {
+    return next(err); // Pass the error to the error handling middleware
+  }
+});
+
+router.post('/fetchtimesheetadmins', async  (req, res) => {
+  
+  try {
+  const organizationid = req.body.OrgID;
+
+  if (!organizationid) {
+    return res.status(400).json({ error: 'organizationid is required' });
+  }
+
+
+  await sql.connect(config, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Database connection error' });
+    }
+
+    const query = 'SELECT traineeid, firstname, lastname FROM trainee WHERE organizationid = '+organizationid+'AND timesheet_role = 2';
+    
+    console.log(query);
+    const request = new sql.Request();
+    // request.input('organizationid', sql.Int, organizationid);
+    request.query(query, (err, result) => {
+      if (err) {
+        console.error(err);
+        sql.close();
+        return res.status(500).json({ error: 'Database query error' });
+      }
+      sql.close();
+      console.log(result)
+        var result = {
+          flag: 1,
+          result: result.recordset,
+        };
+
+        res.send(result);
+
+    });
+  });
+} catch (err) {
+  var result = {
+    flag: 2,
+  };
+
+  res.send(result);
+// Pass the error to the error handling middleware
+}
+});
+
+router.post('/deletetimesheetadmin', async (req, res) => {
+  try {
+    // Get the traineeid from the request body
+    const  traineeid  = req.body.TraineeID;
+
+    if (!traineeid) {
+      return res.status(400).json({ error: 'traineeid is required' });
+    }
+
+    // Connect to the database
+    await sql.connect(config);
+
+    // Define the SQL query to update the trainee's timesheet_role
+    const query = `
+      UPDATE trainee
+      SET timesheet_role = 0
+      WHERE traineeid = @traineeid;
+    `;
+
+    // Create a request object and execute the query
+    const request = new sql.Request();
+    request.input('traineeid', sql.Int, traineeid);
+    const result = await request.query(query);
+
+    // Close the database connection
+    await sql.close();
+
+    // Return a success message
+    res.json({ message: 'Admin role Removed successfully' });
+  } catch (err) {
+    return next(err); // Pass the error to the error handling middleware
+  }
+});
+
+
+router.post('/fetchtimesheetcandidate', async  (req, res) => {
+  
+  try {
+  const organizationid = req.body.OrgID;
+
+  if (!organizationid) {
+    return res.status(400).json({ error: 'organizationid is required' });
+  }
+
+
+  await sql.connect(config, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Database connection error' });
+    }
+
+    const query = 'SELECT traineeid, firstname, lastname FROM trainee WHERE userorganizationid = '+organizationid;
+    
+    console.log(query);
+    const request = new sql.Request();
+    // request.input('organizationid', sql.Int, organizationid);
+    request.query(query, (err, result) => {
+      if (err) {
+        console.error(err);
+        sql.close();
+        return res.status(500).json({ error: 'Database query error' });
+      }
+      sql.close();
+      console.log(result)
+        var result = {
+          flag: 1,
+          result: result.recordset,
+        };
+
+        res.send(result);
+
+    });
+  });
+} catch (err) {
+  var result = {
+    flag: 2,
+  };
+
+  res.send(result);
+// Pass the error to the error handling middleware
+}
+});
+
 module.exports = router;
 
 // router.post('/createTimesheet', async (req, res) => {
