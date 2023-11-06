@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { CandidateComponent } from '../candidate/candidate.component';
-import { Routes } from '@angular/router';
 
 @Component({
   selector: 'app-review-tresume',
@@ -10,7 +8,30 @@ import { Routes } from '@angular/router';
 export class ReviewTresumeComponent {
   
 //generalinfo
+
 jobs:any[];
+SelectedRefered: string = ''; 
+firstName: string = '';
+middleName: string = '';
+lastName: string = '';
+phoneNumber: number;
+email: string = '';
+dealOffered: string = '';
+referredByExternal: string = '';
+statusDate: string='';
+duiFelonyInfo: string=''; 
+statusStartDate: string='';
+statusEndtDate: string='';
+ftcNotes: string=''; 
+otherNotes: string=''; 
+dob: Date; 
+// degree: string='';
+// university: string='';
+// attendedFrom: string='';
+// attendedTo: string='';
+// u8niversityAddress: string='';
+SelectedDivision: string = ''; 
+
 items: any[] = [
   {
     value1:'Name 1',
@@ -22,7 +43,6 @@ items: any[] = [
   }
   ]
   
-  SelectedRefered: string = ''; // Initialize with an empty string
   referedby: string[] = [
     'Name 1',
     'Name 2',
@@ -34,30 +54,7 @@ items: any[] = [
     'Name 8',
     'Name 9',
   ];
-  
-  firstName: string = '';
-  middleName: string = '';
-  lastName: string = '';
-  phoneNumber: number;
-  email: string = '';
-  dealOffered: string = '';
-  referredByExternal: string = '';
-  statusDate: string='';
-  duiFelonyInfo: string=''; 
-  statusStartDate: string='';
-  statusEndtDate: string='';
-  ftcNotes: string=''; 
-  otherNotes: string=''; 
-  dob: Date; 
-  // degree: string='';
-  // university: string='';
-  // attendedFrom: string='';
-  // attendedTo: string='';
-  // u8niversityAddress: string='';
-  
-  
-  
-  SelectedDivision: string = ''; // Initialize with an empty string
+
   divisions: string[] = [
     'PROJECT COORDINATOR',
     'SALES FORCE',
@@ -80,11 +77,10 @@ items: any[] = [
 
 interviewDate: string; 
 interviewTime: string; 
- 
-
 selectedInterviewMode: string;
-interviewModes: string[] = ['--Select--', 'Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
-  router: any;
+router: any;
+interviewModes: string[] = 
+['--Select--', 'Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
 
 constructor() { }
  
@@ -92,6 +88,8 @@ constructor() { }
 
 currentStatusOptions: string[] = [ 'ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING','ON BENCH','MARKETING ON HOLD','HAS OFFER','PLACED/WORKING AT THE CLIENT LOCATION','FIRST TIME CALLER','DROPPED-TRAINING','DROPPED-MARKETING','DROPED-OTHER','TERMINATE','REPLACED AS CLIENT SITE']; 
 selectOptions: string = ''; 
+
+
   //financialinfo
 
   options = ['Single', 'Married', 'Married with hold'];
