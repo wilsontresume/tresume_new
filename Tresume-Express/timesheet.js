@@ -79,8 +79,7 @@ router.post('/createTimesheet', async (req, res) => {
           request.input('approvalstatus', sql.VarChar, data.approvalstatus);
           request.input('comments', sql.VarChar, data.comments);
 
-          const query = `INSERT INTO Timesheet_Master (traineeid, project, fromdate, todate, totalhrs, approvalstatus, comments)
-            VALUES (@traineeID, @project, @fromdate, @todate, @totalhrs, @approvalstatus, @comments)`;
+          const query = `INSERT INTO Timesheet_Master (traineeid, project, fromdate, todate, totalhrs, approvalstatus, comments) VALUES (@traineeID, @project, @fromdate, @todate, @totalhrs, @approvalstatus, @comments)`;
 
           await request.query(query);
         }
@@ -119,6 +118,7 @@ router.post('/fetchtimesheetusers', async  (req, res) => {
     
     console.log(query);
     const request = new sql.Request();
+    
     // request.input('organizationid', sql.Int, organizationid);
     request.query(query, (err, result) => {
       if (err) {

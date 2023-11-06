@@ -172,7 +172,6 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
     SubmissionComponent,
     GeneralComponent,
     ViewDetailsComponent,
-    TimesheetCreateComponent,
     PasswordFormComponent,
     CreateNewJobsComponent,
     AllclientComponent,
@@ -187,30 +186,21 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
     ConfirmationPopupComponent,
     SubmittedCandiatesComponent,
     JobBoardAccountComponent,
-    AccountsAddUserComponent,
     ProfileComponent,
     AboutmeComponent,
-    InformationComponent,    
+    InformationComponent,
     AccountsAddUserComponent,
-     VendorComponent,
-    SubscriptionComponent,
-     ReviewTresumeComponent,
-     BatchComponent,
-     JobApplicationComponent,
-    AccountsAddUserComponent,    
-    JobApplicationComponent,
-    SubscriptionComponent,
-    ReviewTresumeComponent,
-    BatchComponent,
     VendorComponent,
     ViewvendorComponent,
     AddvendorComponent,
-   
-   
-    SubscriptionComponent, ReviewTresumeComponent, 
-    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, VendorComponent,
-    SubscriptionComponent, ReviewTresumeComponent,
-    SubscriptionComponent, ReviewTresumeComponent,BatchComponent, JobApplicationComponent, AllTimeListComponent, CreateProjectComponent,  AssignRoleComponent, AddAdminComponent,
+    SubscriptionComponent,
+    ReviewTresumeComponent,
+    BatchComponent,
+    JobApplicationComponent,
+    AllTimeListComponent,
+    CreateProjectComponent,
+    AssignRoleComponent,
+    AddAdminComponent,
   ],
   imports: [
     HttpClientModule,
@@ -259,9 +249,9 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
     EditorModule,
     ToastModule,
     RouterModule,
-    
-    
-    
+
+
+
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({
       validationMessages: [
@@ -284,7 +274,7 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
     ProgressbarModule.forRoot(),
     PaginationModule.forRoot()
   ],
-  providers: [CookieService,BsLocaleService, AuthGuard, AppService, ],
+  providers: [CookieService, BsLocaleService, AuthGuard, AppService,],
   bootstrap: [AppComponent],
   entryComponents: [ProgressRenderer]
 })

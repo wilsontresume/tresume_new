@@ -10,14 +10,15 @@
   }
   .container{
     background-color: #fff;
-    border-top:3px solid #46103d;
   }
-
+  .main{
+    border-top:3px solid  #49274A;
+    border-bottom:3px solid  #49274A;
+  }
   .pagination {
     justify-content: flex-end;
   }
   
- 
 .custom-select-style {
     width: 70px; 
   }
@@ -53,8 +54,6 @@
     background-color: #e0e0e0;
   }
   
- 
- 
   td{
     color: #94618e;
   }

@@ -30,7 +30,6 @@ import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { GeneralComponent } from './general/general.component';
 import { CreateNewJobsComponent } from './create-new-jobs/create-new-jobs.component';
-import { AllTimeSheetComponent } from './all-time-sheet/all-time-sheet.component';
 import { AllclientComponent } from './allclient/allclient.component';
 import { AddclientComponent } from './addclient/addclient.component';
 import { ViewclientComponent } from './viewclient/viewclient.component';
@@ -84,15 +83,14 @@ const routes: Routes = [
   { path: 'onboard/employee/:id', component: EmployeeViewComponent , canActivate: [AuthGuard]  },
   { path: 'jobboards', component: JobBoardListComponent   , canActivate: [AuthGuard]},
   { path: 'create-project', component: CreateProjectComponent   , canActivate: [AuthGuard]},
-  { path: 'all-time-list', component: AllTimeListComponent   , canActivate: [AuthGuard]},
+  { path: 'alltimelist', component: AllTimeListComponent   , canActivate: [AuthGuard]},
   { path: 'division', component: DivisionComponent, canActivate: [AuthGuard] },
   { path: 'harvest', component: HarvestComponent, canActivate: [AuthGuard] },
   { path: 'harvestview/:id', component: HarvestViewComponent, canActivate: [AuthGuard] },
   { path: 'divisionaudit', component: DivisionAuditComponent, canActivate: [AuthGuard] },
   { path: 'adobesign', component: AdobesignComponent1   },
   { path: 'adobesign/token/:token', component: AdobesignComponent1   },
-  { path: 'timesheet/create', component: TimesheetCreateComponent   },
-  { path: 'alltimesheet', component: AllTimeSheetComponent },
+  { path: 'timesheetcreate', component: TimesheetCreateComponent   },
   { path: 'searchtresume/reviewtresume/interview', component: InterviewComponent},
   { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent},
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent },
@@ -117,11 +115,9 @@ const routes: Routes = [
   { path: 'reviewtresume', component:ReviewTresumeComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
   { path: 'adobesign/token/:token', component: AdobesignComponent1  , canActivate: [AuthGuard] },
-  { path: 'sheet/creattimee', component: TimesheetCreateComponent  , canActivate: [AuthGuard] },
-  { path: 'alltimesheet', component: AllTimeSheetComponent , canActivate: [AuthGuard]},
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard] },
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
-  { path: 'accounts-add-user', component:AccountsAddUserComponent},
+  { path: 'accountsadduser', component:AccountsAddUserComponent},
   { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
   { path: 'profile',component:ProfileComponent},
   { path: 'information',component:InformationComponent},
@@ -135,8 +131,6 @@ const routes: Routes = [
   { path: 'assignrole',component:AssignRoleComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
-  
-
 ];
 
 @NgModule({
