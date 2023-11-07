@@ -403,7 +403,7 @@
                         <td>{{ job.SubVendor }}</td>
                         <td>{{ job.TypeofAssistance }}</td>
                         <td>
-                          <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteinterviewdata(TraineeInterviewID)"></i>
+                          <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteinterviewdata(job.TraineeInterviewID)"></i>
                         </td>
                       </tr>
                     </tbody>
@@ -456,16 +456,13 @@
                         </thead>
                         <tbody>
                           <tr *ngFor="let placement of placementList">
-                            <td>{{ placement.Date }}</td>
-                            <td>{{ placement.Marketer }}</td>
-                            <td>{{ placement.Assigned }}</td>
-                            <td>{{ placement.TraineeInterviewID }}</td>
-                            <td>{{ placement.InterviewMode }}</td>
-                            <td>{{ placement.Notes }}</td>
-                            <td>{{ placement.Client }}</td>
-                            <td>{{ placement.Vendor }}</td>
-                            <td>{{ placement.SubVendor }}</td>
-                            <td>{{ placement.TypeofAssistance }}</td>
+                            <td>{{ placement.POStartDate }}</td>
+                            <td>{{ placement.POEndDate }}</td>
+                            <td>{{ placement.PositionTitle }}</td>
+                            <td>{{ placement.MarketerFirstName }}</td>
+                            <td>{{ placement.ClientName }}</td>
+                            <td>{{ placement.VendorName }}</td>
+                            <td>{{ placement.ClientAddress }}</td>
                             <td>
                               <i class="fa fa-trash fa-lg ml-3 mr-2"></i>
                             </td>

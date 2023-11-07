@@ -100,17 +100,30 @@ router: any;
 constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService)
  { }
 ngOnInit(): void {
-  
-  this.TraineeID = this.cookieService.get('TraineeID');
-  this.fetchinterviewlist();
-  this.reviewService.getPlacementList({}).subscribe((response: { result: any; }) => {
-    this.placementList = response.result;
-  });
+    this.fetchinterviewlist();
+    this.getPlacementList();
 }
 
 ngOnChanges(): void{
   // this.fetchinterviewlist();
   
+}
+getPlacementList() {
+  this.TraineeID = this.cookieService.get('TraineeID');
+
+  const Req = {
+    TraineeID: this.TraineeID
+  };
+
+  this.service.getPlacementList(Req).subscribe((x: any) => {
+    this.placementList = x.result;
+  });
+
+
+  // this.TraineeID = this.cookieService.get('TraineeID');
+  // this.reviewService.getPlacementList({}).subscribe((response: { result: any; }) => {
+  //   this.placementList = response.result; 
+  // });
 }
 fetchinterviewlist(){
   let Req = {
