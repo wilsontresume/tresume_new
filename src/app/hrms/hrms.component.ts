@@ -21,7 +21,9 @@ export class HrmsComponent implements OnInit {
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
-  candidates: any[];
+  candidates: any[]=[
+    {CreatedBy:'she'}
+  ]
   noResultsFound: boolean = false;
   TraineeID: string;
   constructor(private fb: FormBuilder, private cookieService: CookieService, private service: HrmsService, private messageService: MessageService) { }

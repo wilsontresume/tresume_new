@@ -105,6 +105,7 @@ console.log(query);
     res.status(500).json({ error: 'An error occurred.' });
   }
 });
+
 router.post('/deleteinterviewdata', async (req, res) => {
   try {
     const interviewdata = await deactivateinterviewdata(req.body.TraineeInterviewID);
@@ -147,5 +148,71 @@ async function deactivateinterviewdata(TraineeInterviewID) {
     throw error;
   }
 }
+
+// Placement - Table - List
+
+router.post('/getPlacementList', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const traineeID = '20742';
+
+    const query = `
+    SELECT
+    P.PID,
+    ISNULL(P.Notes, '') AS Notes,
+    ISNULL(P.CurrentPlacement, '1') AS CurrentPlacement,
+    ISNULL(P.BillRate, '') AS BillRate,
+    ISNULL(P.BillType, '') AS BillType,
+    ISNULL(T.FirstName, '0') AS MarketerFirstName,
+	ISNULL(T.LastName, '0') AS MarketerFirstName,
+    ISNULL(P.ClientState, '') AS ClientState,
+    ISNULL(CONVERT(NVARCHAR(10), P.StartDate, 101), '') AS StartDate1,
+    ISNULL(CONVERT(NVARCHAR(10), P.EndDate, 101), '') AS EndDate1,
+    ISNULL(CONVERT(NVARCHAR(10), P.PlacedDate, 101), '') AS PlacedDate,
+    ISNULL(P.PositionTitle, '') AS PositionTitle,
+    ISNULL(P.CandidateEmailId, '') AS CandidateEmailId,
+    ISNULL(P.ClientName, '') AS ClientName,
+    ISNULL(CONVERT(NVARCHAR(10), P.POStartDate, 101), '') AS POStartDate,
+    ISNULL(CONVERT(NVARCHAR(10), P.POEndDate, 101), '') AS POEndDate,
+    ISNULL(P.ClientManagerName, '') AS ClientManagerName,
+    ISNULL(P.ClientEmail, '') AS ClientEmail,
+    ISNULL(P.ClientPhoneNumber, '') AS ClientPhoneNumber,
+    ISNULL(P.ClientAddress, '') AS ClientAddress,
+    ISNULL(P.VendorName, '') AS VendorName,
+    ISNULL(P.VendorContactName, '') AS VendorContactName,
+    ISNULL(P.VendorEmail, '') AS VendorEmail,
+    ISNULL(P.VendorPhone, '') AS VendorPhone,
+    ISNULL(P.VendorAddress, '') AS VendorAddress,
+    ISNULL(P.SubVendorName, '') AS SubVendorName,
+    ISNULL(P.SubVendorContactName, '') AS SubVendorContactName,
+    ISNULL(P.SubVendorEmail, '') AS SubVendorEmail,
+    ISNULL(P.SubVendorPhone, '') AS SubVendorPhone,
+    ISNULL(P.SubVendorAddress, '') AS SubVendorAddress,
+    CONCAT(T.FirstName, ' ', T.LastName) AS Name,
+    P.PrimaryPlacement
+FROM
+    Placements P
+LEFT JOIN
+    Trainee T ON T.TraineeID = P.MarketerName
+LEFT JOIN
+    Currentstatus cs ON cs.CsID = T.CandidateStatus
+WHERE
+    P.TraineeID = '20742' AND P.Active = 1
+ORDER BY
+    P.StartDate DESC
+    `;
+
+    const result = await pool.request().query(query);
+
+    res.json({
+      flag: 1,
+      result: result.recordset,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred.' });
+  }
+});
+
 module.exports = router;
  

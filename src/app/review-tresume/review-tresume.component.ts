@@ -6,7 +6,6 @@ import { request } from 'express';
 
 
 @Component({
-  selector: 'app-review-tresume',
   templateUrl: './review-tresume.component.html',
   providers: [CookieService,ReviewService,MessageService],
   styleUrls: ['./review-tresume.component.scss']
@@ -16,7 +15,8 @@ import { request } from 'express';
 
 export class ReviewTresumeComponent implements OnChanges {
 
-  
+  siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
+}
 //generalinfo
 
 jobs:any[];
@@ -95,16 +95,35 @@ router: any;
   editRowIndex: number;
   showConfirmationDialog: boolean;
   deleteIndex: number;
+  reviewService: any;
+  placementList: any;
 constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService)
  { }
 ngOnInit(): void {
-  
-  this.TraineeID = this.cookieService.get('TraineeID');
-  this.fetchinterviewlist();
+    this.fetchinterviewlist();
+    this.getPlacementList();
 }
 
 ngOnChanges(): void{
   // this.fetchinterviewlist();
+  
+}
+getPlacementList() {
+  this.TraineeID = this.cookieService.get('TraineeID');
+
+  const Req = {
+    TraineeID: this.TraineeID
+  };
+
+  this.service.getPlacementList(Req).subscribe((x: any) => {
+    this.placementList = x.result;
+  });
+
+
+  // this.TraineeID = this.cookieService.get('TraineeID');
+  // this.reviewService.getPlacementList({}).subscribe((response: { result: any; }) => {
+  //   this.placementList = response.result; 
+  // });
 }
 fetchinterviewlist(){
   let Req = {
@@ -123,7 +142,6 @@ assistedBy: string = '';
 typeOfAssistance: string = '';
 
 interview: any[] = [];
-
 
 onSaveClick() {
   const job = {
@@ -199,6 +217,13 @@ clearInputFields() {
 
 currentStatusOptions: string[] = [ 'ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING','ON BENCH','MARKETING ON HOLD','HAS OFFER','PLACED/WORKING AT THE CLIENT LOCATION','FIRST TIME CALLER','DROPPED-TRAINING','DROPPED-MARKETING','DROPED-OTHER','TERMINATE','REPLACED AS CLIENT SITE']; 
 selectOptions: string = ''; 
+//Table-Heads
+workStartDate:string = '';
+workEndDate:string = '';
+positionTitle:string = '';
+endClientName:string = '';
+vendorplacement:string = '';
+endClientAddress:string = '';
 
 
   //financialinfo

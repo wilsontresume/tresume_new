@@ -6,23 +6,26 @@
        <div class="row pt-4">
         <div class="col-3 form-group">
           <label>Project Name</label>
-          <select id="adminselect" class="form-control">
+          <!-- <select id="adminselect" class="form-control">
             <option *ngFor="let option of projectname" [value]="option.id">{{ option.name }}</option>
-          </select>
+          </select> -->
+         
+            <input type="text" class="form-control" id="middleName" [(ngModel)]="projectname" placeholder="Project Name">
+         
         </div>
         <div class="col-3 form-group">
           <label>Client name</label>
-          <select id="userselect" class="form-control">
-            <option *ngFor="let option of clientname" [value]="option.id">{{ option.name }}</option>
+          <select id="userselect" class="form-control" [(ngModel)]="clientname">
+            <option *ngFor="let option of clients" [value]="option.ClientID">{{ option.ClientName }}</option>
           </select>
         </div>   
           
       <div class="col-3 form-group">
        <label for="NetTerms">Net Terms</label>
-      <input type="text" class="form-control" id="NetTerms" name="NetTerms" placeholder="Net Terms" [(bsValue)]="NetTerms" bsDatepicker>
+      <input type="text" class="form-control" id="NetTerms" [(ngModel)]="netterms" name="NetTerms" placeholder="Net Terms" [(bsValue)]="netterms" bsDatepicker>
     </div>
         <div class="col-3 text-center mt-4">
-        <button class="btn createNew">Admin</button>
+        <button class="btn createNew" (click)="createproject()">Create Project</button>
          </div>
     </div>
     <table class="pt-4">
@@ -36,9 +39,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let pro of project">
-          <td>{{ pro.name }}</td>
-          <td>{{ pro.admin }}</td>
-          <td>{{ pro.project }}</td>
+          <td>{{ pro.projectname }}</td>
+          <td>{{ pro.ClientName }}</td>
+          <td>{{ pro.netterms | date :  "MM/dd/y"}}</td>
           
         </tr>
       </tbody>

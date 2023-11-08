@@ -92,6 +92,7 @@ router.post('/deleteClientAccount', async (req, res) => {
 })
 
 
+
 async function deactivateclient(ClientID) {
   try {
     const pool = await sql.connect(config);
@@ -110,4 +111,6 @@ async function deactivateclient(ClientID) {
     throw error;
   }
 }
+
+
 module.exports = router;
