@@ -12,8 +12,8 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./timesheet-create.component.scss']
 })
 export class TimesheetCreateComponent implements OnInit {
+  
   timesheetData: any[];
-
   minDate: string;
   maxDate: string;
   selectedSunday: string = '';
@@ -39,7 +39,6 @@ export class TimesheetCreateComponent implements OnInit {
       const previousSunday = new Date(selectedDateObj);
       previousSunday.setDate(selectedDateObj.getDate() - dayOfWeek);
       const formattedDate = previousSunday.toISOString().split('T')[0];
-
       this.selectedSunday = formattedDate;
       this.isSundaySelected = true;
     }
