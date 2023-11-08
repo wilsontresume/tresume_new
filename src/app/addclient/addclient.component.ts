@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
-
 @Component({
   selector: 'app-addclient',
   templateUrl: './addclient.component.html',
@@ -66,14 +65,11 @@ export class AddclientComponent implements OnInit {
   }
   
   add() {
+
     if (this.clientForm.valid) {
-      // The form is valid, proceed with submission or other logic
       const formData = this.clientForm.value;
       console.log('Form Data:', formData);
-  
-      // You can send the data to your server or perform other actions here
     } else {
-      // The form has validation errors, set a flag to display the error message
       this.showFormError = true;
     }
   }
