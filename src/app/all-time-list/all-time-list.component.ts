@@ -10,7 +10,9 @@ import { MessageService } from 'primeng/api';
 })
 export class AllTimeListComponent implements OnChanges {
 
-  tableData: any [];
+  tableData: any []=[{
+    Candidate:'mariya'
+  }]
   showConfirmationDialog: boolean = false;
   router: any;
   OrgID:string = '';

@@ -10,6 +10,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
     templateUrl: './site-visit.component.html',
     styleUrls: ['../app.component.scss'],
     providers: [CandidateService, DashboardService]
+    
 })
 
 

@@ -6,7 +6,6 @@ import { request } from 'express';
 
 
 @Component({
-  selector: 'app-review-tresume',
   templateUrl: './review-tresume.component.html',
   providers: [CookieService,ReviewService,MessageService],
   styleUrls: ['./review-tresume.component.scss']
@@ -16,7 +15,8 @@ import { request } from 'express';
 
 export class ReviewTresumeComponent implements OnChanges {
 
-  
+  siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
+}
 //generalinfo
 
 jobs:any[];
