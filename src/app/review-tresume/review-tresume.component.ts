@@ -104,7 +104,7 @@ ngOnInit(): void {
 }
 
 ngOnChanges(): void{
-  this.fetchinterviewlist();
+  // this.fetchinterviewlist();
 }
 fetchinterviewlist(){
   let Req = {
@@ -172,6 +172,7 @@ clearInputFields() {
     this.service.deleteinterviewdata(Req).subscribe((x: any) => {
       var flag = x.flag;
       this.fetchinterviewlist();
+
       if (flag === 1) {
         this.messageService.add({
           severity: 'success',
@@ -183,7 +184,6 @@ clearInputFields() {
           summary: 'Please try again later',
         });
       }
-
     });
     this.showConfirmationDialog = false;
   }
