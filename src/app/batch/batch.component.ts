@@ -31,7 +31,7 @@ export class BatchComponent implements OnInit {
     // Implement edit functionality
   }
 
-  deleteBatch() {
-    // Implement delete functionality
-  }
+  // deleteBatch() {
+  //   // Implement delete functionality
+  // }
 }
