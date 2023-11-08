@@ -392,26 +392,36 @@
                 <div class="table mt-4">
                   <table>
                     <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Marketer</th>
-                    <th>Assisted by</th>
-                    <th>Mode</th>
-                    <th>Interview Info</th>  
-                    <th>Client</th>  
-                    <th>Vendor</th>
-                    <th>Sub Vendor</th> 
-                    <th>Type of Assistance</th>
-                    <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr  *ngFor="let job of jobs">
-
-                </tr>
-              </tbody>
-         
-            </table>
+                      <tr>
+                        <th>Date</th>
+                        <th>Marketer</th>
+                        <th>Assisted by</th>
+                        <th>Mode</th>
+                        <th>Interview Info</th>
+                        <th>Client</th>
+                        <th>Vendor</th>
+                        <th>Sub Vendor</th>
+                        <th>Type of Assistance</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let job of interview">
+                        <td>{{ job.Date }}</td>
+                        <td>{{ job.Marketer }}</td>
+                        <td>{{ job.Assigned }}</td>
+                        <td>{{ job.InterviewMode }}</td>
+                        <td>{{ job.Notes }}</td>
+                        <td>{{ job.Client }}</td>
+                        <td>{{ job.Vendor }}</td>
+                        <td>{{ job.SubVendor }}</td>
+                        <td>{{ job.TypeofAssistance }}</td>
+                        <td>
+                          <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteinterviewdata(job.TraineeInterviewID)"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                   
 
@@ -438,7 +448,35 @@
                           </select>
                         </div>
                       </div>
-
+                      <div class="table mt-4">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Work Start Date</th>
+                              <th>Work End Date</th>
+                              <th>Position Title</th>
+                              <th>Marketer</th>
+                              <th>End Client Name</th>
+                              <th>Vendor</th>
+                              <th>End Client Address</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let placement of placementList">
+                              <td>{{ placement.POStartDate }}</td>
+                              <td>{{ placement.POEndDate }}</td>
+                              <td>{{ placement.PositionTitle }}</td>
+                              <td>{{ placement.MarketerFirstName }}</td>
+                              <td>{{ placement.ClientName }}</td>
+                              <td>{{ placement.VendorName }}</td>
+                              <td>{{ placement.ClientAddress }}</td>
+                              <td>
+                                <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteinterviewdata(job.TraineeInterviewID)"></i>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   
 
@@ -643,6 +681,7 @@
                           </tr>
                         </thead>
                         <tbody>
+                          
                           <tr class="col-md-4">
                             <th>Bank Name</th>
                             <td>

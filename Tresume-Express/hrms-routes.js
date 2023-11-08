@@ -157,19 +157,49 @@ router.post('/getPlacementList', async (req, res) => {
     const traineeID = '20742';
 
     const query = `
-      SELECT CONVERT(NVARCHAR, TI.InterviewDate, 101) AS Date,
-      CONCAT(T1.FirstName, ' ', T1.LastName) AS Marketer,
-      ISNULL(TI.Assistedby, '') AS Assigned,
-      TI.TraineeInterviewID, TI.InterviewMode,
-      ISNULL(TI.Notes, '') AS Notes,
-      ISNULL(TI.ClientName, '') AS Client,
-      ISNULL(TI.VendorName, '') AS Vendor,
-      ISNULL(TI.SubVendor, '') AS SubVendor,
-      ISNULL(TI.TypeofAssistance, '') AS TypeofAssistance
-      FROM TraineeInterview TI
-      LEFT JOIN Trainee T1 ON T1.TraineeID = TI.RecruiterID
-      WHERE TI.active = 1 AND TI.TraineeID = ${traineeID}
-      ORDER BY TI.CreateTime DESC;
+    SELECT
+    P.PID,
+    ISNULL(P.Notes, '') AS Notes,
+    ISNULL(P.CurrentPlacement, '1') AS CurrentPlacement,
+    ISNULL(P.BillRate, '') AS BillRate,
+    ISNULL(P.BillType, '') AS BillType,
+    ISNULL(T.FirstName, '0') AS MarketerFirstName,
+	ISNULL(T.LastName, '0') AS MarketerFirstName,
+    ISNULL(P.ClientState, '') AS ClientState,
+    ISNULL(CONVERT(NVARCHAR(10), P.StartDate, 101), '') AS StartDate1,
+    ISNULL(CONVERT(NVARCHAR(10), P.EndDate, 101), '') AS EndDate1,
+    ISNULL(CONVERT(NVARCHAR(10), P.PlacedDate, 101), '') AS PlacedDate,
+    ISNULL(P.PositionTitle, '') AS PositionTitle,
+    ISNULL(P.CandidateEmailId, '') AS CandidateEmailId,
+    ISNULL(P.ClientName, '') AS ClientName,
+    ISNULL(CONVERT(NVARCHAR(10), P.POStartDate, 101), '') AS POStartDate,
+    ISNULL(CONVERT(NVARCHAR(10), P.POEndDate, 101), '') AS POEndDate,
+    ISNULL(P.ClientManagerName, '') AS ClientManagerName,
+    ISNULL(P.ClientEmail, '') AS ClientEmail,
+    ISNULL(P.ClientPhoneNumber, '') AS ClientPhoneNumber,
+    ISNULL(P.ClientAddress, '') AS ClientAddress,
+    ISNULL(P.VendorName, '') AS VendorName,
+    ISNULL(P.VendorContactName, '') AS VendorContactName,
+    ISNULL(P.VendorEmail, '') AS VendorEmail,
+    ISNULL(P.VendorPhone, '') AS VendorPhone,
+    ISNULL(P.VendorAddress, '') AS VendorAddress,
+    ISNULL(P.SubVendorName, '') AS SubVendorName,
+    ISNULL(P.SubVendorContactName, '') AS SubVendorContactName,
+    ISNULL(P.SubVendorEmail, '') AS SubVendorEmail,
+    ISNULL(P.SubVendorPhone, '') AS SubVendorPhone,
+    ISNULL(P.SubVendorAddress, '') AS SubVendorAddress,
+    CONCAT(T.FirstName, ' ', T.LastName) AS Name,
+    P.PrimaryPlacement
+FROM
+    Placements P
+LEFT JOIN
+    Trainee T ON T.TraineeID = P.MarketerName
+LEFT JOIN
+    Currentstatus cs ON cs.CsID = T.CandidateStatus
+WHERE
+    P.TraineeID = '20742' AND P.Active = 1
+ORDER BY
+    P.StartDate DESC
     `;
 
     const result = await pool.request().query(query);

@@ -237,7 +237,6 @@ app.get(
                 flag: 1,
                 result: recordset.recordsets[0],
               };
-
               res.send(result);
             }
           );
