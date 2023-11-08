@@ -214,5 +214,29 @@ ORDER BY
   }
 });
 
+router.post('/deleteplacementdata', async (req, res) => {
+  try {
+    const interviewdata = await deactivateplacementdata(req.body.TraineeInterviewID);
+    if (interviewdata) {
+      const result = {
+        flag: 1,
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error deleting Placementdata:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while deleting the Placementdata!",
+    };
+    res.status(500).send(result);
+  }  
+
+})
 module.exports = router;
  
