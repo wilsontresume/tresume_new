@@ -14,6 +14,7 @@ import { request } from 'express';
 
 
 export class ReviewTresumeComponent implements OnChanges {
+  showConfirmationDialog2: boolean;
 
   siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
 }
@@ -175,7 +176,7 @@ clearInputFields() {
   this.selectedInterviewMode = '';
 }
 
-  // EDIT - DELETE - UPDATE 
+  // INTERVIEW - DELETE
   deleteinterviewdata(TraineeInterviewID: number) {
     this.deleteIndex = TraineeInterviewID;
     console.log(this.deleteIndex);
@@ -205,8 +206,6 @@ clearInputFields() {
     });
     this.showConfirmationDialog = false;
   }
-
-
   cancelDelete() {
     console.log(this.showConfirmationDialog);
     this.showConfirmationDialog = false;
@@ -225,13 +224,44 @@ endClientName:string = '';
 vendorplacement:string = '';
 endClientAddress:string = '';
 
+// PLACEMENT - DELETE 
+deleteplacementdata(PID: number) {
+  this.deleteIndex = PID;
+  console.log(this.deleteIndex);
+  this.showConfirmationDialog2 = true;
+}
 
-  //financialinfo
+confirmDeleteplacement() {
+  console.log(this.deleteIndex);
+  let Req = {
+    PID: this.deleteIndex,
+  };
+  this.service.deleteplacementdata(Req).subscribe((x: any) => {
+    var flag1 = x.flag1;
+
+    if (flag1 === 1) {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'interviewdata Deleted Sucessfully',
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Please try again later',
+      });
+    }
+  });
+  this.showConfirmationDialog2 = false;
+}
+cancelDeleteplacement() {
+  console.log(this.showConfirmationDialog2);
+  this.showConfirmationDialog2 = false;
+}
+
+//financialinfo
 
   options = ['Single', 'Married', 'Married with hold'];
   selectedOptions: string[] = []; 
-
-
   updateArray(option: string): void {
     if (this.selectedOptions.includes(option)) {
       this.selectedOptions = this.selectedOptions.filter(item => item !== option);
@@ -239,15 +269,11 @@ endClientAddress:string = '';
       this.selectedOptions.push(option);
     }
   }
-  
-
   legalStatusOptions: string[] = ['Alabama', 'Alaska', 'Arizona', 'Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa']; 
   selectedOption: string = ''; 
   GoTonext(){
     this.router.navigate(['/candidateView/:id/sitevisit']);
-  
   }
-  
 }
 
 // const routes: Routes = [

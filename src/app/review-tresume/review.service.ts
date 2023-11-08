@@ -9,6 +9,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ReviewService {
+  // deleteplacementdata(Req: { TraineeInterviewID: number; }) {
+  //   throw new Error('Method not implemented.');
+  // }
   private endpoint = environment.apiUrl; 
 
   constructor(private http: HttpClient) {}
@@ -22,6 +25,10 @@ export class ReviewService {
 
   getPlacementList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getPlacementList', request);
+  }
+
+  deleteplacementdata(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'deleteplacementdata', request);
   }
   
 }

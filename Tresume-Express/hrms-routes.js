@@ -216,8 +216,8 @@ ORDER BY
 
 router.post('/deleteplacementdata', async (req, res) => {
   try {
-    const interviewdata = await deactivateplacementdata(req.body.TraineeInterviewID);
-    if (interviewdata) {
+    const placementdata = await deactivateplacementdata(req.body.PID);
+    if (placementdata) {
       const result = {
         flag: 1,
       };
