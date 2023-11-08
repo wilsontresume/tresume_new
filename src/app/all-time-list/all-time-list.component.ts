@@ -11,8 +11,6 @@ import { MessageService } from 'primeng/api';
 export class AllTimeListComponent implements OnChanges {
 
   tableData: any [];
-
-  
   showConfirmationDialog: boolean = false;
   router: any;
   OrgID:string = '';
