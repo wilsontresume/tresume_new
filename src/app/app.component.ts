@@ -46,8 +46,7 @@ export class AppComponent implements OnInit {
     }, 500);
     this.userName = this.cookieService.get('userName1');
     if(this.userName){
-      console.log('this.userName11', this.userName)
-
+      console.log('this.userName', this.userName)
     }
     this.orgID = this.cookieService.get('OrgID');
     this.traineeID = this.cookieService.get('TraineeID');
