@@ -217,6 +217,7 @@ ORDER BY
 router.post('/deleteplacementdata', async (req, res) => {
   try {
     const placementdata = await deactivateplacementdata(req.body.PID);
+    console.log(placementdata);
     if (placementdata) {
       const result = {
         flag: 1,
@@ -236,7 +237,25 @@ router.post('/deleteplacementdata', async (req, res) => {
     };
     res.status(500).send(result);
   }  
-
 })
+
+async function deactivateplacementdata(PID) {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    var query = 'UPDATE Placements SET Active = 0 WHERE PID ='+PID
+    const queryResult = await request.query(query, {
+    });
+
+    if (queryResult.rowsAffected[0] === 0) {
+      throw new Error('No records found!');
+    }
+
+    return queryResult;
+  } catch (error) {
+    console.error('Error while deactivating PlacementData:', error);
+    throw error;
+  }
+}
 module.exports = router;
  
