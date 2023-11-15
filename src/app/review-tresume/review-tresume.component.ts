@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ReviewService } from './review.service';
 import { MessageService } from 'primeng/api';
 import { request } from 'express';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 
 
 @Component({
@@ -15,9 +16,14 @@ import { request } from 'express';
 
 export class ReviewTresumeComponent implements OnChanges {
   showConfirmationDialog2: boolean;
+myForm: any;
+interviewForm: any;
 
   siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
+
+  
 }
+
 //generalinfo
 
 jobs:any[];
@@ -82,7 +88,27 @@ items: any[] = [
   
   selectedLegalStatus: string = '-eligible to work in US-'; 
   legalstatuss: string[] = ['eligible to work in US', 'US CITIZEN', 'GC', 'F-1', 'F1-CPT','TSP-EAD','GC-EAD','L2-EAD'];
-  
+
+  // Save Button Function 
+  saveButtonLabel: string = 'Save General Data';
+
+  saveData() {
+    if (this.myForm.valid) {
+      console.log(this.myForm.value);
+    } else {
+      console.log("Form is invalid");
+    }
+  }
+
+
+  onTabChange(tabIndex: number) {
+    const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
+
+    if (tabIndex >= 0 && tabIndex < tabLabels.length) {
+      this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
+    }
+  }
+// interview form 
 
 //interview
 
@@ -90,7 +116,7 @@ TraineeID: string;
 interviewDate: string; 
 interviewTime: string; 
 selectedInterviewMode: string;
-interviewModes: string[] = ['--Select--', 'Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
+interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
 router: any;
   http: any;
   editRowIndex: number;
@@ -98,15 +124,55 @@ router: any;
   deleteIndex: number;
   reviewService: any;
   placementList: any;
-constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService)
+constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService, private formBuilder: FormBuilder)
  { }
 ngOnInit(): void {
     this.fetchinterviewlist();
     this.getPlacementList();
-}
 
+    this.myForm = this.formBuilder.group({
+      interviewInfo: ['', [Validators.required, Validators.minLength(3)]],
+      client: ['', [Validators.required, Validators.minLength(3)]],
+      vendor: ['', [Validators.required, Validators.minLength(3)]],
+      subVendor: ['', [Validators.required, Validators.minLength(3)]],
+      assistedBy: ['', [Validators.required, Validators.minLength(3)]],
+      typeOfAssistance: ['', [Validators.required, Validators.minLength(3)]],
+      interviewMode: ['', [Validators.required, this.atLeastOneSelectedValidator]], 
+      interviewDate: ['', [Validators.required, this.futureDateValidator ]],
+      interviewTime: ['', [Validators.required, this.validTimeValidator]],
+    });
+}
+futureDateValidator(control: { value: string | number | Date; }) {
+  const currentDate = new Date();
+  const selectedDate = new Date(control.value);
+
+  if (selectedDate <= currentDate) {
+    return { futureDate: true };
+  }
+
+  return null;
+}
+validTimeValidator(control: { value: string; }) {
+  const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+
+  if (!timeRegex.test(control.value)) {
+    return { invalidTimeFormat: true };
+  }
+
+  return null;
+}
+atLeastOneSelectedValidator(control: AbstractControl) {
+  const selectedMode = control.value;
+
+  if (selectedMode === null || selectedMode === '') {
+    return { atLeastOneSelected: true };
+  }
+
+  return null;
+}
 ngOnChanges(): void{  
 }
+
 getPlacementList() {
   this.TraineeID = this.cookieService.get('TraineeID');
 

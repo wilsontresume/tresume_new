@@ -1,11 +1,15 @@
 <div class="container">
   <div class="container main-container mt-4">
+    <!-- <div class="container">
+      <button class="btn btn1" id="saveButton" onclick="saveData()">Save Data</button>
+    </div> -->
+
     <div class="container">
-      <button class="btn btn1">Save</button>
+      <button class="btn btn1" id="saveButton" (click)="saveData()">{{ saveButtonLabel }}</button>
     </div>
 
     <!-- General tab -->
-    <mat-tab-group>
+    <mat-tab-group (selectedIndexChange)="onTabChange($event)">
       <mat-tab label="General">
 
         <div class="row">
@@ -319,23 +323,22 @@
             <mat-tab label="Interview">
               <!-- Content for Interview tab -->
               <div class="container">
-
-
+                <form  [formGroup]="myForm">
                 <div class="row">
                   <div class="col-md-4">
                     <label for="interviewDate">Interview Date</label>
                     <input type="date" class="form-control" id="interviewDate" name="interviewDate"
-                      placeholder="Interview Date">
+                      placeholder="Interview Date" formControlName="interviewDate">
                   </div>
                   <div class="col-md-4">
                     <label for="interviewTime">Interview Time</label>
                     <input type="time" class="form-control" id="interviewTime" name="interviewTime"
-                      placeholder="Interview Time">
+                      placeholder="Interview Time" formControlName="interviewTime">
                   </div>
                   <div class="col-md-4">
                     <label for="interviewInfo">Interview Info</label>
-                    <input type="text" class="form-control" id="interviewInfo" name="interviewInfo"
-                      placeholder="Interview Info">
+                    <input type="text" class="form-control" id="interviewInfo" name="interviewInfo" formControlName="interviewInfo" placeholder="Interview Info" [ngClass]="{ 'invalid-input': myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched }">
+                    
                   </div>
                 </div>
 
@@ -343,15 +346,15 @@
                 <div class="row mt-3">
                   <div class="col-md-4">
                     <label for="client">Client</label>
-                    <input type="text" class="form-control" id="client" name="client" placeholder="Client">
+                    <input type="text" class="form-control" id="client" name="client" placeholder="Client" formControlName="client" [ngClass]="{ 'invalid-input': myForm.get('client').invalid && myForm.get('client').touched }">
                   </div>
                   <div class="col-md-4">
                     <label for="vendor">Vendor</label>
-                    <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor">
+                    <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor" formControlName="vendor" [ngClass]="{ 'invalid-input': myForm.get('vendor').invalid && myForm.get('vendor').touched }">
                   </div>
                   <div class="col-md-4">
                     <label for="subVendor">Sub Vendor</label>
-                    <input type="text" class="form-control" id="subVendor" name="subVendor" placeholder="Sub Vendor">
+                    <input type="text" class="form-control" id="subVendor" name="subVendor" placeholder="Sub Vendor" formControlName="subVendor" [ngClass]="{ 'invalid-input': myForm.get('subVendor').invalid && myForm.get('subVendor').touched }">
                   </div>
                 </div>
 
@@ -359,22 +362,22 @@
                 <div class="row mt-3">
                   <div class="col-md-4">
                     <label for="assistedBy">Assisted by</label>
-                    <input type="text" class="form-control" id="assistedBy" name="assistedBy" placeholder="Assisted by">
+                    <input type="text" class="form-control" id="assistedBy" name="assistedBy" placeholder="Assisted by" formControlName="assistedBy" [ngClass]="{ 'invalid-input': myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched }">
                   </div>
                   <div class="col-md-4">
                     <label for="typeOfAssistance">Type of Assistance</label>
-                    <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance"
-                      placeholder="Type of Assistance">
+                    <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance" placeholder="Type of Assistance" formControlName="typeOfAssistance" [ngClass]="{ 'invalid-input': myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched }">
                   </div>
                   <div class="col-md-4">
                     <label for="interviewMode">Interview Mode</label>
                     <select class="form-control" id="interviewMode" name="interviewMode"
-                      [(ngModel)]="selectedInterviewMode">
+                      [(ngModel)]="selectedInterviewMode" formControlName="interviewMode">
                       <option [ngValue]="null">--Select--</option>
                       <option *ngFor="let mode of interviewModes" [ngValue]="mode">{{ mode }}</option>
                     </select>
                   </div>
                 </div>
+              </form>
                 <div class="table mt-4">
                   <table>
                     <thead>
