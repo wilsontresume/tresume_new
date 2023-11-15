@@ -105,9 +105,7 @@ ngOnInit(): void {
     this.getPlacementList();
 }
 
-ngOnChanges(): void{
-  // this.fetchinterviewlist();
-  
+ngOnChanges(): void{  
 }
 getPlacementList() {
   this.TraineeID = this.cookieService.get('TraineeID');
@@ -119,8 +117,6 @@ getPlacementList() {
   this.service.getPlacementList(Req).subscribe((x: any) => {
     this.placementList = x.result;
   });
-
-
   // this.TraineeID = this.cookieService.get('TraineeID');
   // this.reviewService.getPlacementList({}).subscribe((response: { result: any; }) => {
   //   this.placementList = response.result; 
@@ -141,7 +137,6 @@ vendor: string = '';
 subVendor: string = '';
 assistedBy: string = '';
 typeOfAssistance: string = '';
-
 interview: any[] = [];
 
 onSaveClick() {
@@ -176,47 +171,44 @@ clearInputFields() {
   this.selectedInterviewMode = '';
 }
 
-  // INTERVIEW - DELETE
-  deleteinterviewdata(TraineeInterviewID: number) {
-    this.deleteIndex = TraineeInterviewID;
-    console.log(this.deleteIndex);
-    this.showConfirmationDialog = true;
-  }
+// INTERVIEW - DELETE
+deleteinterviewdata(TraineeInterviewID: number) {
+  this.deleteIndex = TraineeInterviewID;
+  console.log(this.deleteIndex);
+  this.showConfirmationDialog = true;
+}
+confirmDelete() {
+  console.log(this.deleteIndex);
+  let Req = {
+    TraineeInterviewID: this.deleteIndex,
+  };
+  this.service.deleteinterviewdata(Req).subscribe((x: any) => {
+    var flag = x.flag;
+    this.fetchinterviewlist();
 
-  confirmDelete() {
-    console.log(this.deleteIndex);
-    let Req = {
-      TraineeInterviewID: this.deleteIndex,
-    };
-    this.service.deleteinterviewdata(Req).subscribe((x: any) => {
-      var flag = x.flag;
-      this.fetchinterviewlist();
+    if (flag === 1) {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'interviewdata Deleted Sucessfully',
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Please try again later',
+      });
+    }
+  });
+  this.showConfirmationDialog = false;
+}
+cancelDelete() {
+  console.log(this.showConfirmationDialog);
+  this.showConfirmationDialog = false;
+}
 
-      if (flag === 1) {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'interviewdata Deleted Sucessfully',
-        });
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Please try again later',
-        });
-      }
-    });
-    this.showConfirmationDialog = false;
-  }
-  cancelDelete() {
-    console.log(this.showConfirmationDialog);
-    this.showConfirmationDialog = false;
-  }
-
- 
 //placement tab
 
 currentStatusOptions: string[] = [ 'ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING','ON BENCH','MARKETING ON HOLD','HAS OFFER','PLACED/WORKING AT THE CLIENT LOCATION','FIRST TIME CALLER','DROPPED-TRAINING','DROPPED-MARKETING','DROPED-OTHER','TERMINATE','REPLACED AS CLIENT SITE']; 
 selectOptions: string = ''; 
-//Table-Heads
 workStartDate:string = '';
 workEndDate:string = '';
 positionTitle:string = '';
@@ -230,7 +222,6 @@ deleteplacementdata(PID: number) {
   console.log(this.deleteIndex);
   this.showConfirmationDialog2 = true;
 }
-
 confirmDeleteplacement() {
   console.log(this.deleteIndex);
   let Req = {
