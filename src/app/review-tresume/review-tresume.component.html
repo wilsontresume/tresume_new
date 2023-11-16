@@ -335,8 +335,7 @@
                         *Please select an interview date.
                       </div>
                       <div
-                        *ngIf="myForm.get('interviewDate').hasError('futureDate') && myForm.get('interviewDate').touched"
-                        class="validation-message" style="color: red;">
+                        *ngIf="myForm.get('interviewDate').hasError('futureDate') && myForm.get('interviewDate').touched" class="validation-message" style="color: red;">
                         *Please select a future date for the interview.
                       </div>
                     </div>
