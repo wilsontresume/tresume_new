@@ -89,27 +89,54 @@ items: any[] = [
   selectedLegalStatus: string = '-eligible to work in US-'; 
   legalstatuss: string[] = ['eligible to work in US', 'US CITIZEN', 'GC', 'F-1', 'F1-CPT','TSP-EAD','GC-EAD','L2-EAD'];
 
-  // Save Button Function 
+  // Save Button Function
+
+  // saveData() {
+  //   if (this.myForm.valid) {
+  //     console.log(this.myForm.value);
+  //   } else {
+  //     console.log("Form is invalid");
+  //   }
+  // }
+
+
+  // onTabChange(tabIndex: number) {
+  //   const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
+
+  //   if (tabIndex >= 0 && tabIndex < tabLabels.length) {
+  //     this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
+  //   }
+  // }
+  // saveData() {
+  //   if (this.currentTabIndex === 1 && this.myForm.valid) {
+  //     console.log(this.myForm.value);
+  //   } else if (this.currentTabIndex === 1 ){
+  //     console.log("Form is invalid");
+  //   } else {
+  //     console.log("Form is not in the Interview tab");
+  //   }
+  // }
+
+  currentTabIndex: number;
   saveButtonLabel: string = 'Save General Data';
-
-  saveData() {
-    if (this.myForm.valid) {
-      console.log(this.myForm.value);
-    } else {
-      console.log("Form is invalid");
-    }
-  }
-
-
+  
   onTabChange(tabIndex: number) {
     const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
-
+  
     if (tabIndex >= 0 && tabIndex < tabLabels.length) {
+      this.currentTabIndex = tabIndex;
       this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
     }
+  }  
+  saveData() {
+    if (this.currentTabIndex === 1 && this.myForm.valid) {
+      console.log(this.myForm.value);
+    } else if (this.currentTabIndex === 1 ){
+      console.log("Form is invalid");
+    } else {
+      console.log("Form is not in the Interview tab");
+    }
   }
-// interview form 
-
 //interview
 
 TraineeID: string;
