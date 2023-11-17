@@ -328,7 +328,7 @@
                     <div class="col-md-4">
                       <label for="interviewDate">Interview Date</label>
                       <input type="date" class="form-control" id="interviewDate" name="interviewDate"
-                        placeholder="Interview Date" formControlName="interviewDate">
+                        placeholder="Interview Date" formControlName="interviewDate" [ngClass]="{ 'invalid-input': myForm.get('interviewDate').invalid && myForm.get('interviewDate').touched }">
                       <div
                         *ngIf="myForm.get('interviewDate').hasError('required') && myForm.get('interviewDate').touched"
                         class="validation-message" style="color: red;">
@@ -343,7 +343,11 @@
                     <div class="col-md-4">
                       <label for="interviewTime">Interview Time</label>
                       <input type="time" class="form-control" id="interviewTime" name="interviewTime"
-                        placeholder="Interview Time" formControlName="interviewTime">
+                        placeholder="Interview Time" formControlName="interviewTime" [ngClass]="{ 'invalid-input': myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched }">
+                      <div *ngIf="myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched"
+                        class="validation-message" style="color: red;">
+                        * Please schedule interview Time.
+                      </div>
                     </div>
                     <div class="col-md-4">
                       <label for="interviewInfo">Interview Info</label>
@@ -416,7 +420,7 @@
                     <div class="col-md-4">
                       <label for="interviewMode">Interview Mode</label>
                       <select class="form-control" id="interviewMode" name="interviewMode"
-                        [(ngModel)]="selectedInterviewMode" formControlName="interviewMode" required>
+                        [(ngModel)]="selectedInterviewMode" formControlName="interviewMode" [ngClass]="{ 'invalid-input': myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched }">
                         <option [ngValue]="null">--Select--</option>
                         <option *ngFor="let mode of interviewModes" [ngValue]="mode">{{ mode }}</option>
                       </select>

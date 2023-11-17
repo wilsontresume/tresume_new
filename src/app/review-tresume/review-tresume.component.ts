@@ -18,6 +18,7 @@ export class ReviewTresumeComponent implements OnChanges {
   showConfirmationDialog2: boolean;
 myForm: any;
 interviewForm: any;
+  // activeTabIndex: number = 0;
 
   siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
 
@@ -89,6 +90,80 @@ items: any[] = [
   selectedLegalStatus: string = '-eligible to work in US-'; 
   legalstatuss: string[] = ['eligible to work in US', 'US CITIZEN', 'GC', 'F-1', 'F1-CPT','TSP-EAD','GC-EAD','L2-EAD'];
 
+
+generalFormData: any = {}; 
+interviewFormData: any = {};
+placementFormData: any = {};
+submissionFormData: any = {};
+financialInfoFormData: any = {};
+siteVisitFormData: any = {};
+
+saveData() {
+  switch (this.currentTabIndex) {
+    case 0:
+      this.saveGeneralFormData();
+      break;
+    case 1:
+      this.saveInterviewFormData();
+      break;
+    case 2:
+      this.savePlacementFormData();
+      break;
+    case 3:
+      this.saveSubmissionFormData();
+      break;
+    case 4:
+      this.saveFinancialInfoFormData();
+      break;
+    case 5:
+      this.saveSiteVisitFormData();
+      break;
+    default:
+      console.error('Invalid tab index');
+  }
+}
+
+saveGeneralFormData() {
+  console.log('Saving data for the General tab:', this.generalFormData);
+}
+
+saveInterviewFormData() {
+  if (this.currentTabIndex === 1 && this.myForm.valid) {
+        console.log(this.myForm.value);
+      } else if (this.currentTabIndex === 1 ){
+        console.log("Form is invalid");
+      } else {
+        console.log("Form is not in the Interview tab");
+      }
+  console.log('Saving data for the Interview tab:', this.interviewFormData);
+}
+
+savePlacementFormData() {
+  console.log('Saving data for the Placement tab:', this.placementFormData);
+}
+
+saveSubmissionFormData() {
+  console.log('Saving data for the Submission tab:', this.submissionFormData);
+}
+
+saveFinancialInfoFormData() {
+  console.log('Saving data for the Financial Info tab:', this.financialInfoFormData);
+}
+
+saveSiteVisitFormData() {
+  console.log('Saving data for the Site Visit tab:', this.siteVisitFormData);
+}
+currentTabIndex: number;
+saveButtonLabel: string = 'Save General Data';
+
+onTabChange(tabIndex: number) {
+  const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
+
+  if (tabIndex >= 0 && tabIndex < tabLabels.length) {
+    this.currentTabIndex = tabIndex;
+    this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
+  }
+} 
   // Save Button Function
 
   // saveData() {
@@ -99,12 +174,13 @@ items: any[] = [
   //   }
   // }
 
-
-  // onTabChange(tabIndex: number) {
-  //   const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
-
-  //   if (tabIndex >= 0 && tabIndex < tabLabels.length) {
-  //     this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
+  // saveData() {
+  //   if (this.currentTabIndex === 1 && this.myForm.valid) {
+  //     console.log(this.myForm.value);
+  //   } else if (this.currentTabIndex === 1 ){
+  //     console.log("Form is invalid");
+  //   } else {
+  //     console.log("Form is not in the Interview tab");
   //   }
   // }
   // saveData() {
@@ -117,26 +193,14 @@ items: any[] = [
   //   }
   // }
 
-  currentTabIndex: number;
-  saveButtonLabel: string = 'Save General Data';
-  
-  onTabChange(tabIndex: number) {
-    const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
-  
-    if (tabIndex >= 0 && tabIndex < tabLabels.length) {
-      this.currentTabIndex = tabIndex;
-      this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
-    }
-  }  
-  saveData() {
-    if (this.currentTabIndex === 1 && this.myForm.valid) {
-      console.log(this.myForm.value);
-    } else if (this.currentTabIndex === 1 ){
-      console.log("Form is invalid");
-    } else {
-      console.log("Form is not in the Interview tab");
-    }
-  }
+  // onTabChange(tabIndex: number) {
+  //   const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
+  //   if (tabIndex >= 0 && tabIndex < tabLabels.length) {
+  //     this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
+  //   }
+  // }
+
+
 //interview
 
 TraineeID: string;
@@ -156,6 +220,7 @@ constructor(private cookieService: CookieService, private service:ReviewService,
 ngOnInit(): void {
     this.fetchinterviewlist();
     this.getPlacementList();
+    this.currentTabIndex = 0;
 
     this.myForm = this.formBuilder.group({
       interviewInfo: ['', [Validators.required, Validators.minLength(3)]],
