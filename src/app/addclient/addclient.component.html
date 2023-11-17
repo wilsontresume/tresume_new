@@ -26,24 +26,26 @@
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>Client Name *</label>
-                                        <input name="ClientName" type="text" maxlength="50" id="ClientName"
+                                        <input formControlName="ClientName" type="text" maxlength="50" id="ClientName"
                                             class="form-control" placeholder="Client Name">
                                     </div>
                                     <div *ngIf="showFormError && clientForm.get('ClientName')?.hasError('required')"
-                                        class="error-message text-danger text-left"> Client Name is required
+                                        class="error-message text-danger text-left">
+                                        Client Name is required
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>VMS Client Name</label>
-                                        <input name="VMSClientName" type="text" maxlength="500" id="VMSClientName"
-                                            class="form-control" placeholder="VMS Client Name">
+                                        <input formControlName="VMSClientName" type="text" maxlength="500"
+                                            id="VMSClientName" class="form-control" placeholder="VMS Client Name">
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>Federal ID</label>
-                                        <input name="FederalID" type="text" maxlength="500" id="FederalID"
+                                        <input formControlName="FederalID" type="text" maxlength="500" id="FederalID"
                                             class="form-control" placeholder="Federal ID">
                                     </div>
                                 </div>
@@ -52,12 +54,12 @@
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>Contact Number *</label>
-                                        <input name="ContactNumber" type="tel" maxlength="10" id="ContactNumber"
-                                            class="form-control" placeholder="Contact Number" onkeypress="">
+                                        <input formControlName="ContactNumber" type="tel" maxlength="10"
+                                            id="ContactNumber" class="form-control" placeholder="Contact Number"
+                                            (keypress)="onKeyPress($event)">
                                     </div>
                                     <div *ngIf="showFormError && clientForm.get('ContactNumber')?.hasError('required')"
-                                        class="error-message"> Contact Number is required
-                                    </div>
+                                        class="error-message"> Contact Number is required </div>
                                     <div *ngIf="showFormError && clientForm.get('ContactNumber')?.hasError('pattern')"
                                         class="error-message text-danger text-left">
                                         Contact Number must be numeric
@@ -67,8 +69,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>Email ID *</label>
-                                        <input name="ClientEmailID" type="text" maxlength="500" id="ClientEmailID"
-                                            class="form-control" placeholder="Email ID">
+                                        <input formControlName="ClientEmailID" type="text" maxlength="500"
+                                            id="ClientEmailID" class="form-control" placeholder="Email ID">
                                     </div>
                                     <div *ngIf="showFormError && clientForm.get('ClientEmailID')?.hasError('required')"
                                         class="error-message text-danger text-left">
@@ -82,27 +84,28 @@
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>Address *</label>
-                                        <input name="Address" type="text" maxlength="500" id="Address"
+                                        <input formControlName="Address" type="text" maxlength="500" id="Address"
                                             class="form-control" placeholder="Address">
                                     </div>
                                     <div *ngIf="showFormError && clientForm.get('Address')?.hasError('required')"
-                                        class="error-message text-danger text-left"> Address is required
-                                    </div>
+                                        class="error-message text-danger text-left"> Address is required </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>Country</label>
-                                        <select name="Country" id="Country" class="form-control">
+                                        <select formControlName="Country" id="Country" class="form-control">
                                             <option selected="selected" value="US">United States</option>
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>State</label>
-                                        <select name="State" id="State" class="form-control">
+                                        <select formControlName="State" id="State" class="form-control">
+                                            <option selected="selected" value="0">-- Select State --</option>
                                             <option selected="selected" value="0">-- Select State --</option>
                                             <option value="AL">Alabama</option>
                                             <option value="AK">Alaska</option>
@@ -161,8 +164,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>City</label>
-                                        <select name="City" id="City" class="form-control">
+                                        <select formControlName="City" id="City" class="form-control">
                                             <option value="0">-- Select City --</option>
+                                            <!-- Add other city options here -->
                                         </select>
                                     </div>
                                 </div>
@@ -171,21 +175,21 @@
                                 <div class="col-md-4 ">
                                     <div class="form-group text-center">
                                         <label>Zip Code</label>
-                                        <input name="ZipCode" type="text" maxlength="500" id="ZipCode"
+                                        <input formControlName="ZipCode" type="text" maxlength="500" id="ZipCode"
                                             class="form-control" placeholder="Zip Code">
                                     </div>
                                 </div>
                                 <div class="col-md-4 ">
                                     <div class="form-group text-center">
                                         <label>Website</label>
-                                        <input name="ClientWebsite" type="text" maxlength="500" id="ClientWebsite"
+                                        <input formControlName="ClientWebsite" type="text" maxlength="500" id="ClientWebsite"
                                             class="form-control" placeholder="Website">
                                     </div>
                                 </div>
                                 <div class="col-md-4 ">
                                     <div class="form-group text-center">
                                         <label>Fax</label>
-                                        <input name="Fax" type="text" maxlength="500" id="Fax" class="form-control"
+                                        <input formControlName="Fax" type="text" maxlength="500" id="Fax" class="form-control"
                                             placeholder="Fax">
                                     </div>
                                 </div>
@@ -194,7 +198,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>Industry</label>
-                                        <select name="Industry" id="Industry" class="form-control">
+                                        <select formControlName="Industry" id="Industry" class="form-control">
                                             <option selected="selected" value="">Select</option>
                                             <option value="Accounting-Finance">Accounting - Finance</option>
                                             <option value="Advertising">Advertising</option>
@@ -287,7 +291,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>Status</label>
-                                        <select name="ClientStatus" id="ClientStatus" class="form-control">
+                                        <select formControlName="ClientStatus" id="ClientStatus" class="form-control">
                                             <option selected="selected" value="0">Select</option>
                                             <option value="1">Active</option>
                                             <option value="2">Archive</option>
@@ -301,7 +305,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>Category</label>
-                                        <select name="ClientCategory" id="ClientCategory" class="form-control">
+                                        <select formControlName="ClientCategory" id="ClientCategory" class="form-control">
                                             <option selected="selected" value="0">Select</option>
                                             <option value="1">Direct</option>
                                             <option value="2">Tier 1</option>
@@ -313,7 +317,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group text-center">
                                         <label>PrimaryOwner</label>
-                                        <select name="PrimaryOwner" id="PrimaryOwner" class="form-control">
+                                        <select formControlName="PrimaryOwner" id="PrimaryOwner" class="form-control">
                                             <option selected="selected" value="0">Select</option>
                                             <option value="1">ABC</option>
                                             <option value="2">DEF</option>
@@ -325,111 +329,90 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="text-center">
-                                        <label>Ownership</label>
+                                      <label>Ownership</label>
                                     </div>
-                                    <div class=" flex text-center">
-                                        <p-multiSelect [options]="Ownership" [(ngModel)]="selectedOwnership"
-                                            defaultLabel="Ownership" optionLabel="name"
-                                            (onSearch)="onOwnershipSearch($event)" [filter]="true" display="chip">
-                                        </p-multiSelect>
+                                    <div class="flex text-center">
+                                      <p-multiSelect [options]="Ownership" [(ngModel)]="selectedOwnership" defaultLabel="Ownership" optionLabel="name" (onSearch)="onOwnershipSearch($event)" [filter]="true" display="chip"></p-multiSelect>
                                     </div>
                                     <div class="form group text-center custom-control pull-left custom-checkbox">
-                                        <br><input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1">Allow Access to All
-                                            users</label>
-                                        <br>
+                                      <br><input type="checkbox" class="custom-control-input" id="customCheck1">
+                                      <label class="custom-control-label" for="customCheck1">Allow Access to All users</label>
+                                      <br>
                                     </div>
-                                </div>
+                                  </div>
+                                  
+                                  <div class="col-md-4">
+                                    <div class="text-center">
+                                      <label>Client Lead</label>
+                                    </div>
+                                    <div class="flex text-center">
+                                      <p-multiSelect [options]="clientLeads" [(ngModel)]="selectedClientLeads" defaultLabel="Client Lead" optionLabel="name" (onSearch)="onClientLeadsSearch($event)" [filter]="true" display="chip"></p-multiSelect>
+                                    </div>
+                                  </div>
+                                  
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="text-center">
-                                        <label>Client Lead</label>
+                                      <label>Required Documents</label>
                                     </div>
-                                    <div class=" flex text-center">
-                                        <p-multiSelect [options]="clientLeads" [(ngModel)]="selectedClientLeads"
-                                            defaultLabel="Client Lead" optionLabel="name"
-                                            (onSearch)="onClientLeadsSearch($event)" [filter]="true" display="chip">
-                                        </p-multiSelect>
+                                    <div class="flex text-center">
+                                      <p-multiSelect [options]="requiredDocuments" [(ngModel)]="selectedRequiredDocuments" defaultLabel="Required Documents" optionLabel="name" (onSearch)="onRequiredDocumentsSearch($event)" display="chip" [filter]="true"></p-multiSelect>
                                     </div>
-                                </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group text-center">
+                                      <label class="fnt-clr">Payment Terms</label>
+                                      <select formControlName="PaymentTerms" id="PaymentTerms" class="form-control">
+                                        <option selected="selected" value="0">Select</option>
+                                        <option value="10">Net 10</option>
+                                        <option value="15">Net 15</option>
+                                        <option value="30">Net 30</option>
+                                        <option value="45">Net 45</option>
+                                        <option value="60">Net 60</option>
+                                        <option value="7">Net 7</option>
+                                        <option value="90">Net 90</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group text-center">
+                                      <label>About Company</label>
+                                      <textarea formControlName="AboutCompany" id="AboutCompany" rows="4" class="form-control" placeholder="About Company" style="height: auto !important;"></textarea>
+                                    </div>
+                                  </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class=" text-center">
-                                        <label>Required Documents</label>
-                                    </div>
-                                    <div class=" flex text-center">
-                                        <p-multiSelect [options]="requiredDocuments"
-                                            [(ngModel)]="selectedRequiredDocuments" defaultLabel="Required Documents"
-                                            optionLabel="name" (onSearch)="onRequiredDocumentsSearch($event)"
-                                            display="chip" [filter]="true">
-                                        </p-multiSelect>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group text-center">
-                                        <label class="fnt-clr">Payment Terms</label>
-                                        <select name="PaymentTerms" id="PaymentTerms" class="form-control">
-                                            <option selected="selected" value="0">Select</option>
-                                            <option value="10">Net 10</option>
-                                            <option value="15">Net 15</option>
-                                            <option value="30">Net 30</option>
-                                            <option value="45">Net 45</option>
-                                            <option value="60">Net 60</option>
-                                            <option value="7">Net 7</option>
-                                            <option value="90">Net 90</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group text-center">
-                                        <label>About Company</label>
-                                        <textarea name="AboutCompany" id="AboutCompany" rows="4" class="form-control"
-                                            placeholder="About Company" style="height: auto !important;">
-                                        </textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-
                                 <div class="col-md-8 mt-0">
                                     <p class="fnt-clr text-center"><u>Notes</u></p>
-                                    <p-editor [(ngModel)]="content" [style]="{'height':'320px', 'width':'100%'}"
-                                        placeholder="Enter the email content to be sent"></p-editor>
-                                </div>
+                                    <p-editor [(ngModel)]="content" [style]="{'height':'320px', 'width':'100%'}" placeholder="Enter the email content to be sent"></p-editor>
+                                  </div>
 
-                                <div class="col-md-4">
+                                  <div class="col-md-4">
                                     <div class="form-group text-center">
-                                        <label>Display on Job Posting</label>
-                                        <br>
-                                        <div class="form-check d-inline-block mr-3">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">Yes</label>
-                                        </div>
-                                        <div class="form-check d-inline-block">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault2" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">No</label>
-                                        </div>
-
-
-                                        <div class="custom-control pull-left custom-checkbox mt-5">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck1">You want to stop
-                                                sending
-                                                email notification to client contact while doing Submit to
-                                                Client?</label>
-                                        </div>
+                                      <label>Display on Job Posting</label>
+                                      <br>
+                                      <div class="form-check d-inline-block mr-3">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">Yes</label>
+                                      </div>
+                                      <div class="form-check d-inline-block">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">No</label>
+                                      </div>
+                                  
+                                      <div class="custom-control pull-left custom-checkbox mt-5">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                                        <label class="custom-control-label" for="customCheck1">You want to stop sending email notification to client contact while doing Submit to Client?</label>
+                                      </div>
                                     </div>
-                                </div>
+                                  </div>
                             </div>
-                            <!-- <div *ngIf="showFormError" class="error-message mt-4 text-danger text-center">
-                        Form seems invalid, Please correct all the errors!
-                         </div> -->
+                            
                             <div class="d-flex row justify-content-center mt-4">
                                 <button class="btn btn-wdth btn-sm text-white mr-3" (click)="cancel()">Cancel</button>
-                                <button class="btn btn-wdth btn-sm text-white ml-3" (click)="add()">Add</button>
-                            </div>
+                                <button class="btn btn-wdth btn-sm text-white ml-3" [disabled]="clientForm.invalid" type="submit">Add</button>
+                              </div>
                         </form>
                     </div>
                 </div>

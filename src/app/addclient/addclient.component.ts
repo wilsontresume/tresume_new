@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./addclient.component.scss']
 })
 export class AddclientComponent implements OnInit {
+onKeyPress($event: any) {
+throw new Error('Method not implemented.');
+}
 
   content: string = '';
   activeTab: string = 'basicInfo';
