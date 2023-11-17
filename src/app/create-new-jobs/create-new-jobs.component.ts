@@ -24,6 +24,7 @@ export class CreateNewJobsComponent{
   citycode:string='';
   billrate:string='';
   payrate:string='';
+  myForm: any;
 
   nextTab(tab:number) {
     if(tab == 1){
@@ -218,8 +219,22 @@ selectedCurrency: string = 'USD';
     { value: '6', label: 'TEST V2' }
   ];
 
-  
+constructor(private FormBuilder: FormBuilder){}
 
+ngOnInit(): void{
 
+    this.myForm = this.FormBuilder.group({
+      companyName: ['',[Validators.required, Validators.minLength(3)]],
+      jobtitle: ['',[Validators.required, Validators.minLength(3)]]
+    })
+  }
 
-}
+  saveData(){
+    if (this.myForm.valid){
+      console.log(this.myForm.value);
+    }else{
+      console.log("Form Is Invalid");
+    }
+    }
+  }
+
