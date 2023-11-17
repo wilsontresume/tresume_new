@@ -1,15 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("./database");
-var request = require("request");
 var sql = require("mssql");
-const axios = require("axios");
 const nodemailer = require("nodemailer");
-var crypto = require("crypto");
 const bodyparser = require('body-parser');
 const environment = process.env.NODE_ENV || "prod";
 const envconfig = require(`./config.${environment}.js`);
-const apiUrl = envconfig.apiUrl;
 router.use(bodyparser.json());
 
 const config = {
@@ -20,20 +15,11 @@ const config = {
   trustServerCertificate: true,
 };
 
-const transporter = nodemailer.createTransport({
-  port: 465,
-  host: "smtp.mail.yahoo.com",
-  auth: {
-    user: "support@tresume.us",
-    pass: "xzkmvglehwxeqrpd",
-  },
-  secure: true,
-});
 
+module.exports = router;
 
 router.post('/getTraineeClientList', async (req, res) => {
   try {
-    const pool = await sql.connect(config);
     const request = new sql.Request();
     const query = "select * from Clients where PrimaryOwner = '" +req.body.TraineeID+ "' and active = 1";
 
@@ -90,9 +76,6 @@ router.post('/deleteClientAccount', async (req, res) => {
   }  
 
 })
-
-
-
 async function deactivateclient(ClientID) {
   try {
     const pool = await sql.connect(config);
@@ -112,5 +95,28 @@ async function deactivateclient(ClientID) {
   }
 }
 
+router.post('/addClient', async (req, res) => {
 
-module.exports = router;
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    
+    const result = {
+      flag: 1,
+      message: "Client added successfully!",
+    };
+
+    res.send(result);
+  } catch (error) {
+    console.error("Error adding client:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while adding the client!",
+    };
+    res.status(500).send(result);
+  }  
+});
+
+
+
+
