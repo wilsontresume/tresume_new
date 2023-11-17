@@ -48,6 +48,15 @@ dob: Date;
 // attendedTo: string='';
 // u8niversityAddress: string='';
 SelectedDivision: string = ''; 
+rows: any[] = [{}]; // Initial row
+
+addRow() {
+  this.rows.push({});
+}
+
+// deleteRow(index: number) {
+//   this.rows.splice(index, 1);
+// }
 
 items: any[] = [
   {
