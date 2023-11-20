@@ -205,23 +205,28 @@
                         <label for="attendTo">Attend To:</label>
                         <input type="text" id="attendTo" class="form-control" placeholder="Attend To">
                       </div>
-                      <div class="col-md-4 form-group">
+                      <div class="col-md-3 form-group">
                         <label for="universityAddress">University Address:</label>
                         <input type="text" id="universityAddress" class="form-control" placeholder="University Address">
-                      </div>
-                      
+                      </div> 
+                       <div class="col-md-1 d-flex">
+                       <button class="btn mt-4 mb-3 mr-2" (click)="addRow()">&#x2b;</button>
+                       <button class="btn mt-4 mb-3" (click)="deleteRow()">&#xd7;</button>
+                       </div>
                     </div>
                   </form>
                   
                 </div>
                 </div>
               </div>
-              <button class="btn btn-primary" (click)="addRow()">Add Row</button>
-              <!-- <button class="btn btn-danger" (click)="deleteRow(i)">Delete</button> -->
+              
+             
 
               <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="experience-tab">
 
                 <div class="container">
+                  <div *ngFor="let row of rows; let i = index" class="row mb-2">
+                    <form>
                   <div class="row">
                     <div class="col-md-3 form-group">
                       <label for="experience1">Title</label>
@@ -231,7 +236,7 @@
                       <label for="experience2">Employment Start Date</label>
                       <input type="text" class="form-control" id="experience2" placeholder="Employment Start Date">
                     </div>
-                    <div class="col-md-3 form-group">
+                    <div class="col-md-2 form-group">
                       <label for="experience3">Employment End Date</label>
                       <input type="text" class="form-control" id="experience3" placeholder="Employment End Date">
                     </div>
@@ -239,6 +244,12 @@
                       <label for="experience4">Skill(s)</label>
                       <input type="text" class="form-control" id="experience4" placeholder="Skill(s)">
                     </div>
+                    <div class="col-md-1 d-flex">
+                      <button class="btn mt-4 mb-3 mr-2" (click)="addRow1()">&#x2b;</button>
+                      <button class="btn mt-4 mb-3" (click)="deleteRow1()">&#xd7;</button>
+                    </div>
+                  </div>
+                  </form>
                   </div>
                 </div>
               </div>

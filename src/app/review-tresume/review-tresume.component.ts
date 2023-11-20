@@ -54,9 +54,20 @@ addRow() {
   this.rows.push({});
 }
 
-// deleteRow(index: number) {
-//   this.rows.splice(index, 1);
-// }
+deleteRow() {
+  if (this.rows.length > 1) {
+    this.rows.pop();
+  }
+}
+addRow1() {
+  this.rows.push({});
+}
+
+deleteRow1() {
+  if (this.rows.length > 1) {
+    this.rows.pop();
+  }
+}
 
 items: any[] = [
   {
