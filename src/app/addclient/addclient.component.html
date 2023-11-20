@@ -27,7 +27,7 @@
                                 <input name="ClientName" type="text" maxlength="500" id="ClientName"
                                     class="form-control" placeholder="Client Name">
                             </div>
-                            <div *ngIf="showFormError && clientForm.get('ClientName')?.hasError('required')" class="error-message"> Client Name is required
+                            <div *ngIf="showFormError && clientForm.get('ClientName')?.hasError('required')" class="error-message alert"> Client Name is required
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -52,10 +52,10 @@
                                 <input name="ContactNumber" type="tel" maxlength="10" id="ContactNumber"
                                     class="form-control" placeholder="Contact Number" onkeypress="">
                             </div>
-                            <div *ngIf="showFormError && clientForm.get('ContactNumber')?.hasError('required')" class="error-message">
+                            <div *ngIf="showFormError && clientForm.get('ContactNumber')?.hasError('required')" class="error-message alert">
                                 Contact Number is required
                             </div>
-                            <div *ngIf="showFormError && clientForm.get('ContactNumber')?.hasError('pattern')" class="error-message">
+                            <div *ngIf="showFormError && clientForm.get('ContactNumber')?.hasError('pattern')" class="error-message alert">
                                 Contact Number must be numeric
                             </div>
                         </div>
@@ -66,10 +66,10 @@
                                 <input name="ClientEmailID" type="text" maxlength="500" id="ClientEmailID"
                                     class="form-control" placeholder="Email ID">
                             </div>
-                            <div *ngIf="showFormError && clientForm.get('ClientEmailID')?.hasError('required')" class="error-message">
+                            <div *ngIf="showFormError && clientForm.get('ClientEmailID')?.hasError('required')" class="error-message alert">
                                 Email ID is required
                             </div>
-                            <div *ngIf="showFormError && clientForm.get('ClientEmailID')?.hasError('email')" class="error-message">
+                            <div *ngIf="showFormError && clientForm.get('ClientEmailID')?.hasError('email')" class="error-message alert">
                                 Invalid email format
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                 <input name="Address" type="text" maxlength="500" id="Address" class="form-control"
                                     placeholder="Address">
                             </div>
-                            <div *ngIf="showFormError && clientForm.get('Address')?.hasError('required')" class="error-message"> Address is required
+                            <div *ngIf="showFormError && clientForm.get('Address')?.hasError('required')" class="error-message alert"> Address is required
                             </div>
                         </div>
                     </div>
@@ -407,12 +407,12 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="showFormError" class="error-message mt-4 text-danger text-center">
-                        Form seems invalid, Please correct all the errors!
-                    </div>
                     <div class="d-flex row justify-content-center mt-4">
                         <button class="btn btn-wdth btn-sm text-white mr-3" (click)="cancel()">Cancel</button>
                         <button class="btn btn-wdth btn-sm text-white ml-3" (click)="add()">Add</button>
+                    </div>
+                    <div *ngIf="showFormError" class="error-message mt-4 alert text-center">
+                        Form seems invalid, Please correct all the errors!
                     </div>
                 </div>
                 <!-- <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contactsTab">

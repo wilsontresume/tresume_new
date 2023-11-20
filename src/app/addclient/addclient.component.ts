@@ -8,8 +8,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./addclient.component.scss']
 })
 export class AddclientComponent implements OnInit {
-myForm: any;
-  formBuilder: any;
 onKeyPress($event: any) {
 throw new Error('Method not implemented.');
 }
@@ -29,14 +27,15 @@ throw new Error('Method not implemented.');
   clientForm: FormGroup;
   showFormError: boolean = false;
   allclientService: any;
+  formBuilder:any;
 
   ngOnInit(): void {
     const contactNumberPattern = /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
     const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$/;
     const addressPattern = /^[a-zA-Z0-9\s\-,./]+$/;
   
-      this.myForm = this.formBuilder.group({
-      VMSClientName: ['', Validators.required, Validators.minLength(3)],
+      this.clientForm = this.formBuilder.group({
+      ClientName: ['', Validators.required, Validators.minLength(3)],
       ContactNumber: ['', [Validators.required,Validators.nullValidator, Validators.pattern(contactNumberPattern)]],
       ClientEmailID: ['', [Validators.required,Validators.email, Validators.pattern(emailPattern)]],
       Address: ['', [Validators.required,Validators.minLength(100), Validators.pattern(addressPattern)]],
