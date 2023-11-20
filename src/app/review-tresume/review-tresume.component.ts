@@ -18,6 +18,7 @@ export class ReviewTresumeComponent implements OnChanges {
   showConfirmationDialog2: boolean;
 myForm: any;
 interviewForm: any;
+myFormSubmission: any;
   // activeTabIndex: number = 0;
 
   siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
@@ -125,6 +126,7 @@ saveData() {
 
 saveGeneralFormData() {
   console.log('Saving data for the General tab:', this.generalFormData);
+  alert("Check Save General Data ");
 }
 
 saveInterviewFormData() {
@@ -136,22 +138,34 @@ saveInterviewFormData() {
         console.log("Form is not in the Interview tab");
       }
   console.log('Saving data for the Interview tab:', this.interviewFormData);
+  alert("Check Only Interview Data ");
 }
 
 savePlacementFormData() {
   console.log('Saving data for the Placement tab:', this.placementFormData);
+  alert("Check Save Placement Data ");
 }
 
 saveSubmissionFormData() {
+  if (this.currentTabIndex === 3 && this.myFormSubmission.valid) {
+    console.log(this.myFormSubmission.value);
+  } else if (this.currentTabIndex === 3 ){
+    console.log("Form is invalid");
+  } else {
+    console.log("Form is not in the Submission tab");
+  }
   console.log('Saving data for the Submission tab:', this.submissionFormData);
+  alert("Check Save Submission Data ");
 }
 
 saveFinancialInfoFormData() {
   console.log('Saving data for the Financial Info tab:', this.financialInfoFormData);
+  alert("Check Save Financial Data ");
 }
 
 saveSiteVisitFormData() {
   console.log('Saving data for the Site Visit tab:', this.siteVisitFormData);
+  alert("Check Only Site Visit Data ");
 }
 currentTabIndex: number;
 saveButtonLabel: string = 'Save General Data';
@@ -233,7 +247,18 @@ ngOnInit(): void {
       interviewDate: ['', [Validators.required, this.futureDateValidator ]],
       interviewTime: ['', [Validators.required, this.validTimeValidator]],
     });
+
+    this.myFormSubmission = this.formBuilder.group({
+      submissionDate: ['', [Validators.required, this.futureDateValidator]],
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      notes: ['', [Validators.required, Validators.minLength(3)]],
+      vendorName: ['', [Validators.required, Validators.minLength(3)]],
+      rate: ['', [Validators.required, Validators.minLength(3)]],
+      clientName: ['', [Validators.required, Validators.minLength(3)]],
+      
+    });
 }
+// interview - form - validation - function 
 futureDateValidator(control: { value: string | number | Date; }) {
   const currentDate = new Date();
   const selectedDate = new Date(control.value);
@@ -244,24 +269,28 @@ futureDateValidator(control: { value: string | number | Date; }) {
 
   return null;
 }
+// interview - form - validation - function 
+
 validTimeValidator(control: { value: string; }) {
   const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 
   if (!timeRegex.test(control.value)) {
     return { invalidTimeFormat: true };
   }
-
   return null;
 }
+// interview - form - validation - function 
+
 atLeastOneSelectedValidator(control: AbstractControl) {
   const selectedMode = control.value;
 
   if (selectedMode === null || selectedMode === '') {
     return { atLeastOneSelected: true };
   }
-
   return null;
 }
+// Submission - form - validation - function 
+
 ngOnChanges(): void{  
 }
 

@@ -420,7 +420,7 @@
                     <div class="col-md-4">
                       <label for="interviewMode">Interview Mode</label>
                       <select class="form-control" id="interviewMode" name="interviewMode"
-                        [(ngModel)]="selectedInterviewMode" formControlName="interviewMode" [ngClass]="{ 'invalid-input': myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched }">
+                        [(ngModel)]="selectedInterviewMode" formControlName="interviewMode" [ngClass]="{ 'invalid-input': myForm.get('interviewMode').invalid && myForm.get('interviewMode').touched }">
                         <option [ngValue]="null">--Select--</option>
                         <option *ngFor="let mode of interviewModes" [ngValue]="mode">{{ mode }}</option>
                       </select>
@@ -537,21 +537,38 @@
                   <!-- Content for Submission tab -->
                   <div class="container">
                     <button class="btn btn1">Download DSR</button>
-                    <form>
+                    <form [formGroup]="myFormSubmission">
                       <div class="form-group mt-4">
                         <div class="row">
                           <div class="col-md-4">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" formControlName="title" [ngClass]="{ 'invalid-input': myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched }" >
+                            <div *ngIf="myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched"
+                              class="validation-message" style="color: red;">
+                              * Please enter valid Title.
+                            </div>
                           </div>
                           <div class="col-md-4">
                             <label for="submissionDate">Submission Date</label>
                             <input type="date" class="form-control" id="submissionDate" name="submissionDate"
-                              placeholder="Submission Date">
+                              placeholder="Submission Date" formControlName="submissionDate" [ngClass]="{ 'invalid-input': myFormSubmission.get('submissionDate').invalid && myFormSubmission.get('submissionDate').touched }">
+                              <div
+                                *ngIf="myFormSubmission.get('submissionDate').hasError('required') && myFormSubmission.get('submissionDate').touched"
+                                class="validation-message" style="color: red;">
+                                *Please select a Submission Date.
+                              </div>
+                              <div
+                                *ngIf="myFormSubmission.get('submissionDate').hasError('futureDate') && myFormSubmission.get('submissionDate').touched" class="validation-message" style="color: red;">
+                                *Please select a future date for the Submission.
+                              </div>
                           </div>
                           <div class="col-md-4">
                             <label for="notes">Notes</label>
-                            <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes">
+                            <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes" formControlName="notes" [ngClass]="{ 'invalid-input': myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched }">
+                            <div *ngIf="myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched"
+                              class="validation-message" style="color: red;">
+                              * Please enter valid Note.
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -560,16 +577,28 @@
                           <div class="col-md-4">
                             <label for="vendorName">Vendor Name</label>
                             <input type="text" class="form-control" id="vendorName" name="vendorName"
-                              placeholder="Vendor Name">
+                              placeholder="Vendor Name" formControlName="vendorName" [ngClass]="{ 'invalid-input': myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched }">
+                              <div *ngIf="myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched"
+                              class="validation-message" style="color: red;">
+                              * Please enter valid Vendor Name.
+                            </div>
                           </div>
                           <div class="col-md-4">
                             <label for="rate">Rate</label>
-                            <input type="number" class="form-control" id="rate" name="rate" placeholder="Rate">
+                            <input type="number" class="form-control" id="rate" name="rate" placeholder="Rate" formControlName="rate" [ngClass]="{ 'invalid-input': myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched }">
+                            <div *ngIf="myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched"
+                              class="validation-message" style="color: red;">
+                              * Should be Greater than 1$.
+                            </div>
                           </div>
                           <div class="col-md-4">
                             <label for="clientName">Client Name</label>
                             <input type="text" class="form-control" id="clientName" name="clientName"
-                              placeholder="Client Name">
+                              placeholder="Client Name" formControlName="clientName" [ngClass]="{ 'invalid-input': myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched }">
+                              <div *ngIf="myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched"
+                              class="validation-message" style="color: red;">
+                              * Please enter valid Client Name.
+                            </div>
                           </div>
                         </div>
                       </div>
