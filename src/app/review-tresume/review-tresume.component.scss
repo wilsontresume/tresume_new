@@ -1,6 +1,9 @@
 .row{
   padding:10px;
 }
+.container{
+  background-color: #fff;
+}
 .iconforquickview{
     width: 80%;
 }
@@ -78,9 +81,10 @@ select#referedBy option:hover {
   }
   
   i{
-    margin: 5px;
-    color: #94618e;
+    padding: 10px;
+    color: #3d0737;
     cursor: pointer;
+    font-size: 20px;
   }
  
 tr th{
@@ -159,3 +163,4 @@ background-color: #46103d ;
 .invalid-input {
   border: 1px solid red;
 }
+

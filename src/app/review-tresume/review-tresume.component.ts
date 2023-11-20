@@ -53,6 +53,26 @@ dob: Date;
 // attendedTo: string='';
 // u8niversityAddress: string='';
 SelectedDivision: string = ''; 
+rows: any[] = [{}]; // Initial row
+
+addRow() {
+  this.rows.push({});
+}
+
+deleteRow() {
+  if (this.rows.length > 1) {
+    this.rows.pop();
+  }
+}
+addRow1() {
+  this.rows.push({});
+}
+
+deleteRow1() {
+  if (this.rows.length > 1) {
+    this.rows.pop();
+  }
+}
 
 items: any[] = [
   {
