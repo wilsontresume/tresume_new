@@ -12,10 +12,10 @@
                     <a class="nav-link active" id="basicInfoTab" data-toggle="tab" href="#basicInfo" role="tab"
                         aria-controls="basicInfo" aria-selected="true">Basic Info</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" id="contactsTab" data-toggle="tab" href="#contacts" role="tab"
                         aria-controls="contacts" aria-selected="false">Contacts</a>
-                </li>
+                </li> -->
             </ul>
             <div class="tab-content1">
                 <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfoTab">
@@ -321,7 +321,7 @@
                                     [filter]="true" display="chip">
                                 </p-multiSelect>
                             </div>
-                            <div class="form group text-center custom-control pull-left custom-checkbox">
+                            <div class="form group custom-control pull-left custom-checkbox">
                                 <br><input type="checkbox" class="custom-control-input" id="customCheck1">
                                 <label class="custom-control-label" for="customCheck1">Allow Access to All users</label>
                                 <br>
@@ -332,7 +332,7 @@
                                 <label>Vendor Lead</label>
                             </div>
                             <div class=" flex text-center">
-                                <p-multiSelect [options]="VendorLeads" [(ngModel)]="selectedVendorLeads"
+                                <p-multiSelect [options]="vendorLeads" [(ngModel)]="selectedVendorLeads"
                                     defaultLabel="Vendor Lead" optionLabel="name"
                                     (onSearch)="onVendorLeadsSearch($event)" [filter]="true" display="chip">
                                 </p-multiSelect>
@@ -418,8 +418,8 @@
                         Form is invalid. Please correct the errors.
                     </div>
                 </div>
-                <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contactsTab">
-                </div>
+                <!-- <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contactsTab">
+                </div> -->
             </div>
         </div>
     </div>
