@@ -94,40 +94,42 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label class="text-center p">First Name*</label>
-                            <input type="text" class="form-control" id="name" placeholder="First Name">
+                            <input type="text" class="form-control" id="name" [(ngModel)]="firstname" placeholder="First Name" required="">
                         </div>
                         <div class="col-md-4">
                             <label class="text-center p">Last Name*</label>
-                            <input type="text" class="form-control" id="name" placeholder="Last Name">
+                            <input type="text" class="form-control" id="name" [(ngModel)]="lastname" placeholder="Last Name" required="">
                         </div>
                         <div class="col-md-4">
                             <label class="text-center p">Email ID*</label>
-                            <input type="text" class="form-control" id="name" placeholder="Email ID">
+                            <input type="text" class="form-control" id="name" [(ngModel)]="emailID" placeholder="Email ID" required="">
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-4">
                             <div class="form-group text-center">
                                 <label class="text-center p">Role</label>
-                                <select name="Role" id="Role" class="form-control">
+                                <!-- <select name="Role" id="Role" class="form-control">
                                     <option selected="selected" value="0">--Select Role--</option>
                                     <option value="1">Admin</option>
                                     <option value="2">HR</option>
-                                </select>
+                                </select> -->
+                                <p-dropdown styleClass="customSelect" [options]="rolelist" [(ngModel)]="selectedrolelist"
+                                display="chip" optionLabel="RoleName">
+                              </p-dropdown>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="text-center p">Team Lead</label>
                             <div class=" flex text-center">
-                                <p-multiSelect [options]="Teamlead" [(ngModel)]="selectedTeamlead"
-                                    defaultLabel="Teamlead" optionLabel="name" (onSearch)="onTeamleadSearch($event)"
-                                    [filter]="true" display="chip" style="width: 300px;">
+                                <p-multiSelect [options]="User_Accounts" [(ngModel)]="selectedTeamlead"
+                                    defaultLabel="Teamlead" optionLabel="MemberFirstName" (onSearch)="onTeamleadSearch($event)"
+                                    [filter]="true" display="chip">
                                 </p-multiSelect>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                        </div>
+                     
                     </div>
                 </div>
                 <div class="row justify-content-center mt-4">
@@ -239,7 +241,7 @@
                     </tr>
                 </thead>
                 <tr *ngFor="let item of tableData1">
-                    <td class="td-width text-center">{{ item.contents1 }}</td>
+                    <td class="td-width text-center">{{ item.ModuleName }}</td>
                     <td class="td-width text-center"><input type="checkbox" [(ngModel)]="item.viewonly" />
                     </td>
                     <td class="td-width text-center"><input type="checkbox" [(ngModel)]="item.fullaccess" /></td>

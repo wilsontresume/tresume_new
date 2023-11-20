@@ -23,6 +23,9 @@ export class AppComponent implements OnInit {
   public orgID: string;
   public accesstoken: string;
   public timesheetrole:string;
+  public viewaccess:any;
+  public fullaccess:any;
+  public useraccess:any;
   constructor(private route: ActivatedRoute, private service1: AppService, private router: Router, private cookieService: CookieService) {
     //this.traineeID = this.route.snapshot.params["traineeId"];
 
@@ -70,6 +73,7 @@ export class AppComponent implements OnInit {
         console.log(this.enableNav);
       }
     });
+    this.fetchOrganizationAccess();
   }
 
   async ngOnChanges(){
@@ -105,5 +109,25 @@ export class AppComponent implements OnInit {
         });
       }
     });
+  }
+
+  async fetchOrganizationAccess(){
+    let Req = {
+      UserName: this.userName,
+    };
+    await this.service1.getUserModuleAccess(Req).subscribe((x: any) => {
+      this.useraccess = x.result;
+      this.useraccess.forEach((item: { ViewOnly: string; FullAccess: string; }) => {
+        item.ViewOnly = JSON.parse('[' + item.ViewOnly + ']');
+        item.FullAccess = JSON.parse('[' + item.FullAccess + ']');
+      });
+      console.log(this.useraccess);
+      this.viewaccess = this.useraccess[0].ViewOnly
+      this.fullaccess = this.useraccess[0].FullAccess
+      console.log(this.fullaccess);
+    });
+  }
+   searchFullAccess(valueToSearch: any): boolean {
+    return  this.fullaccess.includes(valueToSearch);
   }
 }

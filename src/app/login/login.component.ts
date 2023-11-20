@@ -42,6 +42,7 @@ export class LoginComponent {
         this.cookieService.set('OrgID', orgID);
         this.cookieService.set('TraineeID',traineeID);
         this.cookieService.set('accesstoken',accesstoken);
+        
         var url = '/dashboard/'+traineeID;
         this.router.navigateByUrl(url);
         

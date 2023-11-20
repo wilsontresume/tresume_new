@@ -23,20 +23,7 @@ export class AccountsAddUserComponent implements OnChanges {
   OrgID:string = '';
   TraineeID:string = '';
 
-
-  tableData1 = [
-    { id:1,contents1: 'Job Boards', viewonly: true, fullaccess: true },
-    { id:2,contents1: 'Hrms', viewonly: true, fullaccess: true },
-    { id:3,contents1: 'Job posting', viewonly: true, fullaccess: true },
-    { id:4,contents1: 'Harvest', viewonly: true, fullaccess: true },    
-    { id:5,contents1: 'Timesheet', viewonly: true, fullaccess: true },
-    { id:6,contents1: 'Talent Bench', viewonly: true, fullaccess: true },
-    { id:7,contents1: 'Clients', viewonly: true, fullaccess: true },
-    { id:8,contents1: 'Vendor', viewonly: true, fullaccess: true },
-    { id:9,contents1: 'Batch', viewonly: true, fullaccess: true },
-    { id:10,contents1: 'Workforce', viewonly: true, fullaccess: true },
-    { id:11,contents1: 'Reports', viewonly: true, fullaccess: true  },  
-  ];
+  tableData1:any;
   
   User_Accounts: any[];
   Teamlead: any[] = [{ name: 'Parvathy' }, { name: 'abc' }, { name: 'DEF' }, { name: 'def' }];
@@ -47,6 +34,12 @@ export class AccountsAddUserComponent implements OnChanges {
   showAddUser: boolean = false;
   isEditMode = false;
   userToEdit: any;
+  rolelist:any;
+  selectedrolelist:any;
+  firstname:string;
+  lastname:string;
+  emailID:string;
+
 
   constructor(private fb: FormBuilder,private cookieService: CookieService, private service:AccountService,private messageService: MessageService) {
     this.userForm = this.fb.group({
@@ -69,6 +62,8 @@ export class AccountsAddUserComponent implements OnChanges {
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchuserlist();
+    this.fetchOrganizationAccess();
+    this.fetchOrgrole();
   }
 
   ngOnChanges(): void{
@@ -85,13 +80,51 @@ export class AccountsAddUserComponent implements OnChanges {
     });
   }
 
+  fetchOrganizationAccess(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.getOrganizationaccess(Req).subscribe((x: any) => {
+      this.tableData1 = x.result;
+      this.tableData1.map((items: any) => {
+        items.viewonly = false;
+        items.fullaccess = false;
+      })
+    });
+  }
+  fetchOrgrole(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.fetchOrgrole(Req).subscribe((x: any) => {
+      this.rolelist = x.result;
+     
+    });
+  }
 
   addUser() {
     this.showAddUser = true;
   }
 
   confirmAddUser() {
+    const ids = this.selectedTeamlead.map(item => item.id);
+    const teamlead = ids.join(',');
+    const roleid = this.selectedrolelist.RoleID
+    let Req = {
+      OrgId: this.OrgID,
+      RoleID:roleid,
+      TeamLead:teamlead,
+      FirstName:this.firstname,
+      LastName:this.lastname,
+      UserEmail:this.emailID,
+      CreateBy:this.userName
+    };
+    this.service.addMember(Req).subscribe((x: any) => {
+      console.log(x);
+      this.showAddUser = false;
+      this.fetchuserlist();
 
+    });
   }
 
   cancelAddUser() {
@@ -109,18 +142,27 @@ export class AccountsAddUserComponent implements OnChanges {
 
   confirmAddRole() {
 
+    console.log(this.tableData1);
+
     this.viewaccess = this.tableData1
-      .filter((item) => item.viewonly)
-      .map((item) => item.id);
-
+      .filter((item: { viewonly: any; }) => item.viewonly)
+      .map((item: { id: any; }) => item.id);
     this.fullaccess = this.tableData1
-      .filter((item) => item.fullaccess)
-      .map((item) => item.id);
-  
-   
-    console.log(this.viewaccess);
-    console.log(this.fullaccess);
-
+      .filter((item: { fullaccess: any; }) => item.fullaccess)
+      .map((item: { id: any; }) => item.id);
+      this.viewaccess = this.viewaccess.join(',');
+      this.fullaccess = this.fullaccess.join(',');
+      let Req = {
+        OrgID: this.OrgID,
+        rolename:this.RoleName,
+        viewaccess:this.viewaccess,
+        fullaccess:this.fullaccess,
+        createby:this.userName
+      };
+      this.service.addrole(Req).subscribe((x: any) => {
+        console.log(x);
+        this.showAddRole = false;
+      });
   }
 
   cancelAddRole() {

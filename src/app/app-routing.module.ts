@@ -63,7 +63,7 @@ import { AssignRoleComponent } from './assign-role/assign-role.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 
 const routes: Routes = [
-  { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
+  { path: 'dashboard/:traineeId', component: DashboardComponent},
   { path: 'compliancedashboard', component: ComplianceDashboardComponent, canActivate: [AuthGuard]   },
   { path: 'candidateView/:traineeId', component: CandidateComponent, canActivate: [AuthGuard]   },
   { path: 'candidateView/31466/sitevisit', component: SiteVisitComponent, canActivate: [AuthGuard]   },
@@ -118,7 +118,7 @@ const routes: Routes = [
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard] },
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accountsadduser', component:AccountsAddUserComponent},
-  { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
+  { path: 'login', component: LoginComponent},
   { path: 'profile',component:ProfileComponent},
   { path: 'information',component:InformationComponent},
   { path: 'password',component:PasswordComponent},
