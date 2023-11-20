@@ -7,8 +7,6 @@ import { environment } from '../../environments/environment';
 
 export class AllClientService {
     public endpoint = environment.apiUrl;
-    // public endpoint = 'https://alpha.tresume.us/TresumeAPI/';
-    // public endpoint = 'http://localhost:3000/';
 
     constructor(private http: HttpClient) { }
     
@@ -20,8 +18,16 @@ export class AllClientService {
         return this.http.post<ResponseDetails>(this.endpoint + 'deleteClientAccount', request);
     }
 
+    addClient(request: any): Observable<any> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'addClient', request);
+      }
+
 }
 export interface ResponseDetails {
     flag?: any;
     result?: any;
+}
+
+function addclient(data: any, any: any) {
+    throw new Error('Function not implemented.');
 }

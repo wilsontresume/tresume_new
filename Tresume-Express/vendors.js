@@ -30,6 +30,8 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
+module.exports = router;
+ 
 router.post('/getTraineeVendorList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
@@ -110,6 +112,25 @@ async function deactivatevendor(VendorID) {
   }
 }
 
-module.exports = router;
+router.post('/addVendor', async (req, res) => {
 
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    
+    const result = {
+      flag: 1,
+      message: "Vendor added successfully!",
+    };
+
+    res.send(result);
+  } catch (error) {
+    console.error("Error adding vendor:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while adding the vendor!",
+    };
+    res.status(500).send(result);
+  }  
+});
 
