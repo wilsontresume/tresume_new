@@ -24,6 +24,8 @@ export class CreateNewJobsComponent{
   citycode:string='';
   billrate:string='';
   payrate:string='';
+  myForm: any;
+  myForm1:any;
 
   nextTab(tab:number) {
     if(tab == 1){
@@ -65,12 +67,12 @@ export class CreateNewJobsComponent{
 
   
   selectedCountry: string = 'United States'; 
-  countries: string[] = ['United States'];
+  countries: string[] = ['United States,'];
 
   selectedState: string = 'Georgia'; 
   states: string[] = ['Georgia', 'District of Columbia', 'Florida', 'Hawaii', 'Idaho', 'Other'];
 
-  selectedCity: string = 'New York';
+  selectedCity: string;
   cities: string[] = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'Other'];
 
 
@@ -218,8 +220,24 @@ selectedCurrency: string = 'USD';
     { value: '6', label: 'TEST V2' }
   ];
 
-  
+constructor(private FormBuilder: FormBuilder){}
 
+ngOnInit(): void{
 
+    this.myForm = this.FormBuilder.group({
+      companyName: ['',[Validators.required, Validators.minLength(3)]],
+      jobtitle: ['',[Validators.required, Validators.minLength(3)]],
+      zipcode: ['',[Validators.required, Validators.minLength(5)]],
+      citycode: ['',[Validators.required, Validators.minLength(3)]],
+    })
+  }
 
-}
+  saveData(){
+    if (this.myForm.valid){
+      console.log(this.myForm.value);
+    }else{
+      console.log("Form Is Invalid");
+    }
+    }
+  }
+
