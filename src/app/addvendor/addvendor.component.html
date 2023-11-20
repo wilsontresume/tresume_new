@@ -12,10 +12,10 @@
                     <a class="nav-link active" id="basicInfoTab" data-toggle="tab" href="#basicInfo" role="tab"
                         aria-controls="basicInfo" aria-selected="true">Basic Info</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" id="contactsTab" data-toggle="tab" href="#contacts" role="tab"
                         aria-controls="contacts" aria-selected="false">Contacts</a>
-                </li>
+                </li> -->
             </ul>
             <div class="tab-content1">
                 <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfoTab">
@@ -28,7 +28,7 @@
                                     class="form-control" placeholder="vendor Name">
                             </div>
                             <div *ngIf="showFormError && vendorForm.get('VendorName')?.hasError('required')"
-                                class="error-message"> Vendor Name is required </div>
+                                class="error-message alert"> Vendor Name is required </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group text-center">
@@ -53,11 +53,11 @@
                                     class="form-control" placeholder="Contact Number" onkeypress="">
                             </div>
                             <div *ngIf="showFormError && vendorForm.get('ContactNumber')?.hasError('required')"
-                                class="error-message">
+                                class="error-message alert">
                                 Contact Number is required
                             </div>
                             <div *ngIf="showFormError && vendorForm.get('ContactNumber')?.hasError('pattern')"
-                                class="error-message">
+                                class="error-message alert">
                                 Contact Number must be numeric
                             </div>
                         </div>
@@ -69,21 +69,22 @@
                                     class="form-control" placeholder="Email ID">
                             </div>
                             <div *ngIf="showFormError && vendorForm.get('VendorEmailID')?.hasError('required')"
-                                class="error-message">
+                                class="error-message alert">
                                 Email ID is required
                             </div>
                             <div *ngIf="showFormError && vendorForm.get('VendorEmailID')?.hasError('email')"
-                                class="error-message">
+                                class="error-message alert">
                                 Invalid email format
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group text-center">
                                 <label>Address *</label>
-                                <input name="Address" type="text" maxlength="500" id="Address" class="form-control" placeholder="Address">
+                                <input name="Address" type="text" maxlength="500" id="Address" class="form-control"
+                                    placeholder="Address">
                             </div>
                             <div *ngIf="showFormError && vendorForm.get('Address')?.hasError('required')"
-                                class="error-message">Address is required</div>
+                                class="error-message alert">Address is required</div>
                         </div>
                     </div>
                     <div class="row">
@@ -321,7 +322,7 @@
                                     [filter]="true" display="chip">
                                 </p-multiSelect>
                             </div>
-                            <div class="form group text-center custom-control pull-left custom-checkbox">
+                            <div class="form group custom-control pull-left custom-checkbox">
                                 <br><input type="checkbox" class="custom-control-input" id="customCheck1">
                                 <label class="custom-control-label" for="customCheck1">Allow Access to All users</label>
                                 <br>
@@ -332,7 +333,7 @@
                                 <label>Vendor Lead</label>
                             </div>
                             <div class=" flex text-center">
-                                <p-multiSelect [options]="VendorLeads" [(ngModel)]="selectedVendorLeads"
+                                <p-multiSelect [options]="vendorLeads" [(ngModel)]="selectedVendorLeads"
                                     defaultLabel="Vendor Lead" optionLabel="name"
                                     (onSearch)="onVendorLeadsSearch($event)" [filter]="true" display="chip">
                                 </p-multiSelect>
@@ -410,16 +411,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex row justify-content-center mt-5">
+                    <div class=" d-flex row justify-content-center mt-5">
                         <button class="btn btn-wdth btn-sm text-white mr-3" (click)="cancel()">Cancel</button>
                         <button class="btn btn-wdth btn-sm text-white ml-3" (click)="add()">Add</button>
                     </div>
-                    <div *ngIf="showFormError" class="error-message">
-                        Form is invalid. Please correct the errors.
-                    </div>
                 </div>
-                <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contactsTab">
+                <div *ngIf="showFormError" class="error-message alert text-right">
+                    Form is invalid. Please correct the errors.
                 </div>
+                <!-- <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contactsTab">
+                </div> -->
             </div>
         </div>
     </div>
