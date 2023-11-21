@@ -35,10 +35,10 @@ ngOnInit(): void {
     let Req = {
       OrgID: this.OrgID,
     };
-    this.service.getJobApplicationList(Req).subscribe((x: any) => {
-      this.jobs = x.result;
-      this.noResultsFound = this.jobs.length === 0;
-    });
+    // this.service.getJobApplicationList(Req).subscribe((x: any) => {
+    //   this.jobs = x.result;
+    //   this.noResultsFound = this.jobs.length === 0;
+    // });
   }
   
   container: any;

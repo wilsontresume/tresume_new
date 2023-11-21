@@ -1,11 +1,8 @@
-
-    <!-- <div class="container">
-      <button class="btn btn1" id="saveButton" onclick="saveData()">Save Data</button>
-    </div> -->
-<div class="header p-5">
-<div class="container m-0">
-      <button class="btn btn1" id="saveButton" (click)="saveData()">{{ saveButtonLabel }}</button>
-
+<div class="container">
+  <div class="container main-container mt-4">
+    <div class="container">
+      <button class="btn btn1">Save</button>
+    </div>
 
     <!-- General tab -->
     <mat-tab-group>
@@ -84,7 +81,9 @@
               <div class="input-group">
                 <input type="text" class="form-control" id="ssn" placeholder="SSN">
                 <div class="input-group-append">
+                  <button class="btn">
                     <i class="fa fa-eye"></i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -185,47 +184,36 @@
               <div class="tab-pane fade show active" id="education" role="tabpanel" aria-labelledby="education-tab">
 
                 <div class="container">
-                  <div *ngFor="let row of rows; let i = index" class="row mb-2">
-                  <form>
-                    <div class="row">
-                      <div class="col-md-2 form-group">
-                        <label for="degree">Degree:</label>
-                        <input type="text" id="degree" class="form-control" placeholder="Degree">
-                      </div>
-                      <div class="col-md-2 form-group">
-                        <label for="university">University:</label>
-                        <input type="text" id="university" class="form-control" placeholder="University">
-                      </div>
-                      <div class="col-md-2 form-group">
-                        <label for="attendFrom">Attend From:</label>
-                        <input type="text" id="attendFrom" class="form-control" placeholder="Attend From">
-                      </div>
-                      <div class="col-md-2 form-group">
-                        <label for="attendTo">Attend To:</label>
-                        <input type="text" id="attendTo" class="form-control" placeholder="Attend To">
-                      </div>
-                      <div class="col-md-3 form-group">
-                        <label for="universityAddress">University Address:</label>
-                        <input type="text" id="universityAddress" class="form-control" placeholder="University Address">
-                      </div> 
-                       <div class="col-md-1 d-flex">
-                       <button class="btn mt-4 mb-3 mr-2" (click)="addRow()">&#x2b;</button>
-                       <button class="btn mt-4 mb-3" (click)="deleteRow()">&#xd7;</button>
-                       </div>
+                  <div class="row">
+                    <div class="col-md-3 form-group">
+                      <label for="education1">Degree</label>
+                      <input type="text" class="form-control" id="education1  " placeholder="Degree">
                     </div>
-                  </form>
-                  
-                </div>
+                    <div class="col-md-3 form-group">
+                      <label for="education2">University</label>
+                      <input type="text" class="form-control" id="education2" placeholder="University">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="education3">Attended from</label>
+                      <input type="text" class="form-control" id="education3" placeholder="Attended from">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="education4">Attended to</label>
+                      <input type="text" class="form-control" id="education4" placeholder="Attended to">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="education5">University Address</label>
+                      <input type="text" class="form-control" id="education5" placeholder="University Address">
+                    </div>
+                  </div>
                 </div>
               </div>
-              
-             
+
+
 
               <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="experience-tab">
 
                 <div class="container">
-                  <div *ngFor="let row of rows; let i = index" class="row mb-2">
-                    <form>
                   <div class="row">
                     <div class="col-md-3 form-group">
                       <label for="experience1">Title</label>
@@ -235,7 +223,7 @@
                       <label for="experience2">Employment Start Date</label>
                       <input type="text" class="form-control" id="experience2" placeholder="Employment Start Date">
                     </div>
-                    <div class="col-md-2 form-group">
+                    <div class="col-md-3 form-group">
                       <label for="experience3">Employment End Date</label>
                       <input type="text" class="form-control" id="experience3" placeholder="Employment End Date">
                     </div>
@@ -243,12 +231,6 @@
                       <label for="experience4">Skill(s)</label>
                       <input type="text" class="form-control" id="experience4" placeholder="Skill(s)">
                     </div>
-                    <div class="col-md-1 d-flex">
-                      <button class="btn mt-4 mb-3 mr-2" (click)="addRow1()">&#x2b;</button>
-                      <button class="btn mt-4 mb-3" (click)="deleteRow1()">&#xd7;</button>
-                    </div>
-                  </div>
-                  </form>
                   </div>
                 </div>
               </div>
@@ -337,43 +319,13 @@
             <mat-tab label="Interview">
               <!-- Content for Interview tab -->
               <div class="container">
-                <form [formGroup]="myForm">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label for="interviewDate">Interview Date</label>
-                      <input type="date" class="form-control" id="interviewDate" name="interviewDate"
-                        placeholder="Interview Date" formControlName="interviewDate" [ngClass]="{ 'invalid-input': myForm.get('interviewDate').invalid && myForm.get('interviewDate').touched }">
-                      <div
-                        *ngIf="myForm.get('interviewDate').hasError('required') && myForm.get('interviewDate').touched"
-                        class="validation-message" style="color: red;">
-                        *Please select an interview date.
-                      </div>
-                      <div
-                        *ngIf="myForm.get('interviewDate').hasError('futureDate') && myForm.get('interviewDate').touched" class="validation-message" style="color: red;">
-                        *Please select a future date for the interview.
-                      </div>
-                    </div>
 
-                    <div class="col-md-4">
-                      <label for="interviewTime">Interview Time</label>
-                      <input type="time" class="form-control" id="interviewTime" name="interviewTime"
-                        placeholder="Interview Time" formControlName="interviewTime" [ngClass]="{ 'invalid-input': myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched }">
-                      <div *ngIf="myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched"
-                        class="validation-message" style="color: red;">
-                        * Please schedule interview Time.
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="interviewInfo">Interview Info</label>
-                      <input type="text" class="form-control" id="interviewInfo" name="interviewInfo"
-                        formControlName="interviewInfo" placeholder="Interview Info"
-                        [ngClass]="{ 'invalid-input': myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched }">
-                      <div *ngIf="myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched"
-                        class="validation-message" style="color: red;">
-                        * Please enter valid interview information.
-                      </div>
-                    </div>
 
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="interviewDate">Interview Date</label>
+                    <input type="date" class="form-control" id="interviewDate" name="interviewDate"
+                      placeholder="Interview Date">
                   </div>
                   <div class="col-md-4">
                     <label for="interviewTime">Interview Time</label>
@@ -403,40 +355,11 @@
                   </div>
                 </div>
 
-                  <div class="row mt-3">
-                    <div class="col-md-4">
-                      <label for="assistedBy">Assisted by</label>
-                      <input type="text" class="form-control" id="assistedBy" name="assistedBy"
-                        placeholder="Assisted by" formControlName="assistedBy"
-                        [ngClass]="{ 'invalid-input': myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched }">
-                      <div *ngIf="myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched"
-                        class="validation-message" style="color: red;">
-                        * Please enter valid Assisted information.
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="typeOfAssistance">Type of Assistance</label>
-                      <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance"
-                        placeholder="Type of Assistance" formControlName="typeOfAssistance"
-                        [ngClass]="{ 'invalid-input': myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched }">
-                      <div *ngIf="myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched"
-                        class="validation-message" style="color: red;">
-                        * Please enter valid Type of Assistance.
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="interviewMode">Interview Mode</label>
-                      <select class="form-control" id="interviewMode" name="interviewMode"
-                        [(ngModel)]="selectedInterviewMode" formControlName="interviewMode" [ngClass]="{ 'invalid-input': myForm.get('interviewMode').invalid && myForm.get('interviewMode').touched }">
-                        <option [ngValue]="null">--Select--</option>
-                        <option *ngFor="let mode of interviewModes" [ngValue]="mode">{{ mode }}</option>
-                      </select>
-                      <div
-                        *ngIf="myForm.get('interviewMode').hasError('required') && myForm.get('interviewMode').touched"
-                        class="validation-message" style="color: red;">
-                        *Please select an interview mode.
-                      </div>
-                    </div>
+
+                <div class="row mt-3">
+                  <div class="col-md-4">
+                    <label for="assistedBy">Assisted by</label>
+                    <input type="text" class="form-control" id="assistedBy" name="assistedBy" placeholder="Assisted by">
                   </div>
                   <div class="col-md-4">
                     <label for="typeOfAssistance">Type of Assistance</label>
@@ -556,38 +479,21 @@
                   <!-- Content for Submission tab -->
                   <div class="container">
                     <button class="btn btn1">Download DSR</button>
-                    <form [formGroup]="myFormSubmission">
+                    <form>
                       <div class="form-group mt-4">
                         <div class="row">
                           <div class="col-md-4">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" formControlName="title" [ngClass]="{ 'invalid-input': myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched }" >
-                            <div *ngIf="myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched"
-                              class="validation-message" style="color: red;">
-                              * Please enter valid Title.
-                            </div>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
                           </div>
                           <div class="col-md-4">
                             <label for="submissionDate">Submission Date</label>
                             <input type="date" class="form-control" id="submissionDate" name="submissionDate"
-                              placeholder="Submission Date" formControlName="submissionDate" [ngClass]="{ 'invalid-input': myFormSubmission.get('submissionDate').invalid && myFormSubmission.get('submissionDate').touched }">
-                              <div
-                                *ngIf="myFormSubmission.get('submissionDate').hasError('required') && myFormSubmission.get('submissionDate').touched"
-                                class="validation-message" style="color: red;">
-                                *Please select a Submission Date.
-                              </div>
-                              <div
-                                *ngIf="myFormSubmission.get('submissionDate').hasError('futureDate') && myFormSubmission.get('submissionDate').touched" class="validation-message" style="color: red;">
-                                *Please select a future date for the Submission.
-                              </div>
+                              placeholder="Submission Date">
                           </div>
                           <div class="col-md-4">
                             <label for="notes">Notes</label>
-                            <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes" formControlName="notes" [ngClass]="{ 'invalid-input': myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched }">
-                            <div *ngIf="myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched"
-                              class="validation-message" style="color: red;">
-                              * Please enter valid Note.
-                            </div>
+                            <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes">
                           </div>
                         </div>
                       </div>
@@ -596,28 +502,16 @@
                           <div class="col-md-4">
                             <label for="vendorName">Vendor Name</label>
                             <input type="text" class="form-control" id="vendorName" name="vendorName"
-                              placeholder="Vendor Name" formControlName="vendorName" [ngClass]="{ 'invalid-input': myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched }">
-                              <div *ngIf="myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched"
-                              class="validation-message" style="color: red;">
-                              * Please enter valid Vendor Name.
-                            </div>
+                              placeholder="Vendor Name">
                           </div>
                           <div class="col-md-4">
                             <label for="rate">Rate</label>
-                            <input type="number" class="form-control" id="rate" name="rate" placeholder="Rate" formControlName="rate" [ngClass]="{ 'invalid-input': myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched }">
-                            <div *ngIf="myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched"
-                              class="validation-message" style="color: red;">
-                              * Should be Greater than 1$.
-                            </div>
+                            <input type="number" class="form-control" id="rate" name="rate" placeholder="Rate">
                           </div>
                           <div class="col-md-4">
                             <label for="clientName">Client Name</label>
                             <input type="text" class="form-control" id="clientName" name="clientName"
-                              placeholder="Client Name" formControlName="clientName" [ngClass]="{ 'invalid-input': myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched }">
-                              <div *ngIf="myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched"
-                              class="validation-message" style="color: red;">
-                              * Please enter valid Client Name.
-                            </div>
+                              placeholder="Client Name">
                           </div>
                         </div>
                       </div>
@@ -946,6 +840,7 @@
       </mat-tab>
     </mat-tab-group>
   </div>
+</div>
 
 <div *ngIf="showConfirmationDialog" class="modal align-center">
   <div class="modal-content justify-content-center ">
