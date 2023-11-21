@@ -5,7 +5,7 @@
   </div>
 
   <!-- Navbar -->
-  <nav *ngIf="enableNav && useraccess" class="main-header navbar navbar-expand navbar-white navbar-light" style="
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="
       background-image: linear-gradient(to right, #49274a, #940571) !important;
     ">
     <!-- Left navbar links -->
@@ -98,7 +98,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside *ngIf="enableNav && useraccess" class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #49274a">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #49274a">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="assets/img/Logo_Small.png" alt="Tresume Logo" class="brand-image" style="opacity: 0.8" />
@@ -174,13 +174,13 @@
               </p>
             </a>
           </li>
-          <li class="nav-item" *ngIf="searchFullAccess(1)">
-            <a routerLink="/searchMain" class=" nav-link" >
+          <li class="nav-item">
+            <a routerLink="/searchMain" class=" nav-link">
               <i class="nav-icon fas fa-search"></i>
               <p>JobBoard Search</p>
             </a>
           </li>
-          <li class="nav-item" *ngIf="searchFullAccess(2)">
+          <li class="nav-item">
             <a routerLink="/hrms" class="nav-link">
               <i class="nav-icon fas fa-address-book "></i>
               <p> HRMS</p>
@@ -210,7 +210,7 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item" *ngIf="searchFullAccess(3)">
+          <li class="nav-item">
             <a class="nav-link" routerLink="/jobpostings" routerLinkActive="active">
               <i class="nav-icon fas fa-link"></i>
               <p>
@@ -218,7 +218,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item" *ngIf="searchFullAccess(11)">
+          <li class="nav-item">
             <a class="nav-link" routerLink="/reports" routerLinkActive="active">
               <i class="nav-icon fas fa-list-alt"></i>
               <p>
@@ -234,7 +234,7 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item" *ngIf="searchFullAccess(4)">
+          <li class="nav-item">
             <a routerLink="/harvest" class=" nav-link">
               <i class="nav-icon fas fa-leaf"></i>
               <p>Harvest</p>
@@ -248,7 +248,7 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item" *ngIf="searchFullAccess(10)">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
@@ -257,7 +257,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item" >
+              <li class="nav-item">
                 <a class="nav-link" routerLink="/onboarding">
                   <i class="nav-icon fas fa-list "></i>
                   <p>Checklists</p>
@@ -271,7 +271,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item" *ngIf="searchFullAccess(5)">
+          <li class="nav-item">
             <a  class=" nav-link">
               <i class="nav-icon fas fa-clock"></i>
               <p>Timesheet</p>
@@ -299,7 +299,7 @@
             </ul>
           </li>
           
-          <li class="nav-item" *ngIf="searchFullAccess(7)">
+          <li class="nav-item">
             <a routerLink="/allclient" class=" nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p> Clients</p>
@@ -313,13 +313,13 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item" *ngIf="searchFullAccess(8)">
+          <li class="nav-item">
             <a routerLink="/vendor" class=" nav-link">
               <i class="nav-icon fas fa-store"></i>
               <p> Vendors</p>
             </a>
           </li>
-          <li class="nav-item" *ngIf="searchFullAccess(6)">
+          <li class="nav-item">
             <a routerLink="/talentBench" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>
@@ -327,7 +327,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item" *ngIf="searchFullAccess(9)">
+          <li class="nav-item">
             <a routerLink="/batch" class="nav-link">
               <i class="nav-icon fas fa-id-card"></i>
               <p>
@@ -335,7 +335,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item" *ngIf="searchFullAccess(3)">
+          <li class="nav-item">
             <a routerLink="/jobboardaccount" class=" nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>Job Boards</p>
@@ -396,11 +396,11 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-  <div *ngIf="enableNav && useraccess" class="content-wrapper">
+  <div class="content-wrapper">
     <router-outlet></router-outlet>
 
   </div>
-  <footer *ngIf="enableNav && useraccess" class="main-footer">
+  <footer class="main-footer">
     Privacy Policy | About | Support | Legal
     <div class="float-right d-none d-sm-inline-block">
       <!-- <b>Version</b> 3.1.0 -->
@@ -409,7 +409,7 @@
   </footer>
 
   <!-- Control Sidebar -->
-  <aside *ngIf="enableNav && useraccess" class="control-sidebar control-sidebar-dark">
+  <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->

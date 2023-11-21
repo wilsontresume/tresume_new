@@ -39,21 +39,6 @@ throw new Error('Method not implemented.');
       ContactNumber: ['', [Validators.required,Validators.nullValidator, Validators.pattern(contactNumberPattern)]],
       ClientEmailID: ['', [Validators.required,Validators.email, Validators.pattern(emailPattern)]],
       Address: ['', [Validators.required,Validators.minLength(100), Validators.pattern(addressPattern)]],
-      Country: ['US'],
-      State: [''],
-      City: [''],
-      ZipCode: [''],
-      ClientWebsite: [''],
-      Fax: [''],
-      Industry: [''],
-      ClientStatus: [''],
-      ClientCategory: [''],
-      PrimaryOwner: [''],
-      Ownership: [''],
-      ClientLeads: [''],
-      RequiredDocuments: [''],
-      PaymentTerms: [''],
-      AboutCompany: [''],
     });
   }
   

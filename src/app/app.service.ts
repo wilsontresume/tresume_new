@@ -28,10 +28,6 @@ export class AppService {
         return this.http.post<ResponseDetails>(this.endpoint + 'getLoggedUser', request);
     }
 
-    getUserModuleAccess(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getUserModuleAccess', request);
-    }
-
     isLoggedIn(): boolean {
         this.cookieService.set('userName1','karthik@tresume.us');
         this.cookieService.set('OrgID','82');
@@ -39,9 +35,9 @@ export class AppService {
         this.cookieService.set('TimesheetRole','1');   
         // const userName = this.cookieService.get('userName1');
         // const orgID = this.cookieService.get('OrgID');
-        // const traineeID = this.cookieService.get('TraineeID'); 
+        // const traineeID = this.cookieService.get('TraineeID');
 
-        const orgID = 82;
+        const orgID = 9;
         const userName = 'karthik@tresume.us';
         const traineeID = 36960;
         

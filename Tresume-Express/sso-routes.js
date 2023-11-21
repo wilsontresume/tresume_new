@@ -18,7 +18,7 @@ const config = {
     user: "sa",
     password: "Tresume@123",
     server: "92.204.128.44",
-    database: "Tresume_Beta",
+    database: "Tresume",
     trustServerCertificate: true,
   };
   
@@ -114,27 +114,5 @@ const config = {
       res.status(500).json({ message: 'An error occurred' });
     }
   });
-
-  router.post('/getUserModuleAccess', async (req, res) => {
-    sql.connect(config, function (err) {
-      if (err) console.log(err);
-      var request = new sql.Request();
-      var query = "SELECT MD.ID, MD.UserEmail, RN.RoleName, RN.Active, RN.ViewOnly, RN.FullAccess FROM MemberDetails MD JOIN RolesNew RN ON MD.RoleID = RN.RoleID WHERE MD.UserEmail = '"+req.body.UserName+"' AND RN.Active = 1";
-      console.log(query);
-      request.query(query,
-        function (err, recordset) {
-          if (err) console.log(err);
-  
-          var result = {
-            flag: 1,
-            result: recordset.recordsets[0],
-          };
-  
-          res.send(result);
-        }
-      );
-    });
-  
-  })
 
   module.exports = router;
