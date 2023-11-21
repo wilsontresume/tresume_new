@@ -1,93 +1,67 @@
-import { Component, OnChanges, ViewChild } from '@angular/core';
+import { Component,OnChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ReviewService } from './review.service';
 import { MessageService } from 'primeng/api';
-import { Routes } from '@angular/router';
-import { CandidateComponent } from '../candidate/candidate.component';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { CandidateService } from '../candidate/candidate.service';
-import { DashboardService } from '../dashboard/dashboard.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { AbstractControl, Validators } from '@angular/forms';
+import { request } from 'express';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+
 
 @Component({
   templateUrl: './review-tresume.component.html',
-  providers: [CookieService, ReviewService, MessageService, CandidateService, DashboardService],
+  providers: [CookieService,ReviewService,MessageService],
   styleUrls: ['./review-tresume.component.scss']
 })
 
 
 
 export class ReviewTresumeComponent implements OnChanges {
-  // saveButtonLabel: any;
-  showConfirmationDialog2: boolean;
-  myForm: any;
-  interviewForm: any;
-  myFormSubmission: any;
-  formBuilder: any;
+showConfirmationDialog2: boolean;
+myForm: any;
+interviewForm: any;
+myFormSubmission: any;
   // activeTabIndex: number = 0;
 
+  siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
 
-  siteVisitTabClicked() {
-    console.log('Additional logic for Site Visit tab click');
+  
+}
+
+//generalinfo
+
+jobs:any[];
+SelectedRefered: string = ''; 
+firstName: string = '';
+middleName: string = '';
+lastName: string = '';
+phoneNumber: number;
+email: string = '';
+dealOffered: string = '';
+referredByExternal: string = '';
+statusDate: string='';
+duiFelonyInfo: string=''; 
+statusStartDate: string='';
+statusEndtDate: string='';
+ftcNotes: string=''; 
+otherNotes: string=''; 
+dob: Date; 
+// degree: string='';
+// university: string='';
+// attendedFrom: string='';
+// attendedTo: string='';
+// u8niversityAddress: string='';
+SelectedDivision: string = ''; 
+
+items: any[] = [
+  {
+    value1:'Name 1',
+    value2:'Name 2',
+    value3:'Name 3',
+    value4:'Name 4',
+    value5:'Name 5',
+    value6:'Name 6',
   }
-  //generalinfo
-
-  jobs: any[];
-  SelectedRefered: string = '';
-  firstName: string = '';
-  middleName: string = '';
-  lastName: string = '';
-  phoneNumber: number;
-  email: string = '';
-  dealOffered: string = '';
-  referredByExternal: string = '';
-  statusDate: string = '';
-  duiFelonyInfo: string = '';
-  statusStartDate: string = '';
-  statusEndtDate: string = '';
-  ftcNotes: string = '';
-  otherNotes: string = '';
-  dob: Date;
-  // degree: string='';
-  // university: string='';
-  // attendedFrom: string='';
-  // attendedTo: string='';
-  // u8niversityAddress: string='';
-  SelectedDivision: string = '';
-  rows: any[] = [{}]; // Initial row
-
-  addRow() {
-    this.rows.push({});
-  }
-
-  deleteRow() {
-    if (this.rows.length > 1) {
-      this.rows.pop();
-    }
-  }
-  addRow1() {
-    this.rows.push({});
-  }
-
-  deleteRow1() {
-    if (this.rows.length > 1) {
-      this.rows.pop();
-    }
-  }
-
-  items: any[] = [
-    {
-      value1: 'Name 1',
-      value2: 'Name 2',
-      value3: 'Name 3',
-      value4: 'Name 4',
-      value5: 'Name 5',
-      value6: 'Name 6',
-    }
   ]
-
+  
   referedby: string[] = [
     'Name 1',
     'Name 2',
@@ -99,7 +73,7 @@ export class ReviewTresumeComponent implements OnChanges {
     'Name 8',
     'Name 9',
   ];
-
+  
   divisions: string[] = [
     'PROJECT COORDINATOR',
     'SALES FORCE',
@@ -109,100 +83,101 @@ export class ReviewTresumeComponent implements OnChanges {
     'SYSTEM ANALYST',
     'DATA',
   ];
+  
+  selectedStatus: string = '-PLACED/WORKING AT CLIENT LOCATION-'; 
+  statuss: string[] = ['ON TRAINING', 'DIRECT MARKETTING', 'ON BENCH', 'MARKETTING ON HOLD', 'HAS OFFER','FIRST TIME CALLER','DROPPED TRAINING'];
+  
+  
+  selectedLegalStatus: string = '-eligible to work in US-'; 
+  legalstatuss: string[] = ['eligible to work in US', 'US CITIZEN', 'GC', 'F-1', 'F1-CPT','TSP-EAD','GC-EAD','L2-EAD'];
 
-  selectedStatus: string = '-PLACED/WORKING AT CLIENT LOCATION-';
-  statuss: string[] = ['ON TRAINING', 'DIRECT MARKETTING', 'ON BENCH', 'MARKETTING ON HOLD', 'HAS OFFER', 'FIRST TIME CALLER', 'DROPPED TRAINING'];
 
+generalFormData: any = {}; 
+interviewFormData: any = {};
+placementFormData: any = {};
+submissionFormData: any = {};
+financialInfoFormData: any = {};
+siteVisitFormData: any = {};
 
-  selectedLegalStatus: string = '-eligible to work in US-';
-  legalstatuss: string[] = ['eligible to work in US', 'US CITIZEN', 'GC', 'F-1', 'F1-CPT', 'TSP-EAD', 'GC-EAD', 'L2-EAD'];
-
-  generalFormData: any = {};
-  interviewFormData: any = {};
-  placementFormData: any = {};
-  submissionFormData: any = {};
-  financialInfoFormData: any = {};
-  siteVisitFormData: any = {};
-
-  saveData() {
-    switch (this.currentTabIndex) {
-      case 0:
-        this.saveGeneralFormData();
-        break;
-      case 1:
-        this.saveInterviewFormData();
-        break;
-      case 2:
-        this.savePlacementFormData();
-        break;
-      case 3:
-        this.saveSubmissionFormData();
-        break;
-      case 4:
-        this.saveFinancialInfoFormData();
-        break;
-      case 5:
-        this.saveSiteVisitFormData();
-        break;
-      default:
-        console.error('Invalid tab index');
-    }
+saveData() {
+  switch (this.currentTabIndex) {
+    case 0:
+      this.saveGeneralFormData();
+      break;
+    case 1:
+      this.saveInterviewFormData();
+      break;
+    case 2:
+      this.savePlacementFormData();
+      break;
+    case 3:
+      this.saveSubmissionFormData();
+      break;
+    case 4:
+      this.saveFinancialInfoFormData();
+      break;
+    case 5:
+      this.saveSiteVisitFormData();
+      break;
+    default:
+      console.error('Invalid tab index');
   }
+}
 
-  saveGeneralFormData() {
-    console.log('Saving data for the General tab:', this.generalFormData);
-    alert("Check Save General Data ");
+saveGeneralFormData() {
+  console.log('Saving data for the General tab:', this.generalFormData);
+  alert("Check Save General Data ");
+}
+
+saveInterviewFormData() {
+  if (this.currentTabIndex === 1 && this.myForm.valid) {
+        console.log(this.myForm.value);
+      } else if (this.currentTabIndex === 1 ){
+        console.log("Form is invalid");
+      } else {
+        console.log("Form is not in the Interview tab");
+      }
+  console.log('Saving data for the Interview tab:', this.interviewFormData);
+  alert("Check Only Interview Data ");
+}
+
+savePlacementFormData() {
+  console.log('Saving data for the Placement tab:', this.placementFormData);
+  alert("Check Save Placement Data ");
+}
+
+saveSubmissionFormData() {
+  if (this.currentTabIndex === 3 && this.myFormSubmission.valid) {
+    console.log(this.myFormSubmission.value);
+  } else if (this.currentTabIndex === 3 ){
+    console.log("Form is invalid");
+  } else {
+    console.log("Form is not in the Submission tab");
   }
+  console.log('Saving data for the Submission tab:', this.submissionFormData);
+  alert("Check Save Submission Data ");
+}
 
-  saveInterviewFormData() {
-    if (this.currentTabIndex === 1 && this.myForm.valid) {
-      console.log(this.myForm.value);
-    } else if (this.currentTabIndex === 1) {
-      console.log("Form is invalid");
-    } else {
-      console.log("Form is not in the Interview tab");
-    }
-    console.log('Saving data for the Interview tab:', this.interviewFormData);
-    alert("Check Only Interview Data ");
+saveFinancialInfoFormData() {
+  console.log('Saving data for the Financial Info tab:', this.financialInfoFormData);
+  alert("Check Save Financial Data ");
+}
+
+saveSiteVisitFormData() {
+  console.log('Saving data for the Site Visit tab:', this.siteVisitFormData);
+  alert("Check Only Site Visit Data ");
+}
+currentTabIndex: number;
+saveButtonLabel: string = 'Save General Data';
+
+onTabChange(tabIndex: number) {
+  const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
+
+  if (tabIndex >= 0 && tabIndex < tabLabels.length) {
+    this.currentTabIndex = tabIndex;
+    this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
   }
-
-  savePlacementFormData() {
-    console.log('Saving data for the Placement tab:', this.placementFormData);
-    alert("Check Save Placement Data ");
-  }
-
-  saveSubmissionFormData() {
-    if (this.currentTabIndex === 3 && this.myFormSubmission.valid) {
-      console.log(this.myFormSubmission.value);
-    } else if (this.currentTabIndex === 3) {
-      console.log("Form is invalid");
-    } else {
-      console.log("Form is not in the Submission tab");
-    }
-    console.log('Saving data for the Submission tab:', this.submissionFormData);
-    alert("Check Save Submission Data ");
-  }
-
-  saveFinancialInfoFormData() {
-    console.log('Saving data for the Financial Info tab:', this.financialInfoFormData);
-    alert("Check Save Financial Data ");
-  }
-
-  saveSiteVisitFormData() {
-    console.log('Saving data for the Site Visit tab:', this.siteVisitFormData);
-    alert("Check Only Site Visit Data ");
-  }
-  currentTabIndex: number;
-  saveButtonLabel: string = 'Save General Data';
-
-  onTabChange(tabIndex: number) {
-    const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
-
-    if (tabIndex >= 0 && tabIndex < tabLabels.length) {
-      this.currentTabIndex = tabIndex;
-      this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
-    }
-  }
+} 
   // Save Button Function
 
   // saveData() {
@@ -240,47 +215,23 @@ export class ReviewTresumeComponent implements OnChanges {
   // }
 
 
+//interview
 
-  //interview
-
-  TraineeID: string;
-  interviewDate: string;
-  interviewTime: string;
-  selectedInterviewMode: string;
-  interviewModes: string[] = ['--Select--', 'Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
-  router: any;
+TraineeID: string;
+interviewDate: string; 
+interviewTime: string; 
+selectedInterviewMode: string;
+interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
+router: any;
   http: any;
   editRowIndex: number;
   showConfirmationDialog: boolean;
   deleteIndex: number;
   reviewService: any;
   placementList: any;
-
-  candidateID: any;
-  public details: any;
-  public eduDetails: any;
-  public H1BStatus: any;
-  public newJDDetails: any;
-  public toggleView: boolean = false;
-  @ViewChild('lgModal', { static: false }) lgModal?: ModalDirective;
-  constructor(private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private route: ActivatedRoute, private cservice: CandidateService, private dashservice: DashboardService) {
-
-    this.details = [{
-      CandidateName: '',
-      Recruiter: '',
-      Title: '',
-      StartDate: '',
-      ClientAddress: '',
-      ClientSupervisor: '',
-      VendorName: '',
-    }]
-    this.eduDetails = [{
-      Title: ''
-    }]
-  }
-  ngOnInit(): void {
-    this.candidateID = this.route.snapshot.params["traineeId"] ? this.route.snapshot.params["traineeId"] : 31466;
-    // this.candidateID = 1;
+constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService, private formBuilder: FormBuilder)
+ { }
+ngOnInit(): void {
     this.fetchinterviewlist();
     this.getPlacementList();
     this.currentTabIndex = 0;
@@ -292,8 +243,8 @@ export class ReviewTresumeComponent implements OnChanges {
       subVendor: ['', [Validators.required, Validators.minLength(3)]],
       assistedBy: ['', [Validators.required, Validators.minLength(3)]],
       typeOfAssistance: ['', [Validators.required, Validators.minLength(3)]],
-      interviewMode: ['', [Validators.required, this.atLeastOneSelectedValidator]],
-      interviewDate: ['', [Validators.required, this.futureDateValidator]],
+      interviewMode: ['', [Validators.required, this.atLeastOneSelectedValidator]], 
+      interviewDate: ['', [Validators.required, this.futureDateValidator ]],
       interviewTime: ['', [Validators.required, this.validTimeValidator]],
     });
 
@@ -304,217 +255,193 @@ export class ReviewTresumeComponent implements OnChanges {
       vendorName: ['', [Validators.required, Validators.minLength(3)]],
       rate: ['', [Validators.required, Validators.minLength(3)]],
       clientName: ['', [Validators.required, Validators.minLength(3)]],
-
+      
     });
-  }
-  // interview - form - validation - function 
-  futureDateValidator(control: { value: string | number | Date; }) {
-    const currentDate = new Date();
-    const selectedDate = new Date(control.value);
+}
+// interview - form - validation - function 
+futureDateValidator(control: { value: string | number | Date; }) {
+  const currentDate = new Date();
+  const selectedDate = new Date(control.value);
 
+  if (selectedDate <= currentDate) {
+    return { futureDate: true };
   }
-public getLegalStatus() {
-    this.dashservice.getLegalStatus(1).subscribe(x => {
-      let response = x.result;
-      if (response) {
-        this.H1BStatus = response.filter((y: any) => y.LegalStatusID == 14)[0].Total;
 
-      }
-    });
-  }
-  // interview - form - validation - function 
+  return null;
+}
+// interview - form - validation - function 
 
-  validTimeValidator(control: { value: string; }) {
+validTimeValidator(control: { value: string; }) {
   const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+
+  if (!timeRegex.test(control.value)) {
+    return { invalidTimeFormat: true };
   }
-public saveJD() {
-    var str;
-    str = this.details.JobDuties.replace(/'/g, '\'\'');
-    let request = {
-      jd: str,
-      traineeID: this.candidateID
+
+  return null;
+}
+// interview - form - validation - function 
+
+atLeastOneSelectedValidator(control: AbstractControl) {
+  const selectedMode = control.value;
+
+  if (selectedMode === null || selectedMode === '') {
+    return { atLeastOneSelected: true };
+  }
+
+  return null;
+}
+// Submission - form - validation - function 
+
+ngOnChanges(): void{  
+}
+
+getPlacementList() {
+  this.TraineeID = this.cookieService.get('TraineeID');
+
+  const Req = {
+    TraineeID: this.TraineeID
+  };
+
+  this.service.getPlacementList(Req).subscribe((x: any) => {
+    this.placementList = x.result;
+  });
+  // this.TraineeID = this.cookieService.get('TraineeID');
+  // this.reviewService.getPlacementList({}).subscribe((response: { result: any; }) => {
+  //   this.placementList = response.result; 
+  // });
+}
+fetchinterviewlist(){
+  let Req = {
+    TraineeID: this.TraineeID,
+  };
+  this.service.getInterviewList(Req).subscribe((x: any) => {
+    this.interview = x.result;
+  });
+}
+
+interviewInfo: string = '';
+client: string = '';
+vendor: string = '';
+subVendor: string = '';
+assistedBy: string = '';
+typeOfAssistance: string = '';
+interview: any[] = [];
+
+onSaveClick() {
+  const job = {
+    Date: this.interviewDate,
+    interviewTime: this.interviewTime,
+    Notes: this.interviewInfo,
+    client: this.client,
+    vendor: this.vendor,
+    subVendor: this.subVendor,
+    Assigned: this.assistedBy,
+    typeOfAssistance: this.typeOfAssistance,
+    InterviewMode: this.selectedInterviewMode,
+  };
+
+  this.interview.push(job);
+
+  console.log('Form Values:', job);
+
+  this.clearInputFields();
+}
+
+clearInputFields() {
+  this.interviewDate = '';
+  this.interviewTime = '';
+  this.interviewInfo = '';
+  this.client = '';
+  this.vendor = '';
+  this.subVendor = '';
+  this.assistedBy = '';
+  this.typeOfAssistance = '';
+  this.selectedInterviewMode = '';
+}
+
+// INTERVIEW - DELETE
+deleteinterviewdata(TraineeInterviewID: number) {
+  this.deleteIndex = TraineeInterviewID;
+  console.log(this.deleteIndex);
+  this.showConfirmationDialog = true;
+}
+confirmDelete() {
+  console.log(this.deleteIndex);
+  let Req = {
+    TraineeInterviewID: this.deleteIndex,
+  };
+  this.service.deleteinterviewdata(Req).subscribe((x: any) => {
+    var flag = x.flag;
+    this.fetchinterviewlist();
+
+    if (flag === 1) {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'interviewdata Deleted Sucessfully',
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Please try again later',
+      });
     }
-    return null;
-  }
-  // interview - form - validation - function 
+  });
+  this.showConfirmationDialog = false;
+}
+cancelDelete() {
+  console.log(this.showConfirmationDialog);
+  this.showConfirmationDialog = false;
+}
 
-  atLeastOneSelectedValidator(control: AbstractControl) {
-    const selectedMode = control.value;
+//placement tab
 
-    if (selectedMode === null || selectedMode === '') {
-      return { atLeastOneSelected: true };
+currentStatusOptions: string[] = [ 'ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING','ON BENCH','MARKETING ON HOLD','HAS OFFER','PLACED/WORKING AT THE CLIENT LOCATION','FIRST TIME CALLER','DROPPED-TRAINING','DROPPED-MARKETING','DROPED-OTHER','TERMINATE','REPLACED AS CLIENT SITE']; 
+selectOptions: string = ''; 
+workStartDate:string = '';
+workEndDate:string = '';
+positionTitle:string = '';
+endClientName:string = '';
+vendorplacement:string = '';
+endClientAddress:string = '';
+
+// PLACEMENT - DELETE 
+deleteplacementdata(PID: number) {
+  this.deleteIndex = PID;
+  console.log(this.deleteIndex);
+  this.showConfirmationDialog2 = true;
+}
+confirmDeleteplacement() {
+  console.log(this.deleteIndex);
+  let Req = {
+    PID: this.deleteIndex,
+  };
+  this.service.deleteplacementdata(Req).subscribe((x: any) => {
+    var flag1 = x.flag1;
+
+    if (flag1 === 1) {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'interviewdata Deleted Sucessfully',
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Please try again later',
+      });
     }
-    return null;
-  }
-  // Submission - form - validation - function 
+  });
+  this.showConfirmationDialog2 = false;
+}
+cancelDeleteplacement() {
+  console.log(this.showConfirmationDialog2);
+  this.showConfirmationDialog2 = false;
+}
 
-  ngOnChanges(): void {
-    // this.cservice.updateJobDuties(request).subscribe(x => {
-
-    // });
-  }
-
-  printThisPage() {
-    window.print();
-  }
-
-  public goBack() {
-    window.history.back();
-  }
-
-  getPlacementList() {
-    this.TraineeID = this.cookieService.get('TraineeID');
-
-    const Req = {
-      TraineeID: this.TraineeID
-    };
-
-    this.service.getPlacementList(Req).subscribe((x: any) => {
-      this.placementList = x.result;
-    });
-
-
-    // this.TraineeID = this.cookieService.get('TraineeID');
-    // this.reviewService.getPlacementList({}).subscribe((response: { result: any; }) => {
-    //   this.placementList = response.result; 
-    // });
-  }
-  fetchinterviewlist() {
-    let Req = {
-      TraineeID: this.TraineeID,
-    };
-    this.service.getInterviewList(Req).subscribe((x: any) => {
-      this.interview = x.result;
-    });
-  }
-
-  interviewInfo: string = '';
-  client: string = '';
-  vendor: string = '';
-  subVendor: string = '';
-  assistedBy: string = '';
-  typeOfAssistance: string = '';
-
-  interview: any[] = [];
-
-  onSaveClick() {
-    const job = {
-      Date: this.interviewDate,
-      interviewTime: this.interviewTime,
-      Notes: this.interviewInfo,
-      client: this.client,
-      vendor: this.vendor,
-      subVendor: this.subVendor,
-      Assigned: this.assistedBy,
-      typeOfAssistance: this.typeOfAssistance,
-      InterviewMode: this.selectedInterviewMode,
-    };
-
-    this.interview.push(job);
-
-    console.log('Form Values:', job);
-
-    this.clearInputFields();
-  }
-
-  clearInputFields() {
-    this.interviewDate = '';
-    this.interviewTime = '';
-    this.interviewInfo = '';
-    this.client = '';
-    this.vendor = '';
-    this.subVendor = '';
-    this.assistedBy = '';
-    this.typeOfAssistance = '';
-    this.selectedInterviewMode = '';
-  }
-
-  // INTERVIEW - DELETE
-  deleteinterviewdata(TraineeInterviewID: number) {
-    this.deleteIndex = TraineeInterviewID;
-    console.log(this.deleteIndex);
-    this.showConfirmationDialog = true;
-  }
-
-  confirmDelete() {
-    console.log(this.deleteIndex);
-    let Req = {
-      TraineeInterviewID: this.deleteIndex,
-    };
-    this.service.deleteinterviewdata(Req).subscribe((x: any) => {
-      var flag = x.flag;
-      this.fetchinterviewlist();
-
-      if (flag === 1) {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'interviewdata Deleted Sucessfully',
-        });
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Please try again later',
-        });
-      }
-    });
-    this.showConfirmationDialog = false;
-  }
-  cancelDelete() {
-    console.log(this.showConfirmationDialog);
-    this.showConfirmationDialog = false;
-  }
-
-
-  //placement tab
-
-  currentStatusOptions: string[] = ['ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING', 'ON BENCH', 'MARKETING ON HOLD', 'HAS OFFER', 'PLACED/WORKING AT THE CLIENT LOCATION', 'FIRST TIME CALLER', 'DROPPED-TRAINING', 'DROPPED-MARKETING', 'DROPED-OTHER', 'TERMINATE', 'REPLACED AS CLIENT SITE'];
-  selectOptions: string = '';
-  //Table-Heads
-  workStartDate: string = '';
-  workEndDate: string = '';
-  positionTitle: string = '';
-  endClientName: string = '';
-  vendorplacement: string = '';
-  endClientAddress: string = '';
-
-  // PLACEMENT - DELETE 
-  deleteplacementdata(PID: number) {
-    this.deleteIndex = PID;
-    console.log(this.deleteIndex);
-    this.showConfirmationDialog2 = true;
-  }
-
-  confirmDeleteplacement() {
-    console.log(this.deleteIndex);
-    let Req = {
-      PID: this.deleteIndex,
-    };
-    this.service.deleteplacementdata(Req).subscribe((x: any) => {
-      var flag1 = x.flag1;
-
-      if (flag1 === 1) {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'interviewdata Deleted Sucessfully',
-        });
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Please try again later',
-        });
-      }
-    });
-    this.showConfirmationDialog2 = false;
-  }
-  cancelDeleteplacement() {
-    console.log(this.showConfirmationDialog2);
-    this.showConfirmationDialog2 = false;
-  }
-
-  //financialinfo
+//financialinfo
 
   options = ['Single', 'Married', 'Married with hold'];
-  selectedOptions: string[] = [];
+  selectedOptions: string[] = []; 
   updateArray(option: string): void {
     if (this.selectedOptions.includes(option)) {
       this.selectedOptions = this.selectedOptions.filter(item => item !== option);
@@ -522,31 +449,18 @@ public saveJD() {
       this.selectedOptions.push(option);
     }
   }
-  legalStatusOptions: string[] = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa'];
-  selectedOption: string = '';
-
-
-  GoTonext() {
+  legalStatusOptions: string[] = ['Alabama', 'Alaska', 'Arizona', 'Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa']; 
+  selectedOption: string = ''; 
+  GoTonext(){
     this.router.navigate(['/candidateView/:id/sitevisit']);
-    alert("the button is working");
   }
-
-  //   onTabChange(event: MatTabChangeEvent) {
-  //     if (event.index === 5) { 
-  //       console.log("Working");
-  //       const candidateId = 31466; 
-  //       this.router.navigate([`/candidateView/${candidateId}/sitevisit`]);
-  //     }
-  // }
-  goToSiteVisit() {
-    const candidateId = 31466;
-    this.router.navigate([`/candidateView/${candidateId}/sitevisit`]);
-  }
-  // const routes: Routes = [
-  //   {
-  //     path: 'candidateView/:id/sitevisit',
-  //     component: CandidateComponent, // Replace with the actual component for the site visit
-  //   },
-
-  // ]
 }
+
+// const routes: Routes = [
+//   // ...other routes
+//   {
+//     path: 'candidateView/:id/sitevisit',
+//     component: CandidateComponent, // Replace with the actual component for the site visit
+//   },
+  
+// ];
