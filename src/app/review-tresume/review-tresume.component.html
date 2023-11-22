@@ -13,7 +13,6 @@
             <div class="form-group">
               <label for="firstName">First Name</label>
               <input type="text" class="form-control" id="firstName" placeholder="First Name">
-
             </div>
           </div>
           <div class="col-md-4">
@@ -217,7 +216,7 @@
                 <div class="col-md-3 form-group">
                   <label for="experienceStartDate">Employment Start Date:</label>
                   <input type="text" class="form-control" id="experienceStartDate" placeholder="Emp Start Date"
-                    [(ngModel)]="experience.startDate" [formControl]="experienceForm.get('startDate')"
+                    [(ngModel)]="experience.startDate" [formControl]="experienceForm.get('experienceStartDate')"
                     [ngClass]="{'invalid-input': experienceForm.get('experienceStartDate').hasError('required') && experienceForm.get('experienceStartDate').touched}">
                     <div *ngIf="experienceForm.get('experienceStartDate').hasError('required') && experienceForm.get('experienceStartDate').touched" style="color: red;">
                       Title is required
@@ -228,11 +227,18 @@
                   <input type="text" class="form-control" id="experienceEndDate" placeholder="Emp End Date"
                     [(ngModel)]="experience.endDate" [formControl]="experienceForm.get('experienceEndDate')"
                     [ngClass]="{'invalid-input': experienceForm.get('experienceEndDate').hasError('required') && experienceForm.get('experienceEndDate').touched}">
+                    <div *ngIf="experienceForm.get('experienceEndDate').hasError('required') && experienceForm.get('experienceEndDate').touched" style="color: red;">
+                      Title is required
+                    </div>
                 </div>
                 <div class="col-md-3 form-group">
                   <label for="experienceSkills">Skill(s):</label>
                   <input type="text" class="form-control" id="experienceSkills" placeholder="Skill(s)"
-                    [(ngModel)]="experience.skills">
+                    [(ngModel)]="experience.skills" [formControl]="experienceForm.get('experienceSkills')"
+                    [ngClass]="{'invalid-input': experienceForm.get('experienceSkills').hasError('required') && experienceForm.get('experienceSkills').touched}">
+                    <div *ngIf="experienceForm.get('experienceSkills').hasError('required') && experienceForm.get('experienceSkills').touched" style="color: red;">
+                    Title is required
+                    </div>
                 </div>
                 <div class="col-md-1 d-flex">
                   <i class="fa fa-solid fa-window-close mt-4 mb-3" (click)="deleteRow1(i)"></i>

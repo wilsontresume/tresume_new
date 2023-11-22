@@ -183,10 +183,11 @@ constructor(private fb: FormBuilder,private cookieService: CookieService, privat
   }]
 
   this.experienceForm = this.fb.group({
+   firstName: ['', Validators.required], 
     title: ['', Validators.required],
     experienceStartDate: ['', Validators.required],
     experienceEndDate: ['', Validators.required],
-    skills: ''
+    experienceSkills: ['', Validators.required]
   });
  }
 
