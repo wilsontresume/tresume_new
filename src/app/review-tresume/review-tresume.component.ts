@@ -182,18 +182,33 @@ constructor(private fb: FormBuilder,private cookieService: CookieService, privat
     Title:''
   }]
 
+
+  
   this.experienceForm = this.fb.group({
-   firstName: ['', Validators.required], 
     title: ['', Validators.required],
     experienceStartDate: ['', Validators.required],
     experienceEndDate: ['', Validators.required],
     experienceSkills: ['', Validators.required]
   });
+
+  
+ this.educationForm = this.fb.group({
+  degree: ['', Validators.required], 
+  university: ['', Validators.required], 
+  attendFrom: ['', Validators.required],
+  attendTo: ['', Validators.required],
+  universityAddress: ['', Validators.required],
+ })
+
+ this.personalInfoForm = this.fb.group({
+
+ })
  }
 
  experienceForm: FormGroup;
-
-
+ educationForm:  FormGroup;
+ personalInfoForm: FormGroup;
+ personalInfos: any[] = [];
    
  
 

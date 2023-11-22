@@ -8,6 +8,7 @@
     <!-- General tab -->
     <mat-tab-group>
       <mat-tab label="General">
+        <div>
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -145,6 +146,7 @@
               bsDatepicker>
           </div>
         </div>
+      </div>
         <div class="row">
           <ul class="nav nav-tabs" id="myTabs" role="tablist">
             <li class="nav-item">
@@ -164,28 +166,66 @@
         <div class="tab-content mt-3" id="myTabContent">
           <div class="tab-pane fade show active" id="education" role="tabpanel" aria-labelledby="education-tab">
 
-            <form>
+            <form [formGroup]="educationForm">
               <div *ngFor="let education of educations; let i = index" class="row" [id]="'educationRow' + i">
                 <div class="col-md-2 form-group">
                   <label for="degree">Degree:</label>
-                  <input type="text" class="form-control" placeholder="Degree" [(ngModel)]="education.degree">
+                  <!-- <input type="text" class="form-control" id="degree" placeholder="degree" [formControl]="educationForm.get('degree')" [(ngModel)]="education.degree"
+                  [ngClass]="{'invalid-input': educationForm.get('degree').hasError('required') && educationForm.get('degree').touched}">
+                  <div *ngIf="educationForm.get('degree').hasError('required') && educationForm.get('degree').touched" style="color: red;">
+                    Title is required
+                  </div> -->
+                  <input type="text" class="form-control" id="degree" placeholder="degree"
+                    [(ngModel)]="education.university" [formControl]="educationForm.get('degree')"
+                    [ngClass]="{'invalid-input': educationForm.get('degree').hasError('required') && educationForm.get('degree').touched}">
+                  <div *ngIf="educationForm.get('degree').hasError('required') && educationForm.get('degree').touched"
+                    style="color: red;">
+                    This field is required
+                  </div>
                 </div>
                 <div class="col-md-2 form-group">
                   <label for="university">University:</label>
-                  <input type="text" class="form-control" placeholder="University" [(ngModel)]="education.university">
+                  <input type="text" class="form-control" placeholder="University" id="university"
+                    [(ngModel)]="education.university" [formControl]="educationForm.get('university')"
+                    [ngClass]="{'invalid-input': educationForm.get('university').hasError('required') && educationForm.get('university').touched}">
+                  <div
+                    *ngIf="educationForm.get('university').hasError('required') && educationForm.get('university').touched"
+                    style="color: red;">
+                    This field is required
+                  </div>
                 </div>
                 <div class="col-md-2 form-group">
                   <label for="attendFrom">Attend From:</label>
-                  <input type="text" class="form-control" placeholder="Attend From" [(ngModel)]="education.attendFrom">
+                  <input type="text" class="form-control" placeholder="Attend From" id="attendFrom"
+                    [(ngModel)]="education.attendFrom" [formControl]="educationForm.get('attendFrom')"
+                    [ngClass]="{'invalid-input': educationForm.get('attendFrom').hasError('required') && educationForm.get('attendFrom').touched}">
+                  <div
+                    *ngIf="educationForm.get('attendFrom').hasError('required') && educationForm.get('attendFrom').touched"
+                    style="color: red;">
+                    This field is required
+                  </div>
                 </div>
                 <div class="col-md-2 form-group">
                   <label for="attendTo">Attend To:</label>
-                  <input type="text" class="form-control" placeholder="Attend To" [(ngModel)]="education.attendTo">
+                  <input type="text" class="form-control" placeholder="Attend To" id="attendTo"
+                    [(ngModel)]="education.attendTo" [formControl]="educationForm.get('attendTo')"
+                    [ngClass]="{'invalid-input': educationForm.get('attendTo').hasError('required') && educationForm.get('attendTo').touched}">
+                  <div
+                    *ngIf="educationForm.get('attendTo').hasError('required') && educationForm.get('attendTo').touched"
+                    style="color: red;">
+                    This field is required
+                  </div>
                 </div>
                 <div class="col-md-3 form-group">
                   <label for="universityAddress">University Address:</label>
-                  <input type="text" class="form-control" placeholder="University Address"
-                    [(ngModel)]="education.universityAddress">
+                  <input type="text" class="form-control" placeholder="University Address" id="universityAddress"
+                    [(ngModel)]="education.universityAddress" [formControl]="educationForm.get('universityAddress')"
+                    [ngClass]="{'invalid-input': educationForm.get('universityAddress').hasError('required') && educationForm.get('universityAddress').touched}">
+                  <div
+                    *ngIf="educationForm.get('universityAddress').hasError('required') && educationForm.get('universityAddress').touched"
+                    style="color: red;">
+                    This field is required
+                  </div>
                 </div>
                 <div class="col-md-1 d-flex">
                   <i class="fa fa-solid fa-window-close mt-4 mb-3" (click)="deleteRow(i)"></i>
@@ -197,19 +237,18 @@
                 </div>
               </div>
             </form>
-
           </div>
 
           <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="experience-tab">
-
             <form [formGroup]="experienceForm">
               <div *ngFor="let experience of experiences; let i = index" class="row" [id]="'experienceRow' + i">
                 <div class="col-md-3 form-group">
                   <label for="experienceTitle">Title:</label>
-                  <input type="text" class="form-control" id="experienceTitle" placeholder="Title" 
-                         [(ngModel)]="experience.title" [formControl]="experienceForm.get('title')"
-                         [ngClass]="{'invalid-input': experienceForm.get('title').hasError('required') && experienceForm.get('title').touched}">
-                  <div *ngIf="experienceForm.get('title').hasError('required') && experienceForm.get('title').touched" style="color: red;">
+                  <input type="text" class="form-control" id="experienceTitle" placeholder="Title"
+                    [(ngModel)]="experience.title" [formControl]="experienceForm.get('title')"
+                    [ngClass]="{'invalid-input': experienceForm.get('title').hasError('required') && experienceForm.get('title').touched}">
+                  <div *ngIf="experienceForm.get('title').hasError('required') && experienceForm.get('title').touched"
+                    style="color: red;">
                     Title is required
                   </div>
                 </div>
@@ -218,120 +257,127 @@
                   <input type="text" class="form-control" id="experienceStartDate" placeholder="Emp Start Date"
                     [(ngModel)]="experience.startDate" [formControl]="experienceForm.get('experienceStartDate')"
                     [ngClass]="{'invalid-input': experienceForm.get('experienceStartDate').hasError('required') && experienceForm.get('experienceStartDate').touched}">
-                    <div *ngIf="experienceForm.get('experienceStartDate').hasError('required') && experienceForm.get('experienceStartDate').touched" style="color: red;">
-                      Title is required
-                    </div>
+                  <div
+                    *ngIf="experienceForm.get('experienceStartDate').hasError('required') && experienceForm.get('experienceStartDate').touched"
+                    style="color: red;">
+                    This field is required
                   </div>
+                </div>
                 <div class="col-md-2 form-group">
                   <label for="experienceEndDate">Employment End Date:</label>
                   <input type="text" class="form-control" id="experienceEndDate" placeholder="Emp End Date"
                     [(ngModel)]="experience.endDate" [formControl]="experienceForm.get('experienceEndDate')"
                     [ngClass]="{'invalid-input': experienceForm.get('experienceEndDate').hasError('required') && experienceForm.get('experienceEndDate').touched}">
-                    <div *ngIf="experienceForm.get('experienceEndDate').hasError('required') && experienceForm.get('experienceEndDate').touched" style="color: red;">
-                      Title is required
-                    </div>
+                  <div
+                    *ngIf="experienceForm.get('experienceEndDate').hasError('required') && experienceForm.get('experienceEndDate').touched"
+                    style="color: red;">
+                    This field is required
+                  </div>
                 </div>
                 <div class="col-md-3 form-group">
                   <label for="experienceSkills">Skill(s):</label>
                   <input type="text" class="form-control" id="experienceSkills" placeholder="Skill(s)"
                     [(ngModel)]="experience.skills" [formControl]="experienceForm.get('experienceSkills')"
                     [ngClass]="{'invalid-input': experienceForm.get('experienceSkills').hasError('required') && experienceForm.get('experienceSkills').touched}">
-                    <div *ngIf="experienceForm.get('experienceSkills').hasError('required') && experienceForm.get('experienceSkills').touched" style="color: red;">
-                    Title is required
-                    </div>
+                  <div
+                    *ngIf="experienceForm.get('experienceSkills').hasError('required') && experienceForm.get('experienceSkills').touched"
+                    style="color: red;">
+                    This field is required
+                  </div>
                 </div>
                 <div class="col-md-1 d-flex">
                   <i class="fa fa-solid fa-window-close mt-4 mb-3" (click)="deleteRow1(i)"></i>
                 </div>
               </div>
-                <div class="row">
-                  <div class="col-md-1">
-                    <i class="fa fa-solid fa-plus mt-4 mb-3" (click)="addRow1()"></i>                 
-                  </div>
+              <div class="row">
+                <div class="col-md-1">
+                  <i class="fa fa-solid fa-plus mt-4 mb-3" (click)="addRow1()"></i>
                 </div>
-          
+              </div>
             </form>
-
           </div>
 
           <div class="tab-pane fade" id="personalinfo" role="tabpanel" aria-labelledby="personalinfo-tab">
-            <div class="row">
-              <div class="col-md-4 form-group">
-                <label for="personalinfo1">Emergency Contact Name</label>
-                <input type="text" class="form-control" id="personalinfo1" placeholder="Emergency Contact Name">
+            <form [formGroup]="personalInfoForm">
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <label for="personalinfo1">Emergency Contact Name</label>
+                  <input type="text" class="form-control" id="personalinfo1" placeholder="Emergency Contact Name">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="personalinfo2">Emergency Contact Phone</label>
+                  <input type="text" class="form-control" id="personalinfo2" placeholder="Emergency Contact Phone">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="personalinfo3">Emergency Contact Email</label>
+                  <input type="text" class="form-control" id="personalinfo3" placeholder="Emergency Contact Email">
+                </div>
               </div>
-              <div class="col-md-4 form-group">
-                <label for="personalinfo2">Emergency Contact Phone</label>
-                <input type="text" class="form-control" id="personalinfo2" placeholder="Emergency Contact Phone">
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <label for="personalinfo4">Passport Number</label>
+                  <input type="text" class="form-control" id="personalinfo4" placeholder="Passport Number">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="personalinfo5">Passport Validity Start Date</label>
+                  <input type="text" class="form-control" id="personalinfo5" placeholder="Passport Validity Start Date">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="personalinfo6">Passport Validity End Date</label>
+                  <input type="text" class="form-control" id="personalinfo6" placeholder="Passport Validity End Date">
+                </div>
               </div>
-              <div class="col-md-4 form-group">
-                <label for="personalinfo3">Emergency Contact Email</label>
-                <input type="text" class="form-control" id="personalinfo3" placeholder="Emergency Contact Email">
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <label for="personalinfo7">I-94 Number</label>
+                  <input type="text" class="form-control" id="personalinfo7" placeholder="I-94 Number">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="personalinfo8">I-94 Validity End Date</label>
+                  <input type="text" class="form-control" id="personalinfo8" placeholder="I-94 Validity End Date">
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4 form-group">
-                <label for="personalinfo4">Passport Number</label>
-                <input type="text" class="form-control" id="personalinfo4" placeholder="Passport Number">
-              </div>
-              <div class="col-md-4 form-group">
-                <label for="personalinfo5">Passport Validity Start Date</label>
-                <input type="text" class="form-control" id="personalinfo5" placeholder="Passport Validity Start Date">
-              </div>
-              <div class="col-md-4 form-group">
-                <label for="personalinfo6">Passport Validity End Date</label>
-                <input type="text" class="form-control" id="personalinfo6" placeholder="Passport Validity End Date">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4 form-group">
-                <label for="personalinfo7">I-94 Number</label>
-                <input type="text" class="form-control" id="personalinfo7" placeholder="I-94 Number">
-              </div>
-              <div class="col-md-4 form-group">
-                <label for="personalinfo8">I-94 Validity End Date</label>
-                <input type="text" class="form-control" id="personalinfo8" placeholder="I-94 Validity End Date">
-              </div>
-            </div>
-            <div class="col-md-4"><b>Add Address</b></div>
-            <div class="row">
-              <div class="col-md-4 form-group">
+              <div class="col-md-4"><b>Add Address</b></div>
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <input type="text" class="form-control" id="personalinfoAddress" placeholder="Address Line 1">
+                </div>
 
-                <input type="text" class="form-control" id="personalinfoAddress" placeholder="Address Line 1">
-              </div>
+                <div class="col-md-4 form-group">
+                  <input type="text" class="form-control empty-4" placeholder="Address Line 2">
+                </div>
 
-              <div class="col-md-4 form-group">
-                <input type="text" class="form-control empty-4" placeholder="Address Line 2">
+                <div class="col-md-4 form-group">
+                  <input type="text" class="form-control empty-4" placeholder="Country">
+                </div>
               </div>
-
-              <div class="col-md-4 form-group">
-                <input type="text" class="form-control empty-4" placeholder="Country">
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <input type="text" class="form-control" placeholder="State">
+                </div>
+                <div class="col-md-4 form-group">
+                  <input type="text" class="form-control" placeholder="City">
+                </div>
+                <div class="col-md-4 form-group">
+                  <input type="text" class="form-control" placeholder="Zipcode">
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4 form-group">
-                <input type="text" class="form-control" placeholder="State">
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <input type="text" class="form-control" placeholder="Address Type (Home,work etc.)">
+                </div>
               </div>
-              <div class="col-md-4 form-group">
-                <input type="text" class="form-control" placeholder="City">
-              </div>
-              <div class="col-md-4 form-group">
-                <input type="text" class="form-control" placeholder="Zipcode">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4 form-group">
-                <input type="text" class="form-control" placeholder="Address Type (Home,work etc.)">
-              </div>
-            </div>
+           </form>
+           
           </div>
+         
         </div>
 
       </mat-tab>
 
 
       <mat-tab label="Interview">
-        <!-- Content for Interview tab -->
+        <!--Interview tab -->
         <div class="container">
 
 
@@ -483,7 +529,7 @@
         </div>
       </mat-tab>
       <mat-tab label="Submission">
-        <!-- Content for Submission tab -->
+        <!-- Submission tab -->
         <div class="container">
           <button class="btn btn1">Download DSR</button>
           <form>
@@ -524,7 +570,7 @@
         </div>
       </mat-tab>
       <mat-tab label="Financial Info">
-        <!-- Content for Financial Info tab -->
+        <!-- Financial Info tab -->
         <div class="container">
           <div class="row textarea">
             <div class="col-md-4">
