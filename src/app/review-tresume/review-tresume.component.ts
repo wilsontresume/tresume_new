@@ -19,6 +19,7 @@ showConfirmationDialog2: boolean;
 myForm: any;
 interviewForm: any;
 myFormSubmission: any;
+  myFormFinancial: FormGroup;
   // activeTabIndex: number = 0;
 
   siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
@@ -256,6 +257,11 @@ ngOnInit(): void {
       rate: ['', [Validators.required, Validators.minLength(3)]],
       clientName: ['', [Validators.required, Validators.minLength(3)]],
       
+    });
+
+    this.myFormFinancial = this.formBuilder.group({
+      accountnum1: ['', [Validators.required]],
+
     });
 }
 // interview - form - validation - function 
