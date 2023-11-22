@@ -9,6 +9,7 @@ import { CandidateService } from '../candidate/candidate.service';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: './review-tresume.component.html',
@@ -19,6 +20,8 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 
 
 export class ReviewTresumeComponent implements OnChanges {
+
+
 saveButtonLabel: any;
 saveData() {
 throw new Error('Method not implemented.');
@@ -55,23 +58,49 @@ dob: Date;
 SelectedDivision: string = ''; 
 rows: any[] = [{}]; // Initial row
 
+//Ts for education
+educations = [{
+  degree: '',
+  university: '',
+  attendFrom: '',
+  attendTo: '',
+  universityAddress: ''
+}];
+
 addRow() {
-  this.rows.push({});
+  this.educations.push({
+    degree: '',
+    university: '',
+    attendFrom: '',
+    attendTo: '',
+    universityAddress: ''
+  });
 }
 
-deleteRow() {
-  if (this.rows.length > 1) {
-    this.rows.pop();
-  }
+deleteRow(index: number) {
+  this.educations.splice(index, 1);
 }
+
+//ts for experience
+
+experiences = [{
+  title: '',
+  startDate: '',
+  endDate: '',
+  skills: ''
+}];
+
 addRow1() {
-  this.rows.push({});
+  this.experiences.push({
+    title: '',
+    startDate: '',
+    endDate: '',
+    skills: ''
+  });
 }
 
-deleteRow1() {
-  if (this.rows.length > 1) {
-    this.rows.pop();
-  }
+deleteRow1(index: number) {
+  this.experiences.splice(index, 1);
 }
 
 items: any[] = [
@@ -137,7 +166,7 @@ router: any;
   public newJDDetails: any;
   public toggleView: boolean = false;
   @ViewChild('lgModal', { static: false }) lgModal?: ModalDirective;
-constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService,private route: ActivatedRoute, private cservice: CandidateService, private dashservice: DashboardService)
+constructor(private fb: FormBuilder,private cookieService: CookieService, private service:ReviewService,private messageService: MessageService,private route: ActivatedRoute, private cservice: CandidateService, private dashservice: DashboardService)
  { 
 
   this.details = [{
@@ -152,7 +181,21 @@ constructor(private cookieService: CookieService, private service:ReviewService,
   this.eduDetails = [{
     Title:''
   }]
+
+  this.experienceForm = this.fb.group({
+    title: ['', Validators.required],
+    experienceStartDate: ['', Validators.required],
+    experienceEndDate: ['', Validators.required],
+    skills: ''
+  });
  }
+
+ experienceForm: FormGroup;
+
+
+   
+ 
+
 ngOnInit(): void {
   this.candidateID = this.route.snapshot.params["traineeId"]?this.route.snapshot.params["traineeId"]:31466;
   // this.candidateID = 1;
