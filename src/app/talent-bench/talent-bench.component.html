@@ -1,5 +1,5 @@
 <div class="header">
-<div class="container pb-1">
+  <div class="container pb-1">
     <div class="row title">
       <div class="col-12">
         <h2 class="text-dark">TALENT BENCH</h2>
@@ -9,15 +9,16 @@
     <div class="row">
       <div class="col-6">
         <select id="selectCandidate" class="form-control">
-            <option value="">Select Candidate</option>
-            <option *ngFor="let candidate of candidates" [value]="candidate">{{ candidate }}</option>
-          </select>
+          <option value="">Select Candidate</option>
+          <option *ngFor="let candidate of candidates" [value]="candidate">{{ candidate }}</option>
+        </select>
       </div>
       <div class="col-1"></div>
       <div class="col-5">
         <button class="btn ml-3">DSR</button>
         <button class="btn ml-3">Export Report</button>
-        <button type="button" class="btn ml-3" data-toggle="modal" data-target=".bd-example-modal-xl">Add Candidate</button>
+        <button type="button" class="btn ml-3" data-toggle="modal" data-target=".bd-example-modal-xl">Add
+          Candidate</button>
         <button type="button" class="btn ml-3" data-toggle="modal" data-target="#exampleModalLong">Group</button>
       </div>
     </div>
@@ -25,68 +26,69 @@
     <div class="row">
       <div class="col-md-9"></div>
       <div class="col-md-3 text-right">
-    <input type="text" class="form-control search-box" placeholder="Search...">
-  </div>
-  </div>
-<div class="main-container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Bench ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Location</th>
-        <th>Time on Bench (days)</th>
-        <th>Title</th>
-        <th>Phone</th>
-        <th>Status</th>
-        <th>Bill Rate</th>
-        <th>Refer</th>
-        <th>Group Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of tableData">
-        <td>{{ item.benchId }}</td>
-        <td>
-         <div class="ml-10"> {{ item.name }}</div>
-         <i [routerLink]="['/hrms']" class="fas fa-network-wired icon"></i>
-          <i class="far fa-clipboard icon" [routerLink]="['/searchtresume/reviewtresume/interview']"></i>
-          <i class="fas fa-pencil-alt icon" [routerLink]="['/placementview']"></i>
-          <i class="far fa-file-alt icon" [routerLink]="['/searchtresume/reviewtresume/submission']"></i>
-          <i class="fas fa-trash icon" type="button" data-toggle="modal" data-target="#exampleModal"></i>
-          
-        </td>
-        <td>{{ item.email }}</td>
-        <td>{{ item.location }}</td>
-        <td>{{ item.timeOnBench }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.phone }}</td>
-        <td>{{ item.status }}</td>
-        <td>{{ item.billRate }}</td>
-        <td>{{ item.refer }}</td>
-        <td>
-          <select class="form-control" [(ngModel)]="item.groupName">
-            <option *ngFor="let option of groupOptions" [value]="option.value">
-              {{ option.label }}
-            </option>
-          </select>
-        </td>
-      </tr>
-      <tr *ngIf="noResultsFound" >
-        <td colspan="11" class="text-center">
-         No results found.
-       </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        <input type="text" class="form-control search-box" placeholder="Search...">
+      </div>
+    </div>
+    <div class="main-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Bench ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Location</th>
+            <th>Time on Bench (days)</th>
+            <th>Title</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Bill Rate</th>
+            <th>Refer</th>
+            <th>Group Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of tableData">
+            <td>{{ item.benchId }}</td>
+            <td>
+              <div class="ml-10"> {{ item.name }}</div>
+              <i [routerLink]="['/hrms']" class="fas fa-network-wired icon"></i>
+              <i class="far fa-clipboard icon" [routerLink]="['/searchtresume/reviewtresume/interview']"></i>
+              <i class="fas fa-pencil-alt icon" [routerLink]="['/placementview']"></i>
+              <i class="far fa-file-alt icon" [routerLink]="['/searchtresume/reviewtresume/submission']"></i>
+              <i class="fas fa-trash icon" type="button" data-toggle="modal" data-target="#exampleModal"></i>
+
+            </td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.location }}</td>
+            <td>{{ item.timeOnBench }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.phone }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.billRate }}</td>
+            <td>{{ item.refer }}</td>
+            <td>
+              <select class="form-control" [(ngModel)]="item.groupName">
+                <option *ngFor="let option of groupOptions" [value]="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
+            </td>
+          </tr>
+          <tr *ngIf="noResultsFound">
+            <td colspan="11" class="text-center">
+              No results found.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 
 <!--PopUp For Add Client-->
-<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -95,7 +97,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      
+
       <div class="container">
         <form>
           <div class="row">
@@ -112,7 +114,7 @@
               <input type="text" name="lastName" placeholder="Last name">
             </div>
           </div>
-      
+
           <div class="row">
             <div class="col-md-4">
               <label>Email</label>
@@ -130,7 +132,7 @@
               </div>
             </div>
           </div>
-      
+
           <div class="row">
             <div class="col-md-4">
               <label>Recruiter Name</label>
@@ -147,7 +149,7 @@
               <input type="text" name="university" placeholder="University">
             </div>
           </div>
-      
+
           <div class="row">
             <div class="col-md-4">
               <label>Candidate Status</label>
@@ -167,7 +169,7 @@
               </select>
             </div>
           </div>
-      
+
           <div class="row">
             <div class="col-md-4">
               <label>Marketer Name</label>
@@ -187,7 +189,7 @@
               <input type="file" name="video">
             </div>
           </div>
-      
+
           <div class="row">
             <div class="col-md-4">
               <label>Referral Type</label>
@@ -207,55 +209,62 @@
         <button type="button" class="btn" data-dismiss="modal">Save</button>
       </div>
     </div>
-    </div>
   </div>
+</div>
 
-  <!--PopUp For Group-->
-  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title" id="exampleModalLongTitle">Group list</h2>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
-            <div>
-              
-            </div>
+<!--PopUp For Group-->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLongTitle">Group list</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <div>
+
         </div>
-        
-        <div class="modal-body">
-         
-        <div class="col-12 text-right">
-          <button class="btn btn-primary">Add Group</button>
-        </div>
-          <div>
-            <table class="data-table" style="margin-top: 20px;">
-              <tr>
-                <th>Group Name</th>
-                <th>Candidate Count</th>
-              </tr>
-              <tr *ngFor="let item of dataArray">
-                <td>{{ item.groupName }}</td>
-                <td>{{ item.candidateCount }}</td>
-              </tr>
-            </table>
-        </div>
-        </div>
-      
       </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6 text-center">
+            <input name="groupName" type="text" maxlength="500" id="groupName" class="form-control"
+              placeholder="Group Name">
+          </div>
+          <div class="col-6 text-center">
+            <button class="btn btn-primary">Add Group</button>
+          </div>
+        </div>
+        <div>
+          <table class="data-table" style="margin-top: 20px;">
+            <tr>
+              <th>Group Name</th>
+              <th>Candidate Count</th>
+            </tr>
+            <tr *ngFor="let item of dataArray">
+              <td>{{ item.groupName }}</td>
+              <td>{{ item.candidateCount }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
+</div>
 
 <!-- Confirmation PopUp for delete from Talent Bench-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title" id="exampleModalLabel"><u>Remove from Talent Bench</u></h1>
-        
+
       </div>
       <div class="modal-body">
-      <h3>Are you sure to Remove that candidate from Talent Bench?</h3>
+        <h3>Are you sure to Remove that candidate from Talent Bench?</h3>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
