@@ -2,7 +2,13 @@ import { Component,OnChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ReviewService } from './review.service';
 import { MessageService } from 'primeng/api';
-import { request } from 'express';
+import { Routes } from '@angular/router';
+import { CandidateComponent } from '../candidate/candidate.component';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { CandidateService } from '../candidate/candidate.service';
+import { DashboardService } from '../dashboard/dashboard.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 
 
@@ -15,6 +21,10 @@ import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/fo
 
 
 export class ReviewTresumeComponent implements OnChanges {
+saveButtonLabel: any;
+saveData() {
+throw new Error('Method not implemented.');
+}
 showConfirmationDialog2: boolean;
 myForm: any;
 interviewForm: any;
@@ -50,6 +60,52 @@ dob: Date;
 // attendedTo: string='';
 // u8niversityAddress: string='';
 SelectedDivision: string = ''; 
+rows: any[] = [{}]; // Initial row
+
+//Ts for education
+educations = [{
+  degree: '',
+  university: '',
+  attendFrom: '',
+  attendTo: '',
+  universityAddress: ''
+}];
+
+addRow() {
+  this.educations.push({
+    degree: '',
+    university: '',
+    attendFrom: '',
+    attendTo: '',
+    universityAddress: ''
+  });
+}
+
+deleteRow(index: number) {
+  this.educations.splice(index, 1);
+}
+
+//ts for experience
+
+experiences = [{
+  title: '',
+  startDate: '',
+  endDate: '',
+  skills: ''
+}];
+
+addRow1() {
+  this.experiences.push({
+    title: '',
+    startDate: '',
+    endDate: '',
+    skills: ''
+  });
+}
+
+deleteRow1(index: number) {
+  this.experiences.splice(index, 1);
+}
 
 items: any[] = [
   {
@@ -229,8 +285,60 @@ router: any;
   deleteIndex: number;
   reviewService: any;
   placementList: any;
-constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService, private formBuilder: FormBuilder)
- { }
+
+  candidateID:any;
+  public details: any;
+  public eduDetails: any;
+  public H1BStatus: any;
+  public newJDDetails: any;
+  public toggleView: boolean = false;
+  @ViewChild('lgModal', { static: false }) lgModal?: ModalDirective;
+constructor(private fb: FormBuilder,private cookieService: CookieService, private service:ReviewService,private messageService: MessageService,private route: ActivatedRoute, private cservice: CandidateService, private dashservice: DashboardService)
+ { 
+
+  this.details = [{
+    CandidateName:'',
+    Recruiter:'',
+    Title:'',
+    StartDate:'',
+    ClientAddress:'',
+    ClientSupervisor:'',
+    VendorName:'',
+  }]
+  this.eduDetails = [{
+    Title:''
+  }]
+
+
+  
+  this.experienceForm = this.fb.group({
+    title: ['', Validators.required],
+    experienceStartDate: ['', Validators.required],
+    experienceEndDate: ['', Validators.required],
+    experienceSkills: ['', Validators.required]
+  });
+
+  
+ this.educationForm = this.fb.group({
+  degree: ['', Validators.required], 
+  university: ['', Validators.required], 
+  attendFrom: ['', Validators.required],
+  attendTo: ['', Validators.required],
+  universityAddress: ['', Validators.required],
+ })
+
+ this.personalInfoForm = this.fb.group({
+
+ })
+ }
+
+ experienceForm: FormGroup;
+ educationForm:  FormGroup;
+ personalInfoForm: FormGroup;
+ personalInfos: any[] = [];
+   
+ 
+
 ngOnInit(): void {
     this.fetchinterviewlist();
     this.getPlacementList();
