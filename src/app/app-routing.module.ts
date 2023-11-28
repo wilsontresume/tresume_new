@@ -61,6 +61,7 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { AllTimeListComponent } from './all-time-list/all-time-list.component';
 import { AssignRoleComponent } from './assign-role/assign-role.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -118,6 +119,7 @@ const routes: Routes = [
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard] },
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accountsadduser', component:AccountsAddUserComponent},
+  { path: 'accountsaddrole',component:AccountsAddRoleComponent},
   { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
   { path: 'profile',component:ProfileComponent},
   { path: 'information',component:InformationComponent},
