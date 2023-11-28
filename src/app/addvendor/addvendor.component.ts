@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./addvendor.component.scss']
 })
 export class AddvendorComponent implements OnInit {
+  addVendor: any;
 onKeyPress($event: any) {
 throw new Error('Method not implemented.');
 }
@@ -25,20 +26,16 @@ throw new Error('Method not implemented.');
   filteredVendorLeads: any[] = [];
   filteredRequiredDocuments: any[] = [];
   vendor: string[] = [];
-  vendorForm: FormGroup;
   showFormError: boolean = false;
   allvendorService: any;
 
-  ngOnInit(): void {
-    const contactNumberPattern = /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
-    const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$/;
-    const addressPattern = /^[a-zA-Z0-9\s\-,./]+$/;
-  
-      this.vendorForm = this.fb.group({
-      VendorName:  [null, Validators.required],
-      ContactNumber: [null, Validators.required,Validators.pattern(contactNumberPattern)],
-      VendorEmailID: [null, Validators.required,Validators.email, Validators.pattern(emailPattern)],
-      Address: [null, Validators.required,Validators.minLength(100), Validators.pattern(addressPattern)],
+  ngOnInit(): void {  
+      this.addVendor = this.fb.group({
+        vendorName: ['', [Validators.required, Validators.minLength(3)]],
+        ContactNumber: ['', [Validators.required, Validators.maxLength(10)]],
+        VendorEmailID: ['', [Validators.required, Validators.maxLength(10)]],
+        Address: ['', [Validators.required, Validators.maxLength(10)]],
+        
     });
    
   }
@@ -72,8 +69,8 @@ throw new Error('Method not implemented.');
   }
   
   add() {
-    if (this.vendorForm.valid) {
-      const formData = this.vendorForm.value;
+    if (this.addVendor.valid) {
+      const formData = this.addVendor.value;
       this.allvendorService.addVendor(formData).subscribe(
         (response: any) => {
           console.log('Vendor added successfully:', response);
@@ -93,8 +90,8 @@ throw new Error('Method not implemented.');
       );
     } else {
       this.showFormError = true;
-      Object.keys(this.vendorForm.controls).forEach(field => {
-        const control = this.vendorForm.get(field);
+      Object.keys(this.addVendor.controls).forEach(field => {
+        const control = this.addVendor.get(field);
         if (control?.invalid) { 
           console.log(`Field '${field}' has validation errors:`, control.errors);
         }
@@ -104,7 +101,7 @@ throw new Error('Method not implemented.');
   cancel() {
     this.vendor = [];
     this.showFormError = false;
-    this.vendorForm.reset(); 
+    this.addVendor.reset(); 
   }
   
 }

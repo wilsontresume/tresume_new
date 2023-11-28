@@ -130,6 +130,8 @@ import { AllTimeListComponent } from './all-time-list/all-time-list.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { AssignRoleComponent } from './assign-role/assign-role.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.component';
+
 
 
 
@@ -201,6 +203,7 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
     CreateProjectComponent,
     AssignRoleComponent,
     AddAdminComponent,
+    AccountsAddRoleComponent,
   ],
   imports: [
     HttpClientModule,

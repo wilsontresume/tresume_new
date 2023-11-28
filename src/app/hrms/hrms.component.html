@@ -112,30 +112,46 @@
         </div>
   
         <div class="container container2">
-          <form>
+          <form [formGroup]="addCandidate">
             <div class="row row2">
               <div class="col-md-4">
                 <label class="label">First Name *</label>
-                <input type="text" class="input" name="firstName" placeholder="First name" required>
+                <input type="text" class="form-control" name="firstName" placeholder="First name" formControlName="firstName" [ngClass]="{ 'invalid-input': addCandidate.get('firstName').invalid && addCandidate.get('firstName').touched }">
+                <div *ngIf="addCandidate.get('firstName').invalid && addCandidate.get('firstName').touched"
+                  class="validation-message" style="color: red;">
+                  * Please enter valid First name.
+                </div>
               </div>
               <div class="col-md-4">
                 <label class="label">Middle Name</label>
-                <input type="text" class="input" name="middleName" placeholder="Middle name" required>
+                <input type="text" class="form-control" name="middleName" placeholder="Middle name" required>
               </div>
               <div class="col-md-4">
                 <label class="label">Last Name *</label>
-                <input type="text" class="input" name="lastName" placeholder="Last name">
+                <input type="text" class="form-control" name="lastName" placeholder="Last name" formControlName="lastName" [ngClass]="{ 'invalid-input': addCandidate.get('lastName').invalid && addCandidate.get('lastName').touched }">
+                <div *ngIf="addCandidate.get('lastName').invalid && addCandidate.get('lastName').touched"
+                  class="validation-message" style="color: red;">
+                  * Please enter valid Last name.
+                </div>
               </div>
             </div>
   
             <div class="row row2">
               <div class="col-md-4">
                 <label class="label">Email</label>
-                <input type="text" class="input" name="email" placeholder="Email">
+                <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email" [ngClass]="{ 'invalid-input': addCandidate.get('email').invalid && addCandidate.get('email').touched }">
+                <div *ngIf="addCandidate.get('email').invalid && addCandidate.get('email').touched"
+                  class="validation-message" style="color: red;">
+                  * Please enter valid Email.
+                </div>
               </div>
               <div class="col-md-4">
                 <label class="label">Phone</label>
-                <input type="text" class="input" name="phone" placeholder="Phone">
+                <input type="tel" class="form-control" name="phone" placeholder="Phone" formControlName="phone" [ngClass]="{ 'invalid-input': addCandidate.get('phone').invalid && addCandidate.get('phone').touched }">
+                <div *ngIf="addCandidate.get('phone').invalid && addCandidate.get('phone').touched"
+                  class="validation-message" style="color: red;">
+                  * Please enter valid Phone Number.
+                </div>
               </div>
               <div class="col-md-4">
                 <label class="label">Gender</label>
@@ -148,35 +164,38 @@
   
             <div class="row row2">
               <div class="col-md-4">
-                <label class="label">Recruiter Name</label>
-                <select class="input" name="recruiterName" [(ngModel)]="formData.recruiterName">
+                <label class="label">Recruiter Name *</label>
+                <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
                   <option *ngFor="let name of recruiterNames" [value]="name">{{ name }}</option>
                 </select>
+                <div *ngIf="addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched" class="validation-message" style="color: red;">
+                  * Please select at least one Recruiter Name.
+                </div>
               </div>
               <div class="col-md-4">
                 <label class="label">Degree</label>
-                <input type="text" class="input" name="degree" placeholder="Degree">
+                <input type="text" class="form-control" name="degree" placeholder="Degree">
               </div>
               <div class="col-md-4">
                 <label class="label">University</label>
-                <input type="text" class="input" name="university" placeholder="University">
+                <input type="text" class="form-control" name="university" placeholder="University">
               </div>
             </div>
   
             <div class="row row2">
               <div class="col-md-4">
                 <label class="label">Candidate Status</label>
-                <select class="input" name="candidateStatus" [(ngModel)]="formData.candidateStatus">
+                <select class="form-control" name="candidateStatus" [(ngModel)]="formData.candidateStatus">
                   <option *ngFor="let status of candidateStatuses" [value]="status">{{ status }}</option>
                 </select>
               </div>
               <div class="col-md-4">
                 <label class="label">Groups</label>
-                <input type="text" class="input" name="groups">
+                <input type="text" class="form-control" name="groups">
               </div>
               <div class="col-md-4">
                 <label class="label">Legal Status</label>
-                <select class="input" name="legalStatus">
+                <select class="form-control" name="legalStatus">
                   <option value="legal">Legal</option>
                   <option value="illegal">Illegal</option>
                 </select>
@@ -186,7 +205,7 @@
             <div class="row row2">
               <div class="col-md-4">
                 <label class="label">Marketer Name</label>
-                <select class="input" name="marketerName" [(ngModel)]="formData.marketerName">
+                <select class="form-control" name="marketerName" [(ngModel)]="formData.marketerName">
                   <option *ngFor="let name of marketerNames" [value]="name">{{ name }}</option>
                 </select>
               </div>
@@ -199,14 +218,14 @@
               </div>
               <div class="col-md-4">
                 <label class="label">Video</label>
-                <input type="file" class="input" name="video">
+                <input type="file" class="form-control" name="video">
               </div>
             </div>
   
             <div class="row row2">
               <div class="col-md-4">
                 <label class="label">Referral Type</label>
-                <select class="input" name="referralType" [(ngModel)]="formData.referralType">
+                <select class="form-control" name="referralType" [(ngModel)]="formData.referralType">
                   <option *ngFor="let type of referralTypes" [value]="type">{{ type }}</option>
                 </select>
               </div>
