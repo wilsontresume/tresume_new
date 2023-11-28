@@ -276,7 +276,7 @@ ngOnInit(): void {
       vendorName: ['', [Validators.required, Validators.minLength(3)]],
       rate: ['', [Validators.required, Validators.minLength(3)]],
       clientName: ['', [Validators.required, Validators.minLength(3)]],
-      
+    
     });
 
     this.myFormFinancial = this.formBuilder.group({

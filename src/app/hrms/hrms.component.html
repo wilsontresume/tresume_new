@@ -164,10 +164,13 @@
   
             <div class="row row2">
               <div class="col-md-4">
-                <label class="label">Recruiter Name</label>
-                <select class="form-control" name="recruiterName" [(ngModel)]="formData.recruiterName">
+                <label class="label">Recruiter Name *</label>
+                <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
                   <option *ngFor="let name of recruiterNames" [value]="name">{{ name }}</option>
                 </select>
+                <div *ngIf="addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched" class="validation-message" style="color: red;">
+                  * Please select at least one Recruiter Name.
+                </div>
               </div>
               <div class="col-md-4">
                 <label class="label">Degree</label>

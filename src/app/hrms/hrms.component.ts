@@ -38,9 +38,19 @@ export class HrmsComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.minLength(3)]],
       phone: ['', [Validators.required, Validators.minLength(3)]],
+      recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
     });
   }
-
+  atLeastOneSelectedValidator() {
+    return (control: { value: any; }) => {
+      const selectedValue = control.value;
+      if (selectedValue && selectedValue.length > 0) {
+        return null; // Valid
+      } else {
+        return { atLeastOneSelected: true }; // Invalid
+      }
+    };
+  }
   ngOnChanges(): void {
     // this.fetchhrmscandidatelist();
   }

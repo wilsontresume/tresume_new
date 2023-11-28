@@ -2,7 +2,7 @@ import { TalentBenchService} from './talent-bench.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
@@ -20,9 +20,11 @@ export class TalentBenchComponent implements OnInit {
   OrgID:string = '';
   JobID:string = '';
   TraineeID:string = '';
+  addCandidate: any;
   noResultsFound:boolean = true;
 
- 
+  constructor(private dialog: MatDialog,private cookieService: CookieService, private service:TalentBenchService,private messageService: MessageService,private formBuilder: FormBuilder) {}
+  
   recruiterNames: string[] = ['Recruiter 1', 'Recruiter 2', 'Recruiter 3'];
   candidateStatuses: string[] = ['Active', 'Inactive', 'On Hold'];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
@@ -39,7 +41,6 @@ export class TalentBenchComponent implements OnInit {
 
 
   onSubmit() {
-   
     console.log('Form Data:', this.formData);
   }
   
@@ -47,8 +48,6 @@ export class TalentBenchComponent implements OnInit {
     { groupName: 'Group A', candidateCount: 10 },
     { groupName: 'Group B', candidateCount: 5 },
   ];
-
-  
 
   onIconClick() {
     alert('are you sure want to delete?'); 
@@ -59,18 +58,25 @@ export class TalentBenchComponent implements OnInit {
     this.JobID = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchtalentbenchlist();
-  }
-    constructor(private dialog: MatDialog,private cookieService: CookieService, private service:TalentBenchService,private messageService: MessageService) {}
-  
-  
+
+    this.addCandidate = this.formBuilder.group({
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.minLength(3)]],
+      phone: ['', [Validators.required, Validators.minLength(3)]],
+      marketerName: ['', Validators.required],
+    });
+    
+  }  
     fetchtalentbenchlist(){
-  let Req = {
-    OrgID: this.OrgID,
-  };
+    let Req = {
+      OrgID: this.OrgID,
+    };
   this.service.getTalentBenchList(Req).subscribe((x: any) => {
     this.tableData = x.result;
     this.noResultsFound = this.tableData.length === 0;
   });
+  
 }
   
 }
