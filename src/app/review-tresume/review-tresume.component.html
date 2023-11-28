@@ -6,33 +6,37 @@
     <button class="btn btn1" id="saveButton" (click)="saveData()">{{ saveButtonLabel }}</button>
 
     <!-- General tab -->
-    <mat-tab-group>
+    <mat-tab-group (selectedIndexChange)="onTabChange($event)">
       <mat-tab label="General">
         <div>
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
               <label for="firstName">First Name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="First Name">
+              <input type="text" class="form-control" id="firstName"
+                placeholder="First Name">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label for="middleName">Middle Name</label>
-              <input type="text" class="form-control" id="middleName" placeholder="Middle Name">
+              <input type="text" class="form-control" id="middleName"
+                placeholder="Middle Name">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label for="lastName">Last Name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+              <input type="text" class="form-control" id="lastName"
+                placeholder="Last Name">
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
           <div class="col-md-4">
             <label for="interviewMode">Recruiter Name</label>
-            <select class="form-control" id="recruiterName" name="Recruiter Name" *ngFor="let item of items ">
+            <select class="form-control" id="recruiterName"
+              name="Recruiter Name" *ngFor="let item of items ">
               <option value="In-Person">--Select--</option>
               <option value="Name">{{item.value1}}</option>
               <option value="Name">{{item.value2}}</option>
@@ -44,24 +48,29 @@
           </div>
           <div class="col-md-4">
             <label for="assistedBy">Phone</label>
-            <input type="number" class="form-control" id="assistedBy" name="assistedBy" placeholder="Phone">
+            <input type="number" class="form-control" id="assistedBy"
+              name="assistedBy" placeholder="Phone">
           </div>
           <div class="col-md-4">
             <label for="typeOfAssistance">Email</label>
-            <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance" placeholder="Email">
+            <input type="text" class="form-control" id="typeOfAssistance"
+              name="typeOfAssistance" placeholder="Email">
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
           <div class="col-md-4">
             <label for="refered">Referred By</label>
-            <select [(ngModel)]="SelectedRefered" name="refered" id="refered" class="form-control">
-              <option value="" disabled selected>Select a Referrer</option>
-              <option *ngFor="let refered of referedby" [value]="refered">{{ refered }}</option>
+            <select [(ngModel)]="SelectedRefered" name="refered" id="refered"
+              class="form-control">
+              <option value disabled selected>Select a Referrer</option>
+              <option *ngFor="let refered of referedby" [value]="refered">{{
+                refered }}</option>
             </select>
           </div>
           <div class="col-md-4">
             <label for="assistedBy">Deal Offered (optional)</label>
-            <input type="text" class="form-control" id="assistedBy" name="assistedBy"
+            <input type="text" class="form-control" id="assistedBy"
+              name="assistedBy"
               placeholder="Deal Offered (optional)">
           </div>
           <div class="col-md-4">
@@ -75,9 +84,12 @@
             <div class="form-group">
               <label for="ssn">SSN</label>
               <div class="input-group">
-                <input type="text" class="form-control" id="ssn" placeholder="SSN">
+                <input type="text" class="form-control" id="ssn"
+                  placeholder="SSN">
                 <div class="input-group-append">
-                  <i class="fa fa-eye"></i>
+                  <button class="btn">
+                    <i class="fa fa-eye"></i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -85,64 +97,77 @@
           <div class="col-md-4">
             <div class="form-group">
               <label for="statusDate">Status Date</label>
-              <input type="text" class="form-control" id="statusDate" placeholder="Status Date">
+              <input type="text" class="form-control" id="statusDate"
+                placeholder="Status Date">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label for="duiFelonyInfo">DUI/Felony Info</label>
-              <input type="text" class="form-control" id="duiFelonyInfo" placeholder="DUI/Felony Info">
+              <input type="text" class="form-control" id="duiFelonyInfo"
+                placeholder="DUI/Felony Info">
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
           <div class="col-md-4">
             <label for="status">Current Status</label>
-            <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-control">
+            <select [(ngModel)]="selectedStatus" name="status" id="status"
+              class="form-control">
               <option [ngValue]="null">Current Status</option>
-              <option *ngFor="let status of statuss" [value]="status">{{ status }}</option>
+              <option *ngFor="let status of statuss" [value]="status">{{ status
+                }}</option>
             </select>
           </div>
           <div class="col-md-4">
             <label for="assistedBy">Legal Status Validity Start Date</label>
-            <input type="text" class="form-control" id="assistedBy" name="assistedBy"
+            <input type="text" class="form-control" id="assistedBy"
+              name="assistedBy"
               placeholder="Legal Status Validity Start Date">
           </div>
           <div class="col-md-4">
             <label for="typeOfAssistance">Legal Status Validity End Date</label>
-            <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance"
+            <input type="text" class="form-control" id="typeOfAssistance"
+              name="typeOfAssistance"
               placeholder="Legal Status Validity End Date">
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
           <div class="col-md-4">
             <label for="general">Legal Status</label>
-            <select [(ngModel)]="selectedLegalStatus" name="legalstatus" id="legalstatus" class="form-control">
+            <select [(ngModel)]="selectedLegalStatus" name="legalstatus"
+              id="legalstatus" class="form-control">
               <option value="legalstatus">--SELECT--</option>
-              <option *ngFor="let legalstatus of legalstatuss" [value]="legalstatus">{{ legalstatus }}</option>
+              <option *ngFor="let legalstatus of legalstatuss"
+                [value]="legalstatus">{{ legalstatus }}</option>
             </select>
           </div>
           <div class="col-md-4">
             <label for="assistedBy">FTC Notes</label>
-            <input type="text" class="form-control" id="assistedBy" name="assistedBy" placeholder="FTC Notes">
+            <input type="text" class="form-control" id="assistedBy"
+              name="assistedBy" placeholder="FTC Notes">
           </div>
           <div class="col-md-4">
             <label for="typeOfAssistance">Other Notes</label>
-            <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance"
+            <input type="text" class="form-control" id="typeOfAssistance"
+              name="typeOfAssistance"
               placeholder="Other Notes">
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
           <div class="col-md-4">
             <label for="interviewMode">Division</label>
-            <select [(ngModel)]="SelectedDivision" name="division" id="division" class="form-control">
-              <option value="" disabled selected>Division</option>
-              <option *ngFor="let division of divisions" [value]="division">{{ division }}</option>
+            <select [(ngModel)]="SelectedDivision" name="division" id="division"
+              class="form-control">
+              <option value disabled selected>Division</option>
+              <option *ngFor="let division of divisions" [value]="division">{{
+                division }}</option>
             </select>
           </div>
           <div class="col-md-4">
             <label for="dob">DOB</label>
-            <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
+            <input type="text" class="form-control" id="dob" name="dob"
+              placeholder="DOB" [(bsValue)]="dob"
               bsDatepicker>
           </div>
         </div>
@@ -346,6 +371,44 @@
                 <div class="col-md-4 form-group">
                   <input type="text" class="form-control empty-4" placeholder="Address Line 2">
                 </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox"
+                    id="lifeInsurance"
+                    (change)="updateArray('Life Insurance')"
+                    [checked]="selectedOptions.includes('Life Insurance')">
+                  <label class="form-check-label" for="lifeInsurance">Life
+                    Insurance</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="firstName">Salary (Per hour)</label>
+                <input type="text" class="form-control" id="firstName"
+                  placeholder="Salary Per hours">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="middleName">Perdeium</label>
+                <input type="text" class="form-control" id="middleName"
+                  placeholder="Perdeium">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="lastName">Legal Status</label>
+                <input type="text" class="form-control" id="lastName"
+                  placeholder="0">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="interviewMode">Marital Status</label>
+                <select class="form-control" id="legalStatus"
+                  name="Legal Status">
 
                 <div class="col-md-4 form-group">
                   <input type="text" class="form-control empty-4" placeholder="Country">
@@ -864,6 +927,7 @@
       </mat-tab>
     </mat-tab-group>
   </div>
+</div>
 
   <div *ngIf="showConfirmationDialog" class="modal align-center">
     <div class="modal-content justify-content-center ">
