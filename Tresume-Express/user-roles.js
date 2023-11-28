@@ -52,6 +52,97 @@ router.post('/getOrgUserList', async (req, res) => {
 
 })
 
+router.post('/getOrganizationaccess', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    var query = "SELECT modulesnew.id, modulesnew.ModuleName FROM Organization INNER JOIN modulesnew ON CHARINDEX(',' + CAST(modulesnew.id AS  VARCHAR(MAX)) + ',', ',' + Organization.access + ',') > 0 WHERE Organization.organizationid = '" + req.body.OrgID + "' AND modulesnew.Active = 1";
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      }
+    );
+  });
+
+})
+
+router.post('/addrole', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send({ error: 'Database connection error' });
+    }
+
+    var request = new sql.Request();
+    var query = "INSERT INTO RolesNew (RoleName,Active,ViewOnly,FullAccess,DashboardPermission,OrganizationID,WorkflowID,CreatedBy,CreateTime) VALUES ('" + req.body.rolename + "',1,'" + req.body.viewaccess + "','" + req.body.fullaccess + "',1,'" + req.body.OrgID + "','','" + req.body.createby + "',(SELECT CAST(GETDATE() AS DATE)))";
+    console.log(query);
+
+    request.query(query, function (err, recordset) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send({ error: 'SQL query execution error' });
+      }
+
+      var result = {
+        flag: 1,
+      };
+
+      res.send(result);
+    });
+  });
+});
+
+router.post('/fetchOrgrole', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    var query = "select * from RolesNew where OrganizationID = '" + req.body.OrgID + "'";
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      }
+    );
+  });
+
+})
+
+router.post('/addMember', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+
+    const result = await pool.request().query('SELECT ISNULL(MAX(ID), 0) AS lastId FROM MemberDetails');
+    const lastId = result.recordset[0].lastId + 1;
+    const currentDate = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
+
+    const insertQuery = `INSERT INTO MemberDetails (ID, SubscriptionID, UserEmail, IsAdmin, Active, OrgId, CreateTime, CreateBy, UpdateTime, UpdateBy, TraineeID, FirstName, LastName, JobSlotCount, IsOwner, SlotsAlocDice, SlotsAlocCB, SlotsUsedDice, SlotsUsedCB, refreshperiod, RoleID, WFID, AccessOrg, PrimaryOrgID, TeamLead, HisCandidate, TeamCandidate, AllCandidate, DocumentAccess, Traker)
+  VALUES (${lastId}, '0', '${req.body.UserEmail}', '0', '1', '${req.body.OrgId}', '${currentDate}', '${req.body.CreateBy}', '${currentDate}', '${req.body.CreateBy}', '', '${req.body.FirstName}', '${req.body.LastName}', '0', '0', '0', '0', '0', '0', '0', '${req.body.RoleID}', '1', '${req.body.OrgId}', '${req.body.OrgId}', '${req.body.TeamLead}', '', '', '', '0', '0')`;
+
+    console.log(insertQuery);
+    await pool.request().query(insertQuery);
+
+    res.send({ flag: 1 });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send({ error: 'An error occurred' });
+  }
+});
+
 router.post('/deleteUserAccount', async (req, res) => {
   const email = req.body.email;
   try {
@@ -78,7 +169,9 @@ router.post('/deleteUserAccount', async (req, res) => {
 
 })
 
-async function deactivatetrainee(email){
+
+
+async function deactivatetrainee(email) {
   const pool = await sql.connect(config);
   const request = pool.request();
   const queryResult = await request.query(
@@ -87,7 +180,7 @@ async function deactivatetrainee(email){
   return queryResult;
 }
 
-async function deactivatememberdetails(email){
+async function deactivatememberdetails(email) {
   const pool = await sql.connect(config);
   const request = pool.request();
   const queryResult = await request.query(
