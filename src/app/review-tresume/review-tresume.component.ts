@@ -2,13 +2,6 @@ import { Component,OnChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ReviewService } from './review.service';
 import { MessageService } from 'primeng/api';
-import { Routes } from '@angular/router';
-import { CandidateComponent } from '../candidate/candidate.component';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { CandidateService } from '../candidate/candidate.service';
-import { DashboardService } from '../dashboard/dashboard.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 
 
@@ -21,15 +14,13 @@ import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/fo
 
 
 export class ReviewTresumeComponent implements OnChanges {
-saveButtonLabel: any;
-saveData() {
-throw new Error('Method not implemented.');
-}
 showConfirmationDialog2: boolean;
 myForm: any;
 interviewForm: any;
 myFormSubmission: any;
-  // activeTabIndex: number = 0;
+myFormFinancial: any;
+myFormFinancialinfo: any;
+FormGeneral: any;
 
   siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
 
@@ -60,52 +51,6 @@ dob: Date;
 // attendedTo: string='';
 // u8niversityAddress: string='';
 SelectedDivision: string = ''; 
-rows: any[] = [{}]; // Initial row
-
-//Ts for education
-educations = [{
-  degree: '',
-  university: '',
-  attendFrom: '',
-  attendTo: '',
-  universityAddress: ''
-}];
-
-addRow() {
-  this.educations.push({
-    degree: '',
-    university: '',
-    attendFrom: '',
-    attendTo: '',
-    universityAddress: ''
-  });
-}
-
-deleteRow(index: number) {
-  this.educations.splice(index, 1);
-}
-
-//ts for experience
-
-experiences = [{
-  title: '',
-  startDate: '',
-  endDate: '',
-  skills: ''
-}];
-
-addRow1() {
-  this.experiences.push({
-    title: '',
-    startDate: '',
-    endDate: '',
-    skills: ''
-  });
-}
-
-deleteRow1(index: number) {
-  this.experiences.splice(index, 1);
-}
 
 items: any[] = [
   {
@@ -146,6 +91,21 @@ items: any[] = [
   
   selectedLegalStatus: string = '-eligible to work in US-'; 
   legalstatuss: string[] = ['eligible to work in US', 'US CITIZEN', 'GC', 'F-1', 'F1-CPT','TSP-EAD','GC-EAD','L2-EAD'];
+  
+//General - SSN
+ssn: string = '';
+showSSN: boolean = false;
+inputDisabled: boolean = true;
+
+startShowingSSN() {
+  this.showSSN = true;
+  this.inputDisabled = false;
+}
+
+stopShowingSSN() {
+  this.showSSN = false;
+  this.inputDisabled = true;
+}
 
 
 generalFormData: any = {}; 
@@ -285,64 +245,18 @@ router: any;
   deleteIndex: number;
   reviewService: any;
   placementList: any;
-
-  candidateID:any;
-  public details: any;
-  public eduDetails: any;
-  public H1BStatus: any;
-  public newJDDetails: any;
-  public toggleView: boolean = false;
-  @ViewChild('lgModal', { static: false }) lgModal?: ModalDirective;
-constructor(private fb: FormBuilder,private cookieService: CookieService, private service:ReviewService,private messageService: MessageService,private route: ActivatedRoute, private cservice: CandidateService, private dashservice: DashboardService)
- { 
-
-  this.details = [{
-    CandidateName:'',
-    Recruiter:'',
-    Title:'',
-    StartDate:'',
-    ClientAddress:'',
-    ClientSupervisor:'',
-    VendorName:'',
-  }]
-  this.eduDetails = [{
-    Title:''
-  }]
-
-
-  
-  this.experienceForm = this.fb.group({
-    title: ['', Validators.required],
-    experienceStartDate: ['', Validators.required],
-    experienceEndDate: ['', Validators.required],
-    experienceSkills: ['', Validators.required]
-  });
-
-  
- this.educationForm = this.fb.group({
-  degree: ['', Validators.required], 
-  university: ['', Validators.required], 
-  attendFrom: ['', Validators.required],
-  attendTo: ['', Validators.required],
-  universityAddress: ['', Validators.required],
- })
-
- this.personalInfoForm = this.fb.group({
-
- })
- }
-
- experienceForm: FormGroup;
- educationForm:  FormGroup;
- personalInfoForm: FormGroup;
- personalInfos: any[] = [];
-   
- 
+constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService, private formBuilder: FormBuilder)
+ { }
 
 ngOnInit(): void {
     this.fetchinterviewlist();
     this.getPlacementList();
     this.currentTabIndex = 0;
+
+    this.FormGeneral = this.formBuilder.group({
+      phoneNumberG: ['', [Validators.required]],
+      generalEmail: ['', [Validators.required]],
+    });
 
     this.myForm = this.formBuilder.group({
       interviewInfo: ['', [Validators.required, Validators.minLength(3)]],
@@ -363,7 +277,12 @@ ngOnInit(): void {
       vendorName: ['', [Validators.required, Validators.minLength(3)]],
       rate: ['', [Validators.required, Validators.minLength(3)]],
       clientName: ['', [Validators.required, Validators.minLength(3)]],
-      
+    
+    });
+
+    this.myFormFinancial = this.formBuilder.group({
+      accountnum1: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
+      accountnum2: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
     });
 }
 // interview - form - validation - function 

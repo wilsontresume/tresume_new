@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-create-new-jobs',
@@ -26,6 +26,9 @@ export class CreateNewJobsComponent{
   payrate:string='';
   myForm: any;
   myForm1:any;
+  basicInfo: any;
+  reqInfo: any;
+  orgInfo: any;
 
   nextTab(tab:number) {
     if(tab == 1){
@@ -220,24 +223,30 @@ selectedCurrency: string = 'USD';
     { value: '6', label: 'TEST V2' }
   ];
 
-constructor(private FormBuilder: FormBuilder){}
+constructor(private formBuilder: FormBuilder){}
 
 ngOnInit(): void{
 
-    this.myForm = this.FormBuilder.group({
-      companyName: ['',[Validators.required, Validators.minLength(3)]],
-      jobtitle: ['',[Validators.required, Validators.minLength(3)]],
-      zipcode: ['',[Validators.required, Validators.minLength(5)]],
-      citycode: ['',[Validators.required, Validators.minLength(3)]],
-    })
+    this.basicInfo = this.formBuilder.group({
+      basicinfo1: ['', [Validators.required, Validators.minLength(3)]],
+      numberOfPositions: ['', [Validators.required]],
+    });
+    
+    this.reqInfo = this.formBuilder.group({
+      // basicinfo1: ['', [Validators.required, Validators.minLength(3)]],
+    });
+    
+    this.orgInfo = this.formBuilder.group({
+      numberOfPositions: ['', [Validators.required]],
+    });
   }
 
-  saveData(){
-    if (this.myForm.valid){
-      console.log(this.myForm.value);
-    }else{
-      console.log("Form Is Invalid");
-    }
-    }
+  // saveData(){
+  //   if (this.myForm.valid){
+  //     console.log(this.myForm.value);
+  //   }else{
+  //     console.log("Form Is Invalid");
+  //   }
+  //   }
   }
 
