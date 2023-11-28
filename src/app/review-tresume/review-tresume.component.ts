@@ -2,7 +2,6 @@ import { Component,OnChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ReviewService } from './review.service';
 import { MessageService } from 'primeng/api';
-import { request } from 'express';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 
 
@@ -23,8 +22,9 @@ myFormFinancial: any;
 myFormFinancialinfo: any;
 FormGeneral: any;
 
-
   siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
+
+  
 }
 
 //generalinfo
@@ -106,6 +106,7 @@ stopShowingSSN() {
   this.showSSN = false;
   this.inputDisabled = true;
 }
+
 
 generalFormData: any = {}; 
 interviewFormData: any = {};
