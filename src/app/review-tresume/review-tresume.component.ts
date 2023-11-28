@@ -19,11 +19,12 @@ showConfirmationDialog2: boolean;
 myForm: any;
 interviewForm: any;
 myFormSubmission: any;
-  // activeTabIndex: number = 0;
+myFormFinancial: any;
+myFormFinancialinfo: any;
+FormGeneral: any;
+
 
   siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
-
-  
 }
 
 //generalinfo
@@ -90,7 +91,21 @@ items: any[] = [
   
   selectedLegalStatus: string = '-eligible to work in US-'; 
   legalstatuss: string[] = ['eligible to work in US', 'US CITIZEN', 'GC', 'F-1', 'F1-CPT','TSP-EAD','GC-EAD','L2-EAD'];
+  
+//General - SSN
+ssn: string = '';
+showSSN: boolean = false;
+inputDisabled: boolean = true;
 
+startShowingSSN() {
+  this.showSSN = true;
+  this.inputDisabled = false;
+}
+
+stopShowingSSN() {
+  this.showSSN = false;
+  this.inputDisabled = true;
+}
 
 generalFormData: any = {}; 
 interviewFormData: any = {};
@@ -231,10 +246,16 @@ router: any;
   placementList: any;
 constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService, private formBuilder: FormBuilder)
  { }
+
 ngOnInit(): void {
     this.fetchinterviewlist();
     this.getPlacementList();
     this.currentTabIndex = 0;
+
+    this.FormGeneral = this.formBuilder.group({
+      phoneNumberG: ['', [Validators.required]],
+      generalEmail: ['', [Validators.required]],
+    });
 
     this.myForm = this.formBuilder.group({
       interviewInfo: ['', [Validators.required, Validators.minLength(3)]],
@@ -256,6 +277,11 @@ ngOnInit(): void {
       rate: ['', [Validators.required, Validators.minLength(3)]],
       clientName: ['', [Validators.required, Validators.minLength(3)]],
       
+    });
+
+    this.myFormFinancial = this.formBuilder.group({
+      accountnum1: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
+      accountnum2: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
     });
 }
 // interview - form - validation - function 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { HrmsService } from './hrms.service';
@@ -22,17 +22,35 @@ export class HrmsComponent implements OnInit {
   datecreated: Date[];
   followupon: Date[];
   candidates: any[]=[
-    {CreatedBy:'she'}
+   
   ]
   noResultsFound: boolean = false;
   TraineeID: string;
-  constructor(private fb: FormBuilder, private cookieService: CookieService, private service: HrmsService, private messageService: MessageService) { }
+  addCandidate: any;
+  constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchhrmscandidatelist();
-  }
 
+    this.addCandidate = this.formBuilder.group({
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.minLength(3)]],
+      phone: ['', [Validators.required, Validators.minLength(3)]],
+      recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
+    });
+  }
+  atLeastOneSelectedValidator() {
+    return (control: { value: any; }) => {
+      const selectedValue = control.value;
+      if (selectedValue && selectedValue.length > 0) {
+        return null; // Valid
+      } else {
+        return { atLeastOneSelected: true }; // Invalid
+      }
+    };
+  }
   ngOnChanges(): void {
     // this.fetchhrmscandidatelist();
   }
