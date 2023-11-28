@@ -2,6 +2,7 @@ import { Component,OnChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ReviewService } from './review.service';
 import { MessageService } from 'primeng/api';
+import { request } from 'express';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 
 
@@ -22,9 +23,8 @@ myFormFinancial: any;
 myFormFinancialinfo: any;
 FormGeneral: any;
 
-  siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
 
-  
+  siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
 }
 
 //generalinfo
@@ -106,7 +106,6 @@ stopShowingSSN() {
   this.showSSN = false;
   this.inputDisabled = true;
 }
-
 
 generalFormData: any = {}; 
 interviewFormData: any = {};
@@ -277,7 +276,7 @@ ngOnInit(): void {
       vendorName: ['', [Validators.required, Validators.minLength(3)]],
       rate: ['', [Validators.required, Validators.minLength(3)]],
       clientName: ['', [Validators.required, Validators.minLength(3)]],
-    
+      
     });
 
     this.myFormFinancial = this.formBuilder.group({
