@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./addclient.component.scss']
 })
 export class AddclientComponent implements OnInit {
+addClient: any;
 onKeyPress($event: any) {
 throw new Error('Method not implemented.');
 }
@@ -24,21 +25,16 @@ throw new Error('Method not implemented.');
   filteredClientLeads: any[] = [];
   filteredRequiredDocuments: any[] = [];
   client: string[] = [];
-  clientForm: FormGroup;
   showFormError: boolean = false;
   allclientService: any;
   formBuilder:any;
 
-  ngOnInit(): void {
-    const contactNumberPattern = /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
-    const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$/;
-    const addressPattern = /^[a-zA-Z0-9\s\-,./]+$/;
-  
-      this.clientForm = this.formBuilder.group({
-      ClientName: ['', Validators.required, Validators.minLength(3)],
-      ContactNumber: ['', [Validators.required,Validators.nullValidator, Validators.pattern(contactNumberPattern)]],
-      ClientEmailID: ['', [Validators.required,Validators.email, Validators.pattern(emailPattern)]],
-      Address: ['', [Validators.required,Validators.minLength(100), Validators.pattern(addressPattern)]],
+  ngOnInit(): void {  
+      this.addClient = this.fb.group({
+        ClientName: ['', Validators.required, Validators.minLength(3)],
+        ContactNumber: ['', Validators.required, Validators.maxLength(10)],
+        ClientEmailID: ['', Validators.required],
+        Address: ['', Validators.required, Validators.minLength(3)],
     });
   }
   
@@ -62,7 +58,7 @@ throw new Error('Method not implemented.');
   }
 
   constructor(private fb: FormBuilder, private router: Router) {
-    this.clientForm = this.fb.group({
+    this.addClient = this.fb.group({
       description: [''],
     });
     this.clientLeads = [{name:'Lead 1'}, {name:'Lead 2'}, {name:'Lead 3'}, {name:'Lead 4'}];
@@ -74,8 +70,8 @@ throw new Error('Method not implemented.');
   }
   
   add() {
-    if (this.clientForm.valid) {
-      const formData = this.clientForm.value;
+    if (this.addClient.valid) {
+      const formData = this.addClient.value;
       this.allclientService.addClient(formData).subscribe(
         (response: any) => {
           console.log('Client added successfully:', response);
@@ -95,8 +91,8 @@ throw new Error('Method not implemented.');
       );
     } else {
       this.showFormError = true;
-      Object.keys(this.clientForm.controls).forEach(field => {
-        const control = this.clientForm.get(field);
+      Object.keys(this.addClient.controls).forEach(field => {
+        const control = this.addClient.get(field);
         if (control?.invalid) { 
           console.log(`Field '${field}' has validation errors:`, control.errors);
         }
@@ -106,7 +102,7 @@ throw new Error('Method not implemented.');
   cancel() {
     this.client = [];
     this.showFormError = false;
-    this.clientForm.reset(); 
+    this.addClient.reset(); 
   }
   
 }
