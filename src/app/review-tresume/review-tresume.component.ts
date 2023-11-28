@@ -1,4 +1,4 @@
-import { Component,OnChanges } from '@angular/core';
+import { Component,OnChanges, ViewChild } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ReviewService } from './review.service';
 import { MessageService } from 'primeng/api';
@@ -183,7 +183,7 @@ saveSiteVisitFormData() {
   alert("Check Only Site Visit Data ");
 }
 currentTabIndex: number;
-saveButtonLabel: string = 'Save General Data';
+// saveButtonLabel: string = 'Save General Data';
 
 onTabChange(tabIndex: number) {
   const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
