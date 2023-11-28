@@ -165,7 +165,6 @@
         </div>
         <div class="tab-content mt-3" id="myTabContent">
           <div class="tab-pane fade show active" id="education" role="tabpanel" aria-labelledby="education-tab">
-
             <form [formGroup]="educationForm">
               <div *ngFor="let education of educations; let i = index" class="row" [id]="'educationRow' + i">
                 <div class="col-md-2 form-group">
@@ -196,7 +195,7 @@
                 </div>
                 <div class="col-md-2 form-group">
                   <label for="attendFrom">Attend From:</label>
-                  <input type="text" class="form-control" placeholder="Attend From" id="attendFrom"
+                  <input type="date" class="form-control" placeholder="Attend From" id="attendFrom"
                     [(ngModel)]="education.attendFrom" [formControl]="educationForm.get('attendFrom')"
                     [ngClass]="{'invalid-input': educationForm.get('attendFrom').hasError('required') && educationForm.get('attendFrom').touched}">
                   <div
@@ -207,7 +206,7 @@
                 </div>
                 <div class="col-md-2 form-group">
                   <label for="attendTo">Attend To:</label>
-                  <input type="text" class="form-control" placeholder="Attend To" id="attendTo"
+                  <input type="date" class="form-control" placeholder="Attend To" id="attendTo"
                     [(ngModel)]="education.attendTo" [formControl]="educationForm.get('attendTo')"
                     [ngClass]="{'invalid-input': educationForm.get('attendTo').hasError('required') && educationForm.get('attendTo').touched}">
                   <div
