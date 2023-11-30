@@ -69,6 +69,14 @@ router.post('/updatehrmscandidate', async (req, res) => {
 router.post('/addHrmsCandidate', async (req, res) => {
 })
 
+router.post('/saveSubmissionFormData', async (req, res) => {
+  console.log(req);
+})
+
+router.post('/saveInterviewFormData', async (req, res) => {
+  console.log(req);
+})
+
 async function deactivatecandidate(TraineeID) {
     try {
       const pool = await sql.connect(config);

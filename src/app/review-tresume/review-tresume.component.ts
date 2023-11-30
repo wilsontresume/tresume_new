@@ -2,7 +2,6 @@ import { Component,OnChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ReviewService } from './review.service';
 import { MessageService } from 'primeng/api';
-import { request } from 'express';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 
 
@@ -11,8 +10,6 @@ import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/fo
   providers: [CookieService,ReviewService,MessageService],
   styleUrls: ['./review-tresume.component.scss']
 })
-
-
 
 export class ReviewTresumeComponent implements OnChanges {
 showConfirmationDialog2: boolean;
@@ -23,8 +20,7 @@ myFormFinancial: any;
 myFormFinancialinfo: any;
 FormGeneral: any;
 
-
-  siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
+siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
 }
 
 //generalinfo
@@ -45,11 +41,6 @@ statusEndtDate: string='';
 ftcNotes: string=''; 
 otherNotes: string=''; 
 dob: Date; 
-// degree: string='';
-// university: string='';
-// attendedFrom: string='';
-// attendedTo: string='';
-// u8niversityAddress: string='';
 SelectedDivision: string = ''; 
 
 items: any[] = [
@@ -141,7 +132,6 @@ saveData() {
 
 saveGeneralFormData() {
   console.log('Saving data for the General tab:', this.generalFormData);
-  alert("Check Save General Data ");
 }
 
 saveInterviewFormData() {
@@ -153,12 +143,26 @@ saveInterviewFormData() {
         console.log("Form is not in the Interview tab");
       }
   console.log('Saving data for the Interview tab:', this.interviewFormData);
-  alert("Check Only Interview Data ");
+
+  let Req = {
+    interviewDate: this.myForm.get('interviewDate').value,
+    interviewTime: this.myForm.get('interviewTime').value,
+    interviewInfo: this.myForm.get('interviewInfo').value,
+    client: this.myForm.get('client').value,
+    vendor: this.myForm.get('vendor').value,
+    subVendor: this.myForm.get('subVendor').value,
+    assistedBy: this.myForm.get('assistedBy').value,
+    typeOfAssistance: this.myForm.get('typeOfAssistance').value,
+    interviewMode: this.myForm.get('interviewMode').value,
+};
+  console.log(Req);
+  this.service.saveInterviewFormData(Req).subscribe((x: any) => {
+    console.log(x);
+  });
 }
 
 savePlacementFormData() {
   console.log('Saving data for the Placement tab:', this.placementFormData);
-  alert("Check Save Placement Data ");
 }
 
 saveSubmissionFormData() {
@@ -170,17 +174,27 @@ saveSubmissionFormData() {
     console.log("Form is not in the Submission tab");
   }
   console.log('Saving data for the Submission tab:', this.submissionFormData);
-  alert("Check Save Submission Data ");
+
+  let Req = {
+    title: this.myFormSubmission.value.title,
+    submissionDate: this.myFormSubmission.value.submissionDate,
+    notes: this.myFormSubmission.value.notes,
+    vendorName: this.myFormSubmission.value.vendorName,
+    rate: this.myFormSubmission.value.rate,
+    clientName: this.myFormSubmission.value.clientName,
+};
+  console.log(Req);
+  this.service.saveSubmissionFormData(Req).subscribe((x: any) => {
+    console.log(x);
+  });
 }
 
 saveFinancialInfoFormData() {
   console.log('Saving data for the Financial Info tab:', this.financialInfoFormData);
-  alert("Check Save Financial Data ");
 }
 
 saveSiteVisitFormData() {
   console.log('Saving data for the Site Visit tab:', this.siteVisitFormData);
-  alert("Check Only Site Visit Data ");
 }
 currentTabIndex: number;
 saveButtonLabel: string = 'Save General Data';
@@ -193,42 +207,6 @@ onTabChange(tabIndex: number) {
     this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
   }
 } 
-  // Save Button Function
-
-  // saveData() {
-  //   if (this.myForm.valid) {
-  //     console.log(this.myForm.value);
-  //   } else {
-  //     console.log("Form is invalid");
-  //   }
-  // }
-
-  // saveData() {
-  //   if (this.currentTabIndex === 1 && this.myForm.valid) {
-  //     console.log(this.myForm.value);
-  //   } else if (this.currentTabIndex === 1 ){
-  //     console.log("Form is invalid");
-  //   } else {
-  //     console.log("Form is not in the Interview tab");
-  //   }
-  // }
-  // saveData() {
-  //   if (this.currentTabIndex === 1 && this.myForm.valid) {
-  //     console.log(this.myForm.value);
-  //   } else if (this.currentTabIndex === 1 ){
-  //     console.log("Form is invalid");
-  //   } else {
-  //     console.log("Form is not in the Interview tab");
-  //   }
-  // }
-
-  // onTabChange(tabIndex: number) {
-  //   const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
-  //   if (tabIndex >= 0 && tabIndex < tabLabels.length) {
-  //     this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
-  //   }
-  // }
-
 
 //interview
 
@@ -238,12 +216,12 @@ interviewTime: string;
 selectedInterviewMode: string;
 interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
 router: any;
-  http: any;
-  editRowIndex: number;
-  showConfirmationDialog: boolean;
-  deleteIndex: number;
-  reviewService: any;
-  placementList: any;
+http: any;
+editRowIndex: number;
+showConfirmationDialog: boolean;
+deleteIndex: number;
+reviewService: any;
+placementList: any;
 constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService, private formBuilder: FormBuilder)
  { }
 
@@ -276,7 +254,6 @@ ngOnInit(): void {
       vendorName: ['', [Validators.required, Validators.minLength(3)]],
       rate: ['', [Validators.required, Validators.minLength(3)]],
       clientName: ['', [Validators.required, Validators.minLength(3)]],
-      
     });
 
     this.myFormFinancial = this.formBuilder.group({
@@ -284,6 +261,7 @@ ngOnInit(): void {
       accountnum2: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
     });
 }
+
 // interview - form - validation - function 
 futureDateValidator(control: { value: string | number | Date; }) {
   const currentDate = new Date();
@@ -292,10 +270,8 @@ futureDateValidator(control: { value: string | number | Date; }) {
   if (selectedDate <= currentDate) {
     return { futureDate: true };
   }
-
   return null;
 }
-// interview - form - validation - function 
 
 validTimeValidator(control: { value: string; }) {
   const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
@@ -303,10 +279,8 @@ validTimeValidator(control: { value: string; }) {
   if (!timeRegex.test(control.value)) {
     return { invalidTimeFormat: true };
   }
-
   return null;
 }
-// interview - form - validation - function 
 
 atLeastOneSelectedValidator(control: AbstractControl) {
   const selectedMode = control.value;
@@ -314,9 +288,9 @@ atLeastOneSelectedValidator(control: AbstractControl) {
   if (selectedMode === null || selectedMode === '') {
     return { atLeastOneSelected: true };
   }
-
   return null;
 }
+
 // Submission - form - validation - function 
 
 ngOnChanges(): void{  
@@ -337,6 +311,7 @@ getPlacementList() {
   //   this.placementList = response.result; 
   // });
 }
+
 fetchinterviewlist(){
   let Req = {
     TraineeID: this.TraineeID,
@@ -368,9 +343,7 @@ onSaveClick() {
   };
 
   this.interview.push(job);
-
   console.log('Form Values:', job);
-
   this.clearInputFields();
 }
 
@@ -481,12 +454,3 @@ cancelDeleteplacement() {
     this.router.navigate(['/candidateView/:id/sitevisit']);
   }
 }
-
-// const routes: Routes = [
-//   // ...other routes
-//   {
-//     path: 'candidateView/:id/sitevisit',
-//     component: CandidateComponent, // Replace with the actual component for the site visit
-//   },
-  
-// ];
