@@ -19,6 +19,7 @@ myFormSubmission: any;
 myFormFinancial: any;
 myFormFinancialinfo: any;
 FormGeneral: any;
+  rows: any;
 
 siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
 }
@@ -209,6 +210,23 @@ onTabChange(tabIndex: number) {
 } 
 
 //interview
+// addRow() {
+//   this.rows.push({});
+// }
+
+// deleteRow() {
+//   if (this.rows.length > 1) {
+//     this.rows.pop();
+//   }
+// }
+// addRow1() {
+//   this.rows.push({});
+// }
+// deleteRow1() {
+//   if (this.rows.length > 1) {
+//     this.rows.pop();
+//   }
+// }
 
 TraineeID: string;
 interviewDate: string; 
@@ -453,4 +471,50 @@ cancelDeleteplacement() {
   GoTonext(){
     this.router.navigate(['/candidateView/:id/sitevisit']);
   }
+
+// Education
+  educations = [{
+    degree: '',
+    university: '',
+    attendFrom: '',
+    attendTo: '',
+    universityAddress: ''
+  }];
+
+  addRow() {
+    this.educations.push({
+      degree: '',
+      university: '',
+      attendFrom: '',
+      attendTo: '',
+      universityAddress: ''
+    });
+  }
+
+  deleteRow(index: number) {
+    this.educations.splice(index, 1);
+  }
+
+  // Experience
+
+  // experiences = [{
+  //   title: '',
+  //   startDate: '',
+  //   endDate: '',
+  //   skills: ''
+  // }];
+
+  // addRow1() {
+  //   this.experiences.push({
+  //     title: '',
+  //     startDate: '',
+  //     endDate: '',
+  //     skills: ''
+  //   });
+  // }
+
+  // deleteRow1(index: number) {
+  //   this.experiences.splice(index, 1);
+  // }
+
 }
