@@ -12,11 +12,6 @@ import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/fo
   styleUrls: ['./review-tresume.component.scss']
 })
 
-
-
-
-
-
 export class ReviewTresumeComponent implements OnChanges {
 showConfirmationDialog2: boolean;
 myForm: any;
@@ -521,31 +516,42 @@ cancelDeleteplacement() {
     });
   }
 
+  // deleteRow(index: number) {
+  //   this.educations.splice(index, 1);
+  // }
+
+  //Above function will remove all row in education tab
+
   deleteRow(index: number) {
-    this.educations.splice(index, 1);
+    if (this.educations.length > 1) {
+      this.educations.splice(index, 1);
+    }
   }
-
+  
   // Experience
+ 
+experienceForm: FormGroup;
+experiences = [{
+  title: '',
+  startDate: '',
+  endDate: '',
+  skills: ''
+}];
 
-  // experiences = [{
-  //   title: '',
-  //   startDate: '',
-  //   endDate: '',
-  //   skills: ''
-  // }];
+addRow1() {
+  this.experiences.push({
+    title: '',
+    startDate: '',
+    endDate: '',
+    skills: ''
+  });
+}
 
-  // addRow1() {
-  //   this.experiences.push({
-  //     title: '',
-  //     startDate: '',
-  //     endDate: '',
-  //     skills: ''
-  //   });
-  // }
-
-  // deleteRow1(index: number) {
-  //   this.experiences.splice(index, 1);
-  // }
+deleteRow1(index: number) {
+  if (this.experiences.length > 1) {
+    this.experiences.splice(index, 1);
+  }
+}
 
 }
 

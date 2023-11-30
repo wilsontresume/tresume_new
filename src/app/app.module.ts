@@ -112,7 +112,6 @@ import { TalentBenchComponent } from './talent-bench/talent-bench.component';
 //import { jsPDF } from 'jspdf';
 
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
-import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
 import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
@@ -185,7 +184,6 @@ import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.
     FinancialInfoComponent,
     SearchTresumeComponent,
     HrmsComponent,
-    ConfirmationPopupComponent,
     SubmittedCandiatesComponent,
     JobBoardAccountComponent,
     ProfileComponent,

@@ -1,6 +1,5 @@
 import { TalentBenchService} from './talent-bench.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
