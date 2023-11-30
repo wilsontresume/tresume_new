@@ -61,12 +61,15 @@ router.post('/gethrmscandidateList', async (req, res) => {
       };
       res.status(500).send(result);
     }
-  });
+});
   
-  router.post('/updatehrmscandidate', async (req, res) => {
+router.post('/updatehrmscandidate', async (req, res) => {
+})
 
-  })
-  async function deactivatecandidate(TraineeID) {
+router.post('/addHrmsCandidate', async (req, res) => {
+})
+
+async function deactivatecandidate(TraineeID) {
     try {
       const pool = await sql.connect(config);
       const request = pool.request();
@@ -83,8 +86,7 @@ router.post('/gethrmscandidateList', async (req, res) => {
       console.error("Error while deleting candidate:", error);
       throw error;
     }
-  }
-  
+}
 
 router.post('/getInterviewList', async (req, res) => {
   try {
