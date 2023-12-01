@@ -67,6 +67,7 @@ router.post('/updatehrmscandidate', async (req, res) => {
 })
 
 router.post('/addHrmsCandidate', async (req, res) => {
+  console.log(req);
 })
 
 router.post('/saveSubmissionFormData', async (req, res) => {
@@ -74,6 +75,14 @@ router.post('/saveSubmissionFormData', async (req, res) => {
 })
 
 router.post('/saveInterviewFormData', async (req, res) => {
+  console.log(req);
+})
+
+router.post('/saveGeneralFormData', async (req, res) => {
+  console.log(req);
+})
+
+router.post('/saveFinancialInfoFormData', async (req, res) => {
   console.log(req);
 })
 
