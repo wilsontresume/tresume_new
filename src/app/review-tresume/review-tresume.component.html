@@ -1,10 +1,12 @@
 <div class="header p-3">
   <div class="container-fluid">
-    <button class="btn btn1 m-3" id="saveButton" (click)="saveData()">{{
-      saveButtonLabel }}</button>
+
+      <button class="btn btn1 mt-3 mb-3" id="saveButton" (click)="saveData()">{{
+        saveButtonLabel }}</button>
 
     <!-- General tab -->
-    <mat-tab-group (selectedIndexChange)="onTabChange($event)">
+   
+    <mat-tab-group (selectedIndexChange)="onTabChange($event)" class="mt-2">
       <mat-tab label="General">
         <form [formGroup]="FormGeneral">
           <!--Row 1-->
@@ -202,29 +204,29 @@
               </div>
               <!--Experience Tab-->
               <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="experience-tab">
-                <div class="row">
+                <div *ngFor="let experience of experiences; let i = index" class="row" [id]="'experienceRow' + i">
                   <div class="col-md-3 form-group">
                     <label for="experience1">Title</label>
-                    <input type="text" class="form-control" id="experience1" placeholder="Title">
+                    <input type="text" class="form-control" id="experience1" placeholder="Title" [(ngModel)]="experience.title">
                   </div>
                   <div class="col-md-3 form-group">
                     <label for="experience2">Employment Start Date</label>
-                    <input type="text" class="form-control" id="experience2" placeholder="Employment Start Date">
+                    <input type="text" class="form-control" id="experience2" placeholder="Employment Start Date" [(ngModel)]="experience.startDate">
                   </div>
                   <div class="col-md-3 form-group">
                     <label for="experience3">Employment End Date</label>
-                    <input type="text" class="form-control" id="experience3" placeholder="Employment End Date">
+                    <input type="text" class="form-control" id="experience3" placeholder="Employment End Date" [(ngModel)]="experience.endDate">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="experience4">Skill(s)</label>
-                    <input type="text" class="form-control" id="experience4" placeholder="Skill(s)">
+                    <input type="text" class="form-control" id="experience4" placeholder="Skill(s)" [(ngModel)]="experience.skills">
                   </div>
                   <div class="col-md-1">
-                    <button class="btn mt-4 mb-2 mr-2">&#xd7;</button>
+                    <button class="btn mt-4 mb-2 mr-2" (click)="deleteRow1(i)">&#xd7;</button>
                   </div>
                 </div>
                 <div class="col-md-1 float-right">
-                  <button class="btn mt-4 mb-3 mr-5">&#x2b;</button>
+                  <button class="btn mt-4 mb-3 mr-5" (click)="addRow1()">&#x2b;</button>
                 </div>
               </div>
               <!-- Personal Info Tab -->
