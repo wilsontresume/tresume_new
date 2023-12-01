@@ -1,8 +1,8 @@
-<div class="header pt-4">
-  <div class="container">
+<div class="header p-4">
+  <div class="container-fluid">
     <div class="row main">
       <div class="col-md-4">
-          <h2 class="ml-3 mt-4">HRMS</h2>
+          <h1 class="ml-3 mt-4">HRMS</h1>
       </div>
       <div class="col-md-4">
           <div class="form-group text-center mt-4">
@@ -18,44 +18,51 @@
       </div>
       <div class="col-md-4">
           <div class="form-group text-center mt-4 ">
-              <button type="button" class="btn btn-wdth text-white btn-sm" data-toggle="modal" data-target=".bd-example-modal-xl">Add Candidate</button>
+              <button type="button" class="btn btn-wdth text-white" data-toggle="modal" data-target=".bd-example-modal-xl">Add Candidate</button>
           </div>
       </div>
   </div>
   <div class="row mt-3">
-      <div class="col-md-6">
-          <div class="form-group text-center">
-              <label>Follow_Up_On</label>
-              <br>
-              <div>
-                  <label>Start date:</label>
-                  <input type="date" placeholder="start date">
-                  <label>End date:</label>
-                  <input type="date" placeholder="End date">
-              </div>
-          </div>
-      </div>
-      <div class="col-md-6">
-          <div class="form-group text-center">
-              <label>Date_Created</label>
-              <br>
-              <div>
-                  <label>Start date:</label>
-                  <input type="date" placeholder="start date">
-                  <label>End date:</label>
-                  <input type="date" placeholder="End date">
-              </div>
-          </div>
+    <div class="col-md-6">
+        <div class="form-group text-center">
+            <label for="followUpOn" class="label-large">Follow Up On</label>
+            <div class="d-flex justify-content-between">
+                <div class="col">
+                    <label>Start date:</label>
+                    <input type="date" class="form-control" id="followUpStartDate" placeholder="Start date">
+                </div>
+                <div class="col">
+                    <label>End date:</label>
+                    <input type="date" class="form-control" id="followUpEndDate" placeholder="End date">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group text-center">
+            <label for="dateCreated" class="label-large">Date Created</label>
+            <div class="d-flex justify-content-between">
+                <div class="col">
+                    <label>Start date:</label>
+                    <input type="date" class="form-control" id="dateCreatedStartDate" placeholder="Start date">
+                </div>
+                <div class="col">
+                    <label>End date:</label>
+                    <input type="date" class="form-control" id="dateCreatedEndDate" placeholder="End date">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-4 pl-3">
+  <div class="col-md-12 text-right">
+      <div class="form-group">
+          <label for="search" class="label-large">Search:</label>
+          <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
       </div>
   </div>
-  <div class="row pt-4 pl-3">
-      <div class="col md-4 text-right">
-          <div class="form-group">
-              <label for="search">Search:</label>
-              <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
-          </div>
-      </div>
-  </div>
+</div>
   <div class="row mt-4 pl-3">
       <div class="col">
           <div class="table-container">
@@ -110,10 +117,9 @@
             <span class="close" aria-hidden="true">&times;</span>
           </button>
         </div>
-  
         <div class="container container2">
           <form [formGroup]="addCandidate">
-            <div class="row row2">
+            <div class="row">
               <div class="col-md-4">
                 <label class="label">First Name *</label>
                 <input type="text" class="form-control" name="firstName" placeholder="First name" formControlName="firstName" [ngClass]="{ 'invalid-input': addCandidate.get('firstName').invalid && addCandidate.get('firstName').touched }">
@@ -135,8 +141,7 @@
                 </div>
               </div>
             </div>
-  
-            <div class="row row2">
+            <div class="row">
               <div class="col-md-4">
                 <label class="label">Email</label>
                 <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email" [ngClass]="{ 'invalid-input': addCandidate.get('email').invalid && addCandidate.get('email').touched }">
@@ -164,8 +169,7 @@
                 </div>
               </div>
             </div>
-  
-            <div class="row row2">
+            <div class="row">
               <div class="col-md-4">
                 <label class="label">Recruiter Name *</label>
                 <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
@@ -184,8 +188,7 @@
                 <input type="text" class="form-control" name="university" placeholder="University" formControlName="university">
               </div>
             </div>
-  
-            <div class="row row2">
+            <div class="row">
               <div class="col-md-4">
                 <label class="label">Candidate Status</label>
                 <select class="form-control" name="candidateStatus" [(ngModel)]="formData.candidateStatus" [ngModelOptions]="{standalone: true}">
@@ -203,8 +206,7 @@
                 </select>
               </div>
             </div>
-  
-            <div class="row row2">
+            <div class="row">
               <div class="col-md-4">
                 <label class="label">Marketer Name</label>
                 <select class="form-control" name="marketerName" [(ngModel)]="formData.marketerName" [ngModelOptions]="{standalone: true}">
@@ -214,11 +216,8 @@
               <div class="col-md-4">
                 <label class="label">Location Constraint</label>
                 <div class="radio">
-                  <input type="radio" id="yes" name="locationConstraint" formControlName="locationConstraint" value="yes">
-                  <label for="yes">Yes</label>
-                  
-                  <input type="radio" id="no" name="locationConstraint" formControlName="locationConstraint" value="no">
-                  <label for="no">No</label>
+                  <input type="radio" name="locationConstraint" value="yes">Yes
+                  <input type="radio" name="locationConstraint" value="no">No
                 </div>
               </div>
               <!-- <div class="col-md-4">
@@ -226,8 +225,7 @@
                 <input type="file" class="form-control" name="video">
               </div> -->
             </div>
-  
-            <div class="row row2">
+            <div class="row">
               <div class="col-md-4">
                 <label class="label">Referral Type</label>
                 <select class="form-control" name="referralType" [(ngModel)]="formData.referralType" [ngModelOptions]="{standalone: true}">
@@ -241,6 +239,7 @@
             </div>
           </form>
         </div>
+       
         <div class="modal-footer">
           <button type="button" class="btn" data-dismiss="modal">Cancel</button>
           <button type="button" class="btn" data-dismiss="modal" (click)="savehrmsdata()">Save</button>
