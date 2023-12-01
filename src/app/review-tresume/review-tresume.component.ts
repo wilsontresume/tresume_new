@@ -19,7 +19,32 @@ myFormSubmission: any;
 myFormFinancial: any;
 myFormFinancialinfo: any;
 FormGeneral: any;
-  rows: any;
+formData: any;
+financialNotes: any;
+  salaryinfo: any;
+  Perdeium: any;
+  legalStatus: any;
+  maritalStatus: any;
+  stateTaxExemptions: any;
+  stateTaxAllowance: any;
+  federalTaxAllowance: any;
+  federalAddAllowance: any;
+  gcDate: any;
+  gcWages: any;
+  lcaDate: any;
+  lcaRate: any;
+  State: any;
+  healthInsurance: boolean = false;
+  lifeInsurance: boolean = false;
+
+  Bankname2: any;
+  Bankname1: any;
+  accountType1: any;
+  accountType2: any;
+  routingnum2: any;
+  routingnum1: any;
+  salaryDepositType: any;
+  howMuch: any;
 
 siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
 }
@@ -133,6 +158,33 @@ saveData() {
 
 saveGeneralFormData() {
   console.log('Saving data for the General tab:', this.generalFormData);
+
+  let Req = {
+    firstName: this.FormGeneral.get('firstName').value,
+    middleName: this.FormGeneral.get('middleName').value,
+    lastName: this.FormGeneral.get('lastName').value,
+    recruiterName: this.FormGeneral.get('recruiterName').value,
+    phoneNumberG: this.FormGeneral.get('phoneNumberG').value,
+    generalEmail: this.FormGeneral.get('generalEmail').value,
+    referredBy: this.SelectedRefered,
+    dealOffered: this.FormGeneral.get('assistedBy').value,
+    referredByExternal: this.FormGeneral.get('typeOfAssistance').value,
+    ssn: this.ssn,
+    statusDate: this.FormGeneral.get('statusDate').value,
+    duiFelonyInfo: this.FormGeneral.get('duiFelonyInfo').value,
+    currentStatus: this.selectedStatus,
+    legalStatusValidityStartDate: this.FormGeneral.get('assistedBy').value,
+    legalStatusValidityEndDate: this.FormGeneral.get('typeOfAssistance').value,
+    legalStatus: this.selectedLegalStatus,
+    ftcNotes: this.FormGeneral.get('assistedBy').value,
+    otherNotes: this.FormGeneral.get('typeOfAssistance').value,
+    division: this.SelectedDivision,
+    dob: this.dob,
+  };
+  console.log(Req);
+  this.service.saveGeneralFormData(Req).subscribe((x: any) => {
+    console.log(x);
+  });
 }
 
 saveInterviewFormData() {
@@ -155,7 +207,7 @@ saveInterviewFormData() {
     assistedBy: this.myForm.get('assistedBy').value,
     typeOfAssistance: this.myForm.get('typeOfAssistance').value,
     interviewMode: this.myForm.get('interviewMode').value,
-};
+  };
   console.log(Req);
   this.service.saveInterviewFormData(Req).subscribe((x: any) => {
     console.log(x);
@@ -192,6 +244,41 @@ saveSubmissionFormData() {
 
 saveFinancialInfoFormData() {
   console.log('Saving data for the Financial Info tab:', this.financialInfoFormData);
+
+  let Req = {
+    financialNotes: this.financialNotes,
+    salaryinfo: this.salaryinfo,
+    Perdeium: this.Perdeium,
+    legalStatus: this.legalStatus,
+    maritalStatus: this.maritalStatus,
+    stateTaxAllowance: this.stateTaxAllowance,
+    stateTaxExemptions: this.stateTaxExemptions,
+    federalTaxAllowance: this.federalTaxAllowance,
+    federalAddAllowance: this.federalAddAllowance,
+    gcDate: this.gcDate,
+    gcWages: this.gcWages,
+    lcaDate: this.lcaDate,
+    lcaRate: this.lcaRate,
+    State: this.State,
+    healthInsurance: this.healthInsurance,
+    lifeInsurance: this.lifeInsurance,
+
+    Bankname1: this.Bankname1,
+    Bankname2: this.Bankname2,
+    accountType1: this.accountType1,
+    accountType2: this.accountType2,
+    accountnum1:this.myFormFinancial.value.accountnum1,
+    accountnum2:this.myFormFinancial.value.accountnum2,
+    routingnum1: this.routingnum1,
+    routingnum2: this.routingnum2,
+    salaryDepositType: this.salaryDepositType,
+    howMuch: this.howMuch,
+
+};
+  console.log(Req);
+  this.service.saveFinancialInfoFormData(Req).subscribe((x: any) => {
+    console.log(x);
+  });
 }
 
 saveSiteVisitFormData() {
@@ -240,6 +327,7 @@ showConfirmationDialog: boolean;
 deleteIndex: number;
 reviewService: any;
 placementList: any;
+
 constructor(private cookieService: CookieService, private service:ReviewService,private messageService: MessageService, private formBuilder: FormBuilder)
  { }
 
@@ -277,6 +365,29 @@ ngOnInit(): void {
     this.myFormFinancial = this.formBuilder.group({
       accountnum1: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
       accountnum2: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
+      financialNotes: [''],
+      salaryinfo: [''],
+      maritalStatus: ['Married'],
+      legalStatus: [''],
+      Perdeium: [''],
+      federalAddAllowance: [''],
+      federalTaxAllowance: [''],
+      stateTaxExemptions: [''],
+      stateTaxAllowance: [''],
+      lcaRate: [''],
+      lcaDate: [''],
+      gcWages: [''],
+      gcDate: [''],
+      State: [''],
+      healthInsurance: [''],
+      lifeInsurance: [false],
+
+      Bankname1: [''],
+      Bankname2: [''],
+      accountType1: [''],
+      accountType2: [''],
+      salaryDepositType:  [''],
+      howMuch:  [''],
     });
 }
 
