@@ -1,10 +1,11 @@
-<div class="header p-3">
-  <div class="container-fluid">
-    <button class="btn btn1 m-3" id="saveButton" (click)="saveData()">{{
-      saveButtonLabel }}</button>
-
+<div class="container-fluid">
+  <div class="container-fluid main-container mt-4">
+    <div class="container-fluid">
+      <button class="btn btn1" id="saveButton" (click)="saveData()">{{
+        saveButtonLabel }}</button>
+    </div>
     <!-- General tab -->
-    <mat-tab-group (selectedIndexChange)="onTabChange($event)">
+    <mat-tab-group (selectedIndexChange)="onTabChange($event)" class="mt-3">
       <mat-tab label="General">
         <div class="container-fluid mt-3">
           <form [formGroup]="FormGeneral">
@@ -185,307 +186,288 @@
                   info</a>
               </li>
             </ul>
-
             <div class="tab-content mt-3" id="myTabContent">
-              <!--Education Tab-->
               <div class="tab-pane fade show active" id="education" role="tabpanel" aria-labelledby="education-tab">
-                <div  *ngFor="let education of educations; let i = index" class="row" [id]="'educationRow' + i">
-                  <div class="col-md-2 form-group">
-                    <label for="education1">Degree</label>
-                    <input type="text" class="form-control" id="education1  " placeholder="Degree"  [(ngModel)]="education.degree">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-3 form-group">
+                      <label for="education1">Degree</label>
+                      <input type="text" class="form-control" id="education1  " placeholder="Degree">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="education2">University</label>
+                      <input type="text" class="form-control" id="education2" placeholder="University">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="education3">Attended from</label>
+                      <input type="text" class="form-control" id="education3" placeholder="Attended from">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="education4">Attended to</label>
+                      <input type="text" class="form-control" id="education4" placeholder="Attended to">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="education5">University Address</label>
+                      <input type="text" class="form-control" id="education5" placeholder="University Address">
+                    </div>
                   </div>
-                  <div class="col-md-2 form-group">
-                    <label for="education2">University</label>
-                    <input type="text" class="form-control" id="education2" placeholder="University"  [(ngModel)]="education.university">
-                  </div>
-                  <div class="col-md-2 form-group">
-                    <label for="education3">Attended from</label>
-                    <input type="text" class="form-control" id="education3" placeholder="Attended from" [(ngModel)]="education.attendFrom">
-                  </div>
-                  <div class="col-md-2 form-group">
-                    <label for="education4">Attended to</label>
-                    <input type="text" class="form-control" id="education4" placeholder="Attended to" [(ngModel)]="education.attendTo">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="education5">University Address</label>
-                    <input type="text" class="form-control" id="education5" placeholder="University Address" [(ngModel)]="education.universityAddress">
-                  </div>
-                  <div class="col-md-1">
-                    <button class="btn mt-4 mb-2 mr-2" (click)="deleteRow(i)">&#xd7;</button>
-                  </div>
-                </div>
-                <div class="col-md-1 float-right">
-                  <button class="btn mt-4 mb-3 mr-5" (click)="addRow()">&#x2b;</button>
                 </div>
               </div>
-              <!--Experience Tab-->
               <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="experience-tab">
-                <div class="row">
-                  <div class="col-md-3 form-group">
-                    <label for="experience1">Title</label>
-                    <input type="text" class="form-control" id="experience1" placeholder="Title">
+
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-3 form-group">
+                      <label for="experience1">Title</label>
+                      <input type="text" class="form-control" id="experience1" placeholder="Title">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="experience2">Employment Start Date</label>
+                      <input type="text" class="form-control" id="experience2" placeholder="Employment Start Date">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="experience3">Employment End Date</label>
+                      <input type="text" class="form-control" id="experience3" placeholder="Employment End Date">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="experience4">Skill(s)</label>
+                      <input type="text" class="form-control" id="experience4" placeholder="Skill(s)">
+                    </div>
                   </div>
-                  <div class="col-md-3 form-group">
-                    <label for="experience2">Employment Start Date</label>
-                    <input type="text" class="form-control" id="experience2" placeholder="Employment Start Date">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="experience3">Employment End Date</label>
-                    <input type="text" class="form-control" id="experience3" placeholder="Employment End Date">
-                  </div>
-                  <div class="col-md-2 form-group">
-                    <label for="experience4">Skill(s)</label>
-                    <input type="text" class="form-control" id="experience4" placeholder="Skill(s)">
-                  </div>
-                  <div class="col-md-1">
-                    <button class="btn mt-4 mb-2 mr-2">&#xd7;</button>
-                  </div>
-                </div>
-                <div class="col-md-1 float-right">
-                  <button class="btn mt-4 mb-3 mr-5">&#x2b;</button>
                 </div>
               </div>
-              <!-- Personal Info Tab -->
               <div class="tab-pane fade" id="personalinfo" role="tabpanel" aria-labelledby="personalinfo-tab">
-                <div class="row">
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfo1">Emergency Contact Name</label>
-                    <input type="text" class="form-control" id="personalinfo1" placeholder="Emergency Contact Name">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfo2">Emergency Contact Phone</label>
-                    <input type="text" class="form-control" id="personalinfo2" placeholder="Emergency Contact Phone">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfo3">Emergency Contact Email</label>
-                    <input type="text" class="form-control" id="personalinfo3" placeholder="Emergency Contact Email">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfo4">Passport Number</label>
-                    <input type="text" class="form-control" id="personalinfo4" placeholder="Passport Number">
-                  </div>
-                </div>
-                <!-- 2nd row -->
-                <div class="row">
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfo5">Passport Validity Start Date</label>
-                    <input type="text" class="form-control" id="personalinfo5"
-                      placeholder="Passport Validity Start Date">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfo6">Passport Validity End Date</label>
-                    <input type="text" class="form-control" id="personalinfo6" placeholder="Passport Validity End Date">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfo7">I-94 Number</label>
-                    <input type="text" class="form-control" id="personalinfo7" placeholder="I-94 Number">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfo8">I-94 Validity End Date</label>
-                    <input type="text" class="form-control" id="personalinfo8" placeholder="I-94 Validity End Date">
-                  </div>
-                </div>
-                <!-- 3rd row -->
-                <div class="row">
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfoAddress">Address Line1</label>
-                    <input type="text" class="form-control" id="personalinfoAddress" placeholder="Address Line 1">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfoAddress">Address Line2</label>
-                    <input type="text" class="form-control empty-4" placeholder="Address Line 2">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfoAddress">Country</label>
-                    <input type="text" class="form-control empty-4" placeholder="Country">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfoAddress">State</label>
-                    <input type="text" class="form-control" placeholder="State">
-                  </div>
-                </div>
-                <!-- 4th row -->
-                <div class="row">
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfoAddress">City</label>
-                    <input type="text" class="form-control" placeholder="City">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfoAddress">Zipcode</label>
-                    <input type="text" class="form-control" placeholder="Zipcode">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="personalinfoAddress">Address Type</label>
-                    <input type="text" class="form-control" placeholder="Address Type (Home,work etc.)">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfo1">Emergency Contact Name</label>
+                      <input type="text" class="form-control" id="personalinfo1" placeholder="Emergency Contact Name">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfo2">Emergency Contact Phone</label>
+                      <input type="text" class="form-control" id="personalinfo2" placeholder="Emergency Contact Phone">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfo3">Emergency Contact Email</label>
+                      <input type="text" class="form-control" id="personalinfo3" placeholder="Emergency Contact Email">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfo4">Passport Number</label>
+                      <input type="text" class="form-control" id="personalinfo4" placeholder="Passport Number">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfo5">Passport Validity Start Date</label>
+                      <input type="text" class="form-control" id="personalinfo5"
+                        placeholder="Passport Validity Start Date">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfo6">Passport Validity End Date</label>
+                      <input type="text" class="form-control" id="personalinfo6"
+                        placeholder="Passport Validity End Date">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfo7">I-94 Number</label>
+                      <input type="text" class="form-control" id="personalinfo7" placeholder="I-94 Number">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfo8">I-94 Validity End Date</label>
+                      <input type="text" class="form-control" id="personalinfo8" placeholder="I-94 Validity End Date">
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-4 form-group">
+                        <label for="personalinfoAddress">Address Line1</label>
+                        <input type="text" class="form-control" id="personalinfoAddress" placeholder="Address Line 1">
+                      </div>
+
+                      <div class="col-md-4 form-group">
+                        <label for="personalinfoAddress">Address Line2</label>
+                        <input type="text" class="form-control empty-4" placeholder="Address Line 2">
+                      </div>
+
+                      <div class="col-md-4 form-group">
+                        <label for="personalinfoAddress">Country</label>
+                        <input type="text" class="form-control empty-4" placeholder="Country">
+                      </div>
+
+                      <div class="col-md-4 form-group">
+                        <label for="personalinfoAddress">State</label>
+                        <input type="text" class="form-control" placeholder="State">
+                      </div>
+
+                      <div class="col-md-4 form-group">
+                        <label for="personalinfoAddress">City</label>
+                        <input type="text" class="form-control" placeholder="City">
+                      </div>
+
+                      <div class="col-md-4 form-group">
+                        <label for="personalinfoAddress">Zipcode</label>
+                        <input type="text" class="form-control" placeholder="Zipcode">
+                      </div>
+
+                      <div class="col-md-4 form-group">
+                        <label for="personalinfoAddress">Address Type</label>
+                        <input type="text" class="form-control" placeholder="Address Type (Home,work etc.)">
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </mat-tab>
+      <mat-tab label="Interview" class="mt-5">
+        <div class="container">
+          <form [formGroup]="myForm">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="interviewDate">Interview Date</label>
+                <input type="date" class="form-control" id="interviewDate" name="interviewDate"
+                  placeholder="Interview Date" formControlName="interviewDate"
+                  [ngClass]="{ 'invalid-input': myForm.get('interviewDate').invalid && myForm.get('interviewDate').touched }">
+                <div *ngIf="myForm.get('interviewDate').hasError('required') && myForm.get('interviewDate').touched"
+                  class="validation-message" style="color: red;">
+                  *Please select an interview date.
+                </div>
+                <div *ngIf="myForm.get('interviewDate').hasError('futureDate') && myForm.get('interviewDate').touched"
+                  class="validation-message" style="color: red;">
+                  *Please select a future date for the interview.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="interviewTime">Interview Time</label>
+                <input type="time" class="form-control" id="interviewTime" name="interviewTime"
+                  placeholder="Interview Time" formControlName="interviewTime"
+                  [ngClass]="{ 'invalid-input': myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched }">
+                <div *ngIf="myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched"
+                  class="validation-message" style="color: red;">
+                  * Please schedule interview Time.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="interviewInfo">Interview Info</label>
+                <input type="text" class="form-control" id="interviewInfo" name="interviewInfo"
+                  formControlName="interviewInfo" placeholder="Interview Info"
+                  [ngClass]="{ 'invalid-input': myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched }">
+                <div *ngIf="myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched"
+                  class="validation-message" style="color: red;">
+                  * Please enter valid interview information.
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <label for="client">Client</label>
+                <input type="text" class="form-control" id="client" name="client" placeholder="Client"
+                  formControlName="client"
+                  [ngClass]="{ 'invalid-input': myForm.get('client').invalid && myForm.get('client').touched }">
+                <div *ngIf="myForm.get('client').invalid && myForm.get('client').touched" class="validation-message"
+                  style="color: red;">
+                  * Please enter valid Client Name.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="vendor">Vendor</label>
+                <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor"
+                  formControlName="vendor"
+                  [ngClass]="{ 'invalid-input': myForm.get('vendor').invalid && myForm.get('vendor').touched }">
+                <div *ngIf="myForm.get('vendor').invalid && myForm.get('vendor').touched" class="validation-message"
+                  style="color: red;">
+                  * Please enter valid Vendor.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="subVendor">Sub Vendor</label>
+                <input type="text" class="form-control" id="subVendor" name="subVendor" placeholder="Sub Vendor"
+                  formControlName="subVendor"
+                  [ngClass]="{ 'invalid-input': myForm.get('subVendor').invalid && myForm.get('subVendor').touched }">
+                <div *ngIf="myForm.get('subVendor').invalid && myForm.get('subVendor').touched"
+                  class="validation-message" style="color: red;">
+                  * Please enter valid Sub Vendor.
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <label for="assistedBy">Assisted by</label>
+                <input type="text" class="form-control" id="assistedBy" name="assistedBy" placeholder="Assisted by"
+                  formControlName="assistedBy"
+                  [ngClass]="{ 'invalid-input': myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched }">
+                <div *ngIf="myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched"
+                  class="validation-message" style="color: red;">
+                  * Please enter valid Assisted information.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="typeOfAssistance">Type of Assistance</label>
+                <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance"
+                  placeholder="Type of Assistance" formControlName="typeOfAssistance"
+                  [ngClass]="{ 'invalid-input': myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched }">
+                <div *ngIf="myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched"
+                  class="validation-message" style="color: red;">
+                  * Please enter valid Type of Assistance.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="interviewMode">Interview Mode</label>
+                <select class="form-control" id="interviewMode" name="interviewMode" formControlName="interviewMode"
+                  [ngClass]="{ 'invalid-input': myForm.get('interviewMode').invalid && myForm.get('interviewMode').touched }">
+                  <option [ngValue]="null">--Select--</option>
+                  <option *ngFor="let mode of interviewModes" [ngValue]="mode">{{
+                    mode }}</option>
+                </select>
+                <div *ngIf="myForm.get('interviewMode').hasError('required') && myForm.get('interviewMode').touched"
+                  class="validation-message" style="color: red;">
+                  *Please select an interview mode.
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="table mt-4">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Marketer</th>
+                  <th>Assisted by</th>
+                  <th>Mode</th>
+                  <th>Interview Info</th>
+                  <th>Client</th>
+                  <th>Vendor</th>
+                  <th>Sub Vendor</th>
+                  <th>Type of Assistance</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let job of interview">
+                  <td>{{ job.Date }}</td>
+                  <td>{{ job.Marketer }}</td>
+                  <td>{{ job.Assigned }}</td>
+                  <td>{{ job.InterviewMode }}</td>
+                  <td>{{ job.Notes }}</td>
+                  <td>{{ job.Client }}</td>
+                  <td>{{ job.Vendor }}</td>
+                  <td>{{ job.SubVendor }}</td>
+                  <td>{{ job.TypeofAssistance }}</td>
+                  <td>
+                    <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteinterviewdata(job.TraineeInterviewID)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-
-      <mat-tab label="Interview">
-        <form [formGroup]="myForm">
-          <!-- row 1 -->
-          <div class="row">
-            <div class="col-md-4">
-              <label for="interviewDate">Interview Date</label>
-              <input type="date" class="form-control" id="interviewDate" name="interviewDate"
-                placeholder="Interview Date" formControlName="interviewDate"
-                [ngClass]="{ 'invalid-input': myForm.get('interviewDate').invalid && myForm.get('interviewDate').touched }">
-              <div *ngIf="myForm.get('interviewDate').hasError('required') && myForm.get('interviewDate').touched"
-                class="validation-message" style="color: red;">
-                *Please select an interview date.
-              </div>
-              <div *ngIf="myForm.get('interviewDate').hasError('futureDate') && myForm.get('interviewDate').touched"
-                class="validation-message" style="color: red;">
-                *Please select a future date for the interview.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <label for="interviewTime">Interview Time</label>
-              <input type="time" class="form-control" id="interviewTime" name="interviewTime"
-                placeholder="Interview Time" formControlName="interviewTime"
-                [ngClass]="{ 'invalid-input': myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched }">
-              <div *ngIf="myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched"
-                class="validation-message" style="color: red;">
-                * Please schedule interview Time.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <label for="interviewInfo">Interview Info</label>
-              <input type="text" class="form-control" id="interviewInfo" name="interviewInfo"
-                formControlName="interviewInfo" placeholder="Interview Info"
-                [ngClass]="{ 'invalid-input': myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched }">
-              <div *ngIf="myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched"
-                class="validation-message" style="color: red;">
-                * Please enter valid interview information.
-              </div>
-            </div>
-          </div>
-          <!-- row2 -->
-          <div class="row">
-            <div class="col-md-4">
-              <label for="client">Client</label>
-              <input type="text" class="form-control" id="client" name="client" placeholder="Client"
-                formControlName="client"
-                [ngClass]="{ 'invalid-input': myForm.get('client').invalid && myForm.get('client').touched }">
-              <div *ngIf="myForm.get('client').invalid && myForm.get('client').touched" class="validation-message"
-                style="color: red;">
-                * Please enter valid Client Name.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <label for="vendor">Vendor</label>
-              <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor"
-                formControlName="vendor"
-                [ngClass]="{ 'invalid-input': myForm.get('vendor').invalid && myForm.get('vendor').touched }">
-              <div *ngIf="myForm.get('vendor').invalid && myForm.get('vendor').touched" class="validation-message"
-                style="color: red;">
-                * Please enter valid Vendor.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <label for="subVendor">Sub Vendor</label>
-              <input type="text" class="form-control" id="subVendor" name="subVendor" placeholder="Sub Vendor"
-                formControlName="subVendor"
-                [ngClass]="{ 'invalid-input': myForm.get('subVendor').invalid && myForm.get('subVendor').touched }">
-              <div *ngIf="myForm.get('subVendor').invalid && myForm.get('subVendor').touched" class="validation-message"
-                style="color: red;">
-                * Please enter valid Sub Vendor.
-              </div>
-            </div>
-          </div>
-          <!-- row3 -->
-          <div class="row">
-            <div class="col-md-4">
-              <label for="assistedBy">Assisted by</label>
-              <input type="text" class="form-control" id="assistedBy" name="assistedBy" placeholder="Assisted by"
-                formControlName="assistedBy"
-                [ngClass]="{ 'invalid-input': myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched }">
-              <div *ngIf="myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched"
-                class="validation-message" style="color: red;">
-                * Please enter valid Assisted information.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <label for="typeOfAssistance">Type of Assistance</label>
-              <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance"
-                placeholder="Type of Assistance" formControlName="typeOfAssistance"
-                [ngClass]="{ 'invalid-input': myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched }">
-              <div *ngIf="myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched"
-                class="validation-message" style="color: red;">
-                * Please enter valid Type of Assistance.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <label for="interviewMode">Interview Mode</label>
-              <select class="form-control" id="interviewMode" name="interviewMode" formControlName="interviewMode"
-                [ngClass]="{ 'invalid-input': myForm.get('interviewMode').invalid && myForm.get('interviewMode').touched }">
-                <option [ngValue]="null">--Select--</option>
-                <option *ngFor="let mode of interviewModes" [ngValue]="mode">{{
-                  mode }}</option>
-              </select>
-              <div *ngIf="myForm.get('interviewMode').hasError('required') && myForm.get('interviewMode').touched"
-                class="validation-message" style="color: red;">
-                *Please select an interview mode.
-              </div>
-            </div>
-          </div>
-        </form>
-        <div class="m-2">
-          <table class="container-fluid mt-4">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Marketer</th>
-                <th>Assisted by</th>
-                <th>Mode</th>
-                <th>Interview Info</th>
-                <th>Client</th>
-                <th>Vendor</th>
-                <th>Sub Vendor</th>
-                <th>Type of Assistance</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let job of interview">
-                <td>{{ job.Date }}</td>
-                <td>{{ job.Marketer }}</td>
-                <td>{{ job.Assigned }}</td>
-                <td>{{ job.InterviewMode }}</td>
-                <td>{{ job.Notes }}</td>
-                <td>{{ job.Client }}</td>
-                <td>{{ job.Vendor }}</td>
-                <td>{{ job.SubVendor }}</td>
-                <td>{{ job.TypeofAssistance }}</td>
-                <td>
-                  <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteinterviewdata(job.TraineeInterviewID)"></i>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </mat-tab>
-
-
       <!-- placement -->
-      <mat-tab label="Placement">
-        <div class="row mt-3">
-          <div class="col-md-4">
+      <mat-tab label="Placement" class="mt-5">
+        <div class="row">
+          <div class="col-md-3 mt-3">
             <button class="btn">Email Placement traker</button>
           </div>
-          <div class="col-md-4 form-group">
-            <select class="form-control" id="currentStatus" [(ngModel)]="selectOptions">
-              <option value>-- Select Current Status --</option>
-              <option *ngFor="let option of  currentStatusOptions" [value]="option">{{ option }}</option>
-            </select>
-          </div>
-          <div class="col-md-4 text-right">
+          <div class="col-md-9 mt-3 text-right">
             <button class="btn">Add</button>
           </div>
         </div>
@@ -538,83 +520,87 @@
           </div>
         </div>
       </mat-tab>
-
-
       <!-- Content for Submission tab -->
-      <mat-tab label="Submission">
-        <button class="btn btn1 mt-3 ml-2 mb-3">Download DSR</button>
-        <form [formGroup]="myFormSubmission">
-          <!-- row 1 -->
-          <div class="row">
-            <div class="col-md-4 form-group">
-              <label for="title">Title</label>
-              <input type="text" class="form-control" id="title" name="title" placeholder="Title"
-                formControlName="title"
-                [ngClass]="{ 'invalid-input': myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched }">
-              <div *ngIf="myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched"
-                class="validation-message" style="color: red;">
-                * Please enter valid Title.
+      <mat-tab label="Submission" class="mt-5">
+        <div class="container">
+          <button class="btn btn1">Download DSR</button>
+          <form [formGroup]="myFormSubmission">
+            <div class="form-group mt-4">
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="title">Title</label>
+                  <input type="text" class="form-control" id="title" name="title" placeholder="Title"
+                    formControlName="title"
+                    [ngClass]="{ 'invalid-input': myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched }">
+                  <div *ngIf="myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched"
+                    class="validation-message" style="color: red;">
+                    * Please enter valid Title.
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="submissionDate">Submission Date</label>
+                  <input type="date" class="form-control" id="submissionDate" name="submissionDate"
+                    placeholder="Submission Date" formControlName="submissionDate"
+                    [ngClass]="{ 'invalid-input': myFormSubmission.get('submissionDate').invalid && myFormSubmission.get('submissionDate').touched }">
+                  <div
+                    *ngIf="myFormSubmission.get('submissionDate').hasError('required') && myFormSubmission.get('submissionDate').touched"
+                    class="validation-message" style="color: red;">
+                    *Please select a Submission Date.
+                  </div>
+                  <div
+                    *ngIf="myFormSubmission.get('submissionDate').hasError('futureDate') && myFormSubmission.get('submissionDate').touched"
+                    class="validation-message" style="color: red;">
+                    *Please select a future date for the Submission.
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="notes">Notes</label>
+                  <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes"
+                    formControlName="notes"
+                    [ngClass]="{ 'invalid-input': myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched }">
+                  <div *ngIf="myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched"
+                    class="validation-message" style="color: red;">
+                    * Please enter valid Note.
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-md-4 form-group">
-              <label for="submissionDate">Submission Date</label>
-              <input type="date" class="form-control" id="submissionDate" name="submissionDate"
-                placeholder="Submission Date" formControlName="submissionDate"
-                [ngClass]="{ 'invalid-input': myFormSubmission.get('submissionDate').invalid && myFormSubmission.get('submissionDate').touched }">
-              <div
-                *ngIf="myFormSubmission.get('submissionDate').hasError('required') && myFormSubmission.get('submissionDate').touched"
-                class="validation-message" style="color: red;">
-                *Please select a Submission Date.
-              </div>
-              <div
-                *ngIf="myFormSubmission.get('submissionDate').hasError('futureDate') && myFormSubmission.get('submissionDate').touched"
-                class="validation-message" style="color: red;">
-                *Please select a future date for the Submission.
-              </div>
-            </div>
-            <div class="col-md-4 form-group">
-              <label for="notes">Notes</label>
-              <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes"
-                formControlName="notes"
-                [ngClass]="{ 'invalid-input': myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched }">
-              <div *ngIf="myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched"
-                class="validation-message" style="color: red;">
-                * Please enter valid Note.
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <label for="vendorName">Vendor Name</label>
-              <input type="text" class="form-control" id="vendorName" name="vendorName" placeholder="Vendor Name"
-                formControlName="vendorName"
-                [ngClass]="{ 'invalid-input': myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched }">
-              <div *ngIf="myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched"
-                class="validation-message" style="color: red;">
-                * Please enter valid Vendor Name.
+            <div class="form-group mt-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="vendorName">Vendor Name</label>
+                  <input type="text" class="form-control" id="vendorName" name="vendorName" placeholder="Vendor Name"
+                    formControlName="vendorName"
+                    [ngClass]="{ 'invalid-input': myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched }">
+                  <div *ngIf="myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched"
+                    class="validation-message" style="color: red;">
+                    * Please enter valid Vendor Name.
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="rate">Rate</label>
+                  <input type="number" class="form-control" id="rate" name="rate" placeholder="Rate"
+                    formControlName="rate"
+                    [ngClass]="{ 'invalid-input': myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched }">
+                  <div *ngIf="myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched"
+                    class="validation-message" style="color: red;">
+                    * Should be Greater than 1$.
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="clientName">Client Name</label>
+                  <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name"
+                    formControlName="clientName"
+                    [ngClass]="{ 'invalid-input': myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched }">
+                  <div *ngIf="myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched"
+                    class="validation-message" style="color: red;">
+                    * Please enter valid Client Name.
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <label for="rate">Rate</label>
-              <input type="number" class="form-control" id="rate" name="rate" placeholder="Rate" formControlName="rate"
-                [ngClass]="{ 'invalid-input': myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched }">
-              <div *ngIf="myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched"
-                class="validation-message" style="color: red;">
-                * Should be Greater than 1$.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <label for="clientName">Client Name</label>
-              <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name"
-                formControlName="clientName"
-                [ngClass]="{ 'invalid-input': myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched }">
-              <div *ngIf="myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched"
-                class="validation-message" style="color: red;">
-                * Please enter valid Client Name.
-              </div>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </mat-tab>
       <!-- Content for Financial Info tab -->
       <mat-tab label="Financial Info" class="mt-5">
@@ -871,12 +857,12 @@
               </tr>
             </tbody>
           </table>
-   
+        </div>
       </mat-tab>
     </mat-tab-group>
-
   </div>
 </div>
+
 <div *ngIf="showConfirmationDialog" class="modal align-center">
   <div class="modal-content justify-content-center ">
     <button type="button" class="close close-modal" (click)="cancelDelete()">
