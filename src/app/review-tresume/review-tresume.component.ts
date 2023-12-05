@@ -46,6 +46,14 @@ financialNotes: any;
   salaryDepositType: any;
   howMuch: any;
 
+  //general declaration
+  recruiterName: any;
+  ReferredBy: any;
+  currentStatus: any;
+  legalStatusVal: any;
+  legalStatusValend: any;
+  division: any;
+
 siteVisitTabClicked() { console.log('Additional logic for Site Visit tab click');
 }
 
@@ -160,25 +168,25 @@ saveGeneralFormData() {
   console.log('Saving data for the General tab:', this.generalFormData);
 
   let Req = {
-    firstName: this.FormGeneral.get('firstName').value,
-    middleName: this.FormGeneral.get('middleName').value,
-    lastName: this.FormGeneral.get('lastName').value,
-    recruiterName: this.FormGeneral.get('recruiterName').value,
-    phoneNumberG: this.FormGeneral.get('phoneNumberG').value,
-    generalEmail: this.FormGeneral.get('generalEmail').value,
-    referredBy: this.SelectedRefered,
-    dealOffered: this.FormGeneral.get('assistedBy').value,
-    referredByExternal: this.FormGeneral.get('typeOfAssistance').value,
+    firstName: this.firstName,
+    middleName: this.middleName,
+    lastName: this.lastName,
+    recruiterName: this.recruiterName,
+    phoneNumberG: this.FormGeneral.value.phoneNumberG,
+    generalEmail: this.FormGeneral.value.generalEmail,
+    SelectedRefered: this.SelectedRefered,
+    assistedBy: this.assistedBy,
+    ReferredBy: this.ReferredBy,
     ssn: this.ssn,
-    statusDate: this.FormGeneral.get('statusDate').value,
-    duiFelonyInfo: this.FormGeneral.get('duiFelonyInfo').value,
-    currentStatus: this.selectedStatus,
-    legalStatusValidityStartDate: this.FormGeneral.get('assistedBy').value,
-    legalStatusValidityEndDate: this.FormGeneral.get('typeOfAssistance').value,
-    legalStatus: this.selectedLegalStatus,
-    ftcNotes: this.FormGeneral.get('assistedBy').value,
-    otherNotes: this.FormGeneral.get('typeOfAssistance').value,
-    division: this.SelectedDivision,
+    statusDate: this.statusDate,
+    duiFelonyInfo: this.duiFelonyInfo,
+    currentStatus: this.currentStatus,
+    legalStatusVal: this.legalStatusVal,
+    legalStatusValend: this.legalStatusValend,
+    selectedLegalStatus: this.selectedLegalStatus,
+    ftcNotes: this.ftcNotes,
+    otherNotes: this.otherNotes,
+    division: this.division,
     dob: this.dob,
   };
   console.log(Req);
@@ -339,6 +347,8 @@ ngOnInit(): void {
     this.FormGeneral = this.formBuilder.group({
       phoneNumberG: ['', [Validators.required]],
       generalEmail: ['', [Validators.required]],
+      recruiterName: [''],
+      legalStatusVal: [''],
     });
 
     this.myForm = this.formBuilder.group({
