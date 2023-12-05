@@ -40,7 +40,6 @@ import { FinancialInfoComponent } from './financial-info/financial-info.componen
 import { SearchTresumeComponent } from './search-tresume/search-tresume.component';
 import { HrmsComponent } from './hrms/hrms.component';
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
-import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InformationComponent } from './information/information.component';
@@ -109,7 +108,6 @@ const routes: Routes = [
   { path: 'jobapplication',component:JobApplicationComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
-  { path: 'confirmpopup', component:ConfirmationPopupComponent},
   { path: 'jobboardaccount', component:JobBoardAccountComponent},
   { path: 'talentBench', component:TalentBenchComponent},
   { path: 'submittedcandidates', component:SubmittedCandiatesComponent},

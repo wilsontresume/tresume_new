@@ -30,5 +30,21 @@ export class ReviewService {
   deleteplacementdata(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'deleteplacementdata', request);
   }
+
+  saveSubmissionFormData(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'saveSubmissionFormData', request);
+  }
+
+  saveInterviewFormData(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'saveInterviewFormData', request);
+  }
+
+  saveGeneralFormData(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'saveGeneralFormData', request);
+  }
+
+  saveFinancialInfoFormData(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'saveFinancialInfoFormData', request);
+  }
   
 }
