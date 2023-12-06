@@ -977,4 +977,19 @@ ul {
   #welcomeText span:nth-child(2) { animation-delay: 0.2s; }
   #welcomeText span:nth-child(3) { animation-delay: 0.3s; }
   #welcomeText span:nth-child(4) { animation-delay: 0.4s; }
+  .down {
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: inherit;
+    text-align: center;
+    font-size: 22px;
+    color: #676a6a;
+    line-height: 1.5rem;
+  }
   
+  h2.tittle {
+    font-size: 2rem;
+    text-align: center;
+    color: #93628d;
+    font-weight: 600;
+  }

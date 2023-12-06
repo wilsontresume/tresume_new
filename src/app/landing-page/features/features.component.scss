@@ -888,4 +888,18 @@ ul {
   #keyFeatures span:nth-child(25) { animation-delay: 2.5s; }
   #keyFeatures span:nth-child(26) { animation-delay: 2.6s; }
   #keyFeatures span:nth-child(27) { animation-delay: 2.7s; }
-  
+  .down {
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: inherit;
+    text-align: center;
+    font-size: 22px;
+    color: #676a6a;
+    line-height: 1.5rem;
+  }
+  h2.tittle {
+    font-size: 2rem;
+    text-align: center;
+    color: #93628d;
+    font-weight: 600;
+  }
