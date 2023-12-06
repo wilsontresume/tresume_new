@@ -62,6 +62,21 @@ import { AllTimeListComponent } from './all-time-list/all-time-list.component';
 import { AssignRoleComponent } from './assign-role/assign-role.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.component';
+import { HomeComponent } from './landing-page/home/home.component';
+import { AboutComponent } from './landing-page/about/about.component';
+import { AtsComponent } from './landing-page/ats/ats.component';
+import { WorkforceComponent } from './landing-page/workforce/workforce.component';
+import { TalentSuiteComponent } from './landing-page/talent-suite/talent-suite.component';
+import { ContactComponent } from './landing-page/contact/contact.component';
+import { MarketplaceComponent } from './landing-page/marketplace/marketplace.component';
+import { MonsterComponent } from './landing-page/monster/monster.component';
+import { DiceComponent } from './landing-page/dice/dice.component';
+import { CareerBuilderComponent } from './landing-page/career-builder/career-builder.component';
+import { OptNationComponent } from './landing-page/opt-nation/opt-nation.component';
+import { FeaturesComponent } from './landing-page/features/features.component';
+import { TimesheetComponent } from './landing-page/timesheet/timesheet.component';
+import { JobleeComponent } from './landing-page/joblee/joblee.component';
+import { ProductsComponent } from './landing-page/products/products.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -131,8 +146,25 @@ const routes: Routes = [
   { path: 'viewvendor',component:ViewvendorComponent},
   { path: 'addvendor',component:AddvendorComponent},
   { path: 'assignrole',component:AssignRoleComponent},
+  { path: 'homelanding',component:HomeComponent},
+  { path: 'about',component:AboutComponent},
+  { path: 'ats',component:AtsComponent},
+  { path: 'workforce',component:WorkforceComponent},
+  { path: 'talent',component:TalentSuiteComponent},
+  { path: 'contact',component:ContactComponent},
+  { path: 'market',component:MarketplaceComponent},
+  { path: 'monster',component:MonsterComponent},
+  { path: 'dice',component:DiceComponent},
+  { path: 'career',component:CareerBuilderComponent},
+  { path: 'opt-nation',component:OptNationComponent},
+  {path:'features',component:FeaturesComponent},
+  {path:'timesheet',component:TimesheetComponent},
+  {path:'opt',component:OptNationComponent},
+  {path:'product',component:ProductsComponent},
+  {path:'joble',component:JobleeComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
+ 
 ];
 
 @NgModule({
