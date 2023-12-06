@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
   public orgID: string;
   public accesstoken: string;
   public timesheetrole: string;
+  FullAccess: number[]
+  ViewOnly: number[]
   constructor(private route: ActivatedRoute, private service1: AppService, private router: Router, private cookieService: CookieService) {
     //this.traineeID = this.route.snapshot.params["traineeId"];
 
@@ -52,7 +54,10 @@ export class AppComponent implements OnInit {
     this.traineeID = this.cookieService.get('TraineeID');
     this.accesstoken = this.cookieService.get('accesstoken');
     this.timesheetrole = this.cookieService.get('TimesheetRole');
-
+    var FullAccess = this.cookieService.get('FullAccess');
+    this.FullAccess = FullAccess.split(',').map(Number);
+    var VewAccess = this.cookieService.get('ViewOnly');
+    this.ViewOnly = VewAccess.split(',').map(Number);
     await this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         let navEnd = <NavigationEnd>e;
@@ -70,6 +75,24 @@ export class AppComponent implements OnInit {
         console.log(this.enableNav);
       }
     });
+
+    const Req = {
+      username: this.userName
+    };
+
+    await this.service1.getuseraccess(Req).subscribe((x: any) => {
+      const ViewOnly = x.result[0].ViewOnly
+        const FullAccess = x.result[0].FullAccess
+        const DashboardPermission = x.result[0].DashboardPermission
+        const RoleID = x.result[0].RoleID
+        this.cookieService.set('ViewOnly',ViewOnly);
+        this.cookieService.set('FullAccess',FullAccess);
+        this.cookieService.set('DashboardPermission',DashboardPermission);
+        this.cookieService.set('RoleID',RoleID);
+    });
+  }
+  checkFullAccess(numberToCheck: number): boolean {
+    return this.FullAccess.includes(numberToCheck) || this.ViewOnly.includes(numberToCheck);
   }
 
   async ngOnChanges() {
