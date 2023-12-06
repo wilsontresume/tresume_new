@@ -150,7 +150,7 @@ const routes: Routes = [
   { path: 'about',component:AboutComponent},
   { path: 'ats',component:AtsComponent},
   { path: 'workforce',component:WorkforceComponent},
-  { path: 'talent',component:TalentSuiteComponent},
+  { path: 'talent-suite',component:TalentSuiteComponent},
   { path: 'contact',component:ContactComponent},
   { path: 'market',component:MarketplaceComponent},
   { path: 'monster',component:MonsterComponent},
