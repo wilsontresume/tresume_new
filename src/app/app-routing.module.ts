@@ -76,6 +76,21 @@ import { FeaturesComponent } from './landing-page/features/features.component';
 import { TimesheetComponent } from './landing-page/timesheet/timesheet.component';
 import { JobleeComponent } from './landing-page/joblee/joblee.component';
 import { ProductsComponent } from './landing-page/products/products.component';
+import { ReportsHomeComponent } from './reports/reports-home.component';
+import { BenchTrackerReportComponent } from './reports/bench-tracker-report.component';
+import { BillableEmpReportComponent } from './reports/billableEmp-report.component';
+import { ComplianceReportComponent } from './reports/compliance-report.component';
+import { DocExpiryReportComponent } from './reports/doc-expiry-report.component';
+import { DSRReportComponent } from './reports/dsr-report.component';
+import { H1BExpiryReportComponent } from './reports/h1bexpiry-report.component';
+import { InterviewsReportComponent } from './reports/interviews-report.component';
+import { JobBoardAuditReportComponent } from './reports/jobboard-audit-report.component';
+import { LegalStatusReportComponent } from './reports/legal-status-report.component';
+import { NonH1BReportComponent } from './reports/nonh1b-report.component';
+import { PFAReportComponent } from './reports/pfa-report.component';
+import { PlacementsReportComponent } from './reports/placements-report.component';
+import { ReportsComponent } from './reports/reports.component';
+import { TimesheetReportComponent } from './reports/timesheet-report.component ';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -126,14 +141,14 @@ const routes: Routes = [
   { path: 'jobboardaccount', component:JobBoardAccountComponent},
   { path: 'talentBench', component:TalentBenchComponent},
   { path: 'submittedcandidates', component:SubmittedCandiatesComponent},
-  { path: 'reviewtresume', component:ReviewTresumeComponent},
+  { path: 'reviewtresume/:traineeID', component:ReviewTresumeComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
   { path: 'adobesign/token/:token', component: AdobesignComponent1  , canActivate: [AuthGuard] },
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard] },
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accountsadduser', component:AccountsAddUserComponent},
   { path: 'accountsaddrole',component:AccountsAddRoleComponent},
-  { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
+  { path: 'login', component: LoginComponent},
   { path: 'profile',component:ProfileComponent},
   { path: 'information',component:InformationComponent},
   { path: 'password',component:PasswordComponent},
@@ -160,8 +175,23 @@ const routes: Routes = [
   {path:'opt',component:OptNationComponent},
   {path:'product',component:ProductsComponent},
   {path:'joble',component:JobleeComponent},
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
+  { path: 'reports', component: ReportsHomeComponent },
+  { path: 'reports/ftc', component: ReportsComponent },
+  { path: 'reports/interviews', component: InterviewsReportComponent },
+  { path: 'reports/benchtracker', component: BenchTrackerReportComponent },
+  { path: 'reports/placements', component: PlacementsReportComponent },
+  { path: 'reports/legalstatus', component: LegalStatusReportComponent },
+  { path: 'reports/h1bexpiry', component: H1BExpiryReportComponent },
+  { path: 'reports/timesheet', component: TimesheetReportComponent },
+  { path: 'reports/billable', component: BillableEmpReportComponent },
+  { path: 'reports/nonh1b', component: NonH1BReportComponent },
+  { path: 'reports/dsr', component: DSRReportComponent },
+  { path: 'reports/jobboardaudit', component: JobBoardAuditReportComponent },
+  { path: 'reports/compliance', component: ComplianceReportComponent },
+  { path: 'reports/pfa', component: PFAReportComponent },
+  { path: 'reports/docexpiry', component: DocExpiryReportComponent },
+  { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
+  { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 
  
 ];
 

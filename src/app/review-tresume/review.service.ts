@@ -46,5 +46,9 @@ export class ReviewService {
   saveFinancialInfoFormData(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'saveFinancialInfoFormData', request);
   }
+
+  getCandidateInfo(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getCandidateInfo', request);
+  }
   
 }
