@@ -10,12 +10,13 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    window.scrollTo(0,0);
   }
   isScrolled = false;
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const offset = window.scrollY;
-    this.isScrolled = offset > 50; // You can adjust the offset value based on your design
-  }
+  // @HostListener('window:scroll', [])
+  // onWindowScroll() {
+  //   const offset = window.scrollY;
+  //   this.isScrolled = offset > 50;
+  // }
 }

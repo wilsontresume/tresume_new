@@ -32,6 +32,8 @@ section .section-title {
 #team .card {
     border: none;
     background: #ffffff;
+    margin: 0;
+    
 }
 
 .image-flip:hover .backside,
@@ -120,6 +122,7 @@ section .section-title {
 .backside .card .card-title {
     color: #94608e !important;
     font-size: 25px;
+    font-weight: 500;
 }
 
 .frontside .card .card-body img {
@@ -161,6 +164,11 @@ section .section-title {
     margin-bottom: 0.75rem;
 }
 
+.card-text{
+    font-size: 15px;
+    font-weight: 500;
+    font-style: oblique;
+}
 .card-text:last-child {
     margin-bottom: 0;
 }
@@ -837,6 +845,9 @@ ul {
     color: purple;
     /* Change the text color on hover */
     border-bottom: 2px solid purple;
+}
+#navbarSupportedContent {
+    margin-left: 16rem;
 }
 
 .navbar-nav .nav-link:hover::before {

@@ -17,8 +17,21 @@ ul {
 .navbar {
     padding: 10px;
     font-size: 20px;
+    height: 108px;
 }
-
+.nav-link {
+  position: relative;
+  /* color: black; */
+  transition: color 0.3s;
+  font-weight: 500;
+  font-style: normal;
+}
+h2.tittle {
+  font-size: 2rem;
+  text-align: center;
+  color: #93628d;
+  font-weight: 600;
+}
 .bn5 {
     text-decoration: none;
     padding: 0.6em 2em;
@@ -615,6 +628,7 @@ ul {
   
   .footer-social-icon .social_icon {
     text-align: left;
+    display: flex;
   }
   
   .footer-social-icon .social_icon li {
