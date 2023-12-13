@@ -5,7 +5,8 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 
-export class AllClientService {
+export class AddClientService {
+    
     public endpoint = environment.apiUrl;
 
     constructor(private http: HttpClient) { }
@@ -18,9 +19,9 @@ export class AllClientService {
         return this.http.post<ResponseDetails>(this.endpoint + 'deleteClientAccount', request);
     }
 
-    // addClienta(request: any): Observable<any> {
-    //     return this.http.post<ResponseDetails>(this.endpoint + 'addClienta', request);
-    //   }
+    addClienta(request: any): Observable<any> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'addClienta', request);
+      }
 
 }
 export interface ResponseDetails {

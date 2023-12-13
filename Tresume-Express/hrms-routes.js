@@ -33,8 +33,8 @@ const transporter = nodemailer.createTransport({
 router.post('/gethrmscandidateList', async (req, res) => {
     try {
       const pool = await sql.connect(config);
-      const request = new sql.Request();0
-      const query = "SELECT CONCAT(CreatedBy.FirstName, ' ', CreatedBy.LastName) AS CreatedBy, CONCAT(T.FirstName, ' ', T.LastName) AS Name, T.UserName AS Email, T.PhoneNumber AS Phone, T.LegalStatus AS LegalStatus, CS.Value AS CandidateStatus, T.CreateTime AS DateCreated FROM Trainee T INNER JOIN CandidateStatus CS ON T.CandidateStatus = CS.CandidateStatusID LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName WHERE T.RecruiterName = '"+ req.body.TraineeID + "'";
+      const request = new sql.Request();
+      const query = "SELECT T.TraineeID,CONCAT(CreatedBy.FirstName, ' ', CreatedBy.LastName) AS CreatedBy, CONCAT(T.FirstName, ' ', T.LastName) AS Name, T.UserName AS Email, T.PhoneNumber AS Phone, T.LegalStatus AS LegalStatus, CS.Value AS CandidateStatus, T.CreateTime AS DateCreated FROM Trainee T INNER JOIN CandidateStatus CS ON T.CandidateStatus = CS.CandidateStatusID LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName WHERE T.RecruiterName = '"+ req.body.TraineeID + "'";
   
       console.log(query);
   
@@ -61,12 +61,32 @@ router.post('/gethrmscandidateList', async (req, res) => {
       };
       res.status(500).send(result);
     }
-  });
+});
   
-  router.post('/updatehrmscandidate', async (req, res) => {
+router.post('/updatehrmscandidate', async (req, res) => {
+})
 
-  })
-  async function deactivatecandidate(TraineeID) {
+router.post('/addHrmsCandidate', async (req, res) => {
+  console.log(req);
+})
+
+router.post('/saveSubmissionFormData', async (req, res) => {
+  console.log(req);
+})
+
+router.post('/saveInterviewFormData', async (req, res) => {
+  console.log(req);
+})
+
+router.post('/saveGeneralFormData', async (req, res) => {
+  console.log(req);
+})
+
+router.post('/saveFinancialInfoFormData', async (req, res) => {
+  console.log(req);
+})
+
+async function deactivatecandidate(TraineeID) {
     try {
       const pool = await sql.connect(config);
       const request = pool.request();
@@ -83,8 +103,7 @@ router.post('/gethrmscandidateList', async (req, res) => {
       console.error("Error while deleting candidate:", error);
       throw error;
     }
-  }
-  
+}
 
 router.post('/getInterviewList', async (req, res) => {
   try {
@@ -257,5 +276,57 @@ async function deactivateplacementdata(PID) {
     throw error;
   }
 }
+
+router.post('/deleteinterviewdata', async (req, res) => {
+  try {
+    const interviewdata = await deactivateinterviewdata(req.body.TraineeInterviewID);
+    if (interviewdata) {
+      const result = {
+        flag: 1,
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error deleting interviewdata:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while deleting the interviewdata!",
+    };
+    res.status(500).send(result);
+  }  
+
+})
+
+router.post('/getCandidateInfo', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = new sql.Request();
+    const query = "select t.FTCNotes,t.FirstName ,t.LastName ,t.MiddleName,CONVERT(NVARCHAR(10),t.DOB,101) AS DOB,T.PhoneNumber,(t.FirstName + ' '+t.LastName) as Name,t.UserName,Cs.CSName,T.Candidatestatus,d.Value,t.division,t.SSn,T.RecruiterName,t.marketername,T.ReferredBy,T.DealOffered,t.DuiFelonyInfo,T.EmergConName,t.EmergConPhone,t.EmergConemail,t.ReferredBy_external,t.PassportNumber,t.Address,t.validateNumber, CONVERT(NVARCHAR(10),t.statusdate,101) AS statusdate,CONVERT(NVARCHAR(10),t.LegalStatusValidFrom,101) AS Legalstartdate, CONVERT(NVARCHAR(10),t.LegalStatusValidTo,101) AS Legalenddate,CONVERT(NVARCHAR(10),t.PassValidityEndDate,101) AS Passvalidateenddate,CONVERT(NVARCHAR(10),t.PassvalidityStartDate,101) AS PassvalidateStartdate,CONVERT(NVARCHAR(10),t.validateEnddate,101) AS ValidateEndDate,CONVERT(NVARCHAR(10),t.EmploymentStartDate,101) AS EmploymentStartDate,CONVERT(NVARCHAR(10),t.EmploymentEndDate,101) AS EmploymentEndDate,t.Title,t.Skill,t.Country,t.state,t.City,t.Zipcode,t.Notes,t.LegalStatus,  t.FinancialNotes,t.Salary,t.State,t.Perdeium,t.MaritalStatus,t.LCARate,t.FState,t.GCWages,t.StateTaxAllowance,t.StateTaxExemptions,t.FederalTaxAllowance,t.HealthInsurance,t.LifeInsurance,t.FederalTaxAdditionalAllowance,t.Bank1Name,t.Bank1AccountType,t.Bank1AccountNumber,t.Bank1RoutingNumber,t.SalaryDepositType,t.HowMuch,t.Bank2Name,t.Bank2AccountType,t.Bank2AccountNumber,t.Bank2RoutingNumber,CONVERT(NVARCHAR(10),t.Lcadate,101) AS Lcadate,CONVERT(NVARCHAR(10),t.Gcdate,101) AS Gcdate from Trainee t LEFT Join Currentstatus cs On cs.CsID=T.Candidatestatus LEFT Join Department d On d.DepartmentID = T.Division   left Join Phone p On p.PhoneID=(select TOP 1 PhoneID from TraineePhone where TraineeID='"+req.body.TraineeID+"'AND Active = 1) AND p.Active = 1  where TraineeID = '"+req.body.TraineeID+"' and t.Active=1";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    
+  } catch (error) {
+    console.error("Error fetching candidates data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching candidates data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
 module.exports = router;
  

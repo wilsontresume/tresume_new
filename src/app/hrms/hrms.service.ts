@@ -21,7 +21,10 @@ export class HrmsService {
   deletehrmscandidateAccount(request: any): Observable<ResponseDetails> {
       return this.http.post<ResponseDetails>(this.endpoint + 'deletehrmscandidateAccount', request);
   }
-
+  
+  addHrmsCandidate(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'addHrmsCandidate', request);
+  }
 }
 export interface ResponseDetails {
   flag?: any;

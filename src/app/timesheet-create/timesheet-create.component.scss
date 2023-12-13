@@ -3,7 +3,7 @@
     color: #fff;
     border: none;
   }
-  .container{
+  .container-fluid{
     background-color: #fff;
   }
   .main{
@@ -26,4 +26,23 @@ select{
   width: 90px;
   border: 1px solid #dad5d5;
   margin: 5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th{
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+td{
+  border: 1px solid #ccc;
+  padding: 3px;
+}
+th {
+  background-color: #f0f0f0;
+  font-weight: bold;
 }

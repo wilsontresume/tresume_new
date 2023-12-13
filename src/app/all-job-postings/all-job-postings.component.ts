@@ -1,6 +1,5 @@
 import { AllJobPostingsService } from './all-job-postings.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-job-postings.component.scss'],
   providers: [AllJobPostingsService, CookieService,MessageService],
 })
+
 export class AllJobPostingsComponent implements OnInit{
   OrgID:string = '';
   JobID:string = '';
@@ -26,6 +26,35 @@ ngOnInit(): void {
   this.JobID = this.cookieService.get('userName1');
   this.TraineeID = this.cookieService.get('TraineeID');
   this.fetchjobpostinglist();
+
+
+  this.jobs = [
+    {
+      jobTitle: 'Software Developer',
+      company: 'ABC Inc.',
+      location: 'City A',
+      payRate: '$80,000',
+      newApplicants: 5,
+      totalApplicants: 20,
+      postedOn: new Date(),
+      postedBy: 'John Doe',
+      jobType: 'Full-time',
+      selectedRole: 'Role A'
+    },
+    {
+      jobTitle: 'UX Designer',
+      company: 'XYZ Ltd.',
+      location: 'City B',
+      payRate: '$70,000',
+      newApplicants: 3,
+      totalApplicants: 15,
+      postedOn: new Date(),
+      postedBy: 'Jane Doe',
+      jobType: 'Part-time',
+      selectedRole: 'Role B'
+    },
+    // Add more job entries as needed
+  ];
 }
   constructor(private dialog: MatDialog,private cookieService: CookieService, private service:AllJobPostingsService,private messageService: MessageService) {}
 

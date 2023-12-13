@@ -150,7 +150,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
   with font-awesome or any other icon font library -->
-          <li class="nav-item">
+          <li class="nav-item" >
             <a class="nav-link" routerLink="/dashboard/{{traineeID}}" >
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
@@ -166,13 +166,13 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(1)">
             <a routerLink="/searchMain" class=" nav-link">
               <i class="nav-icon fas fa-search"></i>
               <p>JobBoard Search</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(2)">
             <a routerLink="/hrms" class="nav-link">
               <i class="nav-icon fas fa-address-book "></i>
               <p> HRMS</p>
@@ -184,7 +184,7 @@
                 Search Tresume
               </p>
             </a> -->
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(3)">
             <a routerLink="/jobapplication" class="nav-link">
               <i class="nav-icon fas fa-clone"></i>
               <p>
@@ -200,7 +200,7 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(3)">
             <a class="nav-link" routerLink="/jobpostings" routerLinkActive="active">
               <i class="nav-icon fas fa-link"></i>
               <p>
@@ -208,7 +208,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(11)">
             <a class="nav-link" routerLink="/reports" routerLinkActive="active">
               <i class="nav-icon fas fa-list-alt"></i>
               <p>
@@ -224,7 +224,7 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(4)">
             <a routerLink="/harvest" class=" nav-link">
               <i class="nav-icon fas fa-leaf"></i>
               <p>Harvest</p>
@@ -238,7 +238,7 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(10)">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
@@ -261,7 +261,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(5)">
             <a  class=" nav-link">
               <i class="nav-icon fas fa-clock"></i>
               <p>Timesheet</p>
@@ -288,7 +288,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(7)">
             <a routerLink="/allclient" class=" nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p> Clients</p>
@@ -302,13 +302,13 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(8)">
             <a routerLink="/vendor" class=" nav-link">
               <i class="nav-icon fas fa-store"></i>
               <p> Vendors</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(6)">
             <a routerLink="/talentBench" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>
@@ -316,7 +316,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(9)">
             <a routerLink="/batch" class="nav-link">
               <i class="nav-icon fas fa-id-card"></i>
               <p>
@@ -324,7 +324,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="checkFullAccess(3)">
             <a routerLink="/jobboardaccount" class=" nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>Job Boards</p>
