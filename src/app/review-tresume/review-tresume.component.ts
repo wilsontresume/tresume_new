@@ -387,12 +387,12 @@ export class ReviewTresumeComponent implements OnChanges {
     });
 
     this.myFormSubmission = this.formBuilder.group({
-      submissionDate: ['', [Validators.required, this.futureDateValidator]],
-      title: ['', [Validators.required, Validators.minLength(3)]],
-      notes: ['', [Validators.required, Validators.minLength(3)]],
-      vendorName: ['', [Validators.required, Validators.minLength(3)]],
-      rate: ['', [Validators.required, Validators.minLength(3)]],
-      clientName: ['', [Validators.required, Validators.minLength(3)]],
+      SubmissionDate: ['', [Validators.required, this.futureDateValidator]],
+      Title: ['', [Validators.required, Validators.minLength(3)]],
+      Note: ['', [Validators.required, Validators.minLength(3)]],
+      VendorName: ['', [Validators.required, Validators.minLength(3)]],
+      Rate: ['', [Validators.required, Validators.minLength(3)]],
+      ClientName: ['', [Validators.required, Validators.minLength(3)]],
     });
 
     this.myFormFinancial = this.formBuilder.group({

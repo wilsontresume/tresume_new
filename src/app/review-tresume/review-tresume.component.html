@@ -565,7 +565,7 @@
                 <div class="col-md-4">
                   <label for="title">Title</label>
                   <input type="text" class="form-control" id="title" name="title" placeholder="Title"
-                    formControlName="title"
+                    formControlName="Title"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched }">
                   <div *ngIf="myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched"
                     class="validation-message" style="color: red;">
@@ -575,7 +575,7 @@
                 <div class="col-md-4">
                   <label for="submissionDate">Submission Date</label>
                   <input type="date" class="form-control" id="submissionDate" name="submissionDate"
-                    placeholder="Submission Date" formControlName="submissionDate"
+                    placeholder="Submission Date" formControlName="SubmissionDate"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('submissionDate').invalid && myFormSubmission.get('submissionDate').touched }">
                   <div
                     *ngIf="myFormSubmission.get('submissionDate').hasError('required') && myFormSubmission.get('submissionDate').touched"
@@ -591,7 +591,7 @@
                 <div class="col-md-4">
                   <label for="notes">Notes</label>
                   <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes"
-                    formControlName="notes"
+                    formControlName="Note"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched }">
                   <div *ngIf="myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched"
                     class="validation-message" style="color: red;">
@@ -605,7 +605,7 @@
                 <div class="col-md-4">
                   <label for="vendorName">Vendor Name</label>
                   <input type="text" class="form-control" id="vendorName" name="vendorName" placeholder="Vendor Name"
-                    formControlName="vendorName"
+                    formControlName="VendorName"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched }">
                   <div *ngIf="myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched"
                     class="validation-message" style="color: red;">
@@ -615,7 +615,7 @@
                 <div class="col-md-4">
                   <label for="rate">Rate</label>
                   <input type="number" class="form-control" id="rate" name="rate" placeholder="Rate"
-                    formControlName="rate"
+                    formControlName="Rate"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched }">
                   <div *ngIf="myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched"
                     class="validation-message" style="color: red;">
@@ -625,7 +625,7 @@
                 <div class="col-md-4">
                   <label for="clientName">Client Name</label>
                   <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name"
-                    formControlName="clientName"
+                    formControlName="ClientName"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched }">
                   <div *ngIf="myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched"
                     class="validation-message" style="color: red;">
