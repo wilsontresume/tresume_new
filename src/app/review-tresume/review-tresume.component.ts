@@ -341,7 +341,6 @@ export class ReviewTresumeComponent implements OnChanges {
 
   constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService) {
     this.candidateID = this.route.snapshot.params["traineeID"];
-
    }
 
   ngOnInit(): void {

@@ -97,9 +97,13 @@ export class HrmsComponent implements OnInit {
         marketerName: this.formData.marketerName,
 
     };
+    // console.log(Req);
+    // this.service.addHrmsCandidate(Req).subscribe((x: any) => {
+    //   console.log(x);
+    // });
     console.log(Req);
-    this.service.addHrmsCandidate(Req).subscribe((x: any) => {
-      console.log(x);
+    this.service.insertTrainee(Req).subscribe((ax: any) => {
+      console.log(ax);
     });
   }
 

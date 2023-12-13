@@ -25,6 +25,17 @@ export class HrmsService {
   addHrmsCandidate(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'addHrmsCandidate', request);
   }
+
+  // insertTrainee(request: any): Observable<ResponseDetails> {
+  //   const formData = new FormData();
+  //   Object.keys(request).forEach(key => formData.append(key, request[key]));
+  
+  //   return this.http.post<ResponseDetails>(this.endpoint + 'insertTrainee', formData);
+  // }
+
+  insertTrainee(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'insertTrainee', request);
+  }
 }
 export interface ResponseDetails {
   flag?: any;

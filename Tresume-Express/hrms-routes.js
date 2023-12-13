@@ -328,5 +328,52 @@ router.post('/getCandidateInfo', async (req, res) => {
   }
 });
 
+
+router.post('/insertTrainee', async function (req, res) {
+  try {
+    // Assuming TraineeID is generated or obtained elsewhere in your code
+    var TraineeID = await generateTraineeID();
+
+    var query = "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" + req.body.email + "' AND UserOrganizationID = '" + req.body.OrganizationID + "') " +
+                "BEGIN " +
+                "INSERT INTO Trainee (TraineeID, email, firstName, phone, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, groups, locationConstraint, marketerName, university ) " +
+                "VALUES ('" + TraineeID + "', '" + req.body.email + "', '" + req.body.firstName + "', '" + req.body.phone + "', '" + req.body.middleName + "', '" + req.body.lastName + "', '" + req.body.groups + "', '" + req.body.legalStatus + "', '" + req.body.candidateStatus + "', '" + req.body.degree + "', '" + req.body.gender + "', '" + req.body.notes + "', '" + req.body.recruiterName + "', '" + req.body.referralType + "', 1, '" + req.body.locationConstraint + "','" + req.body.marketerName + "', '"+ req.body.university + "', 1, 'ACTIVE', 'READY', 1, 1, 'TRESUMEUSER', '" + "', GETDATE()) " +
+                "END";
+    console.log(query);
+
+    // await sql.connect(config);
+    // var request = new sql.Request();
+
+    // var result = await request.query(query);
+    
+    res.status(200).send("Data Fetched");
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+async function generateTraineeID() {
+  try {
+    await sql.connect(config);
+    var request = new sql.Request();
+
+    var query = "SELECT TOP 1 TraineeID FROM Trainee ORDER BY TraineeID DESC";
+
+    var recordset = await request.query(query);
+
+    if (recordset.recordset.length > 0) {
+      return recordset.recordset[0].TraineeID + 1;
+    } else {
+      return 1; // If no records exist, start from 1
+    }
+  } catch (error) {
+    console.error("Error generating TraineeID:", error);
+    throw error;
+  }
+}
+
+
+
 module.exports = router;
  
