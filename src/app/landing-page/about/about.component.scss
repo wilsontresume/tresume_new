@@ -3,10 +3,22 @@
 #navbarSupportedContent {
   margin-left: 16rem;
 }
-
+.img-fluid{
+  width: 96%;
+  height: 100%;
+  transition: opacity 1s, transform 0.5s ease-in;
+}
 .navbar {
   padding: 10px;
   font-size: 20px;
+  height: 108px;
+}
+.navbar.scrolled .navbar-nav .nav-link {
+  color: white !important;
+}
+
+.navbar.scrolled .navbar-nav .nav-link:hover {
+  color: #f0f0f0 !important;
 }
 
 .bn5 {

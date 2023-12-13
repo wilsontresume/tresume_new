@@ -144,6 +144,8 @@ import { CareerBuilderComponent } from './landing-page/career-builder/career-bui
 import { DiceComponent } from './landing-page/dice/dice.component';
 import { JobleeComponent } from './landing-page/joblee/joblee.component';
 import { OptNationComponent } from './landing-page/opt-nation/opt-nation.component';
+import { YahooComponent } from './landing-page/yahoo/yahoo.component';
+
 
 
 
@@ -229,6 +231,7 @@ import { OptNationComponent } from './landing-page/opt-nation/opt-nation.compone
     DiceComponent,
     JobleeComponent,
     OptNationComponent,
+    YahooComponent,
   ],
   imports: [
     HttpClientModule,

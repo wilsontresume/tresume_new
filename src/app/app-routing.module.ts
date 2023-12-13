@@ -76,6 +76,8 @@ import { FeaturesComponent } from './landing-page/features/features.component';
 import { TimesheetComponent } from './landing-page/timesheet/timesheet.component';
 import { JobleeComponent } from './landing-page/joblee/joblee.component';
 import { ProductsComponent } from './landing-page/products/products.component';
+import { YahooComponent } from './landing-page/yahoo/yahoo.component';
+import { AdobeComponent } from './landing-page/adobe/adobe.component';
 import { ReportsHomeComponent } from './reports/reports-home.component';
 import { BenchTrackerReportComponent } from './reports/bench-tracker-report.component';
 import { BillableEmpReportComponent } from './reports/billableEmp-report.component';
@@ -175,6 +177,10 @@ const routes: Routes = [
   {path:'opt',component:OptNationComponent},
   {path:'product',component:ProductsComponent},
   {path:'joble',component:JobleeComponent},
+  {path:'yahoo',component:YahooComponent},
+  {path:'adobe',component:AdobeComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
   { path: 'reports', component: ReportsHomeComponent },
   { path: 'reports/ftc', component: ReportsComponent },
   { path: 'reports/interviews', component: InterviewsReportComponent },
