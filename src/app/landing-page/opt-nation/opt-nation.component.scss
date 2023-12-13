@@ -1,12 +1,12 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 li {
     padding: 15px;
+    font-weight: 400;
 }
 
 ul {
     font-size: 20px;
     font-weight: 300;
-    font-style: italic;
     padding: 20px;
 }
 
@@ -678,7 +678,21 @@ ul {
     background: #fff;
     color: #ff0000;
   }
-  
+  .navbar {
+    padding: 10px;
+    font-size: 20px;
+    height: 108px;
+}
+.FeatureDesc{
+  font-size: 20px;
+  color: rgb(61, 53, 53);
+}
+h2.tittle {
+  font-size: 2rem;
+  text-align: center;
+  color: #93628d;
+  font-weight: 600;
+}
   .navbar[_ngcontent-ng-c3526649106] {
     padding: 10px;
     font-size: 20px;

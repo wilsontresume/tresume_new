@@ -123,8 +123,6 @@
 
 .zoom-in-zoom-out {
   margin: 24px;
-  /* width: 250px; */
-  /* height: 250px; */
 
   animation: zoom-in-zoom-out 2.5s ease-out infinite;
 }
@@ -142,19 +140,6 @@
     transform: scale(1, 1);
   }
 }
-
-/* .container {
-      display: flex;
-    }
-    
-    .left-panel {
-      flex: 1;
-    }
-    
-    .right-panel {
-      flex: 1;
-    } */
-
 .ats-container {
   display: flex;
   margin: 20px;
@@ -918,9 +903,9 @@ ul {
 .navbar-nav .nav-link {
   position: relative;
   color: black;
-  /* Set the default text color */
+
   transition: color 0.3s;
-  /* Add a smooth color transition */
+        /* Add a smooth color transition */
 }
 
 .navbar-nav .nav-link::before {
