@@ -18,16 +18,18 @@ export class HrmsComponent implements OnInit {
   candidateStatuses: string[] = ['Active', 'Inactive', 'On Hold'];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
   referralTypes: string[] = ['Type 1', 'Type 2', 'Type 3'];
+  legalStatus: string[] = ['legal', 'illegal'];
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
-  candidates: any[]=[
-   
-  ]
+  candidates: any[]=[]
   noResultsFound: boolean = false;
   TraineeID: string;
   addCandidate: any;
-  constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder) { }
+  
+  constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder) { 
+    
+  }
 
   ngOnInit(): void {
     this.TraineeID = this.cookieService.get('TraineeID');
@@ -39,6 +41,16 @@ export class HrmsComponent implements OnInit {
       email: ['', [Validators.required, Validators.minLength(3)]],
       phone: ['', [Validators.required, Validators.minLength(3)]],
       recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
+      degree: [''],
+      groups: [''],
+      legalStatus: ['Legal'],
+      locationConstraint: ['yes'],
+      marketerName: [''],
+      notes: [''],
+      referralType: [''],
+      university: [''],
+      middleName: [''],
+      gender:['male']
     });
   }
   atLeastOneSelectedValidator() {
@@ -64,6 +76,37 @@ export class HrmsComponent implements OnInit {
       this.noResultsFound = this.candidates.length === 0;
     });
   }
+
+  savehrmsdata() {
+    let Req = {
+        firstName: this.addCandidate.value.firstName,
+        middleName: this.formData.middleName,
+        lastName: this.addCandidate.value.lastName,
+        email: this.addCandidate.value.email,
+        phone: this.addCandidate.value.phone,
+        gender: this.addCandidate.value.gender,
+        recruiterName: this.addCandidate.value.recruiterName,
+        degree: this.addCandidate.value.degree,
+        university: this.addCandidate.value.university,
+        groups: this.addCandidate.value.groups,
+        locationConstraint: this.addCandidate.value.locationConstraint,
+        referralType: this.formData.referralType,
+        notes: this.addCandidate.value.notes,
+        candidateStatus: this.formData.candidateStatus,
+        legalStatus: this.formData.legalStatus,
+        marketerName: this.formData.marketerName,
+
+    };
+    // console.log(Req);
+    // this.service.addHrmsCandidate(Req).subscribe((x: any) => {
+    //   console.log(x);
+    // });
+    console.log(Req);
+    this.service.insertTrainee(Req).subscribe((ax: any) => {
+      console.log(ax);
+    });
+  }
+
 
   onSubmit() {
     console.log('Form Data:', this.formData);
