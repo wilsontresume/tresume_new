@@ -19,6 +19,11 @@ export class ReviewService {
   getInterviewList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getInterviewList', request);
   }
+
+  insertTraineeInterview(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'insertTraineeInterview', request);
+  }
+
   deleteinterviewdata(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'deleteinterviewdata', request);
   }
@@ -35,9 +40,9 @@ export class ReviewService {
     return this.http.post<ResponseDetails>(this.endpoint + 'saveSubmissionFormData', request);
   }
 
-  saveInterviewFormData(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'saveInterviewFormData', request);
-  }
+  // saveInterviewFormData(request: any): Observable<ResponseDetails> {
+  //   return this.http.post<ResponseDetails>(this.endpoint + 'saveInterviewFormData', request);
+  // }
 
   saveGeneralFormData(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'saveGeneralFormData', request);

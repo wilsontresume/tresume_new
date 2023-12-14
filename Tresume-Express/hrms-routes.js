@@ -125,6 +125,66 @@ console.log(query);
   }
 });
 
+router.post('/insertTraineeInterview', async function (req, res) {
+  try {
+    var TraineeInterviewID = await generateTraineeInterviewID();
+
+    var interviewQuery =
+    "IF NOT EXISTS(SELECT * FROM TraineeInterview WHERE TraineeInterviewID = '" +
+    TraineeInterviewID +
+    "') " +
+    "BEGIN " +
+    "INSERT INTO TraineeInterview " +
+    "([TraineeInterviewID], [assistedBy], [client], [interviewDate], [interviewInfo], " +
+    "[interviewMode], [interviewTime], [subVendor], [typeOfAssistance], [Active], [vendor]) " +
+    "VALUES (" +
+    `'${TraineeInterviewID}',` +
+    ` ${formatValue(req.body.assistedBy)},` +
+    ` ${formatValue(req.body.client)},` +
+    ` ${formatValue(req.body.interviewDate)},` +
+    ` ${formatValue(req.body.interviewInfo)},` +
+    ` ${formatValue(req.body.interviewMode)},` +
+    ` ${formatValue(req.body.interviewTime)},` +
+    ` ${formatValue(req.body.subVendor)},` +
+    ` ${formatValue(req.body.typeOfAssistance)},` +
+    ' 1,' + 
+    ` ${formatValue(req.body.vendor)}) " +`;
+  
+  console.log(interviewQuery);
+
+    // Perform the database insertion using the constructed query
+    // await sql.connect(config);
+    // var request = new sql.Request();
+    // var result = await request.query(interviewQuery);
+
+    res.status(200).send("Trainee Interview Data Fetched");
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+async function generateTraineeInterviewID() {
+  try {
+    await sql.connect(config);
+    var request = new sql.Request();
+
+    var query = "SELECT TOP 1 TraineeInterviewID FROM TraineeInterview ORDER BY TraineeInterviewID DESC";
+
+    var recordset = await request.query(query);
+
+    if (recordset.recordset.length > 0) {
+      return recordset.recordset[0].TraineeInterviewID + 1;
+    } else {
+      return 1; 
+    }
+  } catch (error) {
+    console.error("Error generating TraineeInterviewID:", error);
+    throw error;
+  }
+}
+
+
 router.post('/deleteinterviewdata', async (req, res) => {
   try {
     const interviewdata = await deactivateinterviewdata(req.body.TraineeInterviewID);
@@ -328,24 +388,52 @@ router.post('/getCandidateInfo', async (req, res) => {
   }
 });
 
-
 router.post('/insertTrainee', async function (req, res) {
   try {
-    // Assuming TraineeID is generated or obtained elsewhere in your code
     var TraineeID = await generateTraineeID();
 
-    var query = "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" + req.body.email + "' AND UserOrganizationID = '" + req.body.OrganizationID + "') " +
-                "BEGIN " +
-                "INSERT INTO Trainee (TraineeID, email, firstName, phone, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, groups, locationConstraint, marketerName, university ) " +
-                "VALUES ('" + TraineeID + "', '" + req.body.email + "', '" + req.body.firstName + "', '" + req.body.phone + "', '" + req.body.middleName + "', '" + req.body.lastName + "', '" + req.body.groups + "', '" + req.body.legalStatus + "', '" + req.body.candidateStatus + "', '" + req.body.degree + "', '" + req.body.gender + "', '" + req.body.notes + "', '" + req.body.recruiterName + "', '" + req.body.referralType + "', 1, '" + req.body.locationConstraint + "','" + req.body.marketerName + "', '"+ req.body.university + "', 1, 'ACTIVE', 'READY', 1, 1, 'TRESUMEUSER', '" + "', GETDATE()) " +
-                "END";
+    var query =
+      "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
+      req.body.email +
+      "' AND UserOrganizationID = '" +
+      req.body.OrganizationID +
+      "') " +
+      "BEGIN " +
+      "INSERT INTO Trainee (TraineeID, email, firstName, phone, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, groups, locationConstraint, marketerName, university ) " +
+      "VALUES (" +
+      `'${TraineeID}',` +
+      ` ${formatValue(req.body.email)},` +
+      ` ${formatValue(req.body.firstName)},` +
+      ` ${formatValue(req.body.phone)},` +
+      ` ${formatValue(req.body.middleName)},` +
+      ` ${formatValue(req.body.lastName)},` +
+      ` ${formatValue(req.body.groups)},` +
+      ` ${formatValue(req.body.legalStatus)},` +
+      ` ${formatValue(req.body.candidateStatus)},` +
+      ` ${formatValue(req.body.degree)},` +
+      ` ${formatValue(req.body.gender)},` +
+      ` ${formatValue(req.body.notes)},` +
+      ` ${formatValue(req.body.recruiterName)},` +
+      ` ${formatValue(req.body.referralType)},` +
+      ' 1,' +
+      ` ${formatValue(req.body.locationConstraint)},` +
+      ` ${formatValue(req.body.marketerName)},` +
+      ` ${formatValue(req.body.university)},` +
+      ' 1,' +
+      " 'ACTIVE'," +
+      " 'READY'," +
+      ' 1,' +
+      ' 1,' +
+      " 'TRESUMEUSER', " +
+      "'', GETDATE()) " +
+      "END";
+
     console.log(query);
 
     // await sql.connect(config);
     // var request = new sql.Request();
-
     // var result = await request.query(query);
-    
+
     res.status(200).send("Data Fetched");
   } catch (error) {
     console.error("Error:", error);
@@ -365,7 +453,7 @@ async function generateTraineeID() {
     if (recordset.recordset.length > 0) {
       return recordset.recordset[0].TraineeID + 1;
     } else {
-      return 1; // If no records exist, start from 1
+      return 1; 
     }
   } catch (error) {
     console.error("Error generating TraineeID:", error);
@@ -373,7 +461,10 @@ async function generateTraineeID() {
   }
 }
 
-
+// Helper function to format values
+function formatValue(value) {
+  return value !== undefined ? `'${value}'` : '';
+}
 
 module.exports = router;
  

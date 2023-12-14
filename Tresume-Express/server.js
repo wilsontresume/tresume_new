@@ -84,6 +84,14 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
+// function formatValue(value) {
+//   return value !== undefined ? `'${value}'` : '';
+// }
+
+// module.exports = {
+//   formatValue: formatValue,
+// };
+
 function checkTimeSheetSubmission(fromDate, toDate, recordSet) {
   const frequencyCounter = {};
   const resultArray = [];
