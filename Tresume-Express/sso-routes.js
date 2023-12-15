@@ -18,7 +18,7 @@ const config = {
     user: "sa",
     password: "Tresume@123",
     server: "92.204.128.44",
-    database: "Tresume",
+    database: "Tresume_Beta",
     trustServerCertificate: true,
   };
   
@@ -62,57 +62,106 @@ const config = {
     return result;
 }
 
-  router.post('/ssologin', async (req, res) => {
-    console.log(req);
-    var UserName = req.body.username;
-    var PWD = req.body.password;
-    console.log(UserName);
-    try {
-      // const apiUrl = `https://tresume.us/api/Member/Login/${UserName}/${PWD}`;
-      const apiUrl = `http://localhost:59983/api/Member/Login/${UserName}/${PWD}`;
-      console.log(apiUrl);
-      const response = await axios.get(apiUrl);
-  
-      const responseData = response.data; 
-      console.log
-      if (responseData.TraineeID) {
-        
-        var accessToken = randomString(16, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-        try {
-          await sql.connect(config);
-          const query = `
-            INSERT INTO AccessToken (UserName, TraineeID, accessToken, createtime, expires_at, ipaddress, active)
-            VALUES (@UserName, @TraineeID, @accessToken, GETDATE(), DATEADD(minute, 3, GETDATE()), @ipaddress, 1)
-          `;
-          const request = new sql.Request();
-          request.input('UserName', sql.VarChar, UserName);
-          request.input('TraineeID', sql.Int, responseData.TraineeID);
-          request.input('accessToken', sql.VarChar, accessToken);
-          request.input('ipaddress', sql.VarChar, req.ip); 
-  
-          await request.query(query);
-          res.status(200).json({ 
-            message: 'Login successful' ,
-            data:responseData,
-            accessToken:accessToken
-          });
-        } catch (error) {
-          console.error('MSSQL Error:', error);
-          res.status(500).json({ message: 'An error occurred while inserting the token' });
-        } finally {
-          sql.close();
-        }
+router.post('/ssologin', async (req, res) => {
+  console.log(req);
+  var UserName = req.body.username;
+  var PWD = req.body.password;
+  console.log(UserName);
+  try {
+    // const apiUrl = `https://tresume.us/api/Member/Login/${UserName}/${PWD}`;
+    const apiUrl = `http://localhost:59983/api/Member/Login/${UserName}/${PWD}`;
+    console.log(apiUrl);
+    const response = await axios.get(apiUrl);
+
+    const responseData = response.data; 
+    console.log
+    if (responseData.TraineeID) {
+      
+      var accessToken = randomString(16, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+      sql.connect(config, function (err) {
+        if (err) console.log(err);
+        var request = new sql.Request();
+    
+        var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+    
+        console.log(query);
+        request.query(query,
+          function (err, recordset) {
+            if (err) console.log(err);
+    
+            var result = {
+              flag: 1,
+              result: recordset.recordsets[0],
+              data:responseData,
+            };
+    
+            res.send(result);
+          }
+        );
+      });
+
+      // try {
+      //   await sql.connect(config);
+      //   const query = `
+      //     INSERT INTO AccessToken (UserName, TraineeID, accessToken, createtime, expires_at, ipaddress, active)
+      //     VALUES (@UserName, @TraineeID, @accessToken, GETDATE(), DATEADD(minute, 3, GETDATE()), @ipaddress, 1)
+      //   `;
+      //   const request = new sql.Request();
+      //   request.input('UserName', sql.VarChar, UserName);
+      //   request.input('TraineeID', sql.Int, responseData.TraineeID);
+      //   request.input('accessToken', sql.VarChar, accessToken);
+      //   request.input('ipaddress', sql.VarChar, req.ip); 
+
+      //   await request.query(query);
+      //   res.status(200).json({ 
+      //     message: 'Login successful' ,
+      //     data:responseData,
+      //     accessToken:accessToken
+      //   });
+      // } catch (error) {
+      //   console.error('MSSQL Error:', error);
+      //   res.status(500).json({ message: 'An error occurred while inserting the token' });
+      // } finally {
+      //   sql.close();
+      // }
 
 
-        
-      } else {
-        
-        res.status(401).json({ message: 'Invalid credentials' });
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      res.status(500).json({ message: 'An error occurred' });
+      
+    } else {
+      
+      res.status(401).json({ message: 'Invalid credentials' });
     }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
+
+
+router.post('/getuseraccess', async (req, res) => {
+  var UserName = req.body.username;
+
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+
+    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      }
+    );
   });
+})
 
   module.exports = router;

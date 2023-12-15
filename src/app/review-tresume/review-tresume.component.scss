@@ -1,7 +1,8 @@
 .row{
   padding:10px;
+
 }
-.container{
+.container-fluid{
   background-color: #fff;
 }
 .iconforquickview{
@@ -20,7 +21,9 @@
 .mt-2, .my-2 {
   margin: 0px;
 }
-
+.fa-eye{
+  cursor: pointer;
+}
 .nav-tabs .nav-item.show .nav-link.active, .nav-tabs .nav-link.active  {
     background-color: #380838;
     border-color: rgb(56, 8, 56) ;
@@ -34,13 +37,13 @@ select#referedBy option:hover {
     background-color: rgb(105, 10, 150); 
   }
   
-  .container{
-    padding: 25px 10px 10px 10px;
-}
+//   .container{
+//     padding: 25px 10px 10px 10px;
+// }
 
-.container{
-    padding:30px;
-  }
+// .container{
+//     padding:30px;
+//   }
   .textarea{
     margin-top: 10px;
   }
@@ -63,13 +66,14 @@ select#referedBy option:hover {
   
   th, td {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding-left: 10px;
     text-align: left;
   }
   
   th {
     background-color: #f0f0f0;
     font-weight: bold;
+    padding: 5px;
   }
   
   tr:nth-child(even) {
@@ -149,17 +153,136 @@ background-color: #46103d ;
  
 }
 
-// ::ng-deep .mat-tab-group .mat-tab-label-active {
-//   background-color: #380838;
-//   border: 2px solid #380838;
-//   border-radius: 10px;
-//   color: white;
-//   padding: 5px 10px;
+::ng-deep .mat-tab-group .mat-tab-label-active {
+  background-color: #380838;
+  border: 2px solid #380838;
+  color: white;
+}
+
+// ::ng-deep .mat-tab-label.mat-tab-label-active {
+//   color:#380838;
+//   font-weight: bold;
+//   border-bottom: none;
 // }
+
+
 .General{
   color: black;
 }
 .invalid-input {
   border: 1px solid red;
 }
+
+::ng-deep .mat-tab-label-content {
+  font-size: 16px;
+}
+
+::ng-deep .mat-ink-bar {
+  background-color:  #380838;
+  height: 2px;
+}
+input{
+  border-radius: 2px;
+}
+
+.clickable {
+  cursor: pointer
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+form,
+.documents-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+.p-bodycard {
+  border: none;
+  margin-bottom: 20px;
+}
+.p-bodycard legend {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.p-inputgroup-addon {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 5px 0 0 5px;
+}
+.p-inputtext {
+  border: none;
+  border-radius: 0 5px 5px 0;
+  box-shadow: none;
+  background-color: #f2f2f2;
+  height: 40px;
+}
+.inputtext-bg {
+  background: #F2F2F2;
+  border: none;
+}
+
+// .p-inputgroup-addon {
+//     background-color: #883cae;
+//     color: white;
+// }
+
+.p-inputgroup-select {
+  background-color: #f7f7f7;
+  /* border: 1px solid #ced4da; */
+  border-radius: 0.25rem;
+  /* padding: 0.375rem 0.75rem; */
+  font-size: 1rem;
+  line-height: 1.5;
+  appearance: none;
+  /* remove default styles */
+  -webkit-appearance: none;
+  /* for Safari */
+  border: none;
+}
+
+.p-switchClass {
+  display: block;
+  padding: 0.1rem;
+}
+
+.brand-actionbutton {
+  background-color: #883cae;
+  border-color: #883cae;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.brand-actionbutton:hover {
+  background-color: #ab56d6;
+  border-color: #883cae;
+}
+
+.required {
+  color: red;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+
+
+/* button[type="submit"] {
+  background-color: #4CAF50;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+} */
+
+/* button[type="submit"]:hover {
+  background-color: #3e8e41;
+} */
+
 
