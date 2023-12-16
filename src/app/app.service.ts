@@ -39,6 +39,7 @@ export class AppService {
         this.cookieService.set('OrgID','82');
         this.cookieService.set('TraineeID','569');  
         this.cookieService.set('TimesheetRole','1');   
+        this.cookieService.set('RoleID','17'); 
         // const userName = this.cookieService.get('userName1');
         // const orgID = this.cookieService.get('OrgID');
         // const traineeID = this.cookieService.get('TraineeID');
@@ -48,9 +49,6 @@ export class AppService {
         const traineeID = 36960;
         return !!userName && !!orgID && !!traineeID;
       }
-
-
-
       checkFullAccess(numberToCheck: number): boolean {
         const userName = this.cookieService.get('userName1');
         var VewAccess = this.cookieService.get('ViewOnly');

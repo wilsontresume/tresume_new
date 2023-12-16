@@ -18,45 +18,40 @@ export class AddclientComponent implements OnInit {
   onKeyPress($event: any) {
     throw new Error('Method not implemented.');
   }
-  customCheck1:boolean=false;
-  customCheck:boolean=false;
-  content: string = '';
-  activeTab: string = 'basicInfo';
-  selectedOwnership: any[] = [];
-  filteredOwnership: any[] = [];
-  clientLeads: any[];
-  Ownership: any[];
+  Access:boolean=false;
+  sendingEmail:boolean=false;
+  Notes: string = '';
   requiredDocuments: any[];
-  selectedClientLeads: any[] = [];
   selectedRequiredDocuments: any[] = [];
-  filteredClientLeads: any[] = [];
   filteredRequiredDocuments: any[] = [];
   allclientService: any;
   formBuilder: any;
+
+//have to change in ts tomorrow
 
   ngOnInit(): void {
     this.addClient = this.fb.group({
       ClientName: ['', [Validators.required, Validators.minLength(3)]],
       ContactNumber: ['', [Validators.required, Validators.maxLength(10)]],
-      ClientEmailID: ['', [Validators.required, Validators.email]],
+      EmailID: ['', [Validators.required, Validators.email]],
       Address: ['', [Validators.required, Validators.minLength(3)]],
       VMSClientName: [''],
       FederalID: [''],
       ZipCode: [''],
-      ClientWebsite: [''],
+      Website: [''],
       Fax: [''],
       Country: ['United States'],
       State: [''],
       City: [''],
       Industry: [''],
-      ClientStatus: [''],
-      ClientCategory: [''],
+      ClientStatusID: [''],
+      ClientCategoryID: [''],
       PrimaryOwner: [''],
       PaymentTerms: [''],
       AboutCompany: [''],
-      flexRadioDefault: ['Yes'],
-      customCheck1: [''],
-      customCheck: [''],
+      posting: ['Yes'],
+      Access: [''],
+      sendingEmail: [''],
     });
   }
 
@@ -64,15 +59,9 @@ export class AddclientComponent implements OnInit {
     this.addClient = this.fb.group({
       description: [''],
     });
-    this.clientLeads = [{ name: 'Lead 1' }, { name: 'Lead 2' }, { name: 'Lead 3' }, { name: 'Lead 4' }];
+    
     this.requiredDocuments = [{ name: 'Document 1' }, { name: 'Document 2' }, { name: 'Document 3' }, { name: 'Document 4' }];
-    this.Ownership = [{ name: 'Owner 1' }, { name: 'Owner 2' }, { name: 'Owner 3' }, { name: 'Owner 4' }];
-  }
-
-  onClientLeadsSearch(event: any) {
-    this.filteredClientLeads = this.clientLeads.filter(option =>
-      option.toLowerCase().includes(event.query.toLowerCase())
-    );
+    
   }
 
   onRequiredDocumentsSearch(event: any) {
@@ -81,16 +70,7 @@ export class AddclientComponent implements OnInit {
     );
   }
 
-  onOwnershipSearch(event: any) {
-    this.filteredOwnership = this.Ownership.filter(option =>
-      option.toLowerCase().includes(event.query.toLowerCase())
-    );
-  }
-
-  selectTab(tabId: string) {
-    this.activeTab = tabId;
-  }
-
+  
   // add() {
   //   if (this.addClient.valid) {
   //     const formData = this.addClient.value;
@@ -122,20 +102,20 @@ export class AddclientComponent implements OnInit {
   //   }
   // }
 
-  addClientbtn() {
+  addClientbutton() {
     let Req = {
 
       //validation
       ClientName: this.addClient.value.ClientName,
       ContactNumber: this.addClient.value.ContactNumber,
-      ClientEmailID: this.addClient.value.ClientEmailID,
+      EmailID: this.addClient.value.EmailID,
       Address: this.addClient.value.Address,
 
       //input
       VMSClientName: this.addClient.value.VMSClientName,
       FederalID: this.addClient.value.FederalID,
       ZipCode: this.addClient.value.ZipCode,
-      ClientWebsite: this.addClient.value.ClientWebsite,
+      Website: this.addClient.value.Website,
       Fax: this.addClient.value.Fax,
 
       //dropdown
@@ -143,8 +123,8 @@ export class AddclientComponent implements OnInit {
       Country: this.addClient.value.Country,
       State: this.addClient.value.State,
       City: this.addClient.value.City,
-      ClientStatus: this.addClient.value.ClientStatus,
-      ClientCategory: this.addClient.value.ClientCategory,
+      ClientStatusID: this.addClient.value.ClientStatusID,
+      ClientCategoryID: this.addClient.value.ClientCategoryID,
       PrimaryOwner: this.addClient.value.PrimaryOwner,
       PaymentTerms: this.addClient.value.PaymentTerms,
 
@@ -152,15 +132,13 @@ export class AddclientComponent implements OnInit {
       AboutCompany: this.addClient.value.AboutCompany,
       
       //radiocheck
-      flexRadioDefault: this.addClient.value.flexRadioDefault,
-      customCheck: this.addClient.value.customCheck,
-      customCheck1: this.addClient.value.customCheck1,
+      posting: this.addClient.value.posting,
+      sendingEmail: this.addClient.value.sendingEmail,
+      Access: this.addClient.value.Access,
 
       //ngmodel
-      Ownership: this.selectedOwnership,
-      clientLeads: this.selectedClientLeads,
       requiredDocuments: this.selectedRequiredDocuments,
-      content: this.content,
+      Notes: this.Notes,
 
     };
     console.log(Req);
@@ -171,6 +149,8 @@ export class AddclientComponent implements OnInit {
 
   cancel() {
     this.addClient.reset();
+    this.selectedRequiredDocuments=[];
+    this.Notes='';
   }
 
 }

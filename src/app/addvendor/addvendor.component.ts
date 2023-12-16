@@ -13,50 +13,47 @@ import { MessageService } from 'primeng/api';
   providers: [CookieService, addVendorService, MessageService],
 })
 export class AddvendorComponent implements OnInit {
+ 
+ 
   addVendor: any;
   formData: any;
   onKeyPress($event: any) {
     throw new Error('Method not implemented.');
   }
-  customCheck1:boolean=false;
-  customCheck:boolean=false;
-  content: string = '';
-  activeTab: string = 'basicInfo';
-  selectedOwnership: any[] = [];
-  filteredOwnership: any[] = [];
-  vendorLeads: any[];
-  Ownership: any[];
+  Access:boolean=false;
+  sendingEmail:boolean=false;
+  Notes: string = '';
   requiredDocuments: any[];
-  selectedVendorLeads: any[] = [];
   selectedRequiredDocuments: any[] = [];
-  filteredVendorLeads: any[] = [];
   filteredRequiredDocuments: any[] = [];
   allvendorService: any;
   formBuilder: any;
+
+//have to change in ts tomorrow
 
   ngOnInit(): void {
     this.addVendor = this.fb.group({
       VendorName: ['', [Validators.required, Validators.minLength(3)]],
       ContactNumber: ['', [Validators.required, Validators.maxLength(10)]],
-      VendorEmailID: ['', [Validators.required, Validators.email]],
+      EmailID: ['', [Validators.required, Validators.email]],
       Address: ['', [Validators.required, Validators.minLength(3)]],
       VMSVendorName: [''],
       FederalID: [''],
       ZipCode: [''],
-      VendorWebsite: [''],
+      Website: [''],
       Fax: [''],
       Country: ['United States'],
       State: [''],
       City: [''],
       Industry: [''],
-      VendorStatus: [''],
-      VendorCategory: [''],
+      VendorStatusID: [''],
+      VendorCategoryID: [''],
       PrimaryOwner: [''],
       PaymentTerms: [''],
       AboutCompany: [''],
-      flexRadioDefault: ['Yes'],
-      customCheck1: [''],
-      customCheck: [''],
+      posting: ['Yes'],
+      Access: [''],
+      sendingEmail: [''],
     });
   }
 
@@ -64,15 +61,9 @@ export class AddvendorComponent implements OnInit {
     this.addVendor = this.fb.group({
       description: [''],
     });
-    this.vendorLeads = [{ name: 'Lead 1' }, { name: 'Lead 2' }, { name: 'Lead 3' }, { name: 'Lead 4' }];
+    
     this.requiredDocuments = [{ name: 'Document 1' }, { name: 'Document 2' }, { name: 'Document 3' }, { name: 'Document 4' }];
-    this.Ownership = [{ name: 'Owner 1' }, { name: 'Owner 2' }, { name: 'Owner 3' }, { name: 'Owner 4' }];
-  }
-
-  onVendorLeadsSearch(event: any) {
-    this.filteredVendorLeads = this.vendorLeads.filter(option =>
-      option.toLowerCase().includes(event.query.toLowerCase())
-    );
+    
   }
 
   onRequiredDocumentsSearch(event: any) {
@@ -81,16 +72,7 @@ export class AddvendorComponent implements OnInit {
     );
   }
 
-  onOwnershipSearch(event: any) {
-    this.filteredOwnership = this.Ownership.filter(option =>
-      option.toLowerCase().includes(event.query.toLowerCase())
-    );
-  }
-
-  selectTab(tabId: string) {
-    this.activeTab = tabId;
-  }
-
+  
   // add() {
   //   if (this.addVendor.valid) {
   //     const formData = this.addVendor.value;
@@ -128,14 +110,14 @@ export class AddvendorComponent implements OnInit {
       //validation
       VendorName: this.addVendor.value.VendorName,
       ContactNumber: this.addVendor.value.ContactNumber,
-      VendorEmailID: this.addVendor.value.VendorEmailID,
+      EmailID: this.addVendor.value.EmailID,
       Address: this.addVendor.value.Address,
 
       //input
       VMSVendorName: this.addVendor.value.VMSVendorName,
       FederalID: this.addVendor.value.FederalID,
       ZipCode: this.addVendor.value.ZipCode,
-      VendorWebsite: this.addVendor.value.VendorWebsite,
+      Website: this.addVendor.value.Website,
       Fax: this.addVendor.value.Fax,
 
       //dropdown
@@ -143,8 +125,8 @@ export class AddvendorComponent implements OnInit {
       Country: this.addVendor.value.Country,
       State: this.addVendor.value.State,
       City: this.addVendor.value.City,
-      VendorStatus: this.addVendor.value.VendorStatus,
-      VendorCategory: this.addVendor.value.VendorCategory,
+      VendorStatusID: this.addVendor.value.VendorStatusID,
+      VendorCategoryID: this.addVendor.value.VendorCategoryID,
       PrimaryOwner: this.addVendor.value.PrimaryOwner,
       PaymentTerms: this.addVendor.value.PaymentTerms,
 
@@ -152,15 +134,13 @@ export class AddvendorComponent implements OnInit {
       AboutCompany: this.addVendor.value.AboutCompany,
       
       //radiocheck
-      flexRadioDefault: this.addVendor.value.flexRadioDefault,
-      customCheck: this.addVendor.value.customCheck,
-      customCheck1: this.addVendor.value.customCheck1,
+      posting: this.addVendor.value.posting,
+      sendingEmail: this.addVendor.value.sendingEmail,
+      Access: this.addVendor.value.Access,
 
       //ngmodel
-      Ownership: this.selectedOwnership,
-      vendorLeads: this.selectedVendorLeads,
       requiredDocuments: this.selectedRequiredDocuments,
-      content: this.content,
+      Notes: this.Notes,
 
     };
     console.log(Req);
@@ -171,6 +151,8 @@ export class AddvendorComponent implements OnInit {
 
   cancel() {
     this.addVendor.reset();
+    this.selectedRequiredDocuments=[];
+    this.Notes='';
   }
 
 }

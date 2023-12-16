@@ -1,5 +1,5 @@
-<div class="content-header">
-    <div class="container mt-6 mb-6">
+<div class="content-header p-3">
+    <div class="container-fluid">
         <div class="row main">
             <div class="col">
                 <h2 class="ml-3 mt-4">ADD VENDOR</h2>
@@ -69,10 +69,10 @@
                             <div class="col-md-4">
                                 <div class="form-group text-center">
                                     <label>Email ID *</label>
-                                    <input name="VendorEmailID" type="text" maxlength="500" id="VendorEmailID"
-                                        class="form-control" placeholder="Email ID" formControlName="VendorEmailID"
-                                        [ngClass]="{ 'invalid-input': addVendor.get('VendorEmailID').invalid && addVendor.get('VendorEmailID').touched }">
-                                    <div *ngIf="addVendor.get('VendorEmailID').invalid && addVendor.get('VendorEmailID').touched"
+                                    <input name="EmailID" type="text" maxlength="500" id="EmailID"
+                                        class="form-control" placeholder="Email ID" formControlName="EmailID"
+                                        [ngClass]="{ 'invalid-input': addVendor.get('EmailID').invalid && addVendor.get('EmailID').touched }">
+                                    <div *ngIf="addVendor.get('EmailID').invalid && addVendor.get('EmailID').touched"
                                         class="validation-message" style="color: red;text-align: left;">
                                         * Please enter valid Email ID.
                                     </div>
@@ -754,8 +754,8 @@
                             <div class="col-md-4 ">
                                 <div class="form-group text-center">
                                     <label>Website</label>
-                                    <input name="VendorWebsite" type="text" maxlength="500" id="VendorWebsite"
-                                        formControlName="VendorWebsite" class="form-control" placeholder="Website">
+                                    <input name="Website" type="text" maxlength="500" id="Website"
+                                        formControlName="Website" class="form-control" placeholder="Website">
                                 </div>
                             </div>
                             <div class="col-md-4 ">
@@ -861,8 +861,8 @@
                             <div class="col-md-4">
                                 <div class="form-group text-center">
                                     <label>Status</label>
-                                    <select name="VendorStatus" id="VendorStatus" class="form-control"
-                                        formControlName="VendorStatus">
+                                    <select name="VendorStatusID" id="VendorStatusID" class="form-control"
+                                        formControlName="VendorStatusID">
                                         <option selected="selected" value="">Select</option>
                                         <option value="1">Active</option>
                                         <option value="2">Archive</option>
@@ -876,8 +876,7 @@
                             <div class="col-md-4">
                                 <div class="form-group text-center">
                                     <label>Category</label>
-                                    <select name="VendorCategory" id="VendorCategory" class="form-control"
-                                        formControlName="VendorCategory">
+                                    <select name="VendorCategoryID" id="VendorCategoryID" class="form-control" formControlName="VendorCategoryID">
                                         <option selected="selected" value="">Select</option>
                                         <option value="1">Direct</option>
                                         <option value="2">Tier 1</option>
@@ -901,37 +900,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <label>Ownership</label>
-                            </div>
-                            <div class=" flex text-center">
-                                <p-multiSelect [options]="Ownership" [(ngModel)]="selectedOwnership"
-                                    [ngModelOptions]="{standalone: true}" defaultLabel="Ownership" optionLabel="name"
-                                    (onSearch)="onOwnershipSearch($event)" [filter]="true" display="chip">
-                                </p-multiSelect>
-                            </div>
-                            <div class="form group custom-control pull-left custom-checkbox">
-                                <br><input type="checkbox" class="custom-control-input" id="customCheck1"
-                                    formControlName="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Allow Access to All users</label>
-                                <br>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <label>Vendor Lead</label>
-                            </div>
-                            <div class=" flex text-center">
-                                <p-multiSelect [options]="vendorLeads" [(ngModel)]="selectedVendorLeads"
-                                    [ngModelOptions]="{standalone: true}" defaultLabel="Vendor Lead" optionLabel="name"
-                                    (onSearch)="onVendorLeadsSearch($event)" [filter]="true" display="chip">
-                                </p-multiSelect>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-4">
+                        <div class="col-md-4 mt-2">
                             <div class=" text-center">
                                 <label>Required Documents</label>
                             </div>
@@ -959,43 +928,47 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mt-2">
+                            <div class="text-center">
+                                <label class="fnt-clr "><u>Notes</u></label>
+                                <p-editor [(ngModel)]="Notes" [style]="{'height':'320px', 'width':'100%'}"
+                                    [ngModelOptions]="{standalone: true}"
+                                    placeholder="Enter the email content to be sent"></p-editor>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 text-center">
                             <div class="form-group text-center">
                                 <label>About Company</label>
                                 <textarea name="AboutCompany" id="AboutCompany" rows="4" class="form-control"
                                     formControlName="AboutCompany" placeholder="About Company"
                                     style="height: auto !important;">
-                        </textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8 mt-0">
-                            <p class="fnt-clr text-center"><u>Notes</u></p>
-                            <p-editor [(ngModel)]="content" [style]="{'height':'320px', 'width':'100%'}"
-                                [ngModelOptions]="{standalone: true}"
-                                placeholder="Enter the email content to be sent"></p-editor>
-                        </div>
-
-                        <div class="col-md-4 text-center mt-4">
-                            <div class="form-group text-center">
-                                <label for="flexRadioDefault">Display on Job Posting?</label>
-                            </div>
-                            <div class="form-check" style="display: inline-block;">
-                                <input class="mr-2" type="radio" id="flexRadioDefaultTrue" value="true"
-                                    formControlName="flexRadioDefault">
-                                <label class="mr-3" for="flexRadioDefaultYes">Yes</label>
-                                <input class="mr-2" type="radio" id="flexRadioDefaultFalse" value="false"
-                                    formControlName="flexRadioDefault">
-                                <label for="flexRadioDefaultNo">No</label>
+                                </textarea>
                             </div>
                             <div class="form-group text-center">
-                                <div class="form-check ml-2 pull-left custom-checkbox mt-4">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck"
-                                        formControlName="customCheck">
-                                    <label class="custom-control-label" for="customCheck">You want to stop sending
-                                        email notification to vendor contact while doing Submit to Vendor?</label>
+                                <label for="posting">Display on Job Posting?</label><br>
+                                <div class="form-check ml-2" style="display: inline-block;">
+                                    <input class="mr-2" type="radio" id="postingTrue" value="true" checked
+                                        formControlName="posting">
+                                    <label class="mr-4" for="postingYes">Yes</label>
+                                    <input class="mr-2" type="radio" id="postingFalse" value="false"
+                                        formControlName="posting">
+                                    <label for="flexRadioDefaultNo">No</label>
                                 </div>
+                            </div>
+                            <div class="form group custom-control custom-checkbox text-center">
+                                <input type="checkbox" class="custom-control-input" id="Access"
+                                    formControlName="Access">
+                                <label class="custom-control-label" for="Access">Allow Access to All users</label>
+                                <br>
+                            </div>
+                            <div class="form group custom-control custom-checkbox text-center"><br>
+                                <input type="checkbox" class="custom-control-input" id="sendingEmail"
+                                    formControlName="sendingEmail">
+                                <label class="custom-control-label" for="sendingEmail">You want to stop sending email notification to vendor contact while doing Submit to Vendor?</label>
+                                <br>
                             </div>
                         </div>
                     </div>
@@ -1006,9 +979,7 @@
                 </form>
             </div>
             <!-- <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contactsTab">
-
             </div> -->
         </div>
     </div>
 </div>
-
