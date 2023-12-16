@@ -31,7 +31,7 @@ const transporter = nodemailer.createTransport({
 });
 
 module.exports = router;
- 
+
 router.post('/getTraineeVendorList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
@@ -53,7 +53,7 @@ router.post('/getTraineeVendorList', async (req, res) => {
         flag: 0,
         error: "No active vendors found! ",
       };
-      res.send(result); 
+      res.send(result);
     }
   } catch (error) {
     console.error("Error fetching vendor data:", error);
@@ -88,7 +88,7 @@ router.post('/deleteVendorAccount', async (req, res) => {
       error: "An error occurred while deleting the vendor!",
     };
     res.status(500).send(result);
-  }  
+  }
 
 })
 
@@ -100,11 +100,11 @@ async function deactivatevendor(VendorID) {
     const queryResult = await request.query(
       `update Vendors set active = 0 where VendorID = '${VendorID}'`
     );
-    
+
     if (queryResult.rowsAffected[0] === 0) {
       throw new Error("No records found!");
     }
-    
+
     return queryResult;
   } catch (error) {
     console.error("Error while deleting vendor:", error);
@@ -113,24 +113,19 @@ async function deactivatevendor(VendorID) {
 }
 
 router.post('/addVendor', async (req, res) => {
-
   try {
-    const pool = await sql.connect(config);
-    const request = pool.request();
-    
-    const result = {
-      flag: 1,
-      message: "Vendor added successfully!",
-    };
+    const request = new sql.Request();
 
-    res.send(result);
+    const query = `INSERT INTO Vendors (VendorName, ContactNumber, EmailID, Address, VMSVendorName, FederalID,ZipCode, Website, Fax, Industry, Country, State, City, VendorStatusID,  VendorCategoryID, PrimaryOwner,RequiredDocuments, PaymentTerms, AboutCompany, Access, sendingEmail, posting, Notes) VALUES 
+    ('${req.body.VendorName}', '${req.body.ContactNumber}', '${req.body.EmailID}', '${req.body.Address}', '${req.body.VMSVendorName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.Website}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', ${req.body.VendorStatusID}, ${req.body.VendorCategoryID}, '${req.body.PrimaryOwner}', '${req.body.AboutCompany}', ${req.body.Active ? '1' : '0'}, ${req.body.Access ? '1' : '0'}, ${req.body.posting ? '1' : '0'}, ${req.body.sendingEmail ? '1' : '0'}, '${req.body.PaymentTerms}', '${req.body.Notes}')`;
+
+    console.log(query);
+    const result = await request.query(query);
+    console.log(result);
+    res.status(200).json({ success: true, message: 'Vendor added successfully' });
   } catch (error) {
-    console.error("Error adding vendor:", error);
-    const result = {
-      flag: 0,
-      error: "An error occurred while adding the vendor!",
-    };
-    res.status(500).send(result);
-  }  
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
 });
 

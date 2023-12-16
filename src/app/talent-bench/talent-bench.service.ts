@@ -13,6 +13,9 @@ constructor(private http: HttpClient) { }
 getTalentBenchList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getTalentBenchList', request);
 }
+addcandidate(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'addcandidate', request);
+}
 }
 export interface ResponseDetails {
 flag?: any;
