@@ -37,14 +37,9 @@
               <div class="col-md-4">
                 <label for="interviewMode">Recruiter Name</label>
                 <!-- <select class="form-control" id="recruiterName" name="Recruiter Name" *ngFor="let item of items"  [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}"> -->
-                  <select class="form-control" id="recruiterName" name="Recruiter Name" *ngFor="let item of items" formControlName="recruiterName">
-                  <option value="In-Person">--Select--</option>
-                  <option value="Name1">{{item.value1}}</option>
-                  <option value="Name2">{{item.value2}}</option>
-                  <option value="Name3">{{item.value3}}</option>
-                  <option value="Name4">{{item.value4}}</option>
-                  <option value="Name5">{{item.value5}}</option>
-                  <option value="Name6">{{item.value6}}</option>
+                  <select class="form-control" id="recruiterName" name="Recruiter Name" [(ngModel)]="FormGeneral.recruiterName" [ngModelOptions]="{standalone: true}">
+                    <option value disabled selected>Select a Referrer</option>
+                    <option *ngFor="let name of recruiterName" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option>
                 </select>
               </div>
               <div class="col-md-4">
@@ -70,21 +65,20 @@
             </div>
             <div class="row mt-2">
               <div class="col-md-4">
-                <label for="refered">Referred By</label>
+                <label for="ReferredBy">Referred By</label>
                 <!-- <select [(ngModel)]="SelectedRefered" name="refered" id="refered" class="form-control"
                   [ngModelOptions]="{standalone: true}"> -->
-                  <select name="refered" id="refered" class="form-control" formControlName="refered">
+                  <select name="refered" id="ReferredBy" class="form-control" formControlName="ReferredBy">
                   <option value disabled selected>Select a Referrer</option>
-                  <option *ngFor="let refered of referedby" [value]="refered">{{
-                    refered }}</option>
+                  <option *ngFor="let refered of referedby" [value]="refered.id">{{refered.MemberFirstName }} {{refered.MemberLastName }}</option>
                 </select>
               </div>
               <div class="col-md-4">
-                <label for="assistedBy">Deal Offered (optional)</label>
+                <label for="DealOffered">Deal Offered (optional)</label>
                 <!-- <input type="text" class="form-control" id="assistedBy" name="assistedBy"
                   placeholder="Deal Offered (optional)" [(ngModel)]="assistedBy" [ngModelOptions]="{standalone: true}"> -->
-                  <input type="text" class="form-control" id="assistedBy" name="assistedBy"
-                    placeholder="Deal Offered (optional)" formControlName="assistedBy">
+                  <input type="text" class="form-control" id="DealOffered" name="DealOffered"
+                    placeholder="Deal Offered (optional)" formControlName="DealOffered">
               </div>
               <div class="col-md-4">
                 <label for="typeOfAssistance">Referred By (External) (optional)</label>
@@ -114,7 +108,7 @@
                 <div class="form-group">
                   <label for="statusDate">Status Date</label>
                   <!-- <input type="text" class="form-control" id="statusDate" placeholder="Status Date" [(ngModel)]="statusDate" [ngModelOptions]="{standalone: true}"> -->
-                  <input type="text" class="form-control" id="statusDate" placeholder="Status Date" formControlName="statusDate">
+                  <input type="date" class="form-control" id="statusDate" placeholder="Status Date" formControlName="statusDate">
                 </div>
               </div>
               <div class="col-md-4">
@@ -565,7 +559,7 @@
                 <div class="col-md-4">
                   <label for="title">Title</label>
                   <input type="text" class="form-control" id="title" name="title" placeholder="Title"
-                    formControlName="Title"
+                    formControlName="title"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched }">
                   <div *ngIf="myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched"
                     class="validation-message" style="color: red;">
@@ -575,7 +569,7 @@
                 <div class="col-md-4">
                   <label for="submissionDate">Submission Date</label>
                   <input type="date" class="form-control" id="submissionDate" name="submissionDate"
-                    placeholder="Submission Date" formControlName="SubmissionDate"
+                    placeholder="Submission Date" formControlName="submissionDate"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('submissionDate').invalid && myFormSubmission.get('submissionDate').touched }">
                   <div
                     *ngIf="myFormSubmission.get('submissionDate').hasError('required') && myFormSubmission.get('submissionDate').touched"
@@ -591,7 +585,7 @@
                 <div class="col-md-4">
                   <label for="notes">Notes</label>
                   <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes"
-                    formControlName="Note"
+                    formControlName="notes"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched }">
                   <div *ngIf="myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched"
                     class="validation-message" style="color: red;">
@@ -605,7 +599,7 @@
                 <div class="col-md-4">
                   <label for="vendorName">Vendor Name</label>
                   <input type="text" class="form-control" id="vendorName" name="vendorName" placeholder="Vendor Name"
-                    formControlName="VendorName"
+                    formControlName="vendorName"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched }">
                   <div *ngIf="myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched"
                     class="validation-message" style="color: red;">
@@ -615,7 +609,7 @@
                 <div class="col-md-4">
                   <label for="rate">Rate</label>
                   <input type="number" class="form-control" id="rate" name="rate" placeholder="Rate"
-                    formControlName="Rate"
+                    formControlName="rate"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched }">
                   <div *ngIf="myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched"
                     class="validation-message" style="color: red;">
@@ -625,7 +619,7 @@
                 <div class="col-md-4">
                   <label for="clientName">Client Name</label>
                   <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name"
-                    formControlName="ClientName"
+                    formControlName="clientName"
                     [ngClass]="{ 'invalid-input': myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched }">
                   <div *ngIf="myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched"
                     class="validation-message" style="color: red;">
@@ -636,6 +630,46 @@
             </div>
           </form>
         </div>
+        <div class="row mt-4 pl-3">
+          <div class="col">
+              <div class="table-container">
+                  <table class="table text-center">
+                      <thead>
+                          <tr>
+                              <th>Title</th>
+                              <th>SubmissionDate</th>
+                              <th>Marketer Name</th>
+                              <th>VendorName</th>
+                              <th>ClientName</th>
+                              <th>Note</th>
+                              <th>Rate</th>
+                              
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let submission of getSubmissionList">
+                              <td>{{ submission.title }}</td>
+                              <td>{{ submission.submissionDate }}</td>
+                              <td>{{ submission.MarketerID }}</td> 
+                              <td>{{ submission.vendorName }}</td>
+                              <td>{{ submission.clientName }}</td>
+                              <td>{{ submission.notes }}</td>
+                              <td>{{ submission.rate }}</td>
+                              <td>
+                                  <div class="input-group">
+                                      <input type="date" class="form-control"
+                                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                          placeholder="Follow Up On" style="width: 100px;">
+                                     <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+candidate.TraineeID]"style="font-size: 24px;"></i>
+                                  </div>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+
       </mat-tab>
       <!-- Content for Financial Info tab -->
       <mat-tab label="Financial Info" class="mt-5">
@@ -883,7 +917,7 @@
       </mat-tab>
 
       <mat-tab label="Site Visit" class="mt-5">
-        <div class="container">
+        <!-- <div class="container">
           <table>
             <tbody>
               <tr>
@@ -920,7 +954,7 @@
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> -->
       </mat-tab>
     </mat-tab-group>
   </div>

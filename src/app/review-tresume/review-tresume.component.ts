@@ -54,6 +54,8 @@ export class ReviewTresumeComponent implements OnChanges {
   legalStatusVal: any;
   legalStatusValend: any;
   division: any;
+  OrgID: string;
+userName: string;
 
   siteVisitTabClicked() {
     console.log('Additional logic for Site Visit tab click');
@@ -90,17 +92,7 @@ export class ReviewTresumeComponent implements OnChanges {
     }
   ]
 
-  referedby: string[] = [
-    'Name 1',
-    'Name 2',
-    'Name 3',
-    'Name 4 ',
-    'Name 5',
-    'Name 6',
-    'Name 7 ',
-    'Name 8',
-    'Name 9',
-  ];
+  referedby: string[] = [];
 
   divisions: string[] = [
     'PROJECT COORDINATOR',
@@ -177,7 +169,7 @@ export class ReviewTresumeComponent implements OnChanges {
       phoneNumberG: this.FormGeneral.value.phoneNumberG,
       generalEmail: this.FormGeneral.value.generalEmail,
       refered: this.FormGeneral.value.refered,
-      assistedBy: this.FormGeneral.value.assistedBy,
+      DealOffered: this.FormGeneral.value.DealOffered,
       ReferredBy: this.FormGeneral.value.ReferredBy,
       ssn: this.FormGeneral.value.ssn,
       statusDate: this.FormGeneral.value.statusDate,
@@ -189,10 +181,11 @@ export class ReviewTresumeComponent implements OnChanges {
       ftcNotes: this.FormGeneral.value.ftcNotes,
       otherNotes: this.FormGeneral.value.otherNotes,
       division: this.FormGeneral.value.division,
-      dob: this.FormGeneral.value.dob
+      dob: this.FormGeneral.value.dob,
+      TraineeID:this.candidateID
     };
     console.log(Req);
-    this.service.saveGeneralFormData(Req).subscribe((x: any) => {
+    this.service.updateGeneral(Req).subscribe((x: any) => {
       console.log(x);
     });
   }
@@ -218,8 +211,19 @@ export class ReviewTresumeComponent implements OnChanges {
       typeOfAssistance: this.myForm.get('typeOfAssistance').value,
       interviewMode: this.myForm.get('interviewMode').value,
     };
+// console.log(Req);
+    // this.service.saveInterviewFormData(Req).subscribe((x: any) => {
+    //   console.log(x);
+    // });
+      // Log the form value, not the form itself
+  // console.log(this.myForm.value);
+
+  // // Assuming this.service is an Angular service
+  // this.service.insertTraineeInterview(this.myForm.value).subscribe((response: any) => {
+  // console.log(response);
+  //   });
     console.log(Req);
-    this.service.saveInterviewFormData(Req).subscribe((x: any) => {
+    this.service.insertTraineeInterview(Req).subscribe((x: any) => {
       console.log(x);
     });
   }
@@ -245,9 +249,12 @@ export class ReviewTresumeComponent implements OnChanges {
       vendorName: this.myFormSubmission.value.vendorName,
       rate: this.myFormSubmission.value.rate,
       clientName: this.myFormSubmission.value.clientName,
+      recruiteremail:this.userName,
+      MarketerID:this.TraineeID,
+      CandidateID:this.candidateID
     };
     console.log(Req);
-    this.service.saveSubmissionFormData(Req).subscribe((x: any) => {
+    this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
       console.log(x);
     });
   }
@@ -338,16 +345,24 @@ export class ReviewTresumeComponent implements OnChanges {
   reviewService: any;
   placementList: any;
   candidateID:any;
+  submissionList:any;
+
 
   constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService) {
+    
     this.candidateID = this.route.snapshot.params["traineeID"];
 
+    this.OrgID = this.cookieService.get('OrgID');
+    this.userName = this.cookieService.get('userName1');
+    this.TraineeID = this.cookieService.get('TraineeID');
    }
 
   ngOnInit(): void {
     this.fetchinterviewlist();
     this.getPlacementList();
     this.fetchCandidateInfo();
+    this.getSubmissionList() ;
+    this.getOrgUserList();
     this.currentTabIndex = 0;
 
     this.FormGeneral = this.formBuilder.group({
@@ -359,7 +374,7 @@ export class ReviewTresumeComponent implements OnChanges {
       middleName: [''],
       lastName: [''],
       refered: [''],
-      assistedBy: [''],
+      DealOffered: [''],
       ReferredBy: [''],
       ssnInput: [''],
       statusDate: [''],
@@ -373,7 +388,7 @@ export class ReviewTresumeComponent implements OnChanges {
       dob: [''],
 
     });
-
+    
     this.myForm = this.formBuilder.group({
       interviewInfo: ['', [Validators.required, Validators.minLength(3)]],
       client: ['', [Validators.required, Validators.minLength(3)]],
@@ -387,12 +402,13 @@ export class ReviewTresumeComponent implements OnChanges {
     });
 
     this.myFormSubmission = this.formBuilder.group({
-      SubmissionDate: ['', [Validators.required, this.futureDateValidator]],
-      Title: ['', [Validators.required, Validators.minLength(3)]],
-      Note: ['', [Validators.required, Validators.minLength(3)]],
-      VendorName: ['', [Validators.required, Validators.minLength(3)]],
-      Rate: ['', [Validators.required, Validators.minLength(3)]],
-      ClientName: ['', [Validators.required, Validators.minLength(3)]],
+      submissionDate: ['', [Validators.required, this.futureDateValidator]],
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      notes: ['', [Validators.required, Validators.minLength(3)]],
+      vendorName: ['', [Validators.required, Validators.minLength(3)]],
+      rate: ['', [Validators.required, Validators.minLength(3)]],
+      clientName: ['', [Validators.required, Validators.minLength(3)]],
+      
     });
 
     this.myFormFinancial = this.formBuilder.group({
@@ -424,6 +440,7 @@ export class ReviewTresumeComponent implements OnChanges {
       routingnum1: [''],
       routingnum2: [''],
     });
+
 
 
     // this.disableFormGroup(this.myFormFinancial);
@@ -494,7 +511,7 @@ export class ReviewTresumeComponent implements OnChanges {
 
 
   getPlacementList() {
-    this.TraineeID = this.cookieService.get('TraineeID');
+this.TraineeID = this.cookieService.get('TraineeID');
 
     const Req = {
       TraineeID: this.candidateID
@@ -509,12 +526,35 @@ export class ReviewTresumeComponent implements OnChanges {
     // });
   }
 
+  getSubmissionList() {
+    this.TraineeID = this.cookieService.get('TraineeID');
+
+    const Req = {
+      TraineeID: this.candidateID
+    };
+
+    this.service.getSubmissionList(Req).subscribe((x: any) => {
+      this.submissionList = x.result;
+    });
+  }
+  
   fetchinterviewlist() {
     let Req = {
       TraineeID: this.candidateID,
     };
     this.service.getInterviewList(Req).subscribe((x: any) => {
       this.interview = x.result;
+    });
+  }
+
+  getOrgUserList() {
+    let Req = {
+      TraineeID: this.candidateID,
+      OrgID:this.OrgID
+    };
+    this.service.getOrgUserList(Req).subscribe((x: any) => {
+    this.referedby = x.result;
+    this.recruiterName = x.result;
     });
   }
   
@@ -531,8 +571,8 @@ export class ReviewTresumeComponent implements OnChanges {
     firstname: x.result[0].FirstName || '',
     middleName: x.result[0].MiddleName || '',
     lastName: x.result[0].LastName || '',
-    refered: x.result[0].ReferredBy || '',
-    assistedBy: x.result[0].assistedBy || '',
+    refered: x.result[0].refered || '',
+    DealOffered: x.result[0].DealOffered || '',
     ReferredBy: x.result[0].ReferredBy_external || '',
     ssnInput: x.result[0].SSn || '',
     statusDate: x.result[0].statusdate || '',
