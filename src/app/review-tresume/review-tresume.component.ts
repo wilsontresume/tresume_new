@@ -21,7 +21,7 @@ export class ReviewTresumeComponent implements OnChanges {
   myFormFinancialinfo: any;
   FormGeneral: any;
   formData: any;
-  financialNotes: any;
+  FinancialNotes: any;
   salaryinfo: any;
   Perdeium: any;
   legalStatus: any;
@@ -256,44 +256,44 @@ userName: string;
     console.log(Req);
     this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
       console.log(x);
-    });
+    }); 
   }
 
   saveFinancialInfoFormData() {
     console.log('Saving data for the Financial Info tab:', this.financialInfoFormData);
 
     let Req = {
-      financialNotes: this.financialNotes,
-      salaryinfo: this.salaryinfo,
-      Perdeium: this.Perdeium,
-      legalStatus: this.legalStatus,
-      maritalStatus: this.maritalStatus,
-      stateTaxAllowance: this.stateTaxAllowance,
-      stateTaxExemptions: this.stateTaxExemptions,
-      federalTaxAllowance: this.federalTaxAllowance,
-      federalAddAllowance: this.federalAddAllowance,
-      gcDate: this.gcDate,
-      gcWages: this.gcWages,
-      lcaDate: this.lcaDate,
-      lcaRate: this.lcaRate,
-      State: this.State,
-      healthInsurance: this.healthInsurance,
-      lifeInsurance: this.lifeInsurance,
+      FinancialNotes: this.myFormFinancial.value.FinancialNotes,
+      Salary: this.myFormFinancial.value.salaryinfo,
+      Perdeium: this.myFormFinancial.value.Perdeium,
+      LegalStatus: this.myFormFinancial.value.legalStatus,
+      MaritalStatus: this.myFormFinancial.value.maritalStatus,
+      StateTaxAllowance: this.myFormFinancial.value.stateTaxAllowance,
+      StateTaxExemptions: this.myFormFinancial.value.stateTaxExemptions,
+      FederalTaxAllowance: this.myFormFinancial.value.federalTaxAllowance,
+      FederalTaxAdditionalAllowance: this.myFormFinancial.value.federalAddAllowance,
+      Gcdate: this.myFormFinancial.value.gcDate,
+      GCWages: this.myFormFinancial.value.gcWages,
+      Lcadate: this.myFormFinancial.value.lcaDate,
+      LCARate: this.myFormFinancial.value.lcaRate,
+      state: this.myFormFinancial.value.State,
+      healthInsurance: this.myFormFinancial.value.healthInsurance,
+      lifeInsurance: this.myFormFinancial.value.lifeInsurance,
 
-      Bankname1: this.Bankname1,
-      Bankname2: this.Bankname2,
-      accountType1: this.accountType1,
-      accountType2: this.accountType2,
-      accountnum1: this.myFormFinancial.value.accountnum1,
-      accountnum2: this.myFormFinancial.value.accountnum2,
-      routingnum1: this.routingnum1,
-      routingnum2: this.routingnum2,
-      salaryDepositType: this.salaryDepositType,
-      howMuch: this.howMuch,
+      Bank1Name: this.myFormFinancial.value.Bankname1,
+      Bank2Name: this.myFormFinancial.value.Bankname2,
+      Bank1AccountType: this.myFormFinancial.value.accountType1,
+      Bank2AccountType: this.myFormFinancial.value.accountType2,
+      Bank1AccountNumber: this.myFormFinancial.value.accountnum1,
+      Bank2AccountNumber: this.myFormFinancial.value.accountnum2,
+      Bank1RoutingNumber: this.myFormFinancial.value.routingnum1,
+      Bank2RoutingNumber: this.myFormFinancial.value.routingnum2,
+      SalaryDepositType: this.myFormFinancial.value.salaryDepositType,
+      HowMuch: this.myFormFinancial.value.howMuch,
 
     };
     console.log(Req);
-    this.service.saveFinancialInfoFormData(Req).subscribe((x: any) => {
+    this.service.updateFinancial(Req).subscribe((x: any) => {
       console.log(x);
     });
   }
@@ -414,7 +414,7 @@ userName: string;
     this.myFormFinancial = this.formBuilder.group({
       accountnum1: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
       accountnum2: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
-      financialNotes: [''],
+       FinancialNotes: [''],
       salaryinfo: [''],
       maritalStatus: ['Married'],
       legalStatus: [''],
@@ -589,7 +589,7 @@ this.TraineeID = this.cookieService.get('TraineeID');
       this.myFormFinancial.patchValue({
         accountnum1: x.result[0].Bank1AccountNumber || '',
         accountnum2: x.result[0].Bank2AccountNumber || '',
-        financialNotes: x.result[0].FinancialNotes || '',
+         FinancialNotes: x.result[0]. FinancialNotes || '',
         salaryinfo: x.result[0].Salary || '',
         maritalStatus: x.result[0].MaritalStatus || 'Married',
         legalStatus: x.result[0].LegalStatus || '',
