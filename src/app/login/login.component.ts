@@ -41,6 +41,8 @@ export class LoginComponent {
         const FullAccess = response.result[0].FullAccess
         const DashboardPermission = response.result[0].DashboardPermission
         const RoleID = response.result[0].RoleID
+        
+        
         this.cookieService.set('userName1', userName);
         this.cookieService.set('OrgID', orgID);
         this.cookieService.set('TraineeID',traineeID);
