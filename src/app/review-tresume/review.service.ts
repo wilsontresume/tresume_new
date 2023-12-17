@@ -73,4 +73,8 @@ export class ReviewService {
     return this.http.post<ResponseDetails>(this.endpoint + 'getOrgUserList', request);
   }
   
+  updateFinancial(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'updateFinancial', request);
+  }
+
 }
