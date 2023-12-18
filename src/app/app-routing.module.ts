@@ -179,8 +179,6 @@ const routes: Routes = [
   {path:'joble',component:JobleeComponent},
   {path:'yahoo',component:YahooComponent},
   {path:'adobe',component:AdobeComponent},
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
   { path: 'reports', component: ReportsHomeComponent },
   { path: 'reports/ftc', component: ReportsComponent },
   { path: 'reports/interviews', component: InterviewsReportComponent },
