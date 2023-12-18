@@ -792,6 +792,7 @@ ul {
   color: #333;
   font-size: 14px;
   letter-spacing: 1px;
+  font-style: oblique;
 }
 
 .main-timeline .timeline:nth-child(even):before {
@@ -926,4 +927,7 @@ h2.tittle {
   text-align: center;
   color: #93628d;
   font-weight: 600;
+}
+.space {
+  margin-right: 20px;
 }

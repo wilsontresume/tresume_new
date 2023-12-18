@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top " [ngClass]="{'scrolled': isScrolled}">
+<nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
   <a routerLink="/homelanding"><img src="../assets/img/logo.png" alt=""></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,35 +7,36 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/features">Features</a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
           Products
         </a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" routerLink="/workforce">Workforce</a>
-          <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
           <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+          <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+          <a class="dropdown-item" routerLink="/workforce">Workforce</a>
           <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
         </div>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/market"> Marketplace</a>
+        <a class="nav-link" routerLink="/market">Marketplace</a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/features">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/about">About</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" routerLink="/contact">Contact Us</a>
       </li>
     </ul>
-    <div class="content" style=" margin-right: 62px;">
+    <div class="content" style="margin-right: 62px;">
       <a href="/login" class="bn5">Login</a>
     </div>
   </div>
 </nav>
+
 <!-- Banner for home page  -->
 <div class="banner-area">
   <div id="bootcarousel" class="carousel inc-top-heading slide carousel-fade animate_text" data-ride="carousel">

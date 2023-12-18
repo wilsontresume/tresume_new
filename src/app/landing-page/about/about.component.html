@@ -1,38 +1,37 @@
 <section id="team" class="pb-5">
-  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
+  <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
     <a routerLink="/homelanding"><img src="../assets/img/logo.png" alt=""></a>
-
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/features">Features</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
             Products
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" routerLink="/workforce">Workforce</a>
-            <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
             <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+            <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+            <a class="dropdown-item" routerLink="/workforce">Workforce</a>
             <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
           </div>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" routerLink="/market"> Marketplace</a>
+          <a class="nav-link" routerLink="/market">Marketplace</a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/features">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" routerLink="/contact">Contact Us</a>
         </li>
       </ul>
-      <div class="content">
+      <div class="content" style="margin-right: 62px;">
         <a href="/login" class="bn5">Login</a>
       </div>
     </div>
@@ -44,23 +43,12 @@
     <div style="width: 100%;" class="content-over-video overlay">
       <h1  id="welcomeText" style="background-color: #a24f9a91;
     height: 111px;
-    padding-top: 33px;font-size: 54px;color: white !important;"><!-- HTML -->
+    padding-top: 33px;font-size: 54px;color: white !important;font-weight: 500 !important;"><!-- HTML -->
 
-<h1 id="aboutTresume">
-  <span>A</span>
-  <span>b</span>
-  <span>o</span>
-  <span>u</span>
-  <span>t</span>
-  <span> </span>
-  <span></span>
-  <span>T</span>
-  <span>r</span>
-  <span>e</span>
-  <span>s</span>
-  <span>u</span>
-  <span>m</span>
-  <span>e</span>
+<h1  id="aboutTresume">
+  <span class="space">ABOUT</span>
+  <span class="space">TRESUME</span>
+
 </h1>
 </h1>
     </div>
@@ -73,7 +61,7 @@
       <div class="row">
         <div class="col-md-6 ">
           <h1 style=" color: purple;">About
-            Tresume: Connecting Talent with Opportunity </h1>
+            Tresume Connecting Talent with Opportunity </h1>
           <p class="description">At Tresume, we believe that finding the right job or hiring the perfect candidate shouldn't be
             a daunting
             task.
@@ -92,7 +80,7 @@
       <br>
       <div class="row">
         <div class="col-md-6">
-          <img src="../../../assets/img/excelant.jpg" alt="Tresume Image" class="img-fluid">
+          <img src="../../../assets/img/comitment.jpg" alt="Tresume Image" class="img-fluid">
         </div>
         <div class="col-md-6">
           <p>
