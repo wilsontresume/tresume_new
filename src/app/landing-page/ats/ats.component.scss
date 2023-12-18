@@ -686,6 +686,7 @@ ul {
   height: 2px;
   width: 50px;
   background: #802067;
+  margin-left: 10rem;
 }
 
 .footer-widget ul li {
@@ -883,14 +884,18 @@ ul {
   background: #fff;
   color: #ff0000;
 }
-
-.navbar[_ngcontent-ng-c3526649106] {
+.navbar {
   padding: 10px;
   font-size: 20px;
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
+  height: 80px;
 }
+// .navbar[_ngcontent-ng-c3526649106] {
+//   padding: 10px;
+//   font-size: 20px;
+//   position: fixed;
+//   width: 100%;
+//   z-index: 1000;
+// }
 #navbarSupportedContent {
   margin-left: 16rem;
 }
