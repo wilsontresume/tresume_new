@@ -11,7 +11,7 @@
 .navbar {
   padding: 10px;
   font-size: 20px;
-  height: 108px;
+  height: 80px;
 }
 .navbar.scrolled .navbar-nav .nav-link {
   color: white !important;
@@ -872,5 +872,7 @@ ul {
   color: #676a6a;
   line-height: 2.5rem;
   text-align: left;
+  text-align: justify;
+  letter-spacing: 2px;
   margin-right: 50px;
 }

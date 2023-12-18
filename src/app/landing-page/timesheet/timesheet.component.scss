@@ -658,10 +658,13 @@ ul {
   background: #fff;
   color: #ff0000;
 }
-
+.navbar{
+  height: 80px;
+}
 .navbar[_ngcontent-ng-c3526649106] {
   padding: 10px;
   font-size: 20px;
+
   position: fixed;
   width: 100%;
   z-index: 1000;
