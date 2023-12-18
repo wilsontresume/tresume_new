@@ -95,26 +95,8 @@ async function deactivateclient(ClientID) {
   }
 }
 
-router.post('/addClient', async (req, res) => {
-
-  try {
-    const pool = await sql.connect(config);
-    const request = pool.request();
-    
-    const result = {
-      flag: 1,
-      message: "Client added successfully!",
-    };
-
-    res.send(result);
-  } catch (error) {
-    console.error("Error adding client:", error);
-    const result = {
-      flag: 0,
-      error: "An error occurred while adding the client!",
-    };
-    res.status(500).send(result);
-  }  
+router.post('/addClienta', async (req, res) => {
+  console.log(req);
 });
 
 

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpEvent, HttpParams, HttpRequest, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable()
 
-export class VendorService {
+export class addVendorService {
     public endpoint = environment.apiUrl;
     // public endpoint = 'https://alpha.tresume.us/TresumeAPI/';
     // public endpoint = 'http://localhost:3000/';
@@ -20,9 +20,9 @@ export class VendorService {
         return this.http.post<ResponseDetails>(this.endpoint + 'deleteVendorAccount', request);
     } 
 
-    // addVendor(request: any): Observable<ResponseDetails> {
-    //     return this.http.post<ResponseDetails>(this.endpoint + 'addVendor', request);
-    // }
+    addVendor(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'addVendor', request);
+    }
 }
 export interface ResponseDetails {
     flag?: any;
