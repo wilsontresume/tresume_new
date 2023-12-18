@@ -40,7 +40,6 @@ import { FinancialInfoComponent } from './financial-info/financial-info.componen
 import { SearchTresumeComponent } from './search-tresume/search-tresume.component';
 import { HrmsComponent } from './hrms/hrms.component';
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
-import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InformationComponent } from './information/information.component';
@@ -62,6 +61,38 @@ import { AllTimeListComponent } from './all-time-list/all-time-list.component';
 import { AssignRoleComponent } from './assign-role/assign-role.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.component';
+import { HomeComponent } from './landing-page/home/home.component';
+import { AboutComponent } from './landing-page/about/about.component';
+import { AtsComponent } from './landing-page/ats/ats.component';
+import { WorkforceComponent } from './landing-page/workforce/workforce.component';
+import { TalentSuiteComponent } from './landing-page/talent-suite/talent-suite.component';
+import { ContactComponent } from './landing-page/contact/contact.component';
+import { MarketplaceComponent } from './landing-page/marketplace/marketplace.component';
+import { MonsterComponent } from './landing-page/monster/monster.component';
+import { DiceComponent } from './landing-page/dice/dice.component';
+import { CareerBuilderComponent } from './landing-page/career-builder/career-builder.component';
+import { OptNationComponent } from './landing-page/opt-nation/opt-nation.component';
+import { FeaturesComponent } from './landing-page/features/features.component';
+import { TimesheetComponent } from './landing-page/timesheet/timesheet.component';
+import { JobleeComponent } from './landing-page/joblee/joblee.component';
+import { ProductsComponent } from './landing-page/products/products.component';
+import { YahooComponent } from './landing-page/yahoo/yahoo.component';
+import { AdobeComponent } from './landing-page/adobe/adobe.component';
+import { ReportsHomeComponent } from './reports/reports-home.component';
+import { BenchTrackerReportComponent } from './reports/bench-tracker-report.component';
+import { BillableEmpReportComponent } from './reports/billableEmp-report.component';
+import { ComplianceReportComponent } from './reports/compliance-report.component';
+import { DocExpiryReportComponent } from './reports/doc-expiry-report.component';
+import { DSRReportComponent } from './reports/dsr-report.component';
+import { H1BExpiryReportComponent } from './reports/h1bexpiry-report.component';
+import { InterviewsReportComponent } from './reports/interviews-report.component';
+import { JobBoardAuditReportComponent } from './reports/jobboard-audit-report.component';
+import { LegalStatusReportComponent } from './reports/legal-status-report.component';
+import { NonH1BReportComponent } from './reports/nonh1b-report.component';
+import { PFAReportComponent } from './reports/pfa-report.component';
+import { PlacementsReportComponent } from './reports/placements-report.component';
+import { ReportsComponent } from './reports/reports.component';
+import { TimesheetReportComponent } from './reports/timesheet-report.component ';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -109,18 +140,17 @@ const routes: Routes = [
   { path: 'jobapplication',component:JobApplicationComponent},
   { path: 'organizationinfo' , component:OrganinfoComponent},
   { path: 'applicantdetails', component:ApplicantDetailsComponent},
-  { path: 'confirmpopup', component:ConfirmationPopupComponent},
   { path: 'jobboardaccount', component:JobBoardAccountComponent},
   { path: 'talentBench', component:TalentBenchComponent},
   { path: 'submittedcandidates', component:SubmittedCandiatesComponent},
-  { path: 'reviewtresume', component:ReviewTresumeComponent},
+  { path: 'reviewtresume/:traineeID', component:ReviewTresumeComponent},
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
   { path: 'adobesign/token/:token', component: AdobesignComponent1  , canActivate: [AuthGuard] },
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard] },
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accountsadduser', component:AccountsAddUserComponent},
   { path: 'accountsaddrole',component:AccountsAddRoleComponent},
-  { path: 'login', component: LoginComponent , canActivate: [AuthGuard]},
+  { path: 'login', component: LoginComponent},
   { path: 'profile',component:ProfileComponent},
   { path: 'information',component:InformationComponent},
   { path: 'password',component:PasswordComponent},
@@ -131,8 +161,42 @@ const routes: Routes = [
   { path: 'viewvendor',component:ViewvendorComponent},
   { path: 'addvendor',component:AddvendorComponent},
   { path: 'assignrole',component:AssignRoleComponent},
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
+  { path: 'homelanding',component:HomeComponent},
+  { path: 'about',component:AboutComponent},
+  { path: 'ats',component:AtsComponent},
+  { path: 'workforce',component:WorkforceComponent},
+  { path: 'talent-suite',component:TalentSuiteComponent},
+  { path: 'contact',component:ContactComponent},
+  { path: 'market',component:MarketplaceComponent},
+  { path: 'monster',component:MonsterComponent},
+  { path: 'dice',component:DiceComponent},
+  { path: 'career',component:CareerBuilderComponent},
+  { path: 'opt-nation',component:OptNationComponent},
+  {path:'features',component:FeaturesComponent},
+  {path:'timesheet',component:TimesheetComponent},
+  {path:'opt',component:OptNationComponent},
+  {path:'product',component:ProductsComponent},
+  {path:'joble',component:JobleeComponent},
+  {path:'yahoo',component:YahooComponent},
+  {path:'adobe',component:AdobeComponent},
+  { path: 'reports', component: ReportsHomeComponent },
+  { path: 'reports/ftc', component: ReportsComponent },
+  { path: 'reports/interviews', component: InterviewsReportComponent },
+  { path: 'reports/benchtracker', component: BenchTrackerReportComponent },
+  { path: 'reports/placements', component: PlacementsReportComponent },
+  { path: 'reports/legalstatus', component: LegalStatusReportComponent },
+  { path: 'reports/h1bexpiry', component: H1BExpiryReportComponent },
+  { path: 'reports/timesheet', component: TimesheetReportComponent },
+  { path: 'reports/billable', component: BillableEmpReportComponent },
+  { path: 'reports/nonh1b', component: NonH1BReportComponent },
+  { path: 'reports/dsr', component: DSRReportComponent },
+  { path: 'reports/jobboardaudit', component: JobBoardAuditReportComponent },
+  { path: 'reports/compliance', component: ComplianceReportComponent },
+  { path: 'reports/pfa', component: PFAReportComponent },
+  { path: 'reports/docexpiry', component: DocExpiryReportComponent },
+  { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
+  { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 
+ 
 ];
 
 @NgModule({

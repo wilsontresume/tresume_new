@@ -112,7 +112,6 @@ import { TalentBenchComponent } from './talent-bench/talent-bench.component';
 //import { jsPDF } from 'jspdf';
 
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
-import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
 import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
@@ -131,6 +130,21 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { AssignRoleComponent } from './assign-role/assign-role.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.component';
+import { HomeComponent } from './landing-page/home/home.component';
+import { AboutComponent } from './landing-page/about/about.component';
+import { AtsComponent } from './landing-page/ats/ats.component';
+import { MarketplaceComponent } from './landing-page/marketplace/marketplace.component';
+import { ProductsComponent } from './landing-page/products/products.component';
+import { TalentSuiteComponent } from './landing-page/talent-suite/talent-suite.component';
+import { WorkforceComponent } from './landing-page/workforce/workforce.component';
+import { FeaturesComponent } from './landing-page/features/features.component';
+import { ContactComponent } from './landing-page/contact/contact.component';
+import { TimesheetComponent } from './landing-page/timesheet/timesheet.component';
+import { CareerBuilderComponent } from './landing-page/career-builder/career-builder.component';
+import { DiceComponent } from './landing-page/dice/dice.component';
+import { JobleeComponent } from './landing-page/joblee/joblee.component';
+import { OptNationComponent } from './landing-page/opt-nation/opt-nation.component';
+import { YahooComponent } from './landing-page/yahoo/yahoo.component';
 
 
 
@@ -185,7 +199,6 @@ import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.
     FinancialInfoComponent,
     SearchTresumeComponent,
     HrmsComponent,
-    ConfirmationPopupComponent,
     SubmittedCandiatesComponent,
     JobBoardAccountComponent,
     ProfileComponent,
@@ -204,6 +217,21 @@ import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.
     AssignRoleComponent,
     AddAdminComponent,
     AccountsAddRoleComponent,
+    HomeComponent,
+    AboutComponent,
+    AtsComponent,
+    MarketplaceComponent,
+    ProductsComponent,
+    TalentSuiteComponent,
+    WorkforceComponent,
+    FeaturesComponent,
+    ContactComponent,
+    TimesheetComponent,
+    CareerBuilderComponent,
+    DiceComponent,
+    JobleeComponent,
+    OptNationComponent,
+    YahooComponent,
   ],
   imports: [
     HttpClientModule,
