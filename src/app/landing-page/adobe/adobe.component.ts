@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adobe.component.scss']
 })
 export class AdobeComponent implements OnInit {
+isScrolled: any;
 
   constructor() { }
 

@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./career-builder.component.scss']
 })
 export class CareerBuilderComponent implements OnInit {
+isScrolled: any;
 
   constructor() { }
 

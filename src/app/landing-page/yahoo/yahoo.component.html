@@ -1,84 +1,92 @@
 <section id="team" class="pb-5">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-        <a routerLink="/homelanding"><img src="../assets/img/logo.png" alt=""></a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/features">Features</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                        aria-expanded="false">
-                        Products
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" routerLink="/workforce">Workforce</a>
-                        <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
-                        <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
-                        <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
-                    </div>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" routerLink="/market"> Marketplace</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" routerLink="/contact">Contact Us</a>
-                </li>
-            </ul>
-            <div class="content" style="margin-right: 62px;">
-                <a href="/login" class="bn5">Login</a>
-            </div>
-        </div>
-    </nav>
+  <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
+    <a routerLink="/homelanding"><img src="../assets/img/logo.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            Products
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+            <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+            <a class="dropdown-item" routerLink="/workforce">Workforce</a>
+            <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
+          </div>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/market">Marketplace</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/features">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact">Contact Us</a>
+        </li>
+      </ul>
+      <div class="content" style="margin-right: 62px;">
+        <a href="/login" class="bn5">Login</a>
+      </div>
+    </div>
+  </nav>
     <div class="background-video video-container">
         <video autoplay muted loop class="blur-video video-background" style="width: 100%; height: fit-content;">
-            <!-- <source src="../../../assets/videos/developer.mp4" type="video/mp4"> -->
+            <source src="../../../assets/videos/developer.mp4" type="video/mp4">
         </video>
         <div style="width: 100%;" class="content-over-video overlay">
             <h1 id="welcomeText" style="background-color: #a24f9a91;
       height: 111px;
-      padding-top: 33px;font-size: 54px;color: white !important;">Yahoo Email Integration
+      padding-top: 33px;font-size: 54px;color: white !important;font-weight: 500 !important;">Yahoo Email Integration
             </h1>
         </div>
     </div>
+    <br>
     <br>
     <div class="container">
         <h2 class="text-center tittle">  Yahoo  Email  Integration</h2>
         <span class="animate-border mr-auto ml-auto mb-4"></span>
         <br><br>
         <div class="row">
-            <div class="col-md-6 left-card">
+            <div class="col-md-4 left-card">
                 <div class="card text-center">
-                    <img src="../../../assets/img/yahoo.png" style="height: 10rem;
-                    width: 19rem;
-                    margin-left: 32px;" alt="Logo">
-                    <div class="card-body">
+                    <img src="../../../assets/img/yahoo.png" style=" height: 6rem;
+                    width: 14rem;margin-left: 4rem;"  alt="Logo">
+                    <div class="card-body"style="display: flex;
+                    flex-flow: column;
+                    margin-right: 120px;">
                         <h2 class="card-title"> Yahoo Email</h2>
                         <h3 class="card-subtitle mb-3 text-muted" style="font-weight: bold;"> Email Integration</h3>
-                        <p class="card-text" style="font-style: italic;font-size: 20px;">Experience effortless email
-                            management with Yahoo Email Integration! Streamline your communication, stay organized, and
-                            boost productivity seamlessly. Elevate your digital experience now! 🚀</p>
+                        <div class="button-group">
+                          <a href="/"><button class="bn632-hover bn24">Book a Demo</button></a>
+                          <a href="/"><button class="bn632-hover bn24">Start Free Trial</button></a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8" style="  padding: 20px;">
                 <h1 style="font-size: 30px;font-weight: bold;"> Yahoo Email Integration </h1>
                 <p style="font-size: 20px;padding: 20px;
-                font-weight: 400;">
+                font-weight: 400;
+                font-style: italic;    letter-spacing: 2px;
+        text-align: justify;">
                     Integrating Dice Job Board with your platform is a strategic move to enhance your recruitment
                     capabilities. Dice is a specialized tech job board, focusing on connecting technology
                     professionals with leading employers in the industry. By incorporating Dice into your system,
                     you gain access to a vast pool of tech talent and streamline your hiring process..</p>
                 <h1 style="font-size: 30px;font-weight: bold;"> Overview:</h1>
-                <ul class="FeatureDesc">
+                <ul style=" font-size: 15px;
+                /* font-weight: 800; */
+                /* color: #00000063; */
+                letter-spacing: 2px;
+                font-weight: 400;
+                font-style: normal;">
                     <li>Tech-Focused Talent Pool: Dice specializes in tech roles, ensuring that your job listings reach
                         a highly targeted and qualified audience in the technology sector.</li>
                     <li>Skill-Centric Matching: Leverage Dice's advanced algorithms for skill-centric matching,

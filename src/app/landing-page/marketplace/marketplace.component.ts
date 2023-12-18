@@ -26,7 +26,7 @@ onWindowScroll() {
   ];
   others = [
     { title: 'Yahoo', text: 'Email Integration', imageSrc: 'assets/img/yahoo.png', link: 'yahoo' },
-    { title: 'Adobee', text: 'Premium Job Board', imageSrc: 'assets/img/adobe.png', link: 'adobe' },
+    { title: 'Adobee', text: 'Digital Signature', imageSrc: 'assets/img/adobe.png', link: 'adobe' },
   ];
 
   ngOnInit(): void {

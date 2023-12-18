@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./yahoo.component.scss']
 })
 export class YahooComponent implements OnInit {
+isScrolled: any;
 
   constructor() { }
 

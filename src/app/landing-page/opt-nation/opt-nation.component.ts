@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./opt-nation.component.scss']
 })
 export class OptNationComponent implements OnInit {
+isScrolled: any;
 
   constructor() { }
 
