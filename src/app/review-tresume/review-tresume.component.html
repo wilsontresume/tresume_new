@@ -497,7 +497,7 @@
             <button class="btn">Email Placement traker</button>
           </div>
           <div class="col-md-9 mt-3 text-right">
-            <button class="btn">Add</button>
+            <button class="btn" [routerLink]="['/placementview']" routerLinkActive="active">Add</button>
           </div>
         </div>
 
@@ -524,11 +524,7 @@
                   <th>End Client Name</th>
                   <th>Vendor</th>
                   <th>End Client Address</th>
-                  <th>Action
-                    <div [routerLink]="['/placementview']" routerLinkActive="active">
-                      <i class="fas fa-eye" style="font-size: 24px;"></i>
-                    </div>
-                  </th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -541,7 +537,12 @@
                   <td>{{ placement.VendorName }}</td>
                   <td>{{ placement.ClientAddress }}</td>
                   <td>
-                    <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteplacementdata(placement.PID)"></i>
+                    <div style="display: flex; align-items: center;">
+                      <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteplacementdata(placement.PID)"></i>
+                      <div [routerLink]="['/']" routerLinkActive="active">
+                        <i class="fas fa-eye" style="font-size: 24px;"></i>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               </tbody>
