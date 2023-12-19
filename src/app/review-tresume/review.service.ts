@@ -32,20 +32,33 @@ export class ReviewService {
     return this.http.post<ResponseDetails>(this.endpoint + 'getPlacementList', request);
   }
 
+  getSubmissionList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getSubmissionList', request);
+  }
+
+
   deleteplacementdata(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'deleteplacementdata', request);
   }
 
-  saveSubmissionFormData(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'saveSubmissionFormData', request);
+  // saveSubmissionFormData(request: any): Observable<ResponseDetails> {
+  //   return this.http.post<ResponseDetails>(this.endpoint + 'saveSubmissionFormData', request);
+  // }
+  
+  insertSubmissionInfo(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'insertSubmissionInfo', request);
   }
 
   // saveInterviewFormData(request: any): Observable<ResponseDetails> {
   //   return this.http.post<ResponseDetails>(this.endpoint + 'saveInterviewFormData', request);
   // }
 
-  saveGeneralFormData(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'saveGeneralFormData', request);
+  // saveGeneralFormData(request: any): Observable<ResponseDetails> {
+  //   return this.http.post<ResponseDetails>(this.endpoint + 'saveGeneralFormData', request);
+  // }
+
+  updateGeneral(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'updateGeneral', request);
   }
 
   saveFinancialInfoFormData(request: any): Observable<ResponseDetails> {
@@ -55,5 +68,13 @@ export class ReviewService {
   getCandidateInfo(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getCandidateInfo', request);
   }
+
+  getOrgUserList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getOrgUserList', request);
+  }
   
+  updateFinancial(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'updateFinancial', request);
+  }
+
 }

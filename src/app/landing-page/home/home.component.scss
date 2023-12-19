@@ -5,13 +5,79 @@
 }
 .navbar {
   padding: 10px;
+  height: 80px;
   font-size: 20px;
 }
-// home
+.navbar.scrolled .navbar-nav .nav-link {
+  color: white !important;
+}
+
+.navbar.scrolled .navbar-nav .nav-link:hover {
+  color: #f0f0f0 !important;
+}
+.navbar {
+  &.navbar-light {
+    .nav-item {
+      list-style: none;
+      // border-left: 2px solid purple;
+      display: inline-block;
+      padding: 0 15px;
+      position: relative;
+      text-decoration: none;
+      text-align: center;
+      // font-family: 'Arvo', serif;
+
+      a {
+        color: black;
+        text-decoration: none;
+
+        &:hover {
+          color:purple;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .dropdown-menu {
+        background: white;
+        box-shadow: 0px 3px 5px -1px #ccc;
+        min-width: 250px;
+        padding-top: 20px;
+        text-align: left;
+        display: none;
+
+        li {
+          clear: both;
+          width: 100%;
+          text-align: left;
+          margin-bottom: 20px;
+          border-style: none;
+
+          a:hover {
+            padding-left: 10px;
+            border-left: 2px solid purple;
+            transition: all 0.3s ease;
+          }
+        }
+      }
+
+      &:hover > .dropdown-menu,
+      .dropdown-menu:hover {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+}
+
 .content {
   /* padding: 15px; */
   top: 100%;
 }
+
 .banner-area.auto-height,
 .banner-area.auto-height div {
   height: auto;
@@ -552,6 +618,48 @@ div#bootcarousel {
   border-radius: 10px;
 }
 
+//book a demo btn
+.bn632-hover {
+  width: 160px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 55px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.bn632-hover:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.bn632-hover:focus {
+  outline: none;
+}
+
+.bn632-hover.bn24 {
+  background-image: linear-gradient(
+      to right,
+      #D24F9A,
+      #79265f,
+      #D24F9A,
+      #97618d
+    );
+  box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
+}
+
+//course
 .Course {
   width: 100%;
   margin-top: -80px;
@@ -616,7 +724,7 @@ h3 {
 .animate-border {
   position: relative;
   display: block;
-  width: 130px;
+  width: 200px;
   height: 3px;
   background: #49274A;
   overflow: hidden;
@@ -680,7 +788,7 @@ a:not([href]):not([tabindex]) {
   border-bottom: 0 !important;
   border-left: 0 !important;
   color: darkgray;
-  background-color: #5c0d4c;
+  background: linear-gradient(#990a6b, #D24F9A);
 }
 
 .text-center {
@@ -750,7 +858,7 @@ li.nav-item {
 .card:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
-  background-color: purple;
+  background: linear-gradient(#990a6b, #D24F9A);
   color: white;
 }
 
@@ -1074,7 +1182,7 @@ ul {
 }
 
 .footer-section {
-  background: #151414;
+  background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%) !important;
   position: relative;
 }
 
@@ -1186,6 +1294,7 @@ ul {
   height: 2px;
   width: 50px;
   background: purple;
+  margin-left: 25px;
 }
 
 .footer-widget ul li {
@@ -1674,7 +1783,7 @@ ul {
     margin: 0;
 }
 .main-timeline .timeline-year{
-    color: #8A1E65;
+    color: #D24F9A;
     font-size: 35px;
     font-weight: 700;
     transform: translateY(-50%) rotate(90deg);
@@ -1707,7 +1816,6 @@ ul {
 .main-timeline .timeline:nth-child(4n+2) .timeline-content::before{
     background: linear-gradient(to right bottom, transparent 50%, #8A1E65 52%);
 }
-.main-timeline .timeline:nth-child(4n+2) .timeline-year{ color: #8A1E65; }
 @media screen and (max-width:767px){
     .main-timeline .timeline,
     .main-timeline .timeline:nth-child(even){

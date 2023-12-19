@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dice.component.scss']
 })
 export class DiceComponent implements OnInit {
+isScrolled: any;
 
   constructor() { }
 
   ngOnInit(): void {
+    window.scrollTo(0,0);
   }
 
 }

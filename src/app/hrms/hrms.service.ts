@@ -36,6 +36,13 @@ export class HrmsService {
   insertTrainee(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'insertTrainee', request);
   }
+  insertTraineeCandidate(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'insertTraineeCandidate', request);
+  }
+
+  getOrgUserList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getOrgUserList', request);
+  }
 }
 export interface ResponseDetails {
   flag?: any;

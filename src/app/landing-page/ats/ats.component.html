@@ -1,38 +1,37 @@
 <section id="team" class="pb-5">
-  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top " [ngClass]="{'scrolled': isScrolled}">
-    <a routerLink="/homelanding"><img src="../assets/img/logo.png" alt=""></a>
-
+  <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
+    <a routerLink="/homelanding"><img src="../assets/img/logo.png" style="height: 90px;" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/features">Features</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
             Products
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" routerLink="/workforce">Workforce</a>
-            <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
             <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+            <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+            <a class="dropdown-item" routerLink="/workforce">Workforce</a>
             <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
           </div>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" routerLink="/market"> Marketplace</a>
+          <a class="nav-link" routerLink="/market">Marketplace</a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/features">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" routerLink="/contact">Contact Us</a>
         </li>
       </ul>
-      <div class="content">
+      <div class="content" style="margin-right: 62px;">
         <a href="/login" class="bn5">Login</a>
       </div>
     </div>
@@ -42,9 +41,10 @@
       <source src="../../../assets/videos/consult.mp4" type="video/mp4">
     </video>
     <div style="width: 100%;" class="content-over-video overlay">
-      <h1 style="background-color: #a24f9a91;
+      <h1  id="keyFeatures" style="background-color: #a24f9a91;
     height: 111px;
-    padding-top: 33px;font-size: 54px;color: white; ">APPLICANT TRACKING SYSTEM</h1>
+    padding-top: 33px;font-size: 54px;color: white;font-weight: 500; ">
+    <span class="space">APPLICANT</span>  <span class="space">TRACKING</span>  <span class="space">SYSTEM</span></h1>
   </div>
   </div>
   <br><br>
@@ -53,11 +53,11 @@
     <!-- Section 1: Left side text, right side image -->
     <div class="row">
       <div class="col-md-6">
-        <h2 class="text-center tittle"> MANUAL to Tresume MAGICAL ATS:</h2>
+        <h2 class="text-center tittle"> Manual to Tresume Magical ATS:</h2>
         <span class="animate-border mr-auto ml-auto mb-4"></span>
-        <hr>
         <p style="font-size: 20px;
-                font-style: italic; font-weight: 500;padding: 7px;">
+                font-style: italic; font-weight: 500;padding: 7px;letter-spacing: 2px;
+    text-align: justify;">
           Introducing Tresume, the epitome of recruitment innovation, designed to propel your hiring process
           into a realm of unparalleled excellence. Our state-of-the-art TalentPro Applicant Tracking System
           harnesses the power of cutting-edge AI technology, elevating efficiency and optimization to
@@ -65,100 +65,62 @@
           JobConnect journey like never before. With its intuitive interface and advanced functionalities,
           this HireSmart tool redefines how you attract and engage top-notch talent.
         </p>
-        <hr>
-        <ul style="    font-size: 15px;
-                font-weight: 800;
-                color: #00000063;
+        <ul style="     font-size: 15px;
+        /* font-weight: 800; */
+        /* color: #00000063; */
+        letter-spacing: 2px;
+        font-weight: 400;
+        font-style: normal;
             ">
           <li>Say goodbye to manual job posting and tedious candidate selection, as our SkillTrack ATS
             effortlessly streamlines every aspect of the hiring process.</li>
+            <br>
           <li>Harness the might of our meticulously crafted TalentTrac AI algorithms, finely tuned to
             intelligently match candidates with precise job requirements.</li>
+            <br>
           <li>SwiftHire liberates your valuable time and energy, ensuring that you focus on what truly matters
             – finding the perfect fit for your organization.</li>
         </ul>
+        <br>
       </div>
       <div class="col-md-6">
-        <img src="../../../assets/img/ats.png" alt="Image" class="img-fluid">
+        <img src="../../../assets/img/ats.png" alt="Image" style="margin-left: 53px;" class="img-fluid">
       </div>
     </div>
     <br><br>
-    <!-- Section 2: Left side text, right side image centered -->
-    <!-- <div class="row">
-      <div class="col-md-6 order-md-2">
-        <h2 class="text-center tittle">Harnessing the Benefits of Digital Tresume Timesheets:</h2>
-        <span class="animate-border mr-auto ml-auto mb-4"></span>
-        <p style="font-size: 20px;
-                font-style: italic; font-weight: 500; padding: 7px;">
-          Introducing TimeTrack(Time Sheet ), the ultimate solution that simplifies time tracking and
-          management,
-          making it
-          effortless for both employers and employees. Our AI-powered TimePro system automates the process of
-          capturing,
-          tracking, and managing work hours, eliminating the need for manual timesheets and reducing
-          administrative
-          burdens.
-          With TimeWise, employees can easily log their hours, assign them to specific projects or tasks, and
-          submit
-          timesheets for approval. The system ensures accuracy and transparency, allowing managers to review
-          and
-          verify
-          timesheets efficiently.
-        </p>
-        <ul style="    font-size: 15px;
-                font-weight: 800;
-                color: #00000063;
-            ">
-          <li> TimeSync empowers you with comprehensive reporting to analyze labor costs, monitor project
-            progress, and optimize resource allocation. TimeEase time sheets are flexible and customizable,
-            allowing you to tailor templates and categories to meet your organization's specific needs using
-            TimeMaster.</li>
-
-          <li>TimeNinja delivers real-time notifications for timely timesheet submissions. TimeSage eliminates
-            the hassle of chasing late entries, ensuring all time records are accounted for promptly.
-            TimeTrac seamlessly integrates with project management and accounting tools, streamlining data
-            transfer. With TimeCraft, eliminate duplicate data entry, ensuring accuracy and consistency
-            across systems..</li>
-
-          <li>TimeSync ensures compliance with detailed audit trails, promoting accountability and
-            transparency. TimeSift's analytics offer insights into labor costs and resource utilization.
-            Optimize operations with TimeGenius, meet deadlines with TimeSprint, and simplify tracking with
-            TimePlus. Drive efficiency and success with TimeOptimize in the future of time tracking.</li>
-
-        </ul>
-      </div>
-      <div class="col-md-6 order-md-1 text-center">
-        <img src="../../../assets/img/ats3.png" alt="Image" class="img-fluid">
-      </div>
-    </div> -->
-
-    <!-- Section 3: Left side image, right side text -->
-    <!-- YourComponent.component.html -->
     <br><br>
     <div class="row justify-content-center">
       <div class="col-md-9">
         <h2 class="text-center tittle">Integration Amplified By Tresume:</h2>
         <span class="animate-border mr-auto ml-auto mb-4"></span>
         <p style="font-size: 20px;
-                font-style: italic; font-weight: 500;padding: 7px;">
+                font-style: italic; font-weight: 500;padding: 7px;letter-spacing: 2px;
+    text-align: justify;">
           Tresume's Job Board Integration feature revolutionizes your recruitment process by amplifying your
           reach and maximizing visibility through popular job boards. This seamlessly connects your
           recruitment process with these platforms, expanding your candidate pool and attracting a wider range
           of qualified candidates. Our AI-powered integration optimizes your job postings for maximum
           visibility, ensuring they stand out and increase the chances of attracting top talent.
         </p>
-        <ul style="    font-size: 15px;
-                font-weight: 800;
-                color: #00000063;
+        <br>
+        <ul style="       font-size: 15px;
+        /* font-weight: 800; */
+        /* color: #00000063; */
+        letter-spacing: 2px;
+        font-weight: 400;
+        font-style: normal;
             ">
           <li>Tresume's Job Board Integration automates job posting, syncs candidate applications, and updates
             statuses across platforms, eliminating manual entry and reducing errors. Save time and ensure a
             smooth recruitment workflow effortlessly.</li>
+            <br>
           <li>With our comprehensive analytics and reporting features, you can easily track the performance of
             your job postings across different platforms...</li>
+            <br>
           <li>Centralized communication channels within the Tresume platform facilitate efficient engagement
             with applicants, scheduling interviews, and providing timely updates on application statuses...
           </li>
+          <br>
           <li>Tresume's Job Board Integration uses AI algorithms for swift and precise candidate screening,
             accelerating hiring decisions...</li>
         </ul>
@@ -193,7 +155,6 @@
                 experience. This empowers HR professionals to concentrate on the essential task: finding the perfect
                 candidates.
               </p>
-              <hr>
             </a>
           </div>
           <div class="timeline">
@@ -294,7 +255,7 @@
           <div class="col-xl-4 col-lg-4 mb-50">
             <div class="footer-widget">
               <div class="footer-logo">
-                <a href="index.html"><img src="../assets/img/logo.png" class="img-fluid" alt="logo"></a>
+                <a href="index.html"><img src="../../../assets/img/tresumelog.png"  class="img-fluid" alt="logo"></a>
               </div>
               <div class="footer-text">
                 <p>With the right ATS recruiting system, you can increase the number of placements and grow your

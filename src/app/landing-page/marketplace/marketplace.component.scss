@@ -9,8 +9,11 @@
 .navbar {
   padding: 10px;
   font-size: 20px;
+  height: 80px;
 }
-
+.space {
+  margin-right: 20px; // Adjust the spacing as needed
+}
 .bn5 {
   text-decoration: none;
   padding: 0.6em 2em;
@@ -92,7 +95,7 @@
   box-sizing: border-box;
 }
 .down {
-  font-size: 1rem;
+  font-size: 30px;
   font-weight: 600;
   font-style: inherit;
   text-align: center;
@@ -333,7 +336,7 @@ p {
   right: 0;
   width: 50px;
   height: 50px;
-  background: purple;
+  // background: linear-gradient(to right, rgb(173, 83, 137), rgb(60, 16, 83));
   clip-path:
     polygon(0 0, 100% 0, 100% 100%);
   transition:
@@ -348,12 +351,12 @@ p {
 }
 
 .card:hover h2 {
-  color: #fff;
+  // color: #fff;
   transition: all 0.3s ease;
 }
 
 .card:hover p {
-  color: #f1f1f1;
+  // color: #f1f1f1;
   transition: all 0.3s ease;
 }
 
@@ -368,40 +371,6 @@ img.img-fluid {
   margin: 0;
   padding: 15px;
 }
-
-// .footer {
-//   background-color: #333;
-//   color: #fff;
-//   padding: 20px 0;
-// }
-
-// .footer h3 {
-//   font-size: 20px;
-//   text-align: left;
-// }
-
-// .footer ul {
-//   list-style-type: none;
-//   padding: 0;
-//   text-align: left;
-// }
-
-// .footer li {
-//   margin: 5px 0;
-// }
-
-// .footer a {
-//   color: #fff;
-//   text-decoration: none;
-// }
-
-// .footer a:hover {
-//   text-decoration: underline;
-// }
-
-// .footer[_ngcontent-ng-c504988480] {
-//   padding: 40px 50px;
-// }
 
 
 .footer {
@@ -618,7 +587,9 @@ ul {
 }
 
 .footer-logo img {
-  max-width: 200px;
+     height: 109px;
+    width: 185px;
+    margin-left: 21px;
 }
 
 .footer-text p {
@@ -1068,6 +1039,9 @@ ul {
   position: fixed;
   width: 100%;
   z-index: 1000;
+}
+#navbarSupportedContent {
+  margin-left: 16rem;
 }
 
 .navbar-nav .nav-link:hover {
