@@ -33,27 +33,33 @@ export class LoginComponent {
       (response:any) => {
         
         console.log('Login successful:', response);
-        const userName = response.data[0].UserName
-        const orgID = response.data[0].Organization
-        const traineeID = response.data[0].TraineeID
-        const ViewOnly = response.result[0].ViewOnly
-        const FullAccess = response.result[0].FullAccess
-        const DashboardPermission = response.result[0].DashboardPermission
-        const RoleID = response.result[0].RoleID
+        const flag = response.flag;
+        if(flag === 1){
+          const userName = response.data[0].UserName
+          const orgID = response.data[0].Organization
+          const traineeID = response.data[0].TraineeID
+          const ViewOnly = response.result[0].ViewOnly
+          const FullAccess = response.result[0].FullAccess
+          const DashboardPermission = response.result[0].DashboardPermission
+          const RoleID = response.result[0].RoleID
+          this.cookieService.set('userName1', userName);
+          this.cookieService.set('OrgID', orgID);
+          this.cookieService.set('TraineeID',traineeID);
+          this.cookieService.set('ViewOnly',ViewOnly);
+          
+          this.cookieService.set('FullAccess',FullAccess);
+          this.cookieService.set('DashboardPermission',DashboardPermission);
+          this.cookieService.set('RoleID',RoleID);
+          
+          
+          var url = '/dashboard/'+traineeID;
+          this.router.navigateByUrl(url);
+        }else{
+          alert('Please reset your password.');
+          var url = '/forgetPassword';
+          this.router.navigateByUrl(url);
+        }
         
-        
-        this.cookieService.set('userName1', userName);
-        this.cookieService.set('OrgID', orgID);
-        this.cookieService.set('TraineeID',traineeID);
-        this.cookieService.set('ViewOnly',ViewOnly);
-        
-        this.cookieService.set('FullAccess',FullAccess);
-        this.cookieService.set('DashboardPermission',DashboardPermission);
-        this.cookieService.set('RoleID',RoleID);
-        
-        
-        var url = '/dashboard/'+traineeID;
-        this.router.navigateByUrl(url);
         
       },
       (error) => {

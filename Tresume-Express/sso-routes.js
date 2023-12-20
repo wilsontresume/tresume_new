@@ -298,29 +298,38 @@ router.post('/login', async (req, res) => {
               function (err, recordset) {
                 if (err) console.log(err);
                 responseData =  recordset.recordsets[0];
-                 querypassword = decrypter(responseData[0].Password);
-                console.log(responseData[0].Password);
-                console.log(querypassword);
-                if(PWD === querypassword){
-                  var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
-        
-                  console.log(query);
-                  request.query(query,
-                    function (err, recordset) {
-                      if (err) console.log(err);
-              
-                      var result = {
-                        flag: 1,
-                        result: recordset.recordsets[0],
-                        data:responseData,
-                      };
-              
-                      res.send(result);
-                    }
-                  );
+                if (responseData[0] && responseData[0].Password && responseData[0].Password.length === 64) {
+                  querypassword = decrypter(responseData[0].Password);
+                  console.log(responseData[0].Password);
+                  console.log(querypassword);
+                  if(PWD === querypassword){
+                    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+          
+                    console.log(query);
+                    request.query(query,
+                      function (err, recordset) {
+                        if (err) console.log(err);
+                
+                        var result = {
+                          flag: 1,
+                          result: recordset.recordsets[0],
+                          data:responseData,
+                        };
+                
+                        res.send(result);
+                      }
+                    );
+                
                 }else{
                   res.status(401).json({ message: 'Invalid credentials' });
                 }
+              }else{
+                var result = {
+                  flag: 2
+                };
+  
+                res.send(result);
+              }
               }
             );
           
@@ -362,9 +371,6 @@ router.post('/validatekey', async (req, res) => {
               };
               res.send(result);
             }
-            
-    
-            
           }
         );
       });
