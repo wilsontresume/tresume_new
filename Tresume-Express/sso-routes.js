@@ -234,6 +234,7 @@ router.post('/validateemail', async (req, res) => {
       await request.query(query2);
 
       const resetUrl = `https://tresume.us/resetpassword/${resetKey}`;
+      
       const data = {
         flag: 1,
         url: resetUrl,
@@ -353,7 +354,7 @@ router.post('/updatepassword', async (req, res) => {
   var password = req.body.password;
   var resetkey = req.body.resetkey;
 
-  var encryptpassword = encrypt(password);
+  var encryptpassword = encrypter(password);
   try {
       sql.connect(config, function (err) {
         if (err) console.log(err);
