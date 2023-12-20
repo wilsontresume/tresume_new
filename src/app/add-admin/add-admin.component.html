@@ -7,7 +7,8 @@
             <div class="col-md-6">
                 <label class="label">Select Recruiter</label>
                 <select [(ngModel)]="selectedOption">
-                    <option *ngFor="let name of marketerNames" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option>
+                  <option [value]="0" selected="selected">Select Users</option>
+                    <option *ngFor="let name of recruiterNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
                   </select>
             </div>
             <div class="col-md-6">
@@ -27,10 +28,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let name of marketerNames"[value]="name.id">
-                    <td> {{ name.MemberFirstName }} {{ name.MemberLastName }}</td>
+                  <tr *ngFor="let name of TimesheetAdmins"[value]="name.traineeid">
+                    <td> {{ name.firstname }} {{ name.lastname }}</td>
                     <td>
-                      <i class="fa fa-trash" (click)="deleteRow(name.id)"></i>
+                      <i class="fa fa-trash" (click)="deleteRow(name.traineeid)"></i>
                     </td>
                   </tr>
                 </tbody>

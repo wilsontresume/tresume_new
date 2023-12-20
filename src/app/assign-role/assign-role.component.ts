@@ -18,5 +18,6 @@ export class AssignRoleComponent implements OnInit {
     this.project = [{id:1,name:'Tresume'}];
     this.allusers = [{id:1,name:'Nagaraj',admin:'wilson',project:'tresume'},{id:2,name:'Maria',admin:'bala',project:'tresume'}];
   }
-
+  
 }
+
