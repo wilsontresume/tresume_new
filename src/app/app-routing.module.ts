@@ -93,7 +93,9 @@ import { PFAReportComponent } from './reports/pfa-report.component';
 import { PlacementsReportComponent } from './reports/placements-report.component';
 import { ReportsComponent } from './reports/reports.component';
 import { TimesheetReportComponent } from './reports/timesheet-report.component ';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -158,7 +160,7 @@ const routes: Routes = [
   { path: 'aboutme',component:AboutmeComponent},
   { path: 'batch',component:BatchComponent},
   { path: 'vendor',component:VendorComponent},
-  { path: 'addadmin', component:AddAdminComponent},
+  { path: 'addadmin', component:AddAdminComponent,canActivate: [AuthGuard]},
   { path: 'viewvendor',component:ViewvendorComponent},
   { path: 'addvendor',component:AddvendorComponent},
   { path: 'assignrole',component:AssignRoleComponent},
@@ -195,6 +197,7 @@ const routes: Routes = [
   { path: 'reports/compliance', component: ComplianceReportComponent },
   { path: 'reports/pfa', component: PFAReportComponent },
   { path: 'reports/docexpiry', component: DocExpiryReportComponent },
+  { path: 'resetpassword/:resetkey', component: ResetPasswordComponent  },
   { path: 'forgetPassword', component: ForgetPasswordComponent },
   { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
   { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 

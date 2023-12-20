@@ -26,9 +26,9 @@ export class AddAdminService {
     deletetimesheetadmin(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'deletetimesheetadmin', request);
     }
-    getOrgUserList(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getOrgUserList', request);
-      }
+    // getOrgUserList(request: any): Observable<ResponseDetails> {
+    //     return this.http.post<ResponseDetails>(this.endpoint + 'getOrgUserList', request);
+    //   }
       
 }
 export interface ResponseDetails {

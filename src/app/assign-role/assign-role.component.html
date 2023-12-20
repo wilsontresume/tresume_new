@@ -7,19 +7,19 @@
         <div class="col-3 form-group">
           <label>Admin</label>
           <select id="adminselect" class="form-control">
-            <option *ngFor="let option of adminlist" [value]="option.id">{{ option.name }}</option>
+            <option *ngFor="let option of adminlist" [value]="option.traineeid">{{ option.name }}</option>
           </select>
         </div>
         <div class="col-3 form-group">
           <label>Employee</label>
           <select id="userselect" class="form-control">
-            <option *ngFor="let option of userlist" [value]="option.id">{{ option.name }}</option>
+            <option *ngFor="let option of userlist" [value]="option.traineeid">{{ option.name }}</option>
           </select>
         </div>
         <div class="col-3 form-group">
           <label>Project</label>
           <select id="projectselect" class="form-control">
-            <option *ngFor="let option of project" [value]="option.id">{{ option.name }}</option>
+            <option *ngFor="let option of project" [value]="option.traineeid">{{ option.name }}</option>
           </select>
         </div>
   
@@ -35,18 +35,19 @@
           <th>Employee</th>
           <th>Admin</th>
           <th>Project</th>
-          
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of allusers">
-          <td>{{ user.name }}</td>
+        <tr *ngFor="let user of allusers"[value]="name.traineeid">
+          <td> {{ user.firstname }} {{ user.lastname }}</td>
           <td>{{ user.admin }}</td>
           <td>{{ user.project }}</td>
-          
+          <td>
+            <i class="fa fa-trash" (click)="deleteRow(name.traineeid)"></i>
+          </td>
         </tr>
       </tbody>
     </table>
-
     </div>
   </div>
