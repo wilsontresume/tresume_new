@@ -234,6 +234,33 @@ router.post('/validateemail', async (req, res) => {
       await request.query(query2);
 
       const resetUrl = `https://tresume.us/resetpassword/${resetKey}`;
+
+      var subject = "Tresume Password Reset Request";
+      var text = `
+      Hello,
+
+      You have requested to reset your password. Click on the following link to reset your password:
+
+      ${resetUrl}
+
+      If you did not request this, please ignore this email.
+
+      Regards,
+      Tresume
+    `
+      const mailData = {
+        from: "support@tresume.us",
+        to: username,
+        subject: subject,
+        html: text,
+      };
+    
+      transporter.sendMail(mailData, (error, info) => {
+        if (error) {
+         console.log(error);
+        }
+        console.log('Mail Send');
+      });
       
       const data = {
         flag: 1,
