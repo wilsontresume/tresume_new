@@ -211,6 +211,7 @@ userName: string;
       typeOfAssistance: this.myForm.get('typeOfAssistance').value,
       interviewMode: this.myForm.get('interviewMode').value,
     };
+    // console.log(Req);
 // console.log(Req);
     // this.service.saveInterviewFormData(Req).subscribe((x: any) => {
     //   console.log(x);

@@ -146,6 +146,8 @@ import { JobleeComponent } from './landing-page/joblee/joblee.component';
 import { OptNationComponent } from './landing-page/opt-nation/opt-nation.component';
 import { YahooComponent } from './landing-page/yahoo/yahoo.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+
 
 
 
@@ -234,6 +236,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     OptNationComponent,
     YahooComponent,
     ResetPasswordComponent,
+    ForgetPasswordComponent,
   ],
   imports: [
     HttpClientModule,
