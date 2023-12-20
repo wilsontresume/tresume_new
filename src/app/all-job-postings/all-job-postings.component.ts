@@ -18,7 +18,7 @@ export class AllJobPostingsComponent implements OnInit{
   JobID:string = '';
   TraineeID:string = '';
   jobs:any[];
-  noResultsFound:boolean = false;
+  noResultsFound:boolean = true;
 
 roles: string[] = ["Recruiter", "Admin", "User"];
 ngOnInit(): void {
@@ -26,35 +26,6 @@ ngOnInit(): void {
   this.JobID = this.cookieService.get('userName1');
   this.TraineeID = this.cookieService.get('TraineeID');
   this.fetchjobpostinglist();
-
-
-  this.jobs = [
-    {
-      jobTitle: 'Software Developer',
-      company: 'ABC Inc.',
-      location: 'City A',
-      payRate: '$80,000',
-      newApplicants: 5,
-      totalApplicants: 20,
-      postedOn: new Date(),
-      postedBy: 'John Doe',
-      jobType: 'Full-time',
-      selectedRole: 'Role A'
-    },
-    {
-      jobTitle: 'UX Designer',
-      company: 'XYZ Ltd.',
-      location: 'City B',
-      payRate: '$70,000',
-      newApplicants: 3,
-      totalApplicants: 15,
-      postedOn: new Date(),
-      postedBy: 'Jane Doe',
-      jobType: 'Part-time',
-      selectedRole: 'Role B'
-    },
-    // Add more job entries as needed
-  ];
 }
   constructor(private dialog: MatDialog,private cookieService: CookieService, private service:AllJobPostingsService,private messageService: MessageService) {}
 

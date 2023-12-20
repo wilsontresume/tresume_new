@@ -145,6 +145,9 @@ import { JobleeComponent } from './landing-page/joblee/joblee.component';
 import { OptNationComponent } from './landing-page/opt-nation/opt-nation.component';
 import { YahooComponent } from './landing-page/yahoo/yahoo.component';
 import { CreateAllTimeListComponent } from './create-all-time-list/create-all-time-list.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+
 
 
 
@@ -232,6 +235,8 @@ import { CreateAllTimeListComponent } from './create-all-time-list/create-all-ti
     OptNationComponent,
     YahooComponent,
     CreateAllTimeListComponent,
+    ResetPasswordComponent,
+    ForgetPasswordComponent,
   ],
   imports: [
     HttpClientModule,

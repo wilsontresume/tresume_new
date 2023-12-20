@@ -85,7 +85,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "40kb"
                 }
               ],
               "fileReplacements": [
@@ -96,7 +96,7 @@
               ],
               "outputHashing": "all",
               "optimization": true,
-              "baseHref": "/TresumeNG/"
+              "baseHref": "/"
             },
             "development": {
               "buildOptimizer": false,
