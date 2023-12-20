@@ -44,8 +44,8 @@ const talentbench = require('./talentbench');
 const timesheet = require('./timesheet');
 const hrms = require('./hrms-routes');
 const assignrole = require('./assignrole');
-
 const projects = require('./project');
+const jobBoardAccount = require('./jobBoardAccount')
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -62,6 +62,7 @@ app.use('/', timesheet);
 app.use('/', hrms);
 app.use('/', assignrole);
 app.use('/', projects);
+app.use('/', jobBoardAccount);
 
 
 app.use(session({

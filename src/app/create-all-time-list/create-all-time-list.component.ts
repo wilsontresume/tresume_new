@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TimesheetCreateService } from './timesheet-create.service';
+import { CreateAllTimeListService} from './create-all-time-list.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 
-@Component({
-  selector: 'app-timesheet-create',
-  templateUrl: './timesheet-create.component.html',
-  providers: [CookieService,TimesheetCreateService,MessageService],
-  styleUrls: ['./timesheet-create.component.scss']
-})
-export class TimesheetCreateComponent implements OnInit {
 
+@Component({
+  selector: 'app-create-all-time-list',
+  templateUrl: './create-all-time-list.component.html',
+  providers: [CookieService,CreateAllTimeListService,MessageService],
+  styleUrls: ['./create-all-time-list.component.scss']
+})
+export class CreateAllTimeListComponent implements OnInit {
 
 
   timesheetData: any[];
@@ -24,7 +24,7 @@ export class TimesheetCreateComponent implements OnInit {
   SRselectedFile: File | null = null;
 
 
-  constructor(private fb: FormBuilder,private router: Router, private Service: TimesheetCreateService) {
+  constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService) {
     // this.addRow();
   }
 
@@ -112,4 +112,5 @@ export class TimesheetCreateComponent implements OnInit {
   //     }
   //   }
   // }
+
 }

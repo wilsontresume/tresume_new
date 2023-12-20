@@ -94,7 +94,7 @@ router.post('/ssologin', async (req, res) => {
         if (err) console.log(err);
         var request = new sql.Request();
     
-        var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+        var query = "select * from trainee where active = 1 and username like '%"+UserName+"%'";
     
         console.log(query);
         request.query(query,

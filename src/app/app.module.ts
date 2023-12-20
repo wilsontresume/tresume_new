@@ -82,7 +82,6 @@ import { CcpaPopupModule } from './onboarding/ccpa-popup.module';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
-import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 import { RouterModule } from '@angular/router';
 import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
@@ -145,6 +144,7 @@ import { DiceComponent } from './landing-page/dice/dice.component';
 import { JobleeComponent } from './landing-page/joblee/joblee.component';
 import { OptNationComponent } from './landing-page/opt-nation/opt-nation.component';
 import { YahooComponent } from './landing-page/yahoo/yahoo.component';
+import { CreateAllTimeListComponent } from './create-all-time-list/create-all-time-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
@@ -186,7 +186,6 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     AdobesignComponent1,
     AdobesignComponent,
     LoginComponent,
-    TimesheetCreateComponent,
     InterviewComponent,
     SubmissionComponent,
     GeneralComponent,
@@ -235,6 +234,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     JobleeComponent,
     OptNationComponent,
     YahooComponent,
+    CreateAllTimeListComponent,
     ResetPasswordComponent,
     ForgetPasswordComponent,
   ],

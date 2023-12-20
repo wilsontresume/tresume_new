@@ -25,7 +25,6 @@ import { HarvestViewComponent } from './harvest/harvestview.component';
 import { AuthGuard } from './auth.guard';
 import { AdobesignComponent1 } from './adobesign/adobesign.component';
 import { LoginComponent } from './login/login.component';
-import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { GeneralComponent } from './general/general.component';
@@ -93,6 +92,7 @@ import { PFAReportComponent } from './reports/pfa-report.component';
 import { PlacementsReportComponent } from './reports/placements-report.component';
 import { ReportsComponent } from './reports/reports.component';
 import { TimesheetReportComponent } from './reports/timesheet-report.component ';
+import { CreateAllTimeListComponent } from './create-all-time-list/create-all-time-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
@@ -125,7 +125,6 @@ const routes: Routes = [
   { path: 'divisionaudit', component: DivisionAuditComponent, canActivate: [AuthGuard] },
   { path: 'adobesign', component: AdobesignComponent1, canActivate: [AuthGuard]     },
   { path: 'adobesign/token/:token', component: AdobesignComponent1, canActivate: [AuthGuard]   },
-  { path: 'timesheetcreate', component: TimesheetCreateComponent, canActivate: [AuthGuard]   },
   { path: 'searchtresume/reviewtresume/interview', component: InterviewComponent, canActivate: [AuthGuard]  },
   { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent, canActivate: [AuthGuard]  },
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard]   },
@@ -182,6 +181,7 @@ const routes: Routes = [
   {path:'joble',component:JobleeComponent},
   {path:'yahoo',component:YahooComponent},
   {path:'adobe',component:AdobeComponent},
+  { path: 'createalltimelist', component: CreateAllTimeListComponent },
   { path: 'reports', component: ReportsHomeComponent },
   { path: 'reports/ftc', component: ReportsComponent },
   { path: 'reports/interviews', component: InterviewsReportComponent },
