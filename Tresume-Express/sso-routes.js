@@ -236,18 +236,10 @@ router.post('/validateemail', async (req, res) => {
       const resetUrl = `https://tresume.us/resetpassword/${resetKey}`;
 
       var subject = "Tresume Password Reset Request";
-      var text = `
-      Hello,
-
-      You have requested to reset your password. Click on the following link to reset your password:
-
-      ${resetUrl}
-
-      If you did not request this, please ignore this email.
-
-      Regards,
-      Tresume
-    `
+      var text = `<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;"><div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"><p style="color: #333;">Hello,<br><br>You have requested to reset your password. Click on the following link to reset your password:<br><br><a href="${resetUrl}" style="color: #007bff; text-decoration: none;">Reset Password</a><br><br>If you did not request this, please ignore this email.</p><p style="margin-top: 20px; font-style: italic; color: #666;">Regards,<br>Tresume</p></div></div>
+      ` 
+    
+    
       const mailData = {
         from: "support@tresume.us",
         to: username,
