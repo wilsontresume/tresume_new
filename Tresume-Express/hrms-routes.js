@@ -152,7 +152,7 @@ router.post('/insertTraineeInterview', async function (req, res) {
   
   console.log(interviewQuery);
 
-    // Perform the database insertion using the constructed query
+    
     // await sql.connect(config);
     // var request = new sql.Request();
     // var result = await request.query(interviewQuery);
