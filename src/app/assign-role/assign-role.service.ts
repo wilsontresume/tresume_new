@@ -16,16 +16,21 @@ export class AssignRoleService {
     return this.http.post<ResponseDetails>(this.endpoint + 'getAllTimeList', request);
   }
 
-  fetchtimesheetusers(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetusers', request);
-  }
+  // fetchtimesheetusers(request: any): Observable<ResponseDetails> {
+  //   return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetusers', request);
+  // }
+  
   fetchtimesheetadmins(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetadmins', request);
   }
+  
+  fetchtimesheetcandidate(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetcandidate', request);
+  }
 }
-
 
 export interface ResponseDetails {
   flag?: any;
   result?: any;
 }
+

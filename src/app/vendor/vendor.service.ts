@@ -20,9 +20,9 @@ export class VendorService {
         return this.http.post<ResponseDetails>(this.endpoint + 'deleteVendorAccount', request);
     } 
 
-    addVendor(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'addVendor', request);
-    }
+    // addVendor(request: any): Observable<ResponseDetails> {
+    //     return this.http.post<ResponseDetails>(this.endpoint + 'addVendor', request);
+    // }
 }
 export interface ResponseDetails {
     flag?: any;

@@ -8,13 +8,22 @@
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
 @import "../node_modules/material-design-icons/iconfont/material-icons.css";
 
-html,
-body {
-  height: 100%;
-}
+// html,
+// body {
+//   height: 100%;
+// }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+#team {
+  background: #eee !important;
+}
+
+#team .card {
+  border: none;
+  background: #ffffff;
 }
 
 /* Importing Bootstrap SCSS file. */
@@ -31,6 +40,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -43,3 +53,238 @@ body {
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 $brand-primary: #49274a;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#team {
+  background: #eee !important;
+}
+
+#team .card {
+  border: none;
+  background: #ffffff;
+}
+
+.blur-video {
+  width: 100%;
+  height: fit-content;
+  filter: blur(5px);
+  /* Adjust the blur amount as needed */
+}
+
+.background-video {
+  position: relative;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.blur-video {
+  filter: blur(5px);
+}
+
+.video-background {
+  width: 100%;
+  height: fit-content;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+}
+
+// .solution-container {
+//   text-align: center;
+// }
+
+// .header {
+//   font-size: 24px;
+//   font-weight: bold;
+//   margin-bottom: 20px;
+// }
+
+// .content {
+//   font-size: 20px;
+
+// }
+
+// .solution-image {
+//   max-width: 100%;
+//   height: auto;
+// }
+
+.animate-border {
+  position: relative;
+  display: block;
+  width: 230px;
+  height: 3px;
+  background: #49274A;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  margin-right: 10px;
+}
+
+.animate-border::after {
+  content: "";
+  width: 35px;
+  height: 3px;
+  left: 15px;
+  bottom: 0;
+  border-left: 10px solid #fff;
+  border-right: 10px solid #fff;
+  position: absolute;
+  -webkit-animation: animborder 2s linear infinite;
+  animation: animborder 2s linear infinite;
+  transform: translateX(0);
+}
+
+@keyframes animborder {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(75px);
+    /* Adjust the value to control the animation's movement */
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+// .down {
+//   font-size: 1rem;
+//   font-weight: 600;
+//   font-style: inherit;
+//   text-align: center;
+//   font-size: 22px;
+//   color: #676a6a;
+//   line-height: 1.5rem;
+// }
+
+// h2.tittle {
+//   font-size: 2rem;
+//   text-align: center;
+//   color: #93628d;
+//   font-weight: 600;
+// }
+
+// navbar
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+#navbarSupportedContent {
+  // margin-left: 6rem;
+}
+
+.navbar {
+  padding: 10px;
+  font-size: 20px;
+}
+
+.bn5 {
+  text-decoration: none;
+  padding: 0.6em 2em;
+  border: 1px solid black;
+  outline: none;
+  color: black;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+}
+
+.bn5:before {
+  content: "";
+  background: linear-gradient(45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowingbn5 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowingbn5 {
+  0% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 400% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.bn5:active {
+  color: #000;
+}
+
+.bn5:active:after {
+  background: transparent;
+}
+
+.bn5:hover:before {
+  opacity: 1;
+}
+
+.bn5:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #191919;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+// home
+.content {
+  /* padding: 15px; */
+  top: 100%;
+}
+
+// Scrolling effects
+// .navbar.scrolled {
+//   background: linear-gradient(#990a6b, #D24F9A);
+//   transition: background-color 200ms linear;
+ 
+// }
