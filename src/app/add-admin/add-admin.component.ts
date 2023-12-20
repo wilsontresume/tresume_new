@@ -9,7 +9,7 @@ import { MessageService } from 'primeng/api';
   providers: [CookieService, AddAdminService, MessageService]
 })
 export class AddAdminComponent implements OnInit {
-  selectedOption: string;
+  selectedOption: string = "0";
   roles: string[] = [];
 
   // candidates: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
@@ -20,28 +20,32 @@ export class AddAdminComponent implements OnInit {
   public allusers: any;
   alladmins: String[];
   recruiterNames: String[];
-  marketerNames: String[];
+  TimesheetAdmins: String[];
   orgID: string;
+  OrgID: string;
   constructor(private cookieService: CookieService, private service: AddAdminService, private messageService: MessageService) {
     this.userName = this.cookieService.get('userName1');
-    this.orgID = this.cookieService.get('OrgID');
+    this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
 
 
   }
 
   ngOnInit(): void {
-    this.fetchusers();
+    this.fetchtimesheetusers();
     this.fetchadmin();
-    this.getOrgUserList();
+    // this.getOrgUserList();
   }
 
-  fetchusers() {
+  fetchtimesheetusers() {
+   
     let Req = {
-      OrgID: this.orgID,
+      OrgID: this.OrgID,
     };
+   
     this.service.fetchtimesheetusers(Req).subscribe((x: any) => {
-      this.marketerNames = x.result;
+      this.recruiterNames = x.result;
+      
     });
   }
 
@@ -53,17 +57,17 @@ export class AddAdminComponent implements OnInit {
     this.service.addtimesheetadmin(Req).subscribe((x: any) => {
 
       this.fetchadmin()
-      this.fetchusers();
+      this.fetchtimesheetusers();
     });
 
   }
 
   fetchadmin() {
     let Req = {
-      OrgID: this.orgID,
+      OrgID: this.OrgID,
     };
     this.service.fetchtimesheetadmins(Req).subscribe((x: any) => {
-      this.marketerNames = x.result;
+      this.TimesheetAdmins = x.result;
     });
   }
 
@@ -74,18 +78,17 @@ export class AddAdminComponent implements OnInit {
     this.service.deletetimesheetadmin(Req).subscribe((x: any) => {
 
       this.fetchadmin()
-      this.fetchusers();
+      this.fetchtimesheetusers();
     });
   }
-  getOrgUserList() {
-    let Req = {
-      TraineeID: this.TraineeID,
-      OrgID: this.orgID
-    };
-    this.service.getOrgUserList(Req).subscribe((x: any) => {
-      this.recruiterNames = x.result;
-      this.marketerNames = x.result;
-    });
-  }
+  // getOrgUserList() {
+  //   let Req = {
+  //     TraineeID: this.TraineeID,
+  //     OrgID: this.OrgID
+  //   };
+  //   this.service.getOrgUserList(Req).subscribe((x: any) => {
+  //     this.recruiterNames = x.result;
+  //   });
+  // }
 
 }
