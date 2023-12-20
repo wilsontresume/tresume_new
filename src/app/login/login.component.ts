@@ -17,9 +17,8 @@ export class LoginComponent {
   password: string;
   errorMessage:string;
   form = new FormGroup({});
-
+  invalidCount: number = 0;
   constructor(private router: Router,private http: HttpClient,private cookieService: CookieService
-    // private service: LoginService
     ) {}
 
   login() {
@@ -58,12 +57,19 @@ export class LoginComponent {
         
       },
       (error) => {
-        // Handle the error response
         console.error('Login error:', error);
-        this.errorMessage = 'Login failed. Please check your credentials.';
-        alert(this.errorMessage);
+        
+        this.invalidCount++; 
+
+        if (this.invalidCount >= 3) {
+          alert('Please reset your password.');
+          var url = '/forgetPassword';
+          this.router.navigateByUrl(url);
+        } else {
+          this.errorMessage = 'Login failed. Please check your credentials.';
+          alert(this.errorMessage);
+        }
       }
     );
-
   }
 }
