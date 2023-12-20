@@ -25,7 +25,6 @@ import { HarvestViewComponent } from './harvest/harvestview.component';
 import { AuthGuard } from './auth.guard';
 import { AdobesignComponent1 } from './adobesign/adobesign.component';
 import { LoginComponent } from './login/login.component';
-import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { GeneralComponent } from './general/general.component';
@@ -93,6 +92,7 @@ import { PFAReportComponent } from './reports/pfa-report.component';
 import { PlacementsReportComponent } from './reports/placements-report.component';
 import { ReportsComponent } from './reports/reports.component';
 import { TimesheetReportComponent } from './reports/timesheet-report.component ';
+import { CreateAllTimeListComponent } from './create-all-time-list/create-all-time-list.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -122,7 +122,6 @@ const routes: Routes = [
   { path: 'divisionaudit', component: DivisionAuditComponent, canActivate: [AuthGuard] },
   { path: 'adobesign', component: AdobesignComponent1   },
   { path: 'adobesign/token/:token', component: AdobesignComponent1 },
-  { path: 'timesheetcreate', component: TimesheetCreateComponent },
   { path: 'searchtresume/reviewtresume/interview', component: InterviewComponent},
   { path: 'searchtresume/reviewtresume/submission', component: SubmissionComponent},
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent },
@@ -179,6 +178,7 @@ const routes: Routes = [
   {path:'joble',component:JobleeComponent},
   {path:'yahoo',component:YahooComponent},
   {path:'adobe',component:AdobeComponent},
+  { path: 'createalltimelist', component: CreateAllTimeListComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
   { path: 'reports', component: ReportsHomeComponent },

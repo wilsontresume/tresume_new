@@ -15,6 +15,7 @@ export class AllTimeListComponent implements OnChanges {
   router: any;
   OrgID:string = '';
   TraineeID:string = '';
+  noResultsFound: boolean = false;
 
   constructor(private cookieService: CookieService, private service: TimesheetListService, private messageService: MessageService)
   {}
@@ -28,15 +29,15 @@ export class AllTimeListComponent implements OnChanges {
   ngOnChanges(): void{
     // this.fetchtimesheet();
   }
+
   fetchtimesheet(){
     let Req = {
-      OrgID: this.OrgID,
+      traineeID: this.TraineeID,
     };
     this.service.getAllTimeList(Req).subscribe((x: any) => {
       this.tableData = x.result;
+      this.noResultsFound = this.tableData.length === 0;
     });
   }
-
- 
-
+  
 }

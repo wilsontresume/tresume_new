@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimesheetCreateComponent } from './timesheet-create.component';
+import { CreateAllTimeListComponent } from './create-all-time-list.component';
 
-describe('TimesheetCreateComponent', () => {
-  let component: TimesheetCreateComponent;
-  let fixture: ComponentFixture<TimesheetCreateComponent>;
+describe('CreateAllTimeListComponent', () => {
+  let component: CreateAllTimeListComponent;
+  let fixture: ComponentFixture<CreateAllTimeListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TimesheetCreateComponent ]
+      declarations: [ CreateAllTimeListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TimesheetCreateComponent);
+    fixture = TestBed.createComponent(CreateAllTimeListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
