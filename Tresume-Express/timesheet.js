@@ -174,7 +174,7 @@ router.post('/addtimesheetadmin', async (req, res) => {
       });
     });
   } catch (err) {
-    return next(err); // Pass the error to the error handling middleware
+    return next(err);
   }
 });
 
@@ -233,24 +233,18 @@ router.post('/deletetimesheetadmin', async (req, res) => {
       return res.status(400).json({ error: 'traineeid is required' });
     }
 
-    // Connect to the database
     await sql.connect(config);
-
-    // Define the SQL query to update the trainee's timesheet_role
     const query = 'UPDATE Trainee SET timesheet_role = 0 WHERE traineeid =' +traineeid;
 
-    // Create a request object and execute the query
     const request = new sql.Request();
     request.input('traineeid', sql.Int, traineeid);
     const result = await request.query(query);
 
-    // Close the database connection
     await sql.close();
 
-    // Return a success message
     res.json({ message: 'Admin role Removed successfully' });
   } catch (err) {
-    return next(err); // Pass the error to the error handling middleware
+    return next(err); 
   }
 });
 
@@ -299,7 +293,6 @@ router.post('/fetchtimesheetcandidate', async  (req, res) => {
   };
 
   res.send(result);
-// Pass the error to the error handling middleware
 }
 });
 

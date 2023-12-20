@@ -59,8 +59,8 @@ const config = {
 
   function decrypter(encryptedText) {
     var key = 'NesaMani&Co';
-    const iv = Buffer.from(encryptedText.slice(0, 32), 'hex'); // Extract the IV from the encrypted text
-    const encryptedData = encryptedText.slice(32); // Extract the encrypted data (after the IV)
+    const iv = Buffer.from(encryptedText.slice(0, 32), 'hex'); 
+    const encryptedData = encryptedText.slice(32); 
   
     const decipher = crypto.createDecipheriv('aes-256-cbc', generateKey(key), iv);
     let decrypted = decipher.update(encryptedData, 'hex', 'utf8');

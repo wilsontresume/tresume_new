@@ -95,7 +95,6 @@ const config = {
         maxexp,
       } = req.body;
   
-      // Make sure required parameters are provided
       if (
         !title ||
         !skill ||
