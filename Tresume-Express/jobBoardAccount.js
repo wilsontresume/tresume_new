@@ -37,25 +37,17 @@ router.post('/insertJobBoardAccountList', async (req, res) => {
 
         const pool = await sql.connect(config);
         const request = pool.request();
-
-        const query = "INSERT INTO JobBoardAccount (accountName, fromDate, toDate, zipRecruiter, username, password) VALUES ('"+req.body.accountName+"', '"+req.body.fromDate+"', '"+req.body.toDate+"', '"+req.body.zipRecruiter+"','"+req.body.username+"','"+req.body.password+"' )";
-
-
+     const query = "INSERT INTO dbo .JobBoardAccount (JobBoardID, RecruiterID, AccountName, SubscriptionFrom, SubscriptionTO, SupplierID, USERNAME, PASSWORD, Active, CreatedDate, AuthToken, ClientId, ClientSecret, Base64ClientIdSecret, RedirectURl, AccessToken, AccessCreatedTime, RefreshToken, RefreshCreatedTime) VALUES ('" + req.body.AccountName + "', '" + req.body.SubscriptionFrom + "', '" + req.body.SubscriptionTO + "', '" + req.body.USERNAME + "', '" + req.body.PASSWORD + "',)";
         console.log(query);
-
         const queryResult = await request.query(query);
-        
         if (queryResult.rowsAffected[0] === 0) {
           throw new Error("No records found!");
         }
-        
         return queryResult;
       } catch (error) {
         console.error("Error while deleting client:", error);
         throw error;
-      }
-
-    
+      } 
 });
 
 // router.post('/getProjectList', async (req, res) => {

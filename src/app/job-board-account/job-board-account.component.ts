@@ -19,8 +19,10 @@ interface Account {
   providers: [CookieService, ReviewService, MessageService,AppService,JobBoardAccountService],
 })
 export class JobBoardAccountComponent implements OnInit {
-
-  constructor(private formBuilder: FormBuilder, private service:JobBoardAccountService) { 
+  TraineeID: string;
+ 
+  constructor(private formBuilder: FormBuilder, private cookieService: CookieService,private service:JobBoardAccountService) { 
+    this.TraineeID = this.cookieService.get('TraineeID');
   }
  
   options: string[] = ['Dice', 'Monster', 'CareerBuilder'];
@@ -52,23 +54,18 @@ export class JobBoardAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.TraineeID = this.cookieService.get('TraineeID');
     this.jobBoard = this.formBuilder.group({
-    accountName: ['', [Validators.required, Validators.minLength(3)]],
-    fromDate: [''],
-    toDate: [''],
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', [Validators.required, Validators.minLength(3)]],
+      accountName: ['', [Validators.required, Validators.minLength(3)]],
+      fromDate: [''],
+      toDate: [''],
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(3)]],
     });
-
   }
 
   addAccount() {
-    // const newAccount: Account = {
-    //   accountName: this.accountName,
-    //   selectedJobBoard:this.options,
-    //   status: 'active'  
-    // };
-    // this.accounts.push(newAccount);
+   
     let Req = {
       accountName: this.jobBoard.value.accountName,
       fromDate: this.jobBoard.value.fromDate,
@@ -79,6 +76,7 @@ export class JobBoardAccountComponent implements OnInit {
     };
 
     console.log(Req);
+
     this.service.insertJobBoardAccountList(Req).subscribe((x: any) => {
       console.log(x);
     });

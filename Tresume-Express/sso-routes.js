@@ -48,12 +48,24 @@ const config = {
   }
   
   // Encryption function
-  function encrypt(text, key) {
+  function encrypter(text) {
+    var key = 'NesaMani&Co';
     const iv = crypto.randomBytes(16);
     const cipher = crypto.createCipheriv('aes-256-cbc', generateKey(key), iv);
     let encrypted = cipher.update(text, 'utf8', 'hex');
     encrypted += cipher.final('hex');
     return iv.toString('hex') + encrypted;
+  }
+
+  function decrypter(encryptedText) {
+    var key = 'NesaMani&Co';
+    const iv = Buffer.from(encryptedText.slice(0, 32), 'hex');
+    const encryptedData = encryptedText.slice(32);
+  
+    const decipher = crypto.createDecipheriv('aes-256-cbc', generateKey(key), iv);
+    let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted;
   }
 
   function randomString(length, chars) {
@@ -83,7 +95,7 @@ router.post('/ssologin', async (req, res) => {
         if (err) console.log(err);
         var request = new sql.Request();
     
-        var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+        var query = "select * from trainee where active = 1 and username like '%"+UserName+"%'";
     
         console.log(query);
         request.query(query,
@@ -164,4 +176,65 @@ router.post('/getuseraccess', async (req, res) => {
   });
 })
 
+
+router.get('/generatepassword', async (req, res) => {
+
+  var password = encrypt("T!@#$%^&*()_+");
+  var decryptpass = decrypter(password);
+  var result = {
+    encrypted: password,
+    decryptpass: decryptpass,
+    };
+  res.send(result); 
+})
+
+
+router.post('/login', async (req, res) => {
+  console.log(req);
+  var UserName = req.body.username;
+  var PWD = req.body.password;
+  try {
+      
+      sql.connect(config, function (err) {
+        if (err) console.log(err);
+        var request = new sql.Request();
+        var querypassword;
+        var query1 = "select * from trainee where active = 1 and username like '%"+UserName+"%'";
+        var responseData;
+        request.query(query1,
+              function (err, recordset) {
+                if (err) console.log(err);
+                responseData =  recordset.recordsets[0];
+                 querypassword = decrypter(responseData[0].Password);
+                console.log(responseData[0].Password);
+                console.log(querypassword);
+                if(PWD === querypassword){
+                  var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+        
+                  console.log(query);
+                  request.query(query,
+                    function (err, recordset) {
+                      if (err) console.log(err);
+              
+                      var result = {
+                        flag: 1,
+                        result: recordset.recordsets[0],
+                        data:responseData,
+                      };
+              
+                      res.send(result);
+                    }
+                  );
+                }else{
+                  res.status(401).json({ message: 'Invalid credentials' });
+                }
+              }
+            );
+      });
+      
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
   module.exports = router;
