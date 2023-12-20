@@ -96,7 +96,7 @@
               ],
               "outputHashing": "all",
               "optimization": true,
-              "baseHref": "/TresumeNG/"
+              "baseHref": "/"
             },
             "development": {
               "buildOptimizer": false,
