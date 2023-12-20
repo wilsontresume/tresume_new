@@ -538,10 +538,10 @@
                   <td>{{ placement.ClientAddress }}</td>
                   <td>
                     <div style="display: flex; align-items: center;">
-                      <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteplacementdata(placement.PID)"></i>
                       <div [routerLink]="['/']" routerLinkActive="active">
                         <i class="fas fa-eye" style="font-size: 24px;"></i>
                       </div>
+                      <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteplacementdata(placement.PID)"></i>
                     </div>
                   </td>
                 </tr>

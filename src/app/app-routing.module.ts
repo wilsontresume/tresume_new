@@ -93,6 +93,7 @@ import { PFAReportComponent } from './reports/pfa-report.component';
 import { PlacementsReportComponent } from './reports/placements-report.component';
 import { ReportsComponent } from './reports/reports.component';
 import { TimesheetReportComponent } from './reports/timesheet-report.component ';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -194,7 +195,8 @@ const routes: Routes = [
   { path: 'reports/compliance', component: ComplianceReportComponent },
   { path: 'reports/pfa', component: PFAReportComponent },
   { path: 'reports/docexpiry', component: DocExpiryReportComponent },
-  { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
+  { path: 'forgetPassword', component: ForgetPasswordComponent },
+  { path: '', redirectTo: 'forgetPassword', pathMatch: 'full' },
   { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 
  
 ];

@@ -25,7 +25,7 @@ export class LoginComponent {
   login() {
     const isAuthenticated = true;
 
-    const ssoLoginUrl = environment.apiUrl+'ssologin';
+    const ssoLoginUrl = environment.apiUrl+'login';
     const body = JSON.stringify({ username: this.username, password: this.password });
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -34,9 +34,9 @@ export class LoginComponent {
       (response:any) => {
         
         console.log('Login successful:', response);
-        const userName = response.data.UserName
-        const orgID = response.data.Organization
-        const traineeID = response.data.TraineeID
+        const userName = response.data[0].UserName
+        const orgID = response.data[0].Organization
+        const traineeID = response.data[0].TraineeID
         const ViewOnly = response.result[0].ViewOnly
         const FullAccess = response.result[0].FullAccess
         const DashboardPermission = response.result[0].DashboardPermission

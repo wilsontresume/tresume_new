@@ -113,11 +113,14 @@ OrgID: string;
         marketerName: this.formData.marketerName,
 recruiteremail:this.userName
     };
+    // console.log(Req);
 // console.log(Req);
     // this.service.addHrmsCandidate(Req).subscribe((x: any) => {
     //   console.log(x);
     // });
     console.log(Req);
+//     this.service.insertTrainee(Req).subscribe((ax: any) => {
+//       console.log(ax);
     this.service.insertTraineeCandidate(Req).subscribe((x: any) => {
       console.log(x);
     });
