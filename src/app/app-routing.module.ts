@@ -196,7 +196,7 @@ const routes: Routes = [
   { path: 'reports/pfa', component: PFAReportComponent },
   { path: 'reports/docexpiry', component: DocExpiryReportComponent },
   { path: 'forgetPassword', component: ForgetPasswordComponent },
-  { path: '', redirectTo: 'forgetPassword', pathMatch: 'full' },
+  { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
   { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 
  
 ];
