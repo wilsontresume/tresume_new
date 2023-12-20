@@ -1,41 +1,41 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
+<nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
   <a routerLink="/homelanding"><img src="../assets/img/logo.png" alt=""></a>
-
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/features">Features</a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
           Products
         </a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" routerLink="/workforce">Workforce</a>
-          <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
           <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+          <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+          <a class="dropdown-item" routerLink="/workforce">Workforce</a>
           <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
         </div>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/market"> Marketplace</a>
+        <a class="nav-link" routerLink="/market">Marketplace</a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/features">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/about">About</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" routerLink="/contact">Contact Us</a>
       </li>
     </ul>
-    <div class="content">
-      <a href="/login" class="bn5">Login</a>
+    <div class="content" style="margin-right: 62px;">
+      <a href="/dashboard/:traineeId" class="bn5">Login</a>
     </div>
   </div>
 </nav>
+<!-- conent -->
 <section id="team" class="pb-5">
   <div class="background-video video-container">
     <video autoplay muted loop class="blur-video video-background" style="width: 100%; height: fit-content;">
@@ -44,13 +44,12 @@
     <div style="width: 100%;" class="content-over-video overlay">
       <h1 style="background-color: #a24f9a91;
     height: 111px;
-    padding-top: 33px;font-size: 54px;color: white; "><!-- HTML -->
-
+    padding-top: 33px;font-size: 54px;color: white;font-weight: 500 !important; "><!-- HTML -->
         <h1 id="keyFeatures">
-          <span>KEY</span>
-          <span>FEATURES</span>
-          <span>AND</span>
-          <span>BENEFITS</span>
+          <span class="space">KEY</span>
+          <span class="space">FEATURES</span>
+          <span class="space">AND</span>
+          <span class="space">BENEFITS</span>
         </h1>
       </h1>
     </div>
@@ -69,7 +68,7 @@
                     <p><img class=" img-fluid" src="../../../assets/img/inteligent.png" alt="card image">
                     </p>
                     <h4 class="card-title">Intelligent Candidate Sourcing</h4>
-                    <p class="card-text down">Leverage our advanced candidate sourcing tools to access a vast talent
+                    <p class="card-text">Leverage our advanced candidate sourcing tools to access a vast talent
                       pool and
                       discover candidates who meet your specific requirements. </p>
                     <!-- <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a> -->
@@ -80,7 +79,7 @@
                 <div class="card">
                   <div class="card-body text-center mt-4">
                     <h4 class="card-title">Intelligent Candidate Sourcing</h4>
-                    <p class="card-text down">Leverage our advanced candidate sourcing tools to access a vast talent
+                    <p class="card-text ">Leverage our advanced candidate sourcing tools to access a vast talent
                       pool and
                       discover candidates who meet your specific requirements. Our smart algorithms and robust search
                       capabilities ensure you find the right candidates quickly and efficiently</p>
@@ -98,8 +97,8 @@
                   <div class="card-body text-center">
                     <p><img class=" img-fluid" src="../../../assets/img/collab.png" alt="card image">
                     </p>
-                    <h4 class="card-title">Seamless Collaboration</h4>
-                    <p class="card-text down">Enable seamless collaboration between recruiters, hiring managers, and
+                    <h4 class="card-title" style="margin-left: 30px;">Seamless Collaboration</h4>
+                    <p class="card-text">Enable seamless collaboration between recruiters, hiring managers, and
                       other
                       stakeholders involved in the recruitment process. </p>
                   </div>
@@ -108,8 +107,8 @@
               <div class="backside">
                 <div class="card">
                   <div class="card-body text-center mt-4">
-                    <h4 class="card-title">Seamless Collaboration</h4>
-                    <p class="card-text down"> Enable seamless collaboration between recruiters, hiring managers, and
+                    <h4 class="card-title" style="margin-left: 30px;">Seamless Collaboration</h4>
+                    <p class="card-text"> Enable seamless collaboration between recruiters, hiring managers, and
                       other
                       stakeholders involved in the recruitment process. Our platform allows for efficient communication,
                       feedback sharing, and streamlined workflows, eliminating bottlenecks and accelerating
@@ -130,7 +129,7 @@
                     <p><img class=" img-fluid" src="../../../assets/img/seam.png" alt="card image">
                     </p>
                     <h4 class="card-title">Engaging Candidate Experience</h4>
-                    <p class="card-text down">Create an exceptional candidate experience from the first interaction to
+                    <p class="card-text">Create an exceptional candidate experience from the first interaction to
                       onboarding.</p>
                   </div>
                 </div>
@@ -139,7 +138,7 @@
                 <div class="card">
                   <div class="card-body text-center mt-4">
                     <h4 class="card-title">Engaging Candidate Experience</h4>
-                    <p class="card-text down">Create an exceptional candidate experience from the first interaction to
+                    <p class="card-text">Create an exceptional candidate experience from the first interaction to
                       onboarding. Our intuitive interface, mobile-friendly application process, and personalized
                       communication tools help you attract top talent and provide a positive candidate journey.</p>
                   </div>
@@ -157,7 +156,7 @@
                     <p><img class=" img-fluid" src="../../../assets/img/workplays.png" alt="card image">
                     </p>
                     <h4 class="card-title" style="    margin-left: 35px;">Automated Workflows</h4>
-                    <p class="card-text down"> Automate repetitive tasks and workflows, freeing up valuable time for
+                    <p class="card-text"> Automate repetitive tasks and workflows, freeing up valuable time for
                       your HR
                       team</p>
                   </div>
@@ -167,7 +166,7 @@
                 <div class="card">
                   <div class="card-body text-center mt-4">
                     <h4 class="card-title" style="  margin-left: 35px;">Automated Workflows</h4>
-                    <p class="card-text down">Automate repetitive tasks and workflows, freeing up valuable time for your
+                    <p class="card-text">Automate repetitive tasks and workflows, freeing up valuable time for your
                       HR
                       team. From resume parsing and screening to interview scheduling and offer management, our solution
                       simplifies administrative tasks, ensuring a smooth and efficient recruitment process.</p>
@@ -185,8 +184,9 @@
                   <div class="card-body text-center">
                     <p><img class=" img-fluid" src="../../../assets/img/data.png" alt="card image">
                     </p>
-                    <h4 class="card-title" style="  margin-left: 35px;">Data-Driven Insights</h4>
-                    <p class="card-text down">Gain valuable insights into your recruitment performance with our robust
+                    <h4 class="card-title" style="    margin-left: 46px;
+                    ">Data-Driven Insights</h4>
+                    <p class="card-text ">Gain valuable insights into your recruitment performance with our robust
                       analytics and reporting tools. </p>
                   </div>
                 </div>
@@ -194,8 +194,9 @@
               <div class="backside">
                 <div class="card">
                   <div class="card-body text-center mt-4">
-                    <h4 class="card-title" style="  margin-left: 35px;">Data-Driven Insights</h4>
-                    <p class="card-text down">Gain valuable insights into your recruitment performance with our robust
+                    <h4 class="card-title" style="    margin-left: 46px;
+                    ">Data-Driven Insights</h4>
+                    <p class="card-text ">Gain valuable insights into your recruitment performance with our robust
                       analytics and reporting tools. Track key metrics, measure the effectiveness of your sourcing
                       channels, and make data-driven decisions to continuously improve your talent acquisition
                       strategies.
@@ -215,7 +216,7 @@
                     <p><img class=" img-fluid" src="../../../assets/img/comunicate.png" alt="card image">
                     </p>
                     <h4 class="card-title">Easy Communicate with candidates</h4>
-                    <p class="card-text down">The ART has an automated effective system that figure out the correct time
+                    <p class="card-text">The ART has an automated effective system that figure out the correct time
                       for
                       the recruiter to reach out to the candidate </p>
                   </div>
@@ -225,7 +226,7 @@
                 <div class="card">
                   <div class="card-body text-center mt-4">
                     <h4 class="card-title">Easy Communicate with candidates</h4>
-                    <p class="card-text down">The ART has an automated effective system that figure out the correct time
+                    <p class="card-text ">The ART has an automated effective system that figure out the correct time
                       for
                       the recruiter to reach out to the candidate
                     </p>
@@ -244,7 +245,8 @@
         Solution: Streamlined Talent Acquisition for Modern Organizations
       </div>
       <div class="content">
-        <p class="down">At Tresume, we understand that attracting, hiring, and retaining top talent is crucial for the success of any
+        <p class="down">At Tresume, we understand that attracting, hiring, and retaining top talent is crucial for the
+          success of any
           organization. Our comprehensive talent acquisition solution empowers businesses to streamline their
           recruitment
           processes, optimize efficiency, and make data-driven decisions. With our innovative technology and
@@ -294,7 +296,7 @@
         <div class="col-xl-4 col-lg-4 mb-50">
           <div class="footer-widget">
             <div class="footer-logo">
-              <a href="index.html"><img src="../assets/img/logo.png" class="img-fluid" alt="logo"></a>
+              <a href="index.html"><img src="../../../assets/img/tresumelog.png" style=" margin-left: 7rem;" class="img-fluid" alt="logo"></a>
             </div>
             <div class="footer-text">
               <p>With the right ATS recruiting system, you can increase the number of placements and grow your business.

@@ -26,14 +26,19 @@ export class HrmsComponent implements OnInit {
   noResultsFound: boolean = false;
   TraineeID: string;
   addCandidate: any;
+OrgID: string;
+  userName: string;
   
   constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder) { 
-    
+    this.OrgID = this.cookieService.get('OrgID');
+    this.userName = this.cookieService.get('userName1');
+    this.TraineeID = this.cookieService.get('TraineeID');
   }
 
   ngOnInit(): void {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchhrmscandidatelist();
+    this.getOrgUserList();
 
     this.addCandidate = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
@@ -77,6 +82,17 @@ export class HrmsComponent implements OnInit {
     });
   }
 
+  getOrgUserList() {
+    let Req = {
+      TraineeID: this.TraineeID,
+      OrgID:this.OrgID
+    };
+    this.service.getOrgUserList(Req).subscribe((x: any) => {
+     this.recruiterNames = x.result;
+     this.marketerNames = x.result;
+    });
+  }
+
   savehrmsdata() {
     let Req = {
         firstName: this.addCandidate.value.firstName,
@@ -95,10 +111,17 @@ export class HrmsComponent implements OnInit {
         candidateStatus: this.formData.candidateStatus,
         legalStatus: this.formData.legalStatus,
         marketerName: this.formData.marketerName,
-
+recruiteremail:this.userName
     };
+    // console.log(Req);
+// console.log(Req);
+    // this.service.addHrmsCandidate(Req).subscribe((x: any) => {
+    //   console.log(x);
+    // });
     console.log(Req);
-    this.service.addHrmsCandidate(Req).subscribe((x: any) => {
+//     this.service.insertTrainee(Req).subscribe((ax: any) => {
+//       console.log(ax);
+    this.service.insertTraineeCandidate(Req).subscribe((x: any) => {
       console.log(x);
     });
   }

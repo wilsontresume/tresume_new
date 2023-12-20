@@ -4,6 +4,7 @@
     background: #eee !important;
 }
 
+
 .btn-primary:hover,
 .btn-primary:focus {
     background-color: #108d6f;
@@ -32,6 +33,8 @@ section .section-title {
 #team .card {
     border: none;
     background: #ffffff;
+    margin: 0;
+
 }
 
 .image-flip:hover .backside,
@@ -120,6 +123,7 @@ section .section-title {
 .backside .card .card-title {
     color: #94608e !important;
     font-size: 25px;
+    font-weight: 500;
 }
 
 .frontside .card .card-body img {
@@ -161,6 +165,11 @@ section .section-title {
     margin-bottom: 0.75rem;
 }
 
+.card-text{
+    font-size: 15px;
+    font-weight: 500;
+    font-style: oblique;
+}
 .card-text:last-child {
     margin-bottom: 0;
 }
@@ -838,6 +847,9 @@ ul {
     /* Change the text color on hover */
     border-bottom: 2px solid purple;
 }
+#navbarSupportedContent {
+    margin-left: 16rem;
+}
 
 .navbar-nav .nav-link:hover::before {
     width: 100%;
@@ -846,21 +858,21 @@ ul {
 #keyFeatures {
     font-size: 54px;
   }
-  
+
   #keyFeatures span {
     opacity: 0;
     transform: translateY(20px);
     display: inline-block;
     animation: fadeInUp 1s forwards ease-out;
   }
-  
+
   @keyframes fadeInUp {
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  
+
   #keyFeatures span:nth-child(1) { animation-delay: 0.1s; }
   #keyFeatures span:nth-child(2) { animation-delay: 0.2s; }
   #keyFeatures span:nth-child(3) { animation-delay: 0.3s; }
@@ -902,4 +914,7 @@ ul {
     text-align: center;
     color: #93628d;
     font-weight: 600;
+  }
+  .space {
+    margin-right: 20px;
   }

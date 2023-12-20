@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./joblee.component.scss']
 })
 export class JobleeComponent implements OnInit {
+isScrolled: any;
 
   constructor() { }
 
   ngOnInit(): void {
+    window.scrollTo(0,0);
   }
 
 }

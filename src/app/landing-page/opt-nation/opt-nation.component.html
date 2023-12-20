@@ -1,81 +1,94 @@
 <section id="team" class="pb-5">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-        <a routerLink="/homelanding"><img src="../assets/img/logo.png" alt=""></a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/features">Features</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                        aria-expanded="false">
-                        Products
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" routerLink="/workforce">Workforce</a>
-                        <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
-                        <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
-                        <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
-                    </div>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" routerLink="/market"> Marketplace</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" routerLink="/contact">Contact Us</a>
-                </li>
-            </ul>
-            <div class="content">
-                <a href="/login" class="bn5">Login</a>
-            </div>
-        </div>
-    </nav>
+  <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
+    <a routerLink="/homelanding"><img src="../assets/img/logo.png" style="height: 90px;" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            Products
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+            <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+            <a class="dropdown-item" routerLink="/workforce">Workforce</a>
+            <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
+          </div>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/market">Marketplace</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/features">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact">Contact Us</a>
+        </li>
+      </ul>
+      <div class="content" style="margin-right: 62px;">
+        <a href="/login" class="bn5">Login</a>
+      </div>
+    </div>
+  </nav>
     <div class="background-video video-container">
         <video autoplay muted loop class="blur-video video-background" style="width: 100%; height: fit-content;">
-            <!-- <source src="../../../assets/videos/developer.mp4" type="video/mp4"> -->
+            <source src="../../../assets/videos/developer.mp4" type="video/mp4">
         </video>
         <div style="width: 100%;" class="content-over-video overlay">
-            <h1 style="background-color: #a24f9a91;
+            <h1 id="welcomeText" style="background-color: #a24f9a91;
       height: 111px;
-      padding-top: 26px; "> OPT Nation Job Board</h1>
+      padding-top: 33px;font-size: 54px;color: white !important;font-weight: 500;"> OPT Nation Job Board
+            </h1>
         </div>
     </div>
+    <br><br>
     <div class="container">
-        <h2 class="tittle">All Integrations > Premium    Nation Job Board</h2>
+        <h2 class="text-center tittle">All Integrations > Premium OPT Nation Job Board</h2>
         <span class="animate-border mr-auto ml-auto mb-4"></span>
         <div class="row">
-            <div class="col-md-6 left-card">
-                <div class="card text-center">
-                    <img src="../../../assets/img/careerbuilder.png" style="height: 9rem;
-                    width: 24rem;" alt="Logo">
-                    <div class="card-body">
-                      <h2 class="card-title">OPT Nation</h2>
-                      <h3 class="card-subtitle mb-3 text-muted">Premium Job Board</h3>
-                      <p class="card-text" style="font-style: italic;">OPT Nation's job search feature provides a specialized platform for international students on Optional Practical Training (OPT) and Curricular Practical Training (CPT) in the United States.</p>
+            <div class="col-md-4 left-card">
+                <div class="card" style="box-shadow: 8px 9px 20px -6px rgba(0,0,0,0.75);width: 20rem;">
+                  <div class="text-center">
+                    <img src="../../../assets/img/opt.png" style=" height: 6rem;
+                    width: 14rem;margin-left: 4rem;"alt="Logo">
+                    <div class="card-body" style="display: flex;
+                    flex-flow: column;
+                    margin-right: 120px;">
+                        <h2 class="card-title">OPT Nation</h2>
+                        <h3 class="card-subtitle mb-3 text-muted">Premium Job Board</h3>
+                        <div class="button-group">
+                          <a href="/"><button class="bn632-hover bn24">Book a Demo</button></a>
+                          <a href="/"><button class="bn632-hover bn24">Start Free Trial</button></a>
+                        </div>
                     </div>
                   </div>
+                </div>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <h1 style="font-size: 30px;font-weight: bold;">OPT Nation </h1>
                 <p style="font-size: 20px;padding: 20px;
-                font-weight: 300;
-                font-style: italic;">Integrating OPT Nation Search into your platform is a strategic decision to
+                font-weight: 400;
+                font-style: italic;    letter-spacing: 2px;
+        text-align: justify;">Integrating OPT Nation Search into your platform is a strategic decision to
                     enhance your users' job-seeking journey, particularly for international students on Optional
                     Practical Training (OPT). OPT Nation is recognized for its focus on providing job opportunities and
                     resources for OPT and CPT (Curricular Practical Training) holders. By incorporating OPT Nation
                     Search, you empower users to find employment opportunities aligned with their academic and career
                     pursuits.</p>
                 <h1 style="font-size: 30px;font-weight: bold;"> Overview</h1>
-                <ul>
+                <ul  style=" font-size: 15px;
+                /* font-weight: 800; */
+                /* color: #00000063; */
+                letter-spacing: 2px;
+                font-weight: 400;
+                font-style: normal;">
                     <li>Specialized Job Listings: Offer users specialized job listings tailored for individuals on OPT
                         and CPT, ensuring relevant opportunities aligned with their educational background.</li>
                     <li>User-Centric Experience: Provide an intuitive and user-centric job search interface, allowing
@@ -91,28 +104,9 @@
                 </ul>
             </div>
             <hr>
-            <!-- <div class="col-md-6">
-                <h1 style="font-size: 30px;font-weight: bold;">How It Works:</h1>
-                <ul>
-                    <li>Integration Setup: Connect your Free Job Board with Monster by following simple integration
-                        steps
-                        provided by both platforms..</li>
-                    <li>Post and Sync: Post your job listings on your Free Job Board as usual. With the integration,
-                        these
-                        listings will automatically sync with Monster, ensuring real-time updates.</li>
-                    <li>Candidate Applications: Receive applications directly through Monster or have them seamlessly
-                        redirected to your Free Job Board, streamlining the application management process.</li>
-                    <li>
-                        Analytics and Reporting: Access comprehensive analytics and reports to track the performance of
-                        your
-                        job listings across
-                        both platforms, enabling data-driven decision-making.
-                    </li>
-                </ul>
-            </div> -->
         </div>
     </div>
-    
+
     <footer class="footer-section">
         <div class="container">
             <div class="footer-cta pt-5 ">
