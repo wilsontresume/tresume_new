@@ -38,7 +38,6 @@ export class ForgetPasswordComponent implements OnInit {
   
 
   checkEmailValidator() {
-    alert(this.email)
     let Req = {
       email: this.email,
     };

@@ -214,23 +214,20 @@ router.post('/validateemail', async (req, res) => {
   try {
     const username = req.body.email;
 
-    // Use async/await to connect to the database
     await sql.connect(config);
     
     const request = new sql.Request();
 
-    // Use parameterized queries to prevent SQL injection
     const query1 = 'SELECT * FROM trainee WHERE username = @username';
     request.input('username', sql.NVarChar, username);
     
     const recordset = await request.query(query1);
 
-    const trainee = recordset.recordset[0]; // Use recordset instead of recordsets
+    const trainee = recordset.recordset[0]; 
 
     if (trainee) {
       const resetKey = randomString(16, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
       
-      // Use parameterized queries
       const query2 = 'UPDATE trainee SET resetkey = @resetKey WHERE username = @username';
       request.input('resetKey', sql.NVarChar, resetKey);
       
@@ -301,6 +298,81 @@ router.post('/login', async (req, res) => {
           
       });
       
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
+
+router.post('/validatekey', async (req, res) => {
+  console.log(req);
+  var valdatekey = req.body.validatekey;
+  
+  try {
+      sql.connect(config, function (err) {
+        if (err) console.log(err);
+        var request = new sql.Request();
+    
+        var query = "SELECT * FROM trainee where resetkey ='"+valdatekey+"'";
+    
+        console.log(query);
+        request.query(query,
+          function (err, recordset) {
+            if (err) console.log(err);
+            var trainee = recordset.recordsets[0];
+            console.log(trainee);
+            if(trainee.length === 1){
+              var result = {
+                flag: 1,
+                message:'Valid key',
+              };
+              res.send(result);
+            }else{
+              var result = {
+                flag: 2,
+                message:'Not Valid Key',
+              };
+              res.send(result);
+            }
+            
+    
+            
+          }
+        );
+      });
+
+    
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
+
+router.post('/updatepassword', async (req, res) => {
+  console.log(req);
+  var password = req.body.password;
+  var resetkey = req.body.resetkey;
+
+  var encryptpassword = encrypt(password);
+  try {
+      sql.connect(config, function (err) {
+        if (err) console.log(err);
+        var request = new sql.Request();
+    
+        var query = "UPDATE trainee set resetkey = '0', password = '"+encryptpassword+"' where resetkey ='"+resetkey+"'";
+
+        request.query(query,
+          function (err, recordset) {
+            if (err) console.log(err);
+        
+              var result = {
+                flag: 1,
+                message:'Password Updated Succesfully',
+              };
+              res.send(result);
+          }
+        );
+      });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ message: 'An error occurred' });
