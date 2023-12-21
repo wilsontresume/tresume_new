@@ -3,7 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AppService } from './app.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../environments/environment';
-import {PermissionsProvider} from '../app/security/permissions.provider';
+import { PermissionsProvider } from '../app/security/permissions.provider';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   public url: string;
   public traineeID: any;
   public traineeDetails: any = {};
-  public enableNav: boolean = true;
+  public enableNav: boolean = false;
   public onboardView: boolean = false;
   public onboardSession: any;
   public sessionDetails: any;
@@ -115,9 +115,9 @@ export class AppComponent implements OnInit {
   }
 
   public hasToken() {
-		let url = this.router.url;
-		return url != "/" && url.indexOf("/login") == -1;
-	}
+    let url = this.router.url;
+    return url !== "/" && url.indexOf("/login") === -1 && url.indexOf("/homelanding") === -1;
+  }
 
   /* getOnboardDetails() {
     this.service1.getOnboardingSession(this.onboardSession).subscribe((x: any) => {

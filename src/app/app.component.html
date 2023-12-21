@@ -2,10 +2,10 @@
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="assets/img/Logo_Small.png" alt="Tresume" height="60" width="60" />
   </div>
-  <div *ngIf="hasToken() && enableNav">
+  <div *ngIf="hasToken()">
     <ts-nav></ts-nav>
   </div>
-  <div class="content-wrapper">
+  <div [class.content-wrapper]="hasToken()">
     <router-outlet></router-outlet>
   </div>
   <footer class="main-footer">
