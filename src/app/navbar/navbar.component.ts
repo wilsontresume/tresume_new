@@ -53,4 +53,11 @@ export class NavbarComponent implements OnInit {
         return this.fullAccess.includes(numberToCheck) || this.viewOnly.includes(numberToCheck);
     }
 
+    public logout() {
+        this.cookieService.deleteAll();
+        sessionStorage.clear();
+        const randomQueryParam = Math.random().toString(36).substring(7);
+        this.router.navigate(['/login'], { queryParams: { refresh: randomQueryParam } });
+    }
+
 }
