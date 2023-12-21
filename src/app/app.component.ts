@@ -1,14 +1,15 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AppService } from './app.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../environments/environment';
+import {PermissionsProvider} from '../app/security/permissions.provider';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [AppService]
+  providers: [AppService, PermissionsProvider]
 })
 export class AppComponent implements OnInit {
   public url: string;
@@ -25,14 +26,12 @@ export class AppComponent implements OnInit {
   public timesheetrole: string;
   FullAccess: number[]
   ViewOnly: number[]
-  constructor(private route: ActivatedRoute, private service1: AppService, private router: Router, private cookieService: CookieService) {
-    //this.traineeID = this.route.snapshot.params["traineeId"];
+  constructor(private service1: AppService, private router: Router, private cookieService: CookieService) {
 
   }
 
   async ngOnInit() {
-    //this.enableNav = (sessionStorage.getItem("Route") != "Documents");
-    this.url = environment.routeUrl;
+    /* this.url = environment.routeUrl;
     setTimeout(() => {
       if (window.location.hostname === 'localhost') {
         return;
@@ -89,14 +88,14 @@ export class AppComponent implements OnInit {
         this.cookieService.set('FullAccess',FullAccess);
         this.cookieService.set('DashboardPermission',DashboardPermission);
         this.cookieService.set('RoleID',RoleID);
-    });
+    }); */
   }
-  checkFullAccess(numberToCheck: number): boolean {
+  /* checkFullAccess(numberToCheck: number): boolean {
     return this.FullAccess.includes(numberToCheck) || this.ViewOnly.includes(numberToCheck);
-  }
+  } */
 
   async ngOnChanges() {
-    await this.router.events.subscribe((e) => {
+    /* await this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         let navEnd = <NavigationEnd>e;
         console.log(navEnd);
@@ -112,10 +111,15 @@ export class AppComponent implements OnInit {
         }
         console.log(this.enableNav);
       }
-    });
+    }); */
   }
 
-  getOnboardDetails() {
+  public hasToken() {
+		let url = this.router.url;
+		return url != "/" && url.indexOf("/login") == -1;
+	}
+
+  /* getOnboardDetails() {
     this.service1.getOnboardingSession(this.onboardSession).subscribe((x: any) => {
       if (x[0]) {
         this.sessionDetails = x[0];
@@ -128,5 +132,5 @@ export class AppComponent implements OnInit {
         });
       }
     });
-  }
+  } */
 }

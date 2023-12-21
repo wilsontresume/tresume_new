@@ -1,9 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { appInitializer, AppConfigService } from './security/app-preloader';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavigationModule } from './navbar/navbar.module';
+
 import { ChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -240,6 +244,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
   ],
   imports: [
     HttpClientModule,
+    NavigationModule,
     MatTableModule,
     MatIconModule,
     MatSortModule,
@@ -310,7 +315,14 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     ProgressbarModule.forRoot(),
     PaginationModule.forRoot()
   ],
-  providers: [CookieService, BsLocaleService, AuthGuard, AppService,],
+  providers: [CookieService, BsLocaleService, AuthGuard, AppService, AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializer,
+      multi: true,
+      deps: [AppConfigService],
+    },
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ProgressRenderer]
 })

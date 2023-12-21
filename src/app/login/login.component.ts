@@ -15,26 +15,26 @@ import { HttpClient, HttpEvent, HttpParams, HttpRequest, HttpHeaders } from '@an
 export class LoginComponent {
   username: string;
   password: string;
-  errorMessage:string;
+  errorMessage: string;
   form = new FormGroup({});
   invalidCount: number = 0;
-  constructor(private router: Router,private http: HttpClient,private cookieService: CookieService
-    ) {}
+  constructor(private router: Router, private http: HttpClient, private cookieService: CookieService
+  ) { }
 
   login() {
     const isAuthenticated = true;
 
-    const ssoLoginUrl = environment.apiUrl+'login';
+    const ssoLoginUrl = environment.apiUrl + 'login';
     const body = JSON.stringify({ username: this.username, password: this.password });
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
     this.http.post(ssoLoginUrl, body, { headers }).subscribe(
-      (response:any) => {
-        
+      (response: any) => {
+
         console.log('Login successful:', response);
         const flag = response.flag;
-        if(flag === 1){
+        if (flag === 1) {
           const userName = response.data[0].UserName
           const orgID = response.data[0].Organization
           const traineeID = response.data[0].TraineeID
@@ -44,28 +44,29 @@ export class LoginComponent {
           const RoleID = response.result[0].RoleID
           this.cookieService.set('userName1', userName);
           this.cookieService.set('OrgID', orgID);
-          this.cookieService.set('TraineeID',traineeID);
-          this.cookieService.set('ViewOnly',ViewOnly);
-          
-          this.cookieService.set('FullAccess',FullAccess);
-          this.cookieService.set('DashboardPermission',DashboardPermission);
-          this.cookieService.set('RoleID',RoleID);
-          
-          
-          var url = '/dashboard/'+traineeID;
-          this.router.navigateByUrl(url);
-        }else{
+          this.cookieService.set('TraineeID', traineeID);
+          this.cookieService.set('ViewOnly', ViewOnly);
+
+          this.cookieService.set('FullAccess', FullAccess);
+          this.cookieService.set('DashboardPermission', DashboardPermission);
+          this.cookieService.set('RoleID', RoleID);
+
+
+          var url = '/dashboard/' + traineeID;
+          this.router.navigate(['/dashboard/' + traineeID]);
+          //this.router.navigateByUrl(url);
+        } else {
           alert('Please reset your password.');
           var url = '/forgetPassword';
           this.router.navigateByUrl(url);
         }
-        
-        
+
+
       },
       (error) => {
         console.error('Login error:', error);
-        
-        this.invalidCount++; 
+
+        this.invalidCount++;
 
         if (this.invalidCount >= 3) {
           alert('Please reset your password.');
