@@ -1,4 +1,6 @@
 // navbar
+$brand-primary:#49274a;
+
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 #navbarSupportedContent {
   margin-left: 16rem;
@@ -726,7 +728,7 @@ h3 {
   display: block;
   width: 200px;
   height: 3px;
-  background: #49274A;
+  background: $brand-primary;
   overflow: hidden;
   margin-bottom: 1.5rem;
   margin-right: 10px;
@@ -995,7 +997,7 @@ h2.tittle {
 
 // how it works home page
 .process-step-number {
-  background: #49274A;
+  background: $brand-primary;
   text-align: center;
   margin: 0 auto;
   color: #fff;
@@ -1017,8 +1019,8 @@ h2.tittle {
 .process-step-number:before {
   content: "";
   border-top: 8px solid #ff000000;
-  border-bottom: 8px solid #49274A;
-  border-left: 8px solid #49274A;
+  border-bottom: 8px solid $brand-primary;
+  border-left: 8px solid $brand-primary;
   border-right: 8px solid #ff000000;
   display: inline-grid;
   position: absolute;
@@ -1037,9 +1039,9 @@ strong, b {
 .process-step-number:after {
   content: "";
   border-top: 8px solid #04889800;
-  border-bottom: 8px solid #49274A;
+  border-bottom: 8px solid $brand-primary;
   border-left: 8px solid #04889800;
-  border-right: 8px solid #49274A;
+  border-right: 8px solid $brand-primary;
   display: inline-grid;
   position: absolute;
   left: -16px;

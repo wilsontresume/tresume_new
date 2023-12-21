@@ -1,3 +1,5 @@
+$brand-primary:#49274a;
+
 .bg-clr {
     background-color: #46103d ; 
   }
@@ -85,7 +87,7 @@ label{
   margin-left: 5px;
 }
 .btn{
-  background-color: #49274A;
+  background-color: $brand-primary;
   color: #ffffff;
 }
 button{

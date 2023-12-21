@@ -13,6 +13,8 @@
 //   height: 100%;
 // }
 
+$brand-primary:#49274a;
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -51,8 +53,6 @@ body {
 
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
-
-$brand-primary: #49274a;
 
 * {
   margin: 0;
@@ -129,7 +129,7 @@ $brand-primary: #49274a;
   display: block;
   width: 230px;
   height: 3px;
-  background: #49274A;
+  background: $brand-primary;
   overflow: hidden;
   margin-bottom: 1.5rem;
   margin-right: 10px;
