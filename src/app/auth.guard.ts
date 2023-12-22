@@ -14,8 +14,6 @@ export class AuthGuard implements CanActivate {
       this.router.events.subscribe((e) => {
         if (e instanceof NavigationEnd) {
           let navEnd = <NavigationEnd>e;
-          console.log(navEnd);
-
           if (navEnd.url.includes("/login") || navEnd.urlAfterRedirects.includes("/login")) {
             var url = '/dashboard/' + traineeID;
             window.location.href = url;

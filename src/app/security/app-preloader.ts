@@ -18,7 +18,7 @@ export class AppConfigService {
 
     loadAppConfig() {
         return new Promise<void>((resolve, reject) => {
-            this.http.post(environment.apiUrl + "getuseraccess", JSON.stringify(getRequest(this.userName),
+            /* this.http.post(environment.apiUrl + "getuseraccess", JSON.stringify(getRequest(this.userName),
                 (getRequestOptions()))).subscribe((x: any) => {
                     console.log('From Preloader', x)
                     const ViewOnly = x.result[0].ViewOnly
@@ -29,8 +29,10 @@ export class AppConfigService {
                     this.cookieService.set('FullAccess', FullAccess);
                     this.cookieService.set('DashboardPermission', DashboardPermission);
                     this.cookieService.set('RoleID', RoleID);
-                    resolve();
-                });
+                    
+                }); */
+                console.log('App Preloaded')
+                resolve();
         });
     }
 }
