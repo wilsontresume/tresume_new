@@ -1,711 +1,425 @@
-<!-- Content Wrapper. Contains page content -->
-
-<!-- Content Header (Page header) -->
 <div class="header pt-4">
-<div class="container">
-    <div class="row main pt-3 pl-3">
-                <h2>DASHBOARD</h2>
-            </div>
-     <!-- /.col -->
-            <!-- <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li>
-              </ol>
-            </div> -->
-            <!-- /.col -->
-
-<!-- /.content-header -->
-
-<!-- Main content -->
-<!-- <section class="content-header">
-        <div class="fc-toolbar-chunk">
-          <div class="btn-group"><button class="fc-dayGridMonth-button btn btn-info" type="button">This Week's
-              Overview</button><button class="fc-timeGridWeek-button btn btn-info" type="button">Recruiters
-              Activity</button><button class="fc-timeGridDay-button btn btn-info active" type="button">Company
-              overview</button></div>
-        </div>
-      </section> -->
-
-<section class="content mt-3">
     <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-            <div class="col-lg-4 col-6">
-                <!-- small box -->
-                <div class="small-box" style="background-color: #49274A; color: #c2c7d0;">
-                    <div class="inner">
-                        <h3>{{totalFTC}}</h3>
-
-                        <p>Total FTC</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a routerLink="/reports" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-4 col-6">
-                <!-- small box -->
-                <div class="small-box" style="background-color: #49274A; color: #c2c7d0;">
-                    <div class="inner">
-                        <h3>{{totalSubmissions}}</h3>
-
-                        <p>Total Submissions</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="https://tresume.us/Report1.aspx" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-4 col-6">
-                <!-- small box -->
-                <div class="small-box" style="background-color: #49274A; color: #c2c7d0;">
-                    <div class="inner">
-                        <h3>{{totalInterviews}}</h3>
-
-                        <p>Total Interviews</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="https://tresume.us/Report1.aspx" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
+        <div class="row main pt-3 pl-3">
+            <h2>DASHBOARD</h2>
         </div>
-        <!-- /.row -->
-        <!-- Main row -->
-        <!-- /.row (main row) -->
+        <section class="content mt-3">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-6">
+                        <div class="small-box box-color">
+                            <div class="inner">
+                                <h3>{{totalFTC}}</h3>
 
-        <!-- <div style="width:100%;">
-            <canvas id="myChart" width="700" height="250" #mychart></canvas>
-         </div> -->
-        <!-- <div class="col-sm-4 text-center" style="width:500px;height:600px;">
-            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
-            </canvas>
-          </div> -->
-        <div class="row">
-            <div *ngIf="!hideFTCFields" class="col-lg-4">
-                <div class="card">
-                    <div class="card-header" style="text-align: center;">
-                        <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">Total FTC</h3>
-                        <div class="card-tools">
-                            <div class="btn-group" dropdown>
-                                <button id="button-animated" dropdownToggle type="button"
-                                    class="btn btn-primary dropdown-toggle"
-                                    style="background-color: #49274A; border-color: #49274A;" bsDaterangepicker
-                                    [bsConfig]="{ adaptivePosition: true, ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
-                                    (bsValueChange)="onValueChange($event,1)">
-                                    <i class="far fa-calendar-alt"></i> <span class="caret"></span>
-                                </button>
+                                <p>Total FTC</p>
                             </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a routerLink="/reports" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
+                    <div class="col-lg-4 col-6">
+                        <div class="small-box box-color">
+                            <div class="inner">
+                                <h3>{{totalSubmissions}}</h3>
 
-                        <div class="col-md-12">
-                            <div class="chart-responsive">
-                                <div class="chartjs-size-monitor">
-                                    <div class="chartjs-size-monitor-expand">
-                                        <div class=""></div>
-                                    </div>
-                                    <div class="chartjs-size-monitor-shrink">
-                                        <div class=""></div>
-                                    </div>
-                                </div>
-                                <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
-                                <div class="col-md-12 text-center">
-                                    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
-                                        [chartType]="doughnutChartType" [options]="chartOptions" [colors]="chartColors">
-                                    </canvas>
-                                </div>
+                                <p>Total Submissions</p>
                             </div>
-                            <!-- ./chart-responsive -->
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="https://tresume.us/Report1.aspx" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                        <!-- /.col -->
-                        <!-- <div class="col-md-4">
-                    <ul class="chart-legend clearfix">
-                      <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
-                      <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
-                      <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
-                      <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
-                      <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
-                      <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
-                    </ul>
-                  </div> -->
-                        <!-- /.col -->
+                    </div>
+                    <div class="col-lg-4 col-6">
+                        <div class="small-box box-color">
+                            <div class="inner">
+                                <h3>{{totalInterviews}}</h3>
 
-                        <!-- /.row -->
+                                <p>Total Interviews</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="https://tresume.us/Report1.aspx" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer bg-light p-0">
-                        <!-- <ul class="nav nav-pills flex-column">
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            Nanditha
-                                            <span class="float-right text-danger">
-                                                <i class="fas fa-arrow-down text-sm"></i>
-                                                12%</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            Usha
-                                            <span class="float-right text-success">
-                                                <i class="fas fa-arrow-up text-sm"></i> 4%
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            Shabab
-                                            <span class="float-right text-warning">
-                                                <i class="fas fa-arrow-left text-sm"></i> 0%
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul> -->
-                    </div>
-                    <!-- /.footer -->
                 </div>
-            </div>
-            <div *ngIf="!hidePlacementFields" class="col-lg-4">
-
-                <div class="card">
-                    <div class="card-header" style="text-align: center;">
-                        <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">Placements</h3>
-                        <div class="card-tools">
-                            <div class="btn-group" dropdown>
-                                <button id="button-animated" dropdownToggle type="button"
-                                    class="btn btn-primary dropdown-toggle"
-                                    style="background-color: #49274A; border-color: #49274A;" bsDaterangepicker
-                                    [bsConfig]="{ adaptivePosition: true, ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
-                                    (bsValueChange)="onValueChange($event,2)">
-                                    <i class="far fa-calendar-alt"></i> <span class="caret"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-
-                        <div class="col-md-12">
-                            <div class="chart-responsive">
-                                <div class="chartjs-size-monitor">
-                                    <div class="chartjs-size-monitor-expand">
-                                        <div class=""></div>
-                                    </div>
-                                    <div class="chartjs-size-monitor-shrink">
-                                        <div class=""></div>
-                                    </div>
-                                </div>
-                                <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
-                                <div class="col-md-12 text-center">
-                                    <canvas baseChart [datasets]="barChartData1" [labels]="barChartLabels"
-                                        [options]="barChartOptions" [plugins]="barChartPlugins"
-                                        [legend]="barChartLegend" [chartType]="barChartType" [colors]="barchartColors">
-                                    </canvas>
-                                </div>
-                            </div>
-                            <!-- ./chart-responsive -->
-                        </div>
-                        <!-- /.col -->
-                        <!-- <div class="col-md-4">
-                    <ul class="chart-legend clearfix">
-                      <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
-                      <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
-                      <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
-                      <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
-                      <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
-                      <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
-                    </ul>
-                  </div> -->
-                        <!-- /.col -->
-
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer bg-light p-0">
-
-                    </div>
-                    <!-- /.footer -->
-                </div>
-
-            </div>
-            <div *ngIf="!hideBenchFields" class="col-lg-4">
-                <div class="card">
-                    <div class="card-header" style="text-align: center;">
-                        <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">Total Bench</h3>
-                        <div class="card-tools">
-                            <div class="btn-group" dropdown>
-                                <button id="button-animated" dropdownToggle type="button"
-                                    class="btn btn-primary dropdown-toggle"
-                                    style="background-color: #49274A; border-color: #49274A;" bsDaterangepicker
-                                    placement="left"
-                                    [bsConfig]="{ ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
-                                    (bsValueChange)="onValueChange($event,3)">
-                                    <i class="far fa-calendar-alt"></i> <span class="caret"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-
-                        <div class="col-md-12">
-                            <div class="chart-responsive">
-                                <div class="chartjs-size-monitor">
-                                    <div class="chartjs-size-monitor-expand">
-                                        <div class=""></div>
-                                    </div>
-                                    <div class="chartjs-size-monitor-shrink">
-                                        <div class=""></div>
-                                    </div>
-                                </div>
-                                <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
-                                <div class="col-md-12 text-center">
-                                    <canvas baseChart [data]="doughnutBenchChartData"
-                                        [labels]="doughnutBenchChartLabels" [chartType]="doughnutChartType"
-                                        [options]="chartOptions" [colors]="chartColors">
-                                    </canvas>
-                                </div>
-                            </div>
-                            <!-- ./chart-responsive -->
-                        </div>
-                        <!-- /.col -->
-                        <!-- <div class="col-md-4">
-                    <ul class="chart-legend clearfix">
-                      <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
-                      <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
-                      <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
-                      <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
-                      <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
-                      <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
-                    </ul>
-                  </div> -->
-                        <!-- /.col -->
-
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer bg-light p-0">
-
-                    </div>
-                    <!-- /.footer -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Second Row -->
-        <div class="row">
-            <div *ngIf="!hideLegalFields" class="col-lg-4">
-
-                <div class="card">
-                    <div class="card-header" style="text-align: center;">
-                        <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">Legal Status</h3>
-                        <!-- <div class="card-tools">
+                <div class="row">
+                    <div *ngIf="!hideFTCFields" class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header center">
+                                <h3 class="card-title title-font">Total FTC</h3>
+                                <div class="card-tools">
                                     <div class="btn-group" dropdown>
                                         <button id="button-animated" dropdownToggle type="button"
-                                            class="btn btn-primary dropdown-toggle"
-                                            style="background-color: #49274A; border-color: #49274A;" bsDaterangepicker
-                                            [bsConfig]="{ adaptivePosition: true, ranges:ranges, containerClass:'theme-default',isAnimated: true }"
-                                            (bsValueChange)="onValueChange($event,4)">
+                                            class="btn btn-primary dropdown-toggle card-action-button" bsDaterangepicker
+                                            [bsConfig]="{ adaptivePosition: true, ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
+                                            (bsValueChange)="onValueChange($event,1)">
                                             <i class="far fa-calendar-alt"></i> <span class="caret"></span>
                                         </button>
                                     </div>
-                                </div> -->
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-
-                        <div class="col-md-12">
-                            <div class="chart-responsive">
-                                <div class="chartjs-size-monitor">
-                                    <div class="chartjs-size-monitor-expand">
-                                        <div class=""></div>
-                                    </div>
-                                    <div class="chartjs-size-monitor-shrink">
-                                        <div class=""></div>
-                                    </div>
-                                </div>
-                                <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
-                                <div class="col-md-12 text-center">
-                                    <canvas baseChart [datasets]="legalChartData" [labels]="legalChartLabels"
-                                        [options]="legalChartOptions" [plugins]="barChartPlugins"
-                                        [legend]="barChartLegend" [chartType]="barChartType1" [colors]="barchartColors">
-                                    </canvas>
                                 </div>
                             </div>
-                            <!-- ./chart-responsive -->
-                        </div>
-                        <!-- /.col -->
-                        <!-- <div class="col-md-4">
-                    <ul class="chart-legend clearfix">
-                      <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
-                      <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
-                      <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
-                      <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
-                      <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
-                      <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
-                    </ul>
-                  </div> -->
-                        <!-- /.col -->
+                            <div class="card-body">
 
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer bg-light p-0">
-
-                    </div>
-                    <!-- /.footer -->
-                </div>
-
-            </div>
-            <div *ngIf="!hideInterviewsFields" class="col-lg-4">
-
-                <div class="card">
-                    <div class="card-header" style="text-align: center;">
-                        <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">Interviews</h3>
-
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-
-                        <div class="col-md-12">
-                            <div class="chart-responsive">
-                                <div class="chartjs-size-monitor">
-                                    <div class="chartjs-size-monitor-expand">
-                                        <div class=""></div>
+                                <div class="col-md-12">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                                                [chartType]="doughnutChartType" [options]="chartOptions"
+                                                [colors]="chartColors">
+                                            </canvas>
+                                        </div>
                                     </div>
-                                    <div class="chartjs-size-monitor-shrink">
-                                        <div class=""></div>
-                                    </div>
-                                </div>
-                                <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
-                                <div class="col-md-12 text-center">
-                                    <!-- <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
-                                                [options]="lineChartOptions" [colors]="lineChartColors"
-                                                [legend]="lineChartLegend" [chartType]="lineChartType"
-                                                [plugins]="lineChartPlugins">
-                                            </canvas> -->
-                                    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
-                                        [options]="interviewChartOptions1" [plugins]="barChartPlugins"
-                                        [legend]="lineChartLegend" [chartType]="barChartType"
-                                        [colors]="InterviewchartColors">
-                                    </canvas>
-
                                 </div>
                             </div>
-                            <!-- ./chart-responsive -->
-                        </div>
-                        <!-- /.col -->
-                        <!-- <div class="col-md-4">
-                    <ul class="chart-legend clearfix">
-                      <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
-                      <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
-                      <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
-                      <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
-                      <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
-                      <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
-                    </ul>
-                  </div> -->
-                        <!-- /.col -->
-
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer bg-light p-0">
-
-                    </div>
-                    <!-- /.footer -->
-                </div>
-
-            </div>
-            <div *ngIf="!hideSubmissionsFields" class="col-lg-4">
-                <div class="card">
-                    <div class="card-header" style="text-align: center;">
-                        <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">Submissions</h3>
-                        <div class="card-tools">
-                            <div class="btn-group" dropdown>
-                                <button id="button-animated" dropdownToggle type="button"
-                                    class="btn btn-primary dropdown-toggle"
-                                    style="background-color: #49274A; border-color: #49274A;" bsDaterangepicker
-                                    placement="left"
-                                    [bsConfig]="{ adaptivePosition: true, ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
-                                    (bsValueChange)="onValueChange($event,6)">
-                                    <i class="far fa-calendar-alt"></i> <span class="caret"></span>
-                                </button>
+                            <div class="card-footer bg-light p-0">
                             </div>
                         </div>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
+                    <div *ngIf="!hidePlacementFields" class="col-lg-4">
 
-                        <div class="col-md-12">
-                            <div class="chart-responsive">
-                                <div class="chartjs-size-monitor">
-                                    <div class="chartjs-size-monitor-expand">
-                                        <div class=""></div>
+                        <div class="card">
+                            <div class="card-header center">
+                                <h3 class="card-title title-font">Placements</h3>
+                                <div class="card-tools">
+                                    <div class="btn-group" dropdown>
+                                        <button id="button-animated" dropdownToggle type="button"
+                                            class="btn btn-primary dropdown-toggle card-action-button" bsDaterangepicker
+                                            [bsConfig]="{ adaptivePosition: true, ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
+                                            (bsValueChange)="onValueChange($event,2)">
+                                            <i class="far fa-calendar-alt"></i> <span class="caret"></span>
+                                        </button>
                                     </div>
-                                    <div class="chartjs-size-monitor-shrink">
-                                        <div class=""></div>
-                                    </div>
-                                </div>
-                                <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
-                                <div class="col-md-12 text-center">
-                                    <canvas baseChart [data]="doughnutSubChartData" [labels]="doughnutSubChartLabels"
-                                        [chartType]="doughnutChartType" [options]="chartOptions" [colors]="chartColors">
-                                    </canvas>
                                 </div>
                             </div>
-                            <!-- ./chart-responsive -->
-                        </div>
-                        <!-- /.col -->
-                        <!-- <div class="col-md-4">
-                    <ul class="chart-legend clearfix">
-                      <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
-                      <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
-                      <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
-                      <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
-                      <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
-                      <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
-                    </ul>
-                  </div> -->
-                        <!-- /.col -->
+                            <div class="card-body">
 
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer bg-light p-0">
-
-                    </div>
-                    <!-- /.footer -->
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-header" style="text-align: center;">
-                        <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">H1B Compliance</h3>
-                        <div class="card-tools">
-                            <a class="btn btn-info bg-light" (click)="compReportMore()"><span class="badge">View
-                                    More</span></a>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-
-                        <div class="col-md-12">
-                            <div class="chart-responsive">
-                                <div class="chartjs-size-monitor">
-                                    <div class="chartjs-size-monitor-expand">
-                                        <div class=""></div>
+                                <div class="col-md-12">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <canvas baseChart [datasets]="barChartData1" [labels]="barChartLabels"
+                                                [options]="barChartOptions" [plugins]="barChartPlugins"
+                                                [legend]="barChartLegend" [chartType]="barChartType"
+                                                [colors]="barchartColors">
+                                            </canvas>
+                                        </div>
                                     </div>
-                                    <div class="chartjs-size-monitor-shrink">
-                                        <div class=""></div>
-                                    </div>
-                                </div>
-                                <!-- <canvas id="pieChart" height="348" width="697" style="display: block; height: 232px; width: 465px;" class="chartjs-render-monitor"></canvas> -->
-                                <div class="col-md-12 text-center">
-                                    <canvas baseChart [data]="complianceChartData" [labels]="complianceChartLabels"
-                                        [chartType]="doughnutChartType" [options]="complianceChartOptions"
-                                        [colors]="chartColors">
-                                    </canvas>
                                 </div>
                             </div>
-                            <!-- ./chart-responsive -->
-                        </div>
-                        <!-- /.col -->
-                        <!-- <div class="col-md-4">
-                    <ul class="chart-legend clearfix">
-                      <li><i class="far fa-circle text-danger"></i> Recruiter-1</li>
-                      <li><i class="far fa-circle text-success"></i> Recruiter-2</li>
-                      <li><i class="far fa-circle text-warning"></i> Recruiter-3</li>
-                      <li><i class="far fa-circle text-info"></i> Recruiter-4</li>
-                      <li><i class="far fa-circle text-primary"></i> Recruiter-5</li>
-                      <li><i class="far fa-circle text-secondary"></i> Recruiter-6</li>
-                    </ul>
-                  </div> -->
-                        <!-- /.col -->
-
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer bg-light p-0">
-                        <!-- <ul class="nav nav-pills flex-column">
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            Nanditha
-                                            <span class="float-right text-danger">
-                                                <i class="fas fa-arrow-down text-sm"></i>
-                                                12%</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            Usha
-                                            <span class="float-right text-success">
-                                                <i class="fas fa-arrow-up text-sm"></i> 4%
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            Shabab
-                                            <span class="float-right text-warning">
-                                                <i class="fas fa-arrow-left text-sm"></i> 0%
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul> -->
-                    </div>
-                    <!-- /.footer -->
-                </div>
-            </div>
-            <div *ngIf="!hideFTCFields" class="col-lg-4">
-                <div class="card">
-                    <div class="card-header" style="text-align: center;">
-                        <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">Job Boards Usage</h3>
-                        <!-- <div class="card-tools">
-                            <div class="btn-group" dropdown>
-                                <button id="button-animated" dropdownToggle type="button"
-                                    class="btn btn-primary dropdown-toggle"
-                                    style="background-color: #49274A; border-color: #49274A;" bsDaterangepicker
-                                    [bsConfig]="{ adaptivePosition: true, ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
-                                    (bsValueChange)="onValueChange($event,1)">
-                                    <i class="far fa-calendar-alt"></i> <span class="caret"></span>
-                                </button>
-                            </div>
-                        </div> -->
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-
-                        <div class="col-md-12">
-                            <div class="chart-responsive">
-                                <div class="chartjs-size-monitor">
-                                    <div class="chartjs-size-monitor-expand">
-                                        <div class=""></div>
-                                    </div>
-                                    <div class="chartjs-size-monitor-shrink">
-                                        <div class=""></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 text-center">
-                                    <canvas baseChart [data]="jobBoardChartData" [labels]="jobBoardChartLabels"
-                                        [chartType]="doughnutChartType" [options]="chartOptions" [colors]="chartColors">
-                                    </canvas>
-                                </div>
+                            <div class="card-footer bg-light p-0">
                             </div>
                         </div>
+
                     </div>
-                    <div class="card-footer bg-light p-0">
+                    <div *ngIf="!hideBenchFields" class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header center">
+                                <h3 class="card-title title-font">Total Bench</h3>
+                                <div class="card-tools">
+                                    <div class="btn-group" dropdown>
+                                        <button id="button-animated" dropdownToggle type="button"
+                                            class="btn btn-primary dropdown-toggle card-action-button" bsDaterangepicker
+                                            placement="left"
+                                            [bsConfig]="{ ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
+                                            (bsValueChange)="onValueChange($event,3)">
+                                            <i class="far fa-calendar-alt"></i> <span class="caret"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-12">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <canvas baseChart [data]="doughnutBenchChartData"
+                                                [labels]="doughnutBenchChartLabels" [chartType]="doughnutChartType"
+                                                [options]="chartOptions" [colors]="chartColors">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light p-0">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-header" style="text-align: center;">
-                        <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">Job Req Assignment</h3>
-                        <!-- <div class="card-tools">
-                            <div class="btn-group" dropdown>
-                                <button id="button-animated" dropdownToggle type="button"
-                                    class="btn btn-primary dropdown-toggle"
-                                    style="background-color: #49274A; border-color: #49274A;" bsDaterangepicker
-                                    [bsConfig]="{ adaptivePosition: true, ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
-                                    (bsValueChange)="onValueChange($event,1)">
-                                    <i class="far fa-calendar-alt"></i> <span class="caret"></span>
-                                </button>
+                <div class="row">
+                    <div *ngIf="!hideLegalFields" class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header center">
+                                <h3 class="card-title title-font">Legal Status</h3>
                             </div>
-                        </div> -->
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
+                            <div class="card-body">
 
-                        <div class="col-md-12">
-                            <div class="chart-responsive">
-                                <div class="chartjs-size-monitor">
-                                    <div class="chartjs-size-monitor-expand">
-                                        <div class=""></div>
-                                    </div>
-                                    <div class="chartjs-size-monitor-shrink">
-                                        <div class=""></div>
+                                <div class="col-md-12">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <canvas baseChart [datasets]="legalChartData" [labels]="legalChartLabels"
+                                                [options]="legalChartOptions" [plugins]="barChartPlugins"
+                                                [legend]="barChartLegend" [chartType]="barChartType1"
+                                                [colors]="barchartColors">
+                                            </canvas>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 text-center">
-                                    <canvas baseChart [data]="jobBReqChartData" [labels]="jobReqChartLabels"
-                                        [chartType]="doughnutChartType" [options]="chartOptions" [colors]="chartColors">
-                                    </canvas>
-                                </div>
+                            </div>
+                            <div class="card-footer bg-light p-0">
                             </div>
                         </div>
+
                     </div>
-                    <div class="card-footer bg-light p-0">
+                    <div *ngIf="!hideInterviewsFields" class="col-lg-4">
+
+                        <div class="card">
+                            <div class="card-header center">
+                                <h3 class="card-title title-font">Interviews</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-12">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                                                [options]="interviewChartOptions1" [plugins]="barChartPlugins"
+                                                [legend]="lineChartLegend" [chartType]="barChartType"
+                                                [colors]="InterviewchartColors">
+                                            </canvas>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light p-0">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div *ngIf="!hideSubmissionsFields" class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header center">
+                                <h3 class="card-title title-font">Submissions</h3>
+                                <div class="card-tools">
+                                    <div class="btn-group" dropdown>
+                                        <button id="button-animated" dropdownToggle type="button"
+                                            class="btn btn-primary dropdown-toggle card-action-button" bsDaterangepicker
+                                            placement="left"
+                                            [bsConfig]="{ adaptivePosition: true, ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
+                                            (bsValueChange)="onValueChange($event,6)">
+                                            <i class="far fa-calendar-alt"></i> <span class="caret"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="col-md-12">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <canvas baseChart [data]="doughnutSubChartData"
+                                                [labels]="doughnutSubChartLabels" [chartType]="doughnutChartType"
+                                                [options]="chartOptions" [colors]="chartColors">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light p-0">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-header" style="text-align: center;">
-                        <h3 class="card-title" style="font-size: 1.3rem; font-weight: 500;">H1B Expiry</h3>
-                        <div class="card-tools">
 
-                            <a class="btn btn-info bg-light" (click)="expiryReportMore()"><span class="badge">View
-                                    More</span></a>
-                            <!-- <div class="btn-group" dropdown>
-                                <button id="button-animated" dropdownToggle type="button"
-                                    class="btn btn-primary dropdown-toggle"
-                                    style="background-color: #49274A; border-color: #49274A;" bsDaterangepicker
-                                    placement="left"
-                                    [bsConfig]="{ adaptivePosition: true, ranges:ranges, containerClass:'theme-default',isAnimated: true, showWeekNumbers:false }"
-                                    (bsValueChange)="onValueChange($event,6)">
-                                    <i class="far fa-calendar-alt"></i> <span class="caret"></span>
-                                </button>
-                            </div> -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header center">
+                                <h3 class="card-title title-font">H1B Compliance</h3>
+                                <div class="card-tools">
+                                    <a class="btn btn-info bg-light" (click)="compReportMore()"><span class="badge">View
+                                            More</span></a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="col-md-12">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <canvas baseChart [data]="complianceChartData"
+                                                [labels]="complianceChartLabels" [chartType]="doughnutChartType"
+                                                [options]="complianceChartOptions" [colors]="chartColors">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light p-0">
+                            </div>
                         </div>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <h3>H1B Expiring in 30 days</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <!-- <th style="width: 10px">#</th> -->
-                                    <th>Employee Name</th>
-                                    <th>Expiry Date</th>
-                                    <th style="text-align: center;">Days to Expire</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let employee of h1bexpcurrentMonth">
-                                    <td>{{employee.Name}}</td>
-                                    <td>
-                                        {{employee.ExpiryDate}}
-                                    </td>
-                                    <td style="text-align: center;"><span
-                                            class="badge bg-danger">{{employee.DaysToExpire}}</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div *ngIf="!hideFTCFields" class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header center">
+                                <h3 class="card-title title-font">Job Boards Usage
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-12">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <canvas baseChart [data]="jobBoardChartData" [labels]="jobBoardChartLabels"
+                                                [chartType]="doughnutChartType" [options]="chartOptions"
+                                                [colors]="chartColors">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light p-0">
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-footer bg-light p-0">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header center">
+                                <h3 class="card-title title-font">Job Req Assignment
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-12">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <canvas baseChart [data]="jobBReqChartData" [labels]="jobReqChartLabels"
+                                                [chartType]="doughnutChartType" [options]="chartOptions"
+                                                [colors]="chartColors">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light p-0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header center">
+                                <h3 class="card-title title-font">H1B Expiry</h3>
+                                <div class="card-tools">
 
+                                    <a class="btn btn-info bg-light" (click)="expiryReportMore()"><span
+                                            class="badge">View
+                                            More</span></a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h3>H1B Expiring in 30 days</h3>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee Name</th>
+                                            <th>Expiry Date</th>
+                                            <th class="center">Days to Expire</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let employee of h1bexpcurrentMonth">
+                                            <td>{{employee.Name}}</td>
+                                            <td>
+                                                {{employee.ExpiryDate}}
+                                            </td>
+                                            <td class="center"><span
+                                                    class="badge bg-danger">{{employee.DaysToExpire}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer bg-light p-0">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-</section>
-</div>
 </div>

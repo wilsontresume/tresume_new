@@ -44,8 +44,8 @@ const talentbench = require('./talentbench');
 const timesheet = require('./timesheet');
 const hrms = require('./hrms-routes');
 const assignrole = require('./assignrole');
-
 const projects = require('./project');
+const jobBoardAccount = require('./jobBoardAccount')
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -62,6 +62,7 @@ app.use('/', timesheet);
 app.use('/', hrms);
 app.use('/', assignrole);
 app.use('/', projects);
+app.use('/', jobBoardAccount);
 
 
 app.use(session({
@@ -84,6 +85,14 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
+// function formatValue(value) {
+//   return value !== undefined ? `'${value}'` : '';
+// }
+
+// module.exports = {
+//   formatValue: formatValue,
+// };
+
 function checkTimeSheetSubmission(fromDate, toDate, recordSet) {
   const frequencyCounter = {};
   const resultArray = [];
@@ -98,7 +107,7 @@ function checkTimeSheetSubmission(fromDate, toDate, recordSet) {
 
   for (let item in frequencyCounter) {
     if (frequencyCounter[item] == resultDays.length) {
-      resultArray.push(Number(item)); // returns array of user IDs
+      resultArray.push(Number(item)); 
     }
   }
 
@@ -109,11 +118,8 @@ function getDaysBetweenDates(start, end, dayName) {
   var result = [];
   var days = { sun: 0, mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6 };
   var day = days[dayName.toLowerCase().substr(0, 3)];
-  // Copy start date
   var current = new Date(start);
-  // Shift to next of required days
   current.setDate(current.getDate() + ((day - current.getDay() + 7) % 7));
-  // While less than end date, add dates to result array
   while (current < end) {
     result.push(new Date(+current));
     current.setDate(current.getDate() + 7);
@@ -138,7 +144,6 @@ app.post("/text-mail", (req, res) => {
   });
 });
 
-// config for your database
 var config = {
   user: "sa",
   password: "Tresume@123",
@@ -2372,7 +2377,7 @@ app.post("/getSubmittedRatio", function (req, res) {
     if (err) console.log(err);
     console.log(req.body);
     var request = new sql1.Request();
-    const now = new Date(); // the date to start counting from
+    const now = new Date(); 
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var previousSunday = new Date(
       today.setDate(today.getDate() - today.getDay() - 7)
@@ -2413,13 +2418,13 @@ app.post("/getSubmittedRatio", function (req, res) {
   });
 });
 
-//For Division and Division Audit Page
+// Division and Division Audit Page
 
 app.post("/createdivision", function (req, res) {
   sql1.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql1.Request();
-    const now = new Date(); // the date to start counting from
+    const now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var sql =
       "INSERT INTO Org_Division(Orgid,DivisionName,dice,cb,monster,clearancejob,active,createtime,createby,type)VALUES( '" +
@@ -2504,7 +2509,7 @@ app.post("/addrectodivision", function (req, res) {
   sql1.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql1.Request();
-    const now = new Date(); // the date to start counting from
+    const now = new Date(); 
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var sql =
       "INSERT INTO Org_Division(Orgid,DivisionName,dice,cb,monster,clearancejob,active,createtime,createby,type)VALUES( '" +
@@ -2527,7 +2532,7 @@ app.post("/fetchrecruiterfordivision", function (req, res) {
   sql1.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql1.Request();
-    const now = new Date(); // the date to start counting from
+    const now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var sql =
       "SELECT * FROM Trainee ud JOIN MemberDetails m ON m.useremail = ud.UserName WHERE m.orgid =" +
@@ -2548,7 +2553,7 @@ app.post("/fetchrecruiterbyorg", function (req, res) {
   sql1.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql1.Request();
-    const now = new Date(); // the date to start counting from
+    const now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var sql = "select * from Org_Division WHERE Orgid =" + req.body.OrgID;
     console.log(sql);
@@ -2599,7 +2604,7 @@ app.post("/addrecruitertodiv", function (req, res) {
   });
 });
 
-//For Job Board Division
+// Job Board Division
 
 app.post("/fetchdvisioncredit", function (req, res) {
   sql1.connect(config, function (err) {
@@ -3178,8 +3183,6 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-
-
 var task = cron.schedule('*/15 * * * *', async () => {
   try {
     const response = await axios.get('https://tresume.us/TresumeAPI/runharvest');
@@ -3190,6 +3193,8 @@ var task = cron.schedule('*/15 * * * *', async () => {
     console.error('Harvest call error:', error.message);
   }
 });
+
+
 
 task.start();
 

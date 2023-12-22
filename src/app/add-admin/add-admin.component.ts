@@ -6,71 +6,89 @@ import { MessageService } from 'primeng/api';
   selector: 'app-add-admin',
   templateUrl: './add-admin.component.html',
   styleUrls: ['./add-admin.component.scss'],
-  providers: [CookieService,AddAdminService,MessageService]
+  providers: [CookieService, AddAdminService, MessageService]
 })
-export class AddAdminComponent implements OnInit {  
-  selectedOption: string;
+export class AddAdminComponent implements OnInit {
+  selectedOption: string = "0";
   roles: string[] = [];
-  
+
   // candidates: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
 
- public userName:string='';
- public orgID:string='';
- public TraineeID:string='';
- public allusers:any;
-public alladmins:any;
-  constructor(private cookieService: CookieService,private service: AddAdminService, private messageService: MessageService) { 
-   
+  public userName: string = '';
+  // public orgID: string = '';
+  public TraineeID: string = '';
+  public allusers: any;
+  alladmins: String[];
+  recruiterNames: String[];
+  TimesheetAdmins: String[];
+  orgID: string;
+  OrgID: string;
+  constructor(private cookieService: CookieService, private service: AddAdminService, private messageService: MessageService) {
+    this.userName = this.cookieService.get('userName1');
+    this.OrgID = this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
+
+
   }
 
   ngOnInit(): void {
-     this.userName = this.cookieService.get('userName1');
-     this.orgID = this.cookieService.get('OrgID');
-     this.TraineeID = this.cookieService.get('TraineeID');
-    this.fetchusers();
+    this.fetchtimesheetusers();
     this.fetchadmin();
+    // this.getOrgUserList();
   }
 
-  fetchusers(){
+  fetchtimesheetusers() {
+   
     let Req = {
-      OrgID: this.orgID,
+      OrgID: this.OrgID,
     };
+   
     this.service.fetchtimesheetusers(Req).subscribe((x: any) => {
-      this.allusers = x.result;
+      this.recruiterNames = x.result;
+      
     });
   }
 
-  addtimesheetadmin(){
+  addtimesheetadmin() {
     console.log(this.selectedOption);
     let Req = {
       TraineeID: this.selectedOption,
     };
     this.service.addtimesheetadmin(Req).subscribe((x: any) => {
-      
+
       this.fetchadmin()
-      this.fetchusers();
+      this.fetchtimesheetusers();
     });
-   
+
   }
 
-  fetchadmin(){
+  fetchadmin() {
     let Req = {
-      OrgID: this.orgID,
+      OrgID: this.OrgID,
     };
     this.service.fetchtimesheetadmins(Req).subscribe((x: any) => {
-      this.alladmins = x.result;
+      this.TimesheetAdmins = x.result;
     });
   }
 
-  deleteRow(traineeID:string){
+  deleteRow(traineeID: string) {
     let Req = {
       TraineeID: traineeID,
     };
     this.service.deletetimesheetadmin(Req).subscribe((x: any) => {
-      
+
       this.fetchadmin()
-      this.fetchusers();
+      this.fetchtimesheetusers();
     });
   }
-  
+  // getOrgUserList() {
+  //   let Req = {
+  //     TraineeID: this.TraineeID,
+  //     OrgID: this.OrgID
+  //   };
+  //   this.service.getOrgUserList(Req).subscribe((x: any) => {
+  //     this.recruiterNames = x.result;
+  //   });
+  // }
+
 }
