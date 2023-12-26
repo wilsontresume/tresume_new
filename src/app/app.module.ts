@@ -151,9 +151,8 @@ import { YahooComponent } from './landing-page/yahoo/yahoo.component';
 import { CreateAllTimeListComponent } from './create-all-time-list/create-all-time-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
-
-
-
+import { SearchResumesOptComponent } from './job-boards/search-opt-resumes.component';
+import { LoginHomeHealthComponent } from './login/login-homehealth.component';
 
 
 @NgModule({
@@ -166,6 +165,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     SiteVisitComponent,
     SearchResumesComponent,
     SearchResumesCBComponent,
+    SearchResumesOptComponent,
     SearchResumesJoobleComponent,
     SearchResumesMonsterComponent,
     SearchResumesDiceComponent,
@@ -241,6 +241,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     CreateAllTimeListComponent,
     ResetPasswordComponent,
     ForgetPasswordComponent,
+    LoginHomeHealthComponent
   ],
   imports: [
     HttpClientModule,
@@ -313,7 +314,8 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     AlertModule.forRoot(),
     TypeaheadModule.forRoot(),
     ProgressbarModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    
   ],
   providers: [CookieService, BsLocaleService, AuthGuard, AppService, AppConfigService,
     {
