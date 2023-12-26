@@ -95,7 +95,7 @@ import { TimesheetReportComponent } from './reports/timesheet-report.component '
 import { CreateAllTimeListComponent } from './create-all-time-list/create-all-time-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
-
+import { SearchResumesOptComponent } from './job-boards/search-opt-resumes.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -199,6 +199,7 @@ const routes: Routes = [
   { path: 'reports/docexpiry', component: DocExpiryReportComponent },
   { path: 'resetpassword/:resetkey', component: ResetPasswordComponent  },
   { path: 'forgetPassword', component: ForgetPasswordComponent },
+  { path: 'search/opt', component: SearchResumesOptComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
   { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 
  
