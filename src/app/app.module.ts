@@ -152,7 +152,7 @@ import { CreateAllTimeListComponent } from './create-all-time-list/create-all-ti
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { SearchResumesOptComponent } from './job-boards/search-opt-resumes.component';
-
+import { LoginHomeHealthComponent } from './login/login-homehealth.component';
 
 
 @NgModule({
@@ -241,6 +241,7 @@ import { SearchResumesOptComponent } from './job-boards/search-opt-resumes.compo
     CreateAllTimeListComponent,
     ResetPasswordComponent,
     ForgetPasswordComponent,
+    LoginHomeHealthComponent
   ],
   imports: [
     HttpClientModule,
