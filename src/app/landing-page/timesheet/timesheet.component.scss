@@ -212,7 +212,6 @@ ul {
 
 .footer-logo {
   margin-bottom: 30px;
-  margin-left: 6rem;
 }
 
 .footer-logo img {
@@ -710,10 +709,10 @@ ul {
   width: 100%;
 }
 
-// .navbar.scrolled {
-//   background-color: #a24f9a91 !important;
-//   transition: background-color 200ms linear;
-// }
+.navbar.scrolled {
+  background-color: #a24f9a91 !important;
+  transition: background-color 200ms linear;
+ }
 
 .demo {
   background-color: #e7e7e7;

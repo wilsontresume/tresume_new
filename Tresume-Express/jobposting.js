@@ -29,6 +29,7 @@ const transporter = nodemailer.createTransport({
   },
   secure: true,
 });
+
 router.post('/getJobPostingList', async (req, res) => {
   try {
     sql.connect(config, async function (err) {

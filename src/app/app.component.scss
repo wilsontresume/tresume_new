@@ -1,3 +1,6 @@
+//Global Style Values
+$brand-primary:#49274a;
+
 .dropdown_display {
     display: block;
 }
@@ -61,11 +64,11 @@
   }
   
   input:checked + .slider {
-    background-color: #49274a;
+    background-color: $brand-primary;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #49274a;
+    box-shadow: 0 0 1px $brand-primary;
   }
   
   input:checked + .slider:before {

@@ -1,8 +1,10 @@
+$brand-primary:#49274a;
+
 .container {
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 10px;
-    border-top: 3px solid #49274a;
+    border-top: 3px solid $brand-primary;
   }
   
   .text-left {
