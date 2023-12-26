@@ -19,6 +19,7 @@ export class LoginHomeHealthComponent implements OnInit {
   errorMessage: string;
   form = new FormGroup({});
   isHomeHealth: boolean = false;
+  invalidCount: number = 0;
 
   constructor(private router: Router, private http: HttpClient, private cookieService: CookieService, private activatedRoute: ActivatedRoute
     // private service: LoginService
@@ -41,42 +42,69 @@ export class LoginHomeHealthComponent implements OnInit {
 
     const isAuthenticated = true;
 
-    const secretKey = 'Tresume@123';
-    const password = this.password;
-    const encryptedPassword = CryptoJS.AES.encrypt(password, secretKey).toString();
-    const ssoLoginUrl = environment.apiUrl + 'ssologin';
-    const body = JSON.stringify({ username: this.username, password: encryptedPassword });
+    const ssoLoginUrl = environment.apiUrl + 'login';
+    const body = JSON.stringify({ username: this.username, password: this.password });
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
     this.http.post(ssoLoginUrl, body, { headers }).subscribe(
       (response: any) => {
         console.log('Login successful:', response);
-        const accesstoken = response.accessToken;
-        const userName = response.data.UserName
-        const orgID = response.data.Organization
-        const traineeID = response.data.TraineeID
-        this.cookieService.set('userName1', userName);
-        this.cookieService.set('OrgID', orgID);
-        this.cookieService.set('TraineeID', traineeID);
-        this.cookieService.set('accesstoken', accesstoken);
-        if (orgID == '98') {
-          //var url = 'https://tresume.us/TresumeNG/onboardingList';
-          this.router.navigate(['/onboardingList']);
+        const flag = response.flag;
+        if (flag === 1) {
+          const userName = response.data[0].UserName
+          const orgID = response.data[0].OrganizationID
+          const traineeID = response.data[0].TraineeID
+          const ViewOnly = response.result[0].ViewOnly
+          const FullAccess = response.result[0].FullAccess
+          const DashboardPermission = response.result[0].DashboardPermission
+          const RoleID = response.result[0].RoleID
+          const timesheet_role = response.data[0].timesheet_role
+          const timesheet_admin = response.data[0].timesheet_admin
+          this.cookieService.set('userName1', userName);
+          this.cookieService.set('OrgID', orgID);
+          this.cookieService.set('TraineeID', traineeID);
+          this.cookieService.set('ViewOnly', ViewOnly);
+          this.cookieService.set('timesheet_role', timesheet_role);
+          this.cookieService.set('timesheet_admin', timesheet_admin);
+          this.cookieService.set('FullAccess', FullAccess);
+          this.cookieService.set('DashboardPermission', DashboardPermission);
+          this.cookieService.set('RoleID', RoleID);
+
+          if (orgID == '98') {
+            this.router.navigate(['/onboardingList']);
+          }
+          else {
+            //var url = 'https://tresume.us/TresumeNG/dashboard/' + traineeID;
+            var url = '/dashboard/' + traineeID;
+            this.router.navigate([url]);
+          }
+
+
+         /*  var url = '/dashboard/' + traineeID;
+          this.router.navigate(['/dashboard/' + traineeID]); */
+          //this.router.navigateByUrl(url);
+        } else {
+          alert('Please reset your password.');
+          var url = '/forgetPassword';
+          this.router.navigateByUrl(url);
         }
-        else {
-          //var url = 'https://tresume.us/TresumeNG/dashboard/' + traineeID;
-          var url = '/dashboard/' + traineeID;
-          this.router.navigate([url]);
-        }
-        // var url = '/dashboard/'+traineeID;
-        // this.router.navigate([url]);
-        //window.location.href = url;
+
+
       },
       (error) => {
         console.error('Login error:', error);
-        this.errorMessage = 'Login failed. Please check your credentials.';
-        alert(this.errorMessage);
+
+        this.invalidCount++;
+
+        if (this.invalidCount >= 3) {
+          alert('Please reset your password.');
+          var url = '/forgetPassword';
+          this.router.navigateByUrl(url);
+        } else {
+          this.errorMessage = 'Login failed. Please check your credentials.';
+          alert(this.errorMessage);
+        }
       }
     );
 
