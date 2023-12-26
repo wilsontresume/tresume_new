@@ -81,7 +81,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="checkFullAccess(2)">
                         <a class="nav-link" routerLink="/compliancedashboard">
                             <i class="nav-icon fas fa-chart-bar"></i>
                             <p>
@@ -262,7 +262,7 @@
                           </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="checkFullAccess(3)">
                         <a routerLink="/division" class=" nav-link">
                             <i class="nav-icon fas fa-sitemap"></i>
                             <p>Division</p>
