@@ -20,7 +20,9 @@ module.exports = router;
 
 router.post('/getTraineeClientList', async (req, res) => {
   try {
-    const request = new sql.Request();
+    // const request = new sql.Request();
+    const pool = await sql.connect(config);
+    const request = pool.request();
     const query = "select * from Clients where PrimaryOwner = '" +req.body.TraineeID+ "' and active = 1";
 
     console.log(query);

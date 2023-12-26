@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row main pt-3 pl-3 pr-3">
             <h2 class="col-md-6">ALL TIME SHEET</h2>
-            <div class="col-md-6 text-end">
+            <div class="col-md-6 text-end" *ngIf="timesheetrole == 3">
                 <button class="btn float-right" [routerLink]="['/createalltimelist']">Create</button>
             </div>
         </div>
