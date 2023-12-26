@@ -27,8 +27,6 @@ export class AddAdminComponent implements OnInit {
     this.userName = this.cookieService.get('userName1');
     this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
-
-
   }
 
   ngOnInit(): void {

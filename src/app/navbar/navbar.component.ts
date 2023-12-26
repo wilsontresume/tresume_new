@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
     viewOnly: number[];
     isDropdownOpen: { [key: string]: boolean } = {};
     isSubMenuOpen: { [key: string]: boolean } = {};
+    timesheetrole:any;
     constructor(private route: ActivatedRoute, private router: Router,
         private cookieService: CookieService, private navService: NavigationService) {
 
@@ -28,6 +29,7 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.traineeID = this.cookieService.get('TraineeID')
         this.userName = this.cookieService.get('userName1');
+        this.timesheetrole = this.cookieService.get('timesheet_role');
         this.traineeDetails.FirstName = sessionStorage.getItem("FirstName");
         this.traineeDetails.LastName = sessionStorage.getItem("LastName");
         let Req = {
