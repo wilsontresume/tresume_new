@@ -131,8 +131,8 @@
                             <p>Harvest</p>
                         </a>
                     </li>
-                    <li class="nav-item" *ngIf="checkFullAccess(10)">
-                        <a href="#" class="nav-link">
+                    <!-- <li class="nav-item" *ngIf="checkFullAccess(10)">
+                        <a class="nav-link">
                             <i class="nav-icon fas fa-cog"></i>
                             <p>
                                 Workforce
@@ -153,34 +153,64 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    <li class="nav-item" *ngIf="checkFullAccess(5)">
-                        <a class=" nav-link">
-                            <i class="nav-icon fas fa-clock"></i>
-                            <p>Timesheet</p>
-                            <i class="right fas fa-angle-left"></i>
+                    </li> -->
+
+                    <li class="nav-item" *ngIf="checkFullAccess(10)">
+                        <a class="nav-link" style="cursor: pointer;" (click)="toggleSubMenu('workforceSubMenu')">
+                          <i class="nav-icon fas fa-cog"></i>
+                          <p>
+                            Workforce
+                            <i class="right fas fa-angle-left" [ngClass]="{'down': isSubMenuOpen['workforceSubMenu']}"></i>
+                          </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a class="nav-link" routerLink="alltimelist">
-                                    <i class="nav-icon fas fa-list "></i>
-                                    <p>All Time List</p>
-                                </a>
-                            </li>
-                            <li class="nav-item" *ngIf="timesheetrole == 1">
-                                <a class="nav-link" routerLink="/assignrole">
-                                    <i class="nav-icon fas fa-highlighter"></i>
-                                    <p> Assign Role</p>
-                                </a>
-                            </li>
-                            <li class="nav-item" *ngIf="timesheetrole == 1">
-                                <a class="nav-link" routerLink="/create-project">
-                                    <i class="nav-icon fas fa-plus"></i>
-                                    <p> Create Project</p>
-                                </a>
-                            </li>
+                        <ul id="workforceSubMenu" class="nav nav-treeview" [ngStyle]="{'display': isSubMenuOpen['workforceSubMenu'] ? 'block' : 'none'}">
+                          <li class="nav-item">
+                            <a class="nav-link" routerLink="/onboarding">
+                              <i class="nav-icon fas fa-list"></i>
+                              <p>Checklists</p>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" routerLink="/onboardingList">
+                              <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                              <p>OnBoarding</p>
+                            </a>
+                          </li>
                         </ul>
-                    </li>
+                      </li>
+                      
+                      
+
+
+                      <li class="nav-item" *ngIf="checkFullAccess(5)">
+                        <a class="nav-link" (click)="toggleDropdown('timesheetSubMenu')">
+                          <i class="nav-icon fas fa-clock"></i>
+                          <p>Timesheet</p>
+                          <i class="right fas fa-angle-left" [ngClass]="{'down': isDropdownOpen['timesheetSubMenu']}"></i>
+                        </a>
+                        <ul id="timesheetSubMenu" class="nav nav-treeview" [ngStyle]="{'display': isDropdownOpen['timesheetSubMenu'] ? 'block' : 'none'}">
+                          <li class="nav-item">
+                            <a class="nav-link" routerLink="alltimelist">
+                              <i class="nav-icon fas fa-list"></i>
+                              <p>All Time List</p>
+                            </a>
+                          </li>
+                          <li class="nav-item" *ngIf="timesheetrole == 1">
+                            <a class="nav-link" routerLink="/assignrole">
+                              <i class="nav-icon fas fa-highlighter"></i>
+                              <p>Assign Role</p>
+                            </a>
+                          </li>
+                          <li class="nav-item" *ngIf="timesheetrole == 1">
+                            <a class="nav-link" routerLink="/create-project">
+                              <i class="nav-icon fas fa-plus"></i>
+                              <p>Create Project</p>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      
+
                     <li class="nav-item" *ngIf="checkFullAccess(7)">
                         <a routerLink="/allclient" class=" nav-link">
                             <i class="nav-icon fas fa-users"></i>
@@ -215,21 +245,21 @@
                             <p>Job Boards</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-user-tie"></i>
-                            <p>
-                                My Account
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
+                    <li class="nav-item" (click)="toggleDropdown('myAccountSubMenu')">
+                        <a class="nav-link">
+                          <i class="nav-icon fas fa-user-tie"></i>
+                          <p>
+                            My Account
+                            <i class="right fas fa-angle-left" [ngClass]="{'down': isDropdownOpen['myAccountSubMenu']}"></i>
+                          </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a routerLink="/accountsadduser" class="nav-link">
-                                    <i class="nav-icon fas fa-user "></i>
-                                    <p> Add Users </p>
-                                </a>
-                            </li>
+                        <ul id="myAccountSubMenu" class="nav nav-treeview" [ngStyle]="{'display': isDropdownOpen['myAccountSubMenu'] ? 'block' : 'none'}">
+                          <li class="nav-item">
+                            <a routerLink="/accountsadduser" class="nav-link">
+                              <i class="nav-icon fas fa-user"></i>
+                              <p>Add Users</p>
+                            </a>
+                          </li>
                         </ul>
                     </li>
                     <li class="nav-item">

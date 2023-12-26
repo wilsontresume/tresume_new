@@ -18,7 +18,8 @@ export class NavbarComponent implements OnInit {
     public isLoaded: boolean = false;
     fullAccess: number[];
     viewOnly: number[];
-
+    isDropdownOpen: { [key: string]: boolean } = {};
+    isSubMenuOpen: { [key: string]: boolean } = {};
     constructor(private route: ActivatedRoute, private router: Router,
         private cookieService: CookieService, private navService: NavigationService) {
 
@@ -37,10 +38,12 @@ export class NavbarComponent implements OnInit {
             const FullAccess = x.result[0].FullAccess
             const DashboardPermission = x.result[0].DashboardPermission
             const RoleID = x.result[0].RoleID
+           
             this.cookieService.set('ViewOnly', ViewOnly);
             this.cookieService.set('FullAccess', FullAccess);
             this.cookieService.set('DashboardPermission', DashboardPermission);
             this.cookieService.set('RoleID', RoleID);
+         
             this.fullAccess = FullAccess.split(',').map(Number);
             var VewAccess = this.cookieService.get('ViewOnly');
             this.viewOnly = VewAccess.split(',').map(Number);
@@ -59,5 +62,14 @@ export class NavbarComponent implements OnInit {
         const randomQueryParam = Math.random().toString(36).substring(7);
         this.router.navigate(['/login'], { queryParams: { refresh: randomQueryParam } });
     }
+    
+      toggleDropdown(subMenuId: string): void {
+        this.isDropdownOpen[subMenuId] = !this.isDropdownOpen[subMenuId];
+      }
 
+      toggleSubMenu(subMenuId: string): void {
+        this.isSubMenuOpen[subMenuId] = !this.isSubMenuOpen[subMenuId];
+      }
+      
+    
 }
