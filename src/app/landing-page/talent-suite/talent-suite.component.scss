@@ -18,13 +18,13 @@
   &.navbar-light {
     .nav-item {
       list-style: none;
-      // border-left: 2px solid purple;
+      border-left: 2px solid purple;
       display: inline-block;
       padding: 0 15px;
       position: relative;
       text-decoration: none;
       text-align: center;
-      // font-family: 'Arvo', serif;
+      font-family: 'Arvo', serif;
 
       a {
         color: black;
@@ -82,7 +82,7 @@ h2.tittle {
   font-weight: 600;
 }
 
-// button
+ button
 .bn632-hover {
   width: 140px;
   font-size: 16px;
