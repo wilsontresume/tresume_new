@@ -1,9 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { appInitializer, AppConfigService } from './security/app-preloader';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavigationModule } from './navbar/navbar.module';
+
 import { ChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -82,7 +86,6 @@ import { CcpaPopupModule } from './onboarding/ccpa-popup.module';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
-import { TimesheetCreateComponent } from './timesheet-create/timesheet-create.component';
 import { RouterModule } from '@angular/router';
 import { InterviewComponent } from './interview/interview.component';
 import { SubmissionComponent } from './submission/submission.component';
@@ -112,7 +115,6 @@ import { TalentBenchComponent } from './talent-bench/talent-bench.component';
 //import { jsPDF } from 'jspdf';
 
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
-import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SubmittedCandiatesComponent } from './submitted-candiates/submitted-candiates.component';
 import { JobBoardAccountComponent } from './job-board-account/job-board-account.component';
 import { AccountsAddUserComponent } from './accounts-add-user/accounts-add-user.component';
@@ -131,8 +133,26 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { AssignRoleComponent } from './assign-role/assign-role.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.component';
-
-
+import { HomeComponent } from './landing-page/home/home.component';
+import { AboutComponent } from './landing-page/about/about.component';
+import { AtsComponent } from './landing-page/ats/ats.component';
+import { MarketplaceComponent } from './landing-page/marketplace/marketplace.component';
+import { ProductsComponent } from './landing-page/products/products.component';
+import { TalentSuiteComponent } from './landing-page/talent-suite/talent-suite.component';
+import { WorkforceComponent } from './landing-page/workforce/workforce.component';
+import { FeaturesComponent } from './landing-page/features/features.component';
+import { ContactComponent } from './landing-page/contact/contact.component';
+import { TimesheetComponent } from './landing-page/timesheet/timesheet.component';
+import { CareerBuilderComponent } from './landing-page/career-builder/career-builder.component';
+import { DiceComponent } from './landing-page/dice/dice.component';
+import { JobleeComponent } from './landing-page/joblee/joblee.component';
+import { OptNationComponent } from './landing-page/opt-nation/opt-nation.component';
+import { YahooComponent } from './landing-page/yahoo/yahoo.component';
+import { CreateAllTimeListComponent } from './create-all-time-list/create-all-time-list.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { SearchResumesOptComponent } from './job-boards/search-opt-resumes.component';
+import { LoginHomeHealthComponent } from './login/login-homehealth.component';
 
 
 @NgModule({
@@ -145,6 +165,7 @@ import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.
     SiteVisitComponent,
     SearchResumesComponent,
     SearchResumesCBComponent,
+    SearchResumesOptComponent,
     SearchResumesJoobleComponent,
     SearchResumesMonsterComponent,
     SearchResumesDiceComponent,
@@ -169,7 +190,6 @@ import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.
     AdobesignComponent1,
     AdobesignComponent,
     LoginComponent,
-    TimesheetCreateComponent,
     InterviewComponent,
     SubmissionComponent,
     GeneralComponent,
@@ -185,7 +205,6 @@ import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.
     FinancialInfoComponent,
     SearchTresumeComponent,
     HrmsComponent,
-    ConfirmationPopupComponent,
     SubmittedCandiatesComponent,
     JobBoardAccountComponent,
     ProfileComponent,
@@ -204,9 +223,29 @@ import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.
     AssignRoleComponent,
     AddAdminComponent,
     AccountsAddRoleComponent,
+    HomeComponent,
+    AboutComponent,
+    AtsComponent,
+    MarketplaceComponent,
+    ProductsComponent,
+    TalentSuiteComponent,
+    WorkforceComponent,
+    FeaturesComponent,
+    ContactComponent,
+    TimesheetComponent,
+    CareerBuilderComponent,
+    DiceComponent,
+    JobleeComponent,
+    OptNationComponent,
+    YahooComponent,
+    CreateAllTimeListComponent,
+    ResetPasswordComponent,
+    ForgetPasswordComponent,
+    LoginHomeHealthComponent
   ],
   imports: [
     HttpClientModule,
+    NavigationModule,
     MatTableModule,
     MatIconModule,
     MatSortModule,
@@ -275,9 +314,17 @@ import { AccountsAddRoleComponent } from './accounts-add-role/accounts-add-role.
     AlertModule.forRoot(),
     TypeaheadModule.forRoot(),
     ProgressbarModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    
   ],
-  providers: [CookieService, BsLocaleService, AuthGuard, AppService,],
+  providers: [CookieService, BsLocaleService, AuthGuard, AppService, AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializer,
+      multi: true,
+      deps: [AppConfigService],
+    },
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ProgressRenderer]
 })

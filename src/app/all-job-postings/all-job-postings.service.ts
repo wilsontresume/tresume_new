@@ -11,14 +11,14 @@ export class AllJobPostingsService {
     // public endpoint = 'http://localhost:3000/';
 
     constructor(private http: HttpClient) { }
-
-    // deleteJobPosting(request: any): Observable<ResponseDetails> {
-    //     return this.http.post<ResponseDetails>(this.endpoint + 'deleteJobPosting', request);
-    // }
-
+    
     getJobPostingList(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getJobPostingList', request);
     }
+
+     // deleteJobPosting(request: any): Observable<ResponseDetails> {
+    //     return this.http.post<ResponseDetails>(this.endpoint + 'deleteJobPosting', request);
+    // }
 }
 export interface ResponseDetails {
     flag?: any;

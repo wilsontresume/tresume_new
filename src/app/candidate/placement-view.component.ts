@@ -35,7 +35,6 @@ export class PlacementViewComponent implements OnInit {
     public traineeId: any;
     public saved: boolean = false;
 
- 
 
     states: { name: string, code: string }[] = [
         { name: 'Alabama', code: 'AL' },
@@ -294,7 +293,7 @@ export class PlacementViewComponent implements OnInit {
         this.placementItem.MarketerID = params.TraineeID;
 
     }
-   
+
     onSubmit() {
         const requestItem = Object.assign({}, this.placementItem, this.myForm.value);
         requestItem.MarketerName = this.placementItem.MarketerID;
@@ -354,6 +353,4 @@ class CountryCellRenderer implements ICellRendererComp {
     refresh(params: ICellRendererParams): boolean {
         return false;
     }
-  
-    
 }
