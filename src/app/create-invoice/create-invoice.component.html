@@ -1,0 +1,59 @@
+<!-- Your Angular Component HTML -->
+<div class="row mt-4">
+    <div class="col-md-6 d-flex ">
+      <div class="dropdown-container">
+        <label for="client" class="dropdown-label ml-3">Client</label>
+        <select id="client" class="form-control ml-3" style="width: 150px; height: 40px;">
+          <option value="client1">Client 1</option>
+          <option value="client2">Client 2</option>
+          <option value="client3">Client 3</option>
+          <!-- Add more options as needed -->
+        </select>
+         </div>
+        <div class="clientemail mt-0">
+          <label for="clientEmail" class="dropdown-label ml-3">Client Email</label>
+          <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3" style="width: 150px; height: 40px;">
+          <div class="form-check ml-3">
+            <input type="checkbox" id="checkBox" class="form-check-input" value="checkValue">
+            <label for="checkBox" class="form-check-label">Send later</label>
+          </div>
+        </div>
+     
+    </div>
+    <div class="col-ml-3">
+      <div class="dropdown-container">
+        <h4>Online Payments</h4>
+        <div class="payment-options mt-3">
+          <div class="form-check">
+            <label for="cards" class="form-check-label">Cards</label>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="cardsSwitch">
+              <label class="custom-control-label" for="cardsSwitch"></label>
+            </div>
+          </div>
+          <div class="form-check">
+            <label for="bankTransfer" class="form-check-label">Bank Transfer</label>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="bankTransferSwitch">
+              <label class="custom-control-label" for="bankTransferSwitch"></label>
+            </div>
+          </div>
+          <div class="form-check">
+            <label for="paypal" class="form-check-label">PayPal</label>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="paypalSwitch">
+              <label class="custom-control-label" for="paypalSwitch"></label>
+            </div>
+          </div>
+          <div class="form-check">
+            <label for="tipa" class="form-check-label">Tipa</label>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="tipaSwitch">
+              <label class="custom-control-label" for="tipaSwitch"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
