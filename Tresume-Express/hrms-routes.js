@@ -701,5 +701,36 @@ function formatValue(value) {
   return value !== undefined ? `'${value}'` : '';
 }
 
+// Endpoint to check if email exists
+router.post('/checkEmail', async function (req, res) {
+  const email = req.body.email;
+  const orgID = req.body.orgID;
+
+  try {
+    await sql.connect(config);
+    const result = await sql.query`SELECT * FROM Trainee WHERE Active = 1 AND userOrganizationID =${orgID}  AND userName = ${email}`;
+
+    if (result.recordset.length > 0) {
+      
+      const data = {
+        flag: 2,
+        message: "The candidate is already under "+result.recordset[0].CreateBy,
+      };
+      res.send(data);
+    } else {
+      const data = {
+        flag: 1,
+        message: "The candidate is not available",
+      };
+      res.send(data);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  } finally {
+    await sql.close();
+  }
+});
+
 module.exports = router;
  

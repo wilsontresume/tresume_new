@@ -43,8 +43,17 @@ export class HrmsService {
   getOrgUserList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getOrgUserList', request);
   }
+
+  checkEmail(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'checkEmail', request);
+  }
+
+  // checkEmail(email: string): Observable<any> {
+  //   return this.http.post<any>(this.endpoint, { email });
+  // }
 }
 export interface ResponseDetails {
+  message(message: any): unknown;
   flag?: any;
   result?: any;
 }

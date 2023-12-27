@@ -142,14 +142,49 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4">
+              <!-- <div class="col-md-4">
                 <label class="label">Email</label>
                 <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email" [ngClass]="{ 'invalid-input': addCandidate.get('email').invalid && addCandidate.get('email').touched }">
                 <div *ngIf="addCandidate.get('email').invalid && addCandidate.get('email').touched"
                   class="validation-message" style="color: red;">
                   * Please enter valid Email.
                 </div>
-              </div>
+              </div> -->
+
+              <div class="col-md-4">
+                <label class="label">Email</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    placeholder="Email"
+                    formControlName="email"
+                    [ngClass]="{
+                        'invalid-input':
+                            addCandidate.get('email').invalid &&
+                            addCandidate.get('email').touched
+                    }"
+                    (blur)="onEmailInput()"
+                />
+                <div
+                    *ngIf="
+                        addCandidate.get('email').invalid &&
+                        addCandidate.get('email').touched
+                    "
+                    class="validation-message"
+                    style="color: red;"
+                >
+                    * Please enter a valid Email.
+                </div>
+                <div
+                    *ngIf="emailvalidation"
+                    class="validation-message"
+                    style="color: red;"
+                >
+                    {{emailvalidationmessage}}
+                </div>
+            </div>
+            
               <div class="col-md-4">
                 <label class="label">Phone</label>
                 <input type="tel" class="form-control" name="phone" placeholder="Phone" formControlName="phone" [ngClass]="{ 'invalid-input': addCandidate.get('phone').invalid && addCandidate.get('phone').touched }">
@@ -242,7 +277,7 @@
        
         <div class="modal-footer">
           <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn" data-dismiss="modal" (click)="savehrmsdata()">Save</button>
+          <button type="button" class="btn" data-dismiss="modal" (click)="savehrmsdata()" [disabled]="emailvalidation">Save</button>
         </div>
       </div>
     </div>

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
-import { HrmsService } from './hrms.service';
+import { HrmsService , } from './hrms.service';
+
 
 @Component({
   selector: 'app-hrms',
@@ -26,9 +27,11 @@ export class HrmsComponent implements OnInit {
   noResultsFound: boolean = false;
   TraineeID: string;
   addCandidate: any;
-OrgID: string;
+  OrgID: string;
   userName: string;
-  
+  emailvalidation:boolean = false;
+  emailvalidationmessage:string='';
+
   constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder) { 
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
@@ -43,7 +46,7 @@ OrgID: string;
     this.addCandidate = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.minLength(3)]],
       recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
       degree: [''],
@@ -58,6 +61,30 @@ OrgID: string;
       gender:['male']
     });
   }
+
+  onEmailInput() {
+    this.checkEmail();
+  }
+
+  checkEmail() {
+    const email = this.addCandidate.get('email').value;
+
+    if (email) {
+      let Req = {
+        email: email,
+        orgID:this.OrgID
+      };
+      this.service.checkEmail(Req).subscribe((x: any) => {
+        var flag = x.flag;
+        if(flag ===2){
+          this.emailvalidation = true;
+          this.emailvalidationmessage = x.message;
+        }
+      });
+    }
+  }
+
+
   atLeastOneSelectedValidator() {
     return (control: { value: any; }) => {
       const selectedValue = control.value;
