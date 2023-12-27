@@ -2776,10 +2776,19 @@ app.post('/getMarketerNames', async (req, res) => {
     request.execute('sp_SearchMarketerNames',
       function (err, recordset) {
         if (err) console.log(err)
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0]
+        console.log(recordset);
+        if(recordset.recordsets.length == 0){
+          var result = {
+            flag: 2,
+            result: []
+          }
+        } else{
+          var result = {
+            flag: 1,
+            result: recordset.recordsets[0]
+          }
         }
+        
         res.send(result);
       });
   });
