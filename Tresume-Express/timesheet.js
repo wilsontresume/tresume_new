@@ -81,7 +81,7 @@ router.post("/createTimesheet", async (req, res) => {
           request.input("approvalstatus", sql.VarChar, data.approvalstatus);
           request.input("comments", sql.VarChar, data.comments);
 
-          const query = `INSERT INTO Timesheet_Master (traineeid, projectid, fromdate, todate, totalhrs, approvalstatus, comments) VALUES (@traineeID, @project, @fromdate, @todate, @totalhrs, @approvalstatus, @comments)`;
+          const query = `INSERT INTO Timesheet_Master (traineeid, project, fromdate, todate, totalhrs, approvalstatus, comments) VALUES (@traineeID, @project, @fromdate, @todate, @totalhrs, @approvalstatus, @comments)`;
 
           await request.query(query);
         }

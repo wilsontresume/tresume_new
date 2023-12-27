@@ -21,7 +21,6 @@ export class NavbarComponent implements OnInit {
     isDropdownOpen: { [key: string]: boolean } = {};
     isSubMenuOpen: { [key: string]: boolean } = {};
     timesheetrole:any;
-    userType: string;
     constructor(private route: ActivatedRoute, private router: Router,
         private cookieService: CookieService, private navService: NavigationService) {
 
@@ -30,36 +29,28 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.traineeID = this.cookieService.get('TraineeID')
         this.userName = this.cookieService.get('userName1');
-        this.userType = this.cookieService.get('usertype');
         this.timesheetrole = this.cookieService.get('timesheet_role');
         this.traineeDetails.FirstName = sessionStorage.getItem("FirstName");
         this.traineeDetails.LastName = sessionStorage.getItem("LastName");
         let Req = {
             username: this.userName
         };
-        console.log(this.userType);
-        if(this.userType ==='RECRUITER'){
-            this.navService.getuseraccess(Req).subscribe((x: any) => {
-                const ViewOnly = x.result[0].ViewOnly
-                const FullAccess = x.result[0].FullAccess
-                const DashboardPermission = x.result[0].DashboardPermission
-                const RoleID = x.result[0].RoleID
-               
-                this.cookieService.set('ViewOnly', ViewOnly);
-                this.cookieService.set('FullAccess', FullAccess);
-                this.cookieService.set('DashboardPermission', DashboardPermission);
-                this.cookieService.set('RoleID', RoleID);
-             
-                this.fullAccess = FullAccess.split(',').map(Number);
-                var VewAccess = this.cookieService.get('ViewOnly');
-                this.viewOnly = VewAccess.split(',').map(Number);
-                this.isLoaded = true;
-            });
-            
-        }else{
+        this.navService.getuseraccess(Req).subscribe((x: any) => {
+            const ViewOnly = x.result[0].ViewOnly
+            const FullAccess = x.result[0].FullAccess
+            const DashboardPermission = x.result[0].DashboardPermission
+            const RoleID = x.result[0].RoleID
+           
+            this.cookieService.set('ViewOnly', ViewOnly);
+            this.cookieService.set('FullAccess', FullAccess);
+            this.cookieService.set('DashboardPermission', DashboardPermission);
+            this.cookieService.set('RoleID', RoleID);
+         
+            this.fullAccess = FullAccess.split(',').map(Number);
+            var VewAccess = this.cookieService.get('ViewOnly');
+            this.viewOnly = VewAccess.split(',').map(Number);
             this.isLoaded = true;
-        }
-       
+        });
 
     }
 
