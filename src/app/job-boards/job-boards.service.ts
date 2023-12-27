@@ -56,6 +56,13 @@ export class JobBoardsService {
         return this.http.post<ResponseDetails>(this.endpoint + 'getResumePath', request);
     }
 
+    FetchRecruiterList(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'FetchRecruiterList', request);
+    }
+    updateCandidateNotes(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'updateCandidateNotes', request);
+    }
+
     /* CB API */
 
     getCBAuthToken(): Observable<ResponseDetails> {
@@ -186,6 +193,24 @@ export class JobBoardsService {
     getResumes2(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getResumes2', request);
     }
+    
+    getResumes3(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getResumes3', request);
+    }
+
+    /* OPT Nation API*/
+    optresumesearch(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'optresumesearch', request);
+    }
+
+    optresumeopen(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'optresumeopen', request);
+    }
+
+    optSaveResume(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'optSaveResume', request);
+    }
+    
 }
 
 export interface ResponseDetails {
