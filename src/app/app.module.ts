@@ -244,7 +244,7 @@ import { TimesheetViewdetailsComponent } from './timesheet-viewdetails/timesheet
     ResetPasswordComponent,
     ForgetPasswordComponent,
     LoginHomeHealthComponent,
-    CreateInvoiceComponent
+    CreateInvoiceComponent,
     TimesheetViewdetailsComponent
   ],
   imports: [
