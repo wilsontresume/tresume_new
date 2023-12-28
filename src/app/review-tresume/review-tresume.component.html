@@ -1,12 +1,11 @@
 <div class="header p-3">
   <div class="container-fluid">
 
-      <button class="btn btn1 mt-3 mb-3" id="saveButton" (click)="saveData()">{{
-        saveButtonLabel }}</button>
+      
 
     <!-- General tab -->
    
-    <mat-tab-group (selectedIndexChange)="onTabChange($event)" class="mt-2">
+    <mat-tab-group (selectedIndexChange)="onTabChange($event)" [selectedIndex]="tabIndex" class="mt-2">
       <mat-tab label="General">
         <div class="container-fluid mt-3">
           <form [formGroup]="FormGeneral">
@@ -494,7 +493,7 @@
             <button class="btn">Email Placement traker</button>
           </div>
           <div class="col-md-9 mt-3 text-right">
-            <button class="btn" [routerLink]="['/placementview']" routerLinkActive="active">Add</button>
+            <button class="btn" [routerLink]="['/candidateView/'+candidateID+'/create']" routerLinkActive="active">Add</button>
           </div>
         </div>
 
@@ -535,8 +534,10 @@
                   <td>{{ placement.ClientAddress }}</td>
                   <td>
                     <div style="display: flex; align-items: center;">
-                      <div [routerLink]="['/']" routerLinkActive="active">
-                        <i class="fas fa-eye" style="font-size: 24px;"></i>
+                      <!-- <div [routerLink]="['/candidateView/' + placement.PID + '/placementview/' + candidateID]" routerLinkActive="active"> -->
+                       <div>
+                        <i class="fas fa-eye" style="font-size: 24px;" [routerLink]="['/candidateView/' + candidateID + '/placement/' + placement.PID]" routerLinkActive="active">
+                        </i>
                       </div>
                       <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteplacementdata(placement.PID)"></i>
                     </div>
@@ -955,6 +956,10 @@
         </div> -->
       </mat-tab>
     </mat-tab-group>
+    <div class="parent-container">
+      <button class="btn btn1 mt-3 mb-3" id="saveButton" (click)="saveData()" style="margin-left: auto; margin-right: 20px;">{{ saveButtonLabel }}</button>
+  </div>
+  
   </div>
 </div>
 

@@ -56,7 +56,7 @@ export class ReviewTresumeComponent implements OnChanges {
   division: any;
   OrgID: string;
 userName: string;
-
+tabIndex:number = 0;
   siteVisitTabClicked() {
     console.log('Additional logic for Site Visit tab click');
   }
@@ -306,11 +306,13 @@ userName: string;
   saveButtonLabel: string = 'Save General Data';
 
   onTabChange(tabIndex: number) {
-    const tabLabels = ['General', 'Interview', 'Placement', 'Submission', 'Financial Info', 'Site Visit'];
+    const tabLabels = ['General', 'Interview', '', 'Submission', 'Financial Info', ''];
 
     if (tabIndex >= 0 && tabIndex < tabLabels.length) {
       this.currentTabIndex = tabIndex;
+      this.tabIndex = tabIndex;
       this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
+      this.router.navigate(['/reviewtresume/'+this.candidateID+'/'+tabIndex]);
     }
   }
 
@@ -338,7 +340,6 @@ userName: string;
   interviewTime: string;
   selectedInterviewMode: string;
   interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
-  router: any;
   http: any;
   editRowIndex: number;
   showConfirmationDialog: boolean;
@@ -349,10 +350,10 @@ userName: string;
   submissionList:any;
 
 
-  constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService) {
+  constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService, private router:Router) {
     
     this.candidateID = this.route.snapshot.params["traineeID"];
-
+    this.tabIndex = this.route.snapshot.params["tabIndex"];
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
@@ -512,7 +513,7 @@ userName: string;
 
 
   getPlacementList() {
-this.TraineeID = this.cookieService.get('TraineeID');
+    this.TraineeID = this.cookieService.get('TraineeID');
 
     const Req = {
       TraineeID: this.candidateID

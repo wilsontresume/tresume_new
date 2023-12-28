@@ -98,6 +98,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { SearchResumesOptComponent } from './job-boards/search-opt-resumes.component';
 import { LoginHomeHealthComponent } from './login/login-homehealth.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
+import { TimesheetViewdetailsComponent } from './timesheet-viewdetails/timesheet-viewdetails.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -106,6 +107,7 @@ const routes: Routes = [
   { path: 'candidateView/31466/sitevisit', component: SiteVisitComponent, canActivate: [AuthGuard]   },
   { path: 'placementview', component: PlacementViewComponent, canActivate: [AuthGuard]   },
   { path: 'candidateView/:traineeId/create', component: PlacementViewComponent, canActivate: [AuthGuard]   },
+  { path: 'candidateView/:traineeId/placement/:placementID', component: PlacementViewComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchResumesComponent, canActivate: [AuthGuard]  },
   { path: 'search/cb', component: SearchResumesCBComponent , canActivate: [AuthGuard]  },
   { path: 'search/monster', component: SearchResumesMonsterComponent , canActivate: [AuthGuard]  },
@@ -147,10 +149,11 @@ const routes: Routes = [
   { path: 'jobboardaccount', component:JobBoardAccountComponent, canActivate: [AuthGuard]  },
   { path: 'talentBench', component:TalentBenchComponent, canActivate: [AuthGuard]  },
   { path: 'submittedcandidates', component:SubmittedCandiatesComponent, canActivate: [AuthGuard]  },
-  { path: 'reviewtresume/:traineeID', component:ReviewTresumeComponent, canActivate: [AuthGuard]  },
+  { path: 'reviewtresume/:traineeID/:tabIndex', component:ReviewTresumeComponent, canActivate: [AuthGuard]  },
+  // { path: 'reviewtresume/:traineeID', component:ReviewTresumeComponent, canActivate: [AuthGuard]  },
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
   { path: 'adobesign/token/:token', component: AdobesignComponent1  , canActivate: [AuthGuard] },
-  { path: 'timesheet/viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'timesheet/viewdetails', component: ViewDetailsComponent},
   { path: 'hrms' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accountsadduser', component:AccountsAddUserComponent, canActivate: [AuthGuard]  },
   { path: 'accountsaddrole',component:AccountsAddRoleComponent, canActivate: [AuthGuard]  },
@@ -184,6 +187,7 @@ const routes: Routes = [
   {path:'yahoo',component:YahooComponent},
   {path:'adobe',component:AdobeComponent},
   { path: 'createalltimelist', component: CreateAllTimeListComponent },
+  { path: 'timesheetviewdetails', component: TimesheetViewdetailsComponent },
   { path: 'reports', component: ReportsHomeComponent },
   { path: 'reports/ftc', component: ReportsComponent },
   { path: 'reports/interviews', component: InterviewsReportComponent },

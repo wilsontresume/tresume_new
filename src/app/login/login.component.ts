@@ -18,6 +18,7 @@ export class LoginComponent {
   errorMessage: string;
   form = new FormGroup({});
   invalidCount: number = 0;
+  userType: any;
   constructor(private router: Router, private http: HttpClient, private cookieService: CookieService
   ) { }
 
@@ -35,28 +36,45 @@ export class LoginComponent {
         console.log('Login successful:', response);
         const flag = response.flag;
         if (flag === 1) {
-          const userName = response.data[0].UserName
-          const orgID = response.data[0].OrganizationID
-          const traineeID = response.data[0].TraineeID
-          const ViewOnly = response.result[0].ViewOnly
-          const FullAccess = response.result[0].FullAccess
-          const DashboardPermission = response.result[0].DashboardPermission
-          const RoleID = response.result[0].RoleID
-          const timesheet_role = response.data[0].timesheet_role
-          const timesheet_admin = response.data[0].timesheet_admin
-          this.cookieService.set('userName1', userName);
-          this.cookieService.set('OrgID', orgID);
-          this.cookieService.set('TraineeID', traineeID);
-          this.cookieService.set('ViewOnly', ViewOnly);
-          this.cookieService.set('timesheet_role', timesheet_role);
-          this.cookieService.set('timesheet_admin', timesheet_admin);
-          this.cookieService.set('FullAccess', FullAccess);
-          this.cookieService.set('DashboardPermission', DashboardPermission);
-          this.cookieService.set('RoleID', RoleID);
+          this.userType = response.data[0].Role
+          this.cookieService.set('usertype', this.userType);
+          if(this.userType === 'TRESUMEUSER'){
+            const userName = response.data[0].UserName
+            const orgID = response.data[0].OrganizationID
+            const traineeID = response.data[0].TraineeID
+            const timesheet_role = response.data[0].timesheet_role
+            const timesheet_admin = response.data[0].timesheet_admin
+            this.cookieService.set('userName1', userName);
+            this.cookieService.set('OrgID', orgID);
+            this.cookieService.set('TraineeID', traineeID);
+            this.cookieService.set('timesheet_role', timesheet_role);
+            this.cookieService.set('timesheet_admin', timesheet_admin);
+            this.router.navigate(['/alltimelist/']);
+          }else{
+            const userName = response.data[0].UserName
+            const orgID = response.data[0].OrganizationID
+            const traineeID = response.data[0].TraineeID
+            const ViewOnly = response.result[0].ViewOnly
+            const FullAccess = response.result[0].FullAccess
+            const DashboardPermission = response.result[0].DashboardPermission
+            const RoleID = response.result[0].RoleID
+            const timesheet_role = response.data[0].timesheet_role
+            const timesheet_admin = response.data[0].timesheet_admin
+            this.cookieService.set('userName1', userName);
+            this.cookieService.set('OrgID', orgID);
+            this.cookieService.set('TraineeID', traineeID);
+            this.cookieService.set('ViewOnly', ViewOnly);
+            this.cookieService.set('timesheet_role', timesheet_role);
+            this.cookieService.set('timesheet_admin', timesheet_admin);
+            this.cookieService.set('FullAccess', FullAccess);
+            this.cookieService.set('DashboardPermission', DashboardPermission);
+            this.cookieService.set('RoleID', RoleID);
+            this.router.navigate(['/dashboard/' + traineeID]);
+          }
+          
 
 
-          var url = '/dashboard/' + traineeID;
-          this.router.navigate(['/dashboard/' + traineeID]);
+        
           //this.router.navigateByUrl(url);
         } else {
           alert('Please reset your password.');

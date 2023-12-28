@@ -321,7 +321,7 @@ async function deactivateinterviewdata(TraineeInterviewID) {
 router.post('/getPlacementList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
-    const traineeID = '20742';
+    const traineeID = req.body.TraineeID;
 
     const query = `
     SELECT
@@ -364,7 +364,7 @@ LEFT JOIN
 LEFT JOIN
     Currentstatus cs ON cs.CsID = T.CandidateStatus
 WHERE
-    P.TraineeID = '20742' AND P.Active = 1
+    P.TraineeID = '${traineeID}' AND P.Active = 1
 ORDER BY
     P.StartDate DESC
     `;

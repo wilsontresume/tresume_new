@@ -90,7 +90,9 @@ form,
     margin-left: 5px;
 }
 
-
+.invalid-input {
+    border: 1px solid red;
+  }
 
 /* button[type="submit"] {
     background-color: #4CAF50;

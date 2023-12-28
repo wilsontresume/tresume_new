@@ -23,7 +23,7 @@ export class HrmsComponent implements OnInit {
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
-  candidates: any[]=[{CreatedBy:'maria'}];
+  candidates: any[]=[];
   noResultsFound: boolean = false;
   TraineeID: string;
   addCandidate: any;
