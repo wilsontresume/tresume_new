@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CreateAllTimeListService} from './create-all-time-list.service';
@@ -15,7 +15,7 @@ import { MessageService } from 'primeng/api';
 export class CreateAllTimeListComponent implements OnInit {
 
 
-  timesheetData: any[];
+  // timesheetData: any[];
   minDate: string;
   maxDate: string;
   selectedSunday: string = '';
@@ -23,13 +23,16 @@ export class CreateAllTimeListComponent implements OnInit {
   CAselectedFile: File | null = null;
   SRselectedFile: File | null = null;
 
-
+ 
+  
   constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService) {
-    // this.addRow();
+
   }
 
   ngOnInit(): void {
-  
+    this.addRowWithValues('option1', 'option2', 'option3', 'option4', '','','', '', '', '', '', '', '' );
+    this.addRowWithValues('option1', 'option2', 'option3', 'option4','','', '', '', '', '', '', '', '' );
+    this.addRowWithValues('option1', 'option2', 'option3', 'option4','','', '', '', '', '', '', '', '' );
   }
 
   selectSunday(selectedDate: string) {
@@ -113,4 +116,47 @@ export class CreateAllTimeListComponent implements OnInit {
   //   }
   // }
 
+  rows: any[] = [];
+
+
+
+  addRow( selectOption1?: string, selectOption2?: string, selectOption3?: string, selectOption4?: string,textarea?: string, checkbox?: string,input?:string, input1?: string, input2?: string, input3?: string, input4?: string, input5?: string, input6?: string, input7?: string): void {
+    this.rows.push({
+      selectOption1: selectOption1 || '',
+      selectOption2: selectOption2 || '',
+      selectOption3: selectOption3 || '',
+      selectOption4: selectOption4 || '',
+      textarea: textarea || '',
+      checkbox: checkbox || '',
+      input1: input1 || '',
+      input2: input2 || '',
+      input3: input3 || '',
+      input4: input4 || '',
+      input5: input5 || '',
+      input6: input6 || '',
+      input7: input7 || '',
+     
+    });
+  }
+
+  deleteRow(index: number): void {
+    this.rows.splice(index, 1);
+    this.updateSerialNumbers();
+  }
+
+  // deleteAllRows(): void {
+  //   this.rows = this.rows.slice(0, 3);
+  //   this.updateSerialNumbers();
+  // }
+
+  private updateSerialNumbers(): void {
+    this.rows.forEach((row, index) => {
+      row['sno'] = index + 1;
+    });
+  }
+
+  private addRowWithValues( selectOption1: string, selectOption2: string, selectOption3: string, selectOption4: string, textarea: string, checkbox: string, input1: string, input2: string, input3: string, input4: string, input5: string, input6: string, input7: string,): void {
+    this.addRow(selectOption1, selectOption2, selectOption3, selectOption4, textarea, checkbox, input1, input2, input3, input4, input5, input6, input7, );
+  }
+ 
 }

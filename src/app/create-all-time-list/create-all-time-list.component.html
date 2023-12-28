@@ -1,91 +1,87 @@
-<div class="header p-3">
-    <div class="container-fluid">
-        <div class="row main">
-            <h2 class="pt-3 pl-2">Create Timesheet</h2>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-3">
-                <label for="selectedDate">Week Start Date:</label>
-                <input type="date" id="selectedDate" class="form-control" [min]="minDate" [max]="maxDate" #datePicker
-                    (change)="selectSunday(datePicker.value)" [(ngModel)]="selectedSunday">
-            </div>
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="text-right">
-                    <button type="button" class="btn mt-4" data-toggle="modal" data-target="#exampleModal">Save
-                        Details</button>
-                    <span style="margin-left: 10px;"></span>
-                    <button class="btn mt-4" [routerLink]="['/alltimelist']">Cancel</button>
-                </div>
-            </div>
-        </div>
-        <table class="mt-3">
-            <thead>
-                <tr>
-                    <th>Project Name</th>
-                    <th>Sun</th>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
-                    <th>Total hours</th>
-                    <th>Comments</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><select>
-                            <option>--Select--</option>
-                            <option>Asd</option>
-                            <option>123123</option>
-                        </select></td>
-                    <td><input type="number" class="form-control input-elemt" name=""></td>
-                    <td><input type="number" class="form-control input-elemt"></td>
-                    <td><input type="number" class="form-control input-elemt"></td>
-                    <td><input type="number" class="form-control input-elemt"></td>
-                    <td><input type="number" class="form-control input-elemt"></td>
-                    <td><input type="number" class="form-control input-elemt"></td>
-                    <td><input type="number" class="form-control input-elemt"></td>
-                    <td><input type="number" class="form-control input-elemt"></td>
-                    <td><textarea class="form-control mt-4"></textarea></td>
-                </tr>
-            </tbody>
-        </table>
+<div class="container-fluid p-3">
+    <div class="head d-flex justify-content-between p-3">
+        <h2>Weekly Timesheet</h2>
+        <i class="fa fa-close" [routerLink]="['/alltimelist']"></i>
+    </div>
+    <div class="content p-3">
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group mt-4">
-                    <label for="fileUpload">Please upload client-approved Timesheet:</label>
-                    <input type="file" id="fileUpload" class="form-control-file cursor-pointer">
-                </div>
+            <div class="col-md-2 custom-select-wrapper">
+                <select class="custom-select">
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
             </div>
-            <div class="col-md-6">
-                <div class="form-group mt-4">
-                    <label for="fileUpload">Please upload your status report for the selected period:</label>
-                    <input type="file" id="fileUpload" class="form-control-file cursor-pointer">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<!--PopUp-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <h2>tresume.us says</h2>
-                Please check data once before submitting?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn">Save</button>
-                <button type="button" class="btn" data-dismiss="modal">Close</button>
+            <div class="col-md-2">
+                <input type="date" id="selectedDate" class="form-control" [min]="minDate" [max]="maxDate" #datePicker
+                (change)="selectSunday(datePicker.value)" [(ngModel)]="selectedSunday">
             </div>
         </div>
     </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th style="width: 900px;">DETAILS</th>
+          <th>MON</th>
+          <th>TUE</th>
+          <th>WED</th>
+          <th>THU</th>
+          <th>FRI</th>
+          <th>SAT</th>
+          <th>SUN</th>
+          <th>TOTAL</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <select class="table-data1" [(ngModel)]="row.selectOption1">
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
+              <option>D</option>
+            </select>
+        
+            <select class="table-data" [(ngModel)]="row.selectOption2">
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
+            </select>
+            <br>
+            <select class="table-data" [(ngModel)]="row.selectOption3">
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
+            </select>
+            <select class="table-data" [(ngModel)]="row.selectOption4">
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
+            </select>
+            <br>
+            <textarea [(ngModel)]="row.textarea"></textarea>
+           <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.checkbox"><label for="myCheckbox">Billable(/hr)</label><input class="bill-Amt" type="text" style="width: 60px;" [(ngModel)]="row.input">
+           
+          </td>
+        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input1"></td>
+        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input2"></td>
+        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input3"></td>
+        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input4"></td>
+        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input5"></td>
+        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input6"></td>
+        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input7"></td>
+         <td></td>
+       <td><i class="fa fa-trash" (click)="deleteRow(i)"></i></td>
+        </tr>
+        <td colspan="1"></td>
+        <td colspan="1" style="text-align: right;">Total</td>
+        <td colspan="8" style="text-align: right;">0.00</td>
+      </tbody>
+    </table>
+    <button (click)="addRow()">Add Lines</button>
+<!-- <button (click)="deleteAllRows()">Minus</button> -->
 </div>
+
