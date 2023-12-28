@@ -104,7 +104,7 @@ const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
   { path: 'compliancedashboard', component: ComplianceDashboardComponent, canActivate: [AuthGuard]   },
   { path: 'candidateView/:traineeId', component: CandidateComponent, canActivate: [AuthGuard]   },
-  { path: 'candidateView/31466/sitevisit', component: SiteVisitComponent, canActivate: [AuthGuard]   },
+  { path: 'candidateView/:traineeId/sitevisit', component: SiteVisitComponent, canActivate: [AuthGuard]   },
   { path: 'placementview', component: PlacementViewComponent, canActivate: [AuthGuard]   },
   { path: 'candidateView/:traineeId/create', component: PlacementViewComponent, canActivate: [AuthGuard]   },
   { path: 'candidateView/:traineeId/placement/:placementID', component: PlacementViewComponent, canActivate: [AuthGuard] },
