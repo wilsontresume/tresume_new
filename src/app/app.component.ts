@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
   public timesheetrole: string;
   FullAccess: number[]
   ViewOnly: number[]
+isScrolled: any;
   constructor(private service1: AppService, private router: Router, private cookieService: CookieService) {
 
   }
@@ -116,7 +117,7 @@ export class AppComponent implements OnInit {
 
   public hasToken() {
     let url = this.router.url;
-    return url !== "/" && url.indexOf("/login") === -1 && url.indexOf("/homelanding") === -1;
+    return url !== "/" && url.indexOf("/login") === -1 && url.indexOf("/homelanding") === -1 && url.indexOf("/ats") === -1 && url.indexOf("/contact") === -1 && url.indexOf("/talent-suite") === -1  && url.indexOf("/workforce") === -1 && url.indexOf("/timesheet") === -1  && url.indexOf("/market") === -1  && url.indexOf("/features") === -1  && url.indexOf("/about") === -1 && url.indexOf("/monster") === -1    && url.indexOf("/dice") === -1 && url.indexOf("/career") === -1 && url.indexOf("/opt-nation") === -1 && url.indexOf("/joble") === -1 && url.indexOf("/yahoo") === -1 && url.indexOf("/adobe") === -1;
   }
 
   /* getOnboardDetails() {
