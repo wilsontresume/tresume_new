@@ -245,7 +245,7 @@ import { TimesheetViewdetailsComponent } from './timesheet-viewdetails/timesheet
     ForgetPasswordComponent,
     LoginHomeHealthComponent,
     CreateInvoiceComponent
-    TimesheetViewdetailsComponent
+    // TimesheetViewdetailsComponent
   ],
   imports: [
     HttpClientModule,
