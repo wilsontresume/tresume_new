@@ -1,7 +1,15 @@
 <div *ngIf="loaded">
     <form [formGroup]="myForm">
         <div class="p-bodycard">
-            <legend>Placement Details</legend>
+            <div style="display: grid; grid-template-columns: 1fr auto;">
+                <div>
+                    <legend>Placement Details</legend>
+                </div>
+                <button type="submit" class="btn btn-secondary" style="margin: 10px;" (click)="backToList()">
+                    Back
+                </button>
+            </div>
+            
             <div class="p-grid p-fluid flex-row">
                 <div class="col-md-3" style="padding: 10px;">
                     <div class="">
@@ -92,7 +100,7 @@
                 </div>
                 <div class="col-md-3" style="padding: 10px;">
                     <div class="">
-                        <label for="POStartDate">PO Start Date</label>
+                        <label for="POStartDate">PO Start Date<span class="required">*</span></label>
                         <input type="text" class="p-inputtext" style="background: #F2F2F2;border: none;" bsDatepicker
                             #dp="bsDatepicker" class="form-control" formControlName="POStartDate" [bsConfig]="bsConfig">
                     </div>
