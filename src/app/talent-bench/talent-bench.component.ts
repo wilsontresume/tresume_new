@@ -1,6 +1,5 @@
 import { TalentBenchService} from './talent-bench.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
@@ -15,15 +14,16 @@ import { Router } from '@angular/router';
 })
 export class TalentBenchComponent implements OnInit {
   candidates: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
-  formData: any = {};
-  tableData: any[];
+  // formData: any = {};
+  tableData:any = [];
   OrgID:string = '';
-  JobID:string = '';
+  userName:string = '';
   TraineeID:string = '';
   addCandidate: any;
   noResultsFound:boolean = true;
 
-  constructor(private dialog: MatDialog,private cookieService: CookieService, private service:TalentBenchService,private messageService: MessageService,private formBuilder: FormBuilder) {}
+  constructor(private dialog: MatDialog,private cookieService: CookieService, private service:TalentBenchService,private messageService: MessageService,private formBuilder: FormBuilder) {
+    }
   
   recruiterNames: string[] = ['Recruiter 1', 'Recruiter 2', 'Recruiter 3'];
   candidateStatuses: string[] = ['Active', 'Inactive', 'On Hold'];
@@ -40,9 +40,9 @@ export class TalentBenchComponent implements OnInit {
   ];
 
 
-  onSubmit() {
-    console.log('Form Data:', this.formData);
-  }
+  // onSubmit() {
+  //   console.log('Form Data:', this.formData);
+  // }
   
   dataArray: any[] = [
     { groupName: 'Group A', candidateCount: 10 },
@@ -52,31 +52,83 @@ export class TalentBenchComponent implements OnInit {
   onIconClick() {
     alert('are you sure want to delete?'); 
   }
+ 
 
   ngOnInit(): void {
+    // this.cookieService.set('userName1','karthik@tresume.us');
+    // this.cookieService.set('OrgID','82');
+    // this.cookieService.set('TraineeID','569');  
+    // this.cookieService.set('TimesheetRole','1'); 
+    // this.cookieService.set('RoleID','17'); 
     this.OrgID = this.cookieService.get('OrgID');
-    this.JobID = this.cookieService.get('userName1');
+    this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchtalentbenchlist();
+  
 
     this.addCandidate = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(3)]],
-      lastName: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.minLength(3)]],
-      phone: ['', [Validators.required, Validators.minLength(3)]],
-      marketerName: ['', Validators.required],
+      FirstName: ['', [Validators.required, Validators.minLength(3)]],
+      MiddleName: [''],
+      LastName: ['', [Validators.required, Validators.minLength(3)]],
+      Email: ['', [Validators.required, Validators.minLength(3)]],
+      Phone: ['', [Validators.required, Validators.minLength(3)]],
+      Gender: ['male'],
+      RecruiterName: [''],
+      Degree: [''],
+      University: [''],
+      CandidateStatus: [''],
+      Groups: [''],
+      LegalStatus: [''],
+      MarketerName: ['', Validators.required],
+      LocationConstraint: ['yes'],
+      ReferralType: [''],
+      Notes: [''],
     });
     
-  }  
-    fetchtalentbenchlist(){
+  } 
+   
+  saveData(){
     let Req = {
-      OrgID: this.OrgID,
+      FirstName: this.addCandidate.value.FirstName,
+      MiddleName: this.addCandidate.value.MiddleName,
+      LastName: this.addCandidate.value.LastName,
+      Email: this.addCandidate.value.Email,
+      Phone: this.addCandidate.value.Phone,
+      Gender: this.addCandidate.value.Gender,
+      RecruiterName: this.addCandidate.value.RecruiterName,
+      Degree: this.addCandidate.value.Degree,
+      University: this.addCandidate.value.University,
+      CandidateStatus: this.addCandidate.value.CandidateStatus,
+      Groups: this.addCandidate.value.Groups,
+      LegalStatus: this.addCandidate.value.LegalStatus,
+      MarketerName: this.addCandidate.value.MarketerName,
+      LocationConstraint: this.addCandidate.value.LocationConstraint,
+      ReferralType: this.addCandidate.value.ReferralType,
+      Notes: this.addCandidate.value.Notes,
     };
+
+    console.log(Req);
+    this.service.addTalentBenchList(Req).subscribe((x: any) => {
+      console.log(x);
+    });
+  }
+//   fetchtalentbenchlist(){
+//     let Req = {
+//       OrgID: this.OrgID,
+//     };
+//   this.service.getTalentBenchList(Req).subscribe((x: any) => {
+//     this.tableData = x.result;
+//     this.noResultsFound = this.tableData.length === 0;
+//   });
+// }
+fetchtalentbenchlist() {
+  let Req = {
+    traineeID: this.TraineeID,
+    OrganizationID:this.OrgID
+  };
   this.service.getTalentBenchList(Req).subscribe((x: any) => {
     this.tableData = x.result;
     this.noResultsFound = this.tableData.length === 0;
   });
-  
 }
-  
 }

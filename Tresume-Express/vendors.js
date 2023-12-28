@@ -31,7 +31,7 @@ const transporter = nodemailer.createTransport({
 });
 
 module.exports = router;
- 
+
 router.post('/getTraineeVendorList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
@@ -53,7 +53,7 @@ router.post('/getTraineeVendorList', async (req, res) => {
         flag: 0,
         error: "No active vendors found! ",
       };
-      res.send(result); 
+      res.send(result);
     }
   } catch (error) {
     console.error("Error fetching vendor data:", error);
@@ -88,7 +88,7 @@ router.post('/deleteVendorAccount', async (req, res) => {
       error: "An error occurred while deleting the vendor!",
     };
     res.status(500).send(result);
-  }  
+  }
 
 })
 
@@ -100,11 +100,11 @@ async function deactivatevendor(VendorID) {
     const queryResult = await request.query(
       `update Vendors set active = 0 where VendorID = '${VendorID}'`
     );
-    
+
     if (queryResult.rowsAffected[0] === 0) {
       throw new Error("No records found!");
     }
-    
+
     return queryResult;
   } catch (error) {
     console.error("Error while deleting vendor:", error);
@@ -113,24 +113,7 @@ async function deactivatevendor(VendorID) {
 }
 
 router.post('/addVendor', async (req, res) => {
-
-  try {
-    const pool = await sql.connect(config);
-    const request = pool.request();
-    
-    const result = {
-      flag: 1,
-      message: "Vendor added successfully!",
-    };
-
-    res.send(result);
-  } catch (error) {
-    console.error("Error adding vendor:", error);
-    const result = {
-      flag: 0,
-      error: "An error occurred while adding the vendor!",
-    };
-    res.status(500).send(result);
-  }  
+  console.log(req);
 });
+
 
