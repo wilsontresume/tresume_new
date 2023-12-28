@@ -1,3 +1,4 @@
+$brand-primary:#49274a;
 
 .form-control{
     box-shadow: rgb(193, 193, 193) 0px 2px 12px !important;
@@ -8,16 +9,16 @@ h4.card-title {
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
-    background-color: #49274a;
+    background-color: $brand-primary;
 }
 .card-outline{
-    border-top:3px solid #49274a;
+    border-top:3px solid $brand-primary;
 }
 .i{
     cursor: pointer;
 }
 .btn{
-    background-color: #49274a;
+    background-color: $brand-primary;
     color: #fff;
 }
 .container{
@@ -36,16 +37,16 @@ h4.card-title {
     height: 39px;
 }
 button.btn.btn-secondary {
-    background-color: #49274a;
+    background-color: $brand-primary;
     width: 200px;
 }
 button.btn.btn-primary.ml-2 {
-    background-color: #49274a;
+    background-color: $brand-primary;
     width: 200px;
 }
 .main{
-    border-top:3px solid #49274a;
-    border-bottom: 3px solid #49274a;
+    border-top:3px solid $brand-primary;
+    border-bottom: 3px solid $brand-primary;
 }
 .edit-prf {
     margin-top: 10px;

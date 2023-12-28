@@ -1,0 +1,38 @@
+.input-field {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px; /* Adjust width as needed */
+    height: 40px;
+}
+.form-check{
+    display: block;
+    padding-bottom: 1px;
+}
+.btn{
+    
+        background-color: #380838;
+        color: white;
+    
+}
+.table{
+    width: 100px;
+    height: max-content;
+   
+}
+.col-md-6{
+    max-width: 100%;
+    
+}
+.scrollable-msg-box{
+    height: 100px; 
+    width: 500px;
+    overflow-y: scroll; 
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+.manage-tags-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
