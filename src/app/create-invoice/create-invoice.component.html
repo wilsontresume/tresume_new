@@ -1,59 +1,250 @@
-<!-- Your Angular Component HTML -->
 <div class="row mt-4">
-    <div class="col-md-6 d-flex ">
-      <div class="dropdown-container">
-        <label for="client" class="dropdown-label ml-3">Client</label>
-        <select id="client" class="form-control ml-3" style="width: 150px; height: 40px;">
-          <option value="client1">Client 1</option>
-          <option value="client2">Client 2</option>
-          <option value="client3">Client 3</option>
-          <!-- Add more options as needed -->
-        </select>
-         </div>
-        <div class="clientemail mt-0">
-          <label for="clientEmail" class="dropdown-label ml-3">Client Email</label>
-          <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3" style="width: 150px; height: 40px;">
-          <div class="form-check ml-3">
-            <input type="checkbox" id="checkBox" class="form-check-input" value="checkValue">
-            <label for="checkBox" class="form-check-label">Send later</label>
-          </div>
-        </div>
-     
+  <div class="col-md-6 d-flex ml-2  ">
+    <div class="dropdown-container">
+      <label for="client" class="dropdown-label ml-3">Client</label>
+      <select id="client" class="form-control ml-3" style="width: 150px; height: 40px;">
+        <option value="client1">Client 1</option>
+        <option value="client2">Client 2</option>
+        <option value="client3">Client 3</option>
+        <!-- Add more options as needed -->
+      </select>
     </div>
-    <div class="col-ml-3">
+    <div class="clientemail mt-0 ml-3">
+      <label for="clientEmail" class="dropdown-label">Client Email</label>
+      <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3"
+        style="width: 150px; height: 40px;">
+      <div class="form-check ml-3">
+        <input type="checkbox" id="checkBox" class="form-check-input" value="checkValue">
+        <label for="checkBox" class="form-check-label">Send letter</label>
+      </div>
+    </div>
+    <div class="ml-3">
       <div class="dropdown-container">
-        <h4>Online Payments</h4>
+        <h4>Online Payments <button type="button" class="btn btn-sm btn-outline-secondary ml-2">Edit</button></h4>
+
         <div class="payment-options mt-3">
-          <div class="form-check">
-            <label for="cards" class="form-check-label">Cards</label>
+          <div class="form-check d-flex flex-column">
             <div class="custom-control custom-switch">
               <input type="checkbox" class="custom-control-input" id="cardsSwitch">
-              <label class="custom-control-label" for="cardsSwitch"></label>
+              <label class="custom-control-label mr-2" for="cardsSwitch">Cards</label>
             </div>
           </div>
-          <div class="form-check">
-            <label for="bankTransfer" class="form-check-label">Bank Transfer</label>
+          <div class="form-check d-flex flex-column">
             <div class="custom-control custom-switch">
               <input type="checkbox" class="custom-control-input" id="bankTransferSwitch">
-              <label class="custom-control-label" for="bankTransferSwitch"></label>
+              <label class="custom-control-label mr-2" for="bankTransferSwitch">Bank Transfer</label>
             </div>
           </div>
-          <div class="form-check">
-            <label for="paypal" class="form-check-label">PayPal</label>
+          <div class="form-check d-flex flex-column">
             <div class="custom-control custom-switch">
               <input type="checkbox" class="custom-control-input" id="paypalSwitch">
-              <label class="custom-control-label" for="paypalSwitch"></label>
+              <label class="custom-control-label mr-2" for="paypalSwitch">PayPal</label>
             </div>
           </div>
-          <div class="form-check">
-            <label for="tipa" class="form-check-label">Tipa</label>
+          <div class="form-check d-flex flex-column">
             <div class="custom-control custom-switch">
               <input type="checkbox" class="custom-control-input" id="tipaSwitch">
-              <label class="custom-control-label" for="tipaSwitch"></label>
+              <label class="custom-control-label mr-2" for="tipaSwitch">Tipa</label>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="col-md-6 d-flex ml-2 mt-5">
+  <div class="dropdown-container">
+    <div class="form-group">
+      <label for="address" class="ml-0">Billing address</label>
+      <input type="text" id="address" placeholder="Enter address" class="form-control ml-0" style="width: 100%;">
+    </div>
+  </div>
+  <div class="clientemail mt-0 ml-3">
+    <div class="form-group">
+      <label for="dropdown" class="ml-0">Dropdown</label>
+      <select id="dropdown" class="form-control ml-0">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+        <!-- Add more options as needed -->
+      </select>
+    </div>
+  </div>
+  <div class="ml-3">
+    <div class="form-group">
+      <label for="invoiceDate" class="ml-0">Invoice Date</label>
+      <input type="date" id="invoiceDate" class="form-control ml-0">
+    </div>
+  </div>
+  <div class="ml-3">
+    <div class="form-group">
+      <label for="dueDate" class="ml-0">Due Date</label>
+      <input type="date" id="dueDate" class="form-control ml-0">
+    </div>
+  </div>
+ 
+</div>
+
+<!-- <div class="col-md-6 d-flex flex-column position-relative">
+  <div class="text-right mb-2">
+    <a href="#manage-tags" class="manage-tags-link">Manage Tags</a>
+  </div> -->
+
+
+<div class="col-md-6 d-flex mt-4">
+  <div class="form-group ml-3 mt-2">
+    <label for="tags" class="dropdown-label">Tags</label>
+    <input type="text" id="tags" placeholder="Enter tags" class="form-control" style="width: 600px;">
+  </div>
+ 
+</div>
+
+
+<div class="col-md-6 d-flex mt-3">
+  <table class="table table-bordered" style="width: 100%; max-width: 1000px;" >
+    <thead>
+      <tr>
+        <th>*</th>
+        <th>S/No</th>
+        <th>Service date</th>
+        <th>Product/service</th>
+        <th>Description</th>
+        <th>Qty</th>
+        <th>Rate</th>
+        <th>Amount</th>
+        <th>Link</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <!-- Rows -->
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>2</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>3</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>4</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>5</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>6</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>7</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      
+      <!-- End of 7 rows -->
+    </tbody>
+  </table>
+</div>
+      <tr >
+        <td colspan="10  ">
+          <button class="btn btn-  ml-3 mr-2">Add Lines</button>
+          <button class="btn btn-  mr-2">Clear All Lines</button>
+          <button class="btn btn-  mr-2">Add Subtotal</button>
+        </td>
+      </tr>  
+      <div class=" mt-4 mb-2 ml-3"> <!-- Added margin bottom -->
+        <label for="invoice-message">Message on Invoice</label>
+      </div>
+      <div class="scrollable-msg-box ml-3" style="height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px;">
+        <br>Ram's Payment to Asta CRS <br>
+        <br>Payment method <br>
+        <br> Asta CRS <br>
+        <br>Recieved <br>
+        <br>Ram's Payment to Asta CRS <br>
+        <br>Ram's Payment to Asta CRS <br>
+      </div>
+
+      <div class=" mt-4 mb-2 ml-3"> <!-- Added margin bottom -->
+        <label for="invoice-message">Message on Attachment</label>
+      </div>
+      <div class="scrollable-msg-box ml-3" style="height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px;">
+        <br>Ram's Payment to Asta CRS <br>
+        <br>Payment method <br>
+        <br> Asta CRS <br>
+        <br>Recieved <br>
+        <br>Ram's Payment to Asta CRS <br>
+        <br>Ram's Payment to Asta CRS <br>
+      </div>
+
+
   
+ 
+
+
+
+
+
+
