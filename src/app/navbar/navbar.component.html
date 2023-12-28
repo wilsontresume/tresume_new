@@ -71,8 +71,21 @@
                 </div>
             </div>
             <nav *ngIf="!onboardView" class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                    data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" *ngIf="userType =='TRESUMEUSER'">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="alltimelist">
+                          <i class="nav-icon fas fa-list"></i>
+                          <p>All Time List</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a routerLink="/profile" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p> My Profile</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" *ngIf="userType =='RECRUITER'">
                     <li class="nav-item">
                         <a class="nav-link" [routerLink]="'/dashboard/' + traineeID">
                             <i class="nav-icon fas fa-chart-pie"></i>
@@ -177,11 +190,7 @@
                             </a>
                           </li>
                         </ul>
-                      </li>
-                      
-                      
-
-
+                      </li>   
                       <li class="nav-item" *ngIf="checkFullAccess(5)">
                         <a class="nav-link" (click)="toggleDropdown('timesheetSubMenu')">
                           <i class="nav-icon fas fa-clock"></i>
@@ -189,12 +198,7 @@
                           <i class="right fas fa-angle-left" [ngClass]="{'down': isDropdownOpen['timesheetSubMenu']}"></i>
                         </a>
                         <ul id="timesheetSubMenu" class="nav nav-treeview" [ngStyle]="{'display': isDropdownOpen['timesheetSubMenu'] ? 'block' : 'none'}">
-                          <li class="nav-item">
-                            <a class="nav-link" routerLink="alltimelist">
-                              <i class="nav-icon fas fa-list"></i>
-                              <p>All Time List</p>
-                            </a>
-                          </li>
+                          
                           <li class="nav-item" *ngIf="timesheetrole == 1">
                             <a class="nav-link" routerLink="/assignrole">
                               <i class="nav-icon fas fa-highlighter"></i>
@@ -209,8 +213,6 @@
                           </li>
                         </ul>
                       </li>
-                      
-
                     <li class="nav-item" *ngIf="checkFullAccess(7)">
                         <a routerLink="/allclient" class=" nav-link">
                             <i class="nav-icon fas fa-users"></i>
@@ -276,7 +278,8 @@
                     </li>
 
                 </ul>
+               
             </nav>
         </div>
-    </aside>
+    </aside>    
 </div>

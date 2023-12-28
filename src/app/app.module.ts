@@ -153,6 +153,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { SearchResumesOptComponent } from './job-boards/search-opt-resumes.component';
 import { LoginHomeHealthComponent } from './login/login-homehealth.component';
+import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
+import { TimesheetViewdetailsComponent } from './timesheet-viewdetails/timesheet-viewdetails.component';
 
 
 @NgModule({
@@ -241,7 +243,9 @@ import { LoginHomeHealthComponent } from './login/login-homehealth.component';
     CreateAllTimeListComponent,
     ResetPasswordComponent,
     ForgetPasswordComponent,
-    LoginHomeHealthComponent
+    LoginHomeHealthComponent,
+    CreateInvoiceComponent,
+    TimesheetViewdetailsComponent
   ],
   imports: [
     HttpClientModule,
