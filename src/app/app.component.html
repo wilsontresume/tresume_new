@@ -5,6 +5,7 @@
   <div *ngIf="hasToken()">
     <ts-nav></ts-nav>
   </div>
+  <!-- <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
   <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
     <a routerLink="/homelanding"><img src="../assets/img/logo.png" style="height: 90px;" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -41,6 +42,7 @@
         <a href="login" class="bn5">Login</a>
       </div>
     </div>
+  </nav> -->
   </nav>
   <div [class.content-wrapper]="hasToken()">
     <router-outlet></router-outlet>
@@ -52,6 +54,7 @@
     </div>
   </footer> -->
 
+  <!-- <footer class="footer-section">
   <footer class="footer-section">
     <div class="container">
       <div class="footer-cta pt-5 ">
@@ -170,6 +173,7 @@
         </div>
       </div>
     </div>
+  </footer> -->
   </footer>
   <aside class="control-sidebar control-sidebar-dark">
   </aside>
