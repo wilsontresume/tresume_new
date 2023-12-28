@@ -916,44 +916,9 @@
       </mat-tab>
 
       <mat-tab label="Site Visit" class="mt-5">
-        <!-- <div class="container">
-          <table>
-            <tbody>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th class="text-dark">Click to site visit</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                  <div [routerLink]="['/candidateView', 31466, 'sitevisit']" (click)="GoTonext()"
-                    routerLinkActive="active">
-                    <i class="fas fa-eye" style="font-size: 24px;"></i>
-                  </div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div> -->
+        <ng-template matTabContent>
+          <app-sitevisit [candidateId]="44267"></app-sitevisit>
+      </ng-template>
       </mat-tab>
     </mat-tab-group>
     <div class="parent-container">

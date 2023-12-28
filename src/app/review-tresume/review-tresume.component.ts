@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { AppService } from '../app.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { MessageModule } from 'primeng/message';
 @Component({
   templateUrl: './review-tresume.component.html',
   providers: [CookieService, ReviewService, MessageService,AppService],
@@ -185,9 +185,26 @@ tabIndex:number = 0;
       TraineeID:this.candidateID
     };
     console.log(Req);
-    this.service.updateGeneral(Req).subscribe((x: any) => {
-      console.log(x);
-    });
+
+    this.service.updateGeneral(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+    
+  }
+
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary: 'Update successful.' });
+    console.log(response);
+  }
+  
+  private handleError(error: any): void {
+    this.messageService.add({ severity: 'error', summary: 'Update failed. Please try again later.' });
+    console.error(error);
   }
 
   saveInterviewFormData() {
@@ -353,6 +370,7 @@ tabIndex:number = 0;
   constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService, private router:Router) {
     
     this.candidateID = this.route.snapshot.params["traineeID"];
+    console.log(this.candidateID);
     this.tabIndex = this.route.snapshot.params["tabIndex"];
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');

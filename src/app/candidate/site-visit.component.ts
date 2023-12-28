@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,Input } from '@angular/core';
 import { HttpClient, HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CandidateService } from './candidate.service';
@@ -21,12 +21,15 @@ export class SiteVisitComponent implements OnInit {
     public H1BStatus: any;
     public newJDDetails: any;
     public toggleView: boolean = false;
+    @Input() candidateId: string;
 
     @ViewChild('lgModal', { static: false }) lgModal?: ModalDirective;
 
     constructor(private route: ActivatedRoute, private service: CandidateService, private dashservice: DashboardService) {
-        this.traineeId = this.route.snapshot.params["traineeId"];
-
+        // this.traineeId = this.route.snapshot.params["traineeId"];
+        this.traineeId = '44267';
+        console.log(this.candidateId);
+        
     }
 
     ngOnInit(): void {
