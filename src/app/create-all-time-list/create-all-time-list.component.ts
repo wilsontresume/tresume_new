@@ -22,8 +22,16 @@ export class CreateAllTimeListComponent implements OnInit {
   isSundaySelected: boolean = false;
   CAselectedFile: File | null = null;
   SRselectedFile: File | null = null;
+  [key: string]: any;
+  file1: File | null = null;
+  file2: File | null = null;
 
- 
+  onFileSelected(event: any, fileIdentifier: string): void {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this[fileIdentifier] = fileList[0];
+    }
+  }
   
   constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService) {
 
