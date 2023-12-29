@@ -36,3 +36,46 @@
     top: 0;
     right: 0;
   }
+
+  .custom-control-input:checked+.custom-control-label::before {
+    background-color: rgb(101, 177, 101);
+    border-color: rgb(101, 177, 101);
+  }
+
+  /* Green color for the switch when checked */
+  .custom-control-input:checked+.custom-control-label::after {
+    background-color: rgb(101, 177, 101);
+  }
+  .dis{
+    width: 75px;
+    
+  }
+  
+.align-top {
+  vertical-align: top;
+}
+body {
+    background-color: #ffffff; /* Set the background color to white */
+    color: #000; /* Set the text color to black */
+  }
+  .table-container {
+    width: 100%;
+    max-width: 1000px;
+    border: 1px solid #ccc;
+  }
+  
+  .table-row {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .table-cell {
+    flex: 1;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
