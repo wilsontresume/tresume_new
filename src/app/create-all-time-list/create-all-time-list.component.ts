@@ -33,6 +33,46 @@ export class CreateAllTimeListComponent implements OnInit {
     }
   }
   
+  selectedOption: string = '';
+  selectOption1: string = '';
+  // row = { selectOption1: '', selectOption2: '' };
+
+  dropdownOptions1 = {
+    placeholder: "Choose a client or project",
+    items: [
+      { value: 'A1', label: 'Option A1' },
+      { value: 'B1', label: 'Option B1' },
+      { value: 'C1', label: 'Option C1' },
+    ]
+  };
+
+  dropdownOptions2 = {
+    placeholder: "Select pay item",
+    items: [
+      { value: 'A2', label: 'Option A2' },
+      { value: 'B2', label: 'Option B2' },
+      { value: 'C2', label: 'Option C2' },
+    ]
+  };
+
+  dropdownOptions3 = {
+    placeholder: "Choose the service worked on",
+    items: [
+      { value: 'A3', label: 'Option A3' },
+      { value: 'B3', label: 'Option B3' },
+      { value: 'C3', label: 'Option C3' },
+    ]
+  };
+
+  dropdownOptions4 = {
+    placeholder: "Choose a location",
+    items: [
+      { value: 'A4', label: 'Option A4' },
+      { value: 'B4', label: 'Option B4' },
+      { value: 'C4', label: 'Option C4' },
+    ]
+  };
+ 
   constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService) {
 
   }
@@ -146,7 +186,12 @@ export class CreateAllTimeListComponent implements OnInit {
      
     });
   }
+ selectedValue: string = '';
+  dropdownOptions: string[] = ['Option 1', 'Option 2', 'Option 3'];
 
+  selectOption(option: string) {
+    this.selectedValue = option;
+  }
   deleteRow(index: number): void {
     this.rows.splice(index, 1);
     this.updateSerialNumbers();
