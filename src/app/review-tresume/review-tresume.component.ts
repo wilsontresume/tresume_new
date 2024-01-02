@@ -57,6 +57,7 @@ export class ReviewTresumeComponent implements OnChanges {
   OrgID: string;
 userName: string;
 tabIndex:number = 0;
+  routeType: any;
   siteVisitTabClicked() {
     console.log('Additional logic for Site Visit tab click');
   }
@@ -320,7 +321,7 @@ tabIndex:number = 0;
     console.log('Saving data for the Site Visit tab:', this.siteVisitFormData);
   }
   currentTabIndex: number;
-  saveButtonLabel: string = 'Save General Data';
+  saveButtonLabel: string = 'Save';
 
   onTabChange(tabIndex: number) {
     const tabLabels = ['General', 'Interview', '', 'Submission', 'Financial Info', ''];
@@ -329,7 +330,7 @@ tabIndex:number = 0;
       this.currentTabIndex = tabIndex;
       this.tabIndex = tabIndex;
       this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
-      this.router.navigate(['/reviewtresume/'+this.candidateID+'/'+tabIndex]);
+      this.router.navigate(['/reviewtresume/'+this.routeType+'/'+this.candidateID+'/'+tabIndex]);
     }
   }
 
@@ -375,6 +376,7 @@ tabIndex:number = 0;
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
+    this.routeType = this.route.snapshot.params["routeType"];
    }
 
   ngOnInit(): void {

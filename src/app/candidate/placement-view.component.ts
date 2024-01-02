@@ -306,14 +306,14 @@ export class PlacementViewComponent implements OnInit {
         requestItem.MarketerName = this.placementItem.MarketerID;
         this.service.addUpdatePlacementDetails(requestItem).subscribe(x => {
             this.saved = true;
-            var url = '/reviewtresume/'+this.placementItem.TraineeID+'/2';
+            var url = '/reviewtresume/1/'+this.placementItem.TraineeID+'/2';
         console.log(url);
           this.router.navigateByUrl(url);
         });
     }
 
     backToList() {
-        var url = '/reviewtresume/'+this.placementItem.TraineeID+'/2';
+        var url = '/reviewtresume/1/'+this.placementItem.TraineeID+'/2';
         console.log(url);
           this.router.navigateByUrl(url);
     }
