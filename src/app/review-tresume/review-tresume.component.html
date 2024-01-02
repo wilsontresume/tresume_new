@@ -342,7 +342,7 @@
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Interview" class="mt-5">
+      <mat-tab label="Interview" class="mt-5" *ngIf="routeType == 1">
         <div class="container">
           <form [formGroup]="myForm">
             <div class="row">
@@ -487,7 +487,7 @@
         </div>
       </mat-tab>
       <!-- placement -->
-      <mat-tab label="Placement" class="mt-5">
+      <mat-tab label="Placement" class="mt-5" *ngIf="routeType == 1">
         <div class="row">
           <div class="col-md-3 mt-3">
             <button class="btn">Email Placement traker</button>
@@ -549,7 +549,7 @@
         </div>
       </mat-tab>
       <!-- Content for Submission tab -->
-      <mat-tab label="Submission" class="mt-5">
+      <mat-tab label="Submission" class="mt-5" *ngIf="routeType == 1">
         <div class="container">
           <button class="btn btn1">Download DSR</button>
           <form [formGroup]="myFormSubmission">
@@ -659,7 +659,7 @@
                                       <input type="date" class="form-control"
                                           [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
                                           placeholder="Follow Up On" style="width: 100px;">
-                                     <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+candidate.TraineeID]"style="font-size: 24px;"></i>
+                                     <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/1/'+candidate.TraineeID]"style="font-size: 24px;"></i>
                                   </div>
                               </td>
                           </tr>
@@ -682,7 +682,7 @@
                   <textarea class="form-control" id=" FinancialNotes" rows="4" formControlName=" FinancialNotes"></textarea>
                 </div>
               </div>
-              <div class="col-md-4 text-center top-titles">
+              <div class="col-md-4 text-center top-titles" *ngIf="routeType == 1">
                 <button type="button" class="btn">Email Recruitment Tracker</button>
               </div>
               <div class="col-md-4 top-titles">
@@ -915,7 +915,7 @@
         </div>
       </mat-tab>
 
-      <mat-tab label="Site Visit" class="mt-5">
+      <mat-tab label="Site Visit" class="mt-5" *ngIf="routeType == 1">
         <ng-template matTabContent>
           <app-sitevisit [candidateId]="44267"></app-sitevisit>
       </ng-template>
