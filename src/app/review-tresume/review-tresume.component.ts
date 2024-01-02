@@ -589,7 +589,7 @@ tabIndex:number = 0;
     phoneNumberG: x.result[0].PhoneNumber || '', // Patching respective values to form controls
     generalEmail: x.result[0].UserName || '',
     recruiterName: x.result[0].RecruiterName || '',
-    legalStatusVal: x.result[0].LegalStatus || '',
+    legalStatusVal: x.result[0].LegalStatusValidFrom || '', //
     firstname: x.result[0].FirstName || '',
     middleName: x.result[0].MiddleName || '',
     lastName: x.result[0].LastName || '',
@@ -601,7 +601,7 @@ tabIndex:number = 0;
     duiFelonyInfo: x.result[0].DuiFelonyInfo || '',
     status: x.result[0].Candidatestatus || '',
     legalStatusValend: x.result[0].Legalenddate || '',
-    selectedLegalStatus: x.result[0].LegalStatus || '',
+    selectedLegalStatus: x.result[0].LegalStatus || '',  
     ftcNotes: x.result[0].FTCNotes || '',
     otherNotes: x.result[0].Notes || '',
     division: x.result[0].division || '',
