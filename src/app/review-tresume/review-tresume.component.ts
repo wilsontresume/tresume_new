@@ -200,12 +200,12 @@ tabIndex:number = 0;
   }
 
   private handleSuccess(response: any): void {
-    this.messageService.add({ severity: 'success', summary: 'Update successful.' });
+    this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
   }
   
   private handleError(error: any): void {
-    this.messageService.add({ severity: 'error', summary: 'Update failed. Please try again later.' });
+    this.messageService.add({ severity: 'error', summary:  response.message });
     console.error(error);
   }
 

@@ -625,20 +625,25 @@ router.post('/updateGeneral', async function (req, res) {
       "  TraineeID = " + formatValue(req.body.TraineeID);
 
     console.log(query);
+ 
+
+    // Uncomment the following lines when you are ready to execute the query
+    await sql.connect(config);
+    var request = new sql.Request();
+    var result = await request.query(query);
+    
     const result = {
       flag: 1,
       message: "Data Updated",
     };
 
-    // Uncomment the following lines when you are ready to execute the query
-    // await sql.connect(config);
-    // var request = new sql.Request();
-    // var result = await request.query(query);
-
     res.send(result);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    const result = {
+      flag: 1,
+      message: "Internal Server Error",
+    };
+    res.status(500).send(result);
   }
 });
 
