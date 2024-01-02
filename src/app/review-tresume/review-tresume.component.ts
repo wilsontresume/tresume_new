@@ -204,9 +204,8 @@ tabIndex:number = 0;
     console.log(response);
   }
   
-  private handleError(error: any): void {
+  private handleError(response: any): void {
     this.messageService.add({ severity: 'error', summary:  response.message });
-    console.error(error);
   }
 
   saveInterviewFormData() {
