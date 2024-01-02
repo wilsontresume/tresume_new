@@ -51,12 +51,10 @@
             <td>{{ item.BenchId }}</td>
             <td>
               <div class="ml-10"> {{ item.Name }}</div>
-              <i [routerLink]="['/hrms']" class="fas fa-network-wired icon"></i>
-              <i class="far fa-clipboard icon" [routerLink]="['/searchtresume/reviewtresume/interview']"></i>
-              <i class="fas fa-pencil-alt icon" [routerLink]="['/placementview']"></i>
-              <i class="far fa-file-alt icon" [routerLink]="['/searchtresume/reviewtresume/submission']"></i>
-              <i class="fas fa-trash icon" type="button" data-toggle="modal" data-target="#exampleModal"></i>
-
+              <i [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/0']" class="fas fa-network-wired icon"></i>
+              <i class="far fa-clipboard icon" [routerLink]="['/reviewtresume/3/'+candidate.TraineeID+'/1']"></i>
+              <i class="fas fa-pencil-alt icon" [routerLink]="['/reviewtresume/3/'+candidate.TraineeID+'/2']"></i>
+              <i class="far fa-file-alt icon" [routerLink]="['/reviewtresume/3/'+candidate.TraineeID+'/3']"></i>
             </td>
             <td>{{ item.Email }}</td>
             <td>{{ item.Location }}</td>

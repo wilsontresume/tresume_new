@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
-import { HrmsService , } from './hrms.service';
+import { HrmsService, } from './hrms.service';
+import { Router } from 'express';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -23,19 +25,21 @@ export class HrmsComponent implements OnInit {
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
-  candidates: any[]=[];
+  candidates: any[] = [];
   noResultsFound: boolean = false;
   TraineeID: string;
   addCandidate: any;
   OrgID: string;
   userName: string;
-  emailvalidation:boolean = false;
-  emailvalidationmessage:string='';
+  emailvalidation: boolean = false;
+  emailvalidationmessage: string = '';
+  routeType: any;
 
-  constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder) { 
+  constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
+    this.routeType = this.route.snapshot.params["routeType"];
   }
 
   ngOnInit(): void {
@@ -58,8 +62,36 @@ export class HrmsComponent implements OnInit {
       referralType: [''],
       university: [''],
       middleName: [''],
-      gender:['male']
+      gender: ['male']
     });
+
+    // TimeSheet Module /////////////////////////////////////////////////////////////////////////////////////////
+    // for Admin Dropdown
+    document.addEventListener('DOMContentLoaded', function () {
+      const dummyNames = ['','Name 1', 'Name 2', 'Name 3', 'Name 4', 'Name 5'];
+
+      const adminSelect = document.getElementById('adminSelect') as HTMLSelectElement;
+
+      dummyNames.forEach((name, index) => {
+        const option = document.createElement('option');
+        option.value = `value_${index + 1}`;
+        option.text = name;
+        adminSelect.add(option);
+      });
+    });
+
+    //Client Select
+    const clients: string[] = ["","Client 1", "Client 2", "Client 3", "Client 4", "Client 5", "Client 6"];
+
+    const clientSelect = document.getElementById("clientselect") as HTMLSelectElement;
+
+    clients.forEach((client, index) => {
+      const option = document.createElement("option");
+      option.value = index.toString();
+      option.text = client;
+      clientSelect.add(option);
+    });
+
   }
 
   onEmailInput() {
@@ -72,11 +104,11 @@ export class HrmsComponent implements OnInit {
     if (email) {
       let Req = {
         email: email,
-        orgID:this.OrgID
+        orgID: this.OrgID
       };
       this.service.checkEmail(Req).subscribe((x: any) => {
         var flag = x.flag;
-        if(flag ===2){
+        if (flag === 2) {
           this.emailvalidation = true;
           this.emailvalidationmessage = x.message;
         }
@@ -112,42 +144,42 @@ export class HrmsComponent implements OnInit {
   getOrgUserList() {
     let Req = {
       TraineeID: this.TraineeID,
-      OrgID:this.OrgID
+      OrgID: this.OrgID
     };
     this.service.getOrgUserList(Req).subscribe((x: any) => {
-     this.recruiterNames = x.result;
-     this.marketerNames = x.result;
+      this.recruiterNames = x.result;
+      this.marketerNames = x.result;
     });
   }
 
   savehrmsdata() {
     let Req = {
-        firstName: this.addCandidate.value.firstName,
-        middleName: this.formData.middleName,
-        lastName: this.addCandidate.value.lastName,
-        email: this.addCandidate.value.email,
-        phone: this.addCandidate.value.phone,
-        gender: this.addCandidate.value.gender,
-        recruiterName: this.addCandidate.value.recruiterName,
-        degree: this.addCandidate.value.degree,
-        university: this.addCandidate.value.university,
-        groups: this.addCandidate.value.groups,
-        locationConstraint: this.addCandidate.value.locationConstraint,
-        referralType: this.formData.referralType,
-        notes: this.addCandidate.value.notes,
-        candidateStatus: this.formData.candidateStatus,
-        legalStatus: this.formData.legalStatus,
-        marketerName: this.formData.marketerName,
-recruiteremail:this.userName
+      firstName: this.addCandidate.value.firstName,
+      middleName: this.formData.middleName,
+      lastName: this.addCandidate.value.lastName,
+      email: this.addCandidate.value.email,
+      phone: this.addCandidate.value.phone,
+      gender: this.addCandidate.value.gender,
+      recruiterName: this.addCandidate.value.recruiterName,
+      degree: this.addCandidate.value.degree,
+      university: this.addCandidate.value.university,
+      groups: this.addCandidate.value.groups,
+      locationConstraint: this.addCandidate.value.locationConstraint,
+      referralType: this.formData.referralType,
+      notes: this.addCandidate.value.notes,
+      candidateStatus: this.formData.candidateStatus,
+      legalStatus: this.formData.legalStatus,
+      marketerName: this.formData.marketerName,
+      recruiteremail: this.userName
     };
     // console.log(Req);
-// console.log(Req);
+    // console.log(Req);
     // this.service.addHrmsCandidate(Req).subscribe((x: any) => {
     //   console.log(x);
     // });
     console.log(Req);
-//     this.service.insertTrainee(Req).subscribe((ax: any) => {
-//       console.log(ax);
+    //     this.service.insertTrainee(Req).subscribe((ax: any) => {
+    //       console.log(ax);
     this.service.insertTraineeCandidate(Req).subscribe((x: any) => {
       console.log(x);
     });
