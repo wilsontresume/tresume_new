@@ -624,6 +624,7 @@ router.post('/updateGeneral', async function (req, res) {
       "  TraineeID = " + formatValue(req.body.TraineeID);
 
     console.log(query);
+ 
 
     await sql.connect(config);
     var request = new sql.Request();
@@ -636,8 +637,11 @@ router.post('/updateGeneral', async function (req, res) {
 
     res.send(data);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    const result = {
+      flag: 1,
+      message: "Internal Server Error",
+    };
+    res.status(500).send(result);
   }
 });
 

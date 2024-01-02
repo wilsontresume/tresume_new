@@ -190,6 +190,7 @@ tabIndex:number = 0;
     this.service.updateGeneral(Req).subscribe(
       (x: any) => {
         this.handleSuccess(x);
+
       },
       (error: any) => {
         this.handleError(error);
@@ -199,13 +200,12 @@ tabIndex:number = 0;
   }
 
   private handleSuccess(response: any): void {
-    this.messageService.add({ severity: 'success', summary: 'Update successful.' });
+    this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
   }
   
-  private handleError(error: any): void {
-    this.messageService.add({ severity: 'error', summary: 'Update failed. Please try again later.' });
-    console.error(error);
+  private handleError(response: any): void {
+    this.messageService.add({ severity: 'error', summary:  response.message });
   }
 
   saveInterviewFormData() {
