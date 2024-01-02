@@ -558,7 +558,6 @@ async function generateSubmission() {
   }
 }
 
-// router.post('/updateGeneral', async function (req, res) {
 router.post('/updateFinancial', async function (req, res) {
   try {
     var query =
@@ -605,39 +604,38 @@ router.post('/updateGeneral', async function (req, res) {
       "UPDATE Trainee SET " +
       "  ReferredBy = " + formatValue(req.body.ReferredBy) +
       ", DealOffered = " + formatValue(req.body.DealOffered) +
-      ", division = " + formatValue(req.body.division) +
-      ", dob = " + formatValue(req.body.dob) +
-      ", duiFelonyInfo = " + formatValue(req.body.duiFelonyInfo) +
-      ", firstName = " + formatValue(req.body.firstName) +
-      ", ftcNotes = " + formatValue(req.body.ftcNotes) +
-      ", generalEmail = " + formatValue(req.body.generalEmail) +
-      ", lastName = " + formatValue(req.body.lastName) +
-      ", legalStatusVal = " + formatValue(req.body.legalStatusVal) +
-      ", legalStatusValend = " + formatValue(req.body.legalStatusValend) +
-      ", middleName = " + formatValue(req.body.middleName) +
-      ", otherNotes = " + formatValue(req.body.otherNotes) +
-      ", phoneNumberG = " + formatValue(req.body.phoneNumberG) +
-      ", recruiterName = " + formatValue(req.body.recruiterName) +
-      ", refered = " + formatValue(req.body.refered) +
-      ", selectedLegalStatus = " + formatValue(req.body.selectedLegalStatus) +
-      ", statusDate = " + formatValue(req.body.statusDate) +
+      ", Division = " + formatValue(req.body.division) +
+      ", DOB = " + formatValue(req.body.dob) +
+      ", DuiFelonyInfo = " + formatValue(req.body.duiFelonyInfo) +
+      ", FirstName = " + formatValue(req.body.firstName) +
+      ", FTCNotes = " + formatValue(req.body.ftcNotes) +
+      ", UserName = " + formatValue(req.body.generalEmail) +
+      ", LastName = " + formatValue(req.body.lastName) +
+      ", LegalStatusValidFrom = " + formatValue(req.body.legalStatusVal) +
+      ", LegalStatusValidTo = " + formatValue(req.body.legalStatusValend) +
+      ", MiddleName = " + formatValue(req.body.middleName) +
+      ", Notes = " + formatValue(req.body.otherNotes) +
+      ", PhoneNumber = " + formatValue(req.body.phoneNumberG) +
+      ", RecruiterName = " + formatValue(req.body.recruiterName) +
+      ", ReferredBy_external = " + formatValue(req.body.refered) +
+      ", LegalStatus = " + formatValue(req.body.selectedLegalStatus) +
+      ", statusdate = " + formatValue(req.body.statusDate) +
       " WHERE " +
       "  TraineeID = " + formatValue(req.body.TraineeID);
 
     console.log(query);
  
 
-    // Uncomment the following lines when you are ready to execute the query
     await sql.connect(config);
     var request = new sql.Request();
     var result = await request.query(query);
     
-    const result = {
+    const data = {
       flag: 1,
       message: "Data Updated",
     };
 
-    res.send(result);
+    res.send(data);
   } catch (error) {
     const result = {
       flag: 1,
