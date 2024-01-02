@@ -190,6 +190,7 @@ tabIndex:number = 0;
     this.service.updateGeneral(Req).subscribe(
       (x: any) => {
         this.handleSuccess(x);
+
       },
       (error: any) => {
         this.handleError(error);
