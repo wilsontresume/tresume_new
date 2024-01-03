@@ -58,6 +58,7 @@ export class ReviewTresumeComponent implements OnChanges {
 userName: string;
 tabIndex:number = 0;
   routeType: any;
+  title: any;
   siteVisitTabClicked() {
     console.log('Additional logic for Site Visit tab click');
   }
@@ -81,7 +82,8 @@ tabIndex:number = 0;
   otherNotes: string = '';
   dob: Date;
   SelectedDivision: string = '';
-
+  currentTabIndex: any;
+  saveButtonLabel: string = 'Save';
   items: any[] = [
     {
       value1: 'Name 1',
@@ -135,7 +137,7 @@ tabIndex:number = 0;
   siteVisitFormData: any = {};
 
   saveData() {
-    switch (this.currentTabIndex) {
+    switch (parseInt(this.currentTabIndex)) {
       case 0:
         this.saveGeneralFormData();
         break;
@@ -187,6 +189,7 @@ tabIndex:number = 0;
     };
     console.log(Req);
 
+
     this.service.updateGeneral(Req).subscribe(
       (x: any) => {
         this.handleSuccess(x);
@@ -202,6 +205,7 @@ tabIndex:number = 0;
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
+    this.fetchinterviewlist();
   }
   
   private handleError(response: any): void {
@@ -209,13 +213,7 @@ tabIndex:number = 0;
   }
 
   saveInterviewFormData() {
-    if (this.currentTabIndex === 1 && this.myForm.valid) {
-      console.log(this.myForm.value);
-    } else if (this.currentTabIndex === 1) {
-      console.log("Form is invalid");
-    } else {
-      console.log("Form is not in the Interview tab");
-    }
+
     console.log('Saving data for the Interview tab:', this.interviewFormData);
 
     let Req = {
@@ -228,9 +226,13 @@ tabIndex:number = 0;
       assistedBy: this.myForm.get('assistedBy').value,
       typeOfAssistance: this.myForm.get('typeOfAssistance').value,
       interviewMode: this.myForm.get('interviewMode').value,
+      interviewTimeZone:'EST',
+      traineeID:this.candidateID,
+      recruiterID:this.TraineeID,
+      recruiteremail:this.userName,
+      InterviewStatus:'SCHEDULED',
     };
-    // console.log(Req);
-// console.log(Req);
+
     // this.service.saveInterviewFormData(Req).subscribe((x: any) => {
     //   console.log(x);
     // });
@@ -242,9 +244,17 @@ tabIndex:number = 0;
   // console.log(response);
   //   });
     console.log(Req);
-    this.service.insertTraineeInterview(Req).subscribe((x: any) => {
-      console.log(x);
-    });
+
+    this.service.insertTraineeInterview(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+
   }
 
   savePlacementFormData() {
@@ -252,13 +262,6 @@ tabIndex:number = 0;
   }
 
   saveSubmissionFormData() {
-    if (this.currentTabIndex === 3 && this.myFormSubmission.valid) {
-      console.log(this.myFormSubmission.value);
-    } else if (this.currentTabIndex === 3) {
-      console.log("Form is invalid");
-    } else {
-      console.log("Form is not in the Submission tab");
-    }
     console.log('Saving data for the Submission tab:', this.submissionFormData);
 
     let Req = {
@@ -273,9 +276,16 @@ tabIndex:number = 0;
       CandidateID:this.candidateID
     };
     console.log(Req);
-    this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
-      console.log(x);
-    }); 
+    this.service.insertSubmissionInfo(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+    
   }
 
   saveFinancialInfoFormData() {
@@ -309,27 +319,33 @@ tabIndex:number = 0;
       Bank2RoutingNumber: this.myFormFinancial.value.routingnum2,
       SalaryDepositType: this.myFormFinancial.value.salaryDepositType,
       HowMuch: this.myFormFinancial.value.howMuch,
+      TraineeID:this.candidateID
 
     };
     console.log(Req);
-    this.service.updateFinancial(Req).subscribe((x: any) => {
-      console.log(x);
-    });
+    this.service.updateFinancial(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+    
   }
 
   saveSiteVisitFormData() {
     console.log('Saving data for the Site Visit tab:', this.siteVisitFormData);
   }
-  currentTabIndex: number;
-  saveButtonLabel: string = 'Save';
+  
 
   onTabChange(tabIndex: number) {
-    const tabLabels = ['General', 'Interview', '', 'Submission', 'Financial Info', ''];
+    const tabLabels = ['', '', '', '', '', ''];
 
     if (tabIndex >= 0 && tabIndex < tabLabels.length) {
       this.currentTabIndex = tabIndex;
       this.tabIndex = tabIndex;
-      this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
+      this.saveButtonLabel = `Save ${tabLabels[tabIndex]}`;
       this.router.navigate(['/reviewtresume/'+this.routeType+'/'+this.candidateID+'/'+tabIndex]);
     }
   }
@@ -385,7 +401,8 @@ tabIndex:number = 0;
     this.fetchCandidateInfo();
     this.getSubmissionList() ;
     this.getOrgUserList();
-    this.currentTabIndex = 0;
+    this.currentTabIndex = this.tabIndex;
+    
 
     this.FormGeneral = this.formBuilder.group({
       phoneNumberG: ['', [Validators.required]],
@@ -549,13 +566,11 @@ tabIndex:number = 0;
   }
 
   getSubmissionList() {
-    this.TraineeID = this.cookieService.get('TraineeID');
-
-    const Req = {
-      TraineeID: this.candidateID
+    const req = {
+      TraineeID: this.candidateID,
     };
 
-    this.service.getSubmissionList(Req).subscribe((x: any) => {
+    this.service.getSubmissionList(req).subscribe((x: any) => {
       this.submissionList = x.result;
     });
   }
@@ -589,7 +604,7 @@ tabIndex:number = 0;
     phoneNumberG: x.result[0].PhoneNumber || '', // Patching respective values to form controls
     generalEmail: x.result[0].UserName || '',
     recruiterName: x.result[0].RecruiterName || '',
-    legalStatusVal: x.result[0].LegalStatusValidFrom || '', //
+    legalStatusVal: x.result[0].LegalStatusValidFrom || '', 
     firstname: x.result[0].FirstName || '',
     middleName: x.result[0].MiddleName || '',
     lastName: x.result[0].LastName || '',
