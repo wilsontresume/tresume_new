@@ -15,14 +15,23 @@ export class CreateProjectService {
     getTraineeClientList(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeClientList', request);
     }
+
+    getTimesheetCandidateList(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetCandidateList', request);
+    }
+
+    fetchtimesheetcandidate(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetcandidate', request);
+    }
+
     createtimesheetproject(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'createtimesheetproject', request);
     }
+
     getProjectList(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getProjectList', request);
     }
-    
-
+   
 }
 export interface ResponseDetails {
     flag?: any;
