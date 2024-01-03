@@ -1,5 +1,11 @@
+<div class="container-fluid p-3">
+  <div class="head d-flex justify-content-between p-3">
+    <h2> CREATE INVOICE</h2>
+    </div>
+<body>
 <div class="row mt-4">
-  <div class="col-md-6 d-flex ml-2  ">
+  <div class="col-md-6 d-flex">
+    <!-- Left side content -->
     <div class="dropdown-container">
       <label for="client" class="dropdown-label ml-3">Client</label>
       <select id="client" class="form-control ml-3" style="width: 150px; height: 40px;">
@@ -9,80 +15,190 @@
         <!-- Add more options as needed -->
       </select>
     </div>
+      <div class="clientemail mt-0 ml-3">
+        <label for="clientEmail" class="dropdown-label">Client Email</label>
+        
+          <a href="#" class="text-decoration-none" style="margin-left: 11px;">Cc(2)/Bcc</a>
+       
+        <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3"
+          style="width: 150px; height: 40px;">
+
+      </div>
     <div class="clientemail mt-0 ml-3">
-      <label for="clientEmail" class="dropdown-label">Client Email</label>
+      <label for="address" class="ml-0">Billing address</label>
       <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3"
         style="width: 150px; height: 40px;">
-      <div class="form-check ml-3">
-        <input type="checkbox" id="checkBox" class="form-check-input" value="checkValue">
-        <label for="checkBox" class="form-check-label">Send letter</label>
+    </div>
+    <div class="clientemail mt-0 ml-3">
+      <div class="form-group">
+        <label for="invoiceDate" class="ml-0">Invoice Date</label>
+        <input type="date" id="invoiceDate" class="form-control ml-0">
+      </div>
+    </div>
+    <div class="clientemail mt-0 ml-3">
+      <div class="form-group">
+        <label for="dueDate" class="ml-0">Due Date</label>
+        <input type="date" id="dueDate" class="form-control ml-0">
       </div>
     </div>
     <div class="ml-3">
-      <div class="dropdown-container">
-        <h4>Online Payments <button type="button" class="btn btn-sm btn-outline-secondary ml-2">Edit</button></h4>
+      <!-- <h4>Online Payments <button type="button" class="btn btn-sm btn-outline-secondary ml-2">Edit</button></h4> -->
+      </div>
+  </div>
 
-        <div class="payment-options mt-3">
-          <div class="form-check d-flex flex-column">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="cardsSwitch">
-              <label class="custom-control-label mr-2" for="cardsSwitch">Cards</label>
-            </div>
+  <div class="col-md-6  d-flex justify-content-start balance">
+    <div>
+      <p class="mb-1 mr-5 ">Balance Due</p>
+      <p class="font-weight-bold mb-0" style="font-size: 24px;">$ 1,800.00</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-6 d-flex ml-2 mt-5">
+  <div class="clientemail mt-0 ml-3">
+    <div class="form-group">
+      <label for="dropdown" class="ml-0">Terms</label>
+      <select id="dropdown" class="form-control ml-0">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+  </div>
+  <div class="ml-3">
+    <div class="form-group">
+      <label for="invoiceNo">Invoice No.</label>
+      <input type="text" id="invoiceNo" class="form-control" placeholder="Enter Invoice No" style="width: 150px; height: 40px;" >
+    </div>
+  </div>
+  <div class="ml-3">
+    <div class="form-group">
+      <label for="location">Location</label>
+      <select id="location" class="form-control">
+        <option value="location1">Location 1</option>
+        <option value="location2">Location 2</option>
+        <option value="location3">Location 3</option>
+      </select>
+    </div>
+  </div>
+  <div class="fixed-width-wrapper">
+    <div class="text-center">
+      <button type="button" class="btn btn-demo arrow" data-toggle="modal" data-target="#myModal2">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+    
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" style="height: 300px; overflow-y: auto;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          Close
+        </div>
+        <div class="modal-body"  style="max-height: 1000px; overflow-y: auto;">
+          <h2>Add to invoice</h2>
+          <div class="form-group">
+            <label for="filterBy">Filter by:</label>
+            <select class="form-control" id="filterBy" (change)="onFilterChange($event.target.value)">
+              <option value="option1">All dates</option>
+              <option value="option2">This month (January)</option>
+              <option value="option3">Last month (December)</option>
+              <option value="option1">Custom</option>
+            </select>
           </div>
-          <div class="form-check d-flex flex-column">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="bankTransferSwitch">
-              <label class="custom-control-label mr-2" for="bankTransferSwitch">Bank Transfer</label>
+          <hr>
+          <p style="color: #999; font-style: italic;" >There aren't any billable items for that date range.</p>
+          <div *ngIf="selectedOption === 'option3'">
+            <div class="form-group mb-3">
+              <!-- Dropdown input -->
+              <select class="form-control">
+                <option value="example1">Don't group time</option>
+                <option value="example2">Example 2</option>
+                <option value="example3">Example 3</option>
+              </select>
             </div>
-          </div>
-          <div class="form-check d-flex flex-column">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="paypalSwitch">
-              <label class="custom-control-label mr-2" for="paypalSwitch">PayPal</label>
+            <div *ngIf="showAdditionalInputs" class="mb-3">
+              <!-- "Add all" button -->
+              <button class="btn btn-primary" (click)="addAll()">Add all</button>
             </div>
-          </div>
-          <div class="form-check d-flex flex-column">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="tipaSwitch">
-              <label class="custom-control-label mr-2" for="tipaSwitch">Tipa</label>
+            <div class="card-display mt-3">
+              <!-- Cards -->
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
+                  <div class="row">
+                    <div class="col mt-3 d-flex justify-content-between">
+                      <p class="card-text" style="margin-left: -6rem;">Dec 11, 2023</p>
+                      <p>8:00</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: -11px;">
+                    <div class="col">
+                      <p class="card-text">$360.00</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <p class="card-text">Kivani kotecha</p>
+                    </div>
+                  </div>
+                  <!-- Button section -->
+                  <div class="row mt-3">
+                    <div class="col d-flex justify-content-between">
+                      <button class="btn btn-primary">Add</button>
+                      <button class="btn btn-secondary">Open</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+              
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
+                  <div class="row">
+                    <div class="col mt-3 d-flex justify-content-between">
+                      <p class="card-text" style="margin-left: -6rem;">Dec 12, 2023</p>
+                      <p>8:00</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: -11px;">
+                    <div class="col">
+                      <p class="card-text">$360.00</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <p class="card-text">Kivani kotecha</p>
+                    </div>
+                  </div>
+                  <!-- Button section -->
+                  <div class="row mt-3">
+                    <div class="col d-flex justify-content-between">
+                      <button class="btn btn-primary">Add</button>
+                      <button class="btn btn-secondary">Open</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+
+              
+              <!-- Add more cards as needed -->
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="col-md-6 d-flex ml-2 mt-5">
-  <div class="dropdown-container">
-    <div class="form-group">
-      <label for="address" class="ml-0">Billing address</label>
-      <input type="text" id="address" placeholder="Enter address" class="form-control ml-0" style="width: 100%;">
+  
+  <div class="col-md-6 d-flex justify-content-end">
+    <div class="ml-1">
     </div>
   </div>
-  <div class="clientemail mt-0 ml-3">
-    <div class="form-group">
-      <label for="dropdown" class="ml-0">Dropdown</label>
-      <select id="dropdown" class="form-control ml-0">
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-        <!-- Add more options as needed -->
-      </select>
-    </div>
-  </div>
-  <div class="ml-3">
-    <div class="form-group">
-      <label for="invoiceDate" class="ml-0">Invoice Date</label>
-      <input type="date" id="invoiceDate" class="form-control ml-0">
-    </div>
-  </div>
-  <div class="ml-3">
-    <div class="form-group">
-      <label for="dueDate" class="ml-0">Due Date</label>
-      <input type="date" id="dueDate" class="form-control ml-0">
-    </div>
-  </div>
- 
 </div>
 
 <!-- <div class="col-md-6 d-flex flex-column position-relative">
@@ -92,11 +208,23 @@
 
 
 <div class="col-md-6 d-flex mt-4">
-  <div class="form-group ml-3 mt-2">
+  <!-- <div class="form-group ml-3 mt-2">
     <label for="tags" class="dropdown-label">Tags</label>
     <input type="text" id="tags" placeholder="Enter tags" class="form-control" style="width: 600px;">
+  </div> -->
+  <div class="col-md-6 d-flex justify-content-end">
+  <div class="ml-1">
+    <!-- <div class="form-group">
+      <label for="location">Location</label>
+      <select id="location" class="form-control">
+        <option value="location1">Location 1</option>
+        <option value="location2">Location 2</option>
+        <option value="location3">Location 3</option>
+        
+      </select>
+    </div> -->
   </div>
- 
+  </div>
 </div>
 
 
@@ -112,7 +240,7 @@
         <th>Qty</th>
         <th>Rate</th>
         <th>Amount</th>
-        <th>Link</th>
+        <th>Attachment</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -122,90 +250,122 @@
       <tr>
         <td></td>
         <td>1</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>12/04/2023</td>
+        <td>Services</td>
+        <td>Kivani kotecha</td>
+        <td>8</td>
+        <td>45</td>
+        <td>360.00</td>
+        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
         <td></td>
         <td>2</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>12/05/2023</td>
+        <td>Services</td>
+        <td>Kivani kotecha</td>
+        <td>8</td>
+        <td>45</td>
+        <td>360.00</td>
+        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
         <td></td>
         <td>3</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>12/06/2023</td>
+        <td>Services</td>
+        <td>Kivani kotecha</td>
+        <td>8</td>
+        <td>45</td>
+        <td>360.00</td>
+        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
         <td></td>
         <td>4</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>12/07/2023</td>
+        <td>Services</td>
+        <td>Kivani kotecha</td>
+        <td>8</td>
+        <td>45</td>
+        <td>360.00</td>
+        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
         <td></td>
         <td>5</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>12/08/2023</td>
+        <td>Services</td>
+        <td>Kivani kotecha</td>
+        <td>8</td>
+        <td>45</td>
+        <td>360.00</td>
+        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
         <td></td>
         <td>6</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>12/09/2023</td>
+        <td>Services</td>
+        <td>Kivani kotecha</td>
+        <td>8</td>
+        <td>45</td>
+        <td>360.00</td>
+        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
         <td></td>
         <td>7</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>12/10/2023</td>
+        <td>Services</td>
+        <td>Kivani kotecha</td>
+        <td>8</td>
+        <td>45</td>
+        <td>360.00</td>
+        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       
       <!-- End of 7 rows -->
     </tbody>
+    <tfoot>
+    <!-- Subtotal row -->
+    <tr style="border: none;">
+      <td colspan="8" class="text-right">Subtotal</td>
+      <td>$1,800.00</td>
+    </tr>
+    <!-- Discount Percentage row -->
+    <tr style="border: none;">
+      <td colspan="8">
+        <label for="discountPercentage" class="mb-0 d-block text-right">Discount Percentage</label><br> 
+        <div class="d-flex justify-content-end">
+          <select class="form-control form-control-sm dis" id="discountPercentage">
+            <option>0%</option>
+            <option>5%</option>
+            <option>10%</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>  
+      </td>
+      <td>$0.00</td>
+    </tr>
+    <!-- Total row -->
+    <tr style="border: none;">
+      <td colspan="8" class="text-right">Total</td>
+      <td>$1,800.00</td>
+    </tr>
+    <!-- Balance Due row -->
+    <tr style="border: none;">
+      <td colspan="8" class="text-right">Balance Due</td>
+      <td>$1,800.00</td>
+    </tr>
+  </tfoot>
   </table>
 </div>
       <tr >
@@ -215,30 +375,94 @@
           <button class="btn btn-  mr-2">Add Subtotal</button>
         </td>
       </tr>  
-      <div class=" mt-4 mb-2 ml-3"> <!-- Added margin bottom -->
-        <label for="invoice-message">Message on Invoice</label>
-      </div>
-      <div class="scrollable-msg-box ml-3" style="height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px;">
-        <br>Ram's Payment to Asta CRS <br>
-        <br>Payment method <br>
-        <br> Asta CRS <br>
-        <br>Recieved <br>
-        <br>Ram's Payment to Asta CRS <br>
-        <br>Ram's Payment to Asta CRS <br>
-      </div>
-
-      <div class=" mt-4 mb-2 ml-3"> <!-- Added margin bottom -->
-        <label for="invoice-message">Message on Attachment</label>
-      </div>
-      <div class="scrollable-msg-box ml-3" style="height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px;">
-        <br>Ram's Payment to Asta CRS <br>
-        <br>Payment method <br>
-        <br> Asta CRS <br>
-        <br>Recieved <br>
-        <br>Ram's Payment to Asta CRS <br>
-        <br>Ram's Payment to Asta CRS <br>
-      </div>
-
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Your existing Message on Invoice -->
+          <div class="mt-4 mb-2 ml-3">
+            <label for="invoice-message">Message on Invoice</label>
+          </div>
+          <div class="scrollable-msg-box ml-3" style="height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px;">
+      <p>Ram's payment to ASTA CRS</p>
+      <p>Payment method</p>
+      <p> ASTA CRS INC</p>
+      <p>Mail check box</p>
+          </div>
+      
+          <!-- Your existing Message on Attachment -->
+          <div class="mt-4 mb-2 ml-3">
+            <label for="invoice-message">Message on Attachment</label>
+          </div>
+          <div class="scrollable-msg-box ml-3" style="height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px;">
+    <p>12/04/2023 to 12/08/2023</p>
+          </div>
+        </div>
+      
+        <div class="col-md-4">
+          <!-- Payments Section -->
+          <div class="dropdown-container">
+            <div class="payment-options mt-3">
+              <div class="dropdown-container">
+                <h4>Online Payments <button type="button" class="btn btn-sm btn-outline-secondary ml-2">Edit</button></h4>
+        
+                <div class="payment-options mt-3">
+                  <div class="form-check d-flex flex-column">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="cardsSwitch">
+                      <label class="custom-control-label mr-2" for="cardsSwitch">Cards</label>
+                    </div>
+                  </div>
+                  <div class="form-check d-flex flex-column">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="bankTransferSwitch">
+                      <label class="custom-control-label mr-2" for="bankTransferSwitch">Bank Transfer</label>
+                    </div>
+                  </div>
+                  <div class="form-check d-flex flex-column">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="paypalSwitch">
+                      <label class="custom-control-label mr-2" for="paypalSwitch">PayPal</label>
+                    </div>
+                  </div>
+                  <div class="form-check d-flex flex-column">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="tipaSwitch">
+                      <label class="custom-control-label mr-2" for="tipaSwitch">Tipa</label>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="d-flex">
+            <!-- Button for Add Lines -->
+            <button class="btn btn-primary btn-block fbtn"  style="margin-left: 25px ;">Cancel</button>
+          </div>
+          <div class="d-flex">
+            <!-- Button for Copy -->
+            <button class="btn btn-primary btn-block fbtn" style="margin-left: 21rem;">Print or Preview</button>
+          </div>
+          <div class="d-flex dropdown">
+            <!-- Dropdown for Save and New -->
+            <button class="btn btn-primary dropdown-toggle fbtn" type="button" id="saveAndNewDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 25rem;">
+              Save and New
+            </button>
+            <div class="dropdown-menu" aria-labelledby="saveAndNewDropdown">
+              <!-- Dropdown items -->
+              <a class="dropdown-item" href="#">Save and close</a>
+              <a class="dropdown-item" href="#">Save and send</a>
+            </div>
+          </div>
+          
+        </div>
+        
+        
+      </div>       
+    </body>
+  </div>
+    
 
   
  

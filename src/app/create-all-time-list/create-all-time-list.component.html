@@ -81,7 +81,21 @@
         <td colspan="8" style="text-align: right;">0.00</td>
       </tbody>
     </table>
-    <button (click)="addRow()">Add Lines</button>
+    
 <!-- <button (click)="deleteAllRows()">Minus</button> -->
+<div class="row mt-3">
+  <div class="col-md-3">
+  <button (click)="addRow()">Add Lines</button>
+</div>
+  <div class="col-md-3 mt-2">
+    <input type="file" id="file1" class="form-control-file" (change)="onFileSelected($event, 'file1')">
+  </div>
+  <div class="col-md-3 mt-2">
+    <input type="file" id="file2" class="form-control-file" (change)="onFileSelected($event, 'file2')">
+  </div>
+  <div class="col-md-3 text-right">
+    <button >Save</button>
+  </div>
+</div>
 </div>
 
