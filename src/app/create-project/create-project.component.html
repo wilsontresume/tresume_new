@@ -46,13 +46,14 @@
             <div class="col-6 form-group">
               <label class="label" for="project">Project Name:</label>
               <div class="input-group">
-                <input type="text" class="form-control" id="ProjectName" formControlName="ProjectName" placeholder="Project Name">
+                <input type="text" class="form-control" id="ProjectName" formControlName="ProjectName"
+                  placeholder="Project Name">
               </div>
             </div>
             <div class="col-6 form-group">
               <label class="label" for="project">Client Name:</label>
               <select id="userselect" class="form-control" formControlName="ClientName">
-                <option *ngFor="let option of clientname" [value]="option.id">{{ option.name }}</option>
+                <option *ngFor="let option of clients" [value]="option.ClientID">{{ option.ClientName }}</option>
               </select>
             </div>
           </div>
@@ -69,9 +70,11 @@
               </div>
             </div>
             <div class="col-md-6 form-group">
-              <label class="label" for="project">Billable(/hr)</label>
-              <div class="input-group">
-                <input type="text" class="form-control" id="billable" formControlName="Billable" placeholder="Billable">
+              <label class="label" for="project">&#36; Billable (/hr)</label>
+              <div class="custom-input-group">
+                <span class="dollar-sign">&#36;</span>
+                <input type="number" class="custom-input" id="billable" formControlName="Billable"
+                  placeholder="Enter billable amount">
               </div>
             </div>
           </div>

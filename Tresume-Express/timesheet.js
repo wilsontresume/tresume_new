@@ -513,7 +513,7 @@ router.post('/getTimesheetClientList', async (req, res) => {
     // const request = new sql.Request();
     const pool = await sql.connect(config);
     const request = pool.request();
-    const query = "SELECT s.ClientID, s.ClientName FROM clients s INNER JOIN Trainee t ON s.PrimaryOwner = '" + req.body.TraineeID + "'  WHERE s.Active = 1 AND	s.istimesheet = 1 AND t.OrganizationID = '" + req.body.OrgID + "'";
+    const query = "SELECT s.ClientID, s.ClientName FROM clients s INNER JOIN Trainee t ON s.PrimaryOwner = t.TraineeID  WHERE s.Active = 1 AND	s.istimesheet = 1 AND t.OrganizationID = '" + req.body.OrgID + "'";
 
     console.log(query);
 

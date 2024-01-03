@@ -132,3 +132,35 @@ tbody {
   top: 5%;
   right: 5%;
 }
+
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.custom-input-group {
+  position: relative;
+}
+
+.dollar-sign {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #555;
+}
+
+.custom-input {
+  box-sizing: border-box;
+  padding-left: 30px; 
+  width: 100%;
+  height: 38px; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
