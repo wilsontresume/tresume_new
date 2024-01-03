@@ -15,15 +15,48 @@
         <!-- Add more options as needed -->
       </select>
     </div>
-      <div class="clientemail mt-0 ml-3">
-        <label for="clientEmail" class="dropdown-label">Client Email</label>
-        
-          <a href="#" class="text-decoration-none" style="margin-left: 11px;">Cc(2)/Bcc</a>
-       
-        <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3"
-          style="width: 150px; height: 40px;">
-
+    <div class="clientemail mt-0 ml-3">
+      <label for="clientEmail" class="dropdown-label">Client Email</label>
+      <a href="#" class="text-decoration-none" style="margin-left: 11px;" (click)="togglePopup($event)">Cc(2)/Bcc</a>
+    
+      <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3"
+        style="width: 150px; height: 40px;">
+    </div>
+    
+    <div class="popup" *ngIf="showPopup" (clickOutside)="closePopup()">
+      <div class="popover bs-popover-bottom" role="tooltip" style="max-height: 550px; position: relative;">
+        <div class="close-icon" (click)="closePopup()" style="position: absolute; top: 5px; right: 5px; cursor: pointer;">
+          <i class="fas fa-times"></i>
+        </div>
+        <div class="popover-body" style="max-height: 500px; overflow-y: auto;">
+          <div class="form-group">
+            <label for="cc">Cc</label>
+            <mat-chip-list #ccChipList>
+              <input type="text" placeholder="Enter emails" [(ngModel)]="ccEmails" [matChipInputFor]="ccChipList" matChipInput separatorKeyCodes="[ENTER, COMMA]">
+              <mat-chip *ngFor="let cc of ccEmails" [selectable]="true" [removable]="true" (removed)="removeCc(cc)">
+                {{ cc }}
+                <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+          <div class="form-group">
+            <label for="bcc">Bcc</label>
+            <mat-chip-list #bccChipList>
+              <input type="text" placeholder="Enter emails" [(ngModel)]="bccEmails" [matChipInputFor]="bccChipList" matChipInput separatorKeyCodes="[ENTER, COMMA]">
+              <mat-chip *ngFor="let bcc of bccEmails" [selectable]="true" [removable]="true" (removed)="removeBcc(bcc)">
+                {{ bcc }}
+                <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="height: 30px; margin-left: 115px; margin-bottom: 2px;" (click)="closePopup()">Add</button>
       </div>
+    </div>
+    
+    
+    
+    
     <div class="clientemail mt-0 ml-3">
       <label for="address" class="ml-0">Billing address</label>
       <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3"
@@ -256,7 +289,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -268,7 +301,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -280,7 +313,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -292,7 +325,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -304,7 +337,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -316,7 +349,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -328,7 +361,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       

@@ -6,6 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-invoice.component.scss']
 })
 export class CreateInvoiceComponent implements OnInit {
+submitForm() {
+throw new Error('Method not implemented.');
+}
+  showPopup: boolean = false;
+
+  togglePopup(event: Event): void {
+    event.preventDefault(); // Prevent the default link behavior
+    this.showPopup = !this.showPopup;
+  }
+
+  closePopup(): void {
+    this.showPopup = false;
+  }
 addRow() {
 throw new Error('Method not implemented.');
 }
