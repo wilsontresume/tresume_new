@@ -6,9 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-invoice.component.scss']
 })
 export class CreateInvoiceComponent implements OnInit {
-submitForm() {
-throw new Error('Method not implemented.');
-}
+  cookieService: any;
+  TraineeID: any;
+  service: any;
+  clients: any;
+
+OrgID: string = '';
   showPopup: boolean = false;
 
   togglePopup(event: Event): void {
@@ -19,9 +22,7 @@ throw new Error('Method not implemented.');
   closePopup(): void {
     this.showPopup = false;
   }
-addRow() {
-throw new Error('Method not implemented.');
-}
+
   selectedOption: string = '';
   showAdditionalInputs: boolean = false;
 showButtons: any;
@@ -34,6 +35,19 @@ showButtons: any;
     console.log('showAdditionalInputs:', this.showAdditionalInputs);
   }
   ngOnInit(): void {
+    this.OrgID= this.cookieService.get('OrgID');
+    this.fetchclientlist();
+    
+  }
+  fetchclientlist() {
+    let Req = {
+      TraineeID: this.TraineeID,
+      OrgID: this.OrgID,
+    };
+    this.service.getTimesheetClientList(Req).subscribe((x: any) => {
+      this.clients = x.result;
+      console.log(this.clients);
+    });
   }
 
 }
