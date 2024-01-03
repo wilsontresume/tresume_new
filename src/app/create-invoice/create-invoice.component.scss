@@ -78,4 +78,34 @@ body {
   .text-right {
     text-align: right;
   }
-  
+  .col-md-4{
+    margin-left: 13rem;
+  }
+  .balance{
+    margin-left: 39rem;
+  }
+  .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 320px;
+    height: 100%;
+    right: 0px;
+}
+.modal-content {
+    height: 100%;
+}
+.fixed-width-wrapper {
+  width: 40px; /* Adjust the width as per your design */
+}
+.arrow{
+  margin-left: 46rem;
+}
+.marg{
+  margin-left: 15px;
+}
+.fbtn{
+  margin: 10px;
+  padding: 5px;
+  width: 150px;
+  border-radius: 15px;
+}
