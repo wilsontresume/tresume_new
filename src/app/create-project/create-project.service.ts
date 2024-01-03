@@ -20,6 +20,10 @@ export class CreateProjectService {
         return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetCandidateList', request);
     }
 
+     getTimesheetClientList(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetClientList', request);
+    }
+
     fetchtimesheetcandidate(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetcandidate', request);
     }

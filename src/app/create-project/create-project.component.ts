@@ -19,10 +19,11 @@ export class CreateProjectComponent implements OnInit {
   // userlist: any;
   // allusers: any;
   // trainee: any;
-  
-  orgID: string;
-   clients: any;
-   project: any;
+
+  OrgID: string = '';
+  orgID: string = '';
+  clients: any;
+  project: any;
   showConfirmationDialog: any;
   addnewproject: FormGroup;
   ClientName: any;
@@ -53,6 +54,7 @@ export class CreateProjectComponent implements OnInit {
     });
     this.TraineeID = this.cookieService.get('TraineeID');
     this.orgID = this.cookieService.get('OrgID');
+    this.OrgID= this.cookieService.get('OrgID');
     this.fetchclientlist();
     //this.fetchgetProjectList();
     this.fetchcandidatelist();
@@ -61,8 +63,9 @@ export class CreateProjectComponent implements OnInit {
   fetchclientlist() {
     let Req = {
       TraineeID: this.TraineeID,
+      OrgID: this.OrgID,
     };
-    this.service.getTraineeClientList(Req).subscribe((x: any) => {
+    this.service.getTimesheetClientList(Req).subscribe((x: any) => {
       this.clients = x.result;
       console.log(this.clients);
     });
