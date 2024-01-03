@@ -109,3 +109,18 @@ body {
   width: 150px;
   border-radius: 15px;
 }
+.popup {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px; /* Adjust as needed */
+}
+
+.popup .popover {
+  display: block;
+  position: absolute;
+  bottom: -130%; /* Adjust to position the popover */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: 200px; /* Adjust width as needed */
+}

@@ -3,27 +3,55 @@
     <h2> CREATE INVOICE</h2>
     </div>
 <body>
-<div class="row mt-4">
+  <div class="row mt-4">
   <div class="col-md-6 d-flex">
-    <!-- Left side content -->
-    <div class="dropdown-container">
+    <div class="dropdown-container" style="margin-left: 16px;">
       <label for="client" class="dropdown-label ml-3">Client</label>
       <select id="client" class="form-control ml-3" style="width: 150px; height: 40px;">
         <option value="client1">Client 1</option>
         <option value="client2">Client 2</option>
         <option value="client3">Client 3</option>
-        <!-- Add more options as needed -->
       </select>
     </div>
-      <div class="clientemail mt-0 ml-3">
-        <label for="clientEmail" class="dropdown-label">Client Email</label>
-        
-          <a href="#" class="text-decoration-none" style="margin-left: 11px;">Cc(2)/Bcc</a>
-       
-        <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3"
-          style="width: 150px; height: 40px;">
-
+    <div class="clientemail mt-0 ml-3">
+      <label for="clientEmail" class="dropdown-label">Client Email</label>
+      <a href="#" class="text-decoration-none" style="margin-left: 11px;" (click)="togglePopup($event)">Cc(2)/Bcc</a>
+    
+      <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3"
+        style="width: 150px; height: 40px;">
+    </div>
+    
+    <div class="popup" *ngIf="showPopup" (clickOutside)="closePopup()">
+      <div class="popover bs-popover-bottom" role="tooltip" style="max-height: 550px; position: relative;">
+        <div class="close-icon" (click)="closePopup()" style="position: absolute; top: 5px; right: 5px; cursor: pointer;">
+          <i class="fas fa-times"></i>
+        </div>
+        <div class="popover-body" style="max-height: 500px; overflow-y: auto;">
+          <div class="form-group">
+            <label for="cc">Cc</label>
+            <mat-chip-list #ccChipList>
+              <input type="text" placeholder="Enter emails" [(ngModel)]="ccEmails" [matChipInputFor]="ccChipList" matChipInput separatorKeyCodes="[ENTER, COMMA]">
+              <mat-chip *ngFor="let cc of ccEmails" [selectable]="true" [removable]="true" (removed)="removeCc(cc)">
+                {{ cc }}
+                <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+          <div class="form-group">
+            <label for="bcc">Bcc</label>
+            <mat-chip-list #bccChipList>
+              <input type="text" placeholder="Enter emails" [(ngModel)]="bccEmails" [matChipInputFor]="bccChipList" matChipInput separatorKeyCodes="[ENTER, COMMA]">
+              <mat-chip *ngFor="let bcc of bccEmails" [selectable]="true" [removable]="true" (removed)="removeBcc(bcc)">
+                {{ bcc }}
+                <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="height: 30px; margin-left: 115px; margin-bottom: 2px;" (click)="closePopup()">Add</button>
       </div>
+    </div>
+    
     <div class="clientemail mt-0 ml-3">
       <label for="address" class="ml-0">Billing address</label>
       <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3"
@@ -80,7 +108,7 @@
         <option value="location2">Location 2</option>
         <option value="location3">Location 3</option>
       </select>
-    </div>
+    </div>  
   </div>
   <div class="fixed-width-wrapper">
     <div class="text-center">
@@ -112,7 +140,6 @@
           <p style="color: #999; font-style: italic;" >There aren't any billable items for that date range.</p>
           <div *ngIf="selectedOption === 'option3'">
             <div class="form-group mb-3">
-              <!-- Dropdown input -->
               <select class="form-control">
                 <option value="example1">Don't group time</option>
                 <option value="example2">Example 2</option>
@@ -120,11 +147,9 @@
               </select>
             </div>
             <div *ngIf="showAdditionalInputs" class="mb-3">
-              <!-- "Add all" button -->
               <button class="btn btn-primary" (click)="addAll()">Add all</button>
             </div>
             <div class="card-display mt-3">
-              <!-- Cards -->
               <div class="card mb-3">
                 <div class="card-body">
                   <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
@@ -144,7 +169,6 @@
                       <p class="card-text">Kivani kotecha</p>
                     </div>
                   </div>
-                  <!-- Button section -->
                   <div class="row mt-3">
                     <div class="col d-flex justify-content-between">
                       <button class="btn btn-primary">Add</button>
@@ -175,7 +199,6 @@
                       <p class="card-text">Kivani kotecha</p>
                     </div>
                   </div>
-                  <!-- Button section -->
                   <div class="row mt-3">
                     <div class="col d-flex justify-content-between">
                       <button class="btn btn-primary">Add</button>
@@ -184,10 +207,6 @@
                   </div>
                 </div>
               </div>
-              
-
-              
-              <!-- Add more cards as needed -->
             </div>
           </div>
         </div>
@@ -228,7 +247,7 @@
 </div>
 
 
-<div class="col-md-6 d-flex mt-3">
+<div class="col-md-6 d-flex mt-3" style="margin-left: 11px;">
   <table class="table table-bordered" style="width: 100%; max-width: 1000px;" >
     <thead>
       <tr>
@@ -246,7 +265,6 @@
     </thead>
     <tbody>
       
-      <!-- Rows -->
       <tr>
         <td></td>
         <td>1</td>
@@ -256,7 +274,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -268,7 +286,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -280,7 +298,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -292,7 +310,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -304,7 +322,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -316,7 +334,7 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
       <tr>
@@ -328,19 +346,15 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="link-symbol"><i class="fas fa-link"></i></a></td>
+        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
         <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
       </tr>
-      
-      <!-- End of 7 rows -->
     </tbody>
     <tfoot>
-    <!-- Subtotal row -->
     <tr style="border: none;">
       <td colspan="8" class="text-right">Subtotal</td>
       <td>$1,800.00</td>
     </tr>
-    <!-- Discount Percentage row -->
     <tr style="border: none;">
       <td colspan="8">
         <label for="discountPercentage" class="mb-0 d-block text-right">Discount Percentage</label><br> 
@@ -349,18 +363,15 @@
             <option>0%</option>
             <option>5%</option>
             <option>10%</option>
-            <!-- Add more options as needed -->
           </select>
         </div>  
       </td>
       <td>$0.00</td>
     </tr>
-    <!-- Total row -->
     <tr style="border: none;">
       <td colspan="8" class="text-right">Total</td>
       <td>$1,800.00</td>
     </tr>
-    <!-- Balance Due row -->
     <tr style="border: none;">
       <td colspan="8" class="text-right">Balance Due</td>
       <td>$1,800.00</td>
@@ -377,7 +388,6 @@
       </tr>  
       <div class="row">
         <div class="col-md-6">
-          <!-- Your existing Message on Invoice -->
           <div class="mt-4 mb-2 ml-3">
             <label for="invoice-message">Message on Invoice</label>
           </div>
@@ -387,8 +397,6 @@
       <p> ASTA CRS INC</p>
       <p>Mail check box</p>
           </div>
-      
-          <!-- Your existing Message on Attachment -->
           <div class="mt-4 mb-2 ml-3">
             <label for="invoice-message">Message on Attachment</label>
           </div>
@@ -397,8 +405,7 @@
           </div>
         </div>
       
-        <div class="col-md-4">
-          <!-- Payments Section -->
+        <!-- <div class="col-md-4">
           <div class="dropdown-container">
             <div class="payment-options mt-3">
               <div class="dropdown-container">
@@ -434,23 +441,19 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="row mt-3">
           <div class="d-flex">
-            <!-- Button for Add Lines -->
             <button class="btn btn-primary btn-block fbtn"  style="margin-left: 25px ;">Cancel</button>
           </div>
           <div class="d-flex">
-            <!-- Button for Copy -->
             <button class="btn btn-primary btn-block fbtn" style="margin-left: 21rem;">Print or Preview</button>
           </div>
           <div class="d-flex dropdown">
-            <!-- Dropdown for Save and New -->
             <button class="btn btn-primary dropdown-toggle fbtn" type="button" id="saveAndNewDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 25rem;">
               Save and New
             </button>
             <div class="dropdown-menu" aria-labelledby="saveAndNewDropdown">
-              <!-- Dropdown items -->
               <a class="dropdown-item" href="#">Save and close</a>
               <a class="dropdown-item" href="#">Save and send</a>
             </div>

@@ -211,10 +211,16 @@
                               <p>Create Project</p>
                             </a>
                           </li>
+                          <li class="nav-item" *ngIf="timesheetrole == 1">
+                            <a routerLink="/allclient/1" class=" nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Timesheet Clients</p>
+                            </a>
+                        </li>
                         </ul>
                       </li>
                     <li class="nav-item" *ngIf="checkFullAccess(7)">
-                        <a routerLink="/allclient" class=" nav-link">
+                        <a routerLink="/allclient/0" class=" nav-link">
                             <i class="nav-icon fas fa-users"></i>
                             <p> Clients</p>
                         </a>
