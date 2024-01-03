@@ -5,13 +5,16 @@
   </div>
   <div class="content p-3">
     <div class="row">
-      <div class="col-md-3 custom-select-wrapper">
-        <select class="form-select first-drpdwn" [(ngModel)]="selectedOption">
-          <option value="" disabled hidden>Who's time are you tracking?</option>
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </select>
+      <div class="input-group col-md-3">
+        <input type="text" class="form-control custom-input" [(ngModel)]="rowData.selectedValue" placeholder="Who's time are you tracking?">
+        <div class="input-group-append">
+          <i class="btn mt-0 border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false"></i>
+          <div class="dropdown-menu">
+            <a class="dropdown-item text-left" *ngFor="let item of dropdownOptions.items" [value]="item.value"
+              (click)="selectOption(rowData, item.value)">{{ item.label }}</a>
+          </div>
+        </div>
       </div>
       <div class="col-md-2">
         <input type="date" id="selectedDate" class="form-control" [min]="minDate" [max]="maxDate" #datePicker
@@ -38,76 +41,99 @@
     <tbody>
       <tr *ngFor="let row of rows; let i = index">
         <td>{{ i + 1 }}</td>
-       
-        
-<td>
-  <div class="form-group">
-    <div class="column">
-      <select class="table-data1">
-                            <option value="" selected hidden>{{ dropdownOptions1.placeholder }}</option>
-                            <option *ngFor="let item of dropdownOptions1.items" [value]="item.value">{{ item.label }}</option>
-      </select>
-      
-      <!-- <div class="container mt-4">
-        <div class="input-group">
-          <input type="text" class="form-control" [(ngModel)]="selectedValue" placeholder="Enter text">
-          <div class="input-group-append">
-            <i class="btn mt-0 border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false"></i>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" *ngFor="let item of dropdownOptions1.items" [value]="item.value" (click)="selectOption(option)">{{ item.label }}</a>
+
+        <td>
+          <div class="row">
+            <div class="input-group col-md-5">
+              <input type="text" class="form-control custom-input" [(ngModel)]="rowData1.selectedValue" placeholder="Choose a client or project">
+              <div class="input-group-append">
+                <i class="btn mt-0 border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false"></i>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" *ngFor="let item of dropdownOptions1.items" [value]="item.value"
+                    (click)="selectOption(rowData1, item.value)">{{ item.label }}</a>
+                </div>
+              </div>
+            </div>
+            <div class="input-group col-md-5">
+              <input type="text" class="form-control custom-input" [(ngModel)]="rowData2.selectedValue" placeholder="Select Pay item">
+              <div class="input-group-append">
+                <i class="btn mt-0 border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false"></i>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" *ngFor="let item of dropdownOptions2.items" [value]="item.value"
+                    (click)="selectOption(rowData2, item.value)">{{ item.label }}</a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div> -->
-      
-      <select class="table-data">
-                            <option value="" selected hidden>{{ dropdownOptions3.placeholder }}</option>
-                            <option *ngFor="let item of dropdownOptions3.items" [value]="item.value">{{ item.label }}</option>
-      </select>
 
-      <textarea [(ngModel)]="row.textarea" placeholder="Description"></textarea>
+          <div class="row">
+            <div class="input-group col-md-5">
+              <input type="text" class="form-control custom-input" [(ngModel)]="rowData3.selectedValue" placeholder="Choose the service worked on">
+              <div class="input-group-append">
+                <i class="btn mt-0 border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false"></i>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" *ngFor="let item of dropdownOptions3.items" [value]="item.value"
+                    (click)="selectOption(rowData3, item.value)">{{ item.label }}</a>
+                </div>
+              </div>
+            </div>
 
-        <label for="file1" class="file-label">
-          <i class="fa fa-upload"></i> Client Approved
-        </label>
-        <input type="file" id="file1" class="form-control-file visually-hidden" (change)="onFileSelected($event, 'file1')">
+            <div class="input-group col-md-5">
+              <input type="text" class="form-control custom-input" [(ngModel)]="rowData4.selectedValue" placeholder="Choose a location">
+              <div class="input-group-append">
+                <i class="btn mt-0 border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false"></i>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" *ngFor="let item of dropdownOptions4.items" [value]="item.value"
+                    (click)="selectOption(rowData4, item.value)">{{ item.label }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    </div>
 
-    <div class="column">
-      <select class="table-data">
-                            <option value="" selected hidden>{{ dropdownOptions2.placeholder }}</option>
-                            <option *ngFor="let item of dropdownOptions2.items" [value]="item.value">{{ item.label }}</option>
-      </select>
+          <div class="row">
+            <div class="col-md-5">
+              <textarea [(ngModel)]="row.textarea" class="custom-input p-2" placeholder="Description"></textarea>
+            </div>
+            <div class="col-md-5">
+              <div class="checkbox-group">
+                <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.checkbox">
+                <label for="myCheckbox" class="mt-2">Billable(/hr) $</label>
+                <input class="bill-Amt ml-1" type="number" style="width: 60px;padding: 5px;" [(ngModel)]="row.input">
+              </div>
+            </div>
+          </div>
 
+          <div class="row">
+            <div class="col-md-5">
+              <label for="file1" class="file-label">
+                <i class="fa fa-upload"></i> Client Approved
+              </label>
+              <input type="file" id="file1" class="form-control-file visually-hidden"
+                (change)="onFileSelected($event, 'file1')">
+            </div>
+            <div class="col-md-5">
+              <label for="file2" class="file-label">
+                <i class="fa fa-upload"></i> Status Report
+              </label>
+              <input type="file" id="file2" class="form-control-file visually-hidden"
+                (change)="onFileSelected($event, 'file2')">
+            </div>
+          </div>
 
-      <select class="table-data">
-                            <option value="" selected hidden>{{ dropdownOptions4.placeholder }}</option>
-                            <option *ngFor="let item of dropdownOptions4.items" [value]="item.value">{{ item.label }}</option>
-      </select>
-  
-      <div class="checkbox-group">
-        <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.checkbox">
-        <label for="myCheckbox" class="mt-2">Billable(/hr) $</label>
-        <input class="bill-Amt ml-1" type="number" style="width: 60px;" [(ngModel)]="row.input">
-      </div>
-	<label for="file2" class="file-label">
-          <i class="fa fa-upload"></i> Status Report
-        </label>
-        <input type="file" id="file2" class="form-control-file visually-hidden" (change)="onFileSelected($event, 'file2')" >
-      </div>
-   
-  </div>
-</td>
-        
-        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input1"></td>
-        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input2"></td>
-        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input3"></td>
-        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input4"></td>
-        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input5"></td>
-        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input6"></td>
-        <td> <input type="number" style="width: 50px;" [(ngModel)]="row.input7"></td>
+        </td>
+
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input1"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input2"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input3"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input4"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input5"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input6"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input7"></td>
         <td></td>
         <td><i class="fa fa-trash" (click)="deleteRow(i)"></i></td>
       </tr>
@@ -125,7 +151,7 @@
     <div class="col-md-4 text-center">
       <button>Copy</button>
     </div>
-      
+
     <div class="col-md-4 text-right">
       <button>Save</button>
     </div>

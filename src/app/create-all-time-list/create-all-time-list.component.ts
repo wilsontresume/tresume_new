@@ -32,48 +32,46 @@ export class CreateAllTimeListComponent implements OnInit {
       this[fileIdentifier] = fileList[0];
     }
   }
+
+  rows: any[] = [
+    { 
+      selectedValue: '',
+      description: '', 
+      checkbox: false, 
+      billableAmount: 0,
+    },
+
+  ];
+
   
-  selectedOption: string = '';
-  selectOption1: string = '';
-  // row = { selectOption1: '', selectOption2: '' };
+  rowData = { selectedValue: '' };
+  dropdownOptions = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
 
-  dropdownOptions1 = {
-    placeholder: "Choose a client or project",
-    items: [
-      { value: 'A1', label: 'Option A1' },
-      { value: 'B1', label: 'Option B1' },
-      { value: 'C1', label: 'Option C1' },
-    ]
-  };
 
-  dropdownOptions2 = {
-    placeholder: "Select pay item",
-    items: [
-      { value: 'A2', label: 'Option A2' },
-      { value: 'B2', label: 'Option B2' },
-      { value: 'C2', label: 'Option C2' },
-    ]
-  };
+  rowData1 = { selectedValue: '' };
+  dropdownOptions1 = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
 
-  dropdownOptions3 = {
-    placeholder: "Choose the service worked on",
-    items: [
-      { value: 'A3', label: 'Option A3' },
-      { value: 'B3', label: 'Option B3' },
-      { value: 'C3', label: 'Option C3' },
-    ]
-  };
-
-  dropdownOptions4 = {
-    placeholder: "Choose a location",
-    items: [
-      { value: 'A4', label: 'Option A4' },
-      { value: 'B4', label: 'Option B4' },
-      { value: 'C4', label: 'Option C4' },
-    ]
-  };
  
-  constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService) {
+  rowData2 = { selectedValue: '' };
+  dropdownOptions2 = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
+
+
+  rowData3 = { selectedValue: '' };
+  dropdownOptions3 = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
+
+ 
+  rowData4 = { selectedValue: '' };
+  dropdownOptions4 = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
+
+ 
+
+  selectOption(row: { selectedValue: string }, value: string): void {
+    row.selectedValue = value;
+  }
+
+
+
+  constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService) {
 
   }
 
@@ -98,73 +96,6 @@ export class CreateAllTimeListComponent implements OnInit {
     }
   }
 
-  // addRow() {
-  //   const row = this.formBuilder.group({
-  //     project: ['', Validators.required],
-  //     sunHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     monHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     tueHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     wedHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     thuHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     friHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     satHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     comments: [''],
-  //     totalHours: ['']
-  //   });
-
-  //   this.timesheetData.push(row);
-  // }
-
-  // removeRow(index: number) {
-  //   if (index >= 0 && index < this.timesheetData.length) {
-  //     this.timesheetData.splice(index, 1);
-  //   }
-  // }
-
-  // async saveTimesheet() {
-  //   const formData = new FormData();
-  //   if (this.CAselectedFile) {
-  //     formData.append('CAfile', this.CAselectedFile, this.CAselectedFile.name);
-  //   }
-  //   if (this.SRselectedFile) {
-  //     formData.append('SRfile', this.SRselectedFile, this.SRselectedFile.name);
-  //   }
-  //   formData.append('timesheetData', JSON.stringify(this.timesheetData));
-  
-  //   try {
-  //     const response = await this.Service.createTimesheet(formData).toPromise();
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error('An error occurred:', error);
-  //   }
-  // }
-
-  // cancel() {
-  //   this.timesheetData = [];
-  //   this.CAselectedFile = null;
-  //   this.SRselectedFile = null;
-  //   this.addRow();
-  //   this.selectedSunday = '';
-  //   this.isSundaySelected = false;
-  //   this.router.navigate(['/all-time-list']).catch((error) => {
-  //     console.error('Navigation error:', error);
-  //   });
-  // }
-
-  // onFileSelected(event: Event, Type: string) {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   if (Type === "1") {
-  //     if (inputElement.files) {
-  //       this.CAselectedFile = inputElement.files[0];
-  //     }
-  //   } else {
-  //     if (inputElement.files) {
-  //       this.SRselectedFile = inputElement.files[0];
-  //     }
-  //   }
-  // }
-
-  rows: any[] = [];
 
 
 
@@ -186,12 +117,7 @@ export class CreateAllTimeListComponent implements OnInit {
      
     });
   }
- selectedValue: string = '';
-  dropdownOptions: string[] = ['Option 1', 'Option 2', 'Option 3'];
 
-  selectOption(option: string) {
-    this.selectedValue = option;
-  }
   deleteRow(index: number): void {
     this.rows.splice(index, 1);
     this.updateSerialNumbers();
@@ -212,4 +138,5 @@ export class CreateAllTimeListComponent implements OnInit {
     this.addRow(selectOption1, selectOption2, selectOption3, selectOption4, textarea, checkbox, input1, input2, input3, input4, input5, input6, input7, );
   }
  
+
 }

@@ -3,9 +3,7 @@ body {
   padding: 0;
   font-family: 'Arial', sans-serif;
 }
-select{
-  margin-bottom: 5px;
-}
+
 .container-fluid {
   width: 100%;
   box-sizing: border-box;
@@ -18,24 +16,6 @@ table{
   background-color: #f0f0f0;
 }
 
-.first-drpdwn{
-  height: 37px;
-  width: 230px;
-  border:  1px solid #d9d3d3;
-  font-family: 'Open Sans', sans-serif;
-  font-style: italic;
-}
-.table-data{
-  width: 230px;
-  padding: 4px;
-  border:  1px solid #d9d3d3;
-}
-.table-data1{
-  width: 200px;
-  padding: 4px;
-  border:  1px solid #d9d3d3;
-  font-family: 'Open Sans', sans-serif;
-}
 td{
   padding: 5px;
   border-left: 1px solid #d9d3d3;
@@ -43,9 +23,8 @@ td{
 }
 textarea{
   padding: 5px;
-  margin-bottom: 5px;
   border:  1px solid #d9d3d3;
-  width: 230px;
+  width: 280px;
   height: 50px;
 }
 th{
@@ -60,13 +39,17 @@ tr{
 i{
   cursor: pointer;
   color: #b3adad;
-}
-input{
-  border-radius: 1px;
-  border:  1px solid #d9d3d3;
-  padding: 3px;
+  border-radius: 0;
+  // border: none;
 }
 
+input{
+  border-radius: 0;
+  border:  1px solid #d9d3d3;
+}
+a{
+  cursor: pointer;
+}
 button{
   margin: 10px;
   padding: 5px;
@@ -87,12 +70,7 @@ button{
   border: 0;
 }
 
-.file-label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 5px;
-}
+
 
 .file-label i {
   margin-right: 5px;
@@ -100,23 +78,9 @@ button{
 
 .file-label{
   margin-right: 6px;
-  width: 230px;
+  width: 280px;
   border: none;
   outline: none;
-}
-label{
-  font-weight: none;
-}
-
-
-.form-group {
-  display: flex;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  margin-right: 20px; 
 }
 
 .checkbox-group {
@@ -124,27 +88,28 @@ label{
   align-items: center;
   margin-top: 10px;
 }
-
+input[type="checkbox"]{
+  cursor: pointer;
+}
 .checkbox {
   margin-right: 5px;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   border: 1px solid #d9d3d3;
   outline: none;
 }
-.file-group {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-}
-
 .file-label {
-  display: flex;
   align-items: center;
   cursor: pointer;
   padding: 5px;
-  width: 230px;
   border: 1px solid #d9d3d3;
-  margin-right: 6px;
 }
-
+.row{
+  margin-bottom: 10px;
+}
+.custom-input::placeholder {
+  color: #999; 
+  font-style: italic;
+  font-family: "Gill Sans", sans-serif;
+  font-size: 15px;
+}

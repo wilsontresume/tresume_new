@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable()
 
@@ -14,6 +15,11 @@ export class CreateAllTimeListService {
     createTimesheet(data: any) {
       return this.http.post(this.endpoint, data);
     }
+
+    getTimesheetClientList(request: any): Observable<ResponseDetails> {
+      return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetClientList', request);
+  }
+
 }
 export interface ResponseDetails {
     flag?: any;
