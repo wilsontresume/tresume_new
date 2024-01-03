@@ -17,8 +17,8 @@ export class TimesheetListService {
         return this.http.post<ResponseDetails>(this.endpoint + 'deleteUserAccount', request);
     }
 
-    getTimesheetClientList(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetClientList', request);
+    getAllTimeList(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getAllTimeList', request);
     }
    
     

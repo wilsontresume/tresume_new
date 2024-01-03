@@ -16,6 +16,8 @@ export class CreateAllTimeListComponent implements OnInit {
 
 
   // timesheetData: any[];
+  clients: any;
+  OrgID: string;
   minDate: string;
   maxDate: string;
   selectedSunday: string = '';
@@ -25,6 +27,23 @@ export class CreateAllTimeListComponent implements OnInit {
   [key: string]: any;
   file1: File | null = null;
   file2: File | null = null;
+
+
+  selectSunday(selectedDate: string) {
+    const selectedDateObj = new Date(selectedDate);
+    const dayOfWeek = selectedDateObj.getDay();
+    if (dayOfWeek === 0) {
+      this.selectedSunday = selectedDate;
+      this.isSundaySelected = true;
+    } else {
+      const previousSunday = new Date(selectedDateObj);
+      previousSunday.setDate(selectedDateObj.getDate() - dayOfWeek);
+      const formattedDate = previousSunday.toISOString().split('T')[0];
+      this.selectedSunday = formattedDate;
+      this.isSundaySelected = true;
+    }
+  }
+
 
   onFileSelected(event: any, fileIdentifier: string): void {
     const fileList: FileList = event.target.files;
@@ -79,24 +98,24 @@ export class CreateAllTimeListComponent implements OnInit {
     this.addRowWithValues('option1', 'option2', 'option3', 'option4', '','','', '', '', '', '', '', '' );
     this.addRowWithValues('option1', 'option2', 'option3', 'option4','','', '', '', '', '', '', '', '' );
     this.addRowWithValues('option1', 'option2', 'option3', 'option4','','', '', '', '', '', '', '', '' );
+
+    this.OrgID= this.cookieService.get('OrgID');
+    this.fetchclientlist();
   }
 
-  selectSunday(selectedDate: string) {
-    const selectedDateObj = new Date(selectedDate);
-    const dayOfWeek = selectedDateObj.getDay();
-    if (dayOfWeek === 0) {
-      this.selectedSunday = selectedDate;
-      this.isSundaySelected = true;
-    } else {
-      const previousSunday = new Date(selectedDateObj);
-      previousSunday.setDate(selectedDateObj.getDate() - dayOfWeek);
-      const formattedDate = previousSunday.toISOString().split('T')[0];
-      this.selectedSunday = formattedDate;
-      this.isSundaySelected = true;
-    }
+  
+
+  fetchclientlist() {
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.getTimesheetClientList(Req).subscribe((x: any) => {
+      this.clients = x.result;
+      console.log(this.clients);
+    });
   }
 
-
+  
 
 
   addRow( selectOption1?: string, selectOption2?: string, selectOption3?: string, selectOption4?: string,textarea?: string, checkbox?: string,input?:string, input1?: string, input2?: string, input3?: string, input4?: string, input5?: string, input6?: string, input7?: string): void {
