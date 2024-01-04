@@ -488,11 +488,11 @@
       <!-- placement -->
       <mat-tab label="Placement" class="mt-5" *ngIf="routeType == 1">
         <div class="row">
-          <div class="col-md-3 mt-3">
+          <!-- <div class="col-md-3 mt-3">
             <button class="btn" (click)="exportToExcel()">Email Placement Tracker</button>
-          </div>
+          </div> -->
           
-          <div class="col-md-9 mt-3 text-right">
+          <div class="col-md-12 mt-3 text-right">
             <button class="btn" [routerLink]="['/candidateView/'+candidateID+'/create']" routerLinkActive="active">Add</button>
           </div>
         </div>
@@ -685,9 +685,9 @@
                   <textarea class="form-control" id=" FinancialNotes" rows="4" formControlName=" FinancialNotes"></textarea>
                 </div>
               </div>
-              <div class="col-md-4 text-center top-titles" *ngIf="routeType == 1">
+              <!-- <div class="col-md-4 text-center top-titles" *ngIf="routeType == 1">
                 <button type="button" class="btn">Email Recruitment Tracker</button>
-              </div>
+              </div> -->
               <div class="col-md-4 top-titles">
                 <div class="form-group">
                   <div class="form-check form-check-inline">
@@ -918,11 +918,11 @@
         </div>
       </mat-tab>
 
-      <mat-tab label="Site Visit" class="mt-5" *ngIf="routeType == 1">
+      <!-- <mat-tab label="Site Visit" class="mt-5" *ngIf="routeType == 1">
         <ng-template matTabContent>
           <app-sitevisit [candidateId]="44267"></app-sitevisit>
       </ng-template>
-      </mat-tab>
+      </mat-tab> -->
     </mat-tab-group>
     <div class="parent-container">
       <button class="btn btn1 mt-3 mb-3" id="saveButton" (click)="saveData()" style="margin-left: auto; margin-right: 20px;">{{ saveButtonLabel }}</button>
