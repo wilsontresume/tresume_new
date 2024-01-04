@@ -56,9 +56,10 @@ export class ReviewTresumeComponent implements OnChanges {
   division: any;
   OrgID: string;
 userName: string;
-tabIndex:number = 0;
+tabIndex: any;
   routeType: any;
   title: any;
+
   siteVisitTabClicked() {
     console.log('Additional logic for Site Visit tab click');
   }
@@ -279,13 +280,12 @@ tabIndex:number = 0;
     this.service.insertSubmissionInfo(Req).subscribe(
       (x: any) => {
         this.handleSuccess(x);
-
+        this.getSubmissionList();
       },
       (error: any) => {
         this.handleError(error);
       }
     );
-    
   }
 
   saveFinancialInfoFormData() {
@@ -331,7 +331,6 @@ tabIndex:number = 0;
         this.handleError(error);
       }
     );
-    
   }
 
   saveSiteVisitFormData() {
@@ -347,6 +346,28 @@ tabIndex:number = 0;
       this.tabIndex = tabIndex;
       this.saveButtonLabel = `Save ${tabLabels[tabIndex]}`;
       this.router.navigate(['/reviewtresume/'+this.routeType+'/'+this.candidateID+'/'+tabIndex]);
+    }
+
+    this.currentTabIndex = tabIndex;
+    switch (tabIndex) {
+      case 0:
+        this.fetchCandidateInfo();
+        this.getOrgUserList();
+        break;
+      case 1:
+        this.fetchinterviewlist();
+        break;
+      case 2:
+        this.getPlacementList();
+        break;
+      case 3:
+        this.getSubmissionList();
+        break;
+      case 4:
+        this.fetchCandidateInfo();
+        break;
+      default:
+        break;
     }
   }
 
@@ -384,7 +405,7 @@ tabIndex:number = 0;
   submissionList:any;
 
 
-  constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService, private router:Router) {
+  constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService, private router:Router, ) {
     
     this.candidateID = this.route.snapshot.params["traineeID"];
     console.log(this.candidateID);
@@ -393,17 +414,18 @@ tabIndex:number = 0;
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
     this.routeType = this.route.snapshot.params["routeType"];
+    this.onTabChange(parseInt(this.tabIndex));
+
    }
 
   ngOnInit(): void {
-    this.fetchinterviewlist();
-    this.getPlacementList();
-    this.fetchCandidateInfo();
-    this.getSubmissionList() ;
-    this.getOrgUserList();
+    // this.fetchinterviewlist();
+    // this.getPlacementList();
+    // this.fetchCandidateInfo();
+    // this.getSubmissionList() ;
+    // this.getOrgUserList();
     this.currentTabIndex = this.tabIndex;
     
-
     this.FormGeneral = this.formBuilder.group({
       phoneNumberG: ['', [Validators.required]],
       generalEmail: ['', [Validators.required]],
@@ -425,7 +447,6 @@ tabIndex:number = 0;
       otherNotes: [''],
       division: [''],
       dob: [''],
-
     });
     
     this.myForm = this.formBuilder.group({
@@ -478,8 +499,26 @@ tabIndex:number = 0;
       howMuch: [''],
       routingnum1: [''],
       routingnum2: [''],
+      
+      
     });
 
+    
+
+  // Email Tracker T-1
+  // async function emailPlacementTracker() {
+  //   try {
+  //     // Assuming you have the user's email, replace 'user@email.com' with the actual user's email
+  //     const userEmail: string = 'user@email.com';
+
+  //     const response: Response = await fetch('/email-placement-tracker?email=' + encodeURIComponent(userEmail));
+  //     const result: string = await response.text();
+
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // }
 
 
     // this.disableFormGroup(this.myFormFinancial);
@@ -493,6 +532,41 @@ tabIndex:number = 0;
     
   }
 
+  // private convertToCSV(data: any[]): string {
+  //   const header = Object.keys(data[0]).join(',') + '\n';
+  //   const rows = data.map(row => Object.values(row).join(',') + '\n');
+  //   return header + rows.join('');
+  // }
+
+  // exportToExcel() {
+  //   const data = this.placementList.map(placement => ({
+  //     POStartDate: placement.POStartDate,
+  //     POEndDate: placement.POEndDate,
+  //     PositionTitle: placement.PositionTitle,
+  //     MarketerFirstName: placement.MarketerFirstName,
+  //     ClientName: placement.ClientName,
+  //     VendorName: placement.VendorName,
+  //     ClientAddress: placement.ClientAddress,
+  //   }));
+  
+  //   // Convert data to CSV format
+  //   const csvData = this.convertToCSV(data);
+  
+  //   // Create Blob and download
+  //   const blob = new Blob([csvData], { type: 'text/csv' });
+  //   const url = window.URL.createObjectURL(blob);
+  
+  //   const a = document.createElement('a');
+  //   a.href = url;
+  //   a.download = 'placement_data.csv';
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   document.body.removeChild(a);
+  
+  // }
+  
+  
+  
   disableGeneralFields() {
     Object.keys(this.FormGeneral.controls).forEach(controlName => {
       this.FormGeneral.get(controlName)?.disable();
@@ -842,5 +916,6 @@ tabIndex:number = 0;
       this.experiences.splice(index, 1);
     }
   }
+
 
 }
