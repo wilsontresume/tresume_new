@@ -118,7 +118,7 @@ tabIndex:number = 0;
   ssn: string = '';
   showSSN: boolean = false;
   inputDisabled: boolean = true;
-
+  loading:boolean = false;
   startShowingSSN() {
     this.showSSN = true;
     this.inputDisabled = false;
@@ -137,6 +137,7 @@ tabIndex:number = 0;
   siteVisitFormData: any = {};
 
   saveData() {
+    this.loading = true;
     switch (parseInt(this.currentTabIndex)) {
       case 0:
         this.saveGeneralFormData();
@@ -205,11 +206,13 @@ tabIndex:number = 0;
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
+    this.loading = false;
     this.fetchinterviewlist();
   }
   
   private handleError(response: any): void {
     this.messageService.add({ severity: 'error', summary:  response.message });
+    this.loading = false;
   }
 
   saveInterviewFormData() {
