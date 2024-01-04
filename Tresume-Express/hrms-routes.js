@@ -345,8 +345,7 @@ router.post('/getPlacementList', async (req, res) => {
     ISNULL(P.CurrentPlacement, '1') AS CurrentPlacement,
     ISNULL(P.BillRate, '') AS BillRate,
     ISNULL(P.BillType, '') AS BillType,
-    ISNULL(T.FirstName, '0') AS MarketerFirstName,
-	ISNULL(T.LastName, '0') AS MarketerFirstName,
+    CONCAT(T.FirstName, ' ', T.LastName) AS MarketerFirstName,
     ISNULL(P.ClientState, '') AS ClientState,
     ISNULL(CONVERT(NVARCHAR(10), P.StartDate, 101), '') AS StartDate1,
     ISNULL(CONVERT(NVARCHAR(10), P.EndDate, 101), '') AS EndDate1,
@@ -814,6 +813,218 @@ router.post('/checkEmail', async function (req, res) {
     await sql.close();
   }
 });
+
+
+// Email Tracker Trail 
+
+// Function to send email
+  // async function sendEmail(attachment,type) {
+  //   const transporter = nodemailer.createTransport({
+  //       port: 465,
+  //       host: "smtp.mail.yahoo.com",
+  //       auth: {
+  //         user: "support@tresume.us",
+  //         pass: "xzkmvglehwxeqrpd",
+  //       },
+  //       secure: true,
+  //     });
+
+  // const today = new Date();
+  // const month = String(today.getMonth() + 1).padStart(2, '0'); 
+  // const day = String(today.getDate()).padStart(2, '0');
+  // const year = today.getFullYear();
+
+  // const formattedDate = `${month}/${day}/${year}`;
+
+  // if(type == 1){
+  // var subject = 'DSR Report for '+formattedDate
+  // var text = 'Please find the attached DSR report for '+formattedDate
+  // var filename = 'DSRreport.xlsx';
+  // }
+  // if(type == 2){
+  //   var subject = 'Last Week Interview Report'
+  //   var text = 'Please find the attached Interview report for last week'
+  //   var filename = 'Interview.xlsx'
+  // }
+  // if(type == 3){
+  //   var subject = 'Last Month Placement Report'
+  //   var text = 'Please find the attached Placement report for last Month'
+  //   var filename = 'Placement.xlsx'
+  // }
+  // const mailOptions = {
+  //   from: 'support@tresume.us',
+  //   to: 'tul@astacrs.com',
+  //   bcc:'wilson.am@tresume.us',
+  //   subject: subject,
+  //   text: text,
+  //   attachments: [
+  //     {
+  //       filename: filename,
+  //       content: attachment
+  //     }
+  //   ]
+  // };
+
+  // try {
+  //   await transporter.sendMail(mailOptions);
+  //   console.log('Email sent successfully!');
+  // } catch (err) {
+  //   throw new Error(err);
+  // }
+  // }
+
+  // router.get('/generate-placement-report', async (req, res) => {
+  //   try {
+  //     const data = await executePlacementQuery();
+  //     const excelBuffer = await generateExcel(data);
+  //     await sendEmail(excelBuffer,3);
+  //     res.send('Excel report generated and email sent!');
+  //   } catch (err) {
+  //     res.status(500).send('Error generating report or sending email.');
+  //   }
+  // });
+
+  // async function executePlacementQuery() {
+  //   try {
+  //     await sql.connect(config);
+  //     const result = await sql.query(`
+  //     SELECT 
+  //     TI.TraineeInterviewID,
+  //     CONCAT(T.FirstName, ' ', T.LastName) AS CandidateName,
+  //     CONCAT(R.FirstName, ' ', R.LastName) AS Recruiter,
+  //     TI.InterviewDate,
+  //     TI.InterviewStatus,
+  //     TI.Assistedby,
+  //     TI.TypeofAssistance,
+  //     TI.VendorName,
+  //     TI.ClientName,
+  //     TI.Notes,
+  //     TI.CreateTime
+  // FROM 
+  //     TraineeInterview TI
+  // INNER JOIN 
+  //     Trainee T ON TI.TraineeID = T.TraineeID
+  // INNER JOIN 
+  //     Trainee R ON TI.RecruiterID = R.TraineeID
+  // WHERE 
+  //     TI.Active = 1 
+  //     AND TI.InterviewDate >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()) - 1, 0)
+  //     AND TI.InterviewDate < DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0) 
+  //     AND R.OrganizationID = 9
+  //     `);
+  //     return result.recordset;
+  //   } catch (err) {
+  //     throw new Error(err);
+  //   }
+  // }
+
+
+ 
+// async function generatePlacementExcel(data) {
+//   const workbook = new exceljs.Workbook();
+//   const worksheet = workbook.addWorksheet('Placement Report');
+  
+//   const columns = Object.keys(data[0]);
+//   worksheet.columns = columns.map(column => ({ header: column, key: column }));
+  
+//   data.forEach(row => {
+//     worksheet.addRow(row);
+//   });
+  
+//   const buffer = await workbook.xlsx.writeBuffer();
+//   return buffer;
+// }
+
+// async function sendPlacementEmail(attachment, userEmail) {
+//   const transporter = nodemailer.createTransport({
+//     port: 465,
+//     host: "smtp.mail.yahoo.com",
+//     auth: {
+//       user: "support@tresume.us",
+//       pass: "xzkmvglehwxeqrpd",
+//     },
+//     secure: true,
+//   });
+  
+//   const today = new Date();
+//   const formattedDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+  
+//   const subject = 'Placement Report for ' + formattedDate;
+//   const text = 'Please find the attached Placement report for ' + formattedDate;
+//   const filename = 'PlacementReport.xlsx';
+  
+//   const mailOptions = {
+//     from: 'support@tresume.us',
+//     to: userEmail,
+//     bcc: 'wilson.am@tresume.us',
+//     subject: subject,
+//     text: text,
+//     attachments: [
+//       {
+//         filename: filename,
+//         content: attachment,
+//       },
+//     ],
+//   };
+  
+//   try {
+//     await transporter.sendMail(mailOptions);
+//     console.log('Placement Email sent successfully!');
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// }
+
+// router.get('/emailplacementtracker', async (req, res) => {
+//   try {
+//     const placementData = await executePlacementQuery();
+//     const placementExcelBuffer = await generatePlacementExcel(placementData);
+  
+//     // Get the user email from the request (you need to pass the user email somehow)
+//     const userEmail = req.query.email; // Example: req.query.email
+  
+//     await sendPlacementEmail(placementExcelBuffer, userEmail);
+//     res.send('Placement Excel report generated and email sent!');
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Error generating Placement report or sending email.');
+//   }
+// });
+
+// async function executePlacementQuery() {
+//   try {
+//     await sql.connect(config);
+//     const result = await sql.query(`
+//       SELECT 
+//         TI.TraineeInterviewID,
+//         CONCAT(T.FirstName, ' ', T.LastName) AS CandidateName,
+//         CONCAT(R.FirstName, ' ', R.LastName) AS Recruiter,
+//         TI.InterviewDate,
+//         TI.InterviewStatus,
+//         TI.Assistedby,
+//         TI.TypeofAssistance,
+//         TI.VendorName,
+//         TI.ClientName,
+//         TI.Notes,
+//         TI.CreateTime
+//       FROM 
+//         TraineeInterview TI
+//       INNER JOIN 
+//         Trainee T ON TI.TraineeID = T.TraineeID
+//       INNER JOIN 
+//         Trainee R ON TI.RecruiterID = R.TraineeID
+//       WHERE 
+//         TI.Active = 1 
+//         AND TI.InterviewDate >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()) - 1, 0)
+//         AND TI.InterviewDate < DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0) 
+//         AND R.OrganizationID = 9
+//     `);
+//     return result.recordset;
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// }
+
 
 module.exports = router;
  
