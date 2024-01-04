@@ -558,7 +558,7 @@ router.post('/createtimesheetproject', async (req, res) => {
       orgID
     } = req.body;
 
-    const query = `INSERT INTO TableName (ProjectName, Billable, ClientName, Candidates, SelectedCandidate, StartDate, EndDate) VALUES ('${ProjectName}', '${Billable}', '${ClientName}', '${Candidates}', '${SelectedCandidate}', '${StartDate}', '${EndDate}','${TraineeID}','${orgID}')`;
+    const query = `INSERT INTO timesheet_project (Projectname, clientid, netterms, status, createdby, createdate, orgid, billableamt, startdate, enddate, candidate) VALUES ('${req.body.Projectname}', '${req.body.clientid}', '','1','${req.body.createdby}',(SELECT CAST(GETDATE() AS DATE)), '${req.body.orgid}', '${req.body.billableamt}', '${req.body.startdate}', '${req.body.enddate}','${req.body.candidate}')`;
 
     console.log(query);
     const recordset = await request.query(query);
@@ -585,6 +585,58 @@ router.post('/createtimesheetproject', async (req, res) => {
   }
 });
 
+router.post('/getProjectList', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    
+    const query =  "SELECT tp.projectid, tp.Projectname, c.ClientName, tp.startdate, tp.enddate FROM timesheet_project tp JOIN clients c ON tp.clientid = c.ClientID WHERE tp.orgid = '"+req.body.orgid+ "' AND tp.status = 1;";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active projects found!",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching project data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching project data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+router.post("/deleteProject", async (req, res) => {
+  try {
+   
+    await sql.connect(config);
+    const query =
+      "UPDATE timesheet_project SET status = 0 WHERE projectid =  '"+req.body.projectid+"' ";
+
+    const request = new sql.Request();
+
+    const result = await request.query(query);
+
+    await sql.close();
+
+    res.json({ message: "Project Removed Successfully" });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 // router.post('/createTimesheet', async (req, res) => {
 //   sql.connect(config, function (err) {
