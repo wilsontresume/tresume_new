@@ -5,1011 +5,288 @@
                 <h2 class="ml-3 mt-4">ADD CLIENT</h2>
             </div>
         </div>
+        <div class="mt-3">
+            <form [formGroup]="addClient">
+                <h2 class="text-center"><u>BUSINESS INFORMATION</u>
+                </h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Client Name *</label>
+                            <input name="ClientName" type="text" maxlength="500" id="ClientName" class="form-control"
+                                placeholder="Client Name" formControlName="ClientName"
+                                [ngClass]="{ 'invalid-input': addClient.get('ClientName').invalid && addClient.get('ClientName').touched }">
+                            <div *ngIf="addClient.get('ClientName').invalid && addClient.get('ClientName').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please enter valid Client.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>VMS Client Name</label>
+                            <input name="VMSClientName" type="text" maxlength="500" id="VMSClientName"
+                                class="form-control" placeholder="VMS Client Name" formControlName="VMSClientName">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Federal ID</label>
+                            <input name="FederalID" type="text" maxlength="500" id="FederalID"
+                                formControlName="FederalID" class="form-control" placeholder="Federal ID">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Contact Number *</label>
+                            <input name="ContactNumber" type="tel" maxlength="10" id="ContactNumber"
+                                class="form-control" placeholder="Contact Number" onkeypress=""
+                                formControlName="ContactNumber"
+                                [ngClass]="{ 'invalid-input': addClient.get('ContactNumber').invalid && addClient.get('ContactNumber').touched }">
+                            <div *ngIf="addClient.get('ContactNumber').invalid && addClient.get('ContactNumber').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please enter valid Contact Number.
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="mt-5">
-            <ul class="nav nav-tabs" id="myTabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="basicInfoTab" data-toggle="tab" href="#basicInfo" role="tab"
-                        aria-controls="basicInfo" aria-selected="true">Basic Info</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" id="contactsTab" data-toggle="tab" href="#contacts" role="tab"
-                        aria-controls="contacts" aria-selected="false">Contacts</a>
-                </li> -->
-            </ul>
-            <div class="tab-content1">
-                <form [formGroup]="addClient">
-                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel"
-                        aria-labelledby="basicInfoTab">
-                        <h2 class="text-center"><u>BUSINESS INFORMATION</u></h2>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>Client Name *</label>
-                                    <input name="ClientName" type="text" maxlength="500" id="ClientName"
-                                        class="form-control" placeholder="Client Name" formControlName="ClientName"
-                                        [ngClass]="{ 'invalid-input': addClient.get('ClientName').invalid && addClient.get('ClientName').touched }">
-                                    <div *ngIf="addClient.get('ClientName').invalid && addClient.get('ClientName').touched"
-                                        class="validation-message" style="color: red;text-align: left;">
-                                        * Please enter valid Client.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>VMS Client Name</label>
-                                    <input name="VMSClientName" type="text" maxlength="500" id="VMSClientName"
-                                        class="form-control" placeholder="VMS Client Name"
-                                        formControlName="VMSClientName">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>Federal ID</label>
-                                    <input name="FederalID" type="text" maxlength="500" id="FederalID"
-                                        formControlName="FederalID" class="form-control" placeholder="Federal ID">
-                                </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Email ID *</label>
+                            <input name="EmailID" type="text" maxlength="500" id="EmailID" class="form-control"
+                                placeholder="Email ID" formControlName="EmailID"
+                                [ngClass]="{ 'invalid-input': addClient.get('EmailID').invalid && addClient.get('EmailID').touched }">
+                            <div *ngIf="addClient.get('EmailID').invalid && addClient.get('EmailID').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please enter valid Email ID.
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>Contact Number *</label>
-                                    <input name="ContactNumber" type="tel" maxlength="10" id="ContactNumber"
-                                        class="form-control" placeholder="Contact Number" onkeypress=""
-                                        formControlName="ContactNumber"
-                                        [ngClass]="{ 'invalid-input': addClient.get('ContactNumber').invalid && addClient.get('ContactNumber').touched }">
-                                    <div *ngIf="addClient.get('ContactNumber').invalid && addClient.get('ContactNumber').touched"
-                                        class="validation-message" style="color: red;text-align: left;">
-                                        * Please enter valid Contact Number.
-                                    </div>
-                                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Address *</label>
+                            <input name="Address" type="text" maxlength="500" id="Address" class="form-control"
+                                placeholder="Address" formControlName="Address"
+                                [ngClass]="{ 'invalid-input': addClient.get('Address').invalid && addClient.get('Address').touched }">
+                            <div *ngIf="addClient.get('Address').invalid && addClient.get('Address').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please enter valid Address.
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Country *</label>
+                            <select class="form-control" name="Country" formControlName="Country"
+                                [ngClass]="{ 'invalid-input': addClient.get('Country').invalid && addClient.get('Country').touched }">
+                                <option value="" disabled>Select Country</option>
+                                <option *ngFor="let country of country" [value]="country.id">{{ country.name }}</option>
+                            </select>
+                            <div *ngIf="addClient.get('Country').invalid && addClient.get('Country').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please select a valid Country.
+                            </div>
+                        </div>
+                    </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>Email ID *</label>
-                                    <input name="ClientEmailID" type="text" maxlength="500" id="ClientEmailID"
-                                        class="form-control" placeholder="Email ID" formControlName="ClientEmailID"
-                                        [ngClass]="{ 'invalid-input': addClient.get('ClientEmailID').invalid && addClient.get('ClientEmailID').touched }">
-                                    <div *ngIf="addClient.get('ClientEmailID').invalid && addClient.get('ClientEmailID').touched"
-                                        class="validation-message" style="color: red;text-align: left;">
-                                        * Please enter valid Email ID.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>Address *</label>
-                                    <input name="Address" type="text" maxlength="500" id="Address" class="form-control"
-                                        placeholder="Address" formControlName="Address"
-                                        [ngClass]="{ 'invalid-input': addClient.get('Address').invalid && addClient.get('Address').touched }">
-                                    <div *ngIf="addClient.get('Address').invalid && addClient.get('Address').touched"
-                                        class="validation-message" style="color: red;text-align: left;">
-                                        * Please enter valid Address.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>Country</label>
-                                    <select name="Country" id="Country" class="form-control" formControlName="Country">
-                                        <option selected="selected" value="US">United States</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>State</label>
-                                    <select name="State" id="State" class="form-control" formControlName="State">
-                                        <option selected="selected" value="">-- Select State --</option>
-                                        <option value="AL">Alabama</option>
-                                        <option value="AK">Alaska</option>
-                                        <option value="AZ">Arizona</option>
-                                        <option value="AR">Arkansas</option>
-                                        <option value="CA">California</option>
-                                        <option value="CO">Colorado</option>
-                                        <option value="CT">Connecticut</option>
-                                        <option value="DE">Delaware</option>
-                                        <option value="DC">District of Columbia</option>
-                                        <option value="FL">Florida</option>
-                                        <option value="GA">Georgia</option>
-                                        <option value="HI">Hawaii</option>
-                                        <option value="ID">Idaho</option>
-                                        <option value="IL">Illinois</option>
-                                        <option value="IN">Indiana</option>
-                                        <option value="IA">Iowa</option>
-                                        <option value="KS">Kansas</option>
-                                        <option value="KY">Kentucky</option>
-                                        <option value="LA">Louisiana</option>
-                                        <option value="ME">Maine</option>
-                                        <option value="MD">Maryland</option>
-                                        <option value="MA">Massachusetts</option>
-                                        <option value="MI">Michigan</option>
-                                        <option value="MN">Minnesota</option>
-                                        <option value="MS">Mississippi</option>
-                                        <option value="MO">Missouri</option>
-                                        <option value="MT">Montana</option>
-                                        <option value="NE">Nebraska</option>
-                                        <option value="NV">Nevada</option>
-                                        <option value="NH">New Hampshire</option>
-                                        <option value="NJ">New Jersey</option>
-                                        <option value="NM">New Mexico</option>
-                                        <option value="NY">New York</option>
-                                        <option value="NC">North Carolina</option>
-                                        <option value="ND">North Dakota</option>
-                                        <option value="OH">Ohio</option>
-                                        <option value="OK">Oklahoma</option>
-                                        <option value="OR">Oregon</option>
-                                        <option value="PA">Pennsylvania</option>
-                                        <option value="RI">Rhode Island</option>
-                                        <option value="SC">South Carolina</option>
-                                        <option value="SD">South Dakota</option>
-                                        <option value="TN">Tennessee</option>
-                                        <option value="TX">Texas</option>
-                                        <option value="UT">Utah</option>
-                                        <option value="VT">Vermont</option>
-                                        <option value="VA">Virginia</option>
-                                        <option value="WA">Washington</option>
-                                        <option value="WV">West Virginia</option>
-                                        <option value="WI">Wisconsin</option>
-                                        <option value="WY">Wyoming</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>City</label>
-                                    <select name="City" id="City" class="form-control" formControlName="City">
-                                        <option value="0">-- Select City --</option>
-                                        <option value="Abbeville">Abbeville</option>
-                                        <option value="Abernant">Abernant</option>
-                                        <option value="Adamsville">Adamsville</option>
-                                        <option value="Addison">Addison</option>
-                                        <option value="Adger">Adger</option>
-                                        <option value="Akron">Akron</option>
-                                        <option value="Alabaster">Alabaster</option>
-                                        <option value="Alberta">Alberta</option>
-                                        <option value="Albertville">Albertville</option>
-                                        <option value="Alexander City">Alexander City</option>
-                                        <option value="Alexandria">Alexandria</option>
-                                        <option value="Aliceville">Aliceville</option>
-                                        <option value="Allgood">Allgood</option>
-                                        <option value="Alpine">Alpine</option>
-                                        <option value="Alton">Alton</option>
-                                        <option value="Altoona">Altoona</option>
-                                        <option value="Andalusia">Andalusia</option>
-                                        <option value="Anderson">Anderson</option>
-                                        <option value="Anniston">Anniston</option>
-                                        <option value="Arab">Arab</option>
-                                        <option value="Ardmore">Ardmore</option>
-                                        <option value="Ariton">Ariton</option>
-                                        <option value="Arley">Arley</option>
-                                        <option value="Arlington">Arlington</option>
-                                        <option value="Ashford">Ashford</option>
-                                        <option value="Ashland">Ashland</option>
-                                        <option value="Ashville">Ashville</option>
-                                        <option value="Athens">Athens</option>
-                                        <option value="Atmore">Atmore</option>
-                                        <option value="Attalla">Attalla</option>
-                                        <option value="Auburn">Auburn</option>
-                                        <option value="Auburn University">Auburn University</option>
-                                        <option value="Autaugaville">Autaugaville</option>
-                                        <option value="Axis">Axis</option>
-                                        <option value="Baileyton">Baileyton</option>
-                                        <option value="Banks">Banks</option>
-                                        <option value="Bankston">Bankston</option>
-                                        <option value="Bay Minette">Bay Minette</option>
-                                        <option value="Bayou La Batre">Bayou La Batre</option>
-                                        <option value="Bear Creek">Bear Creek</option>
-                                        <option value="Beatrice">Beatrice</option>
-                                        <option value="Beaverton">Beaverton</option>
-                                        <option value="Belk">Belk</option>
-                                        <option value="Bellamy">Bellamy</option>
-                                        <option value="Belle Mina">Belle Mina</option>
-                                        <option value="Bellwood">Bellwood</option>
-                                        <option value="Berry">Berry</option>
-                                        <option value="Bessemer">Bessemer</option>
-                                        <option value="Billingsley">Billingsley</option>
-                                        <option value="Birmingham">Birmingham</option>
-                                        <option value="Black">Black</option>
-                                        <option value="Blountsville">Blountsville</option>
-                                        <option value="Boaz">Boaz</option>
-                                        <option value="Boligee">Boligee</option>
-                                        <option value="Bon Air">Bon Air</option>
-                                        <option value="Bon Secour">Bon Secour</option>
-                                        <option value="Booth">Booth</option>
-                                        <option value="Boykin">Boykin</option>
-                                        <option value="Brantley">Brantley</option>
-                                        <option value="Bremen">Bremen</option>
-                                        <option value="Brent">Brent</option>
-                                        <option value="Brewton">Brewton</option>
-                                        <option value="Bridgeport">Bridgeport</option>
-                                        <option value="Brierfield">Brierfield</option>
-                                        <option value="Brilliant">Brilliant</option>
-                                        <option value="Brooklyn">Brooklyn</option>
-                                        <option value="Brookside">Brookside</option>
-                                        <option value="Brookwood">Brookwood</option>
-                                        <option value="Brownsboro">Brownsboro</option>
-                                        <option value="Brundidge">Brundidge</option>
-                                        <option value="Bryant">Bryant</option>
-                                        <option value="Bucks">Bucks</option>
-                                        <option value="Buhl">Buhl</option>
-                                        <option value="Burnwell">Burnwell</option>
-                                        <option value="Butler">Butler</option>
-                                        <option value="Bynum">Bynum</option>
-                                        <option value="Calera">Calera</option>
-                                        <option value="Calvert">Calvert</option>
-                                        <option value="Camden">Camden</option>
-                                        <option value="Camp Hill">Camp Hill</option>
-                                        <option value="Campbell">Campbell</option>
-                                        <option value="Capshaw">Capshaw</option>
-                                        <option value="Carbon Hill">Carbon Hill</option>
-                                        <option value="Carrollton">Carrollton</option>
-                                        <option value="Castleberry">Castleberry</option>
-                                        <option value="Catherine">Catherine</option>
-                                        <option value="Cecil">Cecil</option>
-                                        <option value="Cedar Bluff">Cedar Bluff</option>
-                                        <option value="Centre">Centre</option>
-                                        <option value="Centreville">Centreville</option>
-                                        <option value="Chancellor">Chancellor</option>
-                                        <option value="Chapman">Chapman</option>
-                                        <option value="Chatom">Chatom</option>
-                                        <option value="Chelsea">Chelsea</option>
-                                        <option value="Cherokee">Cherokee</option>
-                                        <option value="Childersburg">Childersburg</option>
-                                        <option value="Choccolocco">Choccolocco</option>
-                                        <option value="Chunchula">Chunchula</option>
-                                        <option value="Citronelle">Citronelle</option>
-                                        <option value="Clanton">Clanton</option>
-                                        <option value="Clay">Clay</option>
-                                        <option value="Clayton">Clayton</option>
-                                        <option value="Cleveland">Cleveland</option>
-                                        <option value="Clinton">Clinton</option>
-                                        <option value="Clio">Clio</option>
-                                        <option value="Clopton">Clopton</option>
-                                        <option value="Cloverdale">Cloverdale</option>
-                                        <option value="Coaling">Coaling</option>
-                                        <option value="Coden">Coden</option>
-                                        <option value="Coffee Springs">Coffee Springs</option>
-                                        <option value="Coffeeville">Coffeeville</option>
-                                        <option value="Coker">Coker</option>
-                                        <option value="Collinsville">Collinsville</option>
-                                        <option value="Columbia">Columbia</option>
-                                        <option value="Columbiana">Columbiana</option>
-                                        <option value="Cook Springs">Cook Springs</option>
-                                        <option value="Coosada">Coosada</option>
-                                        <option value="Cordova">Cordova</option>
-                                        <option value="Cottondale">Cottondale</option>
-                                        <option value="Cottonton">Cottonton</option>
-                                        <option value="Cottonwood">Cottonwood</option>
-                                        <option value="Courtland">Courtland</option>
-                                        <option value="Cowarts">Cowarts</option>
-                                        <option value="Coy">Coy</option>
-                                        <option value="Cragford">Cragford</option>
-                                        <option value="Crane Hill">Crane Hill</option>
-                                        <option value="Creola">Creola</option>
-                                        <option value="Cropwell">Cropwell</option>
-                                        <option value="Crossville">Crossville</option>
-                                        <option value="Cuba">Cuba</option>
-                                        <option value="Cullman">Cullman</option>
-                                        <option value="Cusseta">Cusseta</option>
-                                        <option value="Dadeville">Dadeville</option>
-                                        <option value="Daleville">Daleville</option>
-                                        <option value="Danville">Danville</option>
-                                        <option value="Daphne">Daphne</option>
-                                        <option value="Dauphin Island">Dauphin Island</option>
-                                        <option value="Daviston">Daviston</option>
-                                        <option value="Dawson">Dawson</option>
-                                        <option value="De Armanville">De Armanville</option>
-                                        <option value="Deatsville">Deatsville</option>
-                                        <option value="Decatur">Decatur</option>
-                                        <option value="Deer Park">Deer Park</option>
-                                        <option value="Delmar">Delmar</option>
-                                        <option value="Delta">Delta</option>
-                                        <option value="Demopolis">Demopolis</option>
-                                        <option value="Detroit">Detroit</option>
-                                        <option value="Dickinson">Dickinson</option>
-                                        <option value="Dixons Mills">Dixons Mills</option>
-                                        <option value="Docena">Docena</option>
-                                        <option value="Dolomite">Dolomite</option>
-                                        <option value="Dora">Dora</option>
-                                        <option value="Dothan">Dothan</option>
-                                        <option value="Double Springs">Double Springs</option>
-                                        <option value="Douglas">Douglas</option>
-                                        <option value="Dozier">Dozier</option>
-                                        <option value="Duncanville">Duncanville</option>
-                                        <option value="Dutton">Dutton</option>
-                                        <option value="East Tallassee">East Tallassee</option>
-                                        <option value="Eastaboga">Eastaboga</option>
-                                        <option value="Echola">Echola</option>
-                                        <option value="Eclectic">Eclectic</option>
-                                        <option value="Edwardsville">Edwardsville</option>
-                                        <option value="Eight Mile">Eight Mile</option>
-                                        <option value="Elba">Elba</option>
-                                        <option value="Elberta">Elberta</option>
-                                        <option value="Eldridge">Eldridge</option>
-                                        <option value="Elkmont">Elkmont</option>
-                                        <option value="Elmore">Elmore</option>
-                                        <option value="Elrod">Elrod</option>
-                                        <option value="Emelle">Emelle</option>
-                                        <option value="Empire">Empire</option>
-                                        <option value="Enterprise">Enterprise</option>
-                                        <option value="Epes">Epes</option>
-                                        <option value="Equality">Equality</option>
-                                        <option value="Estillfork">Estillfork</option>
-                                        <option value="Ethelsville">Ethelsville</option>
-                                        <option value="Eufaula">Eufaula</option>
-                                        <option value="Eutaw">Eutaw</option>
-                                        <option value="Eva">Eva</option>
-                                        <option value="Evergreen">Evergreen</option>
-                                        <option value="Excel">Excel</option>
-                                        <option value="Fackler">Fackler</option>
-                                        <option value="Fairfield">Fairfield</option>
-                                        <option value="Fairhope">Fairhope</option>
-                                        <option value="Falkville">Falkville</option>
-                                        <option value="Faunsdale">Faunsdale</option>
-                                        <option value="Fayette">Fayette</option>
-                                        <option value="Fitzpatrick">Fitzpatrick</option>
-                                        <option value="Five Points">Five Points</option>
-                                        <option value="Flat Rock">Flat Rock</option>
-                                        <option value="Flomaton">Flomaton</option>
-                                        <option value="Florala">Florala</option>
-                                        <option value="Florence">Florence</option>
-                                        <option value="Foley">Foley</option>
-                                        <option value="Forest Home">Forest Home</option>
-                                        <option value="Forkland">Forkland</option>
-                                        <option value="Fort Davis">Fort Davis</option>
-                                        <option value="Fort Deposit">Fort Deposit</option>
-                                        <option value="Fort Mitchell">Fort Mitchell</option>
-                                        <option value="Fort Payne">Fort Payne</option>
-                                        <option value="Fort Rucker">Fort Rucker</option>
-                                        <option value="Fosters">Fosters</option>
-                                        <option value="Franklin">Franklin</option>
-                                        <option value="Frankville">Frankville</option>
-                                        <option value="Frisco City">Frisco City</option>
-                                        <option value="Fruitdale">Fruitdale</option>
-                                        <option value="Fruithurst">Fruithurst</option>
-                                        <option value="Fulton">Fulton</option>
-                                        <option value="Fultondale">Fultondale</option>
-                                        <option value="Furman">Furman</option>
-                                        <option value="Fyffe">Fyffe</option>
-                                        <option value="Gadsden">Gadsden</option>
-                                        <option value="Gainestown">Gainestown</option>
-                                        <option value="Gainesville">Gainesville</option>
-                                        <option value="Gallant">Gallant</option>
-                                        <option value="Gallion">Gallion</option>
-                                        <option value="Gantt">Gantt</option>
-                                        <option value="Garden City">Garden City</option>
-                                        <option value="Gardendale">Gardendale</option>
-                                        <option value="Gaylesville">Gaylesville</option>
-                                        <option value="Geneva">Geneva</option>
-                                        <option value="Georgiana">Georgiana</option>
-                                        <option value="Geraldine">Geraldine</option>
-                                        <option value="Gilbertown">Gilbertown</option>
-                                        <option value="Glen Allen">Glen Allen</option>
-                                        <option value="Glenwood">Glenwood</option>
-                                        <option value="Goodsprings">Goodsprings</option>
-                                        <option value="Goodwater">Goodwater</option>
-                                        <option value="Goodway">Goodway</option>
-                                        <option value="Gordo">Gordo</option>
-                                        <option value="Gordon">Gordon</option>
-                                        <option value="Goshen">Goshen</option>
-                                        <option value="Grady">Grady</option>
-                                        <option value="Graham">Graham</option>
-                                        <option value="Grand Bay">Grand Bay</option>
-                                        <option value="Grant">Grant</option>
-                                        <option value="Graysville">Graysville</option>
-                                        <option value="Green Pond">Green Pond</option>
-                                        <option value="Greensboro">Greensboro</option>
-                                        <option value="Greenville">Greenville</option>
-                                        <option value="Grove Hill">Grove Hill</option>
-                                        <option value="Groveoak">Groveoak</option>
-                                        <option value="Guin">Guin</option>
-                                        <option value="Gulf Shores">Gulf Shores</option>
-                                        <option value="Guntersville">Guntersville</option>
-                                        <option value="Gurley">Gurley</option>
-                                        <option value="Hackleburg">Hackleburg</option>
-                                        <option value="Haleyville">Haleyville</option>
-                                        <option value="Hamilton">Hamilton</option>
-                                        <option value="Hanceville">Hanceville</option>
-                                        <option value="Hardaway">Hardaway</option>
-                                        <option value="Harpersville">Harpersville</option>
-                                        <option value="Hartford">Hartford</option>
-                                        <option value="Hartselle">Hartselle</option>
-                                        <option value="Harvest">Harvest</option>
-                                        <option value="Hatchechubbee">Hatchechubbee</option>
-                                        <option value="Hayden">Hayden</option>
-                                        <option value="Hayneville">Hayneville</option>
-                                        <option value="Hazel Green">Hazel Green</option>
-                                        <option value="Headland">Headland</option>
-                                        <option value="Heflin">Heflin</option>
-                                        <option value="Helena">Helena</option>
-                                        <option value="Henagar">Henagar</option>
-                                        <option value="Higdon">Higdon</option>
-                                        <option value="Highland Home">Highland Home</option>
-                                        <option value="Hillsboro">Hillsboro</option>
-                                        <option value="Hodges">Hodges</option>
-                                        <option value="Hollins">Hollins</option>
-                                        <option value="Holly Pond">Holly Pond</option>
-                                        <option value="Hollytree">Hollytree</option>
-                                        <option value="Hollywood">Hollywood</option>
-                                        <option value="Holy Trinity">Holy Trinity</option>
-                                        <option value="Honoraville">Honoraville</option>
-                                        <option value="Hope Hull">Hope Hull</option>
-                                        <option value="Horton">Horton</option>
-                                        <option value="Houston">Houston</option>
-                                        <option value="Huntsville">Huntsville</option>
-                                        <option value="Hurtsboro">Hurtsboro</option>
-                                        <option value="Huxford">Huxford</option>
-                                        <option value="Ider">Ider</option>
-                                        <option value="Irvington">Irvington</option>
-                                        <option value="Jachin">Jachin</option>
-                                        <option value="Jack">Jack</option>
-                                        <option value="Jackson">Jackson</option>
-                                        <option value="Jacksons Gap">Jacksons Gap</option>
-                                        <option value="Jacksonville">Jacksonville</option>
-                                        <option value="Jasper">Jasper</option>
-                                        <option value="Jefferson">Jefferson</option>
-                                        <option value="Jemison">Jemison</option>
-                                        <option value="Jones">Jones</option>
-                                        <option value="Joppa">Joppa</option>
-                                        <option value="Kansas">Kansas</option>
-                                        <option value="Kellerman">Kellerman</option>
-                                        <option value="Kellyton">Kellyton</option>
-                                        <option value="Kennedy">Kennedy</option>
-                                        <option value="Kent">Kent</option>
-                                        <option value="Killen">Killen</option>
-                                        <option value="Kimberly">Kimberly</option>
-                                        <option value="Kinston">Kinston</option>
-                                        <option value="Knoxville">Knoxville</option>
-                                        <option value="Laceys Spring">Laceys Spring</option>
-                                        <option value="Lafayette">Lafayette</option>
-                                        <option value="Lanett">Lanett</option>
-                                        <option value="Langston">Langston</option>
-                                        <option value="Lapine">Lapine</option>
-                                        <option value="Lawley">Lawley</option>
-                                        <option value="Leeds">Leeds</option>
-                                        <option value="Leesburg">Leesburg</option>
-                                        <option value="Leighton">Leighton</option>
-                                        <option value="Lenox">Lenox</option>
-                                        <option value="Leroy">Leroy</option>
-                                        <option value="Lester">Lester</option>
-                                        <option value="Letohatchee">Letohatchee</option>
-                                        <option value="Lexington">Lexington</option>
-                                        <option value="Lillian">Lillian</option>
-                                        <option value="Lincoln">Lincoln</option>
-                                        <option value="Linden">Linden</option>
-                                        <option value="Lineville">Lineville</option>
-                                        <option value="Lisman">Lisman</option>
-                                        <option value="Little River">Little River</option>
-                                        <option value="Livingston">Livingston</option>
-                                        <option value="Loachapoka">Loachapoka</option>
-                                        <option value="Lockhart">Lockhart</option>
-                                        <option value="Locust Fork">Locust Fork</option>
-                                        <option value="Logan">Logan</option>
-                                        <option value="Louisville">Louisville</option>
-                                        <option value="Lower Peach Tree">Lower Peach Tree</option>
-                                        <option value="Lowndesboro">Lowndesboro</option>
-                                        <option value="Loxley">Loxley</option>
-                                        <option value="Luverne">Luverne</option>
-                                        <option value="Lynn">Lynn</option>
-                                        <option value="Madison">Madison</option>
-                                        <option value="Magnolia">Magnolia</option>
-                                        <option value="Magnolia Springs">Magnolia Springs</option>
-                                        <option value="Malcolm">Malcolm</option>
-                                        <option value="Malvern">Malvern</option>
-                                        <option value="Maplesville">Maplesville</option>
-                                        <option value="Marbury">Marbury</option>
-                                        <option value="Margaret">Margaret</option>
-                                        <option value="Marion">Marion</option>
-                                        <option value="Marion Junction">Marion Junction</option>
-                                        <option value="Mathews">Mathews</option>
-                                        <option value="Maylene">Maylene</option>
-                                        <option value="Mc Calla">Mc Calla</option>
-                                        <option value="Mc Intosh">Mc Intosh</option>
-                                        <option value="Mc Kenzie">Mc Kenzie</option>
-                                        <option value="Mc Shan">Mc Shan</option>
-                                        <option value="Mc Williams">Mc Williams</option>
-                                        <option value="Megargel">Megargel</option>
-                                        <option value="Melvin">Melvin</option>
-                                        <option value="Mentone">Mentone</option>
-                                        <option value="Meridianville">Meridianville</option>
-                                        <option value="Mexia">Mexia</option>
-                                        <option value="Midland City">Midland City</option>
-                                        <option value="Midway">Midway</option>
-                                        <option value="Millbrook">Millbrook</option>
-                                        <option value="Millerville">Millerville</option>
-                                        <option value="Millport">Millport</option>
-                                        <option value="Millry">Millry</option>
-                                        <option value="Minter">Minter</option>
-                                        <option value="Mobile">Mobile</option>
-                                        <option value="Monroeville">Monroeville</option>
-                                        <option value="Montevallo">Montevallo</option>
-                                        <option value="Montgomery">Montgomery</option>
-                                        <option value="Montrose">Montrose</option>
-                                        <option value="Moody">Moody</option>
-                                        <option value="Mooresville">Mooresville</option>
-                                        <option value="Morris">Morris</option>
-                                        <option value="Moulton">Moulton</option>
-                                        <option value="Moundville">Moundville</option>
-                                        <option value="Mount Hope">Mount Hope</option>
-                                        <option value="Mount Meigs">Mount Meigs</option>
-                                        <option value="Mount Olive">Mount Olive</option>
-                                        <option value="Mount Vernon">Mount Vernon</option>
-                                        <option value="Mulga">Mulga</option>
-                                        <option value="Munford">Munford</option>
-                                        <option value="Muscadine">Muscadine</option>
-                                        <option value="Muscle Shoals">Muscle Shoals</option>
-                                        <option value="Myrtlewood">Myrtlewood</option>
-                                        <option value="Nanafalia">Nanafalia</option>
-                                        <option value="Natural Bridge">Natural Bridge</option>
-                                        <option value="Nauvoo">Nauvoo</option>
-                                        <option value="Needham">Needham</option>
-                                        <option value="New Brockton">New Brockton</option>
-                                        <option value="New Castle">New Castle</option>
-                                        <option value="New Hope">New Hope</option>
-                                        <option value="New Market">New Market</option>
-                                        <option value="Newbern">Newbern</option>
-                                        <option value="Newton">Newton</option>
-                                        <option value="Newville">Newville</option>
-                                        <option value="Normal">Normal</option>
-                                        <option value="Northport">Northport</option>
-                                        <option value="Notasulga">Notasulga</option>
-                                        <option value="Oak Hill">Oak Hill</option>
-                                        <option value="Oakman">Oakman</option>
-                                        <option value="Odenville">Odenville</option>
-                                        <option value="Ohatchee">Ohatchee</option>
-                                        <option value="Oneonta">Oneonta</option>
-                                        <option value="Opelika">Opelika</option>
-                                        <option value="Opp">Opp</option>
-                                        <option value="Orange Beach">Orange Beach</option>
-                                        <option value="Orrville">Orrville</option>
-                                        <option value="Owens Cross Roads">Owens Cross Roads</option>
-                                        <option value="Oxford">Oxford</option>
-                                        <option value="Ozark">Ozark</option>
-                                        <option value="Paint Rock">Paint Rock</option>
-                                        <option value="Palmerdale">Palmerdale</option>
-                                        <option value="Panola">Panola</option>
-                                        <option value="Pansey">Pansey</option>
-                                        <option value="Parrish">Parrish</option>
-                                        <option value="Pelham">Pelham</option>
-                                        <option value="Pell City">Pell City</option>
-                                        <option value="Pennington">Pennington</option>
-                                        <option value="Perdido">Perdido</option>
-                                        <option value="Perdue Hill">Perdue Hill</option>
-                                        <option value="Perote">Perote</option>
-                                        <option value="Peterman">Peterman</option>
-                                        <option value="Peterson">Peterson</option>
-                                        <option value="Petrey">Petrey</option>
-                                        <option value="Phenix City">Phenix City</option>
-                                        <option value="Phil Campbell">Phil Campbell</option>
-                                        <option value="Piedmont">Piedmont</option>
-                                        <option value="Pike Road">Pike Road</option>
-                                        <option value="Pinckard">Pinckard</option>
-                                        <option value="Pine Apple">Pine Apple</option>
-                                        <option value="Pine Hill">Pine Hill</option>
-                                        <option value="Pine Level">Pine Level</option>
-                                        <option value="Pinson">Pinson</option>
-                                        <option value="Pisgah">Pisgah</option>
-                                        <option value="Pittsview">Pittsview</option>
-                                        <option value="Plantersville">Plantersville</option>
-                                        <option value="Pleasant Grove">Pleasant Grove</option>
-                                        <option value="Point Clear">Point Clear</option>
-                                        <option value="Prattville">Prattville</option>
-                                        <option value="Princeton">Princeton</option>
-                                        <option value="Quinton">Quinton</option>
-                                        <option value="Ragland">Ragland</option>
-                                        <option value="Rainbow City">Rainbow City</option>
-                                        <option value="Rainsville">Rainsville</option>
-                                        <option value="Ralph">Ralph</option>
-                                        <option value="Ramer">Ramer</option>
-                                        <option value="Ranburne">Ranburne</option>
-                                        <option value="Randolph">Randolph</option>
-                                        <option value="Range">Range</option>
-                                        <option value="Red Bay">Red Bay</option>
-                                        <option value="Red Level">Red Level</option>
-                                        <option value="Reform">Reform</option>
-                                        <option value="Remlap">Remlap</option>
-                                        <option value="Repton">Repton</option>
-                                        <option value="River Falls">River Falls</option>
-                                        <option value="Riverside">Riverside</option>
-                                        <option value="Roanoke">Roanoke</option>
-                                        <option value="Robertsdale">Robertsdale</option>
-                                        <option value="Rockford">Rockford</option>
-                                        <option value="Rogersville">Rogersville</option>
-                                        <option value="Russellville">Russellville</option>
-                                        <option value="Rutledge">Rutledge</option>
-                                        <option value="Ryland">Ryland</option>
-                                        <option value="Safford">Safford</option>
-                                        <option value="Saginaw">Saginaw</option>
-                                        <option value="Saint Elmo">Saint Elmo</option>
-                                        <option value="Saint Stephens">Saint Stephens</option>
-                                        <option value="Salem">Salem</option>
-                                        <option value="Samantha">Samantha</option>
-                                        <option value="Samson">Samson</option>
-                                        <option value="Saraland">Saraland</option>
-                                        <option value="Sardis">Sardis</option>
-                                        <option value="Satsuma">Satsuma</option>
-                                        <option value="Sawyerville">Sawyerville</option>
-                                        <option value="Sayre">Sayre</option>
-                                        <option value="Scottsboro">Scottsboro</option>
-                                        <option value="Seale">Seale</option>
-                                        <option value="Section">Section</option>
-                                        <option value="Selma">Selma</option>
-                                        <option value="Seminole">Seminole</option>
-                                        <option value="Semmes">Semmes</option>
-                                        <option value="Shannon">Shannon</option>
-                                        <option value="Sheffield">Sheffield</option>
-                                        <option value="Shelby">Shelby</option>
-                                        <option value="Shorter">Shorter</option>
-                                        <option value="Shorterville">Shorterville</option>
-                                        <option value="Silas">Silas</option>
-                                        <option value="Siluria">Siluria</option>
-                                        <option value="Silverhill">Silverhill</option>
-                                        <option value="Sipsey">Sipsey</option>
-                                        <option value="Skipperville">Skipperville</option>
-                                        <option value="Slocomb">Slocomb</option>
-                                        <option value="Smiths Station">Smiths Station</option>
-                                        <option value="Somerville">Somerville</option>
-                                        <option value="Spanish Fort">Spanish Fort</option>
-                                        <option value="Spring Garden">Spring Garden</option>
-                                        <option value="Springville">Springville</option>
-                                        <option value="Spruce Pine">Spruce Pine</option>
-                                        <option value="Stanton">Stanton</option>
-                                        <option value="Stapleton">Stapleton</option>
-                                        <option value="Steele">Steele</option>
-                                        <option value="Sterrett">Sterrett</option>
-                                        <option value="Stevenson">Stevenson</option>
-                                        <option value="Stockton">Stockton</option>
-                                        <option value="Sulligent">Sulligent</option>
-                                        <option value="Sumiton">Sumiton</option>
-                                        <option value="Summerdale">Summerdale</option>
-                                        <option value="Sunflower">Sunflower</option>
-                                        <option value="Sweet Water">Sweet Water</option>
-                                        <option value="Sycamore">Sycamore</option>
-                                        <option value="Sylacauga">Sylacauga</option>
-                                        <option value="Sylvania">Sylvania</option>
-                                        <option value="Talladega">Talladega</option>
-                                        <option value="Tallassee">Tallassee</option>
-                                        <option value="Tanner">Tanner</option>
-                                        <option value="Theodore">Theodore</option>
-                                        <option value="Thomaston">Thomaston</option>
-                                        <option value="Thomasville">Thomasville</option>
-                                        <option value="Thorsby">Thorsby</option>
-                                        <option value="Tibbie">Tibbie</option>
-                                        <option value="Titus">Titus</option>
-                                        <option value="Toney">Toney</option>
-                                        <option value="Town Creek">Town Creek</option>
-                                        <option value="Townley">Townley</option>
-                                        <option value="Toxey">Toxey</option>
-                                        <option value="Trafford">Trafford</option>
-                                        <option value="Trenton">Trenton</option>
-                                        <option value="Trinity">Trinity</option>
-                                        <option value="Troy">Troy</option>
-                                        <option value="Trussville">Trussville</option>
-                                        <option value="Tuscaloosa">Tuscaloosa</option>
-                                        <option value="Tuscumbia">Tuscumbia</option>
-                                        <option value="Tuskegee">Tuskegee</option>
-                                        <option value="Tuskegee Institute">Tuskegee Institute</option>
-                                        <option value="Tyler">Tyler</option>
-                                        <option value="Union Grove">Union Grove</option>
-                                        <option value="Union Springs">Union Springs</option>
-                                        <option value="Uniontown">Uniontown</option>
-                                        <option value="Uriah">Uriah</option>
-                                        <option value="Valhermoso Springs">Valhermoso Springs</option>
-                                        <option value="Valley">Valley</option>
-                                        <option value="Valley Head">Valley Head</option>
-                                        <option value="Vance">Vance</option>
-                                        <option value="Vandiver">Vandiver</option>
-                                        <option value="Verbena">Verbena</option>
-                                        <option value="Vernon">Vernon</option>
-                                        <option value="Vina">Vina</option>
-                                        <option value="Vincent">Vincent</option>
-                                        <option value="Vinegar Bend">Vinegar Bend</option>
-                                        <option value="Vinemont">Vinemont</option>
-                                        <option value="Vredenburgh">Vredenburgh</option>
-                                        <option value="Wadley">Wadley</option>
-                                        <option value="Wagarville">Wagarville</option>
-                                        <option value="Walnut Grove">Walnut Grove</option>
-                                        <option value="Ward">Ward</option>
-                                        <option value="Warrior">Warrior</option>
-                                        <option value="Waterloo">Waterloo</option>
-                                        <option value="Watson">Watson</option>
-                                        <option value="Wattsville">Wattsville</option>
-                                        <option value="Waverly">Waverly</option>
-                                        <option value="Weaver">Weaver</option>
-                                        <option value="Webb">Webb</option>
-                                        <option value="Wedowee">Wedowee</option>
-                                        <option value="Wellington">Wellington</option>
-                                        <option value="Weogufka">Weogufka</option>
-                                        <option value="West Blocton">West Blocton</option>
-                                        <option value="West Greene">West Greene</option>
-                                        <option value="Westover">Westover</option>
-                                        <option value="Wetumpka">Wetumpka</option>
-                                        <option value="Whatley">Whatley</option>
-                                        <option value="Wilmer">Wilmer</option>
-                                        <option value="Wilsonville">Wilsonville</option>
-                                        <option value="Wilton">Wilton</option>
-                                        <option value="Winfield">Winfield</option>
-                                        <option value="Wing">Wing</option>
-                                        <option value="Woodland">Woodland</option>
-                                        <option value="Woodstock">Woodstock</option>
-                                        <option value="Woodville">Woodville</option>
-                                        <option value="York">York</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 ">
-                                <div class="form-group text-center">
-                                    <label>Zip Code</label>
-                                    <input name="ZipCode" type="text" maxlength="500" id="ZipCode" class="form-control"
-                                        formControlName="ZipCode" placeholder="Zip Code">
-                                </div>
-                            </div>
-                            <div class="col-md-4 ">
-                                <div class="form-group text-center">
-                                    <label>Website</label>
-                                    <input name="ClientWebsite" type="text" maxlength="500" id="ClientWebsite"
-                                        formControlName="ClientWebsite" class="form-control" placeholder="Website">
-                                </div>
-                            </div>
-                            <div class="col-md-4 ">
-                                <div class="form-group text-center">
-                                    <label>Fax</label>
-                                    <input name="Fax" type="text" maxlength="500" id="Fax" class="form-control"
-                                        formControlName="Fax" placeholder="Fax">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>Industry</label>
-                                    <select name="Industry" id="Industry" class="form-control"
-                                        formControlName="Industry">
-                                        <option selected="selected" value="">Select</option>
-                                        <option value="Accounting-Finance">Accounting - Finance</option>
-                                        <option value="Advertising">Advertising</option>
-                                        <option value="Agriculture">Agriculture</option>
-                                        <option value="Airline-Aviation">Airline - Aviation</option>
-                                        <option value="Architecture-Building">Architecture - Building</option>
-                                        <option value="Art-Photography-Journalism">Art - Photography - Journalism
-                                        </option>
-                                        <option value="Automotive-MotorVehicles-Parts">Automotive - Motor Vehicles -
-                                            Parts
-                                        </option>
-                                        <option value="Banking-FinancialServices">Banking - Financial Services</option>
-                                        <option value="Broadcasting - Radio - TV">Broadcasting - Radio - TV</option>
-                                        <option value="Building Materials">Building Materials</option>
-                                        <option value="Chemical">Chemical</option>
-                                        <option value="ComputerHardware">Computer Hardware</option>
-                                        <option value="Biotechnology">Biotechnology</option>
-                                        <option value="ComputerSoftware">Computer Software</option>
-                                        <option value="Construction">Construction</option>
-                                        <option value="Consulting">Consulting</option>
-                                        <option value="ConsumerProducts">Consumer Products</option>
-                                        <option value="Credit-Loan-Collections">Credit - Loan - Collections</option>
-                                        <option value="Defense-Aerospace">Defense - Aerospace</option>
-                                        <option value="Education-Teaching-Administration">Education - Teaching -
-                                            Administration</option>
-                                        <option value="Electronics">Electronics</option>
-                                        <option value="Employment-Recruiting-Staffing">Employment - Recruiting -
-                                            Staffing
-                                        </option>
-                                        <option value="Energy-Utilities-Gas-Electric">Energy - Utilities - Gas -
-                                            Electric
-                                        </option>
-                                        <option value="Entertainment">Entertainment</option>
-                                        <option value="Environmental">Environmental</option>
-                                        <option value="Exercise-Fitness">Exercise - Fitness</option>
-                                        <option value="Fashion-Apparel-Textile">Fashion - Apparel - Textile</option>
-                                        <option value="Food">Food</option>
-                                        <option value="Funeral-Cemetery">Funeral - Cemetery</option>
-                                        <option value="Government-CivilService">Government - Civil Service</option>
-                                        <option value="Healthcare-HealthServices">Healthcare - Health Services</option>
-                                        <option value="Homebuilding">Homebuilding</option>
-                                        <option value="Hospitality">Hospitality</option>
-                                        <option value="Hotel-Resort">Hotel - Resort</option>
-                                        <option value="HVAC">HVAC</option>
-                                        <option value="Import-Export">Import - Export</option>
-                                        <option value="Industrial">Industrial</option>
-                                        <option value="Insurance">Insurance</option>
-                                        <option value="Internet-ECommerce">Internet - ECommerce</option>
-                                        <option value="Landscaping">Landscaping</option>
-                                        <option value="LawEnforcement">Law Enforcement</option>
-                                        <option value="Legal">Legal</option>
-                                        <option value="LibraryScience">Library Science</option>
-                                        <option value="ManagedCare">Managed Care</option>
-                                        <option value="Manufacturing">Manufacturing</option>
-                                        <option value="MedicalEquipment">Medical Equipment</option>
-                                        <option value="Merchandising">Merchandising</option>
-                                        <option value="Military">Military</option>
-                                        <option value="Mortgage">Mortgage</option>
-                                        <option value="Newspaper">Newspaper</option>
-                                        <option value="NotforProfit-Charitable">Not for Profit - Charitable</option>
-                                        <option value="OfficeSupplies-Equipment">Office Supplies - Equipment</option>
-                                        <option value="OilRefining-Petroleum-Drilling">Oil Refining - Petroleum -
-                                            Drilling
-                                        </option>
-                                        <option value="OtherGreatIndustries">Other Great Industries</option>
-                                        <option value="Packaging">Packaging</option>
-                                        <option value="Pharmaceutical">Pharmaceutical</option>
-                                        <option value="Printing-Publishing">Printing - Publishing</option>
-                                        <option value="PublicRelations">Public Relations</option>
-                                        <option value="RealEstate-Property Mgt">Real Estate - Property Mgt</option>
-                                        <option value="Recreation">Recreation</option>
-                                        <option value="Restaurant">Restaurant</option>
-                                        <option value="Retail">Retail</option>
-                                        <option value="Sales-Marketing">Sales - Marketing</option>
-                                        <option value="Securities">Securities</option>
-                                        <option value="Security">Security</option>
-                                        <option value="Semiconductor">Semiconductor</option>
-                                        <option value="SocialServices">Social Services</option>
-                                        <option value="Telecommunications">Telecommunications</option>
-                                        <option value="Training">Training</option>
-                                        <option value="Transportation">Transportation</option>
-                                        <option value="Travel">Travel</option>
-                                        <option value="Wireless">Wireless</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>Status</label>
-                                    <select name="ClientStatus" id="ClientStatus" class="form-control"
-                                        formControlName="ClientStatus">
-                                        <option selected="selected" value="">Select</option>
-                                        <option value="1">Active</option>
-                                        <option value="2">Archive</option>
-                                        <option value="3">DNC</option>
-                                        <option value="4">Inactive</option>
-                                        <option value="5">Negotiation</option>
-                                        <option value="6">New Lead</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group text-center">
-                                    <label>Category</label>
-                                    <select name="ClientCategory" id="ClientCategory" class="form-control"
-                                        formControlName="ClientCategory">
-                                        <option selected="selected" value="">Select</option>
-                                        <option value="1">Direct</option>
-                                        <option value="2">Tier 1</option>
-                                    </select>
-                                </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>State *</label>
+                            <select class="form-control" name="State" formControlName="State"
+                                [ngClass]="{ 'invalid-input': addClient.get('State').invalid && addClient.get('State').touched }">
+                                <option value="" disabled>Select State</option>
+                                <option *ngFor="let state of state" [value]="state.id">{{ state.name }}</option>
+                            </select>
+                            <div *ngIf="addClient.get('State').invalid && addClient.get('State').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please select a valid State.
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group text-center">
-                                <label>PrimaryOwner</label>
-                                <select name="PrimaryOwner" id="PrimaryOwner" class="form-control"
-                                    formControlName="PrimaryOwner">
-                                    <option selected="selected" value="">Select</option>
-                                    <option value="1">ABC</option>
-                                    <option value="2">DEF</option>
-                                    <option value="3">abc</option>
-                                    <option value="4">def</option>
-                                    <option value="5">Wilson AM</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <label>Ownership</label>
-                            </div>
-                            <div class=" flex text-center">
-                                <p-multiSelect [options]="Ownership" [(ngModel)]="selectedOwnership"
-                                    [ngModelOptions]="{standalone: true}" defaultLabel="Ownership" optionLabel="name"
-                                    (onSearch)="onOwnershipSearch($event)" [filter]="true" display="chip">
-                                </p-multiSelect>
-                            </div>
-                            <div class="form group custom-control pull-left custom-checkbox">
-                                <br><input type="checkbox" class="custom-control-input" id="customCheck1"
-                                    formControlName="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Allow Access to All users</label>
-                                <br>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <label>Client Lead</label>
-                            </div>
-                            <div class=" flex text-center">
-                                <p-multiSelect [options]="clientLeads" [(ngModel)]="selectedClientLeads"
-                                    [ngModelOptions]="{standalone: true}" defaultLabel="Client Lead" optionLabel="name"
-                                    (onSearch)="onClientLeadsSearch($event)" [filter]="true" display="chip">
-                                </p-multiSelect>
+
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>City *</label>
+                            <select class="form-control" name="City" formControlName="City"
+                                [ngClass]="{ 'invalid-input': addClient.get('City').invalid && addClient.get('City').touched }">
+                                <option value="" disabled>Select City</option>
+                                <option *ngFor="let city of city" [value]="city.id">{{ city.name }}</option>
+                            </select>
+                            <div *ngIf="addClient.get('City').invalid && addClient.get('City').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please select a valid City.
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-md-4">
-                            <div class=" text-center">
-                                <label>Required Documents</label>
-                            </div>
-                            <div class=" flex text-center">
-                                <p-multiSelect [options]="requiredDocuments" [(ngModel)]="selectedRequiredDocuments"
-                                    [ngModelOptions]="{standalone: true}" defaultLabel="Required Documents"
-                                    optionLabel="name" (onSearch)="onRequiredDocumentsSearch($event)" display="chip"
-                                    [filter]="true">
-                                </p-multiSelect>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <div class="form-group text-center">
+                            <label>Zip Code</label>
+                            <input name="ZipCode" type="text" maxlength="500" id="ZipCode" class="form-control"
+                                formControlName="ZipCode" placeholder="Zip Code">
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group text-center">
-                                <label class="fnt-clr">Payment Terms</label>
-                                <select name="PaymentTerms" id="PaymentTerms" class="form-control"
-                                    formControlName="PaymentTerms">
-                                    <option selected="selected" value="">Select</option>
-                                    <option value="10">Net 10</option>
-                                    <option value="15">Net 15</option>
-                                    <option value="30">Net 30</option>
-                                    <option value="45">Net 45</option>
-                                    <option value="60">Net 60</option>
-                                    <option value="7">Net 7</option>
-                                    <option value="90">Net 90</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-group text-center">
+                            <label>Website</label>
+                            <input name="Website" type="text" maxlength="500" id="Website" formControlName="Website"
+                                class="form-control" placeholder="Website">
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group text-center">
-                                <label>About Company</label>
-                                <textarea name="AboutCompany" id="AboutCompany" rows="4" class="form-control"
-                                    formControlName="AboutCompany" placeholder="About Company"
-                                    style="height: auto !important;">
-                        </textarea>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-group text-center">
+                            <label>Fax</label>
+                            <input name="Fax" type="text" maxlength="500" id="Fax" class="form-control"
+                                formControlName="Fax" placeholder="Fax">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Industry *</label>
+                            <select class="form-control" name="Industry" formControlName="Industry"
+                                [ngClass]="{ 'invalid-input': addClient.get('Industry').invalid && addClient.get('Industry').touched }">
+                                <option value="" disabled>Select Industry</option>
+                                <option *ngFor="let industry of industry" [value]="industry.id">{{ industry.name }}
+                                </option>
+                            </select>
+                            <div *ngIf="addClient.get('Industry').invalid && addClient.get('Industry').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please select a valid Industry.
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-8 mt-0">
-                            <p class="fnt-clr text-center"><u>Notes</u></p>
-                            <p-editor [(ngModel)]="content" [style]="{'height':'320px', 'width':'100%'}"
+
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Status *</label>
+                            <select class="form-control" name="ClientStatusID" formControlName="ClientStatusID"
+                                [ngClass]="{ 'invalid-input': addClient.get('ClientStatusID').invalid && addClient.get('ClientStatusID').touched }">
+                                <option value="" disabled>Select Status</option>
+                                <option *ngFor="let status of clientStatusID" [value]="status.id">{{ status.name }}
+                                </option>
+                            </select>
+                            <div *ngIf="addClient.get('ClientStatusID').invalid && addClient.get('ClientStatusID').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please select a valid Status.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Category *</label>
+                            <select class="form-control" name="ClientCategoryID" formControlName="ClientCategoryID"
+                                [ngClass]="{ 'invalid-input': addClient.get('ClientCategoryID').invalid && addClient.get('ClientCategoryID').touched }">
+                                <option value="" disabled>Select Category</option>
+                                <option *ngFor="let category of clientCategoryID" [value]="category.id">{{ category.name
+                                    }}</option>
+                            </select>
+                            <div *ngIf="addClient.get('ClientCategoryID').invalid && addClient.get('ClientCategoryID').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please select a valid Category.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Primary Owner *</label>
+                            <select class="form-control" name="PrimaryOwner" formControlName="PrimaryOwner"
+                                [ngClass]="{ 'invalid-input': addClient.get('PrimaryOwner').invalid && addClient.get('PrimaryOwner').touched }">
+                                <option value="" disabled>Select Primary Owner</option>
+                                <option *ngFor="let owner of primaryOwner" [value]="owner.id">{{ owner.name }}</option>
+                            </select>
+                            <div *ngIf="addClient.get('PrimaryOwner').invalid && addClient.get('PrimaryOwner').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please select a valid Primary Owner.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <label>Payment Terms *</label>
+                            <select class="form-control" name="PaymentTerms" formControlName="PaymentTerms"
+                                [ngClass]="{ 'invalid-input': addClient.get('PaymentTerms').invalid && addClient.get('PaymentTerms').touched }">
+                                <option value="" disabled>Select Payment Terms</option>
+                                <option *ngFor="let term of paymentTerms" [value]="term.id">{{ term.name }}</option>
+                            </select>
+                            <div *ngIf="addClient.get('PaymentTerms').invalid && addClient.get('PaymentTerms').touched"
+                                class="validation-message" style="color: red;text-align: left;">
+                                * Please select valid Payment Terms.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <div class=" text-center">
+                            <label>Required Documents</label>
+                        </div>
+                        <div class=" flex text-center">
+                            <p-multiSelect [options]="requiredDocuments" [(ngModel)]="selectedRequiredDocuments"
+                                [ngModelOptions]="{standalone: true}" defaultLabel="Required Documents"
+                                optionLabel="name" (onSearch)="onRequiredDocumentsSearch($event)" display="chip"
+                                [filter]="true">
+                            </p-multiSelect>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mt-2">
+                        <div class="text-center">
+                            <label class="fnt-clr ">Notes</label>
+                            <p-editor [(ngModel)]="Notes" [style]="{'height':'320px', 'width':'100%'}"
                                 [ngModelOptions]="{standalone: true}"
                                 placeholder="Enter the email content to be sent"></p-editor>
                         </div>
+                    </div>
+                    <div class="col-md-4 mt-2 text-center">
+                        <div class="form-group text-center">
+                            <label>About Company</label>
+                            <textarea name="AboutCompany" id="AboutCompany" rows="4" class="form-control"
+                                formControlName="AboutCompany" placeholder="About Company"
+                                style="height: auto !important;"></textarea>
+                        </div>
+                        <br>
+                        <div class="form group custom-control custom-checkbox text-left ml-3">
+                            <input type="checkbox" class="custom-control-input" id="sendingEmail"
+                                formControlName="sendingEmail">
+                            <label class="custom-control-label" for="sendingEmail">You want to stop sending email
+                                notification to client contact while doing Submit to Client?</label>
+                        </div>
+                        <br>
 
-                        <div class="col-md-4 text-center mt-4">
-                            <div class="form-group text-center">
-                                <label for="flexRadioDefault">Display on Job Posting?</label>
-                            </div>
+                        <div class="form group custom-control custom-checkbox text-left ml-3">
+                            <input type="checkbox" class="custom-control-input" id="Access" formControlName="Access">
+                            <label class="custom-control-label" for="Access">Allow Access to All users</label>
+                        </div>
+                        <br>
+
+                        <div class="form-group text-left ml-3">
+                            <label for="posting">Display on Job Posting?</label><br>
                             <div class="form-check ml-2" style="display: inline-block;">
-                                <input class="mr-2" type="radio" id="flexRadioDefaultTrue" value="true"
-                                    formControlName="flexRadioDefault">
-                                <label class="mr-3" for="flexRadioDefaultYes">Yes</label>
-                                <input class="mr-2" type="radio" id="flexRadioDefaultFalse" value="false"
-                                    formControlName="flexRadioDefault">
+                                <input class="mr-2" type="radio" id="postingTrue" value="true" checked
+                                    formControlName="posting">
+                                <label class="mr-4" for="postingYes">Yes</label>
+                                <input class="mr-2" type="radio" id="postingFalse" value="false"
+                                    formControlName="posting">
                                 <label for="flexRadioDefaultNo">No</label>
-                            </div>
-                            <div class="form-group text-center">
-                                <div class="form-check ml-2 pull-left custom-checkbox mt-4">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck"
-                                        formControlName="customCheck">
-                                    <label class="custom-control-label" for="customCheck">You want to stop sending
-                                        email notification to client contact while doing Submit to Client?</label>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex row justify-content-center mt-4">
-                        <button class="btn btn-wdth btn-sm text-white mr-3" (click)="cancel()">Cancel</button>
-                        <button class="btn btn-wdth btn-sm text-white ml-3" (click)="addClientbtn()">Add</button>
-                    </div>
-                </form>
-            </div>
-            <!-- <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contactsTab">
-
-            </div> -->
+                </div>
+                <div class="d-flex row justify-content-center mt-4">
+                    <button class="btn btn-wdth btn-sm text-white mr-3" (click)="cancel()">Cancel</button>
+                    <button class="btn btn-wdth btn-sm text-white ml-3" (click)="addClientbutton()">Add</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
-
