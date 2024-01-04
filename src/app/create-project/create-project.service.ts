@@ -6,6 +6,9 @@ import { environment } from '../../environments/environment';
 @Injectable()
 
 export class CreateProjectService {
+  deleteClientAccount(Req: { ClientID: any; }) {
+    throw new Error('Method not implemented.');
+  }
     public endpoint = environment.apiUrl;
     // public endpoint = 'https://alpha.tresume.us/TresumeAPI/';
     // public endpoint = 'http://localhost:3000/';
@@ -16,6 +19,10 @@ export class CreateProjectService {
         return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeClientList', request);
     }
 
+    fetchtimesheetcandidate(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetcandidate', request);
+    }
+
     getTimesheetCandidateList(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetCandidateList', request);
     }
@@ -24,16 +31,16 @@ export class CreateProjectService {
         return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetClientList', request);
     }
 
-    fetchtimesheetcandidate(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetcandidate', request);
-    }
-
     createtimesheetproject(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'createtimesheetproject', request);
     }
 
     getProjectList(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getProjectList', request);
+    }
+
+    deleteProject(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'deleteProject', request);
     }
    
 }
