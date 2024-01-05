@@ -46,19 +46,19 @@
         <td>
           <div class="row">
             <div class="input-group col-md-5">
-              <input type="text" class="form-control custom-input" [(ngModel)]="rowData1.selectedValue"
-                placeholder="Choose a client or project">
+              <input type="text" class="form-control custom-input" [(ngModel)]="rowData1.selectedValue[i]"
+                placeholder="Choose a Project">
               <div class="input-group-append">
                 <i class="btn mt-0 border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false"></i>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" *ngFor="let item of dropdownOptions1.items" [value]="item.value"
-                    (click)="selectOption(rowData1, item.value)">{{ item.ClientName }}</a>
+                    (click)="selectOption(rowData1, item.value)">{{ item.Projectname }}</a>
                 </div>
               </div>
             </div>
             <div class="input-group col-md-5">
-              <input type="text" class="form-control custom-input" [(ngModel)]="rowData2.selectedValue"
+              <input type="text" class="form-control custom-input" [(ngModel)]="rowData2.selectedValue[i]"
                 placeholder="Select Pay item">
               <div class="input-group-append">
                 <i class="btn mt-0 border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -73,7 +73,7 @@
 
           <div class="row">
             <div class="input-group col-md-5">
-              <input type="text" class="form-control custom-input" [(ngModel)]="rowData3.selectedValue"
+              <input type="text" class="form-control custom-input" [(ngModel)]="rowData3.selectedValue[i]"
                 placeholder="Choose the service worked on">
               <div class="input-group-append">
                 <i class="btn mt-0 border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -86,7 +86,7 @@
             </div>
 
             <div class="input-group col-md-5">
-              <input type="text" class="form-control custom-input" [(ngModel)]="rowData4.selectedValue"
+              <input type="text" class="form-control custom-input" [(ngModel)]="rowData4.selectedValue[i]"
                 placeholder="Choose a location">
               <div class="input-group-append">
                 <i class="btn mt-0 border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -106,7 +106,7 @@
               <div class="checkbox-group">
                 <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.checkbox">
                 <label for="myCheckbox" class="mt-2">Billable(/hr) $</label>
-                <input class="bill-Amt ml-1" type="number" style="width: 60px;padding: 5px;" [(ngModel)]="row.input">
+                <input *ngIf="row.checkbox" class="bill-Amt ml-1" type="number" style="width: 60px; padding: 5px;" [(ngModel)]="row.input">
               </div>
             </div>
           </div>
@@ -151,7 +151,7 @@
       <button (click)="addRow()">Add Lines</button>
     </div>
     <div class="col-md-4 text-center">
-      <button>Copy</button>
+      <button>Copy last timesheet</button>
     </div>
 
     <div class="col-md-4 text-right">

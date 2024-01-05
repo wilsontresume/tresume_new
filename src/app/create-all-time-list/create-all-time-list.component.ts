@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CreateAllTimeListService} from './create-all-time-list.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -16,8 +16,9 @@ export class CreateAllTimeListComponent implements OnInit {
 
 
   // timesheetData: any[];
+  project: any;
   clients: any;
-  OrgID: string;
+  orgID: string;
   minDate: string;
   maxDate: string;
   selectedSunday: string = '';
@@ -61,8 +62,6 @@ export class CreateAllTimeListComponent implements OnInit {
     },
 
   ];
-
-  
   rowData = { selectedValue: '' };
   dropdownOptions = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
 
@@ -90,7 +89,7 @@ export class CreateAllTimeListComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService) {
+  constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService,private fm: FormsModule) {
 
   }
 
@@ -99,19 +98,17 @@ export class CreateAllTimeListComponent implements OnInit {
     this.addRowWithValues('option1', 'option2', 'option3', 'option4','','', '', '', '', '', '', '', '' );
     this.addRowWithValues('option1', 'option2', 'option3', 'option4','','', '', '', '', '', '', '', '' );
 
-    this.OrgID= this.cookieService.get('OrgID');
-    this.fetchclientlist();
+    this.orgID= this.cookieService.get('orgID');
+    this.fetchProjectlist();
   }
 
-  
-
-  fetchclientlist() {
+  fetchProjectlist() {
     let Req = {
-      OrgID: this.OrgID,
+      orgid: this.OrgID,
     };
-    this.service.getTimesheetClientList(Req).subscribe((x: any) => {
-      this.clients = x.result;
-      console.log(this.clients);
+    this.service.getCreateProjectList(Req).subscribe((x: any) => {
+      this.project = x.result;
+      console.log(this.Projectname);
     });
   }
 

@@ -51,6 +51,7 @@
     "ngx-bootstrap": "^8.0.0",
     "ngx-cookie-service": "^13.1.0-rc.1",
     "ngx-extended-pdf-viewer": "^16.2.16",
+    "ngx-loading": "^2.0.1",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.7",
     "npm": "^6.9.0",
