@@ -17,6 +17,9 @@ showConfirmationDialog2: any;
 showConfirmationDialog: any;
 showConfirmationModal: boolean = false;
 
+
+
+
 confirmDelete() {
   this.showConfirmationModal = true;
 }
@@ -93,5 +96,4 @@ showButtons: any;
   closeModal() {
     this.selectedItem = null; // Clear the selectedItem
   }
-
 }
