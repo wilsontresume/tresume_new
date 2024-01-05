@@ -211,7 +211,7 @@
               <div class="col-md-4" *ngIf="routeType == 1">
                 <label class="label">Recruiter Name *</label>
                 <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
-                  <option *ngFor="let name of recruiterNames" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option>
+                  <option *ngFor="let name of recruiterNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
                 </select>
                 <div *ngIf="addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched" class="validation-message" style="color: red;">
                   * Please select at least one Recruiter Name.
@@ -233,10 +233,10 @@
                   <option *ngFor="let status of candidateStatuses" [value]="status">{{ status }}</option>
                 </select> -->
               <label class="label">Candidate Status</label>
-              <select class="form-control" id="currentStatus" [(ngModel)]="selectOptions"
+              <select class="form-control" id="currentStatus" [(ngModel)]="selectedcurrentstatus"
                 [ngModelOptions]="{standalone: true}">
                 <option value>-- Select Current Status --</option>
-                <option *ngFor="let option of  currentStatusOptions" [value]="option">{{ option }}</option>
+                <option *ngFor="let option of  currentStatusOptions" [value]="option.CandidateStatusID">{{ option.Value }}</option>
               </select>
               </div>
               <div class="col-md-4" *ngIf="routeType == 1">

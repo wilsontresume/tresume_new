@@ -34,6 +34,8 @@ export class HrmsComponent implements OnInit {
   emailvalidation: boolean = false;
   emailvalidationmessage: string = '';
   routeType: any;
+  currentStatusOptions:any;
+  selectedcurrentstatus: any;
 
   constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.OrgID = this.cookieService.get('OrgID');
@@ -46,7 +48,7 @@ export class HrmsComponent implements OnInit {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchhrmscandidatelist();
     this.getOrgUserList();
-
+    this.getcandidaterstatus();
     this.addCandidate = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
@@ -131,6 +133,16 @@ export class HrmsComponent implements OnInit {
     // this.fetchhrmscandidatelist();
   }
 
+
+
+  getcandidaterstatus(){
+    const Req = {
+         };
+    this.service.candidatestatus(Req).subscribe((x: any) => {
+      this.currentStatusOptions = x;
+      console.log(this.currentStatusOptions);
+    });
+  }
   fetchhrmscandidatelist() {
     let Req = {
       TraineeID: this.TraineeID,
@@ -144,11 +156,11 @@ export class HrmsComponent implements OnInit {
   getOrgUserList() {
     let Req = {
       TraineeID: this.TraineeID,
-      OrgID: this.OrgID
+      orgID: this.OrgID
     };
-    this.service.getOrgUserList(Req).subscribe((x: any) => {
-      this.recruiterNames = x.result;
-      this.marketerNames = x.result;
+    this.service.fetchrecruiter(Req).subscribe((x: any) => {
+      this.recruiterNames = x;
+      this.marketerNames = x;
     });
   }
   loading:boolean = false;
@@ -170,10 +182,12 @@ export class HrmsComponent implements OnInit {
       locationConstraint: this.addCandidate.value.locationConstraint,
       referralType: this.formData.referralType,
       notes: this.addCandidate.value.notes,
-      candidateStatus: this.formData.candidateStatus,
+      candidateStatus: this.selectedcurrentstatus,
       legalStatus: this.formData.legalStatus,
       marketerName: this.formData.marketerName,
-      recruiteremail: this.userName
+      recruiteremail: this.userName,
+      orgID:this.OrgID,
+      creeateby:this.userName
     };
     // console.log(Req);
     // console.log(Req);
