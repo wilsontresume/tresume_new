@@ -36,7 +36,9 @@ router.post('/getTraineeVendorList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = new sql.Request();
-    const query = "select * from Vendors where PrimaryOwner = '" + req.body.TraineeID + "' and active = 1";
+    const query = "SELECT   V.vendorid,  V.vendorname,  V.emailid,  V.contactnumber,  CONCAT(T.firstname, ' ', T.lastname) AS primaryowner FROM   vendors V INNER JOIN   Trainee T ON V.primaryowner = T.traineeid WHERE   V.active = 1  AND V.primaryowner = '" + req.body.TraineeID + "'";
+
+    
 
     console.log(query);
 

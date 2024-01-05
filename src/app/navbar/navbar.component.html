@@ -198,7 +198,18 @@
                           <i class="right fas fa-angle-left" [ngClass]="{'down': isDropdownOpen['timesheetSubMenu']}"></i>
                         </a>
                         <ul id="timesheetSubMenu" class="nav nav-treeview" [ngStyle]="{'display': isDropdownOpen['timesheetSubMenu'] ? 'block' : 'none'}">
-                          
+                            <li class="nav-item" *ngIf="timesheetrole == 1">
+                                <a class="nav-link" routerLink="alltimelist">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>All Time List</p>
+                                  </a>
+                              </li>
+                              <li class="nav-item" *ngIf="timesheetrole == 1">
+                                <a class="nav-link" routerLink="create-invoice">
+                                    <i class="nav-icon fas fa-receipt"></i>
+                                    <p>Invoice</p>
+                                  </a>
+                              </li>
                           <li class="nav-item" *ngIf="timesheetrole == 1">
                             <a class="nav-link" routerLink="/assignrole">
                               <i class="nav-icon fas fa-highlighter"></i>
@@ -247,13 +258,13 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item" *ngIf="checkFullAccess(3)">
+                    <!-- <li class="nav-item" *ngIf="checkFullAccess(3)">
                         <a routerLink="/jobboardaccount" class=" nav-link">
                             <i class="nav-icon fas fa-tasks"></i>
                             <p>Job Boards</p>
                         </a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a class="nav-link" (click)="toggleDropdown('myAccountSubMenu')">
                           <i class="nav-icon fas fa-user-tie"></i>
                           <p>
@@ -269,13 +280,13 @@
                             </a>
                           </li>
                         </ul>
-                    </li>
-                    <li class="nav-item" *ngIf="checkFullAccess(3)">
+                    </li> -->
+                    <!-- <li class="nav-item" *ngIf="checkFullAccess(3)">
                         <a routerLink="/division" class=" nav-link">
                             <i class="nav-icon fas fa-sitemap"></i>
                             <p>Division</p>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a routerLink="/profile" class="nav-link">
                             <i class="nav-icon fas fa-user"></i>
