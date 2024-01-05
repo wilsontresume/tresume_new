@@ -98,7 +98,6 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { SearchResumesOptComponent } from './job-boards/search-opt-resumes.component';
 import { LoginHomeHealthComponent } from './login/login-homehealth.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
-import { TimesheetViewdetailsComponent } from './timesheet-viewdetails/timesheet-viewdetails.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -135,13 +134,13 @@ const routes: Routes = [
   { path: 'searchtresume/reviewtresume/general', component: GeneralComponent, canActivate: [AuthGuard]   },
   { path: 'Myjobs/createnewjob', component:  CreateNewJobsComponent, canActivate: [AuthGuard]   },
   { path: 'viewdetails', component: ViewDetailsComponent, canActivate: [AuthGuard]   },
-  { path: 'allclient',component: AllclientComponent, canActivate: [AuthGuard]  },
-  { path: 'viewclient',component: ViewclientComponent, canActivate: [AuthGuard]  },
+  { path: 'allclient/:authType',component: AllclientComponent, canActivate: [AuthGuard]  },
+  { path: 'viewclient/:authType',component: ViewclientComponent, canActivate: [AuthGuard]  },
   { path: 'organizationinfo' , component:OrganinfoComponent, canActivate: [AuthGuard]  },
   { path: 'searchtresume' , component:SearchTresumeComponent, canActivate: [AuthGuard]  },
   { path: 'financialinfo' , component:FinancialInfoComponent, canActivate: [AuthGuard]  },
-  { path: 'addclient',component: AddclientComponent, canActivate: [AuthGuard]  },
-  { path: 'viewclient',component: ViewclientComponent, canActivate: [AuthGuard]  },
+  { path: 'addclient/:authType',component: AddclientComponent, canActivate: [AuthGuard]  },
+  // { path: 'viewclient',component: ViewclientComponent, canActivate: [AuthGuard]  },
   { path: 'jobpostings',component:AllJobPostingsComponent, canActivate: [AuthGuard]  },
   { path: 'jobapplication',component:JobApplicationComponent, canActivate: [AuthGuard]  },
   { path: 'organizationinfo' , component:OrganinfoComponent, canActivate: [AuthGuard]  },
@@ -187,7 +186,6 @@ const routes: Routes = [
   {path:'yahoo',component:YahooComponent},
   {path:'adobe',component:AdobeComponent},
   { path: 'createalltimelist', component: CreateAllTimeListComponent },
-  { path: 'timesheetviewdetails', component: TimesheetViewdetailsComponent },
   { path: 'reports', component: ReportsHomeComponent },
   { path: 'reports/ftc', component: ReportsComponent },
   { path: 'reports/interviews', component: InterviewsReportComponent },

@@ -9,6 +9,8 @@ import { DashboardService, RequestItem } from './dashboard.service';
 import { ResponseDetails, CardType } from './model';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ReportsService } from '../reports/reports.service';
+import { CookieService } from 'ngx-cookie-service';
+
 
 interface IRange {
   value: Date[];
@@ -23,6 +25,7 @@ interface IRange {
 })
 export class DashboardComponent implements OnInit {
 
+  loading:boolean = false;
 
   public title = 'Tresume-NG';
   public traineeID: number = 5;

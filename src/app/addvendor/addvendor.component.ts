@@ -13,6 +13,8 @@ import { MessageService } from 'primeng/api';
   providers: [CookieService, addVendorService, MessageService],
 })
 export class AddvendorComponent implements OnInit {
+  loading:boolean = false;
+
   addVendor: any;
   formData: any;
   onKeyPress($event: any) {

@@ -36,3 +36,92 @@
     top: 0;
     right: 0;
   }
+
+  .custom-control-input:checked+.custom-control-label::before {
+    background-color: rgb(101, 177, 101);
+    border-color: rgb(101, 177, 101);
+  }
+
+  /* Green color for the switch when checked */
+  .custom-control-input:checked+.custom-control-label::after {
+    background-color: rgb(101, 177, 101);
+  }
+  .dis{
+    width: 75px;
+    
+  }
+  
+.align-top {
+  vertical-align: top;
+}
+body {
+    background-color: #ffffff; /* Set the background color to white */
+    color: #000; /* Set the text color to black */
+  }
+  .table-container {
+    width: 100%;
+    max-width: 1000px;
+    border: 1px solid #ccc;
+  }
+  
+  .table-row {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .table-cell {
+    flex: 1;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  .col-md-4{
+    margin-left: 13rem;
+  }
+  .balance{
+    margin-left: 39rem;
+  }
+  .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 320px;
+    height: 100%;
+    right: 0px;
+}
+.modal-content {
+    height: 100%;
+}
+.fixed-width-wrapper {
+  width: 40px; /* Adjust the width as per your design */
+}
+.arrow{
+  margin-left: 46rem;
+}
+.marg{
+  margin-left: 15px;
+}
+.fbtn{
+  margin: 10px;
+  padding: 5px;
+  width: 150px;
+  border-radius: 15px;
+}
+.popup {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px; /* Adjust as needed */
+}
+
+.popup .popover {
+  display: block;
+  position: absolute;
+  bottom: -130%; /* Adjust to position the popover */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: 200px; /* Adjust width as needed */
+  /* Other styles specific to this popup */
+}

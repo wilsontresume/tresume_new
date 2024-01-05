@@ -22,10 +22,56 @@ export class CreateAllTimeListComponent implements OnInit {
   isSundaySelected: boolean = false;
   CAselectedFile: File | null = null;
   SRselectedFile: File | null = null;
+  [key: string]: any;
+  file1: File | null = null;
+  file2: File | null = null;
+
+  onFileSelected(event: any, fileIdentifier: string): void {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this[fileIdentifier] = fileList[0];
+    }
+  }
+
+  rows: any[] = [
+    { 
+      selectedValue: '',
+      description: '', 
+      checkbox: false, 
+      billableAmount: 0,
+    },
+
+  ];
+
+  
+  rowData = { selectedValue: '' };
+  dropdownOptions = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
+
+
+  rowData1 = { selectedValue: '' };
+  dropdownOptions1 = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
 
  
-  
-  constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService) {
+  rowData2 = { selectedValue: '' };
+  dropdownOptions2 = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
+
+
+  rowData3 = { selectedValue: '' };
+  dropdownOptions3 = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
+
+ 
+  rowData4 = { selectedValue: '' };
+  dropdownOptions4 = { items: [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }] };
+
+ 
+
+  selectOption(row: { selectedValue: string }, value: string): void {
+    row.selectedValue = value;
+  }
+
+
+
+  constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService) {
 
   }
 
@@ -50,73 +96,6 @@ export class CreateAllTimeListComponent implements OnInit {
     }
   }
 
-  // addRow() {
-  //   const row = this.formBuilder.group({
-  //     project: ['', Validators.required],
-  //     sunHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     monHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     tueHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     wedHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     thuHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     friHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     satHours: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-  //     comments: [''],
-  //     totalHours: ['']
-  //   });
-
-  //   this.timesheetData.push(row);
-  // }
-
-  // removeRow(index: number) {
-  //   if (index >= 0 && index < this.timesheetData.length) {
-  //     this.timesheetData.splice(index, 1);
-  //   }
-  // }
-
-  // async saveTimesheet() {
-  //   const formData = new FormData();
-  //   if (this.CAselectedFile) {
-  //     formData.append('CAfile', this.CAselectedFile, this.CAselectedFile.name);
-  //   }
-  //   if (this.SRselectedFile) {
-  //     formData.append('SRfile', this.SRselectedFile, this.SRselectedFile.name);
-  //   }
-  //   formData.append('timesheetData', JSON.stringify(this.timesheetData));
-  
-  //   try {
-  //     const response = await this.Service.createTimesheet(formData).toPromise();
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error('An error occurred:', error);
-  //   }
-  // }
-
-  // cancel() {
-  //   this.timesheetData = [];
-  //   this.CAselectedFile = null;
-  //   this.SRselectedFile = null;
-  //   this.addRow();
-  //   this.selectedSunday = '';
-  //   this.isSundaySelected = false;
-  //   this.router.navigate(['/all-time-list']).catch((error) => {
-  //     console.error('Navigation error:', error);
-  //   });
-  // }
-
-  // onFileSelected(event: Event, Type: string) {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   if (Type === "1") {
-  //     if (inputElement.files) {
-  //       this.CAselectedFile = inputElement.files[0];
-  //     }
-  //   } else {
-  //     if (inputElement.files) {
-  //       this.SRselectedFile = inputElement.files[0];
-  //     }
-  //   }
-  // }
-
-  rows: any[] = [];
 
 
 
@@ -159,4 +138,5 @@ export class CreateAllTimeListComponent implements OnInit {
     this.addRow(selectOption1, selectOption2, selectOption3, selectOption4, textarea, checkbox, input1, input2, input3, input4, input5, input6, input7, );
   }
  
+
 }

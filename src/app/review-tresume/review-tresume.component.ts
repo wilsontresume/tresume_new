@@ -56,8 +56,8 @@ export class ReviewTresumeComponent implements OnChanges {
   legalStatusValend: any;
   division: any;
   OrgID: string;
-userName: string;
-tabIndex: any;
+  userName: string;
+  tabIndex: any;
   routeType: any;
   title: any;
 
@@ -120,7 +120,7 @@ tabIndex: any;
   ssn: string = '';
   showSSN: boolean = false;
   inputDisabled: boolean = true;
-
+  loading:boolean = false;
   startShowingSSN() {
     this.showSSN = true;
     this.inputDisabled = false;
@@ -139,6 +139,7 @@ tabIndex: any;
   siteVisitFormData: any = {};
 
   saveData() {
+    this.loading = true;
     switch (parseInt(this.currentTabIndex)) {
       case 0:
         this.saveGeneralFormData();
@@ -207,11 +208,13 @@ tabIndex: any;
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
+    this.loading = false;
     this.fetchinterviewlist();
   }
   
   private handleError(response: any): void {
     this.messageService.add({ severity: 'error', summary:  response.message });
+    this.loading = false;
   }
 
   saveInterviewFormData() {

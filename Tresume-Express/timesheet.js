@@ -30,6 +30,8 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
+module.exports = router;
+
 router.post("/getAllTimeList", async (req, res) => {
   sql.connect(config, function (err) {
     if (err) console.log(err);
@@ -345,7 +347,6 @@ router.post("/fetchtimesheetallcandidate", async (req, res) => {
   }
 });
 
-
 router.post("/fetchtimesheetprojects", async (req, res) => {
   try {
     const organizationid = req.body.OrgID;
@@ -409,7 +410,7 @@ router.post("/assignproject", async (req, res) => {
       }
 
       const query =
-        "UPDATE Trainee SET timesheet_admin = '"+timesheetadmin+"',timesheetproject='"+timesheetproject+"' WHERE traineeid =" +
+        "UPDATE Trainee SET timesheet_admin = '" + timesheetadmin + "',timesheetproject='" + timesheetproject + "' WHERE traineeid =" +
         candidateid;
 
       console.log(query);
@@ -439,7 +440,203 @@ router.post("/assignproject", async (req, res) => {
   }
 });
 
-module.exports = router;
+router.post('/getTraineeClientList', async (req, res) => {
+  try {
+    // const request = new sql.Request();
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    const query = "select * from Clients where PrimaryOwner = '" + req.body.TraineeID + "' and active = 1";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active clients found! ",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching client data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching client data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+router.post('/getTimesheetCandidateList', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+
+    const query = `SELECT traineeid, CONCAT(firstname, ' ', lastname) AS name FROM trainee WHERE userorganizationid = '${req.body.organizationid}' AND timesheet_role = 3`;
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active candidates found!",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching candidate data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching candidate data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+router.post('/getTimesheetClientList', async (req, res) => {
+  try {
+    // const request = new sql.Request();
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    const query = "SELECT s.ClientID, s.ClientName FROM clients s INNER JOIN Trainee t ON s.PrimaryOwner = t.TraineeID  WHERE s.Active = 1 AND	s.istimesheet = 1 AND t.OrganizationID = '" + req.body.OrgID + "'";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active clients found! ",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching client data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching client data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+router.post('/createtimesheetproject', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    const {
+      ProjectName,
+      Billable,
+      ClientName,
+      Candidates,
+      SelectedCandidate,
+      StartDate,
+      EndDate,
+      TraineeID,
+      orgID
+    } = req.body;
+
+    const query = `INSERT INTO timesheet_project (Projectname, clientid, netterms, status, createdby, createdate, orgid, billableamt, startdate, enddate, candidate) VALUES ('${req.body.Projectname}', '${req.body.clientid}', '','1','${req.body.createdby}',(SELECT CAST(GETDATE() AS DATE)), '${req.body.orgid}', '${req.body.billableamt}', '${req.body.startdate}', '${req.body.enddate}','${req.body.candidate}')`;
+
+    console.log(query);
+    const recordset = await request.query(query);
+    if (recordset && recordset.rowsAffected && recordset.rowsAffected[0] > 0) {
+      const result = {
+        flag: 1,
+        result: 'Project created successfully!',
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: 'Failed to create the project!',
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error('Error creating project:', error);
+    const result = {
+      flag: 0,
+      error: 'An error occurred while creating the project!',
+    };
+    res.status(500).send(result);
+  }
+});
+
+router.post('/getProjectList', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    
+    const query =  "SELECT tp.projectid, tp.Projectname, c.ClientName, tp.startdate, tp.enddate FROM timesheet_project tp JOIN clients c ON tp.clientid = c.ClientID WHERE tp.orgid = '"+req.body.orgid+ "' AND tp.status = 1;";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active projects found!",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching project data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching project data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+router.post("/deleteProject", async (req, res) => {
+  try {
+   
+    await sql.connect(config);
+    const query =
+      "UPDATE timesheet_project SET status = 0 WHERE projectid =  '"+req.body.projectid+"' ";
+
+    const request = new sql.Request();
+
+    const result = await request.query(query);
+
+    await sql.close();
+
+    res.json({ message: "Project Removed Successfully" });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 // router.post('/createTimesheet', async (req, res) => {
 //   sql.connect(config, function (err) {
@@ -504,3 +701,4 @@ module.exports = router;
 //   );
 //   return queryResult;
 // }
+

@@ -9,6 +9,7 @@ export class BatchComponent implements OnInit {
   batchName: string;
   startDate: string;
   endDate: string;
+  loading:boolean = false;
 
   cancel() {
     // Add your cancel logic here
