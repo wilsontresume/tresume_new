@@ -21,17 +21,17 @@
                     <th>Vendor Name</th>
                     <th>Email ID</th>
                     <th>Website</th>
-                    <th>Owner</th>
+                    <th>Contact number</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                 <tr *ngFor="let vendor of vendors">
-                    <td>{{ vendor.VendorName }}</td>
-                    <td>{{ vendor.EmailID }}</td>
-                    <td>{{ vendor.Website }}</td>
-                    <td>{{ vendor.PrimaryOwner}}</td>
+                    <td>{{ vendor.vendorname }}</td>
+                    <td>{{ vendor.emailid }}</td>
+                    <td>{{ vendor.contactnumber }}</td>
+                    <td>{{ vendor.primaryowner}}</td>
                     <td>
                         <div>
                             <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewvendor']"></i>
@@ -40,6 +40,11 @@
 
                     </td>
                 </tr>
+                <tr *ngIf="noResultsFound" >
+                    <td colspan="11" class="text-center">
+                      No results found.
+                    </td>
+                  </tr>
             </tbody>
         </table>
     </div>

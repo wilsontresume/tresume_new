@@ -93,5 +93,4 @@ showButtons: any;
   closeModal() {
     this.selectedItem = null; // Clear the selectedItem
   }
-
 }

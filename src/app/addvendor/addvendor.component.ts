@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { addVendorService } from './addvendor.component.service';
+import { addVendorService } from './addvendor.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 
@@ -17,9 +17,9 @@ export class AddvendorComponent implements OnInit {
 
   addVendor: any;
   formData: any;
-  onKeyPress($event: any) {
-    throw new Error('Method not implemented.');
-  }
+  // onKeyPress($event: any) {
+  //   throw new Error('Method not implemented.');
+  // }
   customCheck1:boolean=false;
   customCheck:boolean=false;
   content: string = '';
@@ -35,6 +35,9 @@ export class AddvendorComponent implements OnInit {
   filteredRequiredDocuments: any[] = [];
   allvendorService: any;
   formBuilder: any;
+  OrgID: any;
+  userName: string;
+  TraineeID: string;
 
   ngOnInit(): void {
     this.addVendor = this.fb.group({
@@ -62,7 +65,9 @@ export class AddvendorComponent implements OnInit {
     });
   }
 
-  constructor(private fb: FormBuilder, private router: Router, private service: addVendorService,) {
+  constructor(private fb: FormBuilder, private router: Router, private service: addVendorService,private cookieService: CookieService) {
+    this.userName = this.cookieService.get('userName1');
+    this.TraineeID = this.cookieService.get('TraineeID');
     this.addVendor = this.fb.group({
       description: [''],
     });
@@ -147,7 +152,7 @@ export class AddvendorComponent implements OnInit {
       City: this.addVendor.value.City,
       VendorStatus: this.addVendor.value.VendorStatus,
       VendorCategory: this.addVendor.value.VendorCategory,
-      PrimaryOwner: this.addVendor.value.PrimaryOwner,
+      PrimaryOwner: this.TraineeID,
       PaymentTerms: this.addVendor.value.PaymentTerms,
 
       //textarea

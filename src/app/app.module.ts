@@ -243,6 +243,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     ForgetPasswordComponent,
     LoginHomeHealthComponent,
     CreateInvoiceComponent,
+    // TimesheetViewdetailsComponent
   ],
   imports: [
     HttpClientModule,

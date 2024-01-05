@@ -41,8 +41,8 @@ export class AddclientComponent implements OnInit {
     private router: Router,
     private service: AddClientService
   ) {
-    const documents = this.requiredDocuments.map(doc => doc.name).join(', ');
-    console.log(documents);
+    // const documents = this.requiredDocuments.map(doc => doc.name).join(', ');
+    // console.log(documents);
   }
 
   ngOnInit(): void {
