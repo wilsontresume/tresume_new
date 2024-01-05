@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.container-fluid {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: white;
+}
+table{
+  margin-top: 10px;
+}
+.head {
+  background-color: #f0f0f0;
+}
+.table-data{
+  width: 200px;
+  margin: 3px;
+  padding: 3px;
+  border:  1px solid #d9d3d3;
+}
+.table-data1{
+  width: 170px;
+  margin: 3px;
+  margin-right: 32px;
+  padding: 3px;
+  border:  1px solid #d9d3d3;
+}
+td{
+  padding: 10px;
+  margin: 10px;
+  border-left: 1px solid #d9d3d3;
+}
+textarea{
+  margin: 3px;
+  border:  1px solid #d9d3d3;
+  margin-right: 41px;
+}
+th{
+  padding-left: 10px;
+  padding-bottom: 5px;
+  border-left: 1px solid #d9d3d3;
+}
+tr{
+  border-bottom: 1px solid #d9d3d3;
+}
+i{
+  cursor: pointer;
+  color: #b3adad;
+}
+input{
+  border-radius: 1px;
+  border:  1px solid #d9d3d3;
+  padding: 3px;
+}
+input[type="checkbox"]{
+  margin: 0px 5px;
+}
+.bill-Amt{
+  margin-left: 3px;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000; 
+  outline: none; 
+}
+button{
+  margin: 10px;
+  padding: 5px;
+  width: 100px;
+  border-radius: 15px;
+}
+
+

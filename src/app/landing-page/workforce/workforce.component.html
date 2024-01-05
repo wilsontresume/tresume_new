@@ -1,0 +1,334 @@
+<nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
+  <a routerLink="/homelanding"><img src="../assets/img/logo.png" style="height: 90px;" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+          Products
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+          <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+          <a class="dropdown-item" routerLink="/workforce">Workforce</a>
+          <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
+        </div>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/market">Marketplace</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/features">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/contact">Contact Us</a>
+      </li>
+    </ul>
+    <div class="content" style="margin-right: 62px;">
+      <a href="login" class="bn5">Login</a>
+    </div>
+  </div>
+</nav>
+<div class="background-video video-container">
+  <video autoplay muted loop class="blur-video video-background" style="width: 100%; height: fit-content;">
+      <source src="../../../assets/videos/consult.mp4" type="video/mp4">
+  </video>
+  <div style="width: 100%;" class="content-over-video overlay">
+    <h1  id="keyFeatures" style="background-color: #a24f9a91;
+  height: 111px;
+  padding-top: 33px;font-size: 54px;color: white;font-weight: 500; ">
+  <span class="space">WELCOME</span>  <span class="space">TO</span>  <span class="space">OUR</span> <span class="space">MARKETPLACE</span></h1>
+</div>
+</div>
+<!-- workforce.component.html -->
+<br><br>
+<div class="container">
+  <!-- fisrt -->
+  <!-- 1 -->
+  <div class="row">
+    <!-- Left Side (40%) -->
+    <div class="col-md-6">
+      <div class="text-content">
+        <h1 style="
+        font-size: 40px;
+        font-weight: bold;">Simplifying Onboarding</h1> <h1 style="  font-size: 40px;
+        font-weight: bold;">Document Management</h1>
+        <br><br>
+        <h5  style="letter-spacing: 2px;font-size: 15px;
+        letter-spacing: 2px;
+        text-align: justify;"> Managing the onboarding process and ensuring compliance with document collection can be a complex
+                    and
+                    time-consuming task. With Tresume's Workforce module, we simplify onboarding and document management
+                    by
+                    automating processes and providing a centralized platform for collecting and managing onboarding
+                    documents.
+        </h5>
+        <br><br>
+        <div class="button-group">
+          <a href="/"><button class="bn632-hover bn24">Book a Demo</button></a>
+          <a href="/"><button class="bn632-hover bn24">Start Free Trial</button></a>
+        </div>
+      </div>
+    </div>
+    <!-- Right Side (60%) -->
+    <div class="col-md-6">
+      <img src="../../../assets/img/wrk.png" alt="Workforce Image"  style="max-width: 130%; height: 80%;">
+    </div>
+  </div>
+  <!-- 2 -->
+  <br><br>
+  <h2 class="text-center tittle">Key Features And Benefits</h2>
+  <span class="animate-border mr-auto ml-auto mb-4"></span>
+  <br><br>
+  <!-- second -->
+    <div class="row">
+      <!-- Left Side (40%) -->
+      <div class="col-md-6">
+        <img src="../../../assets/img/wrk.png" alt="Workforce Image" style="max-width: 114%;
+        height: 90%;">
+      </div>
+
+      <!-- Right Side (60%) -->
+      <div class="col-md-6">
+        <div class="text-content" style="margin-left: 6rem;">
+          <h1 style="font-size: 40px; font-weight: bold;">Document Collection</h1>
+          <!-- <h1 style="font-size: 40px; font-weight: bold;">way you recruit.</h1> -->
+          <br><br>
+          <h5 style="letter-spacing: 2px; font-size: 15px; text-align: justify;">
+            Streamline the collection of onboarding documents for different positions within your organization. Our platform allows you to create customized checklists, ensuring tha all necessary
+            documents are collected from candidates, such as resumes, identification proofs, certifications, and more
+          </h5>
+          <br><br>
+      </div>
+      </div>
+    </div>
+    <hr>
+    <br><br><br>
+
+    <div class="row" style="    margin-top: 15px;">
+      <!-- Left Side (40%) -->
+      <div class="col-md-6">
+        <div class="text-content">
+          <h1 style="
+          font-size: 35px;
+          font-weight: bold;">Automated Reminders</h1>
+          <h1 style="  font-size: 35px;
+          font-weight: bold;"> Notifications</h1>
+          <br><br>
+          <h5  style="letter-spacing: 2px;font-size: 15px;
+          letter-spacing: 2px;
+          text-align: justify;">
+           Never miss an important document again. Tresume's Workforce module sends automated reminders
+           and notifications to candidates and HR teams, ensuring a timely collection of required
+           documents and reducing manual follow-ups.
+          </h5>
+          <br><br>
+        </div>
+      </div>
+
+      <!-- Right Side (60%) -->
+      <div class="col-md-6">
+        <img src="../../../assets/img/wrk.png" alt="Workforce Image"  style="max-width: 130%; height: 80%;">
+      </div>
+    </div>
+    <br><br>
+    <div class="row">
+      <!-- Left Side (40%) -->
+      <div class="col-md-6">
+        <img src="../../../assets/img/document.png" alt="Workforce Image" style="max-width: 114%;
+        height: 90%;">
+      </div>
+
+      <!-- Right Side (60%) -->
+      <div class="col-md-6">
+        <div class="text-content" style="margin-left: 6rem;">
+          <h1 style="font-size: 40px; font-weight: bold;">Secure Document Storage</h1>
+          <!-- <h1 style="font-size: 40px; font-weight: bold;">way you recruit.</h1> -->
+          <br><br>
+          <h5 style="letter-spacing: 2px; font-size: 15px; text-align: justify;">
+            Safely store and organize all onboarding documents in a secure and centralized location.Our platform ensures data privacy and compliance with industry regulations, providing peace of mind for HR teams and candidates.
+          </h5>
+          <br><br>
+      </div>
+      </div>
+    </div>
+    <br><br>
+
+    <div class="row" style="    margin-top: 15px;">
+      <!-- Left Side (40%) -->
+      <div class="col-md-6">
+        <div class="text-content">
+          <h1 style="
+          font-size: 35px;
+          font-weight: bold;">Task Tracking and Completion</h1>
+          <!-- <h1 style="  font-size: 35px;
+          font-weight: bold;"> Notifications</h1> -->
+          <br><br>
+          <h5  style="letter-spacing: 2px;font-size: 15px;
+          letter-spacing: 2px;
+          text-align: justify;">
+     Keep track of the onboarding progress for each candidate with our intuitive task tracking
+     system. HR teams can easily monitor the status of document collection, track completion
+     rates, and identify any outstanding items.
+          </h5>
+          <br><br>
+        </div>
+      </div>
+
+      <!-- Right Side (60%) -->
+      <div class="col-md-6">
+        <img src="../../../assets/img/wrk.png" alt="Workforce Image"  style="max-width: 130%; height: 80%;">
+      </div>
+    </div>
+    <div class="row">
+      <!-- Left Side (40%) -->
+      <div class="col-md-6">
+        <img src="../../../assets/img/wrk.png" alt="Workforce Image" style="max-width: 114%;
+        height: 90%;">
+      </div>
+
+      <!-- Right Side (60%) -->
+      <div class="col-md-6">
+        <div class="text-content" style="margin-left: 6rem;">
+          <h1 style="font-size: 40px; font-weight: bold;">Customizable Workflows</h1>
+          <!-- <h1 style="font-size: 40px; font-weight: bold;">way you recruit.</h1> -->
+          <br><br>
+          <h5 style="letter-spacing: 2px; font-size: 15px; text-align: justify;">
+Tailor the onboarding process to match your organization's unique requirements. Tresume's
+Workforce module allows you to create customizable workflows, defining the specific steps
+  and document requirements for each position, ensuring a standardized onboarding experience.
+ Tresume's Workforce module simplifies onboarding and document management, reducing
+  administrative burden, ensuring compliance, and providing a smooth onboarding experience for
+ both candidates and HR teams.
+          </h5>
+          <br><br>
+      </div>
+      </div>
+    </div>
+</div>
+
+<footer class="footer-section">
+  <div class="container">
+    <div class="footer-cta pt-5 ">
+      <div class="row">
+        <div class="col-xl-4 col-md-4 mb-30">
+          <div class="single-cta">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="cta-text">
+              <h4>Find us</h4>
+              <span>44121 Leesburg Pike., STE 230 Ashburn , VA 20147,Uinted States Of America
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-4 mb-30">
+          <div class="single-cta">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <div class="cta-text">
+              <h4>Call us</h4>
+              <span>(703)9863350</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-4 mb-30">
+          <div class="single-cta">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <div class="cta-text">
+              <h4>Mail us</h4>
+              <span>contact</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-content pt-5 pb-1">
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 mb-50">
+          <div class="footer-widget">
+            <div class="footer-logo">
+              <a href="index.html"><img src="../../../assets/img/tresumelog.png" style=" margin-left: 7rem;" class="img-fluid" alt="logo"></a>
+            </div>
+            <div class="footer-text">
+              <p>With the right ATS recruiting system, you can increase the number of placements and grow your
+                business.
+                Tresume advanced recruit analytics helps you back up all your presentations with data. Create
+                forecast
+                for next quarter and keep track of important metrics.</p>
+            </div>
+            <div class="footer-social-icon">
+              <span>Follow us</span>
+              <ul class="social_icon">
+                <li><a href="#"> <i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+          <div class="footer-widget">
+            <div class="footer-widget-heading">
+              <h3>Useful Links</h3>
+            </div>
+            <ul>
+              <li><a href="#">Our Team</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Our Gallery</a></li>
+              <li><a href="#">Selection Process</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Sponsorship</a></li>
+              <li><a href="#">Our Policies</a></li>
+              <li><a href="#">Our Team</a></li>
+              <li><a href="#">Contact us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+          <div class="footer-widget">
+            <div class="footer-widget-heading">
+              <h3>Subscribe</h3>
+            </div>
+            <div class="footer-text mb-25">
+              <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+            </div>
+            <div class="subscribe-form">
+              <form action="#">
+                <input type="text" placeholder="Email Address">
+                <button><i class="fa fa-telegram" aria-hidden="true"></i></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyright-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+          <div class="copyright-text">
+            <p>Copy Rights 2023 TResume</p>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+          <div class="footer-menu">
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Terms</a></li>
+              <li><a href="#">Privacy</a></li>
+              <li><a href="#">Policy</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

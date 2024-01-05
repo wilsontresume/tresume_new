@@ -44,4 +44,12 @@ export class ReportsHomeComponent implements OnInit {
         this.router.navigate(['reports/' + route])
     }
 
+    reports = [
+      { title: 'FTC Report', description: 'Generates a list of First Time Callers' },
+      { title: 'Interviews Report', description: 'Generates a list of Interviews scheduled during a time period' },
+      { title: 'Bench Tracker Report', description: 'Generates a list of Candidates currently on bench' },
+
+    ];
+
+
 }
