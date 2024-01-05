@@ -14,7 +14,24 @@ export class CreateInvoiceComponent implements OnInit {
 OrgID: string = '';
   showPopup: boolean = false;
 showConfirmationDialog2: any;
-  
+showConfirmationDialog: any;
+showConfirmationModal: boolean = false;
+
+confirmDelete() {
+  this.showConfirmationModal = true;
+}
+
+deleteItems() {
+  // Simulating deletion with a log message
+  console.log("Item deleted!"); // Replace this with your actual deletion logic
+
+  // Close the modal after successful deletion (in a real scenario, this would be after deletion request/response)
+  this.closeModal();
+}
+
+closeModal1() {
+  this.showConfirmationModal = false;
+}
 
   togglePopup(event: Event): void {
     event.preventDefault(); // Prevent the default link behavior

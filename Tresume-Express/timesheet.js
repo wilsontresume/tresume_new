@@ -638,6 +638,112 @@ router.post("/deleteProject", async (req, res) => {
   }
 });
 
+
+router.post('/getCreateProjectList', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    
+    const query =  "select * from timesheet_project where projectname like '%value%' and orgID = this.orgID and active = 1;";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active projects found!",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching project data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching project data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+
+
+router.post('/getPayItemList', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    
+    const query =  "select * from Location ";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active projects found!",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching project data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching project data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+
+router.post('/getLocationList', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    
+    const query =  "Select * from PayType";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active projects found!",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching project data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching project data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
 // router.post('/createTimesheet', async (req, res) => {
 //   sql.connect(config, function (err) {
 //     if (err) console.log(err);
