@@ -219,52 +219,66 @@ router.post('/insertTraineeCandidate', async function (req, res) {
     var TraineeID = await generateTraineeID();
 
     var query =
-      "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
-      req.body.email +
-      "' AND UserOrganizationID = '" +
-      req.body.OrganizationID +
-      "') " +
-      "BEGIN " +
-      "INSERT INTO Trainee (TraineeID, email, firstName, phone, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, groups, locationConstraint, marketerName, university ) " +
-      "VALUES (" +
-      `'${TraineeID}',` +
-      ` ${formatValue(req.body.email)},` +
-      ` ${formatValue(req.body.firstName)},` +
-      ` ${formatValue(req.body.phone)},` +
-      ` ${formatValue(req.body.middleName)},` +
-      ` ${formatValue(req.body.lastName)},` +
-      ` ${formatValue(req.body.groups)},` +
-      ` ${formatValue(req.body.legalStatus)},` +
-      ` ${formatValue(req.body.candidateStatus)},` +
-      ` ${formatValue(req.body.degree)},` +
-      ` ${formatValue(req.body.gender)},` +
-      ` ${formatValue(req.body.notes)},` +
-      ` ${formatValue(req.body.recruiterName)},` +
-      ` ${formatValue(req.body.referralType)},` +
-      ' 1,' +
-      ` ${formatValue(req.body.locationConstraint)},` +
-      ` ${formatValue(req.body.marketerName)},` +
-      ` ${formatValue(req.body.university)},` +
-      ' 1,' +
-      " 'ACTIVE'," +
-      " 'READY'," +
-      ' 1,' +
-      ' 1,' +
-      " 'TRESUMEUSER', " +
-      "'', GETDATE()) " +
-      "END";
+  "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
+  req.body.email +
+  "' AND UserOrganizationID = '" +
+  req.body.OrganizationID +
+  "') " +
+  "BEGIN " +
+  "INSERT INTO Trainee (TraineeID, email, firstName, phone, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, groups, locationConstraint, marketerName, university ) " +
+  "VALUES (" +
+  `'${TraineeID}',` +
+  ` ${formatValue(req.body.email || '')},` +
+  ` ${formatValue(req.body.firstName || '')},` +
+  ` ${formatValue(req.body.phone || '')},` +
+  ` ${formatValue(req.body.middleName || '')},` +
+  ` ${formatValue(req.body.lastName || '')},` +
+  ` ${formatValue(req.body.groups || '')},` +
+  ` ${formatValue(req.body.legalStatus || '')},` +
+  ` ${formatValue(req.body.candidateStatus || '')},` +
+  ` ${formatValue(req.body.degree || '')},` +
+  ` ${formatValue(req.body.gender || '')},` +
+  ` ${formatValue(req.body.notes || '')},` +
+  ` ${formatValue(req.body.recruiterName || '')},` +
+  ` ${formatValue(req.body.referralType || '')},` +
+  ' 1,' +
+  ` ${formatValue(req.body.locationConstraint || '')},` +
+  ` ${formatValue(req.body.marketerName || '')},` +
+  ` ${formatValue(req.body.university || '')},` +
+  ' 1,' +
+  " 'ACTIVE'," +
+  " 'READY'," +
+  ' 1,' +
+  ' 1,' +
+  " 'TRESUMEUSER', " +
+  "'', GETDATE()) " +
+  "END";
 
     console.log(query);
 
-    // await sql.connect(config);
-    // var request = new sql.Request();
-    // var result = await request.query(query);
+    await sql.connect(config);
+    var request = new sql.Request();
+    var result = await request.query(query);
 
-    res.status(200).send("Data Fetched");
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
-  }
+  //   res.status(200).send("Data Fetched");
+  // } catch (error) {
+  //   console.error("Error:", error);
+  //   res.status(500).send("Internal Server Error");
+  // }
+  const data ={
+    flag: 1,
+    message: "Trainee Candidate Data Fetched",
+  };
+
+  res.send(data);
+}
+catch (error){
+  const data = {
+    flag: 1,
+    message:"Internal Server Error",
+  };
+  res.status(500).send(data);
+}
 });
 
 async function generateTraineeID() {
