@@ -56,7 +56,10 @@ export class ReviewTresumeComponent implements OnChanges {
   division: any;
   OrgID: string;
 userName: string;
-tabIndex:number = 0;
+tabIndex: any;
+  routeType: any;
+  title: any;
+
   siteVisitTabClicked() {
     console.log('Additional logic for Site Visit tab click');
   }
@@ -80,7 +83,8 @@ tabIndex:number = 0;
   otherNotes: string = '';
   dob: Date;
   SelectedDivision: string = '';
-
+  currentTabIndex: any;
+  saveButtonLabel: string = 'Save';
   items: any[] = [
     {
       value1: 'Name 1',
@@ -115,7 +119,7 @@ tabIndex:number = 0;
   ssn: string = '';
   showSSN: boolean = false;
   inputDisabled: boolean = true;
-
+  loading:boolean = false;
   startShowingSSN() {
     this.showSSN = true;
     this.inputDisabled = false;
@@ -134,7 +138,8 @@ tabIndex:number = 0;
   siteVisitFormData: any = {};
 
   saveData() {
-    switch (this.currentTabIndex) {
+    this.loading = true;
+    switch (parseInt(this.currentTabIndex)) {
       case 0:
         this.saveGeneralFormData();
         break;
@@ -186,9 +191,11 @@ tabIndex:number = 0;
     };
     console.log(Req);
 
+
     this.service.updateGeneral(Req).subscribe(
       (x: any) => {
         this.handleSuccess(x);
+
       },
       (error: any) => {
         this.handleError(error);
@@ -198,23 +205,19 @@ tabIndex:number = 0;
   }
 
   private handleSuccess(response: any): void {
-    this.messageService.add({ severity: 'success', summary: 'Update successful.' });
+    this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
+    this.loading = false;
+    this.fetchinterviewlist();
   }
   
-  private handleError(error: any): void {
-    this.messageService.add({ severity: 'error', summary: 'Update failed. Please try again later.' });
-    console.error(error);
+  private handleError(response: any): void {
+    this.messageService.add({ severity: 'error', summary:  response.message });
+    this.loading = false;
   }
 
   saveInterviewFormData() {
-    if (this.currentTabIndex === 1 && this.myForm.valid) {
-      console.log(this.myForm.value);
-    } else if (this.currentTabIndex === 1) {
-      console.log("Form is invalid");
-    } else {
-      console.log("Form is not in the Interview tab");
-    }
+
     console.log('Saving data for the Interview tab:', this.interviewFormData);
 
     let Req = {
@@ -227,9 +230,13 @@ tabIndex:number = 0;
       assistedBy: this.myForm.get('assistedBy').value,
       typeOfAssistance: this.myForm.get('typeOfAssistance').value,
       interviewMode: this.myForm.get('interviewMode').value,
+      interviewTimeZone:'EST',
+      traineeID:this.candidateID,
+      recruiterID:this.TraineeID,
+      recruiteremail:this.userName,
+      InterviewStatus:'SCHEDULED',
     };
-    // console.log(Req);
-// console.log(Req);
+
     // this.service.saveInterviewFormData(Req).subscribe((x: any) => {
     //   console.log(x);
     // });
@@ -241,9 +248,17 @@ tabIndex:number = 0;
   // console.log(response);
   //   });
     console.log(Req);
-    this.service.insertTraineeInterview(Req).subscribe((x: any) => {
-      console.log(x);
-    });
+
+    this.service.insertTraineeInterview(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+
   }
 
   savePlacementFormData() {
@@ -251,13 +266,6 @@ tabIndex:number = 0;
   }
 
   saveSubmissionFormData() {
-    if (this.currentTabIndex === 3 && this.myFormSubmission.valid) {
-      console.log(this.myFormSubmission.value);
-    } else if (this.currentTabIndex === 3) {
-      console.log("Form is invalid");
-    } else {
-      console.log("Form is not in the Submission tab");
-    }
     console.log('Saving data for the Submission tab:', this.submissionFormData);
 
     let Req = {
@@ -272,9 +280,15 @@ tabIndex:number = 0;
       CandidateID:this.candidateID
     };
     console.log(Req);
-    this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
-      console.log(x);
-    }); 
+    this.service.insertSubmissionInfo(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+        this.getSubmissionList();
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
   }
 
   saveFinancialInfoFormData() {
@@ -308,28 +322,55 @@ tabIndex:number = 0;
       Bank2RoutingNumber: this.myFormFinancial.value.routingnum2,
       SalaryDepositType: this.myFormFinancial.value.salaryDepositType,
       HowMuch: this.myFormFinancial.value.howMuch,
+      TraineeID:this.candidateID
 
     };
     console.log(Req);
-    this.service.updateFinancial(Req).subscribe((x: any) => {
-      console.log(x);
-    });
+    this.service.updateFinancial(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
   }
 
   saveSiteVisitFormData() {
     console.log('Saving data for the Site Visit tab:', this.siteVisitFormData);
   }
-  currentTabIndex: number;
-  saveButtonLabel: string = 'Save General Data';
+  
 
   onTabChange(tabIndex: number) {
-    const tabLabels = ['General', 'Interview', '', 'Submission', 'Financial Info', ''];
+    const tabLabels = ['', '', '', '', '', ''];
 
     if (tabIndex >= 0 && tabIndex < tabLabels.length) {
       this.currentTabIndex = tabIndex;
       this.tabIndex = tabIndex;
-      this.saveButtonLabel = `Save ${tabLabels[tabIndex]} Data`;
-      this.router.navigate(['/reviewtresume/'+this.candidateID+'/'+tabIndex]);
+      this.saveButtonLabel = `Save ${tabLabels[tabIndex]}`;
+      this.router.navigate(['/reviewtresume/'+this.routeType+'/'+this.candidateID+'/'+tabIndex]);
+    }
+
+    this.currentTabIndex = tabIndex;
+    switch (tabIndex) {
+      case 0:
+        this.fetchCandidateInfo();
+        this.getOrgUserList();
+        break;
+      case 1:
+        this.fetchinterviewlist();
+        break;
+      case 2:
+        this.getPlacementList();
+        break;
+      case 3:
+        this.getSubmissionList();
+        break;
+      case 4:
+        this.fetchCandidateInfo();
+        break;
+      default:
+        break;
     }
   }
 
@@ -367,7 +408,7 @@ tabIndex:number = 0;
   submissionList:any;
 
 
-  constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService, private router:Router) {
+  constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService, private router:Router, ) {
     
     this.candidateID = this.route.snapshot.params["traineeID"];
     console.log(this.candidateID);
@@ -375,16 +416,19 @@ tabIndex:number = 0;
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
+    this.routeType = this.route.snapshot.params["routeType"];
+    this.onTabChange(parseInt(this.tabIndex));
+
    }
 
   ngOnInit(): void {
-    this.fetchinterviewlist();
-    this.getPlacementList();
-    this.fetchCandidateInfo();
-    this.getSubmissionList() ;
-    this.getOrgUserList();
-    this.currentTabIndex = 0;
-
+    // this.fetchinterviewlist();
+    // this.getPlacementList();
+    // this.fetchCandidateInfo();
+    // this.getSubmissionList() ;
+    // this.getOrgUserList();
+    this.currentTabIndex = this.tabIndex;
+    
     this.FormGeneral = this.formBuilder.group({
       phoneNumberG: ['', [Validators.required]],
       generalEmail: ['', [Validators.required]],
@@ -406,7 +450,6 @@ tabIndex:number = 0;
       otherNotes: [''],
       division: [''],
       dob: [''],
-
     });
     
     this.myForm = this.formBuilder.group({
@@ -459,8 +502,26 @@ tabIndex:number = 0;
       howMuch: [''],
       routingnum1: [''],
       routingnum2: [''],
+      
+      
     });
 
+    
+
+  // Email Tracker T-1
+  // async function emailPlacementTracker() {
+  //   try {
+  //     // Assuming you have the user's email, replace 'user@email.com' with the actual user's email
+  //     const userEmail: string = 'user@email.com';
+
+  //     const response: Response = await fetch('/email-placement-tracker?email=' + encodeURIComponent(userEmail));
+  //     const result: string = await response.text();
+
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // }
 
 
     // this.disableFormGroup(this.myFormFinancial);
@@ -474,6 +535,41 @@ tabIndex:number = 0;
     
   }
 
+  // private convertToCSV(data: any[]): string {
+  //   const header = Object.keys(data[0]).join(',') + '\n';
+  //   const rows = data.map(row => Object.values(row).join(',') + '\n');
+  //   return header + rows.join('');
+  // }
+
+  // exportToExcel() {
+  //   const data = this.placementList.map(placement => ({
+  //     POStartDate: placement.POStartDate,
+  //     POEndDate: placement.POEndDate,
+  //     PositionTitle: placement.PositionTitle,
+  //     MarketerFirstName: placement.MarketerFirstName,
+  //     ClientName: placement.ClientName,
+  //     VendorName: placement.VendorName,
+  //     ClientAddress: placement.ClientAddress,
+  //   }));
+  
+  //   // Convert data to CSV format
+  //   const csvData = this.convertToCSV(data);
+  
+  //   // Create Blob and download
+  //   const blob = new Blob([csvData], { type: 'text/csv' });
+  //   const url = window.URL.createObjectURL(blob);
+  
+  //   const a = document.createElement('a');
+  //   a.href = url;
+  //   a.download = 'placement_data.csv';
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   document.body.removeChild(a);
+  
+  // }
+  
+  
+  
   disableGeneralFields() {
     Object.keys(this.FormGeneral.controls).forEach(controlName => {
       this.FormGeneral.get(controlName)?.disable();
@@ -547,13 +643,11 @@ tabIndex:number = 0;
   }
 
   getSubmissionList() {
-    this.TraineeID = this.cookieService.get('TraineeID');
-
-    const Req = {
-      TraineeID: this.candidateID
+    const req = {
+      TraineeID: this.candidateID,
     };
 
-    this.service.getSubmissionList(Req).subscribe((x: any) => {
+    this.service.getSubmissionList(req).subscribe((x: any) => {
       this.submissionList = x.result;
     });
   }
@@ -587,7 +681,7 @@ tabIndex:number = 0;
     phoneNumberG: x.result[0].PhoneNumber || '', // Patching respective values to form controls
     generalEmail: x.result[0].UserName || '',
     recruiterName: x.result[0].RecruiterName || '',
-    legalStatusVal: x.result[0].LegalStatus || '',
+    legalStatusVal: x.result[0].LegalStatusValidFrom || '', 
     firstname: x.result[0].FirstName || '',
     middleName: x.result[0].MiddleName || '',
     lastName: x.result[0].LastName || '',
@@ -599,7 +693,7 @@ tabIndex:number = 0;
     duiFelonyInfo: x.result[0].DuiFelonyInfo || '',
     status: x.result[0].Candidatestatus || '',
     legalStatusValend: x.result[0].Legalenddate || '',
-    selectedLegalStatus: x.result[0].LegalStatus || '',
+    selectedLegalStatus: x.result[0].LegalStatus || '',  
     ftcNotes: x.result[0].FTCNotes || '',
     otherNotes: x.result[0].Notes || '',
     division: x.result[0].division || '',
@@ -825,5 +919,6 @@ tabIndex:number = 0;
       this.experiences.splice(index, 1);
     }
   }
+
 
 }

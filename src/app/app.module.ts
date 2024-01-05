@@ -152,7 +152,8 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { SearchResumesOptComponent } from './job-boards/search-opt-resumes.component';
 import { LoginHomeHealthComponent } from './login/login-homehealth.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
-
+import { TimesheetViewdetailsComponent } from './timesheet-viewdetails/timesheet-viewdetails.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -315,7 +316,7 @@ import { CreateInvoiceComponent } from './create-invoice/create-invoice.componen
     TypeaheadModule.forRoot(),
     ProgressbarModule.forRoot(),
     PaginationModule.forRoot(),
-    
+    NgxLoadingModule.forRoot({})
   ],
   providers: [CookieService, BsLocaleService, AuthGuard, AppService, AppConfigService,
     {

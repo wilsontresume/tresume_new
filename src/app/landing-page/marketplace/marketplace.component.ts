@@ -9,11 +9,6 @@ export class MarketplaceComponent implements OnInit {
 
 isScrolled = false;
 
-@HostListener('window:scroll', [])
-onWindowScroll() {
-  const offset = window.scrollY;
-  this.isScrolled = offset > 50;
-}
 
   constructor() { }
 

@@ -13,6 +13,8 @@ export class CreateInvoiceComponent implements OnInit {
 
 OrgID: string = '';
   showPopup: boolean = false;
+showConfirmationDialog2: any;
+  
 
   togglePopup(event: Event): void {
     event.preventDefault(); // Prevent the default link behavior
@@ -48,6 +50,31 @@ showButtons: any;
       this.clients = x.result;
       console.log(this.clients);
     });
+  }
+
+
+  items = [
+    { id: 1, name: 'Item 1' },
+    { id: 2, name: 'Item 2' },
+    // Add more items as needed
+  ];
+
+  selectedItem: any; // To store the item to be deleted
+
+  openDeleteModal(item: any) {
+    this.selectedItem = item; // Store the item to be deleted
+  }
+
+  deleteItem() {
+    // Implement your delete logic here using this.selectedItem.id
+    // Once deleted, remove the item from the items array or perform necessary actions
+    console.log('Deleting item:', this.selectedItem);
+    // Example: this.items = this.items.filter(item => item.id !== this.selectedItem.id);
+    this.closeModal(); // Close the modal after deletion
+  }
+
+  closeModal() {
+    this.selectedItem = null; // Clear the selectedItem
   }
 
 }

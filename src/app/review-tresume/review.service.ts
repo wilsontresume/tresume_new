@@ -77,4 +77,8 @@ export class ReviewService {
     return this.http.post<ResponseDetails>(this.endpoint + 'updateFinancial', request);
   }
 
+  emailplacementtracker(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + "emailplacementtracker", request);
+  }
+
 }
