@@ -1,19 +1,21 @@
-.container {
+$brand-primary:#49274a;
+
+.container-fluid {
     background-color: #fff;
   }
   .border1{
-    border-top:3px solid  #49274A;
-    border-bottom:3px solid  #49274A;
+    border-top:3px solid  $brand-primary;
+    border-bottom:3px solid  $brand-primary;
   }
   .createNew{
-    background-color: #49274A;
+    background-color: $brand-primary;
     color: #fff;
   }
   .createNew:hover{
     background-color: #94618E;
   }
   .createNew:active{
-    background-color: #49274A ; 
+    background-color: $brand-primary ; 
   }
   .search-label{
     padding: 8px;
@@ -63,6 +65,6 @@ tbody{
   padding-bottom: 10px;
 }
 .btn{
-  background-color: #49274A ;
+  background-color: $brand-primary ;
   color: white;
 }

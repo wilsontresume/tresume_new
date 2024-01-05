@@ -31,6 +31,8 @@ export class ProfileComponent implements OnInit {
   logoImageUrl: string;
   editmode: boolean = false;
   myForm: any;
+  passwordForm:any;
+  CompanyForm:any;
   
 
   // inputFields = [

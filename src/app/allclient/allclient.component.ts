@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { AllClientService } from './allclient.service';
 import { MessageService } from 'primeng/api';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-allclient',
@@ -17,9 +18,10 @@ export class AllclientComponent implements OnInit {
   TraineeID: string = '';
   clients: any[];
   noResultsFound: boolean = false;
+  authType: any;
   
-  constructor(private fb: FormBuilder, private cookieService: CookieService, private service: AllClientService, private messageService: MessageService) {
-
+  constructor(private fb: FormBuilder, private cookieService: CookieService, private service: AllClientService, private messageService: MessageService,private router:Router,private route: ActivatedRoute) {
+    this.authType = this.route.snapshot.params["authType"];
   }
   
   ngOnInit(): void {

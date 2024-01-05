@@ -10,12 +10,12 @@ import { JobBoardsService } from './job-boards.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import * as FileSaver from 'file-saver';
-//import * as htmlDocx from 'html-docx-js';
-//import * as html2pdf from 'html2pdf.js';
+// import * as htmlDocx from 'html-docx-js';
+// import * as html2pdf from 'html2pdf.js';
 import { MessageService } from 'primeng/api';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { NgxExtendedPdfViewerService, TextLayerRenderedEvent } from 'ngx-extended-pdf-viewer';
-
+import * as html2pdf from 'html2pdf.js';
 
 const b64toBlob = (b64Data: any, contentType = '', sliceSize = 512) => {
     const byteCharacters = atob(b64Data);
@@ -46,6 +46,8 @@ const b64toBlob = (b64Data: any, contentType = '', sliceSize = 512) => {
 
 
 export class SearchResumesCBComponent implements OnInit {
+
+    @ViewChild('pdfdoc') pdfdoc: ElementRef;
 
     form = new FormGroup({});
     model: any = {};
@@ -113,7 +115,21 @@ export class SearchResumesCBComponent implements OnInit {
         'Washington DC',
         'West Virginia',
         'Wisconsin',
-        'Wyoming'
+        'Wyoming',
+        //canada
+        'Ontario',
+        'Alberta',
+        'British Columbia',
+        'Manitoba',
+        'New Brunswick',
+        'Newfoundland and Labrador',
+        'Nova Scotia',
+        'Prince Edward Island',
+        'Quebec',
+        'Saskatchewan',
+        'Northwest Territories',
+        'Nunavut',
+        'Yukon'
     ];
 
     workStatus: any[] = [
@@ -320,19 +336,31 @@ export class SearchResumesCBComponent implements OnInit {
     }
 
     public download() {
+        
         if (this.isMigratedProfile) {
-            this.messageService.add({ severity: 'warning', summary: 'Resume Migrated. Get details from Quick View' });
-            return;
-            //let docBlob: any = htmlDocx.asBlob(this.objUrl);
-            //html2pdf().from(this.objUrl).save(this.currentEdgeID + '.pdf');
-            //FileSaver.saveAs(docBlob, this.currentEdgeID + '.docx');
-            /* let req = {
-                userName: this.currentResumeID
-            }
-            this.service.getResumePath(req).subscribe((x: any) => {
-                console.log('x', x)
-                FileSaver.saveAs("https://tresume.us/" + x[0].ResumePath, x[0].ResumeName);
-            }); */
+            // alert('clicked2');
+            // this.messageService.add({ severity: 'warning', summary: 'Resume Migrated. Get details from Quick View' });
+            // return;
+            // let docBlob: any = htmlDocx.asBlob(this.objUrl);
+            // html2pdf().from(this.objUrl).save(this.currentEdgeID + '.pdf');
+            // FileSaver.saveAs(docBlob, this.currentEdgeID + '.docx');
+            //  let req = {
+            //     userName: this.currentResumeID
+            // }
+            // this.service.getResumePath(req).subscribe((x: any) => {
+            //     console.log('x', x)
+            //     FileSaver.saveAs("https://tresume.us/" + x[0].ResumePath, x[0].ResumeName);
+            // }); 
+            const pdfdoc = this.pdfdoc.nativeElement;
+        const pdfOptions = {
+          margin: 10,
+          filename: 'Resume.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        };
+
+        html2pdf().from(pdfdoc).set(pdfOptions).save();
         }
         else {
             let req = {

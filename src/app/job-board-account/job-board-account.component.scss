@@ -1,7 +1,7 @@
  th{
   color: #94618e;
  }
- .container{
+ .container-fluid{
   background-color: #fff;
  }
  .header{
@@ -117,4 +117,7 @@
 tbody{
   margin-bottom: 10px;
   padding-bottom: 10px;
+}
+.invalid-input {
+  border: 1px solid red;
 }

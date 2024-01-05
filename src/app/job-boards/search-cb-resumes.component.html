@@ -175,7 +175,7 @@
             </ngx-extended-pdf-viewer>
         </div>
         <div *ngIf="fileReady && !isPDFSrc" style="padding: 30px 0px;">
-            <div [innerHTML]="objUrl"></div>
+            <div [innerHTML]="objUrl" id="pdfdoc" #pdfdoc></div>
         </div>
     </div>
 </p-sidebar>

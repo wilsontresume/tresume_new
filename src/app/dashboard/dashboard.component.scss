@@ -1,14 +1,35 @@
-.dropdown_display{
+$brand-primary:#49274a;
+
+.dropdown_display {
     display: block;
 }
 
-.dropdown_display{
+.dropdown_display {
     display: none;
 }
-.container{
+.container {
     background-color: #fff;
 }
-.main{
+.main {
     border-top: 3px solid #46103d;
     border-bottom: 3px solid #46103d;
+}
+
+.center {
+    text-align: center;
+}
+
+.box-color {
+    background-color: $brand-primary;
+    color: #c2c7d0;
+}
+
+.title-font {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.card-action-button {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
 }

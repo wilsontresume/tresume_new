@@ -8,118 +8,117 @@
                 <h1 class="m-0">Site Visit Information</h1>
             </div>
         </div>
+    </div>
+</div>
 
-        <section class="content col-md-6">
-            <div class="container-fluid">
-                <div class="card"> 
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <i class="far fa-id-badge"></i>
-                            Details of {{details.CandidateName}}
-                        </h2>
-                        <div class="card-tools">
-                            <i class="fa  fa-print fa-2x clickable" aria-hidden="true" (click)="printThisPage()"></i>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <dl class="row">
-                            <dt class="col-sm-4">Name</dt>
-                            <dd class="col-sm-8">{{details.CandidateName}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">HR Representative</dt>
-                            <dd class="col-sm-8">{{details.Recruiter}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Job title</dt>
-                            <dd class="col-sm-8">{{details.Title}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Start Date</dt>
-                            <dd class="col-sm-8">{{details.StartDate | date }}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Client address</dt>
-                            <dd class="col-sm-8">{{details.ClientAddress}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Client Supervisor</dt>
-                            <dd class="col-sm-8">{{details.ClientSupervisor}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Vendor Details</dt>
-                            <dd class="col-sm-8">{{details.VendorName}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Vendor Location</dt>
-                            <dd class="col-sm-8">{{details.VendorLocation}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Job duties</dt>
-                            <!-- <textarea type="textarea" [(ngModel)]="details.JobDuties"></textarea> -->
-                            <!-- <dd class=" col-sm-8">{{details.JobDuties| slice:0:50}}... -->
-                            <dd class=" col-sm-8">{{details.JobDuties}}
-                                <button type="button" class="btn__edit" (click)="lgModal.show()">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </button>
-                            </dd>
-        
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Salary/Hr</dt>
-                            <dd class="col-sm-8">${{details.Salary}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Work hours</dt>
-                            <dd class="col-sm-8">40 Hrs</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Total number of H-1B employees</dt>
-                            <dd class="col-sm-8">{{H1BStatus}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Start date of employee with Company</dt>
-                            <dd class="col-sm-8">{{details.EmploymentStartDate | date}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Residential address</dt>
-                            <dd class="col-sm-8">{{details.Address}}</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">How is the employee supervised?</dt>
-                            <dd class="col-sm-8">We conduct annual performance evaluations, monthly meetings over phone and
-                                review status reports</dd>
-                        </dl>
-                        <dl class="row">
-                            <dt class="col-sm-4">Education</dt>
-                            <dd class="col-sm-8">{{eduDetails.Title}},
-                                {{eduDetails.Org}},
-                                {{eduDetails.Location}}</dd>
-                        </dl>
-                    </div>
-                    <!-- /.card-body -->
+<section class="content col-md-6">
+    <div class="container-fluid">
+        <div *ngIf="toggleView" class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="far fa-id-badge"></i>
+                    Details of {{details.CandidateName}}
+                </h2>
+                <div class="card-tools">
+                    <i class="fa fa-print fa-2x clickable" aria-hidden="true" (click)="printThisPage()"></i>
                 </div>
             </div>
-        </section>
-        
-        <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Edit Job Duties</h4>
-                        <button type="button" class="btn-close close pull-right" (click)="lgModal.hide()" aria-label="Close">
+            <!-- /.card-header -->
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">Name</dt>
+                    <dd class="col-sm-8">{{details.CandidateName}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">HR Representative</dt>
+                    <dd class="col-sm-8">{{details.Recruiter}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Job title</dt>
+                    <dd class="col-sm-8">{{details.Title}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Start Date</dt>
+                    <dd class="col-sm-8">{{details.StartDate | date }}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Client address</dt>
+                    <dd class="col-sm-8">{{details.ClientAddress}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Client Supervisor</dt>
+                    <dd class="col-sm-8">{{details.ClientSupervisor}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Vendor Details</dt>
+                    <dd class="col-sm-8">{{details.VendorName}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Vendor Location</dt>
+                    <dd class="col-sm-8">{{details.VendorLocation}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Job duties</dt>
+                    <!-- <textarea type="textarea" [(ngModel)]="details.JobDuties"></textarea> -->
+                    <!-- <dd class=" col-sm-8">{{details.JobDuties| slice:0:50}}... -->
+                    <dd class=" col-sm-8">{{details.JobDuties}}
+                        <button type="button" class="btn__edit" (click)="lgModal.show()">
+                            <i class="fa fa-pencil-alt"></i>
                         </button>
-                    </div>
-                    <div class="modal-body">
-                        <textarea [rows]="30" [cols]="70" pInputTextarea [(ngModel)]="details.JobDuties"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" (click)="saveJD()">Update & Close</button>
-                    </div>
-                </div>
+                    </dd>
+
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Salary/Hr</dt>
+                    <dd class="col-sm-8">${{details.Salary}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Work hours</dt>
+                    <dd class="col-sm-8">40 Hrs</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Total number of H-1B employees</dt>
+                    <dd class="col-sm-8">{{H1BStatus}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Start date of employee with Company</dt>
+                    <dd class="col-sm-8">{{details.EmploymentStartDate | date}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Residential address</dt>
+                    <dd class="col-sm-8">{{details.Address}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">How is the employee supervised?</dt>
+                    <dd class="col-sm-8">We conduct annual performance evaluations, monthly meetings over phone and
+                        review status reports</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4">Education</dt>
+                    <dd class="col-sm-8">{{eduDetails.Title}},
+                        {{eduDetails.Org}},
+                        {{eduDetails.Location}}</dd>
+                </dl>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+</section>
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-sizes-name1" class="modal-title pull-left">Edit Job Duties</h4>
+                <button type="button" class="btn-close close pull-right" (click)="lgModal.hide()" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea [rows]="30" [cols]="70" pInputTextarea [(ngModel)]="details.JobDuties"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="saveJD()">Update & Close</button>
             </div>
         </div>
     </div>
 </div>
-

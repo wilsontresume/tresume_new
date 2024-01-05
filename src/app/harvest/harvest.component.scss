@@ -1,8 +1,10 @@
+$brand-primary:#49274a;
+
 .card-body {
     display: flex;
     flex-direction: row;
 }
-.container{
+.container-fluid{
     background-color: #fff;
 }
 .main{
@@ -22,7 +24,7 @@
     flex-direction: column;
 }
 .btn{
-    background-color: #49274A;
+    background-color: $brand-primary;
     color: #ffffff;
     border: none;
 }

@@ -1,3 +1,5 @@
+$brand-primary:#49274a;
+
 .example-container {
     width: 400px;
     max-width: 100%;
@@ -20,8 +22,8 @@
     background-color: #fff;
 }
 .main{
-    border-top: 3px solid #49274A;
-    border-bottom: 3px solid #49274A;
+    border-top: 3px solid $brand-primary;
+    border-bottom: 3px solid $brand-primary;
 }
 .example-box {
     padding: 20px 10px;
@@ -76,7 +78,7 @@
     justify-content: center;
     height: 310px;
     align-items: center;
-    color: #49274a;
+    color: $brand-primary;
 }
 
 .full-width {
@@ -156,10 +158,10 @@
 
 .action-button {
     width: 360px;
-    background-color: #49274a;
+    background-color: $brand-primary;
 }
 .btn{
-    background-color: #49274a;
+    background-color: $brand-primary;
     color: #fff;
 }
 .info-button {

@@ -25,7 +25,9 @@ export class ViewDetailsComponent {
   constructor(private router: Router) { }
 
  
-
+  downloadDocument(cartNumber: number): void {
+    console.log(`Downloading document for Cart ${cartNumber}`);
+  }
   
 }
 

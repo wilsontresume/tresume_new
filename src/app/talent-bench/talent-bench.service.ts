@@ -11,8 +11,12 @@ export class TalentBenchService {
 constructor(private http: HttpClient) { }
 
 getTalentBenchList(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'getTalentBenchList', request);
+  return this.http.post<ResponseDetails>(this.endpoint + 'getTalentBenchList', request);
 }
+
+addTalentBenchList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'addTalentBenchList', request);
+  }
 }
 export interface ResponseDetails {
 flag?: any;

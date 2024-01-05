@@ -42,7 +42,7 @@
                           <span>{{ firstName }}</span>
                         </ng-container>
                         <ng-template #editModeTemplate9>
-                          <input type="text" class="form-control custom-input" id="firstName" placeholder="First Name"
+                          <input type="text" class="form-control custom-input" id="firstName" placeholder="First Name" formControlName="firstName"
                             [(ngModel)]="firstName" name="firstName" required>
                         </ng-template>
                       </div>
@@ -62,7 +62,7 @@
                           <span>{{ lastName }}</span>
                         </ng-container>
                         <ng-template #editModeTemplate2>
-                          <input type="text" class="form-control custom-input" id="lastName" placeholder="Last Name"
+                          <input type="text" class="form-control custom-input" id="lastName" placeholder="Last Name" formControlName="lastName"
                             [(ngModel)]="lastName" name="lastName" required>
                         </ng-template>
                       </div>
@@ -74,7 +74,7 @@
                           <span>{{ userName }}</span>
                         </ng-container>
                         <ng-template #editModeTemplate3>
-                          <input type="text" class="form-control custom-input" id="userName" placeholder="User Name"
+                          <input type="text" class="form-control custom-input" id="userName" placeholder="User Name" formControlName="userName"
                             [(ngModel)]="userName" name="userName" required>
                         </ng-template>
                       </div>
@@ -85,7 +85,7 @@
                         </ng-container>
                         <ng-template #editModeTemplate4>
                           <select class="form-control custom-input" id="yearsOfExperience"
-                            [(ngModel)]="yearsOfExperience"  name="yearsOfExperience" required>
+                            [(ngModel)]="yearsOfExperience" name="yearsOfExperience" required>
                             <option value="">Select years of experience</option>
                             <option value="0">0 years</option>
                             <option value="1">1 year</option>
@@ -95,7 +95,7 @@
                           </select>
                         </ng-template>
                       </div>
-                    
+
                       <div class="col">
                         <label for="monthsOfExperience">Months of Experience</label>
                         <ng-container *ngIf="!editmode;else editModeTemplate5"><span>{{ monthsOfExperience
@@ -116,11 +116,11 @@
                       <div class="col">
                         <label for="title">Title</label>
                         <ng-container *ngIf="!editmode;else editModeTemplate10">
-                          <span>{{ title }}</span> 
+                          <span>{{ title }}</span>
                         </ng-container>
                         <ng-template #editModeTemplate10>
-                          <input type="text" class="form-control custom-input" id="title"
-                            placeholder="Title" [(ngModel)]="title" name="title" required>
+                          <input type="text" class="form-control custom-input" id="title" placeholder="Title" formControlName="title"
+                            [(ngModel)]="title" name="title" required>
                           <div
                             *ngIf="myForm.controls.title.invalid && (myForm.controls.title.dirty || myForm.controls.title.touched)">
                             <small class="text-danger">Title is required</small>
@@ -129,10 +129,10 @@
                       </div>
                       <div class="col">
                         <label for="dob">DOB</label>
-                        <ng-container  *ngIf="!editmode;else editModeTemplate7"> <span>{{ dob }}</span></ng-container>
-                       <ng-template  #editModeTemplate7>
-                        <input type="date" class="form-control custom-input" id="dob" [(ngModel)]="dob"
-                          name="dob" required>
+                        <ng-container *ngIf="!editmode;else editModeTemplate7"> <span>{{ dob }}</span></ng-container>
+                        <ng-template #editModeTemplate7>
+                          <input type="date" class="form-control custom-input" id="dob" [(ngModel)]="dob" name="dob"
+                            required>
                         </ng-template>
                       </div>
                       <div class="col">
@@ -142,7 +142,7 @@
                         </ng-container>
                         <ng-template #editModeTemplate8>
                           <input type="text" class="form-control custom-input" id="phoneNumber"
-                            placeholder="Phone Number" [(ngModel)]="phoneNumber" name="phoneNumber" pattern="[0-9]{10}"
+                            placeholder="Phone Number" [(ngModel)]="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" formControlName="phoneNumber"
                             required>
                           <div *ngIf="myForm.controls.phoneNumber.invalid && 
                           (myForm.controls.phoneNumber.dirty || myForm.controls.phoneNumber.touched)">
@@ -162,7 +162,8 @@
               </div>
               <div class="tab-pane" id="Password">
                 <div class="container mt-4">
-                  <h2>Password </h2>
+                  <form [formGroup]="passwordForm">
+                  <h2>Password</h2>
                   <div class="form-row mt-4">
                     <div class="form-group col">
                       <label for="oldPassword">Old Password</label>
@@ -189,9 +190,11 @@
                       <button class="btn ml-2" (click)="onSave()">Save</button>
                     </div>
                   </div>
+    </form>
                 </div>
               </div>
               <div class="tab-pane " id="Company">
+                <form [formGroup]="CompanyForm">
                 <div class="container mt-4">
                   <div class="container mt-4">
                     <div class="form-row mt-4">
@@ -218,7 +221,7 @@
                         </div>
                       </div>
                     </div>
- 
+
                     <div class="form-row mt-2">
                       <div class="form-group col-6">
                         <label for="state">State:</label>
@@ -266,12 +269,12 @@
                     </div>
                   </div>
                 </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

@@ -30,6 +30,7 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
+module.exports = router;
 
 router.post('/fetchtimesheetcandidate', async  (req, res) => {
   
@@ -51,7 +52,6 @@ router.post('/fetchtimesheetcandidate', async  (req, res) => {
     
     console.log(query);
     const request = new sql.Request();
-    // request.input('organizationid', sql.Int, organizationid);
     request.query(query, (err, result) => {
       if (err) {
         console.error(err);
@@ -75,8 +75,8 @@ router.post('/fetchtimesheetcandidate', async  (req, res) => {
   };
 
   res.send(result);
-// Pass the error to the error handling middleware
 }
 });
 
-module.exports = router;
+
+

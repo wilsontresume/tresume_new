@@ -1,5 +1,7 @@
-.container {
-    margin-top: 20px; 
+.container-fluid {
+    margin-top: 20px;
+    padding-bottom: 1px; 
+    background-color: #fff;
   }
   .createNew{
     background-color: #49274A;
@@ -34,7 +36,10 @@
     background-color: #f0f0f0;
     font-weight: bold;
   }
-  
+  .btn{
+    background-color: #49274A;
+    color: #fff;
+  }
   tr:nth-child(even) {
     background-color: #f9f9f9;
   }
@@ -46,6 +51,7 @@
   i{
     margin: 5px;
     color: #94618e;
+    cursor: pointer;
   }
  
   td{

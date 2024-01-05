@@ -19,13 +19,27 @@ export class AssignRoleService {
   fetchtimesheetusers(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetusers', request);
   }
+  
   fetchtimesheetadmins(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetadmins', request);
   }
+  
+  fetchtimesheetcandidate(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetcandidate', request);
+  }
+  fetchtimesheetallcandidate(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetallcandidate', request);
+  }
+  fetchtimesheetprojects(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchtimesheetprojects', request);
+  }
+  assignproject(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'assignproject', request);
+  }
 }
-
 
 export interface ResponseDetails {
   flag?: any;
   result?: any;
 }
+

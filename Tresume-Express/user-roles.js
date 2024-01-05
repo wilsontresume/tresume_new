@@ -128,7 +128,7 @@ router.post('/addMember', async (req, res) => {
 
     const result = await pool.request().query('SELECT ISNULL(MAX(ID), 0) AS lastId FROM MemberDetails');
     const lastId = result.recordset[0].lastId + 1;
-    const currentDate = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
+    const currentDate = new Date().toISOString().split('T')[0];
 
     const insertQuery = `INSERT INTO MemberDetails (ID, SubscriptionID, UserEmail, IsAdmin, Active, OrgId, CreateTime, CreateBy, UpdateTime, UpdateBy, TraineeID, FirstName, LastName, JobSlotCount, IsOwner, SlotsAlocDice, SlotsAlocCB, SlotsUsedDice, SlotsUsedCB, refreshperiod, RoleID, WFID, AccessOrg, PrimaryOrgID, TeamLead, HisCandidate, TeamCandidate, AllCandidate, DocumentAccess, Traker)
   VALUES (${lastId}, '0', '${req.body.UserEmail}', '0', '1', '${req.body.OrgId}', '${currentDate}', '${req.body.CreateBy}', '${currentDate}', '${req.body.CreateBy}', '', '${req.body.FirstName}', '${req.body.LastName}', '0', '0', '0', '0', '0', '0', '0', '${req.body.RoleID}', '1', '${req.body.OrgId}', '${req.body.OrgId}', '${req.body.TeamLead}', '', '', '', '0', '0')`;

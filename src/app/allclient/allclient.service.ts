@@ -18,9 +18,9 @@ export class AllClientService {
         return this.http.post<ResponseDetails>(this.endpoint + 'deleteClientAccount', request);
     }
 
-    addClient(request: any): Observable<any> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'addClient', request);
-      }
+    // addClienta(request: any): Observable<any> {
+    //     return this.http.post<ResponseDetails>(this.endpoint + 'addClienta', request);
+    //   }
 
 }
 export interface ResponseDetails {
@@ -28,6 +28,4 @@ export interface ResponseDetails {
     result?: any;
 }
 
-function addclient(data: any, any: any) {
-    throw new Error('Function not implemented.');
-}
+

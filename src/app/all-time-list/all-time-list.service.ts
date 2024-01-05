@@ -20,7 +20,8 @@ export class TimesheetListService {
     getAllTimeList(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getAllTimeList', request);
     }
-   
+
+    
     
 }
 export interface ResponseDetails {
