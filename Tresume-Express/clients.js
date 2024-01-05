@@ -15,7 +15,6 @@ const config = {
   trustServerCertificate: true,
 };
 
-
 module.exports = router;
 
 router.post('/getTraineeClientList', async (req, res) => {
@@ -98,9 +97,21 @@ async function deactivateclient(ClientID) {
 }
 
 router.post('/addClienta', async (req, res) => {
-  console.log(req);
-});
+  try {
+    const request = new sql.Request();
 
+    const query = `INSERT INTO Clients (ClientName, ContactNumber, EmailID, Address, VMSClientName, FederalID,ZipCode, Website, Fax, Industry, Country, State, City, ClientStatusID,  ClientCategoryID, PrimaryOwner,RequiredDocuments, PaymentTerms, AboutCompany, Access, sendingEmail, posting, Notes) VALUES 
+    ('${req.body.ClientName}', '${req.body.ContactNumber}', '${req.body.EmailID}', '${req.body.Address}', '${req.body.VMSClientName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.Website}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', '${req.body.ClientStatusID}', '${req.body.ClientCategoryID}', '${req.body.PrimaryOwner}', '${req.body.AboutCompany}', ${req.body.Active ? '1' : '0'}, '${req.body.Access ? '1' : '0'}', '${req.body.posting ? '1' : '0'}', '${req.body.sendingEmail ? '1' : '0'}', '${req.body.PaymentTerms}', '${req.body.Notes}')`;
+   console.log(req);
+    console.log(query);
+    const result = await request.query(query);
+    console.log(result);
+    res.status(200).json({ success: true, message: 'Client added successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
 
 
 

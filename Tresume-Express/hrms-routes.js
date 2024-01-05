@@ -108,10 +108,12 @@ async function deactivatecandidate(TraineeID) {
 router.post('/getInterviewList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
-    const traineeID = '20742';
+    // const traineeID = '20742';
+    const traineeID = req.body.TraineeID;
 
     const query = "SELECT CONVERT(NVARCHAR, TI.InterviewDate, 101) AS Date, CONCAT(T1.FirstName, ' ', T1.LastName) AS Marketer, ISNULL(TI.Assistedby, '') AS Assigned,TI.TraineeInterviewID, TI.InterviewMode, ISNULL(TI.Notes, '') AS Notes, ISNULL(TI.ClientName, '') AS Client, ISNULL(TI.VendorName, '') AS Vendor, ISNULL(TI.SubVendor, '') AS SubVendor, ISNULL(TI.TypeofAssistance, '') AS TypeofAssistance FROM TraineeInterview TI LEFT JOIN Trainee T1 ON T1.TraineeID = TI.RecruiterID WHERE TI.active = 1 AND TI.TraineeID = "+traineeID+" ORDER BY TI.CreateTime DESC;";
-console.log(query);
+    
+    console.log(query);
     const result = await pool.request()
       .query(query);
 
@@ -130,40 +132,40 @@ router.post('/insertTraineeInterview', async function (req, res) {
     var TraineeInterviewID = await generateTraineeInterviewID();
 
     var interviewQuery =
-    "IF NOT EXISTS(SELECT * FROM TraineeInterview WHERE TraineeInterviewID = '" +
-    TraineeInterviewID +
-    "') " +
-    "BEGIN " +
-    "INSERT INTO [dbo].[TraineeInterview] " +
-    "([TraineeInterviewID], [TraineeID], [RecruiterID], [InterviewDate], [InterviewTimeZone], " +
-    "[InterviewMode], [InterviewStatus], [Notes], [Rating], [Active], [CreateTime], " +
-    "[CreateBy], [LastUpdateTime], [LastUpdateBy], [IsTraineeUpdate], [JobID], " +
-    "[InterviewStatusUpdateTime], [InviteEmail], [SubVendor], [Assistedby], [TypeofAssistance], " +
-    "[VendorName], [ClientName]) " +
-    "VALUES " +
-    "('" + TraineeInterviewID + "', " +
-    formatValue(req.body.traineeID) + ", " +
-    formatValue(req.body.recruiterID) + ", " +
-    formatValue(req.body.interviewDate) + ", " +
-    formatValue(req.body.interviewTimeZone) + ", " +
-    formatValue(req.body.interviewMode) + ", " +
-    formatValue(req.body.interviewInfo) + ", " +
-    formatValue(req.body.notes) + ", " +
-    formatValue(req.body.rating) + ", " +
-    "1, " +
-     "'GETDATE(), " +
-    formatValue(req.body.recruiteremail) + ", " +
-    "'GETDATE(), " +
-    formatValue(req.body.recruiteremail) + ", " +
-    formatValue(req.body.isTraineeUpdate) + ", " +
-    formatValue(req.body.jobID) + ", " +
-    formatValue(req.body.interviewStatusUpdateTime) + ", " +
-    formatValue(req.body.inviteEmail) + ", " +
-    formatValue(req.body.subVendor) + ", " +
-    formatValue(req.body.assistedBy) + ", " +
-    formatValue(req.body.typeOfAssistance) + ", " + 
-    formatValue(req.body.vendor) + ", " +
-    formatValue(req.body.client) + ")";
+      "IF NOT EXISTS(SELECT * FROM TraineeInterview WHERE TraineeInterviewID = '" +
+      TraineeInterviewID +
+      "') " +
+      "BEGIN " +
+      "INSERT INTO [dbo].[TraineeInterview] " +
+      "([TraineeInterviewID], [TraineeID], [RecruiterID], [InterviewDate], [InterviewTimeZone], " +
+      "[InterviewMode], [InterviewStatus], [Notes], [Rating], [Active], [CreateTime], " +
+      "[CreateBy], [LastUpdateTime], [LastUpdateBy], [IsTraineeUpdate], [JobID], " +
+      "[InterviewStatusUpdateTime], [InviteEmail], [SubVendor], [Assistedby], [TypeofAssistance], " +
+      "[VendorName], [ClientName]) " +
+      "VALUES " +
+      "('" + TraineeInterviewID + "', " +
+      formatValue(req.body.traineeID) + ", " +
+      formatValue(req.body.recruiterID) + ", " +
+      formatValue(req.body.interviewDate) + ", " +
+      formatValue(req.body.interviewTimeZone) + ", " +
+      formatValue(req.body.interviewMode) + ", " +
+      formatValue(req.body.InterviewStatus) + ", " +
+      formatValue(req.body.interviewInfo) + ", " +
+      "'', " +
+      "1, " +
+      "GETDATE(), " +
+      formatValue(req.body.recruiteremail) + ", " +
+      "GETDATE(), " +
+      formatValue(req.body.recruiteremail) + ", " +
+      "'', " +
+      "'', " +
+      "GETDATE(), " +
+      "'', " +
+      formatValue(req.body.subVendor) + ", " +
+      formatValue(req.body.assistedBy) + ", " +
+      formatValue(req.body.typeOfAssistance) + ", " +
+      formatValue(req.body.vendor) + ", " +
+      formatValue(req.body.client) + ") END";
   
   console.log(interviewQuery);
 
@@ -172,10 +174,23 @@ router.post('/insertTraineeInterview', async function (req, res) {
     // var request = new sql.Request();
     // var result = await request.query(interviewQuery);
 
-    res.status(200).send("Trainee Interview Data Fetched");
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    await sql.connect(config);
+    var request = new sql.Request();
+    var result = await request.query(interviewQuery);
+
+    const data ={
+      flag: 1,
+      message: "Trainee Interview Data Fetched",
+    };
+
+    res.send(data);
+  }
+  catch (error){
+    const data = {
+      flag: 1,
+      message:"Internal Server Error",
+    };
+    res.status(500).send(data);
   }
 });
 
@@ -330,8 +345,7 @@ router.post('/getPlacementList', async (req, res) => {
     ISNULL(P.CurrentPlacement, '1') AS CurrentPlacement,
     ISNULL(P.BillRate, '') AS BillRate,
     ISNULL(P.BillType, '') AS BillType,
-    ISNULL(T.FirstName, '0') AS MarketerFirstName,
-	ISNULL(T.LastName, '0') AS MarketerFirstName,
+    CONCAT(T.FirstName, ' ', T.LastName) AS MarketerFirstName,
     ISNULL(P.ClientState, '') AS ClientState,
     ISNULL(CONVERT(NVARCHAR(10), P.StartDate, 101), '') AS StartDate1,
     ISNULL(CONVERT(NVARCHAR(10), P.EndDate, 101), '') AS EndDate1,
@@ -483,8 +497,8 @@ router.post('/getSubmissionList', async (req, res) => {
     // const candidateID = '20742'; 
     const query = `SELECT S.Title, S.SubmissionDate, CONCAT(T.FirstName, ' ', T.LastName) AS MarketerName, S.VendorName, S.ClientName, S.Note, S.Rate, S.CreateBy, S.CreateTime, S.Active, S.TraineeID, S.LastUpdateBy, S.LastUpdateTime 
       FROM Submission S 
-      INNER JOIN Trainee T ON S.MarkerterID = T.TraineeID 
-      WHERE T.TraineeID = @candidateID`;
+      INNER JOIN Trainee T ON S.TraineeID = T.TraineeID 
+      WHERE T.TraineeID = ${req.body.TraineeID}`;
 
     console.log(query);
 
@@ -512,9 +526,38 @@ router.post('/insertSubmissionInfo', async (req, res) => {
     // const pool = await sql.connect(config);
     // const request = new sql.Request();
     // var SubmissionID = await generateSubmission();
-    var query = `INSERT INTO Submission(Title,SubmissionDate,MarkerterID,VendorName,ClientName,Note,Rate,CreateBy,CreateTime,Active,TraineeID,LastUpdateBy,LastUpdateTime) VALUES ('${req.body.title}','${req.body.submissionDate}', '${req.body.MarketerID}', '${req.body.vendorName}', '${req.body.clientName}', '${req.body.notes}' , '${req.body.rate}', '${req.body.recruiteremail}', GETDATE(), ${req.body.Active ? '1' : '0'} ,${req.body.CandidateID}, '${req.body.recruiteremail}', GETDATE());`;
-    
-    // console.log(query);
+    var query = `
+    INSERT INTO Submission (
+        Title,
+        SubmissionDate,
+        MarkerterID,
+        VendorName,
+        ClientName,
+        Note,
+        Rate,
+        CreateBy,
+        CreateTime,
+        Active,
+        TraineeID,
+        LastUpdateBy,
+        LastUpdateTime
+    ) VALUES (
+        '${req.body.title}',
+        '${req.body.submissionDate}',
+        '${req.body.MarketerID}',
+        '${req.body.vendorName}',
+        '${req.body.clientName}',
+        '${req.body.notes}',
+        '${req.body.rate}',
+        '${req.body.recruiteremail}',
+        CURRENT_TIMESTAMP, 
+        ${req.body.Active ? '1' : '0'},
+        ${req.body.CandidateID},
+        '${req.body.recruiteremail}',
+        CURRENT_TIMESTAMP 
+    );
+`;
+    console.log(query);
     // res.send("Data Fetched"); 
 
     // Execute the SQL query
@@ -558,44 +601,75 @@ async function generateSubmission() {
   }
 }
 
-// router.post('/updateGeneral', async function (req, res) {
 router.post('/updateFinancial', async function (req, res) {
   try {
-    var query =
-      "UPDATE Trainee SET " +
-      "  ReferredBy = " + formatValue(req.body.ReferredBy) +
-      ", DealOffered = " + formatValue(req.body.DealOffered) +
-      ", division = " + formatValue(req.body.division) +
-      ", dob = " + formatValue(req.body.dob) +
-      ", duiFelonyInfo = " + formatValue(req.body.duiFelonyInfo) +
-      ", firstName = " + formatValue(req.body.firstName) +
-      ", ftcNotes = " + formatValue(req.body.ftcNotes) +
-      ", generalEmail = " + formatValue(req.body.generalEmail) +
-      ", lastName = " + formatValue(req.body.lastName) +
-      ", legalStatusVal = " + formatValue(req.body.legalStatusVal) +
-      ", legalStatusValend = " + formatValue(req.body.legalStatusValend) +
-      ", middleName = " + formatValue(req.body.middleName) +
-      ", otherNotes = " + formatValue(req.body.otherNotes) +
-      ", phoneNumberG = " + formatValue(req.body.phoneNumberG) +
-      ", recruiterName = " + formatValue(req.body.recruiterName) +
-      ", refered = " + formatValue(req.body.refered) +
-      ", selectedLegalStatus = " + formatValue(req.body.selectedLegalStatus) +
-      ", statusDate = " + formatValue(req.body.statusDate) +
-      " WHERE " +
-      "  TraineeID = " + formatValue(req.body.TraineeID);
-    var query = "UPDATE trainee SET FinancialNotes = '"+req.body.FinancialNotes+"', Salary = '"+req.body.Salary+"',Perdeium = '"+req.body.Perdeium+"',   LegalStatus = '"+req.body.LegalStatus1+"',   MaritalStatus = '"+req.body.MaritalStatus+"',   StateTaxAllowance = '"+req.body.StateTaxAllowance+"',   StateTaxExemptions = '"+req.body.StateTaxExemptions+"',   FederalTaxAllowance = '"+req.body.FederalTaxAllowance+"',   FederalTaxAdditionalAllowance = '"+req.body.FederalTaxAdditionalAllowance+"',   LCARate = '"+req.body.LCARate+"',   Lcadate = '"+req.body.Lcadate+"',   GCWages = '"+req.body.GCWages+"',   Gcdate = '"+req.body.Gcdate+"',   state = '"+req.body.state+"',   Bank1Name = '"+req.body.Bank1Name+"',   Bank2Name = '"+req.body.Bank2Name+"',   Bank1AccountType = '"+req.body.Bank1AccountType+"',   Bank2AccountType = '"+req.body.Bank2AccountType+"',   Bank1AccountNumber = '"+req.body.Bank1AccountNumber+"',   Bank2AccountNumber = '"+req.body.Bank2AccountNumber+"',   Bank1RoutingNumber = '"+req.body.Bank1RoutingNumber+"',   Bank2RoutingNumber = '"+req.body.Bank2RoutingNumber+"',   SalaryDepositType = '"+req.body.SalaryDepositType+"',   HowMuch = '"+req.body.HowMuch+"' WHERE traineeID = '"+req.body.traineeID;
+  //   var updateQuery = "UPDATE Trainee SET " +
+  // "ReferredBy = " + formatValue(req.body.ReferredBy) +
+  // ", DealOffered = " + formatValue(req.body.DealOffered) +
+  // ", division = " + formatValue(req.body.division) +
+  // ", dob = " + formatValue(req.body.dob) +
+  // ", duiFelonyInfo = " + formatValue(req.body.duiFelonyInfo) +
+  // ", firstName = " + formatValue(req.body.firstName) +
+  // ", ftcNotes = " + formatValue(req.body.ftcNotes) +
+  // ", generalEmail = " + formatValue(req.body.generalEmail) +
+  // ", lastName = " + formatValue(req.body.lastName) +
+  // ", legalStatusVal = " + formatValue(req.body.legalStatusVal) +
+  // ", legalStatusValend = " + formatValue(req.body.legalStatusValend) +
+  // ", middleName = " + formatValue(req.body.middleName) +
+  // ", otherNotes = " + formatValue(req.body.otherNotes) +
+  // ", phoneNumberG = " + formatValue(req.body.phoneNumberG) +
+  // ", recruiterName = " + formatValue(req.body.recruiterName) +
+  // ", refered = " + formatValue(req.body.refered) +
+  // ", selectedLegalStatus = " + formatValue(req.body.selectedLegalStatus) +
+  // ", statusDate = " + formatValue(req.body.statusDate) +
+  // " WHERE TraineeID = " + formatValue(req.body.TraineeID);
+
+var query = "UPDATE Trainee SET " +
+  "FinancialNotes = '" + req.body.FinancialNotes +
+  "', Salary = '" + req.body.Salary +
+  "', Perdeium = '" + req.body.Perdeium +
+  "', LegalStatus = '" + req.body.LegalStatus1 +
+  "', MaritalStatus = '" + req.body.MaritalStatus +
+  "', StateTaxAllowance = '" + req.body.StateTaxAllowance +
+  "', StateTaxExemptions = '" + req.body.StateTaxExemptions +
+  "', FederalTaxAllowance = '" + req.body.FederalTaxAllowance +
+  "', FederalTaxAdditionalAllowance = '" + req.body.FederalTaxAdditionalAllowance +
+  "', LCARate = '" + req.body.LCARate +
+  "', Lcadate = '" + req.body.Lcadate +
+  "', GCWages = '" + req.body.GCWages +
+  "', Gcdate = '" + req.body.Gcdate +
+  "', state = '" + req.body.state +
+  "', Bank1Name = '" + req.body.Bank1Name +
+  "', Bank2Name = '" + req.body.Bank2Name +
+  "', Bank1AccountType = '" + req.body.Bank1AccountType +
+  "', Bank2AccountType = '" + req.body.Bank2AccountType +
+  "', Bank1AccountNumber = '" + req.body.Bank1AccountNumber +
+  "', Bank2AccountNumber = '" + req.body.Bank2AccountNumber +
+  "', Bank1RoutingNumber = '" + req.body.Bank1RoutingNumber +
+  "', Bank2RoutingNumber = '" + req.body.Bank2RoutingNumber +
+  "', SalaryDepositType = '" + req.body.SalaryDepositType +
+  "', HowMuch = '" + req.body.HowMuch +
+  "' WHERE TraineeID = " + formatValue(req.body.TraineeID);
 
     console.log(query);
 
 // Uncomment the following lines when you are ready to execute the query
-    // await sql.connect(config);
-    // var request = new sql.Request();
-    // var result = await request.query(query);
+    await sql.connect(config);
+    var request = new sql.Request();
+    var result = await request.query(query);
 
-    res.status(200).send("Data Fetched");
+    const data = {
+      flag: 1,
+      message: "Data Updated",
+    };
+
+    res.send(data);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    const data = {
+      flag: 1,
+      message: "Internal Server Error",
+    };
+    res.status(500).send(data);
   }
 });
 
@@ -605,36 +679,44 @@ router.post('/updateGeneral', async function (req, res) {
       "UPDATE Trainee SET " +
       "  ReferredBy = " + formatValue(req.body.ReferredBy) +
       ", DealOffered = " + formatValue(req.body.DealOffered) +
-      ", division = " + formatValue(req.body.division) +
-      ", dob = " + formatValue(req.body.dob) +
-      ", duiFelonyInfo = " + formatValue(req.body.duiFelonyInfo) +
-      ", firstName = " + formatValue(req.body.firstName) +
-      ", ftcNotes = " + formatValue(req.body.ftcNotes) +
-      ", generalEmail = " + formatValue(req.body.generalEmail) +
-      ", lastName = " + formatValue(req.body.lastName) +
-      ", legalStatusVal = " + formatValue(req.body.legalStatusVal) +
-      ", legalStatusValend = " + formatValue(req.body.legalStatusValend) +
-      ", middleName = " + formatValue(req.body.middleName) +
-      ", otherNotes = " + formatValue(req.body.otherNotes) +
-      ", phoneNumberG = " + formatValue(req.body.phoneNumberG) +
-      ", recruiterName = " + formatValue(req.body.recruiterName) +
-      ", refered = " + formatValue(req.body.refered) +
-      ", selectedLegalStatus = " + formatValue(req.body.selectedLegalStatus) +
-      ", statusDate = " + formatValue(req.body.statusDate) +
+      ", Division = " + formatValue(req.body.division) +
+      ", DOB = " + formatValue(req.body.dob) +
+      ", DuiFelonyInfo = " + formatValue(req.body.duiFelonyInfo) +
+      ", FirstName = " + formatValue(req.body.firstName) +
+      ", FTCNotes = " + formatValue(req.body.ftcNotes) +
+      ", UserName = " + formatValue(req.body.generalEmail) +
+      ", LastName = " + formatValue(req.body.lastName) +
+      ", LegalStatusValidFrom = " + formatValue(req.body.legalStatusVal) +
+      ", LegalStatusValidTo = " + formatValue(req.body.legalStatusValend) +
+      ", MiddleName = " + formatValue(req.body.middleName) +
+      ", Notes = " + formatValue(req.body.otherNotes) +
+      ", PhoneNumber = " + formatValue(req.body.phoneNumberG) +
+      ", RecruiterName = " + formatValue(req.body.recruiterName) +
+      ", ReferredBy_external = " + formatValue(req.body.refered) +
+      ", LegalStatus = " + formatValue(req.body.selectedLegalStatus) +
+      ", statusdate = " + formatValue(req.body.statusDate) +
       " WHERE " +
       "  TraineeID = " + formatValue(req.body.TraineeID);
 
     console.log(query);
+ 
 
-    // Uncomment the following lines when you are ready to execute the query
-    // await sql.connect(config);
-    // var request = new sql.Request();
-    // var result = await request.query(query);
+    await sql.connect(config);
+    var request = new sql.Request();
+    var result = await request.query(query);
+    
+    const data = {
+      flag: 1,
+      message: "Data Updated",
+    };
 
-    res.status(200).send("Data Updated");
+    res.send(data);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    const data = {
+      flag: 1,
+      message: "Internal Server Error",
+    };
+    res.status(500).send(data);
   }
 });
 
@@ -731,6 +813,218 @@ router.post('/checkEmail', async function (req, res) {
     await sql.close();
   }
 });
+
+
+// Email Tracker Trail 
+
+// Function to send email
+  // async function sendEmail(attachment,type) {
+  //   const transporter = nodemailer.createTransport({
+  //       port: 465,
+  //       host: "smtp.mail.yahoo.com",
+  //       auth: {
+  //         user: "support@tresume.us",
+  //         pass: "xzkmvglehwxeqrpd",
+  //       },
+  //       secure: true,
+  //     });
+
+  // const today = new Date();
+  // const month = String(today.getMonth() + 1).padStart(2, '0'); 
+  // const day = String(today.getDate()).padStart(2, '0');
+  // const year = today.getFullYear();
+
+  // const formattedDate = `${month}/${day}/${year}`;
+
+  // if(type == 1){
+  // var subject = 'DSR Report for '+formattedDate
+  // var text = 'Please find the attached DSR report for '+formattedDate
+  // var filename = 'DSRreport.xlsx';
+  // }
+  // if(type == 2){
+  //   var subject = 'Last Week Interview Report'
+  //   var text = 'Please find the attached Interview report for last week'
+  //   var filename = 'Interview.xlsx'
+  // }
+  // if(type == 3){
+  //   var subject = 'Last Month Placement Report'
+  //   var text = 'Please find the attached Placement report for last Month'
+  //   var filename = 'Placement.xlsx'
+  // }
+  // const mailOptions = {
+  //   from: 'support@tresume.us',
+  //   to: 'tul@astacrs.com',
+  //   bcc:'wilson.am@tresume.us',
+  //   subject: subject,
+  //   text: text,
+  //   attachments: [
+  //     {
+  //       filename: filename,
+  //       content: attachment
+  //     }
+  //   ]
+  // };
+
+  // try {
+  //   await transporter.sendMail(mailOptions);
+  //   console.log('Email sent successfully!');
+  // } catch (err) {
+  //   throw new Error(err);
+  // }
+  // }
+
+  // router.get('/generate-placement-report', async (req, res) => {
+  //   try {
+  //     const data = await executePlacementQuery();
+  //     const excelBuffer = await generateExcel(data);
+  //     await sendEmail(excelBuffer,3);
+  //     res.send('Excel report generated and email sent!');
+  //   } catch (err) {
+  //     res.status(500).send('Error generating report or sending email.');
+  //   }
+  // });
+
+  // async function executePlacementQuery() {
+  //   try {
+  //     await sql.connect(config);
+  //     const result = await sql.query(`
+  //     SELECT 
+  //     TI.TraineeInterviewID,
+  //     CONCAT(T.FirstName, ' ', T.LastName) AS CandidateName,
+  //     CONCAT(R.FirstName, ' ', R.LastName) AS Recruiter,
+  //     TI.InterviewDate,
+  //     TI.InterviewStatus,
+  //     TI.Assistedby,
+  //     TI.TypeofAssistance,
+  //     TI.VendorName,
+  //     TI.ClientName,
+  //     TI.Notes,
+  //     TI.CreateTime
+  // FROM 
+  //     TraineeInterview TI
+  // INNER JOIN 
+  //     Trainee T ON TI.TraineeID = T.TraineeID
+  // INNER JOIN 
+  //     Trainee R ON TI.RecruiterID = R.TraineeID
+  // WHERE 
+  //     TI.Active = 1 
+  //     AND TI.InterviewDate >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()) - 1, 0)
+  //     AND TI.InterviewDate < DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0) 
+  //     AND R.OrganizationID = 9
+  //     `);
+  //     return result.recordset;
+  //   } catch (err) {
+  //     throw new Error(err);
+  //   }
+  // }
+
+
+ 
+// async function generatePlacementExcel(data) {
+//   const workbook = new exceljs.Workbook();
+//   const worksheet = workbook.addWorksheet('Placement Report');
+  
+//   const columns = Object.keys(data[0]);
+//   worksheet.columns = columns.map(column => ({ header: column, key: column }));
+  
+//   data.forEach(row => {
+//     worksheet.addRow(row);
+//   });
+  
+//   const buffer = await workbook.xlsx.writeBuffer();
+//   return buffer;
+// }
+
+// async function sendPlacementEmail(attachment, userEmail) {
+//   const transporter = nodemailer.createTransport({
+//     port: 465,
+//     host: "smtp.mail.yahoo.com",
+//     auth: {
+//       user: "support@tresume.us",
+//       pass: "xzkmvglehwxeqrpd",
+//     },
+//     secure: true,
+//   });
+  
+//   const today = new Date();
+//   const formattedDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+  
+//   const subject = 'Placement Report for ' + formattedDate;
+//   const text = 'Please find the attached Placement report for ' + formattedDate;
+//   const filename = 'PlacementReport.xlsx';
+  
+//   const mailOptions = {
+//     from: 'support@tresume.us',
+//     to: userEmail,
+//     bcc: 'wilson.am@tresume.us',
+//     subject: subject,
+//     text: text,
+//     attachments: [
+//       {
+//         filename: filename,
+//         content: attachment,
+//       },
+//     ],
+//   };
+  
+//   try {
+//     await transporter.sendMail(mailOptions);
+//     console.log('Placement Email sent successfully!');
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// }
+
+// router.get('/emailplacementtracker', async (req, res) => {
+//   try {
+//     const placementData = await executePlacementQuery();
+//     const placementExcelBuffer = await generatePlacementExcel(placementData);
+  
+//     // Get the user email from the request (you need to pass the user email somehow)
+//     const userEmail = req.query.email; // Example: req.query.email
+  
+//     await sendPlacementEmail(placementExcelBuffer, userEmail);
+//     res.send('Placement Excel report generated and email sent!');
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Error generating Placement report or sending email.');
+//   }
+// });
+
+// async function executePlacementQuery() {
+//   try {
+//     await sql.connect(config);
+//     const result = await sql.query(`
+//       SELECT 
+//         TI.TraineeInterviewID,
+//         CONCAT(T.FirstName, ' ', T.LastName) AS CandidateName,
+//         CONCAT(R.FirstName, ' ', R.LastName) AS Recruiter,
+//         TI.InterviewDate,
+//         TI.InterviewStatus,
+//         TI.Assistedby,
+//         TI.TypeofAssistance,
+//         TI.VendorName,
+//         TI.ClientName,
+//         TI.Notes,
+//         TI.CreateTime
+//       FROM 
+//         TraineeInterview TI
+//       INNER JOIN 
+//         Trainee T ON TI.TraineeID = T.TraineeID
+//       INNER JOIN 
+//         Trainee R ON TI.RecruiterID = R.TraineeID
+//       WHERE 
+//         TI.Active = 1 
+//         AND TI.InterviewDate >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()) - 1, 0)
+//         AND TI.InterviewDate < DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0) 
+//         AND R.OrganizationID = 9
+//     `);
+//     return result.recordset;
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// }
+
 
 module.exports = router;
  
