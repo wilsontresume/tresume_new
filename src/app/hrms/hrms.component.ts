@@ -36,6 +36,7 @@ export class HrmsComponent implements OnInit {
   routeType: any;
   currentStatusOptions:any;
   selectedcurrentstatus: any;
+  filteredCandidates: any[];
 
   constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.OrgID = this.cookieService.get('OrgID');
@@ -229,6 +230,36 @@ export class HrmsComponent implements OnInit {
   onSubmit() {
     console.log('Form Data:', this.formData);
   }
+  
+  sortBy: string = 'DateCreated';
+  sortOrder: string = 'asc';
+
+  // Function to handle sorting
+  sortTable(column: string) {
+    if (this.sortBy === column) {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortBy = column;
+      this.sortOrder = 'asc';
+    }
+
+    this.filteredCandidates = this.sortCandidates();
+  }
+
+  // Function to sort the candidates based on the current sort settings
+  sortCandidates(): any[] {
+    return this.candidates.sort((a, b) => {
+      const dateA = new Date(a.DateCreated).getTime();
+      const dateB = new Date(b.DateCreated).getTime();
+
+      if (this.sortOrder === 'asc') {
+        return dateA - dateB;
+      } else {
+        return dateB - dateA;
+      }
+    });
+  }
+
 }
 
 
