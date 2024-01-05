@@ -246,6 +246,18 @@ export class HrmsComponent implements OnInit {
     });
   }
 
+  searchInput: string = '';
+
+  isCandidateVisible(candidate: any): boolean {
+    const searchValue = this.searchInput.toLowerCase();
+    return (
+      candidate.Email.toLowerCase().includes(searchValue) ||
+      candidate.Name.toLowerCase().includes(searchValue) ||
+      candidate.Phone.toLowerCase().includes(searchValue)
+    );
+  }
+
+
 }
 
 
