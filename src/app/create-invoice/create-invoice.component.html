@@ -90,7 +90,8 @@
       <select id="dropdown" class="form-control ml-0">
         <option value="option1">Option 1</option>
         <option value="option2">Option 2</option>
-        <option value="option1">Add new+</option>
+        <option value="option1" onclick="openForm()">Add new+</option>
+        
       
       </select>
     </div>
@@ -384,18 +385,19 @@
     <div class="modal1" tabindex="-1" role="dialog" [ngClass]="{'show': showConfirmationModal}" *ngIf="showConfirmationModal">
     <div class="modal1-dialog" role="document">
       <div class="modal1-content">
+        <button type="button" class="close" (click)="closeModal1()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <div class="modal1-header">
-          <h5 class="modal1-title">Confirm Deletion</h5>
-          <button type="button" class="close" (click)="closeModal1()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h1 class="modal1-title">Are you sure?</h1>
+          
         </div>
         <div class="modal1-body">
-          Are you sure you want to delete?
+         Would you do like to unlike the billable time?
         </div>
         <div class="modal1-footerbtn">
-          <button type="button" class="btn btn-secondary" (click)="closeModals()">Cancel</button>
-          <button type="button" class="btn btn-danger" (click)="deleteItems ()">Delete</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal1()">No, keep it</button>
+          <button type="button" class="btn btn-danger" (click)="deleteItems()">Yes, unlike it</button>
         </div>
       </div>
     </div>
@@ -467,7 +469,28 @@
           </div>
         </div> -->
         
-        
+        <div class="row mt-3">
+          <div class="d-flex">
+            <!-- Button for Add Lines -->
+            <button class="btn btn-primary btn-block fbtn"  style="margin-left: 25px ;">Cancel</button>
+          </div>
+          <div class="d-flex">
+            <!-- Button for Copy -->
+            <button class="btn btn-primary btn-block fbtn" style="margin-left: 21rem;">Print or Preview</button>
+          </div>
+          <div class="d-flex dropdown">
+            <!-- Dropdown for Save and New -->
+            <button class="btn btn-primary dropdown-toggle fbtn" type="button" id="saveAndNewDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 25rem;">
+              Save and New
+            </button>
+            <div class="dropdown-menu" aria-labelledby="saveAndNewDropdown">
+              <!-- Dropdown items -->
+              <a class="dropdown-item" href="#">Save and close</a>
+              <a class="dropdown-item" href="#">Save and send</a>
+            </div>
+          </div>
+          
+        </div>
       </div>       
     </body>
   </div>
