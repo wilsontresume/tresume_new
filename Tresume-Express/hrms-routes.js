@@ -596,7 +596,7 @@ router.post('/insertSubmissionInfo', async (req, res) => {
         '${req.body.rate}',
         '${req.body.recruiteremail}',
         CURRENT_TIMESTAMP, 
-        ${req.body.Active ? '1' : '0'},
+        1,
         ${req.body.CandidateID},
         '${req.body.recruiteremail}',
         CURRENT_TIMESTAMP 
