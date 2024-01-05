@@ -18,10 +18,10 @@ export class HrmsComponent implements OnInit {
 
   candidates1: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
   recruiterNames: string[] = ['Recruiter 1', 'Recruiter 2', 'Recruiter 3'];
-  candidateStatuses: string[] = ['Active', 'Inactive', 'On Hold'];
+  candidateStatuses: string[] = ['', '', ''];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
-  referralTypes: string[] = ['Type 1', 'Type 2', 'Type 3'];
-  legalStatus: string[] = ['legal', 'illegal'];
+  referralTypes: string[] = ['Phone', 'Email', 'Others'];
+  legalStatus: string[] = ['Eligible to work in the US', 'US Citizen','GC','F-1','F1-CPT','F1-OPT EAD','GC-EAD','TPS EAD','H4-EAD','L2-EAD','Asylum EAD','Other EAD','TN Visa','H1-B Visa','L1 Visa','E3 Visa','Other Visa'];
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
@@ -151,8 +151,11 @@ export class HrmsComponent implements OnInit {
       this.marketerNames = x.result;
     });
   }
+  loading:boolean = false;
 
   savehrmsdata() {
+    this.loading = true;
+
     let Req = {
       firstName: this.addCandidate.value.firstName,
       middleName: this.formData.middleName,
@@ -180,9 +183,32 @@ export class HrmsComponent implements OnInit {
     console.log(Req);
     //     this.service.insertTrainee(Req).subscribe((ax: any) => {
     //       console.log(ax);
-    this.service.insertTraineeCandidate(Req).subscribe((x: any) => {
-      console.log(x);
-    });
+    // this.service.insertTraineeCandidate(Req).subscribe((x: any) => {
+    //   console.log(x);
+    // });
+    this.service.insertTraineeCandidate(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+        this.fetchhrmscandidatelist();
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+    
+  }
+
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary: response.message });
+    this.loading = false;
+
+    console.log(response);
+  }
+  
+  private handleError(response: any): void {
+    this.messageService.add({ severity: 'error', summary:  response.message });
+    this.loading = false;
+
   }
 
 

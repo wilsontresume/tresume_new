@@ -219,52 +219,66 @@ router.post('/insertTraineeCandidate', async function (req, res) {
     var TraineeID = await generateTraineeID();
 
     var query =
-      "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
-      req.body.email +
-      "' AND UserOrganizationID = '" +
-      req.body.OrganizationID +
-      "') " +
-      "BEGIN " +
-      "INSERT INTO Trainee (TraineeID, email, firstName, phone, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, groups, locationConstraint, marketerName, university ) " +
-      "VALUES (" +
-      `'${TraineeID}',` +
-      ` ${formatValue(req.body.email)},` +
-      ` ${formatValue(req.body.firstName)},` +
-      ` ${formatValue(req.body.phone)},` +
-      ` ${formatValue(req.body.middleName)},` +
-      ` ${formatValue(req.body.lastName)},` +
-      ` ${formatValue(req.body.groups)},` +
-      ` ${formatValue(req.body.legalStatus)},` +
-      ` ${formatValue(req.body.candidateStatus)},` +
-      ` ${formatValue(req.body.degree)},` +
-      ` ${formatValue(req.body.gender)},` +
-      ` ${formatValue(req.body.notes)},` +
-      ` ${formatValue(req.body.recruiterName)},` +
-      ` ${formatValue(req.body.referralType)},` +
-      ' 1,' +
-      ` ${formatValue(req.body.locationConstraint)},` +
-      ` ${formatValue(req.body.marketerName)},` +
-      ` ${formatValue(req.body.university)},` +
-      ' 1,' +
-      " 'ACTIVE'," +
-      " 'READY'," +
-      ' 1,' +
-      ' 1,' +
-      " 'TRESUMEUSER', " +
-      "'', GETDATE()) " +
-      "END";
+  "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
+  req.body.email +
+  "' AND UserOrganizationID = '" +
+  req.body.OrganizationID +
+  "') " +
+  "BEGIN " +
+  "INSERT INTO Trainee (TraineeID, email, firstName, phone, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, groups, locationConstraint, marketerName, university ) " +
+  "VALUES (" +
+  `'${TraineeID}',` +
+  ` ${formatValue(req.body.email || '')},` +
+  ` ${formatValue(req.body.firstName || '')},` +
+  ` ${formatValue(req.body.phone || '')},` +
+  ` ${formatValue(req.body.middleName || '')},` +
+  ` ${formatValue(req.body.lastName || '')},` +
+  ` ${formatValue(req.body.groups || '')},` +
+  ` ${formatValue(req.body.legalStatus || '')},` +
+  ` ${formatValue(req.body.candidateStatus || '')},` +
+  ` ${formatValue(req.body.degree || '')},` +
+  ` ${formatValue(req.body.gender || '')},` +
+  ` ${formatValue(req.body.notes || '')},` +
+  ` ${formatValue(req.body.recruiterName || '')},` +
+  ` ${formatValue(req.body.referralType || '')},` +
+  ' 1,' +
+  ` ${formatValue(req.body.locationConstraint || '')},` +
+  ` ${formatValue(req.body.marketerName || '')},` +
+  ` ${formatValue(req.body.university || '')},` +
+  ' 1,' +
+  " 'ACTIVE'," +
+  " 'READY'," +
+  ' 1,' +
+  ' 1,' +
+  " 'TRESUMEUSER', " +
+  "'', GETDATE()) " +
+  "END";
 
     console.log(query);
 
-    // await sql.connect(config);
-    // var request = new sql.Request();
-    // var result = await request.query(query);
+    await sql.connect(config);
+    var request = new sql.Request();
+    var result = await request.query(query);
 
-    res.status(200).send("Data Fetched");
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
-  }
+  //   res.status(200).send("Data Fetched");
+  // } catch (error) {
+  //   console.error("Error:", error);
+  //   res.status(500).send("Internal Server Error");
+  // }
+  const data ={
+    flag: 1,
+    message: "Trainee Candidate Data Fetched",
+  };
+
+  res.send(data);
+}
+catch (error){
+  const data = {
+    flag: 1,
+    message:"Internal Server Error",
+  };
+  res.status(500).send(data);
+}
 });
 
 async function generateTraineeID() {
@@ -464,6 +478,52 @@ router.post('/deleteinterviewdata', async (req, res) => {
 
 })
 
+//SUBMISSION DELETE
+
+router.post('/deletesubmissiondata', async (req, res) => {
+  try {
+    const submissiondata = await deactivatesubmissiondata(req.body.submissionid);
+    if (submissiondata) {
+      const result = {
+        flag: 1,
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error deleting submissiondata:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while deleting the submissiondata!",
+    };
+    res.status(500).send(result);
+  }
+
+})
+
+async function deactivatesubmissiondata(submissionid) {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    var query = "UPDATE Submission set Active = 0 where submissionid ="+ submissionid ;
+    console.log(query);
+    const queryResult = await request.query(query);
+
+    if (queryResult.rowsAffected[0] === 0) {
+      throw new Error("No records found!");
+    }
+
+    return queryResult;
+  } catch (error) {
+    console.error("Error while deleting submissiondata:", error);
+    throw error;
+  }
+}
+
 router.post('/getCandidateInfo', async (req, res) => {
   try {
     const pool = await sql.connect(config);
@@ -494,12 +554,11 @@ router.post('/getSubmissionList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = new sql.Request();
-    // const candidateID = '20742'; 
-    const query = `SELECT S.Title, S.SubmissionDate, CONCAT(T.FirstName, ' ', T.LastName) AS MarketerName, S.VendorName, S.ClientName, S.Note, S.Rate, S.CreateBy, S.CreateTime, S.Active, S.TraineeID, S.LastUpdateBy, S.LastUpdateTime 
-      FROM Submission S 
-      INNER JOIN Trainee T ON S.TraineeID = T.TraineeID 
-      WHERE T.TraineeID = ${req.body.TraineeID}`;
-
+      // const candidateID = '20742';
+      const query = `SELECT S.submissionid,S.Title, S.SubmissionDate, CONCAT(T.FirstName, ' ', T.LastName) AS MarketerName, S.VendorName, S.ClientName, S.Note, S.Rate, S.CreateBy, S.CreateTime, S.Active, S.TraineeID, S.LastUpdateBy, S.LastUpdateTime
+      FROM Submission S
+      INNER JOIN Trainee T ON S.TraineeID = T.TraineeID
+      WHERE T.TraineeID = ${req.body.TraineeID} AND S.Active = 1`;
     console.log(query);
 
     const recordset = await request.input('candidateID', sql.VarChar, req.body.candidateID).query(query);
@@ -551,7 +610,7 @@ router.post('/insertSubmissionInfo', async (req, res) => {
         '${req.body.rate}',
         '${req.body.recruiteremail}',
         CURRENT_TIMESTAMP, 
-        ${req.body.Active ? '1' : '0'},
+        1,
         ${req.body.CandidateID},
         '${req.body.recruiteremail}',
         CURRENT_TIMESTAMP 
