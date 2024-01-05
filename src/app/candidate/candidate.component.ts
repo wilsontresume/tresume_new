@@ -21,6 +21,7 @@ import { MessageService } from 'primeng/api';
   providers: [CandidateService,MessageService]
 })
 export class CandidateComponent implements OnInit {
+  loading:boolean = false;
 
   public traineeId: any;
   public loggedTraineeId: any;

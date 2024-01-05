@@ -9,6 +9,8 @@ import { MessageService } from 'primeng/api';
   providers: [CookieService,AssignRoleService,MessageService],
 })
 export class AssignRoleComponent implements OnInit {
+  loading:boolean = false;
+
   adminlist:any;
   userlist: String[];
   allusers:any;

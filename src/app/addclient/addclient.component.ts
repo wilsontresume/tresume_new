@@ -13,6 +13,7 @@ import { MessageService } from 'primeng/api';
 })
 
 export class AddclientComponent implements OnInit {
+  loading:boolean = false;
 
   addClient: any;
   formData: any;

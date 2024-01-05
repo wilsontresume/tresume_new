@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 })
 
 export class AllJobPostingsComponent implements OnInit{
+  loading:boolean = false;
+
   OrgID:string = '';
   JobID:string = '';
   TraineeID:string = '';
