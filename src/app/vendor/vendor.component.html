@@ -40,6 +40,11 @@
 
                     </td>
                 </tr>
+                <tr *ngIf="noResultsFound" >
+                    <td colspan="11" class="text-center">
+                      No results found.
+                    </td>
+                  </tr>
             </tbody>
         </table>
     </div>
