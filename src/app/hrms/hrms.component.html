@@ -78,7 +78,10 @@
                       <th>Phone</th>
                       <th>Legal Status</th>
                       <th>Candidate Status</th>
-                      <th>Date Created</th>
+                      <th (click)="sortTable('DateCreated')">
+                        <span>Date Created</span>
+                        <i class="fa" [ngClass]="{'fa-sort-asc': sortBy === 'DateCreated' && sortOrder === 'asc', 'fa-sort-desc': sortBy === 'DateCreated' && sortOrder === 'desc', 'fa-sort': sortBy !== 'DateCreated'}"></i>
+                      </th>
                       <th style="min-width: 150px;">Follow_Up_On</th>
                     </tr>
                   </thead>
@@ -90,15 +93,19 @@
                           <td>{{ candidate.Phone }}</td>
                           <td>{{ candidate.LegalStatus }}</td>
                           <td>{{ candidate.CandidateStatus }}</td>
-                          <td>{{ candidate.DateCreated }}</td>
-                          <td style="min-width: 150px;">
-                            <div class="input-group">
+                          <td>{{ candidate.DateCreated | date:'MM/dd/yy' }}</td>
+                          <td>
+                            <div class="input-group d-flex justify-content-center align-items-center">
+                              <!-- Uncomment the input field if needed -->
+                              <!--
                               <input type="date" class="form-control" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
                                 placeholder="Follow Up On" style="width: 50%;">
+                              -->
                               <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']"
                                 style="font-size: 24px;"></i>
                             </div>
                           </td>
+                          
                       </tr>
                   </tbody>
               </table>
