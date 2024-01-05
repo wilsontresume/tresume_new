@@ -14,6 +14,7 @@ import { MessageModule } from 'primeng/message';
 
 export class ReviewTresumeComponent implements OnChanges {
   showConfirmationDialog2: boolean;
+  showConfirmationDialog3: boolean;
   myForm: any;
   interviewForm: any;
   myFormSubmission: any;
@@ -846,6 +847,40 @@ export class ReviewTresumeComponent implements OnChanges {
     console.log(this.showConfirmationDialog2);
     this.showConfirmationDialog2 = false;
   }
+
+  // submission delete
+deletesubmissiondata(submissionid: number) {
+  this.deleteIndex = submissionid;
+  console.log(this.deleteIndex);
+  this.showConfirmationDialog3 = true;
+}
+confirmdeletesubmission() {
+  console.log(this.deleteIndex);
+  let Req = {
+    submissionid: this.deleteIndex,
+  };
+  this.service.deletesubmissiondata(Req).subscribe((x: any) => {
+    var flag = x.flag;
+    this.getSubmissionList();
+
+    if (flag === 1) {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Submission Deleted Sucessfully',
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Please try again later',
+      });
+    }
+  });
+  this.showConfirmationDialog3 = false;
+}
+cancelDeletesubmission() {
+  console.log(this.showConfirmationDialog3);
+  this.showConfirmationDialog3 = false;
+}
 
   //financialinfo
 

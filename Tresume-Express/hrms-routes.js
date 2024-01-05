@@ -464,6 +464,52 @@ router.post('/deleteinterviewdata', async (req, res) => {
 
 })
 
+//SUBMISSION DELETE
+
+router.post('/deletesubmissiondata', async (req, res) => {
+  try {
+    const submissiondata = await deactivatesubmissiondata(req.body.submissionid);
+    if (submissiondata) {
+      const result = {
+        flag: 1,
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error deleting submissiondata:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while deleting the submissiondata!",
+    };
+    res.status(500).send(result);
+  }
+
+})
+
+async function deactivatesubmissiondata(submissionid) {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    var query = "UPDATE Submission set Active = 0 where submissionid ="+ submissionid ;
+    console.log(query);
+    const queryResult = await request.query(query);
+
+    if (queryResult.rowsAffected[0] === 0) {
+      throw new Error("No records found!");
+    }
+
+    return queryResult;
+  } catch (error) {
+    console.error("Error while deleting submissiondata:", error);
+    throw error;
+  }
+}
+
 router.post('/getCandidateInfo', async (req, res) => {
   try {
     const pool = await sql.connect(config);
@@ -494,12 +540,11 @@ router.post('/getSubmissionList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = new sql.Request();
-    // const candidateID = '20742'; 
-    const query = `SELECT S.Title, S.SubmissionDate, CONCAT(T.FirstName, ' ', T.LastName) AS MarketerName, S.VendorName, S.ClientName, S.Note, S.Rate, S.CreateBy, S.CreateTime, S.Active, S.TraineeID, S.LastUpdateBy, S.LastUpdateTime 
-      FROM Submission S 
-      INNER JOIN Trainee T ON S.TraineeID = T.TraineeID 
-      WHERE T.TraineeID = ${req.body.TraineeID}`;
-
+      // const candidateID = '20742';
+      const query = `SELECT S.submissionid,S.Title, S.SubmissionDate, CONCAT(T.FirstName, ' ', T.LastName) AS MarketerName, S.VendorName, S.ClientName, S.Note, S.Rate, S.CreateBy, S.CreateTime, S.Active, S.TraineeID, S.LastUpdateBy, S.LastUpdateTime
+      FROM Submission S
+      INNER JOIN Trainee T ON S.TraineeID = T.TraineeID
+      WHERE T.TraineeID = ${req.body.TraineeID} AND S.Active = 1`;
     console.log(query);
 
     const recordset = await request.input('candidateID', sql.VarChar, req.body.candidateID).query(query);
