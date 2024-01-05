@@ -55,8 +55,8 @@ export class ReviewTresumeComponent implements OnChanges {
   legalStatusValend: any;
   division: any;
   OrgID: string;
-userName: string;
-tabIndex: any;
+  userName: string;
+  tabIndex: any;
   routeType: any;
   title: any;
 

@@ -10,6 +10,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./accounts-add-role.component.scss'],
 })
 export class AccountsAddRoleComponent implements OnInit {
+  loading:boolean = false;
 
   tableData1:any;
   viewaccess:any;

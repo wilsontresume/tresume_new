@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CandidateService } from './candidate.service';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-sitevisit',
@@ -14,6 +15,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 
 
 export class SiteVisitComponent implements OnInit {
+    loading:boolean = false;
 
     public traineeId: any;
     public details: any;
