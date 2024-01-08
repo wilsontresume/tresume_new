@@ -97,13 +97,11 @@
                           <td>{{ candidate.DateCreated | date:'MM/dd/yy' }}</td>
                           <td>
                             <div class="input-group d-flex justify-content-center align-items-center">
-                              <!-- Uncomment the input field if needed -->
                               <!--
                               <input type="date" class="form-control" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
                                 placeholder="Follow Up On" style="width: 50%;">
                               -->
-                              <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']"
-                                style="font-size: 24px;"></i>
+                              <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 24px;"></i>
                             </div>
                           </td>
                           
@@ -219,12 +217,16 @@
             <div class="row">
               <div class="col-md-4" *ngIf="routeType == 1">
                 <label class="label">Recruiter Name *</label>
-                <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
-                  <option *ngFor="let name of recruiterNames" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option>
+                <!-- // check next 2 line if any error  -->
+                <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
+                  <option *ngFor="let name of recruiterNames" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option> -->
+                <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }"> -->
+                <select class="form-control" name="recruiterName" formControlName="recruiterName">
+                  <option *ngFor="let name of recruiterNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
                 </select>
-                <div *ngIf="addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched" class="validation-message" style="color: red;">
+                <!-- <div *ngIf="addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched" class="validation-message" style="color: red;">
                   * Please select at least one Recruiter Name.
-                </div>
+                </div> -->
               </div>
               <div class="col-md-4" *ngIf="routeType == 1">
                 <label class="label">Degree</label>
@@ -244,8 +246,7 @@
               <label class="label">Candidate Status</label>
               <select class="form-control" id="currentStatus" [(ngModel)]="selectOptions"
                 [ngModelOptions]="{standalone: true}">
-                <option value>-- Select Current Status --</option>
-                <option *ngFor="let option of  currentStatusOptions" [value]="option">{{ option }}</option>
+                <option *ngFor="let option of  currentStatusOptions" [value]="option.CandidateStatusID">{{ option.Value }}</option>
               </select>
               </div>
               <div class="col-md-4" *ngIf="routeType == 1">
@@ -256,8 +257,12 @@
               </div>
               <div class="col-md-4" *ngIf="routeType == 1">
                 <label class="label">Legal Status</label>
-                <select class="form-control" name="legalStatus" [(ngModel)]="formData.legalStatus" [ngModelOptions]="{standalone: true}">
+                <!-- <select class="form-control" name="legalStatus" [(ngModel)]="formData.legalStatus" [ngModelOptions]="{standalone: true}">
                   <option *ngFor="let stat of legalStatus" [value]="stat">{{ stat }}</option>
+                </select> -->
+                <select class="form-control" name="legalStatus" [(ngModel)]="legalStatus" [ngModelOptions]="{standalone: true}">
+                  <option value>-- Select Legal Status --</option>
+                  <option *ngFor="let stat of legalStatusOptions" [value]="stat.LegalStatusID">{{ stat.LegalValue }}</option>
                 </select>
               </div>
             </div>

@@ -1084,6 +1084,63 @@ router.post('/checkEmail', async function (req, res) {
 //   }
 // }
 
+router.post("/candidatestatus", function (req, res) {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    request.query(
+      "select * from CandidateStatus",
+      function (err, recordset) {
+        if (err) console.log(err);
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+        res.send(recordset.recordsets[0]);
+      }
+    );
+  });
+});
+
+router.post("/getLegalStatus", function (req, res) {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+
+    var request = new sql.Request();
+    request.query(
+      "select * from legalstatus where active = 1",
+      function (err, recordset) {
+        if (err) console.log(err);
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(recordset.recordsets[0]); 
+      }
+    );
+  });
+});
+
+router.post("/fetchrecruiter", function (req, res) {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    request.query(
+      "select traineeid,firstname,lastname from trainee where organizationid = "+req.body.orgID+" and active = 1",
+      function (err, recordset) {
+        if (err) console.log(err);
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+        res.send(recordset.recordsets[0]);
+      }
+    );
+  });
+});
+
 
 module.exports = router;
  

@@ -48,6 +48,19 @@ export class HrmsService {
     return this.http.post<ResponseDetails>(this.endpoint + 'checkEmail', request);
   }
 
+  candidatestatus(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'candidatestatus', request);
+  }
+
+  getLegalStatus(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getLegalStatus', request);
+  }
+
+
+  fetchrecruiter(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchrecruiter', request);
+  }
+
   // checkEmail(email: string): Observable<any> {
   //   return this.http.post<any>(this.endpoint, { email });
   // }
