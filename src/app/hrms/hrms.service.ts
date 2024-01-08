@@ -52,6 +52,11 @@ export class HrmsService {
     return this.http.post<ResponseDetails>(this.endpoint + 'candidatestatus', request);
   }
 
+  getLegalStatus(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getLegalStatus', request);
+  }
+
+
   fetchrecruiter(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'fetchrecruiter', request);
   }

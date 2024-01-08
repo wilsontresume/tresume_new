@@ -21,7 +21,7 @@ export class HrmsComponent implements OnInit {
   candidateStatuses: string[] = ['', '', ''];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
-  legalStatus: string[] = ['Eligible to work in the US', 'US Citizen','GC','F-1','F1-CPT','F1-OPT EAD','GC-EAD','TPS EAD','H4-EAD','L2-EAD','Asylum EAD','Other EAD','TN Visa','H1-B Visa','L1 Visa','E3 Visa','Other Visa'];
+  legalStatus: string[] = [];
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
@@ -34,7 +34,9 @@ export class HrmsComponent implements OnInit {
   emailvalidation: boolean = false;
   emailvalidationmessage: string = '';
   routeType: any;
-  currentStatusOptions:any;
+  currentStatusOptions:any = [];
+  legalStatusOptions:any;
+  // currentStatusOptions:any;
   selectedcurrentstatus: any;
   filteredCandidates: any[];
 
@@ -49,6 +51,8 @@ export class HrmsComponent implements OnInit {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.getOrgUserList();
     this.getcandidaterstatus();
+    this.getLegalStatusOptions();
+
     this.fetchhrmscandidatelist();
     this.addCandidate = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
@@ -58,7 +62,7 @@ export class HrmsComponent implements OnInit {
       recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
       degree: [''],
       groups: [''],
-      legalStatus: ['Legal'],
+      legalStatus: [''],
       locationConstraint: ['yes'],
       marketerName: [''],
       notes: [''],
@@ -124,9 +128,9 @@ export class HrmsComponent implements OnInit {
     return (control: { value: any; }) => {
       const selectedValue = control.value;
       if (selectedValue && selectedValue.length > 0) {
-        return null; // Valid
+        return null;
       } else {
-        return { atLeastOneSelected: true }; // Invalid
+        return { atLeastOneSelected: true };
       }
     };
   }
@@ -144,6 +148,17 @@ export class HrmsComponent implements OnInit {
       console.log(this.currentStatusOptions);
     });
   }
+
+  getLegalStatusOptions() {
+    const request = {};
+  
+    this.service.getLegalStatus(request).subscribe((response: any) => {
+      this.legalStatusOptions = response;
+      console.log(this.legalStatusOptions);
+    });
+  }
+  
+
   fetchhrmscandidatelist() {
 
     this.loading = true;
