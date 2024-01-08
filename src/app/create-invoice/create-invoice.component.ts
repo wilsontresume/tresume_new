@@ -18,6 +18,56 @@ showConfirmationDialog: any;
 showConfirmationModal: boolean = false;
 
 
+showModal: boolean = false;
+
+
+
+
+previousOption: string = ''; // Store the previous option
+
+onOptionChanges(event: any) {
+  this.previousOption = this.selectedOption; // Store the previous option
+  this.selectedOption = event.target.value;
+  // Rest of your logic for handling selected options
+}
+
+goToPreviousOption() {
+  if (this.previousOption === 'example1' || this.previousOption === 'example2') {
+    this.selectedOption = this.previousOption; // Set the selected option to the previous one
+  }
+}
+selectedFilter: string = ''; 
+
+onFilterChanges(value: string) {
+  this.selectedFilter = value;
+  // Add any other necessary logic based on the filter selection
+}
+
+onOptionChange(event: any) {
+  this.selectedOption = event.target.value;
+  if (this.selectedOption === 'example2') {
+    // Implement logic if 'Group time by service' is selected
+  } else {
+    // Implement logic if 'Don't group time' is selected
+  }
+}
+
+addAll() {
+  // Implement 'Add all' logic if required
+}
+
+
+  onDropdownChange(event: any) {
+    alert();
+    if (event.target.value === 'addNew') {
+      this.showModal = true;
+    }
+  }
+  
+
+  closeModal2() {
+    this.showModal = false;
+  }
 
 
 confirmDelete() {
@@ -50,6 +100,7 @@ closeModal1() {
 showButtons: any;
   constructor() { }
 
+  
   onFilterChange(value: string) {
     this.selectedOption = value;
     this.showAdditionalInputs = this.selectedOption === 'option3'; // Update the condition here
