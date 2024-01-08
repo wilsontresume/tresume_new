@@ -36,7 +36,9 @@ router.post('/getTraineeVendorList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = new sql.Request();
-    const query = "select * from Vendors where PrimaryOwner = '" + req.body.TraineeID + "' and active = 1";
+    const query = "SELECT   V.vendorid,  V.vendorname,  V.emailid,  V.contactnumber,  CONCAT(T.firstname, ' ', T.lastname) AS primaryowner FROM   vendors V INNER JOIN   Trainee T ON V.primaryowner = T.traineeid WHERE   V.active = 1  AND V.primaryowner = '" + req.body.TraineeID + "'";
+
+    
 
     console.log(query);
 
@@ -115,9 +117,9 @@ async function deactivatevendor(VendorID) {
 router.post('/addVendor', async (req, res) => {
   try {
     const request = new sql.Request();
-
+    OrgID = req.body.OrgID;
     const query = `INSERT INTO Vendors (VendorName, ContactNumber, EmailID, Address, VMSVendorName, FederalID,ZipCode, Website, Fax, Industry, Country, State, City, VendorStatusID,  VendorCategoryID, PrimaryOwner,RequiredDocuments, PaymentTerms, AboutCompany, Access, sendingEmail, posting, Notes) VALUES 
-    ('${req.body.VendorName}', '${req.body.ContactNumber}', '${req.body.EmailID}', '${req.body.Address}', '${req.body.VMSVendorName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.Website}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', ${req.body.VendorStatusID}, ${req.body.VendorCategoryID}, '${req.body.PrimaryOwner}', '${req.body.AboutCompany}', ${req.body.Active ? '1' : '0'}, ${req.body.Access ? '1' : '0'}, ${req.body.posting ? '1' : '0'}, ${req.body.sendingEmail ? '1' : '0'}, '${req.body.PaymentTerms}', '${req.body.Notes}')`;
+    ('${req.body.VendorName}', '${req.body.ContactNumber}', '${req.body.VendorEmailID}', '${req.body.Address}', '${req.body.VMSVendorName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.VendorWebsite}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', ${req.body.VendorStatus}, ${req.body.VendorCategory}, '${req.body.PrimaryOwner}','${req.body.requiredDocuments}','${req.body.PaymentTerms}' ,'${req.body.AboutCompany}', '1', '', '','')`;
 
     console.log(req);
     console.log(query);

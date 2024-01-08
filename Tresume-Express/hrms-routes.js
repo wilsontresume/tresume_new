@@ -222,10 +222,10 @@ router.post('/insertTraineeCandidate', async function (req, res) {
   "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
   req.body.email +
   "' AND UserOrganizationID = '" +
-  req.body.OrganizationID +
+  req.body.orgID +
   "') " +
   "BEGIN " +
-  "INSERT INTO Trainee (TraineeID, email, firstName, phone, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, groups, locationConstraint, marketerName, university ) " +
+  "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby ) " +
   "VALUES (" +
   `'${TraineeID}',` +
   ` ${formatValue(req.body.email || '')},` +
@@ -233,7 +233,6 @@ router.post('/insertTraineeCandidate', async function (req, res) {
   ` ${formatValue(req.body.phone || '')},` +
   ` ${formatValue(req.body.middleName || '')},` +
   ` ${formatValue(req.body.lastName || '')},` +
-  ` ${formatValue(req.body.groups || '')},` +
   ` ${formatValue(req.body.legalStatus || '')},` +
   ` ${formatValue(req.body.candidateStatus || '')},` +
   ` ${formatValue(req.body.degree || '')},` +
@@ -241,18 +240,16 @@ router.post('/insertTraineeCandidate', async function (req, res) {
   ` ${formatValue(req.body.notes || '')},` +
   ` ${formatValue(req.body.recruiterName || '')},` +
   ` ${formatValue(req.body.referralType || '')},` +
-  ' 1,' +
   ` ${formatValue(req.body.locationConstraint || '')},` +
   ` ${formatValue(req.body.marketerName || '')},` +
-  ` ${formatValue(req.body.university || '')},` +
   ' 1,' +
   " 'ACTIVE'," +
   " 'READY'," +
-  ' 1,' +
-  ' 1,' +
   " 'TRESUMEUSER', " +
-  "'', GETDATE()) " +
-  "END";
+  " GETDATE(), " +
+  ` ${formatValue(req.body.orgID || '')},` +
+  ` ${formatValue(req.body.creeateby || '')}` +
+  ") END";
 
     console.log(query);
 

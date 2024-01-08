@@ -83,17 +83,58 @@
 </div>
 
 
-<div class="col-md-6 d-flex ml-2 mt-5">
-  <div class="clientemail mt-0 ml-3">
-    <div class="form-group">
-      <label for="dropdown" class="ml-0">Terms</label>
-      <select id="dropdown" class="form-control ml-0">
-        <option value="option1">Add new+</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-      </select>
+  <div class="col-md-6 d-flex ml-2 mt-5">
+    <div class="clientemail mt-0 ml-3">
+      <div class="form-group">
+        <label for="dropdown" class="ml-0">Terms</label>
+        <select id="dropdown" class="form-control ml-0" (change)="onDropdownChange($event)">
+          <option value="option1">10 days</option>
+          <option value="option2">20 days</option>
+          <option value="option2">Net 15</option>
+          <option value="addNew">Add New</option>
+        </select>
+      </div>
     </div>
-  </div>
+
+    <div class="modal5" tabindex="-1" role="dialog" [ngClass]="{'d-block': showModal}" style="display: none;">
+      <div class="modal5-dialog" role="document">
+        <div class="modal-content" style="height: 27rem; width: 18rem;  position: absolute; z-index: 999;">
+          <div class="modal-header">
+            <h5 class="modal-title">New Term</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal2()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="height: 300px; overflow-y: auto;">
+            <label for="nameInput">*Name:</label><br>
+              <input type="text" id="nameInput" name="name"><br><br>
+    
+                   <input type="radio" id="dueFixed" name="dueType" value="fixed">
+                       <label for="dueFixed">Due in fixed number of days</label><br><br>
+    
+    <input type="checkbox" id="checkBox" name="checkBox" class="larger-checkbox" style="margin-left: 34px;">
+    <label for="checkBox" style="margin-left: 4px ;">Days</label><br><br>
+
+    <input type="radio" id="dueFixed" name="dueType" value="fixed">
+    <label for="dueFixed" style="margin-left: 4px ;">Due in fixed number of days</label><br><br>
+    
+    <input type="checkbox" id="checkBox" name="checkBox" class="larger-checkbox" style="margin-left: 34px;">
+    <label for="checkBox" style="margin-left: 4px ;">Days</label><br><br>
+
+    <input type="radio" id="dueFixed" name="dueType" value="fixed">
+    <label for="dueFixed">Due in fixed number of days</label><br><br>
+    
+    <input type="checkbox" id="checkBox" name="checkBox" class="larger-checkbox" style="margin-left: 34px;">
+    <label for="checkBox" style="margin-left: 4px ;">Days</label><br><br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal2()">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   <div class="ml-3">
     <div class="form-group">
       <label for="invoiceNo">Invoice No.</label>
@@ -125,11 +166,11 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           Close
         </div>
-        <div class="modal-body"  style="max-height: 1000px; overflow-y: auto;">
+        <div class="modal-body" style="max-height: 1000px; overflow-y: auto;">
           <h2>Add to invoice</h2>
           <div class="form-group">
             <label for="filterBy">Filter by:</label>
-            <select class="form-control" id="filterBy" (change)="onFilterChange($event.target.value)">
+            <select class="form-control" id="filterBy" (change)="onFilterChanges($event.target.value)">
               <option value="option1">All dates</option>
               <option value="option2">This month (January)</option>
               <option value="option3">Last month (December)</option>
@@ -137,25 +178,89 @@
             </select>
           </div>
           <hr>
-          <p style="color: #999; font-style: italic;" >There aren't any billable items for that date range.</p>
-          <div *ngIf="selectedOption === 'option3'">
+          <p style="color: #999; font-style: italic;">There aren't any billable items for that date range.</p>
+          <div *ngIf="selectedFilter === 'option3'">
             <div class="form-group mb-3">
-              <select class="form-control">
-                <option value="example1">Don't group time</option>
-                <option value="example2">Example 2</option>
-                <option value="example3">Example 3</option>
-              </select>
+ <select class="form-control" (change)="onOptionChanges($event)">
+        <option value="example1" *ngIf="selectedOption !== 'example2'">Don't group time</option>
+        <option value="example2">Group time by service</option>
+      </select>
             </div>
-            <div *ngIf="showAdditionalInputs" class="mb-3">
+            <!-- Card display logic for 'Don't group time' -->
+            <div *ngIf="selectedOption === 'example1' || showAdditionalInputs">
+
               <button class="btn btn-primary" (click)="addAll()">Add all</button>
+              <div *ngIf="showAdditionalInputs" class="mb-3">
+                
+              </div>
+              <div class="card-display mt-3">
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
+                    <div class="row">
+                      <div class="col mt-3 d-flex justify-content-between">
+                        <p class="card-text" style="margin-left: -6rem;">Dec 11, 2023</p>
+                        <p>8:00</p>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: -11px;">
+                      <div class="col">
+                        <p class="card-text">$360.00</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p class="card-text">Kivani kotecha</p>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col d-flex justify-content-between">
+                        <button class="btn btn-primary">Add</button>
+                        <button class="btn btn-secondary">Open</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                
+                
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
+                    <div class="row">
+                      <div class="col mt-3 d-flex justify-content-between">
+                        <p class="card-text" style="margin-left: -6rem;">Dec 12, 2023</p>
+                        <p>8:00</p>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: -11px;">
+                      <div class="col">
+                        <p class="card-text">$360.00</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p class="card-text">Kivani kotecha</p>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col d-flex justify-content-between">
+                        <button class="btn btn-primary">Add</button>
+                        <button class="btn btn-secondary">Open</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="card-display mt-3">
+            <!-- Card display logic for 'Group time by service' -->
+            <div *ngIf="selectedOption === 'example2' && !showAdditionalInputs">
               <div class="card mb-3">
                 <div class="card-body">
-                  <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
+                  <h3 class="card-title" style="text-decoration: underline;">Time services</h3> <br>
                   <div class="row">
                     <div class="col mt-3 d-flex justify-content-between">
-                      <p class="card-text" style="margin-left: -6rem;">Dec 11, 2023</p>
+                      <p class="card-text" style="margin-left: -6rem;">Dec 11 - Dec 22,<br> 2023</p>
                       <p>8:00</p>
                     </div>
                   </div>
@@ -172,44 +277,16 @@
                   <div class="row mt-3">
                     <div class="col d-flex justify-content-between">
                       <button class="btn btn-primary">Add</button>
-                      <button class="btn btn-secondary">Open</button>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              
-              
-              <div class="card mb-3">
-                <div class="card-body">
-                  <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
-                  <div class="row">
-                    <div class="col mt-3 d-flex justify-content-between">
-                      <p class="card-text" style="margin-left: -6rem;">Dec 12, 2023</p>
-                      <p>8:00</p>
-                    </div>
-                  </div>
-                  <div class="row" style="margin-top: -11px;">
-                    <div class="col">
-                      <p class="card-text">$360.00</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <p class="card-text">Kivani kotecha</p>
-                    </div>
-                  </div>
-                  <div class="row mt-3">
-                    <div class="col d-flex justify-content-between">
-                      <button class="btn btn-primary">Add</button>
-                      <button class="btn btn-secondary">Open</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <button class="btn btn-primary mt-3" (click)="goToPreviousOption()">Back</button>
             </div>
           </div>
         </div>
+        
+        
       </div>
     </div>
   </div>
@@ -274,9 +351,8 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a> </td>
-        <td><i class="fa fa-trash fa-lg delete-icon" data-toggle="modal" data-target="#deleteConfirmation"></i></td>
-        
+        <td><i class="fas fa-file attachment-symbol"></i></td>
+        <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
       </tr>
       <tr>
         <td></td>
@@ -287,8 +363,8 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
-        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
+        <td><i class="fas fa-file attachment-symbol"></i></td>
+        <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
       </tr>
       <tr>
         <td></td>
@@ -299,8 +375,8 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
-        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
+        <td><i class="fas fa-file attachment-symbol"></i></td>
+        <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
       </tr>
       <tr>
         <td></td>
@@ -311,8 +387,8 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
-        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
+        <td><i class="fas fa-file attachment-symbol"></i></td>
+        <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
       </tr>
       <tr>
         <td></td>
@@ -323,8 +399,8 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
-        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
+        <td><i class="fas fa-file attachment-symbol"></i></td>
+        <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
       </tr>
       <tr>
         <td></td>
@@ -335,8 +411,8 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
-        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
+        <td><i class="fas fa-file attachment-symbol"></i></td>
+        <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
       </tr>
       <tr>
         <td></td>
@@ -347,8 +423,9 @@
         <td>8</td>
         <td>45</td>
         <td>360.00</td>
-        <td><a href="#" class="attachment-symbol"><i class="fas fa-file"></i></a></td>
-        <td> <a href="#" class="delete-action"><i class="fas fa-trash-alt"></i></a></td>
+        <td><i class="fas fa-file attachment-symbol"></i></td>
+        <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
+
       </tr>
     </tbody>
     <tfoot>
@@ -380,63 +457,30 @@
   </tfoot>
   </table>
 
-<div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal1" tabindex="-1" role="dialog" [ngClass]="{'show': showConfirmationModal}" *ngIf="showConfirmationModal">
+    <div class="modal1-dialog" role="document">
+      <div class="modal1-content">
+        <button type="button" class="close" (click)="closeModal1()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to delete this item?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+        <div class="modal1-header">
+          <h1 class="modal1-title">Are you sure?</h1>
+          
+        </div>
+        <div class="modal1-body">
+         Would you do like to unlike the billable time?
+        </div>
+        <div class="modal1-footerbtn">
+          <button type="button" class="btn btn-secondary" (click)="closeModal1()">No, keep it</button>
+          <button type="button" class="btn btn-danger" (click)="deleteItems()">Yes, unlike it</button>
+        </div>
       </div>
     </div>
   </div>
+
 </div>
 
-<!-- Adjusted Modal Structure -->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        Close
-      </div>
-      <div class="modal-body">
-        <h2>Add to invoice</h2>
-        <!-- Your content -->
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Converted Delete Confirmation Modal -->
-<div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
-  <form class="modal-content" action="/action_page.php">
-    <div class="container">
-      <h1>Delete Account</h1>
-      <p>Are you sure you want to delete your account?</p>
-    
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="deletebtn">Delete</button>
-      </div>
-    </div>
-  </form>
-</div>
-</div>
-
-      <tr >
+      <tr>
         <td colspan="10  ">
           <button class="btn btn-  ml-3 mr-2">Add Lines</button>
           <button class="btn btn-  mr-2">Clear All Lines</button>
@@ -500,16 +544,28 @@
           </div>
         </div> -->
         
-        
+        <div class="row mt-3">
+          <div class="d-flex">
+            <!-- Button for Add Lines -->
+            <button class="btn btn-primary btn-block fbtn"  style="margin-left: 25px ;">Cancel</button>
+          </div>
+          <div class="d-flex">
+            <!-- Button for Copy -->
+            <button class="btn btn-primary btn-block fbtn" style="margin-left: 21rem;">Print or Preview</button>
+          </div>
+          <div class="d-flex dropdown">
+            <!-- Dropdown for Save and New -->
+            <button class="btn btn-primary dropdown-toggle fbtn" type="button" id="saveAndNewDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 25rem;">
+              Save and New
+            </button>
+            <div class="dropdown-menu" aria-labelledby="saveAndNewDropdown">
+              <!-- Dropdown items -->
+              <a class="dropdown-item" href="#">Save and close</a>
+              <a class="dropdown-item" href="#">Save and send</a>
+            </div>
+          </div>
+          
+        </div>
       </div>       
     </body>
   </div>
-    
-  
- 
-
-
-
-
-
-

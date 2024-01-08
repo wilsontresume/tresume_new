@@ -36,6 +36,7 @@ export class HrmsComponent implements OnInit {
   routeType: any;
   currentStatusOptions:any = [];
   legalStatusOptions:any;
+  // currentStatusOptions:any;
   selectedcurrentstatus: any;
   filteredCandidates: any[];
 
@@ -48,11 +49,11 @@ export class HrmsComponent implements OnInit {
 
   ngOnInit(): void {
     this.TraineeID = this.cookieService.get('TraineeID');
-    this.fetchhrmscandidatelist();
     this.getOrgUserList();
     this.getcandidaterstatus();
     this.getLegalStatusOptions();
 
+    this.fetchhrmscandidatelist();
     this.addCandidate = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
@@ -140,7 +141,8 @@ export class HrmsComponent implements OnInit {
 
 
   getcandidaterstatus(){
-    const Req = {};
+    const Req = {
+         };
     this.service.candidatestatus(Req).subscribe((x: any) => {
       this.currentStatusOptions = x;
       console.log(this.currentStatusOptions);
@@ -158,23 +160,26 @@ export class HrmsComponent implements OnInit {
   
 
   fetchhrmscandidatelist() {
+
+    this.loading = true;
     let Req = {
       TraineeID: this.TraineeID,
     };
     this.service.gethrmscandidateList(Req).subscribe((x: any) => {
       this.candidates = x.result;
       this.noResultsFound = this.candidates.length === 0;
+      this.loading = false;
     });
   }
 
   getOrgUserList() {
     let Req = {
       TraineeID: this.TraineeID,
-      OrgID: this.OrgID
+      orgID: this.OrgID
     };
-    this.service.getOrgUserList(Req).subscribe((x: any) => {
-      this.recruiterNames = x.result;
-      this.marketerNames = x.result;
+    this.service.fetchrecruiter(Req).subscribe((x: any) => {
+      this.recruiterNames = x;
+      this.marketerNames = x;
     });
   }
   loading:boolean = false;
@@ -196,10 +201,12 @@ export class HrmsComponent implements OnInit {
       locationConstraint: this.addCandidate.value.locationConstraint,
       referralType: this.formData.referralType,
       notes: this.addCandidate.value.notes,
-      candidateStatus: this.formData.candidateStatus,
+      candidateStatus: this.selectedcurrentstatus,
       legalStatus: this.formData.legalStatus,
       marketerName: this.formData.marketerName,
-      recruiteremail: this.userName
+      recruiteremail: this.userName,
+      orgID:this.OrgID,
+      creeateby:this.userName
     };
     // console.log(Req);
     // console.log(Req);
