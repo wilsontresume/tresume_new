@@ -59,19 +59,21 @@ export class ProfileComponent implements OnInit {
     ];
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     // this.myForm = this.fb.group({});
     // this.inputFields.forEach(field => {
     //   this.myForm.addControl(field.key, this.fb.control(''));
     // });
 
     this.TraineeID = this.cookieService.get('TraineeID');
-    this.fetchprofile();
+   await this.fetchprofile();
   }
 
   onSave() {
     console.log(this.firstName)
   }
+
+
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input?.files && input.files[0]) {
