@@ -12,6 +12,8 @@ import { MessageService } from 'primeng/api';
 })
 export class AccountsAddUserComponent implements OnChanges {
 
+  loading:boolean = false;
+
   userForm: FormGroup;
   CreatedDate: Date = new Date();
   RemainingDate: Number = 52;

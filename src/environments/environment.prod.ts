@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://tresume.us/TresumeAPI/'
+  apiUrl: 'https://api.astacrs.com/',
+  routeUrl: 'https://tresume.astacrs.com/'
 };

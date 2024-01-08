@@ -1,6 +1,5 @@
 import { AllJobPostingsService } from './all-job-postings.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,12 +12,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-job-postings.component.scss'],
   providers: [AllJobPostingsService, CookieService,MessageService],
 })
+
 export class AllJobPostingsComponent implements OnInit{
+  loading:boolean = false;
+
   OrgID:string = '';
   JobID:string = '';
   TraineeID:string = '';
   jobs:any[];
-  noResultsFound:boolean = false;
+  noResultsFound:boolean = true;
 
 roles: string[] = ["Recruiter", "Admin", "User"];
 ngOnInit(): void {

@@ -1,30 +1,33 @@
-  <div class="header pt-4">
-    <div class="container">
+  <div class="header p-3">
+    <div class="container-fluid">
       <div class="row border1">
       <h2 class="mt-3 pl-3">ASSIGN ADMIN AND PROJECT</h2>
     </div>
       <div class="row main pt-2">      
         <div class="col-3 form-group">
           <label>Admin</label>
-          <select id="adminselect" class="form-control">
-            <option *ngFor="let option of adminlist" [value]="option.id">{{ option.name }}</option>
+          <select id="adminselect" class="form-control" [(ngModel)]="timesheetadmin">
+            <option [value]="0" selected="selected">Select Admin</option>
+            <option *ngFor="let name of adminlist" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
           </select>
         </div>
         <div class="col-3 form-group">
           <label>Employee</label>
-          <select id="userselect" class="form-control">
-            <option *ngFor="let option of userlist" [value]="option.id">{{ option.name }}</option>
+          <select id="userselect" class="form-control" [(ngModel)]="candidateid">
+            <option [value]="0" selected="selected">Select Users</option>
+                    <option *ngFor="let name of userlist" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
           </select>
         </div>
         <div class="col-3 form-group">
           <label>Project</label>
-          <select id="projectselect" class="form-control">
-            <option *ngFor="let option of project" [value]="option.id">{{ option.name }}</option>
+          <select id="projectselect" class="form-control" [(ngModel)]="timesheetproject">
+            <option [value]="0" selected="selected">Select Project</option>
+            <option *ngFor="let option of project" [value]="option.projectid">{{ option.projectname }}</option>
           </select>
         </div>
   
         <div class="col-3 text-center mt-4">
-        <button class="btn createNew">Assign</button>
+        <button class="btn createNew" (click)="assignproject()">Assign</button>
         <button class="btn mr-3 float-right" routerLink="/addadmin">Add Admin</button>
          </div>
     </div>
@@ -35,18 +38,21 @@
           <th>Employee</th>
           <th>Admin</th>
           <th>Project</th>
-          
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of allusers">
-          <td>{{ user.name }}</td>
-          <td>{{ user.admin }}</td>
-          <td>{{ user.project }}</td>
-          
+        <tr *ngFor="let user of allusers"[value]="user.id">
+          <td> {{ user.TraineeFirstName }} {{ user.TraineeLastName }}</td>
+          <td>{{ user.AdminFirstName }} {{ user.AdminLastName }}</td>
+          <td>{{ user.projectname }}</td>
+          <td>
+            <i class="fa fa-trash" (click)="deleteRow(user.traineeid)"></i>
+          </td>
         </tr>
       </tbody>
     </table>
-
     </div>
   </div>
+
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
