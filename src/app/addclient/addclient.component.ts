@@ -13,26 +13,33 @@ import { MessageService } from 'primeng/api';
 })
 
 export class AddclientComponent implements OnInit {
-  loading:boolean = false;
 
+  loading:boolean = false;
   addClient: any;
   formData: any;
   Access: boolean = false;
   sendingEmail: boolean = false;
   Notes: string = '';
-  requiredDocuments: any[];
+  requiredDocuments: { name: string }[] = [
+    { name: 'Driving License' },
+    { name: 'Resume' },
+    { name: 'EML File' },
+    { name: 'SSN' },
+    { name: 'Transcripts' },
+  ];  
   selectedRequiredDocuments: any[] = [];
   filteredRequiredDocuments: any[] = [];
   allclientService: any;
   formBuilder: any;
+  TraineeID: any;
 
 //dropdowns
-  country: string[] = [];
+  country: string[] = ['United States'];
   state: string[] = [];
   city: string[] = [];
   industry: string[] = [];
-  clientStatusID: string[] = [];
-  clientCategoryID: string[] = [];
+  ClientStatusID: string[] = [];
+  ClientCategoryID: string[] = [];
   primaryOwner: string[] = [];
   paymentTerms: string[] = [];
 
@@ -41,8 +48,8 @@ export class AddclientComponent implements OnInit {
     private router: Router,
     private service: AddClientService
   ) {
-    // const documents = this.requiredDocuments.map(doc => doc.name).join(', ');
-    // console.log(documents);
+    const documents = this.requiredDocuments.map(doc => doc.name).join(', ');
+    console.log(documents);
   }
 
   ngOnInit(): void {
@@ -69,6 +76,8 @@ export class AddclientComponent implements OnInit {
       Access: [''],
       sendingEmail: [''],
     });
+
+    this.getClientCategories();
   
   }
 
@@ -115,6 +124,24 @@ export class AddclientComponent implements OnInit {
     this.addClient.reset();
     this.selectedRequiredDocuments = [];
     this.Notes = '';
+  }
+
+  getClientCategories() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getClientCategoryID(Req).subscribe((x: any) => {
+    this.ClientCategoryID = x.result;
+    });
+  }
+
+  getClientStatus() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getClientStatusID(Req).subscribe((x: any) => {
+    this.ClientStatusID = x.result;
+    });
   }
 }
 
