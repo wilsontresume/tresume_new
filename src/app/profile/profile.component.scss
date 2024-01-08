@@ -3,9 +3,10 @@ $brand-primary:#49274a;
 .form-control{
     box-shadow: rgb(193, 193, 193) 0px 2px 12px !important;
   }
-h4.card-title {
-    margin-left: 85px;
-    font-weight: bold;
+h2{
+    font-family: "Times New Roman", Times, serif;
+    // font-family: Optima, sans-serif;
+    text-transform:uppercase;
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
@@ -67,12 +68,10 @@ button.btn.btn-primary.ml-2 {
 }
 label{
     font-size: 16px;
-
 }
 span{
     font-size: 16px;
 }
-
 .fa-user{
-    font-size: 30px;
+    font-size: 70px;
 }
