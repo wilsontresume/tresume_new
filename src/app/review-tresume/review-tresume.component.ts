@@ -49,7 +49,7 @@ export class ReviewTresumeComponent implements OnChanges {
   howMuch: any;
 
   //general declaration
-  recruiterName: any;
+  recruiterName: any = 0;
   ReferredBy: any;
   currentStatus: any;
   legalStatusVal: any;
@@ -233,7 +233,7 @@ export class ReviewTresumeComponent implements OnChanges {
       interviewMode: this.myForm.get('interviewMode').value,
       interviewTimeZone:'EST',
       traineeID:this.candidateID,
-      recruiterID:this.TraineeID,
+      recruiterID:this.recruiterName,
       recruiteremail:this.userName,
       InterviewStatus:'SCHEDULED',
     };
@@ -355,6 +355,7 @@ export class ReviewTresumeComponent implements OnChanges {
     this.currentTabIndex = tabIndex;
     switch (tabIndex) {
       case 0:
+        this.loading = true;
         this.fetchCandidateInfo();
         this.getOrgUserList();
         break;
@@ -670,6 +671,7 @@ export class ReviewTresumeComponent implements OnChanges {
     this.service.getOrgUserList(Req).subscribe((x: any) => {
     this.referedby = x.result;
     this.recruiterName = x.result;
+    this.loading = false;
     });
   }
   

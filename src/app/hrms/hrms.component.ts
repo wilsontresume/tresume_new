@@ -47,9 +47,9 @@ export class HrmsComponent implements OnInit {
 
   ngOnInit(): void {
     this.TraineeID = this.cookieService.get('TraineeID');
-    this.fetchhrmscandidatelist();
     this.getOrgUserList();
     this.getcandidaterstatus();
+    this.fetchhrmscandidatelist();
     this.addCandidate = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
@@ -145,12 +145,15 @@ export class HrmsComponent implements OnInit {
     });
   }
   fetchhrmscandidatelist() {
+
+    this.loading = true;
     let Req = {
       TraineeID: this.TraineeID,
     };
     this.service.gethrmscandidateList(Req).subscribe((x: any) => {
       this.candidates = x.result;
       this.noResultsFound = this.candidates.length === 0;
+      this.loading = false;
     });
   }
 
