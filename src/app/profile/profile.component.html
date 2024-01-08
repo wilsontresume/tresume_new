@@ -5,11 +5,14 @@
     </div>
     <div class="row pt-4">
       <div class="col-md-3">
+
         <div class="card card-outline">
           <div class="card-body box-profile">
             <div class="text-center">
-              <h4 class="card-title">Wilson AM</h4>
-              <p class="card-text">LEAD TECHNICAL RECRUITER </p>
+              <form [formGroup]="profile">
+              <h4 class="card-title">{{profiledata[0].FirstName}} {{profiledata[0].LastName}}</h4>
+              <p class="card-text">{{profiledata[0].Title}}</p>
+            </form>
             </div>
           </div>
         </div>

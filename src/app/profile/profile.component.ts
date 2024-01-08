@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
+import { ProfileService} from './Profile.service';
+
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
+  providers: [CookieService,MessageService,ProfileService],
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
@@ -13,6 +18,7 @@ export class ProfileComponent implements OnInit {
   firstName: string = '';
   middleName: string = '';
   lastName: string = '';
+  profile:any;
   yearsOfExperience: number = 0;
   monthsOfExperience: number = 0;
   selectedCities: string[] = [];
@@ -33,7 +39,8 @@ export class ProfileComponent implements OnInit {
   myForm: any;
   passwordForm:any;
   CompanyForm:any;
-  
+  TraineeID: string;
+  profiledata:any = [];
 
   // inputFields = [
   //   { key: 'firstName', label: 'First Name', placeholder: 'Enter First Name', required: true },
@@ -42,7 +49,7 @@ export class ProfileComponent implements OnInit {
    
   // ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
     this.cities = [
       { name: 'New York', code: 'NY' },
       { name: 'Rome', code: 'RM' },
@@ -57,7 +64,11 @@ export class ProfileComponent implements OnInit {
     // this.inputFields.forEach(field => {
     //   this.myForm.addControl(field.key, this.fb.control(''));
     // });
+
+    this.TraineeID = this.cookieService.get('TraineeID');
+    this.fetchprofile();
   }
+
   onSave() {
     console.log(this.firstName)
   }
@@ -81,5 +92,15 @@ export class ProfileComponent implements OnInit {
    }
    selectDateOption(option: string) {
     console.log(`Selected date option: ${option}`);
+}
+
+fetchprofile(){
+  let Req = {
+    traineeID: this.TraineeID,
+  };
+  this.Service.getUserProfile(Req).subscribe((x: any) => {
+    this.profiledata = x.result;
+    console.log(this.profiledata);
+  });
 }
 }
