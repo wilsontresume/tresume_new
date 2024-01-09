@@ -1138,6 +1138,39 @@ router.post("/fetchrecruiter", function (req, res) {
   });
 });
 
+router.post('/getLocation', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = new sql.Request();
+    const query = "SELECT DISTINCT state FROM usazipcodenew";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No Location found! ",
+      };
+      res.send(result); 
+    }
+  } catch (error) {
+    console.error("Error fetching Location:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching Location!",
+    };
+    res.status(500).send(result);
+  }
+});
+
 
 module.exports = router;
  
