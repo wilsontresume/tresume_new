@@ -14,6 +14,14 @@ import { TabsetComponent } from 'ngx-bootstrap/tabs';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  
+  @ViewChild('myTabs') myTabs: TabsetComponent;
+  AboutUser:string='active';
+  Password:string = '';
+  CompanyInfo = '';
+  selectedLegalstatus:string = '';
+
+
   cities: { name: string; code: string; }[];
   content: any;
   userName: string;
@@ -33,7 +41,7 @@ export class ProfileComponent implements OnInit {
   oldPassword: any;
   newPassword: any;
   confirmPassword: any;
-  phoneNumber: string;
+  phoneNumber: number;
   selectedState: any;
   selectedCity: any;
   logoImageUrl: string;
@@ -51,6 +59,24 @@ export class ProfileComponent implements OnInit {
    
   // ];
 
+  nextTab(tab:number) {
+    if(tab == 1){
+      this.AboutUser = 'active';
+      this.Password = '';
+      this.CompanyInfo = '';
+    } else if(tab == 2){
+      this.AboutUser = '';
+      this.Password = 'active';
+      this.CompanyInfo = '';
+    }else if(tab == 3){
+      this.AboutUser = '';
+      this.Password = '';
+      this.CompanyInfo = 'active';
+    }
+  console.log(this.selectedLegalstatus);
+  }
+
+
   constructor(private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
     this.cities = [
       { name: 'New York', code: 'NY' },
@@ -62,13 +88,10 @@ export class ProfileComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    // this.myForm = this.fb.group({});
-    // this.inputFields.forEach(field => {
-    //   this.myForm.addControl(field.key, this.fb.control(''));
-    // });
+  
 
     this.TraineeID = this.cookieService.get('TraineeID');
-   await this.fetchprofile();
+      this.fetchprofile();
   }
 
   onSave() {

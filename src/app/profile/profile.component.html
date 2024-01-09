@@ -19,11 +19,11 @@
         <div class="card">
           <div class="card-header p-2">
             <ul class="nav nav-pills">
-              <li class="nav-item"><a class="nav-link active" href="#aboutme" data-toggle="tab">About me</a>
+              <li class="nav-item"><a class="nav-link active {{AboutUser}}" href="#aboutme" data-toggle="tab">About me</a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="#Password" data-toggle="tab">Password</a>
+              <li class="nav-item"><a class="nav-link  {{Password}}" href="#Password" data-toggle="tab">Password</a>
               </li>
-              <li class="nav-item"><a class="nav-link " href="#Company" data-toggle="tab">Company
+              <li class="nav-item"><a class="nav-link  {{CompanyInfo}}" href="#Company" data-toggle="tab">Company
                   Information</a></li>
               <li class="icon">
                 <i class='fas fa-pen' (click)="toggleEditMode1()"> </i>
@@ -141,7 +141,9 @@
                     <div class="row mt-3">
                       <div class="col text-right">
                        
-                        <button class="btn ml-2" (click)="onSave()">Next</button>
+                        <!-- <button class="btn ml-2"  (click)="nextTab(2)">Next</button> -->
+                        <button class="btn" role="tab" aria-controls="Password" aria-selected="false"
+                        data-toggle="tab" href="#Password" (click)="nextTab(2)">Next</button>
                       </div>
                     </div>
                   </form>
@@ -172,10 +174,12 @@
                   </div>
                   <div class="row mt-4">
                     <div class="col text-right">
-                      <button class="btn ml-2" (click)="onSave()">Next</button>
+                      <!-- <button class="btn ml-2"  (click)="nextTab(3)">Next</button> -->
+                      <button class="btn" role="tab" aria-controls="Company" aria-selected="false"
+                      data-toggle="tab" href="#Company" (click)="nextTab(3)">Next</button>
                     </div>
                   </div>
-    </form>
+                 </form>
                 </div>
               </div>
               <div class="tab-pane " id="Company">
@@ -211,12 +215,7 @@
                         <label for="state">State</label>
                         <span  *ngIf="!editmode">{{profiledata[0].state}}</span>
                         <select  *ngIf="editmode" class="form-control custom-input" id="state" [(ngModel)]="selectedState">
-                          <option value="Georgia">Georgia</option>
-                          <option value="Florida">Florida</option>
-                          <option value="Hawaii">Hawaii</option>
-                          <option value="Idaho">Idaho</option>
-                          <option value="District of Columbia">District of Columbia</option>
-                          <option value="Illinois">Illinois</option>
+                          <option *ngFor="let name of state" [value]="name.id">{{name.state }}</option>
                         </select>
                       </div>
                       <div class="form-group col-4">
