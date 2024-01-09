@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./all-time-list.component.scss']
 })
 export class AllTimeListComponent implements OnChanges {
+  loading:boolean = false;
 
   tableData: any [];
   showConfirmationDialog: boolean = false;

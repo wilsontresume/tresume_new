@@ -19,12 +19,14 @@ interface Account {
   providers: [CookieService, ReviewService, MessageService,AppService,JobBoardAccountService],
 })
 export class JobBoardAccountComponent implements OnInit {
+  loading:boolean = false;
+
   TraineeID: string;
- 
-  constructor(private formBuilder: FormBuilder, private cookieService: CookieService,private service:JobBoardAccountService) { 
+
+  constructor(private formBuilder: FormBuilder, private cookieService: CookieService,private service:JobBoardAccountService) {
     this.TraineeID = this.cookieService.get('TraineeID');
   }
- 
+
   options: string[] = ['Dice', 'Monster', 'CareerBuilder'];
 
   showPassword: boolean = false;
@@ -44,7 +46,7 @@ export class JobBoardAccountComponent implements OnInit {
   //   const newAccount: Account = {
   //     accountName: this.accountName,
   //     selectedJobBoard:this.options,
-  //     status: 'active'  
+  //     status: 'active'
   //   };
   //   this.accounts.push(newAccount);
   // }
@@ -65,7 +67,7 @@ export class JobBoardAccountComponent implements OnInit {
   }
 
   addAccount() {
-   
+
     let Req = {
       accountName: this.jobBoard.value.accountName,
       fromDate: this.jobBoard.value.fromDate,
@@ -81,5 +83,5 @@ export class JobBoardAccountComponent implements OnInit {
       console.log(x);
     });
   }
- 
+
 }

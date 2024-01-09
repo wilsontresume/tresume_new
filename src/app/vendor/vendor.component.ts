@@ -12,11 +12,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./vendor.component.scss']
 })
 export class VendorComponent implements OnInit {
-
+  loading:boolean = false;
   deleteIndex: number;
   showConfirmationDialog: boolean = false;
   TraineeID: string = '';
   vendors: any[];
+
+  noResultsFound:boolean = true;
 
   // vendor1 = [
   //   { id: 1, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
@@ -43,6 +45,7 @@ export class VendorComponent implements OnInit {
     };
     this.service.getTraineeVendorList(Req).subscribe((x: any) => {
       this.vendors = x.result;
+    this.noResultsFound = this.vendors.length === 0;
     });
   }
 

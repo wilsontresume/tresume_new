@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./allclient.component.scss']
 })
 export class AllclientComponent implements OnInit {
+  loading:boolean = false;
 
   deleteIndex: number;
   showConfirmationDialog: boolean = false;

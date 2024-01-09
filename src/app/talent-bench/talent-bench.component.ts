@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   providers: [TalentBenchService, CookieService,MessageService],
 })
 export class TalentBenchComponent implements OnInit {
+  loading:boolean = false;
   candidates: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
   // formData: any = {};
   tableData:any = [];
@@ -24,7 +25,7 @@ export class TalentBenchComponent implements OnInit {
 
   constructor(private dialog: MatDialog,private cookieService: CookieService, private service:TalentBenchService,private messageService: MessageService,private formBuilder: FormBuilder) {
     }
-  
+
   recruiterNames: string[] = ['Recruiter 1', 'Recruiter 2', 'Recruiter 3'];
   candidateStatuses: string[] = ['Active', 'Inactive', 'On Hold'];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
@@ -43,28 +44,28 @@ export class TalentBenchComponent implements OnInit {
   // onSubmit() {
   //   console.log('Form Data:', this.formData);
   // }
-  
+
   dataArray: any[] = [
     { groupName: 'Group A', candidateCount: 10 },
     { groupName: 'Group B', candidateCount: 5 },
   ];
 
   onIconClick() {
-    alert('are you sure want to delete?'); 
+    alert('are you sure want to delete?');
   }
- 
+
 
   ngOnInit(): void {
     // this.cookieService.set('userName1','karthik@tresume.us');
     // this.cookieService.set('OrgID','82');
-    // this.cookieService.set('TraineeID','569');  
-    // this.cookieService.set('TimesheetRole','1'); 
-    // this.cookieService.set('RoleID','17'); 
+    // this.cookieService.set('TraineeID','569');
+    // this.cookieService.set('TimesheetRole','1');
+    // this.cookieService.set('RoleID','17');
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchtalentbenchlist();
-  
+
 
     this.addCandidate = this.formBuilder.group({
       FirstName: ['', [Validators.required, Validators.minLength(3)]],
@@ -84,9 +85,9 @@ export class TalentBenchComponent implements OnInit {
       ReferralType: [''],
       Notes: [''],
     });
-    
-  } 
-   
+
+  }
+
   saveData(){
     let Req = {
       FirstName: this.addCandidate.value.FirstName,

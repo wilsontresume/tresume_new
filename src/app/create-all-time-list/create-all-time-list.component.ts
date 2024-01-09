@@ -106,10 +106,10 @@ export class CreateAllTimeListComponent implements OnInit {
     let Req = {
       orgid: this.OrgID,
     };
-    this.service.getCreateProjectList(Req).subscribe((x: any) => {
-      this.project = x.result;
-      console.log(this.Projectname);
-    });
+    // this.service.getCreateProjectList(Req).subscribe((x: any) => {
+    //   this.project = x.result;
+    //   console.log(this.Projectname);
+    // });
   }
 
   

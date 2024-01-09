@@ -16,6 +16,8 @@ export class ReviewService {
 
   constructor(private http: HttpClient) {}
 
+  
+
   getInterviewList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getInterviewList', request);
   }
@@ -81,4 +83,12 @@ export class ReviewService {
     return this.http.post<ResponseDetails>(this.endpoint + "emailplacementtracker", request);
   }
 
+  deletesubmissiondata(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'deletesubmissiondata', request);
+  }
+
+  // This is for email tracker in the placement tab // HRMS
+  // getTableData(): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.endpoint}/table-data`);
+  // }
 }

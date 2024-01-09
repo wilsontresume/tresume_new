@@ -80,19 +80,13 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>Country *</label>
-                            <select class="form-control" name="Country" formControlName="Country"
-                                [ngClass]="{ 'invalid-input': addClient.get('Country').invalid && addClient.get('Country').touched }">
+                            <label>Country</label>
+                            <select class="form-control" name="Country" formControlName="Country">
                                 <option value="" disabled>Select Country</option>
-                                <option *ngFor="let country of country" [value]="country.id">{{ country.name }}</option>
+                                <option *ngFor="let country of country" [value]="country">{{ country }}</option>
                             </select>
-                            <div *ngIf="addClient.get('Country').invalid && addClient.get('Country').touched"
-                                class="validation-message" style="color: red;text-align: left;">
-                                * Please select a valid Country.
-                            </div>
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>State *</label>
@@ -165,64 +159,43 @@
 
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>Status *</label>
-                            <select class="form-control" name="ClientStatusID" formControlName="ClientStatusID"
-                                [ngClass]="{ 'invalid-input': addClient.get('ClientStatusID').invalid && addClient.get('ClientStatusID').touched }">
-                                <option value="" disabled>Select Status</option>
-                                <option *ngFor="let status of clientStatusID" [value]="status.id">{{ status.name }}
-                                </option>
-                            </select>
-                            <div *ngIf="addClient.get('ClientStatusID').invalid && addClient.get('ClientStatusID').touched"
-                                class="validation-message" style="color: red;text-align: left;">
-                                * Please select a valid Status.
-                            </div>
+                          <label>Status </label>
+                          <select class="form-control" name="ClientStatusID" formControlName="ClientStatusID">
+                            <option value="" disabled>Select Status</option>
+                            <option *ngFor="let status of ClientStatusID" [value]="ClientStatusID">{{ status.Value }}</option>
+                          </select>
                         </div>
-                    </div>
+                      </div>                      
 
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>Category *</label>
-                            <select class="form-control" name="ClientCategoryID" formControlName="ClientCategoryID"
-                                [ngClass]="{ 'invalid-input': addClient.get('ClientCategoryID').invalid && addClient.get('ClientCategoryID').touched }">
+                            <label>Category </label>
+                            <select class="form-control" name="ClientCategoryID" formControlName="ClientCategoryID">
                                 <option value="" disabled>Select Category</option>
-                                <option *ngFor="let category of clientCategoryID" [value]="category.id">{{ category.name
-                                    }}</option>
+                                <option *ngFor="let category of ClientCategoryID" [value]="ClientCategoryID">{{ category.Value}}</option>
                             </select>
-                            <div *ngIf="addClient.get('ClientCategoryID').invalid && addClient.get('ClientCategoryID').touched"
-                                class="validation-message" style="color: red;text-align: left;">
-                                * Please select a valid Category.
-                            </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>Primary Owner *</label>
-                            <select class="form-control" name="PrimaryOwner" formControlName="PrimaryOwner"
-                                [ngClass]="{ 'invalid-input': addClient.get('PrimaryOwner').invalid && addClient.get('PrimaryOwner').touched }">
+                            <label>Primary Owner</label>
+                            <select class="form-control" name="PrimaryOwner" formControlName="PrimaryOwner">
                                 <option value="" disabled>Select Primary Owner</option>
                                 <option *ngFor="let owner of primaryOwner" [value]="owner.id">{{ owner.name }}</option>
                             </select>
-                            <div *ngIf="addClient.get('PrimaryOwner').invalid && addClient.get('PrimaryOwner').touched"
-                                class="validation-message" style="color: red;text-align: left;">
-                                * Please select a valid Primary Owner.
-                            </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>Payment Terms *</label>
-                            <select class="form-control" name="PaymentTerms" formControlName="PaymentTerms"
-                                [ngClass]="{ 'invalid-input': addClient.get('PaymentTerms').invalid && addClient.get('PaymentTerms').touched }">
+                            <label>Payment Terms </label>
+                            <select class="form-control" name="PaymentTerms" formControlName="PaymentTerms">
                                 <option value="" disabled>Select Payment Terms</option>
                                 <option *ngFor="let term of paymentTerms" [value]="term.id">{{ term.name }}</option>
                             </select>
-                            <div *ngIf="addClient.get('PaymentTerms').invalid && addClient.get('PaymentTerms').touched"
-                                class="validation-message" style="color: red;text-align: left;">
-                                * Please select valid Payment Terms.
-                            </div>
                         </div>
                     </div>
                     <div class="col-md-4 mt-2">
@@ -290,3 +263,5 @@
         </div>
     </div>
 </div>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

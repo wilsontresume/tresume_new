@@ -11,6 +11,7 @@ import { MessageService } from 'primeng/api';
 export class AddAdminComponent implements OnInit {
   selectedOption: string = "0";
   roles: string[] = [];
+  loading:boolean = false;
 
   // candidates: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
 

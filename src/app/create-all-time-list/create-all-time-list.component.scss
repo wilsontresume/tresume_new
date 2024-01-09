@@ -50,14 +50,25 @@ input{
 a{
   cursor: pointer;
 }
-button{
+.fbtn{
   margin: 10px;
   padding: 5px;
-  // width: 100px;
+  width: 150px;
   border-radius: 15px;
+  }
+button{
+
   background-color: #561435;
   border: 1px solid #561435;
   color: #f0f0f0;
+}
+
+
+.btn{
+  
+  background-color: #380838;
+  color: white;
+
 }
 .visually-hidden {
   position: absolute;
