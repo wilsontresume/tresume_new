@@ -21,7 +21,9 @@ export class ProfileComponent implements OnInit {
   CompanyInfo = '';
   selectedLegalstatus:string = '';
 
-
+  
+   state: string[] = [];
+   city: string[] = [];
   cities: { name: string; code: string; }[];
   content: any;
   userName: string;
@@ -33,8 +35,7 @@ export class ProfileComponent implements OnInit {
   monthsOfExperience: number = 0;
   selectedCities: string[] = [];
   companyName: string;
-  state: string ;
-  city: string;
+  
   zipcode: string;
   title: string;
   dob: string;
@@ -42,8 +43,8 @@ export class ProfileComponent implements OnInit {
   newPassword: any;
   confirmPassword: any;
   phoneNumber: number;
-  selectedState: any;
-  selectedCity: any;
+  selectedState: string;
+ 
   logoImageUrl: string;
   editmode: boolean = false;
   myForm: any;
@@ -51,6 +52,7 @@ export class ProfileComponent implements OnInit {
   CompanyForm:any;
   TraineeID: string;
   profiledata:any = [];
+
 
   // inputFields = [
   //   { key: 'firstName', label: 'First Name', placeholder: 'Enter First Name', required: true },
@@ -88,10 +90,11 @@ export class ProfileComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-  
-
     this.TraineeID = this.cookieService.get('TraineeID');
       this.fetchprofile();
+      this.fetchState();
+      this.fetchCity();
+
   }
 
   onSave() {
@@ -130,4 +133,25 @@ fetchprofile(){
     console.log(this.profiledata);
   });
 }
+
+fetchState(){
+  let Req = {
+    traineeID: this.TraineeID,
+  };
+  this.Service.fetchProfileStateList(Req).subscribe((x: any) => {
+    this.state = x.result;
+    console.log(this.state);
+  });
+}
+
+fetchCity(){
+  let Req = {
+    traineeID: this.TraineeID,
+  };
+  this.Service.fetchProfileCityList(Req).subscribe((x: any) => {
+    this.city = x.result;
+    console.log(this.city);
+  });
+}
+
 }

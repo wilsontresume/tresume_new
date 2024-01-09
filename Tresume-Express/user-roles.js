@@ -211,5 +211,66 @@ router.post('/getUserProfile', async (req, res) => {
 
 })
 
+
+router.post('/updateUserProfile', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    var query = "SELECT * FROM trainee where traineeid ="+req.body.traineeID;
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      }
+    );
+  });
+})
+
+
+router.post('/fetchProfileStateList', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    var query = "SELECT DISTINCT state FROM Usazipcodenew";
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+        res.send(result);
+      }
+    );
+  });
+})
+
+router.post('/fetchProfileCityList', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    var query = "SELECT DISTINCT city FROM Usazipcodenew";
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+        res.send(result);
+      }
+    );
+  });
+})
+
 module.exports = router;
 

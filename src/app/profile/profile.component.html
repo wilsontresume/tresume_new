@@ -7,12 +7,10 @@
       <div class="col-md-3">
         <div class="card card-outline text-center p-4">
           <div class="text-center">
-            <i class="fa fa-user fa-3x fa-fw fa-lg fa-user-circle"></i>
           </div>
             <h2 class="card-title text-center pt-3 mb-0">{{profiledata[0].FirstName}} {{profiledata[0].LastName}}</h2>
             <p class="card-text text-center pt-1 JD">{{profiledata[0].Title}}</p>
-            <!-- <h2 class="text-center pt-3 mb-0">Karthik Kathiresan</h2>
-            <p class="text-center pt-1 JD">Developer</p> -->
+           
         </div>
       </div>
       <div class="col-md-9">
@@ -214,18 +212,15 @@
                       <div class="form-group col-4">
                         <label for="state">State</label>
                         <span  *ngIf="!editmode">{{profiledata[0].state}}</span>
-                        <select  *ngIf="editmode" class="form-control custom-input" id="state" [(ngModel)]="selectedState">
-                          <option *ngFor="let name of state" [value]="name.id">{{name.state }}</option>
+                        <select *ngIf="editmode" class="form-control custom-input" id="state" [(ngModel)]="selectedState" formControlName="state">
+                          <option *ngFor="let stateObj of state" [value]="stateObj.id">{{stateObj.state}}</option>
                         </select>
                       </div>
                       <div class="form-group col-4">
                         <label for="city">City</label>
                         <span  *ngIf="!editmode">{{profiledata[0].City}}</span>
-                        <select  *ngIf="editmode" class="form-control custom-input" id="city" [(ngModel)]="selectedCity">
-                          <option value="Roswell">Roswell</option>
-                          <option value="Rupert">Rupert</option>
-                          <option value="Rydul">Rydul</option>
-                          <option value="Rudledge">Rudledge</option>
+                        <select *ngIf="editmode" class="form-control custom-input" id="city" [(ngModel)]="city" formControlName="city">
+                          <option *ngFor="let city of city" [value]="city.id">{{city.city}}</option>
                         </select>
                       </div>
                       <div class="form-group col-4">
