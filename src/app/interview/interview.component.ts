@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./interview.component.scss']
 })
 export class InterviewComponent implements OnInit {
+  loading:boolean = false;
 
   constructor() { }
 

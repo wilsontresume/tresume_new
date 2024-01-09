@@ -22,8 +22,10 @@ interface IRange {
     providers: [DashboardService]
 })
 export class ReportsHomeComponent implements OnInit {
+
     userName: any;
     traineeId: any;
+   loading:boolean = false;
 
     constructor(private router: Router, private cookieService: CookieService, private service: AppService,) { }
 

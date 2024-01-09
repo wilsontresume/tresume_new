@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./vendor.component.scss']
 })
 export class VendorComponent implements OnInit {
-
+  loading:boolean = false;
   deleteIndex: number;
   showConfirmationDialog: boolean = false;
   TraineeID: string = '';
   vendors: any[];
-  
+
   noResultsFound:boolean = true;
 
   // vendor1 = [

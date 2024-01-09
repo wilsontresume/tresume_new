@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-create-new-jobs',
@@ -8,7 +9,8 @@ import { TabsetComponent } from 'ngx-bootstrap/tabs';
   styleUrls: ['./search-tresume.component.scss']
 })
 export class SearchTresumeComponent{
-  
+  loading:boolean = false;
+
   @ViewChild('myTabs') myTabs: TabsetComponent;
   basicactive:string='active';
   reqactive:string = '';
@@ -45,7 +47,7 @@ export class SearchTresumeComponent{
       this.reqactive = '';
       this.orginfoactive = '';
       this.previewinfo = 'active';
-    } 
+    }
   console.log(this.selectedLegalstatus);
   }
 
@@ -60,20 +62,20 @@ export class SearchTresumeComponent{
       option.toLowerCase().includes(event.query.toLowerCase())
     );
   }
- 
 
-  
-  selectedCountry: string = 'United States'; 
+
+
+  selectedCountry: string = 'United States';
   countries: string[] = ['United States'];
 
-  selectedState: string = 'Georgia'; 
+  selectedState: string = 'Georgia';
   states: string[] = ['Georgia', 'District of Columbia', 'Florida', 'Hawaii', 'Idaho', 'Other'];
 
   selectedCity: string = 'New York';
   cities: string[] = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'Other'];
 
 
-selectedCurrency: string = 'USD'; 
+selectedCurrency: string = 'USD';
   currencies: string[] = ['USD', 'EUR', 'INR', 'Other'];
 
   selectedPayType: string = 'hour';
@@ -94,14 +96,14 @@ selectedCurrency: string = 'USD';
     { value: '9', label: 'W-2' },
   ];
 
-  selectedRespondBy: string = '1'; 
+  selectedRespondBy: string = '1';
   respondByOptions: any[] = [
     { value: '1', label: 'Open until filled' },
     { value: '2', label: 'Specific Date' }
   ];
 
 
-  selectedJobType: string = ''; 
+  selectedJobType: string = '';
   jobTypeOptions: any[] = [
     { value: '', label: 'Select' },
     { value: '1', label: 'Full Time' },
@@ -129,8 +131,8 @@ selectedCurrency: string = 'USD';
     { value: '6', label: 'On Hold by Lead' }
   ];
 
-  
-  selectedClient: string = ''; 
+
+  selectedClient: string = '';
   clientOptions: any[] = [
     { value: '', label: 'Select' },
     { value: '1', label: 'FX Pro' },
@@ -150,8 +152,8 @@ selectedCurrency: string = 'USD';
   ];
 
 
-  
-  selectedExperience: string = ''; 
+
+  selectedExperience: string = '';
   experienceOptions: string[] = [
     '1 year',
     '2 years',
@@ -217,7 +219,7 @@ selectedCurrency: string = 'USD';
     { value: '6', label: 'TEST V2' }
   ];
 
-  
+
 
 
 
