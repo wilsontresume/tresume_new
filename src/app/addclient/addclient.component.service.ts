@@ -44,7 +44,7 @@ export class AddClientService {
     }
 
       getClientCategoryID(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getClientCategory', request);
+        return this.http.post<ResponseDetails>(this.endpoint + 'getClientCategoryID', request);
     }
 
       getPrimaryOwner(request: any): Observable<ResponseDetails> {
