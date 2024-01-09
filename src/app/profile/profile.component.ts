@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { ProfileService} from './Profile.service';
+import { ViewChild } from '@angular/core';
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
 
 
 @Component({
@@ -23,7 +25,7 @@ export class ProfileComponent implements OnInit {
   monthsOfExperience: number = 0;
   selectedCities: string[] = [];
   companyName: string;
-  state: string;
+  state: string ;
   city: string;
   zipcode: string;
   title: string;
