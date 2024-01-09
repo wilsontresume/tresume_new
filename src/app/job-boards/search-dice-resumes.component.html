@@ -180,7 +180,7 @@
               <i *ngIf="jobDetail.workPermitDocuments" class="label fa fa-briefcase">
                 Work Permit Documents: {{ jobDetail.workPermitDocuments }}
               </i>
-              
+
             </div>
             <div class="card-job-skills flex align-items-left">
               <i *ngIf="jobDetail.securityAllowance" class="label fa fa-briefcase">
@@ -265,8 +265,8 @@
               </div>
             </td>
           </tr>
-          
-         
+
+
           <tr>
             <td><b>Skills</b></td>
             <td>
@@ -319,5 +319,6 @@
 <div *ngIf="loading" class="loader-container">
   <app-loader class="loader"></app-loader>
 </div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
 
 <!-- <p-toast></p-toast> -->
