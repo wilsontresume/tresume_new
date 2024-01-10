@@ -98,6 +98,8 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { SearchResumesOptComponent } from './job-boards/search-opt-resumes.component';
 import { LoginHomeHealthComponent } from './login/login-homehealth.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
+import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
+
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -206,6 +208,7 @@ const routes: Routes = [
   { path: 'search/opt', component: SearchResumesOptComponent, canActivate: [AuthGuard] },
   { path: 'homehealth/login', component: LoginHomeHealthComponent },
   { path: 'create-invoice', component: CreateInvoiceComponent },
+  { path: 'all-invoice', component: AllInvoiceComponent },
   { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
   { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 
  

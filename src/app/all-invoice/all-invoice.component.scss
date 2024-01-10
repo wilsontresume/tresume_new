@@ -1,0 +1,76 @@
+.nav-tabs {
+    justify-content: space-around;
+    position: relative;
+    color: black;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+  .nav-tabs .nav-link {
+    margin-bottom: -1px;
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    color: black;
+}
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #49274a;
+    transition: all 0.3s;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+    left: 0;
+  }
+
+  .table.no-border {
+    border-collapse: collapse;
+    border: none;
+}
+
+.underline th {
+    border-bottom: 2px solid #000;
+}
+.nav-link {
+  font-size: 20px; /* Adjust the font size as needed */
+  color: #333; 
+  color: black;/* Dark color for the text */
+  /* Additional styles like font-weight, text-transform, etc., can be added here */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  transition: all 0.3s;
+  border-bottom: 4px solid;
+  border-bottom: 4px solid rgb(88, 21, 88);;
+}
+
+
+.nav-link{
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  color: black;
+}
+.nav-link {
+  transition: background-color 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.nav-link:hover {
+  background-color: rgba(243, 242, 242, 0.666); /* Adjust the color and opacity as needed */
+}
