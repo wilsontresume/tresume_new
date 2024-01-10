@@ -51,7 +51,6 @@ export class AddClientService {
     return this.http.post<ResponseDetails>(this.endpoint + 'getPaymentTerms', request);
   }
 
-
 }
 export interface ResponseDetails {
   flag?: any;

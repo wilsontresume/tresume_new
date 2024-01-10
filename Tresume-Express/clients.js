@@ -181,40 +181,6 @@ router.post('/getClientStatusID', async (req, res) => {
   }
 });
 
-// router.post('/getState', async (req, res) => {
-//   try {
-//     // const request = new sql.Request();
-//     const pool = await sql.connect(config);
-//     const request = pool.request();
-//     const query = "select distinct state from usazipcodenew order by state asc;";
-
-//     console.log(query);
-
-//     const recordset = await request.query(query);
-
-//     if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
-//       const result = {
-//         flag: 1,
-//         result: recordset.recordsets[0],
-//       };
-//       res.send(result);
-//     } else {
-//       const result = {
-//         flag: 0,
-//         error: "data Not found! ",
-//       };
-//       res.send(result); 
-//     }
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//     const result = {
-//       flag: 0,
-//       error: "An error occurred while fetching data",
-//     };
-//     res.status(500).send(result);
-//   }
-// });
-
 router.post('/getCity', async (req, res) => {
   try {
     // const request = new sql.Request();
