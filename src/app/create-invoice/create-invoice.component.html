@@ -48,7 +48,8 @@
             </mat-chip-list>
           </div>
         </div>
-        <button class="btn btn-primary" style="height: 30px; margin-left: 115px; margin-bottom: 2px;" (click)="closePopup()">Add</button>
+        <button class="btn btn-primary btn-sm" style="margin-left: 9rem;; margin-bottom: 2px;" (click)="closePopup()">Add</button>
+
       </div>
     </div>
     
@@ -153,7 +154,7 @@
   </div>
   <div class="fixed-width-wrapper">
     <div class="text-center">
-      <button type="button" class="btn btn-demo arrow" data-toggle="modal" data-target="#myModal2">
+      <button type="button" class="btn btn-demo arrow" data-toggle="modal" data-target="#myModal2" >
         <i class="fas fa-arrow-right"></i>
       </button>
     </div>
@@ -178,13 +179,16 @@
             </select>
           </div>
           <hr>
-          <p style="color: #999; font-style: italic;">There aren't any billable items for that date range.</p>
+          <p style="color: #999; font-style: italic;" *ngIf="selectedFilter !== 'option3'">There aren't any billable items for that date range.</p>
           <div *ngIf="selectedFilter === 'option3'">
             <div class="form-group mb-3">
- <select class="form-control" (change)="onOptionChanges($event)">
-        <option value="example1" *ngIf="selectedOption !== 'example2'">Don't group time</option>
-        <option value="example2">Group time by service</option>
-      </select>
+              <select class="form-control" (change)="onOptionChanges($event)" [(ngModel)]="selectedOption">
+                <option value="" disabled selected>--Select--</option>
+                <ng-container *ngIf="selectedFilter === 'option3'">
+                  <option value="example1" *ngIf="selectedOption !== 'example2' || showAdditionalInputs">Don't group time</option>
+                </ng-container>
+                <option value="example2">Group time by service</option>
+              </select>
             </div>
             <!-- Card display logic for 'Don't group time' -->
             <div *ngIf="selectedOption === 'example1' || showAdditionalInputs">
@@ -222,14 +226,40 @@
                   </div>
                 </div>
                 
-                
-                
                 <div class="card mb-3">
                   <div class="card-body">
                     <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
                     <div class="row">
                       <div class="col mt-3 d-flex justify-content-between">
                         <p class="card-text" style="margin-left: -6rem;">Dec 12, 2023</p>
+                        <p>8:00</p>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: -11px;">
+                      <div class="col">
+                        <p class="card-text">$360.00</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p class="card-text">Kivani kotecha</p>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col d-flex justify-content-between">
+                        <button class="btn btn-primary">Add</button>
+                        <button class="btn btn-secondary">Open</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
+                    <div class="row">
+                      <div class="col mt-3 d-flex justify-content-between">
+                        <p class="card-text" style="margin-left: -6rem;">Dec 13, 2023</p>
                         <p>8:00</p>
                       </div>
                     </div>
@@ -266,17 +296,17 @@
                   </div>
                   <div class="row" style="margin-top: -11px;">
                     <div class="col">
-                      <p class="card-text">$360.00</p>
+                      <p class="card-text" style="margin-left: 9px;">$360.00</p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col">
-                      <p class="card-text">Kivani kotecha</p>
+                      <p class="card-text" style="margin-left: 9px;">Kivani kotecha</p>
                     </div>
                   </div>
                   <div class="row mt-3">
                     <div class="col d-flex justify-content-between">
-                      <button class="btn btn-primary">Add</button>
+                      <button class="btn btn-primary" style=" margin-left: 11rem;">Add</button>
                     </div>
                   </div>
                 </div>
@@ -284,9 +314,7 @@
               <button class="btn btn-primary mt-3" (click)="goToPreviousOption()">Back</button>
             </div>
           </div>
-        </div>
-        
-        
+        </div>   
       </div>
     </div>
   </div>
@@ -457,25 +485,25 @@
   </tfoot>
   </table>
 
-    <div class="modal1" tabindex="-1" role="dialog" [ngClass]="{'show': showConfirmationModal}" *ngIf="showConfirmationModal">
-    <div class="modal1-dialog" role="document">
-      <div class="modal1-content">
-        <button type="button" class="close" (click)="closeModal1()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="modal1-header">
-          <h1 class="modal1-title">Are you sure?</h1>
-          
-        </div>
-        <div class="modal1-body">
-         Would you do like to unlike the billable time?
-        </div>
-        <div class="modal1-footerbtn">
-          <button type="button" class="btn btn-secondary" (click)="closeModal1()">No, keep it</button>
-          <button type="button" class="btn btn-danger" (click)="deleteItems()">Yes, unlike it</button>
+      <div class="modal1" tabindex="-1" role="dialog" [ngClass]="{'show': showConfirmationModal}" *ngIf="showConfirmationModal">
+        <div class="modal1-dialog" role="document">
+        <div class="modal1-content">
+          <button type="button" class="close" (click)="closeModal1()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="modal1-header">
+            <h1 class="modal1-title">Are you sure?</h1>
+            
+          </div>
+          <div class="modal1-body" style="margin-top: 40px;">
+          Would you do like to unlike the billable time?
+          </div>
+          <div class="modal1-footerbtn" style="margin-top: 34px;">
+            <button type="button" class="btn btn-secondary" (click)="closeModal1()">No, keep it</button>
+            <button type="button" class="btn btn-danger" (click)="deleteItems()">Yes, unlike it</button>
+          </div>
         </div>
       </div>
-    </div>
   </div>
 
 </div>
