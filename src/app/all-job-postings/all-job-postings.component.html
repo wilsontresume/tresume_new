@@ -37,19 +37,19 @@
     </thead>
     <tbody>
       <tr *ngFor="let job of jobs">
-        <td>{{ job.jobTitle }}</td>
-        <td>{{ job.company }}</td>
-        <td>{{ job.location }}</td>
-        <td>{{ job.payRate }}</td>
-        <td>{{ job.newApplicants }}</td>
+        <td>{{ job.JobTitle }}</td>
+        <td>{{ job.Company }}</td>
+        <td>{{ job.Location }}</td>
+        <td>{{ job.PayRate }}</td>
+        <td>{{ job.NewApplicants }}</td>
         <td>
           {{ job.totalApplicants }}
           <a [routerLink]="['/applicantdetails']">
             <i class="fas fa-external-link-alt"></i></a>
         </td>
-        <td>{{ job.postedOn | date }}</td>
-        <td>{{ job.postedBy }}</td>
-        <td>{{ job.jobType }}</td>
+        <td>{{ job.PostedOn | date:'MM/dd/yy' }}</td>
+        <td>{{ job.PostedBy }}</td>
+        <td>{{ job.JobType }}</td>
         <td><select id="role" [(ngModel)]="selectedRole">
           <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
         </select></td>
@@ -91,3 +91,5 @@
     </div>
   </div>
 </div>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

@@ -3,9 +3,10 @@ $brand-primary:#49274a;
 .form-control{
     box-shadow: rgb(193, 193, 193) 0px 2px 12px !important;
   }
-h4.card-title {
-    margin-left: 85px;
-    font-weight: bold;
+h2{
+    // font-family: "Times New Roman", Times, serif;
+    font-family: Georgia, Times, serif;
+    // text-transform:uppercase;
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
@@ -21,7 +22,7 @@ h4.card-title {
     background-color: $brand-primary;
     color: #fff;
 }
-.container{
+.container-fluid{
     background-color: #fff;
 }
 .custom-input {
@@ -48,10 +49,6 @@ button.btn.btn-primary.ml-2 {
     border-top:3px solid $brand-primary;
     border-bottom: 3px solid $brand-primary;
 }
-.edit-prf {
-    margin-top: 10px;
-    margin-right: 11px;
-}
 .icon{
     font-size: 20px;
     padding: 8px;
@@ -64,4 +61,20 @@ button.btn.btn-primary.ml-2 {
     margin-bottom: 0;
     list-style: none;
     justify-content: space-between;
+}
+label{
+    font-size: 16px;
+}
+span{
+    font-size: 16px;
+}
+.fa-user{
+    font-size: 90px;
+}
+.custom-input{
+width: 200px;
+}
+.JD{
+    font-family: Georgia, Times, serif;
+    font-size: 16px;
 }

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   providers: [JobApplicationService, CookieService, MessageService],
 })
 export class JobApplicationComponent implements OnInit {
+  loading:boolean = false;
 jobs: any;
 editmode: boolean = false;
 selectedDate: string = ''; // You may initialize it with the current date
@@ -40,7 +41,7 @@ ngOnInit(): void {
     //   this.noResultsFound = this.jobs.length === 0;
     // });
   }
-  
+
   container: any;
   constructor(private dialog: MatDialog, private cookieService: CookieService, private service: JobApplicationService, private messageService: MessageService, private fb: FormBuilder,
     ){ }
@@ -58,7 +59,7 @@ ngOnInit(): void {
   scrollRight() {
     this.container.nativeElement.scrollLeft += 50;
   }
-  
+
   saveDate() {
     console.log('Selected Date:', this.selectedDate);
     console.log('Selected Option:', this.selectedOption);

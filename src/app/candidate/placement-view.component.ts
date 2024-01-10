@@ -22,6 +22,7 @@ import { MatLabel } from '@angular/material/form-field';
 
 
 export class PlacementViewComponent implements OnInit {
+    loading:boolean = false;
 
     myForm: FormGroup;
     isEditView: boolean = false;

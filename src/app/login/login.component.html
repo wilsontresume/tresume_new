@@ -8,7 +8,7 @@
                 <form (ngSubmit)="login()" >
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email" [(ngModel)]="username" [ngModelOptions]="{ standalone: true }" required="">
-                        <div class="input-group-append"> 
+                        <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
@@ -51,3 +51,4 @@
         </div>
     </div>
 </div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

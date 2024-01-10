@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ResetPasswordService } from './reset-password.service';
 import { ActivatedRoute,Router, NavigationEnd } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-reset-password',
@@ -9,6 +11,8 @@ import { ActivatedRoute,Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
+  loading:boolean = false;
+
   resetForm: FormGroup;
   isPasswordMatch: boolean = false;
   passwordPattern: RegExp = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;

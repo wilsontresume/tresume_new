@@ -18,10 +18,10 @@ export class HrmsComponent implements OnInit {
 
   candidates1: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
   recruiterNames: string[] = ['Recruiter 1', 'Recruiter 2', 'Recruiter 3'];
-  candidateStatuses: string[] = ['Active', 'Inactive', 'On Hold'];
+  candidateStatuses: string[] = ['', '', ''];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
-  referralTypes: string[] = ['Type 1', 'Type 2', 'Type 3'];
-  legalStatus: string[] = ['legal', 'illegal'];
+  referralTypes: string[] = ['Phone', 'Email', 'Others'];
+  legalStatus: string[] = [];
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
@@ -34,6 +34,23 @@ export class HrmsComponent implements OnInit {
   emailvalidation: boolean = false;
   emailvalidationmessage: string = '';
   routeType: any;
+  currentStatusOptions:any = [];
+  legalStatusOptions:any;
+  // currentStatusOptions:any;
+  selectedcurrentstatus: any;
+  currentLocation: any;
+  filteredCandidates: any[];
+  specifiedDate: string = ''; 
+
+    onFollowUpOptionChange() {
+    }
+
+  selectedFollowUpOption: any;
+  Locations: any;
+  followUpStartDate: string = '';
+  followUpEndDate: string = '';
+  dateCreatedStartDate: string = '';
+  dateCreatedEndDate: string = '';
 
   constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.OrgID = this.cookieService.get('OrgID');
@@ -44,8 +61,12 @@ export class HrmsComponent implements OnInit {
 
   ngOnInit(): void {
     this.TraineeID = this.cookieService.get('TraineeID');
-    this.fetchhrmscandidatelist();
     this.getOrgUserList();
+    this.getcandidaterstatus();
+    this.getLegalStatusOptions();
+    this.fetchhrmscandidatelist();
+
+    this.gethrmsLocation();
 
     this.addCandidate = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
@@ -55,7 +76,7 @@ export class HrmsComponent implements OnInit {
       recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
       degree: [''],
       groups: [''],
-      legalStatus: ['Legal'],
+      legalStatus: [''],
       locationConstraint: ['yes'],
       marketerName: [''],
       notes: [''],
@@ -94,6 +115,8 @@ export class HrmsComponent implements OnInit {
 
   }
 
+  
+
   onEmailInput() {
     this.checkEmail();
   }
@@ -121,9 +144,9 @@ export class HrmsComponent implements OnInit {
     return (control: { value: any; }) => {
       const selectedValue = control.value;
       if (selectedValue && selectedValue.length > 0) {
-        return null; // Valid
+        return null;
       } else {
-        return { atLeastOneSelected: true }; // Invalid
+        return { atLeastOneSelected: true };
       }
     };
   }
@@ -131,28 +154,56 @@ export class HrmsComponent implements OnInit {
     // this.fetchhrmscandidatelist();
   }
 
+
+
+  getcandidaterstatus(){
+    const Req = {
+         };
+    this.service.candidatestatus(Req).subscribe((x: any) => {
+      this.currentStatusOptions = x;
+      console.log(this.currentStatusOptions);
+    });
+  }
+
+  getLegalStatusOptions() {
+    const request = {};
+  
+    this.service.getLegalStatus(request).subscribe((response: any) => {
+      this.legalStatusOptions = response;
+      console.log(this.legalStatusOptions);
+    });
+  }
+  
+  
+
   fetchhrmscandidatelist() {
+
+    this.loading = true;
     let Req = {
       TraineeID: this.TraineeID,
     };
     this.service.gethrmscandidateList(Req).subscribe((x: any) => {
       this.candidates = x.result;
       this.noResultsFound = this.candidates.length === 0;
+      this.loading = false;
     });
   }
 
   getOrgUserList() {
     let Req = {
       TraineeID: this.TraineeID,
-      OrgID: this.OrgID
+      orgID: this.OrgID
     };
-    this.service.getOrgUserList(Req).subscribe((x: any) => {
-      this.recruiterNames = x.result;
-      this.marketerNames = x.result;
+    this.service.fetchrecruiter(Req).subscribe((x: any) => {
+      this.recruiterNames = x;
+      this.marketerNames = x;
     });
   }
+  loading:boolean = false;
 
   savehrmsdata() {
+    this.loading = true;
+
     let Req = {
       firstName: this.addCandidate.value.firstName,
       middleName: this.formData.middleName,
@@ -167,10 +218,12 @@ export class HrmsComponent implements OnInit {
       locationConstraint: this.addCandidate.value.locationConstraint,
       referralType: this.formData.referralType,
       notes: this.addCandidate.value.notes,
-      candidateStatus: this.formData.candidateStatus,
+      candidateStatus: this.selectedcurrentstatus,
       legalStatus: this.formData.legalStatus,
       marketerName: this.formData.marketerName,
-      recruiteremail: this.userName
+      recruiteremail: this.userName,
+      orgID:this.OrgID,
+      creeateby:this.userName
     };
     // console.log(Req);
     // console.log(Req);
@@ -180,15 +233,106 @@ export class HrmsComponent implements OnInit {
     console.log(Req);
     //     this.service.insertTrainee(Req).subscribe((ax: any) => {
     //       console.log(ax);
-    this.service.insertTraineeCandidate(Req).subscribe((x: any) => {
-      console.log(x);
-    });
+    // this.service.insertTraineeCandidate(Req).subscribe((x: any) => {
+    //   console.log(x);
+    // });
+    this.service.insertTraineeCandidate(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+        this.fetchhrmscandidatelist();
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+    
+  }
+
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary: response.message });
+    this.loading = false;
+
+    console.log(response);
+  }
+  
+  private handleError(response: any): void {
+    this.messageService.add({ severity: 'error', summary:  response.message });
+    this.loading = false;
+
   }
 
 
   onSubmit() {
     console.log('Form Data:', this.formData);
   }
+  
+  sortBy: string = 'DateCreated';
+  sortOrder: string = 'asc';
+
+  // Function to handle sorting
+  sortTable(column: string) {
+    if (this.sortBy === column) {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortBy = column;
+      this.sortOrder = 'asc';
+    }
+
+    this.filteredCandidates = this.sortCandidates();
+  }
+
+  // Function to sort the candidates based on the current sort settings
+  sortCandidates(): any[] {
+    return this.candidates.sort((a, b) => {
+      const dateA = new Date(a.DateCreated).getTime();
+      const dateB = new Date(b.DateCreated).getTime();
+
+      if (this.sortOrder === 'asc') {
+        return dateA - dateB;
+      } else {
+        return dateB - dateA;
+      }
+    });
+  }
+
+  searchInput: string = '';
+
+  isCandidateVisible(candidate: any): boolean {
+    const searchValue = this.searchInput.toLowerCase();
+
+     // Filter for Follow Up On date range
+     const followUpDate = new Date(candidate.FollowUpDate);
+     const followUpStartDate = this.followUpStartDate ? new Date(this.followUpStartDate) : null;
+     const followUpEndDate = this.followUpEndDate ? new Date(this.followUpEndDate) : null;
+     const followUpInRange = (!followUpStartDate || followUpDate >= followUpStartDate) &&
+       (!followUpEndDate || followUpDate <= followUpEndDate);
+ 
+     // Filter for Date Created date range
+     const dateCreated = new Date(candidate.DateCreated);
+     const dateCreatedStartDate = this.dateCreatedStartDate ? new Date(this.dateCreatedStartDate) : null;
+     const dateCreatedEndDate = this.dateCreatedEndDate ? new Date(this.dateCreatedEndDate) : null;
+     const dateCreatedInRange = (!dateCreatedStartDate || dateCreated >= dateCreatedStartDate) &&
+       (!dateCreatedEndDate || dateCreated <= dateCreatedEndDate);
+ 
+
+    return (
+      candidate.Email.toLowerCase().includes(searchValue) ||
+      candidate.Name.toLowerCase().includes(searchValue) ||
+      candidate.Phone.toLowerCase().includes(searchValue)
+    );
+  }
+
+  gethrmsLocation() {
+    let Req = {
+      TraineeID: this.TraineeID,
+      orgID: this.OrgID
+    };
+    this.service.getLocation(Req).subscribe((x: any) => {
+      this.Locations = x;
+    });
+  }
+
+    
 }
 
 
