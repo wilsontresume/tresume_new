@@ -89,31 +89,21 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>State *</label>
-                            <select class="form-control" name="State" formControlName="State"
-                                [ngClass]="{ 'invalid-input': addClient.get('State').invalid && addClient.get('State').touched }">
+                            <label>State</label>
+                            <select class="form-control" name="State" formControlName="state">
                                 <option value="" disabled>Select State</option>
                                 <option *ngFor="let state of state" [value]="state.id">{{ state.name }}</option>
                             </select>
-                            <div *ngIf="addClient.get('State').invalid && addClient.get('State').touched"
-                                class="validation-message" style="color: red;text-align: left;">
-                                * Please select a valid State.
-                            </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>City *</label>
-                            <select class="form-control" name="City" formControlName="City"
-                                [ngClass]="{ 'invalid-input': addClient.get('City').invalid && addClient.get('City').touched }">
+                            <label>City</label>
+                            <select class="form-control" name="City" formControlName="city">
                                 <option value="" disabled>Select City</option>
                                 <option *ngFor="let city of city" [value]="city.id">{{ city.name }}</option>
                             </select>
-                            <div *ngIf="addClient.get('City').invalid && addClient.get('City').touched"
-                                class="validation-message" style="color: red;text-align: left;">
-                                * Please select a valid City.
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,17 +133,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>Industry *</label>
-                            <select class="form-control" name="Industry" formControlName="Industry"
-                                [ngClass]="{ 'invalid-input': addClient.get('Industry').invalid && addClient.get('Industry').touched }">
+                            <label>Industry</label>
+                            <select class="form-control" name="Industry" formControlName="Industry">
                                 <option value="" disabled>Select Industry</option>
                                 <option *ngFor="let industry of industry" [value]="industry.id">{{ industry.name }}
                                 </option>
                             </select>
-                            <div *ngIf="addClient.get('Industry').invalid && addClient.get('Industry').touched"
-                                class="validation-message" style="color: red;text-align: left;">
-                                * Please select a valid Industry.
-                            </div>
                         </div>
                     </div>
 
@@ -162,17 +147,17 @@
                           <label>Status </label>
                           <select class="form-control" name="ClientStatusID" formControlName="ClientStatusID">
                             <option value="" disabled>Select Status</option>
-                            <option *ngFor="let status of ClientStatusID" [value]="ClientStatusID">{{ status.Value }}</option>
+                            <option *ngFor="let status of ClientStatusID" [value]="status.ClientStatusID">{{ status.Value }}</option>
                           </select>
                         </div>
                       </div>                      
 
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>Category </label>
+                            <label>Category</label>
                             <select class="form-control" name="ClientCategoryID" formControlName="ClientCategoryID">
                                 <option value="" disabled>Select Category</option>
-                                <option *ngFor="let category of ClientCategoryID" [value]="ClientCategoryID">{{ category.Value}}</option>
+                                <option *ngFor="let category of ClientCategoryID" [value]="category.ClientCategoryID">{{ category.Value}}</option>
                             </select>
                         </div>
                     </div>
@@ -184,7 +169,7 @@
                             <label>Primary Owner</label>
                             <select class="form-control" name="PrimaryOwner" formControlName="PrimaryOwner">
                                 <option value="" disabled>Select Primary Owner</option>
-                                <option *ngFor="let owner of primaryOwner" [value]="owner.id">{{ owner.name }}</option>
+                                <option *ngFor="let owner of primaryOwner" [value]="owner.TraineeID">{{ owner.TraineeName }}</option>
                             </select>
                         </div>
                     </div>

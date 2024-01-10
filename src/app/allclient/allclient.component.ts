@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./allclient.component.scss']
 })
 export class AllclientComponent implements OnInit {
-  loading:boolean = false;
+  loading: boolean = false;
 
   deleteIndex: number;
   showConfirmationDialog: boolean = false;
@@ -20,11 +20,11 @@ export class AllclientComponent implements OnInit {
   clients: any[];
   noResultsFound: boolean = false;
   authType: any;
-  
-  constructor(private fb: FormBuilder, private cookieService: CookieService, private service: AllClientService, private messageService: MessageService,private router:Router,private route: ActivatedRoute) {
+
+  constructor(private fb: FormBuilder, private cookieService: CookieService, private service: AllClientService, private messageService: MessageService, private router: Router, private route: ActivatedRoute) {
     this.authType = this.route.snapshot.params["authType"];
   }
-  
+
   ngOnInit(): void {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchclientlist();
@@ -44,7 +44,7 @@ export class AllclientComponent implements OnInit {
       this.noResultsFound = this.clients.length === 0;
     });
   }
-  
+
 
   deleteclient(ClientID: number) {
     this.deleteIndex = ClientID;
@@ -81,5 +81,15 @@ export class AllclientComponent implements OnInit {
   cancelDelete() {
     console.log(this.showConfirmationDialog);
     this.showConfirmationDialog = false;
+  }
+
+  searchInput: string = '';
+
+  isClientVisible(client: any): boolean {
+    const searchValue = this.searchInput.toLowerCase();
+    return (
+      client.EmailID.toLowerCase().includes(searchValue) ||
+      client.ClientName.toLowerCase().includes(searchValue)
+    );
   }
 }
