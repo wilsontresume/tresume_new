@@ -64,8 +64,8 @@ export class AddclientComponent implements OnInit {
       Website: [''],
       Fax: [''],
       Country: [''],
-      State: [''],
-      City: [''],
+      state: [''],
+      city: [''],
       Industry: [''],
       ClientStatusID: [''],
       ClientCategoryID: [''],
@@ -78,7 +78,9 @@ export class AddclientComponent implements OnInit {
     });
 
     this.getClientCategories();
-  
+    this.getClientStatus();
+    this.getState();
+    this.getCity();
   }
 
   
@@ -141,6 +143,24 @@ export class AddclientComponent implements OnInit {
     };
     this.service.getClientStatusID(Req).subscribe((x: any) => {
     this.ClientStatusID = x.result;
+    });
+  }
+
+  getState() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getLocation(Req).subscribe((x: any) => {
+    this.state = x.result;
+    });
+  }
+
+  getCity() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getCity(Req).subscribe((x: any) => {
+    this.city = x.result;
     });
   }
 }
