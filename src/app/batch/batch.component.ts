@@ -16,13 +16,14 @@ export class BatchComponent implements OnInit {
   }
 
   save() {
+    // this.loading=true;
     // Add your save logic here
   }
-  
+
   constructor() { }
 
   ngOnInit(): void {
-    
+
   }
   openAddBatchDialog() {
     // Implement dialog opening logic here

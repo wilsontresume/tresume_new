@@ -39,11 +39,11 @@
             <div class="d-flex justify-content-between">
                 <div class="col">
                     <label>Start date:</label>
-                    <input type="date" class="form-control" id="followUpStartDate" placeholder="Start date">
+                    <input type="date" class="form-control" id="followUpStartDate" placeholder="Start date" [(ngModel)]="followUpStartDate">
                 </div>
                 <div class="col">
                     <label>End date:</label>
-                    <input type="date" class="form-control" id="followUpEndDate" placeholder="End date">
+                    <input type="date" class="form-control" id="followUpEndDate" placeholder="End date" [(ngModel)]="followUpEndDate">
                 </div>
             </div>
         </div>
@@ -54,11 +54,11 @@
             <div class="d-flex justify-content-between">
                 <div class="col">
                     <label>Start date:</label>
-                    <input type="date" class="form-control" id="dateCreatedStartDate" placeholder="Start date">
+                    <input type="date" class="form-control" id="dateCreatedStartDate" placeholder="Start date" [(ngModel)]="dateCreatedStartDate">
                 </div>
                 <div class="col">
                     <label>End date:</label>
-                    <input type="date" class="form-control" id="dateCreatedEndDate" placeholder="End date">
+                    <input type="date" class="form-control" id="dateCreatedEndDate" placeholder="End date" [(ngModel)]="dateCreatedEndDate">
                 </div>
             </div>
         </div>
@@ -97,15 +97,16 @@
                           <td>{{ candidate.DateCreated | date:'MM/dd/yy' }}</td>
                           <td>
                             <div class="input-group d-flex justify-content-center align-items-center">
-                              <!-- Uncomment the input field if needed -->
                               <!--
                               <input type="date" class="form-control" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
                                 placeholder="Follow Up On" style="width: 50%;">
                               -->
-                              <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']"
-                                style="font-size: 24px;"></i>
+                              <span *ngIf="candidate.FollowUpOn === 'Never'">Never</span>
+                              <span *ngIf="candidate.FollowUpOn === 'SpecifiedDate'">{{ candidate.SpecifiedDate |
+                                date:'MM/dd/yy' }}</span>
+                              <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 24px;"></i>
                             </div>
-                          </td>
+                          </td> 
                           
                       </tr>
                       </ng-container>
@@ -205,7 +206,7 @@
                   * Please enter valid Phone Number.
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 text-center">
                 <label class="label">Gender</label>
                 <div class="radio">
                   <input type="radio" id="male" name="gender" formControlName="gender" value="male" >
@@ -219,12 +220,16 @@
             <div class="row">
               <div class="col-md-4" *ngIf="routeType == 1">
                 <label class="label">Recruiter Name *</label>
-                <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
+                <!-- // check next 2 line if any error  -->
+                <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
+                  <option *ngFor="let name of recruiterNames" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option> -->
+                <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }"> -->
+                <select class="form-control" name="recruiterName" formControlName="recruiterName">
                   <option *ngFor="let name of recruiterNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
                 </select>
-                <div *ngIf="addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched" class="validation-message" style="color: red;">
+                <!-- <div *ngIf="addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched" class="validation-message" style="color: red;">
                   * Please select at least one Recruiter Name.
-                </div>
+                </div> -->
               </div>
               <div class="col-md-4" *ngIf="routeType == 1">
                 <label class="label">Degree</label>
@@ -244,7 +249,6 @@
               <label class="label">Candidate Status</label>
               <select class="form-control" id="currentStatus" [(ngModel)]="selectedcurrentstatus"
                 [ngModelOptions]="{standalone: true}">
-                <option value>-- Select Current Status --</option>
                 <option *ngFor="let option of  currentStatusOptions" [value]="option.CandidateStatusID">{{ option.Value }}</option>
               </select>
               </div>
@@ -256,8 +260,12 @@
               </div>
               <div class="col-md-4" *ngIf="routeType == 1">
                 <label class="label">Legal Status</label>
-                <select class="form-control" name="legalStatus" [(ngModel)]="formData.legalStatus" [ngModelOptions]="{standalone: true}">
+                <!-- <select class="form-control" name="legalStatus" [(ngModel)]="formData.legalStatus" [ngModelOptions]="{standalone: true}">
                   <option *ngFor="let stat of legalStatus" [value]="stat">{{ stat }}</option>
+                </select> -->
+                <select class="form-control" name="legalStatus" [(ngModel)]="legalStatus" [ngModelOptions]="{standalone: true}">
+                  <option value>-- Select Legal Status --</option>
+                  <option *ngFor="let stat of legalStatusOptions" [value]="stat.LegalStatusID">{{ stat.LegalValue }}</option>
                 </select>
               </div>
             </div>
@@ -284,18 +292,58 @@
                 <input type="file" class="form-control" name="video">
               </div> -->
             </div>
-            <div class="row">
-              <!-- <div class="col-md-4" *ngIf="routeType == 1">
+            <!-- <div class="row">
+              <div class="col-md-4" *ngIf="routeType == 1">
                 <label class="label">Referral Type</label>
                 <select class="form-control" name="referralType" [(ngModel)]="formData.referralType" [ngModelOptions]="{standalone: true}">
                   <option *ngFor="let type of referralTypes" [value]="type">{{ type }}</option>
                 </select>
-              </div> -->
+              </div>
               <div class="col-md-4" *ngIf="routeType == 1">
                 <label class="label">Notes</label>
                 <textarea class="textarea" name="notes" rows="4" formControlName="notes"></textarea>
               </div>
+            </div> -->
+
+            <div class="row">
+              <!-- <div class="col-md-4">
+                <label class="label">Follow Up On *</label>
+                <select name="FollowUpOn" id="FollowUpOn" class="form-control" [(ngModel)]="selectedFollowUpOption">
+                  <option selected="selected" value="Never">Never</option>
+                  <option value="SpecifiedDate">Specified Date</option>
+                </select>
+              </div> -->
+              
+              <div class="col-md-4">
+                <label class="label">Follow Up On *</label>
+                <select name="FollowUpOn" id="FollowUpOn" class="form-control" [(ngModel)]="selectedFollowUpOption">
+                    <option selected="selected" value="Never">Never</option>
+                    <option value="SpecifiedDate">Specified Date</option>
+                </select>
+                
+                <!-- Additional input field for specific date -->
+                <div *ngIf="selectedFollowUpOption === 'SpecifiedDate'">
+                    <label for="specifiedDateInput">Specify Date:</label>
+                    <input type="date" id="specifiedDateInput" name="specifiedDate" class="form-control" [(ngModel)]="specifiedDate">
+                </div>
             </div>
+
+              <div class="col-md-4" *ngIf="routeType == 1">
+                <label class="label">Notes</label>
+                <textarea class="textarea" name="notes" rows="4" formControlName="notes"></textarea>
+              </div>
+              
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                  <label>Current Location</label>
+                  <select class="form-control" name="Location">
+                    <option value="">Select</option>
+                    <option *ngFor="let location of Locations?.result || []" [value]="location">{{ location.state }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
             <!-- For TimeSheet -->
             <div class="row" *ngIf="routeType == 2">
               <div class="col-md-4">
@@ -337,7 +385,7 @@
               <input type="text" name="" id="" class="form-control">
             </div>
 
-            <div class="col-md-4" *ngIf="routeType == 2">
+            <div class="col-md-4" *ngIf="routeType == 2  ">
               <label class="label">Notes</label>
               <textarea class="textarea" name="notes" rows="4" formControlName="notes"></textarea>
             </div>

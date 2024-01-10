@@ -4,14 +4,16 @@
             <div class="col">
                 <h2 class="ml-3 mt-4 text-dark">ALL CLIENTS</h2>
             </div>
-            <div><button class="btn text-white btn-bgcolor mt-3 mr-5" [routerLink]="['/addclient/'+authType]">Add Client</button>
+            <div><button class="btn text-white btn-bgcolor mt-3 mr-5" [routerLink]="['/addclient/'+authType]">Add
+                    Client</button>
             </div>
         </div>
         <div class="row mt-4">
             <div class="col text-right">
-                <div class="form-group">
-                    <label for="search">Search:</label>
-                    <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
+                <div class="form-group text-right mt-4">
+                    <label for="search" class="label-large">Search:  </label>
+                    <input [(ngModel)]="searchInput" type="text" class="form-control1 ml-6 mr-2" id="search"
+                        placeholder=" Search Clients...">
                 </div>
             </div>
         </div>
@@ -26,21 +28,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <tr *ngFor="let client of clients">
-                    <td>{{ client.ClientName }}</td>
-                    <td>{{ client.EmailID }}</td>
-                    <td>{{ client.Website }}</td>
-                    <td>{{ client.PrimaryOwner}}</td>
-                    <td>
-
-                        <div>
-                            <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewclient'+authType]"></i>
-                            <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteclient(client.ClientID)"></i>
-                        </div>
-
-                    </td>
-                </tr>
+                <ng-container *ngFor="let client of clients">
+                    <tr *ngIf="isClientVisible(client)">
+                        <td>{{ client.ClientName }}</td>
+                        <td>{{ client.EmailID }}</td>
+                        <td>{{ client.Website }}</td>
+                        <td>{{ client.PrimaryOwner}}</td>
+                        <td>
+                            <div>
+                                <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewclient'+authType]"></i>
+                                <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteclient(client.ClientID)"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
             </tbody>
         </table>
     </div>
@@ -63,5 +64,6 @@
         </div>
     </div>
 </div>
+
 
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

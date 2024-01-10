@@ -21,7 +21,7 @@ export class HrmsComponent implements OnInit {
   candidateStatuses: string[] = ['', '', ''];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
-  legalStatus: string[] = ['Eligible to work in the US', 'US Citizen','GC','F-1','F1-CPT','F1-OPT EAD','GC-EAD','TPS EAD','H4-EAD','L2-EAD','Asylum EAD','Other EAD','TN Visa','H1-B Visa','L1 Visa','E3 Visa','Other Visa'];
+  legalStatus: string[] = [];
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
@@ -34,9 +34,23 @@ export class HrmsComponent implements OnInit {
   emailvalidation: boolean = false;
   emailvalidationmessage: string = '';
   routeType: any;
-  currentStatusOptions:any;
+  currentStatusOptions:any = [];
+  legalStatusOptions:any;
+  // currentStatusOptions:any;
   selectedcurrentstatus: any;
+  currentLocation: any;
   filteredCandidates: any[];
+  specifiedDate: string = ''; 
+
+    onFollowUpOptionChange() {
+    }
+
+  selectedFollowUpOption: any;
+  Locations: any;
+  followUpStartDate: string = '';
+  followUpEndDate: string = '';
+  dateCreatedStartDate: string = '';
+  dateCreatedEndDate: string = '';
 
   constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.OrgID = this.cookieService.get('OrgID');
@@ -49,7 +63,11 @@ export class HrmsComponent implements OnInit {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.getOrgUserList();
     this.getcandidaterstatus();
+    this.getLegalStatusOptions();
     this.fetchhrmscandidatelist();
+
+    this.gethrmsLocation();
+
     this.addCandidate = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
@@ -58,7 +76,7 @@ export class HrmsComponent implements OnInit {
       recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
       degree: [''],
       groups: [''],
-      legalStatus: ['Legal'],
+      legalStatus: [''],
       locationConstraint: ['yes'],
       marketerName: [''],
       notes: [''],
@@ -97,6 +115,8 @@ export class HrmsComponent implements OnInit {
 
   }
 
+  
+
   onEmailInput() {
     this.checkEmail();
   }
@@ -124,9 +144,9 @@ export class HrmsComponent implements OnInit {
     return (control: { value: any; }) => {
       const selectedValue = control.value;
       if (selectedValue && selectedValue.length > 0) {
-        return null; // Valid
+        return null;
       } else {
-        return { atLeastOneSelected: true }; // Invalid
+        return { atLeastOneSelected: true };
       }
     };
   }
@@ -144,6 +164,18 @@ export class HrmsComponent implements OnInit {
       console.log(this.currentStatusOptions);
     });
   }
+
+  getLegalStatusOptions() {
+    const request = {};
+  
+    this.service.getLegalStatus(request).subscribe((response: any) => {
+      this.legalStatusOptions = response;
+      console.log(this.legalStatusOptions);
+    });
+  }
+  
+  
+
   fetchhrmscandidatelist() {
 
     this.loading = true;
@@ -267,6 +299,22 @@ export class HrmsComponent implements OnInit {
 
   isCandidateVisible(candidate: any): boolean {
     const searchValue = this.searchInput.toLowerCase();
+
+     // Filter for Follow Up On date range
+     const followUpDate = new Date(candidate.FollowUpDate);
+     const followUpStartDate = this.followUpStartDate ? new Date(this.followUpStartDate) : null;
+     const followUpEndDate = this.followUpEndDate ? new Date(this.followUpEndDate) : null;
+     const followUpInRange = (!followUpStartDate || followUpDate >= followUpStartDate) &&
+       (!followUpEndDate || followUpDate <= followUpEndDate);
+ 
+     // Filter for Date Created date range
+     const dateCreated = new Date(candidate.DateCreated);
+     const dateCreatedStartDate = this.dateCreatedStartDate ? new Date(this.dateCreatedStartDate) : null;
+     const dateCreatedEndDate = this.dateCreatedEndDate ? new Date(this.dateCreatedEndDate) : null;
+     const dateCreatedInRange = (!dateCreatedStartDate || dateCreated >= dateCreatedStartDate) &&
+       (!dateCreatedEndDate || dateCreated <= dateCreatedEndDate);
+ 
+
     return (
       candidate.Email.toLowerCase().includes(searchValue) ||
       candidate.Name.toLowerCase().includes(searchValue) ||
@@ -274,7 +322,17 @@ export class HrmsComponent implements OnInit {
     );
   }
 
+  gethrmsLocation() {
+    let Req = {
+      TraineeID: this.TraineeID,
+      orgID: this.OrgID
+    };
+    this.service.getLocation(Req).subscribe((x: any) => {
+      this.Locations = x;
+    });
+  }
 
+    
 }
 
 
