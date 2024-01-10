@@ -216,7 +216,7 @@ router.post('/updateUserProfile', async (req, res) => {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
-    var query = "SELECT * FROM trainee where traineeid ="+req.body.traineeID;
+    var query = "UPDATE Trainee SET FirstName = '" + req.body.firstName + "', MiddleName = '" + req.body.middleName + "', LastName = '" + req.body.lastName + "', UserName = '" + req.body.userName + "', YearsOfExpInMonths = " + req.body.yearsOfExperience + ", Title = '" + req.body.title + "', DOB = '" + req.body.dob + "', PhoneNumber = '" + req.body.phoneNumber + "', Organization = '" + req.body.companyName + "', State = '" + req.body.state + "', City = '" + req.body.city + "', Zipcode = '" + req.body.zipcode + "' WHERE TraineeID ="+req.body.traineeID;
     console.log(query);
     request.query(query,
       function (err, recordset) {

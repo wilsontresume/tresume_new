@@ -10,7 +10,6 @@
           </div>
             <h2 class="card-title text-center pt-3 mb-0">{{profiledata[0].FirstName}} {{profiledata[0].LastName}}</h2>
             <p class="card-text text-center pt-1 JD">{{profiledata[0].Title}}</p>
-           
         </div>
       </div>
       <div class="col-md-9">
@@ -29,12 +28,11 @@
             </ul>
           </div>
           <div class="card-body">
-            
+            <form [formGroup]="ProfileUpdate">
             <div class="tab-content">
               <div class="tab-pane active" id="aboutme">
                 <br>
                 <div class="container">
-                  <form [formGroup]="myForm">
                     <div class="row">
                       <div class="col-md-4">
                         <label for="firstName">First Name</label><br>
@@ -42,7 +40,7 @@
                           <span class="m-2">{{profiledata[0].FirstName}}</span>
                         </ng-container>
                         <ng-template #editModeTemplate9>
-                          <input type="text" class="form-control custom-input" id="firstName" placeholder="First Name" formControlName="firstName"
+                          <input type="text" class="form-control custom-input" id="firstName" placeholder="First Name"
                             [(ngModel)]="firstName" name="firstName" required>
                         </ng-template>
                       </div>
@@ -62,7 +60,7 @@
                           <span class="m-2">{{profiledata[0].LastName}}</span>
                         </ng-container>
                         <ng-template #editModeTemplate2>
-                          <input type="text" class="form-control custom-input" id="lastName" placeholder="Last Name" formControlName="lastName"
+                          <input type="text" class="form-control custom-input" id="lastName" placeholder="Last Name" 
                             [(ngModel)]="lastName" name="lastName" required>
                         </ng-template>
                       </div>
@@ -74,7 +72,7 @@
                           <span class="m-2">{{profiledata[0].UserName}}</span>
                         </ng-container>
                         <ng-template #editModeTemplate3>
-                          <input type="text" class="form-control custom-input" id="userName" placeholder="User Name" formControlName="userName"
+                          <input type="text" class="form-control custom-input" id="userName" placeholder="User Name" 
                             [(ngModel)]="userName" name="userName" required>
                         </ng-template>
                       </div>
@@ -103,7 +101,7 @@
                           <span  class="m-2">{{profiledata[0].Title}}</span>
                         </ng-container>
                         <ng-template #editModeTemplate10>
-                          <input type="text" class="form-control custom-input" id="title" placeholder="Title" formControlName="title"
+                          <input type="text" class="form-control custom-input" id="title" placeholder="Title" 
                             [(ngModel)]="title" name="title" required>
                           <div
                             *ngIf="myForm.controls.title.invalid && (myForm.controls.title.dirty || myForm.controls.title.touched)">
@@ -116,7 +114,7 @@
                         <ng-container *ngIf="!editmode;else editModeTemplate7">
                            <span class="m-2">{{profiledata[0].DOB  | date:'dd-MM-yyyy'}}</span></ng-container>
                         <ng-template #editModeTemplate7>
-                          <input type="date" class="form-control custom-input" id="dob" [(ngModel)]="dob" name="dob"
+                          <input type="date" class="form-control custom-input" id="dob" [(ngModel)]="dob"  name="dob"
                             required>
                         </ng-template>
                       </div>
@@ -127,7 +125,7 @@
                         </ng-container>
                         <ng-template #editModeTemplate8>
                           <input type="text" class="form-control custom-input" id="phoneNumber"
-                            placeholder="Phone Number" [(ngModel)]="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" formControlName="phoneNumber"
+                            placeholder="Phone Number" [(ngModel)]="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" 
                             required>
                           <div *ngIf="myForm.controls.phoneNumber.invalid && 
                           (myForm.controls.phoneNumber.dirty || myForm.controls.phoneNumber.touched)">
@@ -144,12 +142,11 @@
                         data-toggle="tab" href="#Password" (click)="nextTab(2)">Next</button>
                       </div>
                     </div>
-                  </form>
+                  
                 </div>
               </div>
               <div class="tab-pane" id="Password">
                 <div class="container mt-4">
-                  <form [formGroup]="passwordForm">
                   <div class="form-row mt-4">
                     <div class="form-group col">
                       <label for="oldPassword">Old Password</label>
@@ -177,23 +174,22 @@
                       data-toggle="tab" href="#Company" (click)="nextTab(3)">Next</button>
                     </div>
                   </div>
-                 </form>
+                 
                 </div>
               </div>
               <div class="tab-pane " id="Company">
-                <form [formGroup]="CompanyForm">
                 <div class="container mt-4">
                   <div class="container mt-4">
                     <div class="form-row mt-4">
                       <div class="form-group col-4">
-                        <form #myForm="ngForm">
+                      
                           <label for="companyName">
                             Organization
-                          </label>
-                          <span *ngIf="!editmode">{{profiledata[0].CompanyName}}</span>
+                          </label><br>
+                          <span *ngIf="!editmode" class="m-2">{{profiledata[0].Organization}}</span>
                           <input *ngIf="editmode" type="text" class="form-control custom-input" id="companyName"
-                            placeholder="Enter Company Name" [(ngModel)]="companyName" name="companyName" required>
-                        </form>
+                            placeholder="Enter Company Name" [(ngModel)]="companyName" name="companyName"  required>
+                       
                       </div>
                    
                       <div class="form-group col-6">
@@ -212,14 +208,14 @@
                       <div class="form-group col-4">
                         <label for="state">State</label>
                         <span  *ngIf="!editmode">{{profiledata[0].state}}</span>
-                        <select *ngIf="editmode" class="form-control custom-input" id="state" [(ngModel)]="selectedState" formControlName="state">
+                        <select *ngIf="editmode" class="form-control custom-input" id="state" [(ngModel)]="state" >
                           <option *ngFor="let stateObj of state" [value]="stateObj.id">{{stateObj.state}}</option>
                         </select>
                       </div>
                       <div class="form-group col-4">
                         <label for="city">City</label>
                         <span  *ngIf="!editmode">{{profiledata[0].City}}</span>
-                        <select *ngIf="editmode" class="form-control custom-input" id="city" [(ngModel)]="city" formControlName="city">
+                        <select *ngIf="editmode" class="form-control custom-input" id="city" [(ngModel)]="city">
                           <option *ngFor="let city of city" [value]="city.id">{{city.city}}</option>
                         </select>
                       </div>
@@ -239,14 +235,14 @@
                   <div class="row mt-4">
                     <div class="col text-right">
                         <button class="btn">Cancel</button>
-                      <button class="btn ml-2" (click)="onSave()">Save</button>
+                      <button class="btn ml-2" (click)="updateProfile()">Save</button>
+                     
                     </div>
                   </div>
                 </div>
-                </form>
               </div>
             </div>
-          
+          </form>
           </div>
         </div>
       </div>

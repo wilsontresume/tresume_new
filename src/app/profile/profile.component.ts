@@ -14,16 +14,14 @@ import { TabsetComponent } from 'ngx-bootstrap/tabs';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  
   @ViewChild('myTabs') myTabs: TabsetComponent;
   AboutUser:string='active';
   Password:string = '';
   CompanyInfo = '';
   selectedLegalstatus:string = '';
 
-  
-   state: string[] = [];
-   city: string[] = [];
+  state: string[] = [];
+  city: string[] = [];
   cities: { name: string; code: string; }[];
   content: any;
   userName: string;
@@ -52,14 +50,73 @@ export class ProfileComponent implements OnInit {
   CompanyForm:any;
   TraineeID: string;
   profiledata:any = [];
+  loading:boolean = false;
+  UpdateProfileData:any;
+  ProfileUpdate:any;
 
 
-  // inputFields = [
-  //   { key: 'firstName', label: 'First Name', placeholder: 'Enter First Name', required: true },
-  //   { key: 'middleName', label: 'Middle Name', placeholder: 'Enter Middle Name', required: true },
-  //   { key: 'lastName', label: 'Last Name', placeholder: 'Enter Last Name', required: true },
+  
+
+  constructor(private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
+    this.cities = [
+      { name: 'New York', code: 'NY' },
+      { name: 'Rome', code: 'RM' },
+      { name: 'London', code: 'LDN' },
+      { name: 'Istanbul', code: 'IST' },
+      { name: 'Paris', code: 'PRS' }
+    ];
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.TraineeID = this.cookieService.get('TraineeID');
+      this.fetchprofile();
+      this.fetchState();
+      this.fetchCity();
+      this.updateProfile();
+      
    
-  // ];
+  }
+
+  
+  updateProfile() {
+  
+    let Req = {
+      FirstName: this.firstName,
+      MiddleName: this.middleName,
+      LastName: this.lastName,
+      UserName: this.userName,
+      YearsOfExpInMonths: this.yearsOfExperience,
+      Title: this.title,
+      DOB: this.dob,
+      PhoneNumber: this.phoneNumber,
+      Organization: this.companyName,
+      state: this.state,
+      city: this.city,
+      zipcode: this.zipcode,
+    };
+    console.log(Req);
+    this.Service.updateUserProfile(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+  }
+  save(){
+    alert('hiii');
+  }
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary: response.message });
+    console.log(response);
+    this.loading = false;
+  }
+  
+  private handleError(response: any): void {
+    this.messageService.add({ severity: 'error', summary:  response.message });
+    this.loading = false;
+  }
 
   nextTab(tab:number) {
     if(tab == 1){
@@ -78,29 +135,7 @@ export class ProfileComponent implements OnInit {
   console.log(this.selectedLegalstatus);
   }
 
-
-  constructor(private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
-    this.cities = [
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' }
-    ];
-  }
-
-  async ngOnInit(): Promise<void> {
-    this.TraineeID = this.cookieService.get('TraineeID');
-      this.fetchprofile();
-      this.fetchState();
-      this.fetchCity();
-
-  }
-
-  onSave() {
-    console.log(this.firstName)
-  }
-
+  
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
