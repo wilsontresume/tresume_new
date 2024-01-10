@@ -14,6 +14,14 @@ import { TabsetComponent } from 'ngx-bootstrap/tabs';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('myTabs') myTabs: TabsetComponent;
+  AboutUser:string='active';
+  Password:string = '';
+  CompanyInfo = '';
+  selectedLegalstatus:string = '';
+
+  state: string[] = [];
+  city: string[] = [];
   cities: { name: string; code: string; }[];
   content: any;
   userName: string;
@@ -25,17 +33,16 @@ export class ProfileComponent implements OnInit {
   monthsOfExperience: number = 0;
   selectedCities: string[] = [];
   companyName: string;
-  state: string ;
-  city: string;
+  
   zipcode: string;
   title: string;
   dob: string;
   oldPassword: any;
   newPassword: any;
   confirmPassword: any;
-  phoneNumber: string;
-  selectedState: any;
-  selectedCity: any;
+  phoneNumber: number;
+  selectedState: string;
+ 
   logoImageUrl: string;
   editmode: boolean = false;
   myForm: any;
@@ -43,13 +50,12 @@ export class ProfileComponent implements OnInit {
   CompanyForm:any;
   TraineeID: string;
   profiledata:any = [];
+  loading:boolean = false;
+  UpdateProfileData:any;
+  ProfileUpdate:any;
 
-  // inputFields = [
-  //   { key: 'firstName', label: 'First Name', placeholder: 'Enter First Name', required: true },
-  //   { key: 'middleName', label: 'Middle Name', placeholder: 'Enter Middle Name', required: true },
-  //   { key: 'lastName', label: 'Last Name', placeholder: 'Enter Last Name', required: true },
-   
-  // ];
+
+  
 
   constructor(private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
     this.cities = [
@@ -62,19 +68,74 @@ export class ProfileComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    // this.myForm = this.fb.group({});
-    // this.inputFields.forEach(field => {
-    //   this.myForm.addControl(field.key, this.fb.control(''));
-    // });
-
     this.TraineeID = this.cookieService.get('TraineeID');
-   await this.fetchprofile();
+      this.fetchprofile();
+      this.fetchState();
+      this.fetchCity();
+      this.updateProfile();
+      
+   
   }
 
-  onSave() {
-    console.log(this.firstName)
+  
+  updateProfile() {
+  
+    let Req = {
+      FirstName: this.firstName,
+      MiddleName: this.middleName,
+      LastName: this.lastName,
+      UserName: this.userName,
+      YearsOfExpInMonths: this.yearsOfExperience,
+      Title: this.title,
+      DOB: this.dob,
+      PhoneNumber: this.phoneNumber,
+      Organization: this.companyName,
+      state: this.state,
+      city: this.city,
+      zipcode: this.zipcode,
+    };
+    console.log(Req);
+    this.Service.updateUserProfile(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+  }
+  save(){
+    alert('hiii');
+  }
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary: response.message });
+    console.log(response);
+    this.loading = false;
+  }
+  
+  private handleError(response: any): void {
+    this.messageService.add({ severity: 'error', summary:  response.message });
+    this.loading = false;
   }
 
+  nextTab(tab:number) {
+    if(tab == 1){
+      this.AboutUser = 'active';
+      this.Password = '';
+      this.CompanyInfo = '';
+    } else if(tab == 2){
+      this.AboutUser = '';
+      this.Password = 'active';
+      this.CompanyInfo = '';
+    }else if(tab == 3){
+      this.AboutUser = '';
+      this.Password = '';
+      this.CompanyInfo = 'active';
+    }
+  console.log(this.selectedLegalstatus);
+  }
+
+  
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -107,4 +168,25 @@ fetchprofile(){
     console.log(this.profiledata);
   });
 }
+
+fetchState(){
+  let Req = {
+    traineeID: this.TraineeID,
+  };
+  this.Service.fetchProfileStateList(Req).subscribe((x: any) => {
+    this.state = x.result;
+    console.log(this.state);
+  });
+}
+
+fetchCity(){
+  let Req = {
+    traineeID: this.TraineeID,
+  };
+  this.Service.fetchProfileCityList(Req).subscribe((x: any) => {
+    this.city = x.result;
+    console.log(this.city);
+  });
+}
+
 }
