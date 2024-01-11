@@ -1142,7 +1142,8 @@ router.post('/getLocation', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = new sql.Request();
-    const query = "SELECT DISTINCT state FROM usazipcodenew";
+    // const query = "SELECT DISTINCT state FROM usazipcodenew";
+    const query = "select distinct state from usazipcodenew order by state asc;";
 
     console.log(query);
 

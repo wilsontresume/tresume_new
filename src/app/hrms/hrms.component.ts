@@ -83,36 +83,38 @@ export class HrmsComponent implements OnInit {
       referralType: [''],
       university: [''],
       middleName: [''],
-      gender: ['male']
+      gender: ['male'],
+      Location:['']
     });
 
     // TimeSheet Module /////////////////////////////////////////////////////////////////////////////////////////
     // for Admin Dropdown
-    document.addEventListener('DOMContentLoaded', function () {
-      const dummyNames = ['','Name 1', 'Name 2', 'Name 3', 'Name 4', 'Name 5'];
-
-      const adminSelect = document.getElementById('adminSelect') as HTMLSelectElement;
-
-      dummyNames.forEach((name, index) => {
-        const option = document.createElement('option');
-        option.value = `value_${index + 1}`;
-        option.text = name;
-        adminSelect.add(option);
-      });
-    });
+    // document.addEventListener('DOMContentLoaded', function () {
+    //   const dummyNames: string[] = ['', 'Name 1', 'Name 2', 'Name 3', 'Name 4', 'Name 5'];
+    
+    //   const adminSelect: HTMLSelectElement = document.getElementById('adminSelect') as HTMLSelectElement;
+    
+    //   dummyNames.forEach((name: string, index: number) => {
+    //     const option: HTMLOptionElement = document.createElement('option');
+    //     option.value = `value_${index + 1}`;
+    //     option.text = name;
+    //     adminSelect.add(option);
+    //   });
+    // });
+    
 
     //Client Select
-    const clients: string[] = ["","Client 1", "Client 2", "Client 3", "Client 4", "Client 5", "Client 6"];
+    // const clients: string[] = ["", "Client 1", "Client 2", "Client 3", "Client 4", "Client 5", "Client 6"];
 
-    const clientSelect = document.getElementById("clientselect") as HTMLSelectElement;
-
-    clients.forEach((client, index) => {
-      const option = document.createElement("option");
-      option.value = index.toString();
-      option.text = client;
-      clientSelect.add(option);
-    });
-
+    // const clientSelect: HTMLSelectElement = document.getElementById("clientselect") as HTMLSelectElement;
+    
+    // clients.forEach((client: string, index: number) => {
+    //   const option: HTMLOptionElement = document.createElement("option");
+    //   option.value = index.toString();
+    //   option.text = client;
+    //   clientSelect.add(option);
+    // });
+    
   }
 
   
@@ -214,16 +216,19 @@ export class HrmsComponent implements OnInit {
       recruiterName: this.addCandidate.value.recruiterName,
       degree: this.addCandidate.value.degree,
       university: this.addCandidate.value.university,
-      groups: this.addCandidate.value.groups,
-      locationConstraint: this.addCandidate.value.locationConstraint,
       referralType: this.formData.referralType,
       notes: this.addCandidate.value.notes,
       candidateStatus: this.selectedcurrentstatus,
       legalStatus: this.formData.legalStatus,
-      marketerName: this.formData.marketerName,
       recruiteremail: this.userName,
       orgID:this.OrgID,
-      creeateby:this.userName
+      creeateby:this.userName,
+      
+
+
+      // marketerName: this.formData.marketerName,
+      // groups: this.addCandidate.value.groups,
+      // locationConstraint: this.addCandidate.value.locationConstraint,
     };
     // console.log(Req);
     // console.log(Req);
@@ -332,6 +337,36 @@ export class HrmsComponent implements OnInit {
     });
   }
 
+  // Properties to track date input states
+  fromDateEntered: boolean = false;
+  toDateEntered: boolean = false;
+
+  // Event handler for the "Clear" button
+  onClear() {
+    // Clear date values
+    this.dateCreatedStartDate = '';
+    this.dateCreatedEndDate = '';
+
+    // Update date input states
+    this.fromDateEntered = false;
+    this.toDateEntered = false;
+
+    // Clear filtered candidates
+    this.filteredCandidates = [];
+  }
+
+  isSearchButtonDisabled(): boolean {
+    return !this.fromDateEntered || !this.toDateEntered || this.dateCreatedStartDate > this.dateCreatedEndDate;
+  }
+
+  onSearch(): void {
+    // Filter candidates based on the date range
+    this.candidates = this.candidates.filter(candidate => {
+      const candidateDate = new Date(candidate.DateCreated); // Adjust this based on your actual date property
+
+      return candidateDate >= new Date(this.dateCreatedStartDate) && candidateDate <= new Date(this.dateCreatedEndDate);
+    });
+  }
     
 }
 
