@@ -208,15 +208,15 @@
                       <div class="form-group col-4">
                         <label for="state">State</label>
                         <span  *ngIf="!editmode">{{profiledata[0].state}}</span>
-                        <select *ngIf="editmode" class="form-control custom-input" id="state" [(ngModel)]="state" >
-                          <option *ngFor="let stateObj of state" [value]="stateObj.id">{{stateObj.state}}</option>
+                        <select *ngIf="editmode" class="form-control custom-input" id="state" [(ngModel)]="selectedState">
+                          <option *ngFor="let stateObj of state" [value]="stateObj.state">{{stateObj.state}}</option>
                         </select>
                       </div>
                       <div class="form-group col-4">
                         <label for="city">City</label>
                         <span  *ngIf="!editmode">{{profiledata[0].City}}</span>
                         <select *ngIf="editmode" class="form-control custom-input" id="city" [(ngModel)]="city">
-                          <option *ngFor="let city of city" [value]="city.id">{{city.city}}</option>
+                          <option *ngFor="let cities of city" [value]="cities.id">{{cities.city}}</option>
                         </select>
                       </div>
                       <div class="form-group col-4">
@@ -236,7 +236,6 @@
                     <div class="col text-right">
                         <button class="btn">Cancel</button>
                       <button class="btn ml-2" (click)="updateProfile()">Save</button>
-                     
                     </div>
                   </div>
                 </div>
