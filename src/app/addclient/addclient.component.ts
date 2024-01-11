@@ -14,7 +14,7 @@ import { MessageService } from 'primeng/api';
 
 export class AddclientComponent implements OnInit {
 
-  loading:boolean = false;
+  loading: boolean = false;
   addClient: any;
   formData: any;
   Access: boolean = false;
@@ -26,22 +26,97 @@ export class AddclientComponent implements OnInit {
     { name: 'EML File' },
     { name: 'SSN' },
     { name: 'Transcripts' },
-  ];  
+  ];
   selectedRequiredDocuments: any[] = [];
   filteredRequiredDocuments: any[] = [];
   allclientService: any;
   formBuilder: any;
   TraineeID: any;
 
-//dropdowns
-  country: string[] = ['United States'];
+  //dropdowns
   state: string[] = [];
   city: string[] = [];
-  industry: string[] = [];
   ClientStatusID: string[] = [];
   ClientCategoryID: string[] = [];
-  primaryOwner: string[] = [];
-  paymentTerms: string[] = [];
+  PrimaryOwner: string[] = [];
+  country: string[] = ['United States'];
+  PaymentTerms: string[] = ['Net 10', 'Net 15', 'Net 30', 'Net 45', 'Net 60', 'Net 7', 'Net 90'];
+  Industry: string[] = [
+    "Select",
+    "Accounting - Finance",
+    "Advertising",
+    "Agriculture",
+    "Airline - Aviation",
+    "Architecture - Building",
+    "Art - Photography - Journalism",
+    "Automotive - Motor Vehicles - Parts",
+    "Banking - Financial Services",
+    "Broadcasting - Radio - TV",
+    "Building Materials",
+    "Chemical",
+    "Computer Hardware",
+    "Biotechnology",
+    "Computer Software",
+    "Construction",
+    "Consulting",
+    "Consumer Products",
+    "Credit - Loan - Collections",
+    "Defense - Aerospace",
+    "Education - Teaching - Administration",
+    "Electronics",
+    "Employment - Recruiting - Staffing",
+    "Energy - Utilities - Gas - Electric",
+    "Entertainment",
+    "Environmental",
+    "Exercise - Fitness",
+    "Fashion - Apparel - Textile",
+    "Food",
+    "Funeral - Cemetery",
+    "Government - Civil Service",
+    "Healthcare - Health Services",
+    "Homebuilding",
+    "Hospitality",
+    "Hotel - Resort",
+    "HVAC",
+    "Import - Export",
+    "Industrial",
+    "Insurance",
+    "Internet - ECommerce",
+    "Landscaping",
+    "Law Enforcement",
+    "Legal",
+    "Library Science",
+    "Managed Care",
+    "Manufacturing",
+    "Medical Equipment",
+    "Merchandising",
+    "Military",
+    "Mortgage",
+    "Newspaper",
+    "Not for Profit - Charitable",
+    "Office Supplies - Equipment",
+    "Oil Refining - Petroleum - Drilling",
+    "Other Great Industries",
+    "Packaging",
+    "Pharmaceutical",
+    "Printing - Publishing",
+    "Public Relations",
+    "Real Estate - Property Mgt",
+    "Recreation",
+    "Restaurant",
+    "Retail",
+    "Sales - Marketing",
+    "Securities",
+    "Security",
+    "Semiconductor",
+    "Social Services",
+    "Telecommunications",
+    "Training",
+    "Transportation",
+    "Travel",
+    "Wireless"
+  ];
+
 
   constructor(
     private fb: FormBuilder,
@@ -80,10 +155,11 @@ export class AddclientComponent implements OnInit {
     this.getClientCategories();
     this.getClientStatus();
     this.getState();
-    this.getCity();
+    this.getPrimaryOwnerName();
+
   }
 
-  
+
   onRequiredDocumentsSearch(event: any) {
     this.filteredRequiredDocuments = this.requiredDocuments.filter(option =>
       option.name.toLowerCase().includes(event.query.toLowerCase())
@@ -133,7 +209,7 @@ export class AddclientComponent implements OnInit {
       TraineeID: this.TraineeID,
     };
     this.service.getClientCategoryID(Req).subscribe((x: any) => {
-    this.ClientCategoryID = x.result;
+      this.ClientCategoryID = x.result;
     });
   }
 
@@ -142,7 +218,16 @@ export class AddclientComponent implements OnInit {
       TraineeID: this.TraineeID,
     };
     this.service.getClientStatusID(Req).subscribe((x: any) => {
-    this.ClientStatusID = x.result;
+      this.ClientStatusID = x.result;
+    });
+  }
+
+  getPrimaryOwnerName() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getPrimaryOwner(Req).subscribe((x: any) => {
+      this.PrimaryOwner = x.result;
     });
   }
 
@@ -151,16 +236,18 @@ export class AddclientComponent implements OnInit {
       TraineeID: this.TraineeID,
     };
     this.service.getLocation(Req).subscribe((x: any) => {
-    this.state = x.result;
+      // this.state = x.result;
+      // this. getCity();
     });
   }
 
   getCity() {
     let Req = {
       TraineeID: this.TraineeID,
+      State: this.state
     };
     this.service.getCity(Req).subscribe((x: any) => {
-    this.city = x.result;
+      this.city = x.result;
     });
   }
 }

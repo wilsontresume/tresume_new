@@ -186,7 +186,7 @@ router.post('/getCity', async (req, res) => {
     // const request = new sql.Request();
     const pool = await sql.connect(config);
     const request = pool.request();
-    const query = "select distinct city from usazipcodenew order by city asc;";
+    const query = "select distinct city from usazipcodenew where state = '" + state + "' order by city asc";
 
     console.log(query);
 
@@ -214,3 +214,38 @@ router.post('/getCity', async (req, res) => {
     res.status(500).send(result);
   }
 });
+
+router.post('/getPrimaryOwner', async (req, res) => {
+  try {
+    // const request = new sql.Request();
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    const query = "select CONCAT (FirstName,' ', MiddleName,' ', LastName) AS PrimaryOwner from trainee where Active = 1";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active Category found! ",
+      };
+      res.send(result); 
+    }
+  } catch (error) {
+    console.error("Error fetching Category data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching Category!",
+    };
+    res.status(500).send(result);
+  }
+});
+
