@@ -930,7 +930,7 @@
       </mat-tab> -->
     </mat-tab-group>
     <div class="parent-container">
-      <button class="btn btn1 mt-3 mb-3" id="saveButton" (click)="saveData()" style="margin-left: auto; margin-right: 20px;">{{ saveButtonLabel }}</button>
+      <button class="btn btn1 mt-3 mb-3" id="saveButton" *ngIf="showSaveButton" (click)="saveData()" style="margin-left: auto; margin-right: 20px;">{{ saveButtonLabel }}</button>
   </div>
   
   </div>
@@ -952,7 +952,7 @@
 
 <div *ngIf="showConfirmationDialog2" class="modal align-center">
   <div class="modal-content justify-content-center ">
-    <button type="button" class="close close-modal" (click)="cancelDeleteplacement()">
+    <button type="button" class="close close-modal" (click)="cancelDeleteearplacement()">
       <span aria-hidden="true">&times;</span>
     </button>
     <h2 class="text-center"><u>Delete Client</u></h2>

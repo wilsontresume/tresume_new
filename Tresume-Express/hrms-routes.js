@@ -335,7 +335,7 @@ async function deactivateinterviewdata(TraineeInterviewID) {
       throw new Error("No records found!");
     }
     
-    return queryResult;
+    return true;
   } catch (error) {
     console.error("Error while deleting interviewdata:", error);
     throw error;
@@ -417,7 +417,7 @@ router.post('/deleteplacementdata', async (req, res) => {
       res.send(result);
     } else {
       const result = {
-        flag: 0,
+        flag: 1,
       };
       res.send(result);
     }
