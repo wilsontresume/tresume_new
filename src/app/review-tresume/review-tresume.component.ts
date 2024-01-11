@@ -64,6 +64,7 @@ export class ReviewTresumeComponent implements OnChanges {
   tabIndex: any;
   routeType: any;
   title: any;
+  showSaveButton: boolean;
 
   siteVisitTabClicked() {
     console.log('Additional logic for Site Visit tab click');
@@ -352,6 +353,10 @@ export class ReviewTresumeComponent implements OnChanges {
     if (tabIndex >= 0 && tabIndex < tabLabels.length) {
       this.currentTabIndex = tabIndex;
       this.tabIndex = tabIndex;
+    
+      // Determine if the save button should be visible based on the tabIndex
+      this.showSaveButton = tabIndex !== 2;
+    
       this.saveButtonLabel = `Save ${tabLabels[tabIndex]}`;
       this.router.navigate(['/reviewtresume/'+this.routeType+'/'+this.candidateID+'/'+tabIndex]);
     }
@@ -788,6 +793,7 @@ export class ReviewTresumeComponent implements OnChanges {
     };
     this.service.deleteinterviewdata(Req).subscribe((x: any) => {
       var flag = x.flag;
+      console.log(x);
       this.fetchinterviewlist();
 
       if (flag === 1) {
@@ -837,8 +843,8 @@ export class ReviewTresumeComponent implements OnChanges {
       PID: this.deleteIndex,
     };
     this.service.deleteplacementdata(Req).subscribe((x: any) => {
-      var flag1 = x.flag1;
-
+      var flag1 = x.flag;
+      this.placementList();
       if (flag1 === 1) {
         this.messageService.add({
           severity: 'success',
