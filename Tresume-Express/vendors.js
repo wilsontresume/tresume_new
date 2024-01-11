@@ -117,11 +117,10 @@ async function deactivatevendor(VendorID) {
 router.post('/addVendor', async (req, res) => {
   try {
     const request = new sql.Request();
-    OrgID = req.body.OrgID;
-    const query = `INSERT INTO Vendors (VendorName, ContactNumber, EmailID, Address, VMSVendorName, FederalID,ZipCode, Website, Fax, Industry, Country, State, City, VendorStatusID,  VendorCategoryID, PrimaryOwner,RequiredDocuments, PaymentTerms, AboutCompany, Access, sendingEmail, posting, Notes) VALUES 
-    ('${req.body.VendorName}', '${req.body.ContactNumber}', '${req.body.VendorEmailID}', '${req.body.Address}', '${req.body.VMSVendorName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.VendorWebsite}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', ${req.body.VendorStatus}, ${req.body.VendorCategory}, '${req.body.PrimaryOwner}','${req.body.requiredDocuments}','${req.body.PaymentTerms}' ,'${req.body.AboutCompany}', '1', '', '','')`;
 
-    console.log(req);
+    const query = `INSERT INTO Vendors (VendorName, ContactNumber, EmailID, Address, VMSVendorName, FederalID,ZipCode, Website, Fax, Industry, Country, State, City, VendorStatusID,  VendorCategoryID, PrimaryOwner,RequiredDocuments, PaymentTerms, AboutCompany, Access, sendingEmail, posting, Notes) VALUES 
+    ('${req.body.VendorName}', '${req.body.ContactNumber}', '${req.body.EmailID}', '${req.body.Address}', '${req.body.VMSVendorName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.Website}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', '${req.body.VendorStatusID}', '${req.body.VendorCategoryID}', '${req.body.PrimaryOwner}', '${req.body.AboutCompany}', ${req.body.Active ? '1' : '0'}, '${req.body.Access ? '1' : '0'}', '${req.body.posting ? '1' : '0'}', '${req.body.sendingEmail ? '1' : '0'}', '${req.body.PaymentTerms}', '${req.body.Notes}')`;
+   console.log(req);
     console.log(query);
     const result = await request.query(query);
     console.log(result);
@@ -131,5 +130,74 @@ router.post('/addVendor', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
+
+// router.post('/getVendorCategoryID', async (req, res) => {
+//   try {
+//     // const request = new sql.Request();
+//     const pool = await sql.connect(config);
+//     const request = pool.request();
+//     const query = "select Value from ClientCategory where Active = 1";
+
+//     console.log(query);
+
+//     const recordset = await request.query(query);
+
+//     if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+//       const result = {
+//         flag: 1,
+//         result: recordset.recordsets[0],
+//       };
+//       res.send(result);
+//     } else {
+//       const result = {
+//         flag: 0,
+//         error: "No active Category found! ",
+//       };
+//       res.send(result); 
+//     }
+//   } catch (error) {
+//     console.error("Error fetching Category data:", error);
+//     const result = {
+//       flag: 0,
+//       error: "An error occurred while fetching Category!",
+//     };
+//     res.status(500).send(result);
+//   }
+// });
+
+// router.post('/getVendorStatusID', async (req, res) => {
+//   try {
+//     // const request = new sql.Request();
+//     const pool = await sql.connect(config);
+//     const request = pool.request();
+//     const query = "select Value from ClientStatus where Active = 1";
+
+//     console.log(query);
+
+//     const recordset = await request.query(query);
+
+//     if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+//       const result = {
+//         flag: 1,
+//         result: recordset.recordsets[0],
+//       };
+//       res.send(result);
+//     } else {
+//       const result = {
+//         flag: 0,
+//         error: "No active Status found! ",
+//       };
+//       res.send(result); 
+//     }
+//   } catch (error) {
+//     console.error("Error fetching Status data:", error);
+//     const result = {
+//       flag: 0,
+//       error: "An error occurred while fetching Status!",
+//     };
+//     res.status(500).send(result);
+//   }
+// });
+
 
 
