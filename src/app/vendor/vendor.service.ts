@@ -23,37 +23,7 @@ export class VendorService {
     addVendor(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'addVendor', request);
     }
-    
-    getLocation(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getLocation', request);
-    }
-
-    getCity(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getCity', request);
-    }
-
-    getIndustry(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getIndustry', request);
-    }
-
-    getClientStatusID(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getClientStatusID', request);
-    }
-
-    getClientCategoryID(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getClientCategoryID', request);
-    }
-
-    getPrimaryOwner(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getPrimaryOwner', request);
-    }
-
-    getPaymentTerms(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getPaymentTerms', request);
-    }
-
-
-   
+ 
 }
 export interface ResponseDetails {
     flag?: any;

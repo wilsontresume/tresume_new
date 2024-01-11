@@ -18,10 +18,6 @@ export class AllClientService {
         return this.http.post<ResponseDetails>(this.endpoint + 'deleteClientAccount', request);
     }
 
-    // addClienta(request: any): Observable<any> {
-    //     return this.http.post<ResponseDetails>(this.endpoint + 'addClienta', request);
-    //   }
-
 }
 export interface ResponseDetails {
     flag?: any;
