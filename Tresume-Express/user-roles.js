@@ -211,25 +211,28 @@ router.post('/getUserProfile', async (req, res) => {
 
 })
 
-
+  
 router.post('/updateUserProfile', async (req, res) => {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
-    var query = "UPDATE Trainee SET FirstName = '" + req.body.firstName + "', MiddleName = '" + req.body.middleName + "', LastName = '" + req.body.lastName + "', UserName = '" + req.body.userName + "', YearsOfExpInMonths = " + req.body.yearsOfExperience + ", Title = '" + req.body.title + "', DOB = '" + req.body.dob + "', PhoneNumber = '" + req.body.phoneNumber + "', Organization = '" + req.body.companyName + "', State = '" + req.body.state + "', City = '" + req.body.city + "', Zipcode = '" + req.body.zipcode + "' WHERE TraineeID ="+req.body.traineeID;
+    var query = `UPDATE Trainee SET FirstName = '${req.body.FirstName}', MiddleName = '${req.body.MiddleName}', LastName = '${req.body.LastName}', UserName = '${req.body.UserName}', YearsOfExpInMonths = '${req.body.YearsOfExpInMonths}', Title = '${req.body.Title}', DOB = '${req.body.DOB}', PhoneNumber = '${req.body.PhoneNumber}', Organization = '${req.body.Organization}', state = '${req.body.state}', city = '${req.body.city}', zipcode = '${req.body.zipcode}',  WHERE TraineeID = ${req.body.TraineeID}`;
+      
     console.log(query);
-    request.query(query,
-      function (err, recordset) {
-        if (err) console.log(err);
 
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0],
-        };
-
-        res.send(result);
+    request.query(query, function (err, recordset) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Database query error' });
       }
-    );
+
+      var result = {
+        flag: 1,
+        result: recordset && recordset.recordsets && recordset.recordsets[0],
+      };
+
+      res.json(result);
+    });
   });
 })
 

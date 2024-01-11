@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { ProfileService} from './Profile.service';
 import { ViewChild } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -19,10 +19,8 @@ export class ProfileComponent implements OnInit {
   Password:string = '';
   CompanyInfo = '';
   selectedLegalstatus:string = '';
-
-  state: string[] = [];
-  city: string[] = [];
-  cities: { name: string; code: string; }[];
+  state: any;
+  city: any;
   content: any;
   userName: string;
   firstName: string = '';
@@ -33,7 +31,6 @@ export class ProfileComponent implements OnInit {
   monthsOfExperience: number = 0;
   selectedCities: string[] = [];
   companyName: string;
-  
   zipcode: string;
   title: string;
   dob: string;
@@ -41,7 +38,7 @@ export class ProfileComponent implements OnInit {
   newPassword: any;
   confirmPassword: any;
   phoneNumber: number;
-  selectedState: string;
+  selectedState: any;
  
   logoImageUrl: string;
   editmode: boolean = false;
@@ -58,13 +55,7 @@ export class ProfileComponent implements OnInit {
   
 
   constructor(private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
-    this.cities = [
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' }
-    ];
+  
   }
 
   async ngOnInit(): Promise<void> {
@@ -73,13 +64,10 @@ export class ProfileComponent implements OnInit {
       this.fetchState();
       this.fetchCity();
       this.updateProfile();
-      
-   
   }
 
   
   updateProfile() {
-  
     let Req = {
       FirstName: this.firstName,
       MiddleName: this.middleName,
@@ -90,23 +78,22 @@ export class ProfileComponent implements OnInit {
       DOB: this.dob,
       PhoneNumber: this.phoneNumber,
       Organization: this.companyName,
-      state: this.state,
+      selectedState: this.state,
       city: this.city,
       zipcode: this.zipcode,
+      traineeID: this.TraineeID,
     };
     console.log(Req);
-    this.Service.updateUserProfile(Req).subscribe(
+    this.Service.updateMyProfile(Req).subscribe(
       (x: any) => {
-        this.handleSuccess(x);
-      },
-      (error: any) => {
-        this.handleError(error);
-      }
+            this.handleSuccess(x);
+          },
+          (error: any) => {
+            this.handleError(error);
+          }
     );
   }
-  save(){
-    alert('hiii');
-  }
+
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
@@ -136,7 +123,6 @@ export class ProfileComponent implements OnInit {
   }
 
   
-
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input?.files && input.files[0]) {
@@ -188,5 +174,9 @@ fetchCity(){
     console.log(this.city);
   });
 }
+
+
+
+
 
 }

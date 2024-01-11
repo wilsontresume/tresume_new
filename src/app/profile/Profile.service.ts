@@ -14,13 +14,14 @@ getUserProfile(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'getUserProfile', request);
 }
 
-updateUserProfile(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'updateUserProfile', request);
+updateMyProfile(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'updateMyProfile', request);
   }
 
   fetchProfileStateList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'fetchProfileStateList', request);
   }
+  
   fetchProfileCityList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'fetchProfileCityList', request);
   }
