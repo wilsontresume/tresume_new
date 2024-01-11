@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { ProfileService} from './Profile.service';
 import { ViewChild } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit {
   Password:string = '';
   CompanyInfo = '';
   selectedLegalstatus:string = '';
-
   state: any;
   city: any;
   content: any;
@@ -32,7 +31,6 @@ export class ProfileComponent implements OnInit {
   monthsOfExperience: number = 0;
   selectedCities: string[] = [];
   companyName: string;
-  
   zipcode: string;
   title: string;
   dob: string;
@@ -71,7 +69,6 @@ export class ProfileComponent implements OnInit {
   
   updateProfile() {
     let Req = {
-      traineeID: this.TraineeID,
       FirstName: this.firstName,
       MiddleName: this.middleName,
       LastName: this.lastName,
@@ -84,6 +81,7 @@ export class ProfileComponent implements OnInit {
       selectedState: this.state,
       city: this.city,
       zipcode: this.zipcode,
+      traineeID: this.TraineeID,
     };
     console.log(Req);
     this.Service.updateMyProfile(Req).subscribe(
@@ -94,7 +92,6 @@ export class ProfileComponent implements OnInit {
             this.handleError(error);
           }
     );
-
   }
 
   private handleSuccess(response: any): void {
@@ -126,7 +123,6 @@ export class ProfileComponent implements OnInit {
   }
 
   
-
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input?.files && input.files[0]) {
@@ -178,5 +174,9 @@ fetchCity(){
     console.log(this.city);
   });
 }
+
+
+
+
 
 }

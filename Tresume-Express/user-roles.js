@@ -211,13 +211,13 @@ router.post('/getUserProfile', async (req, res) => {
 
 })
 
-
+  
 router.post('/updateUserProfile', async (req, res) => {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
     var query = `UPDATE Trainee SET FirstName = '${req.body.FirstName}', MiddleName = '${req.body.MiddleName}', LastName = '${req.body.LastName}', UserName = '${req.body.UserName}', YearsOfExpInMonths = '${req.body.YearsOfExpInMonths}', Title = '${req.body.Title}', DOB = '${req.body.DOB}', PhoneNumber = '${req.body.PhoneNumber}', Organization = '${req.body.Organization}', state = '${req.body.state}', city = '${req.body.city}', zipcode = '${req.body.zipcode}',  WHERE TraineeID = ${req.body.TraineeID}`;
-    
+      
     console.log(query);
 
     request.query(query, function (err, recordset) {
