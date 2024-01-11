@@ -353,21 +353,39 @@ export class HrmsComponent implements OnInit {
 
     // Clear filtered candidates
     this.filteredCandidates = [];
+    this.fetchhrmscandidatelist();
   }
 
   isSearchButtonDisabled(): boolean {
     return !this.fromDateEntered || !this.toDateEntered || this.dateCreatedStartDate > this.dateCreatedEndDate;
   }
 
-  onSearch(): void {
-    // Filter candidates based on the date range
-    this.candidates = this.candidates.filter(candidate => {
-      const candidateDate = new Date(candidate.DateCreated); // Adjust this based on your actual date property
+  // onSearch(): void {
 
-      return candidateDate >= new Date(this.dateCreatedStartDate) && candidateDate <= new Date(this.dateCreatedEndDate);
+  //   this.candidates = this.candidates.filter(candidate => {
+  //     const candidateDate = new Date(candidate.DateCreated); 
+
+  //     return candidateDate >= new Date(this.dateCreatedStartDate) && candidateDate <= new Date(this.dateCreatedEndDate);
+  //   });
+  // }
+
+  onSearch(): void {
+    this.loading = true;
+
+    const Req = {
+      TraineeID: this.TraineeID,
+    };
+
+    this.service.gethrmscandidateList(Req).subscribe((response: any) => {
+      this.candidates = response.result;
+
+      this.candidates = this.candidates.filter(candidate => {
+        const candidateDate = new Date(candidate.DateCreated);
+        return candidateDate >= new Date(this.dateCreatedStartDate) && candidateDate <= new Date(this.dateCreatedEndDate);
+      });
+      this.loading = false;
     });
   }
-    
 }
 
 
