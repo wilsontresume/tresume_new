@@ -186,7 +186,7 @@ router.post('/getCity', async (req, res) => {
     // const request = new sql.Request();
     const pool = await sql.connect(config);
     const request = pool.request();
-    const query = "select distinct city from usazipcodenew where state = '" + state + "' order by city asc";
+    const query = "select distinct city from usazipcodenew where state like '%" + req.body.State + "%' order by city asc";
 
     console.log(query);
 

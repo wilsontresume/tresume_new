@@ -35,6 +35,8 @@ export class AddclientComponent implements OnInit {
 
   //dropdowns
   state: string[] = [];
+  selectedstate:any=0;
+  selectedcity:any=0;
   city: string[] = [];
   ClientStatusID: string[] = [];
   ClientCategoryID: string[] = [];
@@ -116,18 +118,23 @@ export class AddclientComponent implements OnInit {
     "Travel",
     "Wireless"
   ];
+  OrgID: string;
 
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private service: AddClientService
+    private service: AddClientService,
+    private cookieService: CookieService
   ) {
     const documents = this.requiredDocuments.map(doc => doc.name).join(', ');
     console.log(documents);
+    this.OrgID = this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
   }
 
   ngOnInit(): void {
+    
     this.addClient = this.fb.group({
       ClientName: ['', [Validators.required, Validators.minLength(3)]],
       ContactNumber: ['', [Validators.required, Validators.maxLength(10)]],
@@ -179,8 +186,8 @@ export class AddclientComponent implements OnInit {
       Fax: this.addClient.value.Fax,
       Industry: this.addClient.value.Industry,
       Country: this.addClient.value.Country,
-      State: this.addClient.value.State,
-      City: this.addClient.value.City,
+      State: this.selectedstate,
+      City: this.selectedcity,
       ClientStatusID: this.addClient.value.ClientStatusID,
       ClientCategoryID: this.addClient.value.ClientCategoryID,
       PrimaryOwner: this.addClient.value.PrimaryOwner,
@@ -225,9 +232,10 @@ export class AddclientComponent implements OnInit {
   getPrimaryOwnerName() {
     let Req = {
       TraineeID: this.TraineeID,
+      orgID:this.OrgID
     };
     this.service.getPrimaryOwner(Req).subscribe((x: any) => {
-      this.PrimaryOwner = x.result;
+      this.PrimaryOwner = x;
     });
   }
 
@@ -236,15 +244,16 @@ export class AddclientComponent implements OnInit {
       TraineeID: this.TraineeID,
     };
     this.service.getLocation(Req).subscribe((x: any) => {
-      // this.state = x.result;
+      this.state = x.result;
       // this. getCity();
     });
   }
 
   getCity() {
+    console.log(this.selectedstate);
     let Req = {
       TraineeID: this.TraineeID,
-      State: this.state
+      State: this.selectedstate
     };
     this.service.getCity(Req).subscribe((x: any) => {
       this.city = x.result;

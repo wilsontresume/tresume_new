@@ -7,7 +7,7 @@
         </div>
         <div class="mt-3">
             <form [formGroup]="addClient">
-                <h2 class="text-center"><u>BUSINESS INFORMATION</u>
+                <h2 class="text-center">BUSINESS INFORMATION
                 </h2>
                 <div class="row">
                     <div class="col-md-4">
@@ -90,8 +90,9 @@
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>State</label>
-                            <select class="form-control" name="State" formControlName="state" (change)="getState()">
-                                <option value="" disabled>Select State</option>
+                            <select class="form-control" name="State" [(ngModel)]="selectedstate"
+                            [ngModelOptions]="{standalone: true}" (change)="getCity()">
+                                <option value="0" selected>Select State</option>
                                 <option *ngFor="let state of state" [value]="state.state">{{ state.state }}</option>
                             </select>
                         </div>
@@ -100,9 +101,10 @@
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>City</label>
-                            <select class="form-control" name="City" formControlName="city">
-                                <option value="" disabled>Select City</option>
-                                <option *ngFor="let city of city" [value]="city">{{ city }}</option>
+                            <select class="form-control" name="City"[(ngModel)]="selectedcity"
+                            [ngModelOptions]="{standalone: true}">
+                                <option value="0" selected>Select City</option>
+                                <option *ngFor="let city of city" [value]="city.city">{{ city.city }}</option>
                             </select>
                         </div>
                     </div>
@@ -171,8 +173,7 @@
                             <label>Primary Owner</label>
                             <select class="form-control" name="PrimaryOwner" formControlName="PrimaryOwner">
                                 <option value="" disabled>Select Primary Owner</option>
-                                <option *ngFor="let owner of PrimaryOwner" [value]="owner.TraineeID">{{
-                                    owner.PrimaryOwner }}</option>
+                                <option *ngFor="let owner of PrimaryOwner" [value]="owner.TraineeID">{{owner.firstname }} {{owner.lastname }}</option>
                             </select>
                         </div>
                     </div>

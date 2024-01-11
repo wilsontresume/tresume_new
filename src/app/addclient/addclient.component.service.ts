@@ -44,7 +44,7 @@ export class AddClientService {
   }
 
   getPrimaryOwner(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'getPrimaryOwner', request);
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchrecruiter', request);
   }
 
   // getPaymentTerms(request: any): Observable<ResponseDetails> {
