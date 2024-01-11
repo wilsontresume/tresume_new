@@ -809,6 +809,11 @@ export class ReviewTresumeComponent implements OnChanges {
     this.showConfirmationDialog = false;
   }
 
+  canceldeletesubmission(){
+    console.log(this.showConfirmationDialog3);
+    this.showConfirmationDialog3 = false;
+  }
+
   //placement tab
 
   currentStatusOptions: string[] = ['ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING', 'ON BENCH', 'MARKETING ON HOLD', 'HAS OFFER', 'PLACED/WORKING AT THE CLIENT LOCATION', 'FIRST TIME CALLER', 'DROPPED-TRAINING', 'DROPPED-MARKETING', 'DROPED-OTHER', 'TERMINATE', 'REPLACED AS CLIENT SITE'];
