@@ -228,13 +228,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4" *ngIf="routeType == 1">
+              <div class="col-md-4" *ngIf="routeType == 1 && routeType == 2">
                 <label class="label">Recruiter Name *</label>
                 <!-- // check next 2 line if any error  -->
                 <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
                   <option *ngFor="let name of recruiterNames" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option> -->
                 <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }"> -->
-                <select class="form-control" name="recruiterName" formControlName="recruiterName">
+                <select class="form-control" name="recruiterName" [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}">
                   <option *ngFor="let name of recruiterNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
                 </select>
                 <!-- <div *ngIf="addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched" class="validation-message" style="color: red;">
@@ -348,9 +348,9 @@
               <div class="col-md-4">
                 <div class="form-group text-center">
                   <label>Current Location</label>
-                  <select class="form-control" name="Location" formControlName="Location">
+                  <select class="form-control" name="Location" [(ngModel)]="currentLocation" [ngModelOptions]="{standalone: true}" >
                     <option value="">Select</option>
-                    <option *ngFor="let location of Locations?.result || []" [value]="location">{{ location.state }}</option>
+                    <option *ngFor="let location of Locations?.result || []" [value]="location.state">{{ location.state }}</option>
                   </select>
                 </div>
               </div>
