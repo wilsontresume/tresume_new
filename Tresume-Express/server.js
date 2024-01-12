@@ -46,6 +46,7 @@ const hrms = require('./hrms-routes');
 const assignrole = require('./assignrole');
 const projects = require('./project');
 const jobBoardAccount = require('./jobBoardAccount')
+const leadenquiry = require('./enquiry')
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -63,6 +64,7 @@ app.use('/', hrms);
 app.use('/', assignrole);
 app.use('/', projects);
 app.use('/', jobBoardAccount);
+app.use('/', leadenquiry);
 
 
 app.use(session({
@@ -552,8 +554,8 @@ app.post("/getCandidateDocuments", function (req, res) {
     if (err) console.log(err);
     var request = new sql.Request();
     let query = `SELECT CD.CandidateDocumentID,CD.TraineeID,CONVERT(NVARCHAR(10),CD.CreateTime,101) AS CreateTime,Cd.DocumentName,
-        CD.DocumentPath,CD.Active,DT.DocTypeName,CONVERT(NVARCHAR(10),CD.DocStartDate,101) AS StartDate,CONVERT(NVARCHAR(10),CD.DocExpiryDate,101) AS ExpiryDate, 
-        CD.OtherInfo, CD.PlacementID from CandidateDocument_New CD LEFT JOIN DocType DT  ON DT.DTID = CD.DocumentTypeID 
+        CD.DocumentPath,CD.Active,DT.DocTypeName,CONVERT(NVARCHAR(10),CD.DocStartDate,101) AS StartDate,CONVERT(NVARCHAR(10),CD.DocExpiryDate,101) AS ExpiryDate,
+        CD.OtherInfo, CD.PlacementID from CandidateDocument_New CD LEFT JOIN DocType DT  ON DT.DTID = CD.DocumentTypeID
         WHERE CD.Active = 1 AND DT.Active = 1 AND CD.TraineeID = ${req.body.traineeID}`;
     if (req.body.docTypeID) {
       query += ` AND CD.DocumentTypeID = ${req.body.docTypeID}`;
@@ -761,15 +763,15 @@ app.post("/getResumes1", function (req, res) {
 
         var OrgID = recordset.recordsets[0][0].OrganizationID;
         var sql =
-          `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths, 
+          `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths,
             ISNULL(YearsOfExpInMonths,0) [YRSEXP],
-            LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') , 
+            LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') ,
             ISNULL(CONVERT(NVARCHAR(10),CreateTime,101), '1900-01-01T00:00:00') as LastUpdateTime,
             ISNULL(YearsOfExpInMonths,0), Source, Collab, Notes,
             ( SELECT TOP 1 (R.FirstName + ' ' + R.LastName) FROM Trainee R WHERE R.UserName = T.CreateBy) AS Recruiter
             FROM Trainee T (NOLOCK)
             WHERE (T.Talentpool IS NULL OR T.Talentpool = 0) AND T.UserOrganizationID = '`+ OrgID + `' AND T.active =1
-            AND T.Role='TRESUMEUSER' AND T.ProfileStatus = 'READY' 
+            AND T.Role='TRESUMEUSER' AND T.ProfileStatus = 'READY'
             AND (T.Skill LIKE '%` +
           req.body.keyword +
           `%' OR T.Title LIKE '%` +
@@ -2788,7 +2790,7 @@ app.post('/getMarketerNames', async (req, res) => {
             result: recordset.recordsets[0]
           }
         }
-        
+
         res.send(result);
       });
   });
@@ -2803,7 +2805,7 @@ app.post('/getTresumedata', function (req, res) {
     var sql = `SELECT TOP 100 TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy,YearsOfExpInMonths, skill, LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') as LegalStatus , ISNULL(CONVERT(NVARCHAR(10),CreateTime,101), '1900-01-01T00:00:00') as LastUpdateTime
             FROM Trainee (NOLOCK)
             WHERE (Talentpool IS NULL OR Talentpool = 0)  AND active =1
-            AND Role='TRESUMEUSER' AND ProfileStatus = 'READY' 
+            AND Role='TRESUMEUSER' AND ProfileStatus = 'READY'
             AND (Skill LIKE '%` + req.body.keyword + `%' OR Title LIKE '%` + req.body.keyword + `%')`
     if (req.body.location) {
       sql += `AND
@@ -3057,9 +3059,9 @@ app.post("/getResumes2", function (req, res) {
           try {
             // var OrgID = recordset.recordsets[0][0].OrganizationID;
             var sql =
-              `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths, 
+              `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths,
                 ISNULL(YearsOfExpInMonths,0) [YRSEXP],
-                LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') , 
+                LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') ,
                 ISNULL(CONVERT(NVARCHAR(10),CreateTime,101), '1900-01-01T00:00:00') as LastUpdateTime,
                 ISNULL(YearsOfExpInMonths,0), Source, Collab,skill,Notes,
                 ( SELECT TOP 1 (R.FirstName + ' ' + R.LastName) FROM Trainee R WHERE R.UserName = T.CreateBy) AS Recruiter
@@ -3170,9 +3172,9 @@ app.post("/getResumes3", function (req, res) {
           try {
             // var OrgID = recordset.recordsets[0][0].OrganizationID;
             var sql =
-              `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths, 
+              `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths,
                 ISNULL(YearsOfExpInMonths,0) [YRSEXP],
-                LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') , 
+                LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') ,
                 ISNULL(CONVERT(NVARCHAR(10),CreateTime,101), '1900-01-01T00:00:00') as LastUpdateTime,
                 ISNULL(YearsOfExpInMonths,0), Source, Collab,skill,Notes,
                 ( SELECT TOP 1 (R.FirstName + ' ' + R.LastName) FROM Trainee R WHERE R.UserName = T.CreateBy) AS Recruiter
@@ -3430,7 +3432,7 @@ app.post("/getplacementsBytID", function (req, res) {
 
 app.post("/UpdateplacementsBytID", function (req, res) {
   sql.connect(config, function (err) {
-    if (err) {  
+    if (err) {
       console.log(err);
       return res.status(500).send("Database connection error");
     }
