@@ -119,7 +119,9 @@ export class AddvendorComponent implements OnInit {
     "Wireless"
   ];
   OrgID: string;
-
+selectedVendorStatusID: any=0;
+selectedVendorCategoryID: any=0;
+selectedPrimaryOwner: any=0;
 
   constructor(
     private fb: FormBuilder,
@@ -127,8 +129,6 @@ export class AddvendorComponent implements OnInit {
     private service: addVendorService,
     private cookieService: CookieService
   ) {
-    const documents = this.requiredDocuments.map(doc => doc.name).join(', ');
-    console.log(documents);
     this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
   }
@@ -166,7 +166,6 @@ export class AddvendorComponent implements OnInit {
 
   }
 
-
   onRequiredDocumentsSearch(event: any) {
     this.filteredRequiredDocuments = this.requiredDocuments.filter(option =>
       option.name.toLowerCase().includes(event.query.toLowerCase())
@@ -174,9 +173,12 @@ export class AddvendorComponent implements OnInit {
   }
 
   addVendorbutton() {
+    const documents = this.selectedRequiredDocuments.map(doc => doc.name).join(', ');
+    console.log(documents);
     let Req = {
       VendorName: this.addVendor.value.VendorName,
       ContactNumber: this.addVendor.value.ContactNumber,
+      EmailID:this.addVendor.value.EmailID,
       Website: this.addVendor.value.Website,
       Address: this.addVendor.value.Address,
       VMSVendorName: this.addVendor.value.VMSVendorName,
@@ -188,15 +190,15 @@ export class AddvendorComponent implements OnInit {
       Country: this.addVendor.value.Country,
       State: this.selectedstate,
       City: this.selectedcity,
-      VendorStatusID: this.addVendor.value.VendorStatusID,
-      VendorCategoryID: this.addVendor.value.VendorCategoryID,
-      PrimaryOwner: this.addVendor.value.PrimaryOwner,
+      VendorStatusID: this.selectedVendorStatusID,
+      VendorCategoryID: this.selectedVendorCategoryID,
+      PrimaryOwner: this.selectedPrimaryOwner,
       PaymentTerms: this.addVendor.value.PaymentTerms,
       AboutCompany: this.addVendor.value.AboutCompany,
       posting: this.addVendor.value.posting,
       sendingEmail: this.addVendor.value.sendingEmail,
       Access: this.addVendor.value.Access,
-      requiredDocuments: this.selectedRequiredDocuments,
+      RequiredDocuments: documents,
       Notes: this.Notes,
     };
     console.log(Req);
@@ -245,7 +247,6 @@ export class AddvendorComponent implements OnInit {
     };
     this.service.getLocation(Req).subscribe((x: any) => {
       this.state = x.result;
-      // this. getCity();
     });
   }
 

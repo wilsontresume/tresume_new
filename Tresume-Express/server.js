@@ -3460,15 +3460,15 @@ app.listen(port, () => {
 
 
 
-var task = cron.schedule('*/15 * * * *', async () => {
-  try {
-    const response = await axios.get('https://tresume.us/TresumeAPI/runharvest');
-    // const response = await axios.get('http://localhost:3000/runharvest');
-    console.log('Harvest call successful:', response.data);
-  } catch (error) {
+// var task = cron.schedule('*/15 * * * *', async () => {
+//   try {
+//     const response = await axios.get('https://tresume.us/TresumeAPI/runharvest');
+//     // const response = await axios.get('http://localhost:3000/runharvest');
+//     console.log('Harvest call successful:', response.data);
+//   } catch (error) {
 
-    console.error('Harvest call error:', error.message);
-  }
-});
+//     console.error('Harvest call error:', error.message);
+//   }
+// });
 
-task.start();
+// task.start();
