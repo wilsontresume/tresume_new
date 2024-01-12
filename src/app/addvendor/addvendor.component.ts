@@ -44,7 +44,6 @@ export class AddvendorComponent implements OnInit {
   country: string[] = ['United States'];
   PaymentTerms: string[] = ['Net 10', 'Net 15', 'Net 30', 'Net 45', 'Net 60', 'Net 7', 'Net 90'];
   Industry: string[] = [
-    "Select",
     "Accounting - Finance",
     "Advertising",
     "Agriculture",
