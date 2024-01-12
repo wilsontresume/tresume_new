@@ -2,7 +2,7 @@
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 250px; /* Adjust width as needed */
+  width: 250px; 
   height: 40px;
 }
 .form-check{
@@ -42,7 +42,6 @@
   border-color: rgb(101, 177, 101);
 }
 
-/* Green color for the switch when checked */
 .custom-control-input:checked+.custom-control-label::after {
   background-color: rgb(101, 177, 101);
 }
@@ -55,8 +54,8 @@
 vertical-align: top;
 }
 body {
-  background-color: #ffffff; /* Set the background color to white */
-  color: #000; /* Set the text color to black */
+  background-color: #ffffff; 
+  color: #000;
 }
 .table-container {
   width: 100%;
@@ -95,7 +94,7 @@ body {
   height: 100%;
 }
 .fixed-width-wrapper {
-width: 40px; /* Adjust the width as per your design */
+width: 40px; 
 }
 .arrow{
 margin-left: 46rem;
@@ -112,18 +111,17 @@ border-radius: 15px;
 .popup {
 position: relative;
 display: inline-block;
-margin-top: 10px; /* Adjust as needed */
+margin-top: 10px; 
 }
 
 .popup .popover {
 display: block;
 position: absolute;
-bottom: -130%; /* Adjust to position the popover */
+bottom: -130%;
 left: 50%;
 transform: translateX(-50%);
 z-index: 9999;
-width: 200px; /* Adjust width as needed */
-/* Other styles specific to this popup */
+width: 200px;
 }
 
 
@@ -145,82 +143,78 @@ align-items: center;
 }
 
 .modal1-content {
-  /* Adjust the positioning and centering */
   position: relative;
   background: white;
   padding: 50px;
   border-radius: 6px;
   text-align: center;
   width: max-content;
-  margin: auto; /* This centers the modal horizontally */
+  margin: auto; 
 }
 
 .close-modal1 {
-  /* Adjust positioning for the close button */
   margin: 0;
   position: absolute;
   opacity: 1;
   z-index: 10;
   cursor: pointer;
   top: 5%;
-  right: 5%; /* Adjusted to right align */
+  right: 5%;
 }
 
 .modal1-footerbtn {
-  margin-top: 20px; /* Adjust the top margin as needed */
-  text-align: center; /* Center the buttons horizontally */
+  margin-top: 20px; 
+  text-align: center; 
 }
 
 .modal1-footerbtn button {
-  margin-right: 10px; /* Add space between the buttons */
+  margin-right: 10px;
 }
 
 .delete-icon {
-  color: #380838; /* Replace 'blue' with the color of your choice */
+  color: #380838;
 }
 .attachment-symbol {
-  font-size: 21px; /* Adjust the size as needed */
+  font-size: 21px; 
   margin-left: 34px;
   color: #380838;
 }
 
 
 .modal1-content {
-/* Adjust the positioning and centering */
 position: relative;
 background: white;
 padding: 50px;
 border-radius: 6px;
 text-align: center;
 width: max-content;
-margin: auto; /* This centers the modal horizontally */
+margin: auto; 
 }
 
 .close-modal1 {
-/* Adjust positioning for the close button */
 margin: 0;
 position: absolute;
 opacity: 1;
 z-index: 10;
 cursor: pointer;
 top: 5%;
-right: 5%; /* Adjusted to right align */
+right: 5%; 
 }
 
 .modal1-footerbtn {
-margin-top: 20px; /* Adjust the top margin as needed */
-text-align: center; /* Center the buttons horizontally */
+margin-top: 20px; 
+text-align: center;
 }
 
 .modal1-footerbtn button {
-margin-right: 10px; /* Add space between the buttons */
+margin-right: 10px;
 }
 
 .delete-icon {
-color: #380838; /* Replace 'blue' with the color of your choice */
+color: #380838; 
 }
 .attachment-symbol {
-font-size: 21px; /* Adjust the size as needed */
+font-size: 21px;
 margin-left: 34px;
 color: #380838;
 }

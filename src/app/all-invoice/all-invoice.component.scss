@@ -39,10 +39,9 @@
     border-bottom: 2px solid #000;
 }
 .nav-link {
-  font-size: 20px; /* Adjust the font size as needed */
+  font-size: 20px; 
   color: #333; 
-  color: black;/* Dark color for the text */
-  /* Additional styles like font-weight, text-transform, etc., can be added here */
+  color: black;
 }
 
 .nav-link::after {
@@ -72,11 +71,9 @@
 }
 
 .nav-link:hover {
-  background-color: rgba(243, 242, 242, 0.666); /* Adjust the color and opacity as needed */
+  background-color: rgba(243, 242, 242, 0.666); 
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-/// Model
 .custom-date-model {
   border: 1px solid #ccc;
   padding: 10px;
@@ -113,4 +110,23 @@
 .btn{
   background-color: #380838;
   color: white;
+font-size: 12px; 
+padding: 5px 10px;
+}
+.pay{
+    margin-top: -67px;
+    margin-bottom: -67px;
+    margin-left: 6px;
+}
+.action-icons {
+  display: flex;
+  align-items: center;
+  margin-left: -8rem;
+}
+
+.action-icons i {
+  margin-right: 10px;
+  font-size: 20px;
+  color: #333; /* You can adjust the color as needed */
+  cursor: pointer;
 }

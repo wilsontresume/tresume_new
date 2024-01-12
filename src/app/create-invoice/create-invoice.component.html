@@ -203,7 +203,7 @@
                     <option value="example2">Group time by service</option>
                   </select>
                 </div>
-                <!-- Card display logic for 'Don't group time' -->
+                
                 <div *ngIf="selectedOption === 'example1' || showAdditionalInputs">
 
                   <button class="btn btn-primary" (click)="addAll()">Add all</button>
@@ -232,8 +232,8 @@
                         </div>
                         <div class="row mt-3">
                           <div class="col d-flex justify-content-between">
-                            <button class="btn btn-primary">Add</button>
-                            <button class="btn btn-secondary">Open</button>
+                            <button class="btn btn-">Add</button>
+                            <button class="btn btn-">Open</button>
                           </div>
                         </div>
                       </div>
@@ -296,7 +296,6 @@
                     </div>
                   </div>
                 </div>
-                <!-- Card display logic for 'Group time by service' -->
                 <div *ngIf="selectedOption === 'example2' && !showAdditionalInputs">
                   <div class="card mb-3">
                     <div class="card-body">
