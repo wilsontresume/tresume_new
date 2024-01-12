@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
     styleUrls: ['../onboarding.component.scss']
 })
 export class EmployeeViewComponent implements OnInit {
-
+  loading:boolean = false;
     public sessionID: string;
     public sessionDetails: any;
     public employeeDetails: any;

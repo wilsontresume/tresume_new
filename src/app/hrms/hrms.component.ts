@@ -17,7 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 export class HrmsComponent implements OnInit {
 
   candidates1: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
-  recruiterNames: string[] = ['Recruiter 1', 'Recruiter 2', 'Recruiter 3'];
+  recruiterNames: any ='';
+  recruiterName:any;
   candidateStatuses: string[] = ['', '', ''];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
@@ -70,7 +71,7 @@ export class HrmsComponent implements OnInit {
 
     this.addCandidate = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
-      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.minLength(3)]],
       recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
@@ -205,6 +206,10 @@ export class HrmsComponent implements OnInit {
 
   savehrmsdata() {
     this.loading = true;
+    var followupon = '';
+    if(this.selectedFollowUpOption == 'SpecifiedDate'){
+      followupon = this.specifiedDate;
+    }
 
     let Req = {
       firstName: this.addCandidate.value.firstName,
@@ -213,7 +218,7 @@ export class HrmsComponent implements OnInit {
       email: this.addCandidate.value.email,
       phone: this.addCandidate.value.phone,
       gender: this.addCandidate.value.gender,
-      recruiterName: this.addCandidate.value.recruiterName,
+      recruiterName: this.recruiterName,
       degree: this.addCandidate.value.degree,
       university: this.addCandidate.value.university,
       referralType: this.formData.referralType,
@@ -223,8 +228,8 @@ export class HrmsComponent implements OnInit {
       recruiteremail: this.userName,
       orgID:this.OrgID,
       creeateby:this.userName,
-      
-
+      followupon:followupon,
+      currentLocation:this.currentLocation
 
       // marketerName: this.formData.marketerName,
       // groups: this.addCandidate.value.groups,

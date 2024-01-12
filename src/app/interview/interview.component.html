@@ -1,6 +1,6 @@
 <div class="container">
     <form>
-    
+
       <div class="row">
         <div class="col-md-4">
           <label for="interviewDate">Interview Date</label>
@@ -15,8 +15,8 @@
           <input type="text" class="form-control" id="interviewInfo" name="interviewInfo" placeholder="Interview Info">
         </div>
       </div>
-  
-     
+
+
       <div class="row mt-3">
         <div class="col-md-4">
           <label for="client">Client</label>
@@ -31,8 +31,8 @@
           <input type="text" class="form-control" id="subVendor" name="subVendor"placeholder="Sub Vendor">
         </div>
       </div>
-  
-     
+
+
       <div class="row mt-3">
         <div class="col-md-4">
           <label for="assistedBy">Assisted by</label>
@@ -56,4 +56,5 @@
           </select>
         </div>
       </div>
-  
+
+      <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

@@ -225,7 +225,7 @@ router.post('/insertTraineeCandidate', async function (req, res) {
   req.body.orgID +
   "') " +
   "BEGIN " +
-  "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby ) " +
+  "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation ) " +
   "VALUES (" +
   `'${TraineeID}',` +
   ` ${formatValue(req.body.email || '')},` +
@@ -248,7 +248,9 @@ router.post('/insertTraineeCandidate', async function (req, res) {
   " 'TRESUMEUSER', " +
   " GETDATE(), " +
   ` ${formatValue(req.body.orgID || '')},` +
-  ` ${formatValue(req.body.creeateby || '')}` +
+  ` ${formatValue(req.body.creeateby || '')},` +
+  ` ${formatValue(req.body.followupon || '')},` +
+  ` ${formatValue(req.body.currentLocation || '')}` +
   ") END";
 
     console.log(query);

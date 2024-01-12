@@ -12,18 +12,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./vendor.component.scss']
 })
 export class VendorComponent implements OnInit {
-
+  
+  loading:boolean = false;
   deleteIndex: number;
   showConfirmationDialog: boolean = false;
   TraineeID: string = '';
   vendors: any[];
-  
   noResultsFound:boolean = true;
-
-  // vendor1 = [
-  //   { id: 1, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
-  //   { id: 2, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
-  // ];
 
   constructor(private fb: FormBuilder, private cookieService: CookieService, private service: VendorService, private messageService: MessageService) {
 
@@ -45,7 +40,7 @@ export class VendorComponent implements OnInit {
     };
     this.service.getTraineeVendorList(Req).subscribe((x: any) => {
       this.vendors = x.result;
-    this.noResultsFound = this.vendors.length === 0;
+      this.noResultsFound = this.vendors.length === 0;
     });
   }
 
@@ -84,5 +79,15 @@ export class VendorComponent implements OnInit {
   cancelDelete() {
     console.log(this.showConfirmationDialog);
     this.showConfirmationDialog = false;
+  }
+
+  searchInput: string = '';
+
+  isVendorVisible(vendor: any): boolean {
+    const searchValue = this.searchInput.toLowerCase();
+    return (
+      vendor.emailid.toLowerCase().includes(searchValue) ||
+      vendor.vendorname.toLowerCase().includes(searchValue)
+    );
   }
 }

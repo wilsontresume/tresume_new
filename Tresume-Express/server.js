@@ -1674,7 +1674,6 @@ app.post("/getDSRReport", function (req, res) {
           };
           res.send(result);
         });
-        res.json(true);
 
       });
   })

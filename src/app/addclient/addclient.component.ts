@@ -13,39 +13,128 @@ import { MessageService } from 'primeng/api';
 })
 
 export class AddclientComponent implements OnInit {
-  loading:boolean = false;
 
+  loading: boolean = false;
   addClient: any;
   formData: any;
   Access: boolean = false;
   sendingEmail: boolean = false;
   Notes: string = '';
-  requiredDocuments: any[];
+  requiredDocuments: { name: string }[] = [
+    { name: 'Driving License' },
+    { name: 'Resume' },
+    { name: 'EML File' },
+    { name: 'SSN' },
+    { name: 'Transcripts' },
+  ];
   selectedRequiredDocuments: any[] = [];
   filteredRequiredDocuments: any[] = [];
   allclientService: any;
   formBuilder: any;
+  TraineeID: any;
 
-//dropdowns
-  country: string[] = [];
+  //dropdowns
   state: string[] = [];
+  selectedstate:any=0;
+  selectedcity:any=0;
   city: string[] = [];
-  industry: string[] = [];
-  clientStatusID: string[] = [];
-  clientCategoryID: string[] = [];
-  primaryOwner: string[] = [];
-  paymentTerms: string[] = [];
+  ClientStatusID: string[] = [];
+  ClientCategoryID: string[] = [];
+  PrimaryOwner: string[] = [];
+  country: string[] = ['United States'];
+  PaymentTerms: string[] = ['Net 10', 'Net 15', 'Net 30', 'Net 45', 'Net 60', 'Net 7', 'Net 90'];
+  Industry: string[] = [
+    "Select",
+    "Accounting - Finance",
+    "Advertising",
+    "Agriculture",
+    "Airline - Aviation",
+    "Architecture - Building",
+    "Art - Photography - Journalism",
+    "Automotive - Motor Vehicles - Parts",
+    "Banking - Financial Services",
+    "Broadcasting - Radio - TV",
+    "Building Materials",
+    "Chemical",
+    "Computer Hardware",
+    "Biotechnology",
+    "Computer Software",
+    "Construction",
+    "Consulting",
+    "Consumer Products",
+    "Credit - Loan - Collections",
+    "Defense - Aerospace",
+    "Education - Teaching - Administration",
+    "Electronics",
+    "Employment - Recruiting - Staffing",
+    "Energy - Utilities - Gas - Electric",
+    "Entertainment",
+    "Environmental",
+    "Exercise - Fitness",
+    "Fashion - Apparel - Textile",
+    "Food",
+    "Funeral - Cemetery",
+    "Government - Civil Service",
+    "Healthcare - Health Services",
+    "Homebuilding",
+    "Hospitality",
+    "Hotel - Resort",
+    "HVAC",
+    "Import - Export",
+    "Industrial",
+    "Insurance",
+    "Internet - ECommerce",
+    "Landscaping",
+    "Law Enforcement",
+    "Legal",
+    "Library Science",
+    "Managed Care",
+    "Manufacturing",
+    "Medical Equipment",
+    "Merchandising",
+    "Military",
+    "Mortgage",
+    "Newspaper",
+    "Not for Profit - Charitable",
+    "Office Supplies - Equipment",
+    "Oil Refining - Petroleum - Drilling",
+    "Other Great Industries",
+    "Packaging",
+    "Pharmaceutical",
+    "Printing - Publishing",
+    "Public Relations",
+    "Real Estate - Property Mgt",
+    "Recreation",
+    "Restaurant",
+    "Retail",
+    "Sales - Marketing",
+    "Securities",
+    "Security",
+    "Semiconductor",
+    "Social Services",
+    "Telecommunications",
+    "Training",
+    "Transportation",
+    "Travel",
+    "Wireless"
+  ];
+  OrgID: string;
+
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private service: AddClientService
+    private service: AddClientService,
+    private cookieService: CookieService
   ) {
-    // const documents = this.requiredDocuments.map(doc => doc.name).join(', ');
-    // console.log(documents);
+    const documents = this.requiredDocuments.map(doc => doc.name).join(', ');
+    console.log(documents);
+    this.OrgID = this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
   }
 
   ngOnInit(): void {
+    
     this.addClient = this.fb.group({
       ClientName: ['', [Validators.required, Validators.minLength(3)]],
       ContactNumber: ['', [Validators.required, Validators.maxLength(10)]],
@@ -57,8 +146,8 @@ export class AddclientComponent implements OnInit {
       Website: [''],
       Fax: [''],
       Country: [''],
-      State: [''],
-      City: [''],
+      state: [''],
+      city: [''],
       Industry: [''],
       ClientStatusID: [''],
       ClientCategoryID: [''],
@@ -69,10 +158,15 @@ export class AddclientComponent implements OnInit {
       Access: [''],
       sendingEmail: [''],
     });
-  
+
+    this.getClientCategories();
+    this.getClientStatus();
+    this.getState();
+    this.getPrimaryOwnerName();
+
   }
 
-  
+
   onRequiredDocumentsSearch(event: any) {
     this.filteredRequiredDocuments = this.requiredDocuments.filter(option =>
       option.name.toLowerCase().includes(event.query.toLowerCase())
@@ -92,8 +186,8 @@ export class AddclientComponent implements OnInit {
       Fax: this.addClient.value.Fax,
       Industry: this.addClient.value.Industry,
       Country: this.addClient.value.Country,
-      State: this.addClient.value.State,
-      City: this.addClient.value.City,
+      State: this.selectedstate,
+      City: this.selectedcity,
       ClientStatusID: this.addClient.value.ClientStatusID,
       ClientCategoryID: this.addClient.value.ClientCategoryID,
       PrimaryOwner: this.addClient.value.PrimaryOwner,
@@ -115,6 +209,55 @@ export class AddclientComponent implements OnInit {
     this.addClient.reset();
     this.selectedRequiredDocuments = [];
     this.Notes = '';
+  }
+
+  getClientCategories() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getClientCategoryID(Req).subscribe((x: any) => {
+      this.ClientCategoryID = x.result;
+    });
+  }
+
+  getClientStatus() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getClientStatusID(Req).subscribe((x: any) => {
+      this.ClientStatusID = x.result;
+    });
+  }
+
+  getPrimaryOwnerName() {
+    let Req = {
+      TraineeID: this.TraineeID,
+      orgID:this.OrgID
+    };
+    this.service.getPrimaryOwner(Req).subscribe((x: any) => {
+      this.PrimaryOwner = x;
+    });
+  }
+
+  getState() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getLocation(Req).subscribe((x: any) => {
+      this.state = x.result;
+      // this. getCity();
+    });
+  }
+
+  getCity() {
+    console.log(this.selectedstate);
+    let Req = {
+      TraineeID: this.TraineeID,
+      State: this.selectedstate
+    };
+    this.service.getCity(Req).subscribe((x: any) => {
+      this.city = x.result;
+    });
   }
 }
 

@@ -13,6 +13,8 @@ import { HttpClient, HttpEvent, HttpParams, HttpRequest, HttpHeaders } from '@an
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  loading:boolean = false;
+
   username: string;
   password: string;
   errorMessage: string;
@@ -71,10 +73,10 @@ export class LoginComponent {
             this.cookieService.set('RoleID', RoleID);
             this.router.navigate(['/dashboard/' + traineeID]);
           }
-          
 
 
-        
+
+
           //this.router.navigateByUrl(url);
         } else {
           alert('Please reset your password.');

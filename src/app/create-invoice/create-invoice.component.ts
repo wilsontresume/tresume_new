@@ -34,7 +34,7 @@ onOptionChanges(event: any) {
 goToPreviousOption() {
   if (this.previousOption === 'example1' || this.previousOption === 'example2') {
     this.selectedOption = this.previousOption; // Set the selected option to the previous one
-  }
+    this.selectedOption = 'example1';}
 }
 selectedFilter: string = ''; 
 
@@ -57,8 +57,7 @@ addAll() {
 }
 
 
-  onDropdownChange(event: any) {
-    alert();
+  onDropdownChange(event: any) {  
     if (event.target.value === 'addNew') {
       this.showModal = true;
     }
