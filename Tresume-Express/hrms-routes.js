@@ -836,10 +836,7 @@ async function generateTraineeID() {
   }
 }
 
-// Helper function to format values
-function formatValue(value) {
-  return value !== undefined ? `'${value}'` : '';
-}
+
 
 // Endpoint to check if email exists
 router.post('/checkEmail', async function (req, res) {
@@ -1174,6 +1171,9 @@ router.post('/getLocation', async (req, res) => {
   }
 });
 
-
+// Helper function to format values
+function formatValue(value) {
+  return value !== undefined ? `'${value}'` : '';
+}
 module.exports = router;
  

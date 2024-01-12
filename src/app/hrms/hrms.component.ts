@@ -230,6 +230,7 @@ export class HrmsComponent implements OnInit {
       creeateby:this.userName,
       followupon:followupon,
       currentLocation:this.currentLocation
+      
 
       // marketerName: this.formData.marketerName,
       // groups: this.addCandidate.value.groups,
@@ -261,16 +262,13 @@ export class HrmsComponent implements OnInit {
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
     this.loading = false;
-
     console.log(response);
   }
   
   private handleError(response: any): void {
     this.messageService.add({ severity: 'error', summary:  response.message });
     this.loading = false;
-
   }
-
 
   onSubmit() {
     console.log('Form Data:', this.formData);
