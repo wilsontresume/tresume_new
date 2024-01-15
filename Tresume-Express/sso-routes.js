@@ -311,7 +311,6 @@ router.post('/login', async (req, res) => {
                         res.send(result);
                       }
                     );
-                
                 }else{
                   res.status(401).json({ message: 'Invalid credentials' });
                 }
@@ -319,14 +318,11 @@ router.post('/login', async (req, res) => {
                 var result = {
                   flag: 2
                 };
-  
                 res.send(result);
               }
               }
             );
-          
       });
-      
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ message: 'An error occurred' });
@@ -366,8 +362,6 @@ router.post('/validatekey', async (req, res) => {
           }
         );
       });
-
-    
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ message: 'An error occurred' });

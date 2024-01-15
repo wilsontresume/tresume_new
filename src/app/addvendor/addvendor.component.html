@@ -146,10 +146,12 @@
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>Status </label>
-                            <select class="form-control" name="VendorStatusID" formControlName="VendorStatusID">
+                            <select class="form-control" name="VendorStatusID" [(ngModel)]="selectedVendorStatusID"
+                                [ngModelOptions]="{ standalone: true }" >
                                 <option value="" disabled>Select Status</option>
-                                <option *ngFor="let status of VendorStatusID" [value]="status.VendorStatusID">{{
-                                    status.Value }}</option>
+                                <option *ngFor="let status of VendorStatusID" [value]="status.ClientStatusID">
+                                    {{ status.Value }}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -157,10 +159,11 @@
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>Category</label>
-                            <select class="form-control" name="VendorCategoryID" formControlName="VendorCategoryID">
+                            <select class="form-control" name="VendorCategoryID" [(ngModel)]="selectedVendorCategoryID"
+                                [ngModelOptions]="{ standalone: true }" >
                                 <option value="" disabled>Select Category</option>
-                                <option *ngFor="let category of VendorCategoryID" [value]="category.VendorCategoryID">{{
-                                    category.Value}}</option>
+                                <option *ngFor="let category of VendorCategoryID" [value]="category.ClientCategoryID">{{ category.Value }}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -170,13 +173,15 @@
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>Primary Owner</label>
-                            <select class="form-control" name="PrimaryOwner" formControlName="PrimaryOwner">
+                            <select class="form-control" name="PrimaryOwner" [(ngModel)]="selectedPrimaryOwner"
+                                [ngModelOptions]="{ standalone: true }" >
                                 <option value="" disabled>Select Primary Owner</option>
-                                <option *ngFor="let owner of PrimaryOwner" [value]="owner.TraineeID">{{owner.firstname }} {{owner.lastname }}</option>
+                                <option *ngFor="let owner of PrimaryOwner" [value]="owner.traineeid">
+                                    {{ owner.firstname }} {{ owner.lastname }}
+                                </option>
                             </select>
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>Payment Terms </label>

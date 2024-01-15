@@ -90,7 +90,7 @@
                         <div class="form-group text-center">
                             <label>State</label>
                             <select class="form-control" name="State" [(ngModel)]="selectedstate"
-                            [ngModelOptions]="{standalone: true}" (change)="getCity()">
+                                [ngModelOptions]="{standalone: true}" (change)="getCity()">
                                 <option value="0" selected>Select State</option>
                                 <option *ngFor="let state of state" [value]="state.state">{{ state.state }}</option>
                             </select>
@@ -100,8 +100,8 @@
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>City</label>
-                            <select class="form-control" name="City"[(ngModel)]="selectedcity"
-                            [ngModelOptions]="{standalone: true}">
+                            <select class="form-control" name="City" [(ngModel)]="selectedcity"
+                                [ngModelOptions]="{standalone: true}">
                                 <option value="0" selected>Select City</option>
                                 <option *ngFor="let city of city" [value]="city.city">{{ city.city }}</option>
                             </select>
@@ -146,10 +146,12 @@
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>Status </label>
-                            <select class="form-control" name="ClientStatusID" formControlName="ClientStatusID">
+                            <select class="form-control" name="ClientStatusID" [(ngModel)]="selectedClientStatusID"
+                                [ngModelOptions]="{ standalone: true }" >
                                 <option value="" disabled>Select Status</option>
-                                <option *ngFor="let status of ClientStatusID" [value]="status.ClientStatusID">{{
-                                    status.Value }}</option>
+                                <option *ngFor="let status of ClientStatusID" [value]="status.ClientStatusID">
+                                    {{ status.Value }}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -157,10 +159,12 @@
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>Category</label>
-                            <select class="form-control" name="ClientCategoryID" formControlName="ClientCategoryID">
+                            <select class="form-control" name="ClientCategoryID" [(ngModel)]="selectedClientCategoryID"
+                                [ngModelOptions]="{ standalone: true }" >
                                 <option value="" disabled>Select Category</option>
-                                <option *ngFor="let category of ClientCategoryID" [value]="category.ClientCategoryID">{{
-                                    category.Value}}</option>
+                                <option *ngFor="let category of ClientCategoryID" [value]="category.ClientCategoryID">
+                                    {{ category.Value }}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -170,9 +174,12 @@
                     <div class="col-md-4">
                         <div class="form-group text-center">
                             <label>Primary Owner</label>
-                            <select class="form-control" name="PrimaryOwner" formControlName="PrimaryOwner">
+                            <select class="form-control" name="PrimaryOwner" [(ngModel)]="selectedPrimaryOwner"
+                                [ngModelOptions]="{ standalone: true }" >
                                 <option value="" disabled>Select Primary Owner</option>
-                                <option *ngFor="let owner of PrimaryOwner" [value]="owner.TraineeID">{{owner.firstname }} {{owner.lastname }}</option>
+                                <option *ngFor="let owner of PrimaryOwner" [value]="owner.traineeid">
+                                    {{ owner.firstname }} {{ owner.lastname }}
+                                </option>
                             </select>
                         </div>
                     </div>

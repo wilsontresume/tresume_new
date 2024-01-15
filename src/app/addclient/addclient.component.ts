@@ -13,7 +13,8 @@ import { MessageService } from 'primeng/api';
 })
 
 export class AddclientComponent implements OnInit {
-
+ 
+  email:any;
   loading: boolean = false;
   addClient: any;
   formData: any;
@@ -41,10 +42,12 @@ export class AddclientComponent implements OnInit {
   ClientStatusID: string[] = [];
   ClientCategoryID: string[] = [];
   PrimaryOwner: string[] = [];
+  selectedPrimaryOwner: any=0;
+  selectedClientStatusID: any=0;
+  selectedClientCategoryID: any=0;
   country: string[] = ['United States'];
   PaymentTerms: string[] = ['Net 10', 'Net 15', 'Net 30', 'Net 45', 'Net 60', 'Net 7', 'Net 90'];
   Industry: string[] = [
-    "Select",
     "Accounting - Finance",
     "Advertising",
     "Agriculture",
@@ -119,16 +122,14 @@ export class AddclientComponent implements OnInit {
     "Wireless"
   ];
   OrgID: string;
-
-
+  
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private service: AddClientService,
     private cookieService: CookieService
   ) {
-    const documents = this.requiredDocuments.map(doc => doc.name).join(', ');
-    console.log(documents);
+    
     this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
   }
@@ -163,7 +164,6 @@ export class AddclientComponent implements OnInit {
     this.getClientStatus();
     this.getState();
     this.getPrimaryOwnerName();
-
   }
 
 
@@ -174,9 +174,12 @@ export class AddclientComponent implements OnInit {
   }
 
   addClientbutton() {
+    const documents = this.selectedRequiredDocuments.map(doc => doc.name).join(', ');
+    console.log(documents);
     let Req = {
       ClientName: this.addClient.value.ClientName,
       ContactNumber: this.addClient.value.ContactNumber,
+      EmailID:this.addClient.value.EmailID,
       Website: this.addClient.value.Website,
       Address: this.addClient.value.Address,
       VMSClientName: this.addClient.value.VMSClientName,
@@ -188,15 +191,15 @@ export class AddclientComponent implements OnInit {
       Country: this.addClient.value.Country,
       State: this.selectedstate,
       City: this.selectedcity,
-      ClientStatusID: this.addClient.value.ClientStatusID,
-      ClientCategoryID: this.addClient.value.ClientCategoryID,
-      PrimaryOwner: this.addClient.value.PrimaryOwner,
+      ClientStatusID: this.selectedClientStatusID,
+      ClientCategoryID: this.selectedClientCategoryID,
+      PrimaryOwner: this.selectedPrimaryOwner,
       PaymentTerms: this.addClient.value.PaymentTerms,
       AboutCompany: this.addClient.value.AboutCompany,
       posting: this.addClient.value.posting,
       sendingEmail: this.addClient.value.sendingEmail,
       Access: this.addClient.value.Access,
-      requiredDocuments: this.selectedRequiredDocuments,
+      RequiredDocuments: documents,
       Notes: this.Notes,
     };
     console.log(Req);
@@ -245,7 +248,6 @@ export class AddclientComponent implements OnInit {
     };
     this.service.getLocation(Req).subscribe((x: any) => {
       this.state = x.result;
-      // this. getCity();
     });
   }
 
