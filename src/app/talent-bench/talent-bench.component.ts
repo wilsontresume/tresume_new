@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   providers: [TalentBenchService, CookieService,MessageService],
 })
 export class TalentBenchComponent implements OnInit {
-  loading:boolean = false;
+  loading:boolean = true;
   candidates: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
   // formData: any = {};
   OrgID:string = '';
@@ -64,6 +64,7 @@ export class TalentBenchComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.loading= true;
     // this.cookieService.set('userName1','karthik@tresume.us');
     // this.cookieService.set('OrgID','82');
     // this.cookieService.set('TraineeID','569');
@@ -96,7 +97,6 @@ export class TalentBenchComponent implements OnInit {
       ReferralType: [''],
       Notes: [''],
     });
-
   }
   getcandidaterstatus(){
     const Req = {
@@ -105,6 +105,7 @@ export class TalentBenchComponent implements OnInit {
       this.currentStatusOptions = x;
       console.log(this.currentStatusOptions);
     });
+
   }
 
   getLegalStatusOptions() {
@@ -117,6 +118,7 @@ export class TalentBenchComponent implements OnInit {
   }
 
   saveData(){
+
     let Req = {
       firstName: this.addCandidate.value.FirstName,
       middleName: this.addCandidate.value.MiddleName,
@@ -150,6 +152,7 @@ export class TalentBenchComponent implements OnInit {
         this.handleError(error);
       }
     );
+
   }
   
   private handleSuccess(response: any): void {
@@ -184,6 +187,7 @@ export class TalentBenchComponent implements OnInit {
 //   });
 // }
 fetchtalentbenchlist() {
+
   let Req = {
     traineeID: this.TraineeID,
     OrganizationID:this.OrgID
@@ -191,10 +195,10 @@ fetchtalentbenchlist() {
   this.service.getTalentBenchList(Req).subscribe((x: any) => {
     this.tableData = x.result;
     this.noResultsFound = this.tableData.length === 0;
+    this.loading = false;
   });
+
 }
 
 searchInput: string = '';
-
-
 }
