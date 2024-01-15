@@ -4,12 +4,7 @@
   </div>
 
   <body>
-
-
-             <div class="container">
-
-
-              
+             <div class="container" style="font-size: 13px ;">
                 <div class="container mt-3">
                   <div class="container mt-3">
                     <ul class="nav nav-tabs" style="justify-content: flex-start; position: relative;">
@@ -34,23 +29,19 @@
 
                     
                     <div class="tab-content" style="margin-top: 26px;">
-                      <!-- All Invoices Tab Content -->
                       <div id="allinvoices" class="tab-pane fade show active">
                         <div class="row">
                           <div class="col-md-2">
                             <label for="batchActions">Batch Actions</label>
                             <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="batchActions" name="batchActions">
-                              <!-- Add your batch actions options here -->
                               <option value="action1">Action 1</option>
                               <option value="action2">Action 2</option>
-                              <!-- Add more options as needed -->
                             </select>
                           </div>
                   
                           <div class="col-md-2">
                             <label for="type">Type</label>
                             <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="type" name="type">
-                              <!-- Add your type options here -->
                               <option value="allTransaction">All transaction</option>
                               <option value="allPlusDeposits">All plus deposits</option>
                               <option value="estimate">Estimate</option>
@@ -59,28 +50,23 @@
                               <option value="unbilledIncome">Unbilled Income</option>
                               <option value="moneyReceived">Money received</option>
                               <option value="recentlyPaid">Recently paid</option>
-                             
-                              <!-- Add more options as needed -->
                             </select>
                           </div>
                   
                           <div class="col-md-2">
                             <label for="status">Status</label>
                             <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="status" name="status">
-                              <!-- Add your status options here -->
                               <option value="all">All</option>
                               <option value="open">Open</option>
                               <option value="overDue">Overdue</option>
                               <option value="paid">Paid</option>
                               <option value="voided">Voided</option>
-                              <!-- Add more options as needed -->
                             </select>
                           </div>
                   
                           <div class="col-md-2">
                             <label for="date">Date</label>
                             <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="date" name="date">
-                              <!-- Add your date options here -->
                               <option value="all">All</option>
                               <option value="customDate" (click)="toggleCustomDateModel()">Custom dates</option>
                               <option value="today">Today</option>
@@ -92,7 +78,7 @@
                               <option value="thisQuarter">This quarter</option>
                               <option value="lastQuarter">Last quarter</option>
                             </select>
-                            <!-- Custom Dates Model -->
+                           
                             <div *ngIf="showCustomDateModel" class="custom-date-model">
                               <label for="startDate">Start Date:</label>
                               <input type="date" id="startDate" [(ngModel)]="startDate">
@@ -112,6 +98,27 @@
                           <div class="col-md-2 mt-4">
                             <a href="#" (click)="feedbackWithIcon()">Feedback </a>
                           </div>
+                          <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  ...
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div> -->
+
+                          
                           <div class="row col-md-2 mt-4">
                           <input type="text" id="searchInput" placeholder="Find by Invoice no." style=" width : 136px; height: 34px; margin-left: 25px;">
                         </div>
@@ -119,60 +126,73 @@
                           <input type="text" id="searchInput" placeholder="Find by client" style=" width : 136px; height: 34px; margin-left: 25px;">
                         </div>
                         </div>
-                        <table class="table no-border" style="margin-top: 50px;">
-                          <!-- Table structure (headers, rows) -->
-                          <thead class="underline">
-                            <tr>
-                              <td><input type="checkbox"></td>
-                                <th>DATE</th>
-                                <th>TYPE</th>
-                                <th>NO.</th>
-                                <th>CLIENT/PROJECT</th>
-                                <th>MEMO</th>
-                                <th>AMOUNT STATUS</th>
-                                <th>ACTION</th>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>11/17/23</td>                                      
-                                <td>Invoice</td>
-                                <td>90801</td>
-                                <td>TEK system Inc: Shushant Bathini </td>
-                                <td>11/17/2023 to 08/04/2023</td>
-                                <td>240.00</td>
-                                <td>
-                                  <!-- Edit and Payment Received actions -->
-                                  <button onclick="editAction()">Edit</button>
-                                  <button onclick="paymentReceivedAction()" style="margin-left: 16px;">Payment Received</button>
-                              </td>
-                            </tr>
-                        </thead>
-                        </table>
-                      </div>
-                
-                        <!-- Paid Invoices Tab Content -->
-                        <div id="paidinvoices" class="tab-pane fade">
-                          <div class="row">
-                            <div class="col-md-2 mt-4">
-                                <input type="text" id="searchInputInvoice" placeholder="Find by Invoice no." style="width: 136px; height: 34px; margin-left: 25px;">
+
+                        <div class="row cards">
+                          <div class="card mb-3">
+                            <div class="card-body rec">
+                              <h1 class="card-title">Tek System Inc <span></span></h1> <br>
+            
+                              <div class="side-heading">
+                                <h4 style="text-decoration:underline;">Company Name</h4>
+                                <p>Tek System</p>
+                              </div>
+                            
+                              <div class="side-heading">
+                                <h4>Add</h4>
+                                <p><a href="#">Notes</a></p> <!-- Provide the link to your notes here -->
+                              </div>
                             </div>
-                            <div class="col-md-2 mt-4">
-                                <input type="text" id="searchInputClient" placeholder="Find by client" style="width: 136px; height: 34px; margin-left: 25px;">
+                            
+                          </div>
+                          <div class="card mb-3 ml-3">
+                            <div class="card-body square">
+                              <h5 class="card-title">Square Card</h5>
+                              <p class="card-text">This is a square card.</p>
                             </div>
+                          </div>
                         </div>
-                
-                            <table class="table no-border" style="margin-top: 50px;">
-                                <!-- Table structure (headers, rows) -->
-                                <thead class="underline">
+                        
+
+                        <div style="font-size: 12px;"> <!-- Adjust the font-size as needed -->
+                          <table class="table no-border" style="margin-top: 50px;">
+                              <thead class="underline">
                                   <tr>
-                                    <td><input type="checkbox"></td>
+                                      <td><input type="checkbox"></td>
                                       <th>DATE</th>
                                       <th>TYPE</th>
                                       <th>NO.</th>
                                       <th>CLIENT/PROJECT</th>
-                                      <th>MEMO</th>
-                                      <th>AMOUNT STATUS</th>
+                                      <th>MEMO</th> 
+                                      <th colspan="2">AMOUNT STATUS</th>
                                       <th>ACTION</th>
+                                      <td class="action-icons">
+                                        <!-- Print Icon -->
+                                        <i class="material-icons" onclick="handlePrint()">print</i>
+                                        <!-- File Upload Icon -->
+                                        <i class="fas fa-upload" onclick="handleFileUpload()"></i>
+                                        <!-- Settings Icon -->
+                                        <i class="fas fa-cog" onclick="openSettings()"></i>
+                                      </td>
+                                                   
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox"></td>
+                                      <td>11/17/23</td>                                      
+                                      <td>Invoice</td>
+                                      <td>90801</td>
+                                      <td>TEK system Inc: Shushant Bathini </td>
+                                      <td>11/17/2023 to 08/04/2023</td>
+                                      <td>
+                                          240.00 
+                                          <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                          <p>Partially paid, $48 due</p>
+                                          
+                                      </td>
+                                      <td colspan="2">
+                                          <button class="btn btn-" onclick="editAction()">Edit</button>
+                                          <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                      </td> 
+                                      
                                   </tr>
                                   <tr>
                                     <td><input type="checkbox"></td>
@@ -181,18 +201,287 @@
                                     <td>90801</td>
                                     <td>TEK system Inc: Shushant Bathini </td>
                                     <td>11/17/2023 to 08/04/2023</td>
-                                    <td>240.00</td>
-                                      <td>
-                                        <!-- Edit and Payment Received actions -->
-                                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                                        <button class="btn btn-" onclick="paymentReceivedAction()" style="margin-left: 16px;" >Payment received</button>
-                                    </td>
+                                    <td>
+                                      240.00
+                                      <span style="color: green; margin-left: 5px;">
+                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                                      </span>
+                                      <span style="color: green;">Paid</span>
+                                  </td>
+                                    <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td>
                                   </tr>
+
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>11/17/23</td>                                      
+                                    <td>Invoice</td>
+                                    <td>90801</td>
+                                    <td>TEK system Inc: Shushant Bathini </td>
+                                    <td>11/17/2023 to 08/04/2023</td>
+                                    <td>
+                                      240.00
+                                      <span style="color: green; margin-left: 5px;">
+                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                                      </span>
+                                      <span style="color: green;">Paid</span>
+                                  </td>
+                                    <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>11/17/23</td>                                      
+                                    <td>Invoice</td>
+                                    <td>90801</td>
+                                    <td>TEK system Inc: Shushant Bathini </td>
+                                    <td>11/17/2023 to 08/04/2023</td>
+                                    <td>
+                                        240.00 
+                                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                        <p>Partially paid, $48 due</p>
+                                        
+                                    </td>
+                                    <td colspan="2">
+                                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                                        <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                    </td> 
+                                </tr>
+                                <tr>
+                                  <td><input type="checkbox"></td>
+                                  <td>11/17/23</td>                                      
+                                  <td>Invoice</td>
+                                  <td>90801</td>
+                                  <td>TEK system Inc: Shushant Bathini </td>
+                                  <td>11/17/2023 to 08/04/2023</td>
+                                  <td>
+                                    240.00
+                                    <span style="color: green; margin-left: 5px;">
+                                        <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                                    </span>
+                                    <span style="color: green;">Paid</span>
+                                </td>
+                                  <td colspan="2">
+                                    <button class="btn btn-" onclick="editAction()">Edit</button>
+                                    <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                </td>
+                                </tr>
+                                <tr>
+                                  <td><input type="checkbox"></td>
+                                  <td>11/17/23</td>                                      
+                                  <td>Invoice</td>
+                                  <td>90801</td>
+                                  <td>TEK system Inc: Shushant Bathini </td>
+                                  <td>11/17/2023 to 08/04/2023</td>
+                                  <td>
+                                      240.00 
+                                      <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                      <p>Partially paid, $48 due</p>
+                                      
+                                  </td>
+                                  <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td> 
+                              </tr>
+                              <tr>
+                                <td><input type="checkbox"></td>
+                                <td>11/17/23</td>                                      
+                                <td>Invoice</td>
+                                <td>90801</td>
+                                <td>TEK system Inc: Shushant Bathini </td>
+                                <td>11/17/2023 to 08/04/2023</td>
+                                <td>
+                                    240.00 
+                                    <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                    <p>Partially paid, $48 due</p>
+                                    
+                                </td>
+                                <td colspan="2">
+                                    <button class="btn btn-" onclick="editAction()">Edit</button>
+                                    <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                </td> 
+                            </tr>
+                              </thead>
+                          </table>
+                      </div>
+                      
+                      </div>
+                
+                      
+                        <div id="paidinvoices" class="tab-pane fade">
+                          <div class="row">
+                            <div class="col-md-2 mt-4">
+                                <input type="text" id="searchInputInvoice" placeholder="Find by Invoice no." style="width: 136px; height: 34px; margin-left: 25px;">
+                            </div>
+                            <div class="col-md-2 mt-4">
+                                <input type="text" id="searchInputClient" placeholder="Find by Client" style="width: 136px; height: 34px; margin-left: 25px;">
+                            </div>
+                        </div>
+                
+                            <table class="table no-border" style="margin-top: 50px;">
+                                <thead class="underline">
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                      <th>DATE</th>
+                                      <th>TYPE</th>
+                                      <th>NO.</th>
+                                      <th>CLIENT/PROJECT</th>
+                                      <th>MEMO</th>
+                                      <th colspan="2">AMOUNT STATUS</th>
+                                      <th>ACTION</th>
+                                      <td class="action-icons">
+                                        <!-- Print Icon -->
+                                        <i class="material-icons" onclick="handlePrint()">print</i>
+                                        <!-- File Upload Icon -->
+                                        <i class="fas fa-upload" onclick="handleFileUpload()"></i>
+                                        <!-- Settings Icon -->
+                                        <i class="fas fa-cog" onclick="openSettings()"></i>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>11/17/23</td>                                      
+                                    <td>Invoice</td>
+                                    <td>90801</td>
+                                    <td>TEK system Inc: Shushant Bathini </td>
+                                    <td>11/17/2023 to 08/04/2023</td>
+                                    <td>
+                                      240.00
+                                      <span style="color: green; margin-left: 5px;">
+                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                                      </span>
+                                      <span style="color: green;">Paid</span>
+                                  </td>
+                                    <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>11/17/23</td>                                      
+                                    <td>Invoice</td>
+                                    <td>90801</td>
+                                    <td>TEK system Inc: Shushant Bathini </td>
+                                    <td>11/17/2023 to 08/04/2023</td>
+                                    <td>
+                                      240.00
+                                      <span style="color: green; margin-left: 5px;">
+                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                                      </span>
+                                      <span style="color: green;">Paid</span>
+                                  </td>
+                                    <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>11/17/23</td>                                      
+                                    <td>Invoice</td>
+                                    <td>90801</td>
+                                    <td>TEK system Inc: Shushant Bathini </td>
+                                    <td>11/17/2023 to 08/04/2023</td>
+                                    <td>
+                                      240.00
+                                      <span style="color: green; margin-left: 5px;">
+                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                                      </span>
+                                      <span style="color: green;">Paid</span>
+                                  </td>
+                                    <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>11/17/23</td>                                      
+                                    <td>Invoice</td>
+                                    <td>90801</td>
+                                    <td>TEK system Inc: Shushant Bathini </td>
+                                    <td>11/17/2023 to 08/04/2023</td>
+                                    <td>
+                                      240.00
+                                      <span style="color: green; margin-left: 5px;">
+                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                                      </span>
+                                      <span style="color: green;">Paid</span>
+                                  </td>
+                                    <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>11/17/23</td>                                      
+                                    <td>Invoice</td>
+                                    <td>90801</td>
+                                    <td>TEK system Inc: Shushant Bathini </td>
+                                    <td>11/17/2023 to 08/04/2023</td>
+                                    <td>
+                                      240.00
+                                      <span style="color: green; margin-left: 5px;">
+                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                                      </span>
+                                      <span style="color: green;">Paid</span>
+                                  </td>
+                                    <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>11/17/23</td>                                      
+                                    <td>Invoice</td>
+                                    <td>90801</td>
+                                    <td>TEK system Inc: Shushant Bathini </td>
+                                    <td>11/17/2023 to 08/04/2023</td>
+                                    <td>
+                                      240.00
+                                      <span style="color: green; margin-left: 5px;">
+                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                                      </span>
+                                      <span style="color: green;">Paid</span>
+                                  </td>
+                                    <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>11/17/23</td>                                      
+                                    <td>Invoice</td>
+                                    <td>90801</td>
+                                    <td>TEK system Inc: Shushant Bathini </td>
+                                    <td>11/17/2023 to 08/04/2023</td>
+                                    <td>
+                                      240.00
+                                      <span style="color: green; margin-left: 5px;">
+                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                                      </span>
+                                      <span style="color: green;">Paid</span>
+                                  </td>
+                                    <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td>
+                                  </tr>
+
                               </thead>
                           </table>
                         </div>
                 
-                        <!-- Unpaid Invoices Tab Content -->
+                    
                         <div id="unpaidinvoices" class="tab-pane fade">
                           <div class="row">
                             <div class="col-md-2 mt-4">
@@ -202,37 +491,156 @@
                                 <input type="text" id="searchInputClient" placeholder="Find by client" style="width: 136px; height: 34px; margin-left: 25px;">
                             </div>
                         </div>
-                            <table class="table no-border" style="margin-top: 50px;">
-                                <!-- Table structure (headers, rows) -->
-                                <thead class="underline">
+                        <div style="font-size: 12px;"> <!-- Adjust the font-size as needed -->
+                          <table class="table no-border" style="margin-top: 50px;">
+                              <thead class="underline">
                                   <tr>
-                                      <th><input type="checkbox"></th>
+                                      <td><input type="checkbox"></td>
                                       <th>DATE</th>
                                       <th>TYPE</th>
                                       <th>NO.</th>
                                       <th>CLIENT/PROJECT</th>
                                       <th>MEMO</th>
-                                      <th>AMOUNT STATUS</th>
+                                      <th colspan="2">AMOUNT STATUS</th>
                                       <th>ACTION</th>
+                                      <td class="action-icons">
+                                        <!-- Print Icon -->
+                                        <i class="material-icons" onclick="handlePrint()">print</i>
+                                        <!-- File Upload Icon -->
+                                        <i class="fas fa-upload" onclick="handleFileUpload()"></i>
+                                        <!-- Settings Icon -->
+                                        <i class="fas fa-cog" onclick="openSettings()"></i>
+                                      </td>
                                   </tr>
                                   <tr>
                                       <td><input type="checkbox"></td>
-                                      <td>12346</td>
-                                      <td>Client B</td>
-                                      <td>05-01-2024</td>
-                                      <td>05-02-2024</td>
-                                      <td>Pending</td>
-                                      <td>$500.00</td>
+                                      <td>11/17/23</td>                                      
+                                      <td>Invoice</td>
+                                      <td>90801</td>
+                                      <td>TEK system Inc: Shushant Bathini </td>
+                                      <td>11/17/2023 to 08/04/2023</td>
                                       <td>
-                                        <!-- Edit and Payment Received actions -->
-
-                                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                                        <button class="btn btn-" onclick="paymentReceivedAction()" style="margin-left: 16px;" >Payment received</button>
+                                          240.00 
+                                          <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                          <p>Partially paid, $48 due</p>
+                                          
+                                      </td>
+                                      <td colspan="2">
+                                          <button class="btn btn-" onclick="editAction()">Edit</button>
+                                          <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                      </td> 
+                                  </tr>
+                                  <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>11/17/23</td>                                      
+                                    <td>Invoice</td>
+                                    <td>90801</td>
+                                    <td>TEK system Inc: Shushant Bathini </td>
+                                    <td>11/17/2023 to 08/04/2023</td>
+                                    <td>
+                                        240.00 
+                                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                        <p>Partially paid, $48 due</p>
                                         
                                     </td>
+                                    <td colspan="2">
+                                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                                        <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                    </td> 
+                                </tr>
+                                <tr>
+                                  <td><input type="checkbox"></td>
+                                  <td>11/17/23</td>                                      
+                                  <td>Invoice</td>
+                                  <td>90801</td>
+                                  <td>TEK system Inc: Shushant Bathini </td>
+                                  <td>11/17/2023 to 08/04/2023</td>
+                                  <td>
+                                      240.00 
+                                      <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                      <p>Partially paid, $48 due</p>
+                                      
+                                  </td>
+                                  <td colspan="2">
+                                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                  </td> 
+                              </tr>
+                              <tr>
+                                <td><input type="checkbox"></td>
+                                <td>11/17/23</td>                                      
+                                <td>Invoice</td>
+                                <td>90801</td>
+                                <td>TEK system Inc: Shushant Bathini </td>
+                                <td>11/17/2023 to 08/04/2023</td>
+                                <td>
+                                    240.00 
+                                    <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                    <p>Partially paid, $48 due</p>
+                                    
+                                </td>
+                                <td colspan="2">
+                                    <button class="btn btn-" onclick="editAction()">Edit</button>
+                                    <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                </td> 
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox"></td>
+                              <td>11/17/23</td>                                      
+                              <td>Invoice</td>
+                              <td>90801</td>
+                              <td>TEK system Inc: Shushant Bathini </td>
+                              <td>11/17/2023 to 08/04/2023</td>
+                              <td>
+                                  240.00 
+                                  <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                  <p>Partially paid, $48 due</p>
+                                  
+                              </td>
+                              <td colspan="2">
+                                  <button class="btn btn-" onclick="editAction()">Edit</button>
+                                  <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                              </td> 
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox"></td>
+                            <td>11/17/23</td>                                      
+                            <td>Invoice</td>
+                            <td>90801</td>
+                            <td>TEK system Inc: Shushant Bathini </td>
+                            <td>11/17/2023 to 08/04/2023</td>
+                            <td>
+                                240.00 
+                                <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                <p>Partially paid, $48 due</p>
+                                
+                            </td>
+                            <td colspan="2">
+                                <button class="btn btn-" onclick="editAction()">Edit</button>
+                                <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                            </td> 
+                        </tr>
+                         <tr>
+                                      <td><input type="checkbox"></td>
+                                      <td>11/17/23</td>                                      
+                                      <td>Invoice</td>
+                                      <td>90801</td>
+                                      <td>TEK system Inc: Shushant Bathini </td>
+                                      <td>11/17/2023 to 08/04/2023</td>
+                                      <td>
+                                          240.00 
+                                          <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                                          <p>Partially paid, $48 due</p>
+                                          
+                                      </td>
+                                      <td colspan="2">
+                                          <button class="btn btn-" onclick="editAction()">Edit</button>
+                                          <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
+                                      </td> 
                                   </tr>
                               </thead>
                           </table>
+                      </div>
                         </div>
                     </div>
                 </div>
@@ -258,9 +666,9 @@
                     <a class="dropdown-item" href="#">Save and close</a>
                     <a class="dropdown-item" href="#">Save and send</a>
                   </div>
-                </div>
-        
-              </div> -->
+                  </div>
+              
+                </div> -->
 
         
 

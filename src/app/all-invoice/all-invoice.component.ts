@@ -7,6 +7,23 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./all-invoice.component.scss']
 })
 export class AllInvoiceComponent implements OnInit {
+
+  handlePrint() {
+    // Add your print functionality here
+    console.log("Print icon clicked");
+  }
+
+  handleFileUpload() {
+    // Add your file upload functionality here
+    console.log("File upload icon clicked");
+  }
+
+  openSettings() {
+    // Add your settings functionality here
+    console.log("Settings icon clicked");
+  }
+
+
 feedbackWithIcon() {
 throw new Error('Method not implemented.');
 }
@@ -15,33 +32,19 @@ provideFeedback: any;
 closeModal() {
 throw new Error('Method not implemented.');
 }
-  selectedType: string;
 
+ selectedType: string;
   showTable: boolean = false;
 
   viewRecurringTemplates() {
     this.showTable = true;
-    // You may also perform other actions related to displaying the table here
+   
   }   
   constructor(private dialog: MatDialog) {}
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
 
-  // openPopup() {
-  //   this.openModal();
-  // }
-
-  // private openModal() {
-  //   const dialogRef = this.dialog.open(AllInvoiceComponent, {
-  //     width: '400px', // Adjust the width as needed
-  //     data: { /* Pass any data needed by the modal component */ }
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     // Handle any result or perform actions after the modal is closed
-  //   });
-  // }
 
   activeTab: string = 'allinvoices';
   showCustomDateModel: boolean = false;
@@ -58,11 +61,10 @@ throw new Error('Method not implemented.');
   }
 
   applyDates() {
-    // Implement logic to handle applying custom dates
+
     console.log('Start Date:', this.startDate);
     console.log('End Date:', this.endDate);
 
-    // You can add further logic here, such as fetching data based on the selected date range
   }
 
  
