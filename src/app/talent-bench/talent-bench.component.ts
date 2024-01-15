@@ -64,7 +64,7 @@ export class TalentBenchComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.loading= true;
+    this.loading = true;
     // this.cookieService.set('userName1','karthik@tresume.us');
     // this.cookieService.set('OrgID','82');
     // this.cookieService.set('TraineeID','569');
