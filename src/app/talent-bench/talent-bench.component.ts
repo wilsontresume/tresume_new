@@ -64,6 +64,7 @@ export class TalentBenchComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.loading = true;
     // this.cookieService.set('userName1','karthik@tresume.us');
     // this.cookieService.set('OrgID','82');
     // this.cookieService.set('TraineeID','569');
@@ -191,6 +192,7 @@ fetchtalentbenchlist() {
   this.service.getTalentBenchList(Req).subscribe((x: any) => {
     this.tableData = x.result;
     this.noResultsFound = this.tableData.length === 0;
+    this.loading = false;
   });
 }
 

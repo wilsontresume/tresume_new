@@ -59,6 +59,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.loading = true;
     this.TraineeID = this.cookieService.get('TraineeID');
       this.fetchprofile();
       this.fetchState();
@@ -152,6 +153,7 @@ fetchprofile(){
   this.Service.getUserProfile(Req).subscribe((x: any) => {
     this.profiledata = x.result;
     console.log(this.profiledata);
+    this.loading = false;
   });
 }
 

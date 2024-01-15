@@ -25,6 +25,7 @@ export class VendorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchvendorlist();
   }
@@ -41,6 +42,8 @@ export class VendorComponent implements OnInit {
     this.service.getTraineeVendorList(Req).subscribe((x: any) => {
       this.vendors = x.result;
       this.noResultsFound = this.vendors.length === 0;
+      this.loading = false;
+
     });
   }
 

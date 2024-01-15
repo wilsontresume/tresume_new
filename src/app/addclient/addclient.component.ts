@@ -134,7 +134,7 @@ export class AddclientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.loading = true;
     this.addClient = this.fb.group({
       ClientName: ['', [Validators.required, Validators.minLength(3)]],
       ContactNumber: ['', [Validators.required, Validators.maxLength(10)]],
