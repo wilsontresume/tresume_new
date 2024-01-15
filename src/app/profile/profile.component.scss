@@ -1,9 +1,15 @@
 $brand-primary:#49274a;
 
-
 .form-control{
     box-shadow: rgb(193, 193, 193) 0px 2px 12px !important;
   }
+  .label{
+font-size: 14px;
+font-weight: bold;
+  }
+//   span{
+//     font-family: Georgia, Times, serif;
+//   }
 h2{
     // font-family: "Times New Roman", Times, serif;
     font-family: Georgia, Times, serif;
@@ -69,13 +75,29 @@ label{
 span{
     font-size: 16px;
 }
-.custom-input{
-width: 200px;
-}
+
 .JD{
     font-family: Georgia, Times, serif;
     font-size: 16px;
 }
-mat-tab-group {
-    padding: 15px;
-}
+.custom-input {
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Georgia, Times, serif;
+  }
+  
+  .custom-input:focus {
+    outline: none; 
+    border-color: #007bff; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  
+  .custom-input + .custom-input {
+    margin-top: 10px;
+  }
+  

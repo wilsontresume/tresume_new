@@ -16,11 +16,14 @@ import { HttpClient } from '@angular/common/http';
 export class ProfileComponent implements OnInit {
   @ViewChild('myTabs') myTabs: TabsetComponent;
   AboutUser:string='active';
+  selectedTab: string = 'about-me';
+  AboutMe:any;
+  AboutCompany:any;
   Password:string = '';
   CompanyInfo = '';
   selectedLegalstatus:string = '';
-  state: any;
-  city: any;
+  state: string[] = [];
+  city: string[] = [];
   content: any;
   userName: string;
   firstName: string = '';
@@ -29,7 +32,6 @@ export class ProfileComponent implements OnInit {
   profile:any;
   yearsOfExperience: number = 0;
   monthsOfExperience: number = 0;
-  selectedCities: string[] = [];
   companyName: string;
   zipcode: string;
   title: string;
@@ -51,11 +53,11 @@ export class ProfileComponent implements OnInit {
   UpdateProfileData:any;
   ProfileUpdate:any;
 
-
+  
   
 
   constructor(private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
-  
+    this.TraineeID = this.cookieService.get('TraineeID');
   }
 
   async ngOnInit(): Promise<void> {
@@ -78,7 +80,7 @@ export class ProfileComponent implements OnInit {
       DOB: this.dob,
       PhoneNumber: this.phoneNumber,
       Organization: this.companyName,
-      selectedState: this.state,
+      state: this.state,
       city: this.city,
       zipcode: this.zipcode,
       traineeID: this.TraineeID,
@@ -133,6 +135,8 @@ export class ProfileComponent implements OnInit {
       reader.readAsDataURL(input.files[0]);
     }
   }
+
+
   toggleEditMode1() {
     if (this.editmode === true) {
       this.editmode = false;
