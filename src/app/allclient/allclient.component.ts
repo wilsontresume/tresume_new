@@ -26,6 +26,7 @@ export class AllclientComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchclientlist();
   }
@@ -42,6 +43,8 @@ export class AllclientComponent implements OnInit {
     this.service.getTraineeClientList(Req).subscribe((x: any) => {
       this.clients = x.result;
       this.noResultsFound = this.clients.length === 0;
+    this.loading = false;
+
     });
   }
 
