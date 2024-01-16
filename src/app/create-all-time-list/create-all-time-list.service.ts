@@ -16,8 +16,8 @@ export class CreateAllTimeListService {
       return this.http.post(this.endpoint, data);
     }
 
-    getCreateProjectList(request: any): Observable<ResponseDetails> {
-      return this.http.post<ResponseDetails>(this.endpoint + 'getCreateProjectList', request);
+    getProjectList(request: any): Observable<ResponseDetails> {
+      return this.http.post<ResponseDetails>(this.endpoint + 'getProjectList', request);
   }
 
   getPayItemList(request: any): Observable<ResponseDetails> {
