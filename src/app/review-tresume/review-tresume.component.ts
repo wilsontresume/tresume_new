@@ -6,6 +6,7 @@ import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/fo
 import { AppService } from '../app.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageModule } from 'primeng/message';
+
 @Component({
   templateUrl: './review-tresume.component.html',
   providers: [CookieService, ReviewService, MessageService,AppService],
@@ -13,6 +14,7 @@ import { MessageModule } from 'primeng/message';
 })
 
 export class ReviewTresumeComponent implements OnChanges {
+
   showConfirmationDialog2: boolean;
   showConfirmationDialog3: boolean;
   myForm: any;
@@ -47,9 +49,11 @@ export class ReviewTresumeComponent implements OnChanges {
   routingnum1: any;
   salaryDepositType: any;
   howMuch: any;
+  submissionList: any[] = []; 
+
 
   //general declaration
-  recruiterName: any;
+  recruiterName: any = 0;
   ReferredBy: any;
   currentStatus: any;
   legalStatusVal: any;
@@ -60,6 +64,7 @@ export class ReviewTresumeComponent implements OnChanges {
   tabIndex: any;
   routeType: any;
   title: any;
+  showSaveButton: boolean;
 
   siteVisitTabClicked() {
     console.log('Additional logic for Site Visit tab click');
@@ -233,7 +238,7 @@ export class ReviewTresumeComponent implements OnChanges {
       interviewMode: this.myForm.get('interviewMode').value,
       interviewTimeZone:'EST',
       traineeID:this.candidateID,
-      recruiterID:this.TraineeID,
+      recruiterID:this.recruiterName,
       recruiteremail:this.userName,
       InterviewStatus:'SCHEDULED',
     };
@@ -348,6 +353,10 @@ export class ReviewTresumeComponent implements OnChanges {
     if (tabIndex >= 0 && tabIndex < tabLabels.length) {
       this.currentTabIndex = tabIndex;
       this.tabIndex = tabIndex;
+    
+      // Determine if the save button should be visible based on the tabIndex
+      this.showSaveButton = tabIndex !== 2;
+    
       this.saveButtonLabel = `Save ${tabLabels[tabIndex]}`;
       this.router.navigate(['/reviewtresume/'+this.routeType+'/'+this.candidateID+'/'+tabIndex]);
     }
@@ -355,6 +364,7 @@ export class ReviewTresumeComponent implements OnChanges {
     this.currentTabIndex = tabIndex;
     switch (tabIndex) {
       case 0:
+        this.loading = true;
         this.fetchCandidateInfo();
         this.getOrgUserList();
         break;
@@ -406,10 +416,9 @@ export class ReviewTresumeComponent implements OnChanges {
   reviewService: any;
   placementList: any;
   candidateID:any;
-  submissionList:any;
 
 
-  constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService, private router:Router, ) {
+  constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService, private router:Router) {
     
     this.candidateID = this.route.snapshot.params["traineeID"];
     console.log(this.candidateID);
@@ -670,6 +679,7 @@ export class ReviewTresumeComponent implements OnChanges {
     this.service.getOrgUserList(Req).subscribe((x: any) => {
     this.referedby = x.result;
     this.recruiterName = x.result;
+    this.loading = false;
     });
   }
   
@@ -783,6 +793,7 @@ export class ReviewTresumeComponent implements OnChanges {
     };
     this.service.deleteinterviewdata(Req).subscribe((x: any) => {
       var flag = x.flag;
+      console.log(x);
       this.fetchinterviewlist();
 
       if (flag === 1) {
@@ -802,6 +813,11 @@ export class ReviewTresumeComponent implements OnChanges {
   cancelDelete() {
     console.log(this.showConfirmationDialog);
     this.showConfirmationDialog = false;
+  }
+
+  canceldeletesubmission(){
+    console.log(this.showConfirmationDialog3);
+    this.showConfirmationDialog3 = false;
   }
 
   //placement tab
@@ -827,8 +843,8 @@ export class ReviewTresumeComponent implements OnChanges {
       PID: this.deleteIndex,
     };
     this.service.deleteplacementdata(Req).subscribe((x: any) => {
-      var flag1 = x.flag1;
-
+      var flag1 = x.flag;
+      this.placementList();
       if (flag1 === 1) {
         this.messageService.add({
           severity: 'success',
@@ -955,5 +971,49 @@ cancelDeletesubmission() {
     }
   }
 
+  // download DSR Submission tab 
+
+  showOptionsFlag: boolean = false;
+  excelOptionDisplay: string = 'none';
+
+  showOptions() {
+    this.showOptionsFlag = !this.showOptionsFlag;
+    this.excelOptionDisplay = this.showOptionsFlag ? 'block' : 'none';
+  }
+
+  downloadExcel() {
+    const data = this.submissionList;
+
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Title,SubmissionDate,MarketerName,VendorName,ClientName,Note,Rate\n";
+    
+    data.forEach(submission => {
+      csvContent += `${submission.Title},${submission.SubmissionDate},${submission.MarketerName},${submission.VendorName},${submission.ClientName},${submission.Note},${submission.Rate}\n`;
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "submission_data.csv");
+    document.body.appendChild(link);
+    link.click();
+  }
+
+  // This is for email tracker in the placement tab // HRMS
+  // downloadAndSendEmail() {
+  //   this.service.getTableData().subscribe(data => {
+  //     // Simulate download
+  //     const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+  //     const link = document.createElement('a');
+  //     link.href = window.URL.createObjectURL(blob);
+  //     link.download = 'table-data.json';
+  //     link.click();
+
+  //     // Send email (Note: You need a backend API for this)
+  //     this.service.getTableData().subscribe(response => {
+  //       console.log('Email sent successfully:', response);
+  //     });
+  //   });
+  // }
 
 }

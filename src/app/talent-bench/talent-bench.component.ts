@@ -13,22 +13,31 @@ import { Router } from '@angular/router';
   providers: [TalentBenchService, CookieService,MessageService],
 })
 export class TalentBenchComponent implements OnInit {
+  loading:boolean = false;
   candidates: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
   // formData: any = {};
-  tableData:any = [];
   OrgID:string = '';
   userName:string = '';
   TraineeID:string = '';
   addCandidate: any;
-  noResultsFound:boolean = true;
-
+  recruiterName: any;
+  selectedcurrentstatus: any;
+  currentStatusOptions: any = [];
+  legalStatusOptions: any;
+  legalStatus: string[] = [];
+  tableData: any[] = []; 
+  searchTerm: string = '';
+  noResultsFound: boolean = false;
+  
   constructor(private dialog: MatDialog,private cookieService: CookieService, private service:TalentBenchService,private messageService: MessageService,private formBuilder: FormBuilder) {
     }
-  
-  recruiterNames: string[] = ['Recruiter 1', 'Recruiter 2', 'Recruiter 3'];
-  candidateStatuses: string[] = ['Active', 'Inactive', 'On Hold'];
-  marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
-  referralTypes: string[] = ['Type 1', 'Type 2', 'Type 3'];
+
+  recruiterNames: string[] = [];
+  candidateStatuses: string[] = [];
+  marketerNames: string[] = [''];
+  marketerName: string[] = [''];
+  referralTypes: string[] = ['Phone', 'Email', 'Others'];
+  referralType: string[] = [''];
   item = {
     groupName: 'group1'
   };
@@ -43,33 +52,36 @@ export class TalentBenchComponent implements OnInit {
   // onSubmit() {
   //   console.log('Form Data:', this.formData);
   // }
-  
+
   dataArray: any[] = [
     { groupName: 'Group A', candidateCount: 10 },
     { groupName: 'Group B', candidateCount: 5 },
   ];
 
   onIconClick() {
-    alert('are you sure want to delete?'); 
+    alert('are you sure want to delete?');
   }
- 
+
 
   ngOnInit(): void {
     // this.cookieService.set('userName1','karthik@tresume.us');
     // this.cookieService.set('OrgID','82');
-    // this.cookieService.set('TraineeID','569');  
-    // this.cookieService.set('TimesheetRole','1'); 
-    // this.cookieService.set('RoleID','17'); 
+    // this.cookieService.set('TraineeID','569');
+    // this.cookieService.set('TimesheetRole','1');
+    // this.cookieService.set('RoleID','17');
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchtalentbenchlist();
-  
+    this.getcandidaterstatus();
+    this.getLegalStatusOptions();
+    this.getOrgUserList();
+
 
     this.addCandidate = this.formBuilder.group({
       FirstName: ['', [Validators.required, Validators.minLength(3)]],
       MiddleName: [''],
-      LastName: ['', [Validators.required, Validators.minLength(3)]],
+      LastName: ['', [Validators.required]],
       Email: ['', [Validators.required, Validators.minLength(3)]],
       Phone: ['', [Validators.required, Validators.minLength(3)]],
       Gender: ['male'],
@@ -79,37 +91,87 @@ export class TalentBenchComponent implements OnInit {
       CandidateStatus: [''],
       Groups: [''],
       LegalStatus: [''],
-      MarketerName: ['', Validators.required],
+      marketerName: ['', Validators.required],
       LocationConstraint: ['yes'],
       ReferralType: [''],
       Notes: [''],
     });
-    
-  } 
-   
+
+  }
+  getcandidaterstatus(){
+    const Req = {
+         };
+    this.service.candidatestatus(Req).subscribe((x: any) => {
+      this.currentStatusOptions = x;
+      console.log(this.currentStatusOptions);
+    });
+  }
+
+  getLegalStatusOptions() {
+    const request = {};
+  
+    this.service.getLegalStatus(request).subscribe((response: any) => {
+      this.legalStatusOptions = response;
+      console.log(this.legalStatusOptions);
+    });
+  }
+
   saveData(){
     let Req = {
-      FirstName: this.addCandidate.value.FirstName,
-      MiddleName: this.addCandidate.value.MiddleName,
-      LastName: this.addCandidate.value.LastName,
-      Email: this.addCandidate.value.Email,
+      firstName: this.addCandidate.value.FirstName,
+      middleName: this.addCandidate.value.MiddleName,
+      lastName: this.addCandidate.value.LastName,
+      email: this.addCandidate.value.Email,
       Phone: this.addCandidate.value.Phone,
-      Gender: this.addCandidate.value.Gender,
-      RecruiterName: this.addCandidate.value.RecruiterName,
-      Degree: this.addCandidate.value.Degree,
+      gender: this.addCandidate.value.Gender,
+      recruiterName: this.recruiterName,
+      degree: this.addCandidate.value.Degree,
       University: this.addCandidate.value.University,
-      CandidateStatus: this.addCandidate.value.CandidateStatus,
+      candidateStatus: this.selectedcurrentstatus,
       Groups: this.addCandidate.value.Groups,
-      LegalStatus: this.addCandidate.value.LegalStatus,
-      MarketerName: this.addCandidate.value.MarketerName,
-      LocationConstraint: this.addCandidate.value.LocationConstraint,
-      ReferralType: this.addCandidate.value.ReferralType,
-      Notes: this.addCandidate.value.Notes,
+      legalStatus: this.addCandidate.value.LegalStatus,
+      MaketerName: this.marketerName,
+      locationConstraint: this.addCandidate.value.LocationConstraint,
+      referralType: this.addCandidate.value.referralType,
+      notes: this.addCandidate.value.Notes,
+      orgID:this.OrgID,
+      createby:this.userName,
+      followupon:'',
+      currentLocation:''
     };
 
     console.log(Req);
-    this.service.addTalentBenchList(Req).subscribe((x: any) => {
-      console.log(x);
+    this.service.AddTalentBenchList(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+        this.fetchtalentbenchlist();
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+  }
+  
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary: response.message });
+    this.loading = false;
+    console.log(response);
+  }
+  
+  private handleError(response: any): void {
+    this.messageService.add({ severity: 'error', summary:  response.message });
+    this.loading = false;
+  }
+
+
+  getOrgUserList() {
+    let Req = {
+      TraineeID: this.TraineeID,
+      orgID: this.OrgID
+    };
+    this.service.fetchrecruiter(Req).subscribe((x: any) => {
+      this.recruiterNames = x;
+      this.marketerNames = x;
     });
   }
 //   fetchtalentbenchlist(){
@@ -131,4 +193,8 @@ fetchtalentbenchlist() {
     this.noResultsFound = this.tableData.length === 0;
   });
 }
+
+searchInput: string = '';
+
+
 }

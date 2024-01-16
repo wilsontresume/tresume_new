@@ -62,8 +62,9 @@ export class DSRReportComponent implements OnInit {
 
     constructor(private http: HttpClient, private service: DashboardService, private reportService: ReportsService) {
         this.traineeId = sessionStorage.getItem("TraineeID");
-        this.startDate = this.dateFormatter(this.ranges[1].value[0]);
-        this.endDate = this.dateFormatter(this.ranges[1].value[1]);
+        this.startDate = this.dateFormatter(this.ranges[1].value[1]);
+        this.endDate = this.dateFormatter(this.ranges[1].value[0]);
+        console.log(this.ranges);
         sessionStorage.setItem("Route", 'Reports');
     }
 
@@ -73,6 +74,7 @@ export class DSRReportComponent implements OnInit {
             columnDefs: this.columnDefs,
             pagination: true
         }
+        
         this.getInterviews(this.startDate, this.endDate);
         //this.getAllRecruiters();
     }

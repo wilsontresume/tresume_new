@@ -14,6 +14,8 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./login.component.scss']
 })
 export class LoginHomeHealthComponent implements OnInit {
+  loading:boolean = false;
+
   username: string;
   password: string;
   errorMessage: string;

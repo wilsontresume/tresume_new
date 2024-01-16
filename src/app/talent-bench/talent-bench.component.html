@@ -19,7 +19,7 @@
         <button class="btn ml-3">Export Report</button>
         <button type="button" class="btn ml-3" data-toggle="modal" data-target=".bd-example-modal-xl">Add
           Candidate</button>
-        <button type="button" class="btn ml-3" data-toggle="modal" data-target="#exampleModalLong">Group</button>
+        <!-- <button type="button" class="btn ml-3" data-toggle="modal" data-target="#exampleModalLong">Group</button> -->
       </div>
     </div>
     <hr>
@@ -43,35 +43,36 @@
             <th>Status</th>
             <th>Bill Rate</th>
             <th>Refer</th>
-            <th>Group Name</th>
+            <!-- <th>Group Name</th> -->
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of tableData">
-            <td>{{ item.BenchId }}</td>
+            <td>{{ item.TBID }}</td>
             <td>
-              <div class="ml-10"> {{ item.Name }}</div>
+              <div class="ml-10"> {{ item.FirstName }} {{ item.FirstName }}</div>
               <i [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/0']" class="fas fa-network-wired icon"></i>
-              <i class="far fa-clipboard icon" [routerLink]="['/reviewtresume/3/'+candidate.TraineeID+'/1']"></i>
-              <i class="fas fa-pencil-alt icon" [routerLink]="['/reviewtresume/3/'+candidate.TraineeID+'/2']"></i>
-              <i class="far fa-file-alt icon" [routerLink]="['/reviewtresume/3/'+candidate.TraineeID+'/3']"></i>
+              <i class="far fa-clipboard icon" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/1']"></i>
+              <i class="fas fa-pencil-alt icon" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/2']"></i>
+              <i class="far fa-file-alt icon" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/3']"></i>
             </td>
-            <td>{{ item.Email }}</td>
-            <td>{{ item.Location }}</td>
-            <td>{{ item.TimeOnBench }}</td>
-            <td>{{ item.Title }}</td>
-            <td>{{ item.Phone }}</td>
-            <td>{{ item.Status }}</td>
+            <td>{{ item.UserName }}</td>
+            <td>{{ item.CurrentLocation }}</td>
+            <td>{{ item.age }}</td>
+            <td>{{ item.TraineeTitle }}</td>
+            <td>{{ item.phone }}</td>
+            <td>{{ item.LegalStatus }}</td>
             <td>{{ item.BillRate }}</td>
-            <td>{{ item.Refer }}</td>
-            <td>
+            <td>{{ item.ReferredBy }}</td>
+            <!-- <td>
               <select class="form-control" [(ngModel)]="item.groupName">
                 <option *ngFor="let option of groupOptions" [value]="option.value">
                   {{ option.label }}
                 </option>
               </select>
-            </td>
+            </td> -->
           </tr>
+
           <tr *ngIf="noResultsFound">
             <td colspan="11" class="text-center">
               No results found.
@@ -156,8 +157,8 @@
           <div class="row row2">
             <div class="col-md-4">
               <label class="label">Recruiter Name *</label>
-              <select class="form-control" name="RecruiterName" formControlName="RecruiterName">
-                <option *ngFor="let name of recruiterNames" [value]="name">{{ name }}</option>
+              <select class="form-control" name="recruiterName" [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let name of recruiterNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
               </select>
             </div>
             <div class="col-md-4">
@@ -173,8 +174,9 @@
           <div class="row row2">
             <div class="col-md-4">
               <label class="label">Candidate Status</label>
-              <select class="form-control" name="CandidateStatus" formControlName="CandidateStatus">
-                <option *ngFor="let status of candidateStatuses" [value]="status">{{ status }}</option>
+              <select class="form-control" id="currentStatus" [(ngModel)]="selectedcurrentstatus"
+                [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let option of  currentStatusOptions" [value]="option.CandidateStatusID">{{ option.Value }}</option>
               </select>
             </div>
             <div class="col-md-4">
@@ -183,9 +185,9 @@
             </div>
             <div class="col-md-4">
               <label class="label">Legal Status</label>
-              <select class="form-control" name="LegalStatus" formControlName="LegalStatus">
-                <option value="legal">Legal</option>
-                <option value="illegal">Illegal</option>
+              <select class="form-control" name="legalStatus" [(ngModel)]="legalStatus" [ngModelOptions]="{standalone: true}">
+                <option value>-- Select Legal Status --</option>
+                <option *ngFor="let stat of legalStatusOptions" [value]="stat.LegalStatusID">{{ stat.LegalValue }}</option>
               </select>
             </div>
           </div>
@@ -193,12 +195,9 @@
           <div class="row row2">
             <div class="col-md-4">
               <label class="label">Marketer Name</label>
-              <select class="form-control" formControlName="MarketerName" name="MarketerName" formControlName="MarketerName" [ngClass]="{ 'invalid-input': addCandidate.get('MarketerName').invalid && addCandidate.get('MarketerName').touched }">
-                <option *ngFor="let name of marketerNames" [value]="name">{{ name }}</option>
+              <select class="form-control" name="marketerName" [(ngModel)]="marketerName" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let name of marketerNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
               </select>
-              <div *ngIf="addCandidate.get('MarketerName').invalid && addCandidate.get('MarketerName').touched" class="validation-message" style="color: red;">
-                * Please select at least one Marketer Name.
-              </div>
             </div>
 
             <div class="col-md-4 text-center">
@@ -210,7 +209,7 @@
             </div>
             <div class="col-md-4">
               <label class="label">Referral Type</label>
-              <select class="form-control" name="ReferralType" formControlName="ReferralType">
+              <select class="form-control" name="referralType" [(ngModel)]="referralType" [ngModelOptions]="{standalone: true}">
                 <option *ngFor="let type of referralTypes" [value]="type">{{ type }}</option>
               </select>
             </div>
@@ -292,3 +291,5 @@
     </div>
   </div>
 </div>
+<p-toast position="bottom-right"></p-toast>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
