@@ -201,4 +201,24 @@ fetchtalentbenchlist() {
 }
 
 searchInput: string = '';
+submissionList: any[] = [];
+downloadExcel() {
+  const data = this.tableData;
+
+  let csvContent = "data:text/csv;charset=utf-8,";
+  csvContent += "TBID,UserName,email,CurrentLocation,Time on Bench ( Days ),TraineeTitle,LegalStatus,Phone,BillRate,ReferredBy\n";
+
+  data.forEach(item => {
+    csvContent += `${item.TBID},"${item.FirstName} ${item.LastName}",` +
+      `${item.UserName},${item.CurrentLocation},${item.age},${item.TraineeTitle},${item.LegalStatus},${item.phone},${item.BillRate},${item.ReferredBy}\n`;
+  });
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "table_data.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 }
