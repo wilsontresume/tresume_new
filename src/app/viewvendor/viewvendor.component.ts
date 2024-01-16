@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
-  selector: 'app-viewvendor', 
-  templateUrl: './viewvendor.component.html', 
-  styleUrls: ['./viewvendor.component.scss'] 
+  selector: 'app-viewvendor',
+  templateUrl: './viewvendor.component.html',
+  styleUrls: ['./viewvendor.component.scss']
 })
-export class ViewvendorComponent implements OnInit { 
+export class ViewvendorComponent implements OnInit {
+  loading:boolean = false;
+
   content: string = '';
   vendors: any[] = [
     {
@@ -16,7 +20,7 @@ export class ViewvendorComponent implements OnInit {
       Owner: 'John Doe',
     },
   ];
- 
+
   sortByColumn: string = '';
   sortDirection: string = 'asc';
   Ownership: any[]=[{name:'Parvathy'}, {name:'abc'}, {name:'DEF'}, {name:'def'}];
@@ -46,8 +50,8 @@ export class ViewvendorComponent implements OnInit {
       option.toLowerCase().includes(event.query.toLowerCase())
     );
   }
-  
-  constructor(private router: Router) { 
+
+  constructor(private router: Router) {
     this.vendorLeads = [{name:'Lead 1'}, {name:'Lead 2'}, {name:'Lead 3'}, {name:'Lead 4'}];
     this.requiredDocuments = [{name:'Document 1'}, {name:'Document 2'}, {name:'Document 3'}, {name:'Document 4'}];
   }
@@ -60,7 +64,7 @@ export class ViewvendorComponent implements OnInit {
     this.sortBy('Action');
   }
 
-  
+
   sortBy(columnName: string) {
     if (this.sortByColumn === columnName) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -72,19 +76,19 @@ export class ViewvendorComponent implements OnInit {
   }
 
   showConfirmationDialog: boolean = false;
-  
+
   deleteContact(){
     this.showConfirmationDialog = true;
    }
    confirmDelete() {
-    const index = 1; 
+    const index = 1;
     if (index >= 0 && index < this.vendors.length) {
       this.vendors.splice(index, 1);
     }
     this.showConfirmationDialog = false;
   }
   cancelDelete() {
-    
+
     this.showConfirmationDialog = false;
   }
 }

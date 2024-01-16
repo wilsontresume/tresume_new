@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { DashboardService, RequestItem } from '../dashboard/dashboard.service';
 import { GridOptions, ColDef, RowNode, Column, GridApi } from 'ag-grid-community';
+import { CookieService } from 'ngx-cookie-service';
 
 interface IRange {
   value: Date[];
@@ -18,6 +19,7 @@ interface IRange {
   providers: [DashboardService]
 })
 export class ReportsComponent implements OnInit {
+  loading: boolean = false;
 
   public gridOptions: GridOptions = {};
   public gridApi: GridApi;
@@ -87,6 +89,7 @@ export class ReportsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.gridOptions = {
       rowData: this.rowData,
       columnDefs: this.columnDefs,
@@ -135,6 +138,8 @@ export class ReportsComponent implements OnInit {
         this.recruiter = response;
         console.log(response);
       }
+    this.loading = false;
+
     });
   }
 

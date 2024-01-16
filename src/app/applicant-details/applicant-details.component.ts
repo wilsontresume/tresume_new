@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-applicant-details',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./applicant-details.component.scss']
 })
 export class ApplicantDetailsComponent{
+  loading:boolean = false;
 
   applicants: any[] = [
     { date: '12/10/2023', name: 'Wilson', jobTitle: 'Senior Developer', legalStatus: 'Approved', payRate: '$ 500',source:'abcde' },

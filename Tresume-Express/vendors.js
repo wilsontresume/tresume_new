@@ -31,12 +31,14 @@ const transporter = nodemailer.createTransport({
 });
 
 module.exports = router;
- 
+
 router.post('/getTraineeVendorList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = new sql.Request();
-    const query = "select * from Vendors where PrimaryOwner = '" + req.body.TraineeID + "' and active = 1";
+    const query = "SELECT   V.vendorid,  V.vendorname,  V.emailid,  V.contactnumber,  CONCAT(T.firstname, ' ', T.lastname) AS primaryowner FROM   vendors V INNER JOIN   Trainee T ON V.primaryowner = T.traineeid WHERE   V.active = 1  AND V.primaryowner = '" + req.body.TraineeID + "'";
+
+    
 
     console.log(query);
 
@@ -53,7 +55,7 @@ router.post('/getTraineeVendorList', async (req, res) => {
         flag: 0,
         error: "No active vendors found! ",
       };
-      res.send(result); 
+      res.send(result);
     }
   } catch (error) {
     console.error("Error fetching vendor data:", error);
@@ -88,7 +90,7 @@ router.post('/deleteVendorAccount', async (req, res) => {
       error: "An error occurred while deleting the vendor!",
     };
     res.status(500).send(result);
-  }  
+  }
 
 })
 
@@ -100,11 +102,11 @@ async function deactivatevendor(VendorID) {
     const queryResult = await request.query(
       `update Vendors set active = 0 where VendorID = '${VendorID}'`
     );
-    
+
     if (queryResult.rowsAffected[0] === 0) {
       throw new Error("No records found!");
     }
-    
+
     return queryResult;
   } catch (error) {
     console.error("Error while deleting vendor:", error);
@@ -113,24 +115,28 @@ async function deactivatevendor(VendorID) {
 }
 
 router.post('/addVendor', async (req, res) => {
-
   try {
+    var query = `INSERT INTO Vendors (VendorName, ContactNumber, EmailID, Address, VMSVendorName, FederalID,ZipCode, Website, Fax, Industry, Country, State, City, VendorStatusID,  VendorCategoryID, PrimaryOwner,RequiredDocuments, PaymentTerms, AboutCompany, Access, sendingEmail, posting, Notes, Active) VALUES 
+    ('${req.body.VendorName}', '${req.body.ContactNumber}', '${req.body.EmailID}', '${req.body.Address}', '${req.body.VMSVendorName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.Website}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', '${req.body.VendorStatusID}', '${req.body.VendorCategoryID}', '${req.body.PrimaryOwner}','${req.body.RequiredDocuments}','${req.body.PaymentTerms}', '${req.body.AboutCompany}', '${req.body.Access ? '1' : '0'}', '${req.body.sendingEmail ? '1' : '0'}', '${req.body.posting ? '1' : '0'}', '${req.body.Notes}', ${req.body.Active || '1'})`;
+ 
+    console.log(query);
     const pool = await sql.connect(config);
-    const request = pool.request();
-    
+    const request = new sql.Request(pool);
+    const recordset = await request.query(query);
+
     const result = {
       flag: 1,
-      message: "Vendor added successfully!",
+      message: "Vendor data inserted successfully!",
     };
+    res.status(200).json(result);
 
-    res.send(result);
   } catch (error) {
-    console.error("Error adding vendor:", error);
+    console.error("Error inserting Vendor data:", error);
     const result = {
       flag: 0,
-      error: "An error occurred while adding the vendor!",
+      error: "An error occurred while inserting Vendor data!",
     };
-    res.status(500).send(result);
-  }  
+    res.status(500).json(result);
+  }
 });
 
