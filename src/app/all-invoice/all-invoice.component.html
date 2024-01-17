@@ -7,102 +7,104 @@
   </div>
 
   <body>
-             <div class="container" style="font-size: 13px ;">
-                <div class="container mt-3">
-                  <div class="container mt-3">
-                    <ul class="nav nav-tabs" style="justify-content: flex-start; position: relative;">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="allinvoices-tab" data-toggle="tab" href="#allinvoices" style="margin-left: 12px">
-                                All Invoices
-                            </a>
-                        </li>
-                        <li class="nav-item" style="position: relative;">
-                            <a class="nav-link" id="paidinvoices-tab" data-toggle="tab" href="#paidinvoices">
-                                Paid Invoices
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="unpaidinvoices-tab" data-toggle="tab" href="#unpaidinvoices" style="margin-left: 12px">
-                                Unpaid Invoices
-                            </a>
-                        </li>
-                        
-                    </ul>
-                
+    <div class="container" style="font-size: 13px ;">
+      <div class="container mt-3">
+        <div class="container mt-3">
+          <ul class="nav nav-tabs" style="justify-content: flex-start; position: relative;">
+            <li class="nav-item">
+              <a class="nav-link active" id="allinvoices-tab" data-toggle="tab" href="#allinvoices"
+                style="margin-left: 12px">
+                All Invoices
+              </a>
+            </li>
+            <li class="nav-item" style="position: relative;">
+              <a class="nav-link" id="paidinvoices-tab" data-toggle="tab" href="#paidinvoices">
+                Paid Invoices
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="unpaidinvoices-tab" data-toggle="tab" href="#unpaidinvoices"
+                style="margin-left: 12px">
+                Unpaid Invoices
+              </a>
+            </li>
+          </ul>
 
 
-                    
-                    <div class="tab-content" style="margin-top: 26px;">
-                      <div id="allinvoices" class="tab-pane fade show active">
-                        <div class="row">
-                          <div class="col-md-2">
-                            <label for="batchActions">Batch Actions</label>
-                            <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="batchActions" name="batchActions">
-                              <option value="action1">Action 1</option>
-                              <option value="action2">Action 2</option>
-                            </select>
-                          </div>
-                  
-                          <div class="col-md-2">
-                            <label for="type">Type</label>
-                            <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="type" name="type">
-                              <option value="allTransaction">All transaction</option>
-                              <option value="allPlusDeposits">All plus deposits</option>
-                              <option value="estimate">Estimate</option>
-                              <option value="creditMemos">Credit memos</option>
-                              <option value="salesReceipt">Sales Receipts</option>
-                              <option value="unbilledIncome">Unbilled Income</option>
-                              <option value="moneyReceived">Money received</option>
-                              <option value="recentlyPaid">Recently paid</option>
-                            </select>
-                          </div>
-                  
-                          <div class="col-md-2">
-                            <label for="status">Status</label>
-                            <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="status" name="status">
-                              <option value="all">All</option>
-                              <option value="open">Open</option>
-                              <option value="overDue">Overdue</option>
-                              <option value="paid">Paid</option>
-                              <option value="voided">Voided</option>
-                            </select>
-                          </div>
-                  
-                          <div class="col-md-2">
-                            <label for="date">Date</label>
-                            <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="date" name="date">
-                              <option value="all">All</option>
-                              <option value="customDate" (click)="toggleCustomDateModel()">Custom dates</option>
-                              <option value="today">Today</option>
-                              <option value="yesterday">Yesterday</option>
-                              <option value="thisWeek">This week</option>
-                              <option value="lastWeek">Last week</option>
-                              <option value="thisMonth">This month</option>
-                              <option value="lastMonth">Last month</option>
-                              <option value="thisQuarter">This quarter</option>
-                              <option value="lastQuarter">Last quarter</option>
-                            </select>
-                           
-                            <div *ngIf="showCustomDateModel" class="custom-date-model">
-                              <label for="startDate">Start Date:</label>
-                              <input type="date" id="startDate" [(ngModel)]="startDate">
-                          
-                              <label for="endDate">End Date:</label>
-                              <input type="date" id="endDate" [(ngModel)]="endDate">
-                          
-                              <button (click)="resetDates()">Reset</button>
-                              <button (click)="applyDates()">Apply</button>
-                            </div>
-                          </div>
-                            <div class="col-md-2 mt-4 " >
-                              <a href="#" (click)="viewRecurringTemplates()" style="margin-left: 8px;"> Recurring templates</a>
-                            </div>
-                            
 
-                          <div class="col-md-2 mt-4">
-                            <a href="#" (click)="feedbackWithIcon()">Feedback </a>
-                          </div>
-                          <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+          <div class="tab-content" style="margin-top: 26px;">
+            <div id="allinvoices" class="tab-pane fade show active">
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="batchActions">Batch Actions</label>
+                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="batchActions"
+                    name="batchActions">
+                    <option value="action1">Action 1</option>
+                    <option value="action2">Action 2</option>
+                  </select>
+                </div>
+
+                <div class="col-md-2">
+                  <label for="type">Type</label>
+                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="type" name="type">
+                    <option value="allTransaction">All transaction</option>
+                    <option value="allPlusDeposits">All plus deposits</option>
+                    <option value="estimate">Estimate</option>
+                    <option value="creditMemos">Credit memos</option>
+                    <option value="salesReceipt">Sales Receipts</option>
+                    <option value="unbilledIncome">Unbilled Income</option>
+                    <option value="moneyReceived">Money received</option>
+                    <option value="recentlyPaid">Recently paid</option>
+                  </select>
+                </div>
+
+                <div class="col-md-2">
+                  <label for="status">Status</label>
+                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="status" name="status">
+                    <option value="all">All</option>
+                    <option value="open">Open</option>
+                    <option value="overDue">Overdue</option>
+                    <option value="paid">Paid</option>
+                    <option value="voided">Voided</option>
+                  </select>
+                </div>
+
+                <div class="col-md-2">
+                  <label for="date">Date</label>
+                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="date" name="date">
+                    <option value="all">All</option>
+                    <option value="customDate" (click)="toggleCustomDateModel()">Custom dates</option>
+                    <option value="today">Today</option>
+                    <option value="yesterday">Yesterday</option>
+                    <option value="thisWeek">This week</option>
+                    <option value="lastWeek">Last week</option>
+                    <option value="thisMonth">This month</option>
+                    <option value="lastMonth">Last month</option>
+                    <option value="thisQuarter">This quarter</option>
+                    <option value="lastQuarter">Last quarter</option>
+                  </select>
+
+                  <div *ngIf="showCustomDateModel" class="custom-date-model">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" [(ngModel)]="startDate">
+
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" [(ngModel)]="endDate">
+
+                    <button (click)="resetDates()">Reset</button>
+                    <button (click)="applyDates()">Apply</button>
+                  </div>
+                </div>
+                <div class="col-md-2 mt-4 ">
+                  <a href="#" (click)="viewRecurringTemplates()" style="margin-left: 8px;"> Recurring templates</a>
+                </div>
+
+
+                <div class="col-md-2 mt-4">
+                  <a href="#" (click)="feedbackWithIcon()">Feedback </a>
+                </div>
+                <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -122,539 +124,990 @@
                             </div>
                           </div> -->
 
-                          
-                          <div class="row col-md-2 mt-4">
-                          <input type="text" id="searchInput" placeholder="Find by Invoice no." style=" width : 136px; height: 34px; margin-left: 25px;">
-                        </div>
-                        <div class="col-md-2 mt-4">
-                          <input type="text" id="searchInput" placeholder="Find by client" style=" width : 136px; height: 34px; margin-left: 25px;">
-                        </div>
-                        </div>
 
-                        <div class="row cards">
-                          <div class="card mb-3">
-                             <div class="card-body rec">
-                              <h1 class="card-title">Tek System Inc <span></span></h1>
-                            </div>
-                              <div class="company-info" style="margin-top: -118px; margin-left: 25px;">
-                                <h4 style="text-decoration: underline;">Company Name</h4>
-                                <p style="margin-top: -9px;">Tek System</p>
-                              </div>
-                        
-                              <div class="side-heading info" style="margin-left: 25px; margin-top: 17px;">
-                                <h4 style="text-decoration: underline;">Add</h4>
-                                <p style="margin-top: -13px; "><a href="#">Notes</a></p> <!-- Provide the link to your notes here -->
-                              </div>
-                            
-                          </div>
-                        
-                          <div class="card mb-3 ml-3">
-                            <div class="card-body square">
-                              <h1 class="card-title">Summary</h1>
-                              <!-- <p class="card-text">This is a square card.</p> -->
-                            </div>
-                          </div>
-                        </div>
+                <div class="row col-md-2 mt-4 containers">
+                  <input type="search" placeholder="Search...">
+                </div>
+              </div>
+              <div class="opt d-flex">
+                <div class="btn-group mr-2">
+                  <button type="button" class="btn btn-" data-toggle="modal" data-target="#exampleModal"
+                    data-whatever="@fat">
+                    Edit
+                  </button>
+                  <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Make inactive</a>
+                    <a class="dropdown-item" href="#">Merge contacts</a>
+                  </div>
+                </div>
 
 
-                        <div style="font-size: 12px;"> <!-- Adjust the font-size as needed -->
-                          <table class="table no-border" style="margin-top: 50px;">
-                              <thead class="underline">
-                                  <tr>
-                                      <td><input type="checkbox"></td>
-                                      <th>DATE</th>
-                                      <th>TYPE</th>
-                                      <th>NO.</th>
-                                      <th>CLIENT/PROJECT</th>
-                                      <th>MEMO</th> 
-                                      <th colspan="2">AMOUNT STATUS</th>
-                                      <th>ACTION</th>
-                                      <td class="action-icons">
-                                        <!-- Print Icon -->
-                                        <i class="material-icons" onclick="handlePrint()">print</i>
-                                        <!-- File Upload Icon -->
-                                        <i class="fas fa-upload" onclick="handleFileUpload()"></i>
-                                        <!-- Settings Icon -->
-                                        <i class="fas fa-cog" onclick="openSettings()"></i>
-                                      </td>
-                                                   
-                                  </tr>
-                                  <tr>
-                                      <td><input type="checkbox"></td>
-                                      <td>11/17/23</td>                                      
-                                      <td>Invoice</td>
-                                      <td>90801</td>
-                                      <td>TEK system Inc: Shushant Bathini </td>
-                                      <td>11/17/2023 to 08/04/2023</td>
-                                      <td>
-                                          240.00 
-                                          <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                          <p>Partially paid, $48 due</p>
-                                          
-                                      </td>
-                                      <td colspan="2">
-                                          <button class="btn btn-" onclick="editAction()">Edit</button>
-                                          <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                      </td> 
-                                      
-                                  </tr>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                      240.00
-                                      <span style="color: green; margin-left: 5px;">
-                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
-                                      </span>
-                                      <span style="color: green;">Paid</span>
-                                  </td>
-                                    <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td>
-                                  </tr>
 
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                      240.00
-                                      <span style="color: green; margin-left: 5px;">
-                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
-                                      </span>
-                                      <span style="color: green;">Paid</span>
-                                  </td>
-                                    <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td>
-                                  </tr>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                        240.00 
-                                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                        <p>Partially paid, $48 due</p>
-                                        
-                                    </td>
-                                    <td colspan="2">
-                                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                                        <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                    </td> 
-                                </tr>
-                                <tr>
-                                  <td><input type="checkbox"></td>
-                                  <td>11/17/23</td>                                      
-                                  <td>Invoice</td>
-                                  <td>90801</td>
-                                  <td>TEK system Inc: Shushant Bathini </td>
-                                  <td>11/17/2023 to 08/04/2023</td>
-                                  <td>
-                                    240.00
-                                    <span style="color: green; margin-left: 5px;">
-                                        <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
-                                    </span>
-                                    <span style="color: green;">Paid</span>
-                                </td>
-                                  <td colspan="2">
-                                    <button class="btn btn-" onclick="editAction()">Edit</button>
-                                    <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                </td>
-                                </tr>
-                                <tr>
-                                  <td><input type="checkbox"></td>
-                                  <td>11/17/23</td>                                      
-                                  <td>Invoice</td>
-                                  <td>90801</td>
-                                  <td>TEK system Inc: Shushant Bathini </td>
-                                  <td>11/17/2023 to 08/04/2023</td>
-                                  <td>
-                                      240.00 
-                                      <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                      <p>Partially paid, $48 due</p>
-                                      
-                                  </td>
-                                  <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td> 
-                              </tr>
-                              <tr>
-                                <td><input type="checkbox"></td>
-                                <td>11/17/23</td>                                      
-                                <td>Invoice</td>
-                                <td>90801</td>
-                                <td>TEK system Inc: Shushant Bathini </td>
-                                <td>11/17/2023 to 08/04/2023</td>
-                                <td>
-                                    240.00 
-                                    <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                    <p>Partially paid, $48 due</p>
-                                    
-                                </td>
-                                <td colspan="2">
-                                    <button class="btn btn-" onclick="editAction()">Edit</button>
-                                    <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                </td> 
-                            </tr>
-                              </thead>
-                          </table>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Name and contact</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                       </div>
-                      
-                      </div>
-                
-                      
-                        <div id="paidinvoices" class="tab-pane fade">
-                          <div class="row">
-                            <div class="col-md-2 mt-4">
-                                <input type="text" id="searchInputInvoice" placeholder="Find by Invoice no." style="width: 136px; height: 34px; margin-left: 25px;">
+                      <div class="container mt-4 modal-body" style="max-height: 300px; overflow-y: auto;">  
+                        <!-- First Row: 4 input text boxes -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" id="textbox1" >
                             </div>
-                            <div class="col-md-2 mt-4">
-                                <input type="text" id="searchInputClient" placeholder="Find by Client" style="width: 136px; height: 34px; margin-left: 25px;">
+                            <div class="col">
+                                <label for="firstName">First name</label>
+                                <input type="text" class="form-control" id="textbox2" >
+                            </div>
+                            <div class="col">
+                                <label for="textbox3">Middle name</label>
+                                <input type="text" class="form-control" id="textbox3" >
+                            </div>
+                            <div class="col">
+                                <label for="textbox4">Suffix</label>
+                                <input type="text" class="form-control" id="textbox4" >
                             </div>
                         </div>
-                
-                            <table class="table no-border" style="margin-top: 50px;">
-                                <thead class="underline">
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                      <th>DATE</th>
-                                      <th>TYPE</th>
-                                      <th>NO.</th>
-                                      <th>CLIENT/PROJECT</th>
-                                      <th>MEMO</th>
-                                      <th colspan="2">AMOUNT STATUS</th>
-                                      <th>ACTION</th>
-                                      <td class="action-icons">
-                                        <!-- Print Icon -->
-                                        <i class="material-icons" onclick="handlePrint()">print</i>
-                                        <!-- File Upload Icon -->
-                                        <i class="fas fa-upload" onclick="handleFileUpload()"></i>
-                                        <!-- Settings Icon -->
-                                        <i class="fas fa-cog" onclick="openSettings()"></i>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                      240.00
-                                      <span style="color: green; margin-left: 5px;">
-                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
-                                      </span>
-                                      <span style="color: green;">Paid</span>
-                                  </td>
-                                    <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td>
-                                  </tr>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                      240.00
-                                      <span style="color: green; margin-left: 5px;">
-                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
-                                      </span>
-                                      <span style="color: green;">Paid</span>
-                                  </td>
-                                    <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td>
-                                  </tr>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                      240.00
-                                      <span style="color: green; margin-left: 5px;">
-                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
-                                      </span>
-                                      <span style="color: green;">Paid</span>
-                                  </td>
-                                    <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td>
-                                  </tr>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                      240.00
-                                      <span style="color: green; margin-left: 5px;">
-                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
-                                      </span>
-                                      <span style="color: green;">Paid</span>
-                                  </td>
-                                    <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td>
-                                  </tr>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                      240.00
-                                      <span style="color: green; margin-left: 5px;">
-                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
-                                      </span>
-                                      <span style="color: green;">Paid</span>
-                                  </td>
-                                    <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td>
-                                  </tr>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                      240.00
-                                      <span style="color: green; margin-left: 5px;">
-                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
-                                      </span>
-                                      <span style="color: green;">Paid</span>
-                                  </td>
-                                    <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td>
-                                  </tr>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                      240.00
-                                      <span style="color: green; margin-left: 5px;">
-                                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
-                                      </span>
-                                      <span style="color: green;">Paid</span>
-                                  </td>
-                                    <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td>
-                                  </tr>
-
-                              </thead>
-                          </table>
-                        </div>
-                
                     
-                        <div id="unpaidinvoices" class="tab-pane fade">
-                          <div class="row">
-                            <div class="col-md-2 mt-4">
-                                <input type="text" id="searchInputInvoice" placeholder="Find by Invoice no." style="width: 136px; height: 34px; margin-left: 25px;">
+                        <!-- Second to Fifth Rows: 2-column wide text boxes -->
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="twoColumnTextbox1">Company name</label>
+                                <input type="text" class="form-control" id="twoColumnTextbox1" >
                             </div>
-                            <div class="col-md-2 mt-4">
-                                <input type="text" id="searchInputClient" placeholder="Find by client" style="width: 136px; height: 34px; margin-left: 25px;">
+                            <div class="col-6">
+                                <label for="dropdown">Client display name</label>
+                                <select class="form-control" id="dropdown">
+                                    <option value="option1">Option 1</option>
+                                    <option value="option2">Option 2</option>
+                                    <option value="option3">Option 3</option>
+                                </select>
                             </div>
                         </div>
-                        <div style="font-size: 12px;"> <!-- Adjust the font-size as needed -->
-                          <table class="table no-border" style="margin-top: 50px;">
-                              <thead class="underline">
-                                  <tr>
-                                      <td><input type="checkbox"></td>
-                                      <th>DATE</th>
-                                      <th>TYPE</th>
-                                      <th>NO.</th>
-                                      <th>CLIENT/PROJECT</th>
-                                      <th>MEMO</th>
-                                      <th colspan="2">AMOUNT STATUS</th>
-                                      <th>ACTION</th>
-                                      <td class="action-icons">
-                                        <!-- Print Icon -->
-                                        <i class="material-icons" onclick="handlePrint()">print</i>
-                                        <!-- File Upload Icon -->
-                                        <i class="fas fa-upload" onclick="handleFileUpload()"></i>
-                                        <!-- Settings Icon -->
-                                        <i class="fas fa-cog" onclick="openSettings()"></i>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td><input type="checkbox"></td>
-                                      <td>11/17/23</td>                                      
-                                      <td>Invoice</td>
-                                      <td>90801</td>
-                                      <td>TEK system Inc: Shushant Bathini </td>
-                                      <td>11/17/2023 to 08/04/2023</td>
-                                      <td>
-                                          240.00 
-                                          <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                          <p>Partially paid, $48 due</p>
-                                          
-                                      </td>
-                                      <td colspan="2">
-                                          <button class="btn btn-" onclick="editAction()">Edit</button>
-                                          <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                      </td> 
-                                  </tr>
-                                  <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>11/17/23</td>                                      
-                                    <td>Invoice</td>
-                                    <td>90801</td>
-                                    <td>TEK system Inc: Shushant Bathini </td>
-                                    <td>11/17/2023 to 08/04/2023</td>
-                                    <td>
-                                        240.00 
-                                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                        <p>Partially paid, $48 due</p>
-                                        
-                                    </td>
-                                    <td colspan="2">
-                                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                                        <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                    </td> 
-                                </tr>
-                                <tr>
-                                  <td><input type="checkbox"></td>
-                                  <td>11/17/23</td>                                      
-                                  <td>Invoice</td>
-                                  <td>90801</td>
-                                  <td>TEK system Inc: Shushant Bathini </td>
-                                  <td>11/17/2023 to 08/04/2023</td>
-                                  <td>
-                                      240.00 
-                                      <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                      <p>Partially paid, $48 due</p>
-                                      
-                                  </td>
-                                  <td colspan="2">
-                                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                                      <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                  </td> 
-                              </tr>
-                              <tr>
-                                <td><input type="checkbox"></td>
-                                <td>11/17/23</td>                                      
-                                <td>Invoice</td>
-                                <td>90801</td>
-                                <td>TEK system Inc: Shushant Bathini </td>
-                                <td>11/17/2023 to 08/04/2023</td>
-                                <td>
-                                    240.00 
-                                    <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                    <p>Partially paid, $48 due</p>
-                                    
-                                </td>
-                                <td colspan="2">
-                                    <button class="btn btn-" onclick="editAction()">Edit</button>
-                                    <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                </td> 
-                            </tr>
-                            <tr>
-                              <td><input type="checkbox"></td>
-                              <td>11/17/23</td>                                      
-                              <td>Invoice</td>
-                              <td>90801</td>
-                              <td>TEK system Inc: Shushant Bathini </td>
-                              <td>11/17/2023 to 08/04/2023</td>
-                              <td>
-                                  240.00 
-                                  <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                  <p>Partially paid, $48 due</p>
-                                  
-                              </td>
-                              <td colspan="2">
-                                  <button class="btn btn-" onclick="editAction()">Edit</button>
-                                  <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                              </td> 
-                          </tr>
-                          <tr>
-                            <td><input type="checkbox"></td>
-                            <td>11/17/23</td>                                      
-                            <td>Invoice</td>
-                            <td>90801</td>
-                            <td>TEK system Inc: Shushant Bathini </td>
-                            <td>11/17/2023 to 08/04/2023</td>
-                            <td>
-                                240.00 
-                                <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                <p>Partially paid, $48 due</p>
-                                
-                            </td>
-                            <td colspan="2">
-                                <button class="btn btn-" onclick="editAction()">Edit</button>
-                                <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                            </td> 
-                        </tr>
-                         <tr>
-                                      <td><input type="checkbox"></td>
-                                      <td>11/17/23</td>                                      
-                                      <td>Invoice</td>
-                                      <td>90801</td>
-                                      <td>TEK system Inc: Shushant Bathini </td>
-                                      <td>11/17/2023 to 08/04/2023</td>
-                                      <td>
-                                          240.00 
-                                          <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                                          <p>Partially paid, $48 due</p>
-                                          
-                                      </td>
-                                      <td colspan="2">
-                                          <button class="btn btn-" onclick="editAction()">Edit</button>
-                                          <button class="btn pay" onclick="paymentReceivedAction()">Payment received</button>
-                                      </td> 
-                                  </tr>
-                              </thead>
-                          </table>
+                        <div class="row mb-3">
+                          <div class="col-6">
+                            <label for="textbox1">Email</label>
+                            <input type="text" class="form-control">
+                          </div>
+                          <div class="col-6">
+                            <label for="textbox1">Phone number</label>
+                            <input type="text" class="form-control" >
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-6">
+                            <label for="textbox1">Mobile number</label>
+                            <input type="text" class="form-control" >
+                          </div>
+                          <div class="col-6">
+                            <label for="textbox1">Fax</label>
+                            <input type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-6">
+                            <label for="textbox1">Other</label>
+                            <input type="text" class="form-control" >
+                          </div>
+                          <div class="col-6">
+                            <label for="textbox1">Website</label>
+                            <input type="text" class="form-control">
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <label for="twoColumnTextbox1">Name to print on checks </label>
+                          <input type="text" class="form-control" id="twoColumnTextbox1" style="width: 29rem;">
+                      </div>  
                       </div>
+
+                      <div class="row mb-3">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="checkboxButton">
+                                <label class="form-check-label" for="checkboxButton">
+                                   Is a sub-client
+                                </label>
+                            </div>
                         </div>
                     </div>
+                      <div class="modal-body">
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
+                <div class="dropdown">
+                  <button class="btn btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    New transaction
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    <a class="dropdown-item" href="#">Invoice</a>
+                    <a class="dropdown-item" href="#">Multiple Invoice</a>
+                    <a class="dropdown-item" href="#">Payment</a>
+                    <a class="dropdown-item" href="#">Estimate</a>
+                    <a class="dropdown-item" href="#">Sales Receipt</a>
+                    <a class="dropdown-item" href="#">Credit Memo</a>
+                    <a class="dropdown-item" href="#">Delayed Charge</a>
+                    <a class="dropdown-item" href="#">Time Activity</a>
+                    <a class="dropdown-item" href="#">Statement</a>
 
+                  </div>
+                </div>
+              </div>
+              <div class="row cards">
+                <div class="card mb-3">
+                  <div class="card-body rec">
+                    <h1 class="card-title">Tek System Inc <span>
+                        <i class="fas fa-envelope" style="margin-left: 12px;"></i> <!-- Message icon -->
+                        <i class="fas fa-phone fa-flip-horizontal" style="margin-left: 14px;"></i> <!-- Call icon -->
+                      </span></h1>
+                  </div>
+                  <div class="company-info-billing" style="display: flex; align-items: flex-start; margin-top: -6rem;">
+
+                    <div class="company-info" style="margin-left: 25px;">
+                      <h4 style="text-decoration: underline;">Company Name</h4>
+                      <p>Tek System</p>
+                    </div>
+
+                    <div class="billing-address" style="margin-left: 20rem;">
+                      <h4 style="text-decoration: underline;">Billing Address</h4>
+                      <p>7437 Race Road,Hanover,MD 21076</p>
+                    </div>
+
+                  </div>
+
+
+                  <div class="side-heading info" style="margin-left: 25px; margin-top: 17px;">
+                    <h4 style="text-decoration: underline;">Add</h4>
+                    <p style="margin-top: -13px; "><a href="#">Notes</a></p>
+                    <!-- Provide the link to your notes here -->
+                  </div>
 
                 </div>
+
+                <div class="card mb-3 ml-3">
+                  <div class="card-body square text-center">
+                    <h1 class="card-title">Summary</h1>
+                  </div>
+                  <!-- First Open Balance section -->
+                  <div class="balance-section" style="margin-left: 4rem;">
+
+                    <h2 class="text-dark">
+                      <div class="balance-mark" style="margin-bottom: -7px;"></div> $66,069.55
+                    </h2>
+
+                    <p>Open Balance</p>
+                  </div>
+
+                  <!-- Second Open Balance section -->
+                  <div class="balance-section" style="margin-left: 4rem;">
+                    <h2 class="text-dark">
+                      <div class="balance-marks" style="margin-bottom: -7px;"></div>$57,526.68
+                    </h2>
+                    <p>Overdue payment</p>
+                  </div>
+                </div>
+              </div>
+
+
+              <div style="font-size: 12px;"> <!-- Adjust the font-size as needed -->
+                <table class="table no-border" style="margin-top: 50px;">
+                  <thead class="underline">
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <th>DATE</th>
+                      <th>TYPE</th>
+                      <th>NO.</th>
+                      <th>CLIENT/PROJECT</th>
+                      <th>MEMO</th>
+                      <th colspan="2">AMOUNT STATUS</th>
+                      <th>ACTION</th>
+                      <td class="action-icons">
+                        <!-- Print Icon -->
+                        <i class="material-icons" onclick="handlePrint()">print</i>
+                        <!-- File Upload Icon -->
+                        <i class="fas fa-upload" onclick="handleFileUpload()"></i>
+                        <!-- Settings Icon -->
+                        <i class="fas fa-cog" onclick="openSettings()"></i>
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Partially paid</span><br>
+                        <!-- <p>Partially paid, $48 due</p> -->
+
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: green; margin-left: 5px;">
+                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                        </span>
+                        <span style="color: green;">Paid</span>
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: green; margin-left: 5px;">
+                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                        </span>
+                        <span style="color: green;">Paid</span>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                        <p>Partially paid, $48 due</p>
+
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: green; margin-left: 5px;">
+                          <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                        </span>
+                        <span style="color: green;">Paid</span>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Partially paid</span><br>
+                        <!-- <p>Partially paid, $48 due</p>
+                                       -->
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                        <p>Partially paid, $48 due</p>
+
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+
             </div>
 
-            <!-- <div class="row mt-3">
+
+            <div id="paidinvoices" class="tab-pane fade">
+              <div class="row">
+                <div class="row col-md-2 mt-4 containers">
+                  <input type="search" placeholder="Search...">
+                </div>
+
+              </div>
+
+              <table class="table no-border" style="margin-top: 50px;">
+                <thead class="underline">
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <th>DATE</th>
+                    <th>TYPE</th>
+                    <th>NO.</th>
+                    <th>CLIENT/PROJECT</th>
+                    <th>MEMO</th>
+                    <th colspan="2">AMOUNT STATUS</th>
+                    <th>ACTION</th>
+                    <td class="action-icons">
+                      <!-- Print Icon -->
+                      <i class="material-icons" onclick="handlePrint()">print</i>
+                      <!-- File Upload Icon -->
+                      <i class="fas fa-upload" onclick="handleFileUpload()"></i>
+                      <!-- Settings Icon -->
+                      <i class="fas fa-cog" onclick="openSettings()"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td>11/17/23</td>
+                    <td>Invoice</td>
+                    <td>90801</td>
+                    <td>TEK system Inc: Shushant Bathini </td>
+                    <td>11/17/2023 to 08/04/2023</td>
+                    <td>
+                      240.00
+                      <span style="color: green; margin-left: 5px;">
+                        <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                      </span>
+                      <span style="color: green;">Paid</span>
+                    </td>
+                    <td colspan="2">
+                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                      <div class="btn-group received">
+                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                          Payment received
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td>11/17/23</td>
+                    <td>Invoice</td>
+                    <td>90801</td>
+                    <td>TEK system Inc: Shushant Bathini </td>
+                    <td>11/17/2023 to 08/04/2023</td>
+                    <td>
+                      240.00
+                      <span style="color: green; margin-left: 5px;">
+                        <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                      </span>
+                      <span style="color: green;">Paid</span>
+                    </td>
+                    <td colspan="2">
+                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                      <div class="btn-group received">
+                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                          Payment received
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td>11/17/23</td>
+                    <td>Invoice</td>
+                    <td>90801</td>
+                    <td>TEK system Inc: Shushant Bathini </td>
+                    <td>11/17/2023 to 08/04/2023</td>
+                    <td>
+                      240.00
+                      <span style="color: green; margin-left: 5px;">
+                        <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                      </span>
+                      <span style="color: green;">Paid</span>
+                    </td>
+                    <td colspan="2">
+                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                      <div class="btn-group received">
+                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                          Payment received
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td>11/17/23</td>
+                    <td>Invoice</td>
+                    <td>90801</td>
+                    <td>TEK system Inc: Shushant Bathini </td>
+                    <td>11/17/2023 to 08/04/2023</td>
+                    <td>
+                      240.00
+                      <span style="color: green; margin-left: 5px;">
+                        <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                      </span>
+                      <span style="color: green;">Paid</span>
+                    </td>
+                    <td colspan="2">
+                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                      <div class="btn-group received">
+                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                          Payment received
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td>11/17/23</td>
+                    <td>Invoice</td>
+                    <td>90801</td>
+                    <td>TEK system Inc: Shushant Bathini </td>
+                    <td>11/17/2023 to 08/04/2023</td>
+                    <td>
+                      240.00
+                      <span style="color: green; margin-left: 5px;">
+                        <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                      </span>
+                      <span style="color: green;">Paid</span>
+                    </td>
+                    <td colspan="2">
+                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                      <div class="btn-group received">
+                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                          Payment received
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td>11/17/23</td>
+                    <td>Invoice</td>
+                    <td>90801</td>
+                    <td>TEK system Inc: Shushant Bathini </td>
+                    <td>11/17/2023 to 08/04/2023</td>
+                    <td>
+                      240.00
+                      <span style="color: green; margin-left: 5px;">
+                        <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                      </span>
+                      <span style="color: green;">Paid</span>
+                    </td>
+                    <td colspan="2">
+                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                      <div class="btn-group received">
+                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                          Payment received
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td>11/17/23</td>
+                    <td>Invoice</td>
+                    <td>90801</td>
+                    <td>TEK system Inc: Shushant Bathini </td>
+                    <td>11/17/2023 to 08/04/2023</td>
+                    <td>
+                      240.00
+                      <span style="color: green; margin-left: 5px;">
+                        <i class="fas fa-check-circle"></i> <!-- Font Awesome check-circle icon -->
+                      </span>
+                      <span style="color: green;">Paid</span>
+                    </td>
+                    <td colspan="2">
+                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                      <div class="btn-group received">
+                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                          Payment received
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                </thead>
+              </table>
+            </div>
+
+
+            <div id="unpaidinvoices" class="tab-pane fade">
+              <div class="row">
+                <div class="row col-md-2 mt-4 containers">
+                  <input type="search" placeholder="Search...">
+                </div>
+              </div>
+              <div style="font-size: 12px;"> <!-- Adjust the font-size as needed -->
+                <table class="table no-border" style="margin-top: 50px;">
+                  <thead class="underline">
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <th>DATE</th>
+                      <th>TYPE</th>
+                      <th>NO.</th>
+                      <th>CLIENT/PROJECT</th>
+                      <th>MEMO</th>
+                      <th colspan="2">AMOUNT STATUS</th>
+                      <th>ACTION</th>
+                      <td class="action-icons">
+                        <!-- Print Icon -->
+                        <i class="material-icons" onclick="handlePrint()">print</i>
+                        <!-- File Upload Icon -->
+                        <i class="fas fa-upload" onclick="handleFileUpload()"></i>
+                        <!-- Settings Icon -->
+                        <i class="fas fa-cog" onclick="openSettings()"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Partially paid</span><br>
+
+
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                        <p>Partially paid, $48 due</p>
+
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                        <p>Partially paid, $48 due</p>
+
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Partially paid</span><br>
+
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                        <p>Partially paid, $48 due</p>
+
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
+                        <p>Partially paid, $48 due</p>
+
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td>
+                        240.00
+                        <span style="color: red; margin-left: 5px;">&#9888;Partially paid</span><br>
+
+                      </td>
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received">
+                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
+                            Payment received
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <!-- <div class="row mt-3">
                 <div class="d-flex">
                   <button class="btn btn-primary btn-block fbtn" style="margin-left: 25px ;">Cancel</button>
                 </div>
@@ -674,10 +1127,10 @@
               
                 </div> -->
 
-        
 
-       
-       
-     
+
+
+
+
   </body>
 </div>

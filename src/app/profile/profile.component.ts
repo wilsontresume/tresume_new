@@ -5,7 +5,8 @@ import { MessageService } from 'primeng/api';
 import { ProfileService} from './Profile.service';
 import { ViewChild } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
-import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-profile',
