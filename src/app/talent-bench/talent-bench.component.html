@@ -25,18 +25,22 @@
     </div>
     <hr>
     <div class="row">
-      <div class="col-md-9"></div>
-      <div class="col-md-3 text-right">
-        <input type="text" class="form-control search-box" placeholder="Search...">
+      <div class="col-8"></div>
+      <div class="col-4 text-Left">
+          <div class="form-group text-right d-flex">
+              <label for="search" class="label-large mt-2 mr-3">Search:  </label>
+              <input [(ngModel)]="search" type="text" class="form-control ml-6 mr-2" id="search"
+                  placeholder=" Search candidates...">
+          </div>
       </div>
-    </div>
+  </div>
     <div class="main-container">
       <table class="table">
         <thead>
           <tr>
             <th>Bench ID</th>
             <th>Name</th>
-            <th>Email</th>
+            <!-- <th>Email</th> -->
             <th>Location</th>
             <th>Time on Bench (days)</th>
             <th>Title</th>
@@ -44,20 +48,22 @@
             <th>Status</th>
             <th>Bill Rate</th>
             <th>Refer</th>
-            <!-- <th>Group Name</th> -->
+            <th>Group Name</th>
+            <th>Marketer Name</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of tableData">
+          <ng-container  *ngFor="let item of tableData">
+            <tr *ngIf="isCandidateVisible(item)">
             <td>{{ item.TBID }}</td>
             <td>
-              <div class="ml-10"> {{ item.FirstName }} {{ item.FirstName }}</div>
+              <div class="ml-10"> {{ item.FirstName }} {{ item.LastName }}</div>
               <i [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/0']" class="fas fa-network-wired icon"></i>
               <i class="far fa-clipboard icon" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/1']"></i>
               <i class="fas fa-pencil-alt icon" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/2']"></i>
               <i class="far fa-file-alt icon" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/3']"></i>
             </td>
-            <td>{{ item.UserName }}</td>
+            <!-- <td>{{ item.UserName }}</td> -->
             <td>{{ item.CurrentLocation }}</td>
             <td>{{ item.age }}</td>
             <td>{{ item.TraineeTitle }}</td>
@@ -65,13 +71,18 @@
             <td>{{ item.LegalStatus }}</td>
             <td>{{ item.BillRate }}</td>
             <td>{{ item.ReferredBy }}</td>
-            <!-- <td>
-              <select class="form-control" [(ngModel)]="item.groupName">
-                <option *ngFor="let option of groupOptions" [value]="option.value">
-                  {{ option.label }}
+            <td>
+              <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.groupid" (change)="updateSelected($event.target.value, item.TraineeID,1)">
+                <option *ngFor="let option of groupOptions" [value]="option.GID" >
+                  {{ option.GroupName }}
                 </option>
               </select>
-            </td> -->
+            </td>
+            <td>
+              <select class="form-control" name="recruiterName" [(ngModel)]="item.RecruiterName" [ngModelOptions]="{standalone: true}" (change)="updateSelected($event.target.value, item.TraineeID,2)">
+                <option *ngFor="let name of recruiterNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
+              </select>
+            </td>
           </tr>
 
           <tr *ngIf="noResultsFound">
@@ -79,6 +90,7 @@
               No results found.
             </td>
           </tr>
+        </ng-container>
         </tbody>
       </table>
     </div>
