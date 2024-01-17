@@ -10,13 +10,12 @@
           placeholder="Who's time are you tracking?" aria-label="Search" aria-describedby="searchIcon">
         <div class="input-group-append">
           <div class="input-group-text dropdown">
-          <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false"></i>
-          <div class="dropdown-menu">
-            <a class="dropdown-item text-left" *ngFor="let option of dropdownOptions" 
-            (click)="selectOption(option)">{{ option }}</a>
+            <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <div class="dropdown-menu">
+              <a class="dropdown-item text-left" *ngFor="let option of dropdownOptions"
+                (click)="selectOption(option)">{{ option }}</a>
+            </div>
           </div>
-        </div>
         </div>
       </div>
       <div class="col-md-2">
@@ -53,8 +52,8 @@
                 <div class="input-group-text dropdown">
                   <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" *ngFor="let option of dropdownOptions1" (click)="selectOption1(option)">{{
-                      option }}</a>
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions1" (click)="selectOption1(option.ProjectName)">{{
+                      option.ProjectName }}</a>
                   </div>
                 </div>
               </div>
@@ -64,13 +63,12 @@
                 placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2">
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
-                <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false"></i>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" *ngFor="let option of dropdownOptions2" 
-                  (click)="selectOption2(option)">{{ option }}</a>
+                  <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions2" (click)="selectOption2(option)">{{
+                      option }}</a>
+                  </div>
                 </div>
-              </div>
               </div>
             </div>
           </div>
@@ -81,13 +79,12 @@
                 placeholder="Choose the service worked on" aria-label="Search" aria-describedby="searchIcon3">
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
-                <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false"></i>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" *ngFor="let option of dropdownOptions3" 
-                  (click)="selectOption3(option)">{{ option }}</a>
+                  <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions3" (click)="selectOption3(option)">{{
+                      option }}</a>
+                  </div>
                 </div>
-              </div>
               </div>
             </div>
 
@@ -96,13 +93,12 @@
                 placeholder="Choose a location" aria-label="Search" aria-describedby="searchIcon4">
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
-                <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false"></i>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" *ngFor="let option of dropdownOptions4"
-                  (click)="selectOption4(option)">{{ option }}</a>
+                  <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions4" (click)="selectOption4(option)">{{
+                      option }}</a>
+                  </div>
                 </div>
-              </div>
               </div>
             </div>
           </div>
@@ -135,16 +131,15 @@
                 (change)="onFileSelected($event, 'file2')">
             </div>
           </div>
-
         </td>
 
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input1"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input2"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input3"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input4"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input5"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input6"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.input7"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="input1"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="input2"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="input3"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="input4"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="input5"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="input6"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="input7"></td>
         <td></td>
         <td><i class="fa fa-trash" (click)="deleteRow(i)"></i></td>
       </tr>
@@ -154,7 +149,7 @@
     </tbody>
   </table>
 
- 
+
 
 
   <!-- <button (click)="deleteAllRows()">Minus</button> -->

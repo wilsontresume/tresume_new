@@ -102,14 +102,18 @@ export class CreateAllTimeListComponent implements OnInit {
   
   constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService,private fm: FormsModule) {
     this.orgID= this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
   }
 
   ngOnInit(): void {
-    this.addRowWithValues('option1', 'option2', 'option3', 'option4', '','','', '', '', '', '', '', '' );
-    this.addRowWithValues('option1', 'option2', 'option3', 'option4','','', '', '', '', '', '', '', '' );
-    this.orgID= this.cookieService.get('OrgID');
+    this.addRowWithValues('', '', '', '', '','','', '', '', '', '', '', '' );
+    this.addRowWithValues('', '', '', '','','', '', '', '', '', '', '', '' );
+   
+    this.getProjectName();
+    this.getCandidateName();
+    this.getPayItem();
+    this.getLocation();
     }
-
 
   // addRow( selectOption1?: string, selectOption2?: string, selectOption3?: string, selectOption4?: string,textarea?: string, checkbox?: string,input?:string, input1?: string, input2?: string, input3?: string, input4?: string, input5?: string, input6?: string, input7?: string): void {
   //   this.rows.push({
@@ -146,31 +150,60 @@ export class CreateAllTimeListComponent implements OnInit {
     });
   }
 
-  private addRowWithValues( selectOption1: string, selectOption2: string, selectOption3: string, selectOption4: string, textarea: string, checkbox: any, input1: any, input2: any, input3: any, input4: any, input5: any, input6: any, input7: any,): void {
-    this.addRow(selectOption1, selectOption2, selectOption3, selectOption4, textarea, checkbox, input1, input2, input3, input4, input5, input6, input7, );
+  private addRowWithValues( selectedItem1: any, selectedItem2: any, selectedItem3: any, selectedItem4: any, textarea: string, checkbox: any, input1: any, input2: any, input3: any, input4: any, input5: any, input6: any, input7: any,): void {
+    this.addRow(selectedItem1, selectedItem2, selectedItem3, selectedItem4, textarea, checkbox, input1, input2, input3, input4, input5, input6, input7);
   }
  
 
   selectedItem: string;
-  dropdownOptions: string[] = ['Option 1', 'Option 2', 'Option 3'];
+  dropdownOptions: string[] = [];
 
   selectOption(option: string): void {
     this.selectedItem = option;
   }
 
+  getCandidateName() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
+      this.dropdownOptions = x.result;
+    });
+  }
+
   selectedItem1: string;
-  dropdownOptions1: string[] = ['Option1A', 'Option1B', 'Option1C'];
+  dropdownOptions1: string[] = [];
 
   selectOption1(option: string): void {
     this.selectedItem1 = option;
   }
+  
+  getProjectName() {
+    let Req = {
+      TraineeID: this.TraineeID
+    };
+    this.Service.getCreateProjectList(Req).subscribe((x: any) => {
+      this.dropdownOptions1 = x.result;
+    });
+  }
 
   selectedItem2: string;
-  dropdownOptions2: string[] = ['Option2A', 'Option2B', 'Option2C'];
+  dropdownOptions2: string[] = [];
 
   selectOption2(option: string): void {
     this.selectedItem2 = option;
   }
+
+
+  getPayItem() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getPayItemList(Req).subscribe((x: any) => {
+      this.dropdownOptions2 = x.result;
+    });
+  }
+
 
   selectedItem3: string;
   dropdownOptions3: string[] = ['Service'];
@@ -179,11 +212,21 @@ export class CreateAllTimeListComponent implements OnInit {
     this.selectedItem3 = option;
   }
 
+
   selectedItem4: string;
-  dropdownOptions4: string[] = ['Option4A', 'Option4B', 'Option4C'];
+  dropdownOptions4: string[] = [];
 
   selectOption4(option: string): void {
     this.selectedItem4 = option;
+  }
+
+  getLocation() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getLocationList(Req).subscribe((x: any) => {
+      this.dropdownOptions4 = x.result;
+    });
   }
 
 }
