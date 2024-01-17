@@ -52,8 +52,8 @@
                 <div class="input-group-text dropdown">
                   <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" *ngFor="let option of dropdownOptions1" (click)="selectOption1(option)">{{
-                      option }}</a>
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions1" (click)="selectOption1(option.ProjectName)">{{
+                      option.ProjectName }}</a>
                   </div>
                 </div>
               </div>
