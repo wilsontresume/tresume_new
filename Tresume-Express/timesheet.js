@@ -639,7 +639,7 @@ router.post("/deleteProject", async (req, res) => {
 });
 
 
-router.post('/getCreateProjectList', async (req, res) => {
+router.post('/getProjectList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = pool.request();
