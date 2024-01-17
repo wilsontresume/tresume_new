@@ -16,15 +16,15 @@ export class CreateAllTimeListService {
       return this.http.post(this.endpoint, data);
     }
 
-    getProjectList(request: any): Observable<ResponseDetails> {
-      return this.http.post<ResponseDetails>(this.endpoint + 'getProjectList', request);
+    getCreateProjectList(request: any): Observable<ResponseDetails> {
+      return this.http.post<ResponseDetails>(this.endpoint + 'getCreateProjectList', request);
   }
 
-  getPayItemList(request: any): Observable<ResponseDetails> {
+    getPayItemList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getPayItemList', request);
 }
 
-getLocationList(request: any): Observable<ResponseDetails> {
+    getLocationList(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'getLocationList', request);
 }
 

@@ -102,12 +102,15 @@ export class CreateAllTimeListComponent implements OnInit {
   
   constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService,private fm: FormsModule) {
     this.orgID= this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
   }
 
   ngOnInit(): void {
     this.addRowWithValues('option1', 'option2', 'option3', 'option4', '','','', '', '', '', '', '', '' );
     this.addRowWithValues('option1', 'option2', 'option3', 'option4','','', '', '', '', '', '', '', '' );
-    this.orgID= this.cookieService.get('OrgID');
+    
+  
+    this.getProjectName();
     }
 
 
@@ -159,10 +162,19 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
   selectedItem1: string;
-  dropdownOptions1: string[] = ['Option1A', 'Option1B', 'Option1C'];
+  dropdownOptions1: string[] = [];
 
   selectOption1(option: string): void {
     this.selectedItem1 = option;
+  }
+  
+  getProjectName() {
+    let Req = {
+      TraineeID: this.TraineeID
+    };
+    this.service.getCreateProjectList(Req).subscribe((x: any) => {
+      this.dropdownOptions1 = x.result;
+    });
   }
 
   selectedItem2: string;

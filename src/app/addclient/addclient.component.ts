@@ -241,7 +241,6 @@ export class AddclientComponent implements OnInit {
       this.PrimaryOwner = x;
     });
   }
-
   getState() {
     let Req = {
       TraineeID: this.TraineeID,
@@ -250,7 +249,6 @@ export class AddclientComponent implements OnInit {
       this.state = x.result;
     });
   }
-
   getCity() {
     console.log(this.selectedstate);
     let Req = {

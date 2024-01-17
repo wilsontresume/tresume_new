@@ -639,12 +639,13 @@ router.post("/deleteProject", async (req, res) => {
 });
 
 
-router.post('/getProjectList', async (req, res) => {
+router.post('/getCreateProjectList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = pool.request();
     
-    const query =  "select * from timesheet_project where projectname like '%value%' and orgID = this.orgID and active = 1;";
+    // const query =  "select * from timesheet_project where projectname like '%value%' and orgID = this.orgID and active = 1";
+    const query =  "SELECT DISTINCT ProjectName FROM ProjectMaster";
 
     console.log(query);
 
@@ -672,7 +673,6 @@ router.post('/getProjectList', async (req, res) => {
     res.status(500).send(result);
   }
 });
-
 
 
 router.post('/getPayItemList', async (req, res) => {
