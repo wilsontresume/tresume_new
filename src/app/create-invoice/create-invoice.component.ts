@@ -12,7 +12,7 @@ export class CreateInvoiceComponent implements OnInit {
   clients: any;
 
 OrgID: string = '';
-  showPopup: boolean = false;
+showPopup: boolean = false;
 showConfirmationDialog2: any;
 showConfirmationDialog: any;
 showConfirmationModal: boolean = false;
@@ -57,7 +57,7 @@ addAll() {
 }
 
 
-  onDropdownChange(event: any) {  
+  onDropdownChange(event: any) {
     if (event.target.value === 'addNew') {
       this.showModal = true;
     }

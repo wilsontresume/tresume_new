@@ -6,60 +6,55 @@ import { environment } from '../../environments/environment';
 @Injectable()
 
 export class AddClientService {
-   
-    public endpoint = environment.apiUrl;
 
-    constructor(private http: HttpClient) { }
-    
-    getTraineeClientList(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeClientList', request);
-    }
+  public endpoint = environment.apiUrl;
 
-    deleteClientAccount(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'deleteClientAccount', request);
-    }
+  constructor(private http: HttpClient) { }
 
-    addClienta(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'addClienta', request);
-    }
+  getTraineeClientList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeClientList', request);
+  }
 
-    getCountry(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getCountry', request);
-    }
-    
-      getState(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getState', request);
-    }
+  deleteClientAccount(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'deleteClientAccount', request);
+  }
 
-      getCity(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getCity', request);
-    }
+  addClienta(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'addClienta', request);
+  }
 
-      getIndustry(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getIndustry', request);
-    }
+  getLocation(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getLocation', request);
+  }
 
-      getClientStatusID(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getClientStatus', request);
-    }
+  getCity(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getCity', request);
+  }
 
-      getClientCategoryID(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getClientCategoryID', request);
-    }
+  // getIndustry(request: any): Observable<ResponseDetails> {
+  //   return this.http.post<ResponseDetails>(this.endpoint + 'getIndustry', request);
+  // }
 
-      getPrimaryOwner(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getPrimaryOwner', request);
-    }
+  getClientStatusID(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getClientStatusID', request);
+  }
 
-      getPaymentTerms(request: any): Observable<ResponseDetails> {
-        return this.http.post<ResponseDetails>(this.endpoint + 'getPaymentTerms', request);
-    }
-      
-      
+  getClientCategoryID(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getClientCategoryID', request);
+  }
+
+  getPrimaryOwner(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchrecruiter', request);
+  }
+
+  // getPaymentTerms(request: any): Observable<ResponseDetails> {
+  //   return this.http.post<ResponseDetails>(this.endpoint + 'getPaymentTerms', request);
+  // }
+
 }
 export interface ResponseDetails {
-    flag?: any;
-    result?: any;
+  flag?: any;
+  result?: any;
 }
 
 

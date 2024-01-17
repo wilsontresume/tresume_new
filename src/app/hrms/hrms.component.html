@@ -23,7 +23,7 @@
           <div class="col-md-4">
             <div class="form-group text-center mt-4">
               <label for="search" class="label-large">Search:</label>
-              <input [(ngModel)]="searchInput" type="text" class="form-control1 ml-6 mr-2" id="search" placeholder="Search Candidates...">
+              <input [(ngModel)]="searchInput" type="text" class="form-control1 ml-6 mr-2" id="search" placeholder="Search Candidates..." [ngModelOptions]="{standalone: true}">
             </div>
       </div>
       <div class="col-md-4">
@@ -34,33 +34,51 @@
   </div>
   <div class="row mt-3">
     <div class="col-md-6">
-        <div class="form-group text-center">
-            <label for="followUpOn" class="label-large">Follow Up On</label>
-            <div class="d-flex justify-content-between">
-                <div class="col">
-                    <label>Start date:</label>
-                    <input type="date" class="form-control" id="followUpStartDate" placeholder="Start date" [(ngModel)]="followUpStartDate">
-                </div>
-                <div class="col">
-                    <label>End date:</label>
-                    <input type="date" class="form-control" id="followUpEndDate" placeholder="End date" [(ngModel)]="followUpEndDate">
-                </div>
-            </div>
+      <div class="form-group">
+        <div style="display: flex; justify-content: flex-end; align-items: center; width: 100%;">
+          <label class="label-large" style="margin-right: 50px;">Follow up on:</label>
+          <div class="Filterbtn" style="display: flex; justify-content: space-between; width: 200px;">
+            <button class="btn btn-wdth text-white" [disabled]="followuponbutton()" (click)="filterCandidates()">Search</button>
+            <button class="btn btn-wdth text-white" (click)="clearAndReload()">Clear</button>
+          </div>
         </div>
+      
+        <div class="d-flex justify-content-between">
+          <div class="col">
+            <label>Start date:</label>
+            <input type="date" class="form-control" id="followUpStartDate" placeholder="Start date"
+              [(ngModel)]="followUpStartDate" [ngModelOptions]="{standalone: true}"  (change)="followstartdate = true">
+          </div>
+          <div class="col">
+            <label>End date:</label>
+            <input type="date" class="form-control" id="followUpEndDate" placeholder="End date"
+              [(ngModel)]="followUpEndDate" [ngModelOptions]="{standalone: true}" (change)="followenddate = true">
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
-        <div class="form-group text-center">
-            <label for="dateCreated" class="label-large">Date Created</label>
-            <div class="d-flex justify-content-between">
-                <div class="col">
-                    <label>Start date:</label>
-                    <input type="date" class="form-control" id="dateCreatedStartDate" placeholder="Start date" [(ngModel)]="dateCreatedStartDate">
-                </div>
-                <div class="col">
-                    <label>End date:</label>
-                    <input type="date" class="form-control" id="dateCreatedEndDate" placeholder="End date" [(ngModel)]="dateCreatedEndDate">
-                </div>
+        <div class="form-group">
+          <div style="display: flex; justify-content: flex-end; align-items: center; width: 100%;">
+            <label for="dateCreated" class="label-large" style="margin-right: 50px;">Date Created:</label>
+            <div class="Filterbtn" style="display: flex; justify-content: space-between; width: 200px;">
+              <button class="btn btn-wdth text-white" [disabled]="isSearchButtonDisabled()" (click)="onSearch()">Search</button>
+              <button class="btn btn-wdth text-white" (click)="onClear()">Clear</button>
             </div>
+          </div>
+          
+          <div class="d-flex justify-content-between">
+            <div class="col">
+              <label>Start date:</label>
+              <input type="date" class="form-control" id="dateCreatedStartDate" placeholder="Start date"
+                     [(ngModel)]="dateCreatedStartDate" [ngModelOptions]="{standalone: true}" (change)="fromDateEntered = true">
+            </div>
+            <div class="col">
+              <label>End date:</label>
+              <input type="date" class="form-control" id="dateCreatedEndDate" placeholder="End date"
+                     [(ngModel)]="dateCreatedEndDate" [ngModelOptions]="{standalone: true}" (change)="toDateEntered = true">
+            </div>
+          </div>
         </div>
     </div>
 </div>
@@ -71,7 +89,7 @@
           <div class="table-container">
               <table class="table text-center">
                   <thead>
-                    <tr>
+                    <tr style="min-width: auto;">
                       <th>Viewed By</th>
                       <th>Name</th>
                       <th>Email</th>
@@ -82,7 +100,8 @@
                         <span>Date Created</span>
                         <i class="fa" [ngClass]="{'fa-sort-asc': sortBy === 'DateCreated' && sortOrder === 'asc', 'fa-sort-desc': sortBy === 'DateCreated' && sortOrder === 'desc', 'fa-sort': sortBy !== 'DateCreated'}"></i>
                       </th>
-                      <th style="min-width: 150px;">Follow_Up_On</th>
+                      <th>Follow_Up_On</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -97,16 +116,11 @@
                           <td>{{ candidate.DateCreated | date:'MM/dd/yy' }}</td>
                           <td>
                             <div class="input-group d-flex justify-content-center align-items-center">
-                              <!--
-                              <input type="date" class="form-control" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
-                                placeholder="Follow Up On" style="width: 50%;">
-                              -->
-                              <span *ngIf="candidate.FollowUpOn === 'Never'">Never</span>
-                              <span *ngIf="candidate.FollowUpOn === 'SpecifiedDate'">{{ candidate.SpecifiedDate |
-                                date:'MM/dd/yy' }}</span>
-                              <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 24px;"></i>
+                              {{ candidate.followupon }}
+                              
                             </div>
                           </td> 
+                          <td><i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 24px;"></i></td>
                           
                       </tr>
                       </ng-container>
@@ -218,13 +232,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4" *ngIf="routeType == 1">
+              <div class="col-md-4" *ngIf="routeType == 1 && routeType == 2">
                 <label class="label">Recruiter Name *</label>
                 <!-- // check next 2 line if any error  -->
                 <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
                   <option *ngFor="let name of recruiterNames" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option> -->
                 <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }"> -->
-                <select class="form-control" name="recruiterName" formControlName="recruiterName">
+                <select class="form-control" name="recruiterName" [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}">
                   <option *ngFor="let name of recruiterNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname }}</option>
                 </select>
                 <!-- <div *ngIf="addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched" class="validation-message" style="color: red;">
@@ -316,15 +330,17 @@
               
               <div class="col-md-4">
                 <label class="label">Follow Up On *</label>
-                <select name="FollowUpOn" id="FollowUpOn" class="form-control" [(ngModel)]="selectedFollowUpOption">
+                <select name="FollowUpOn" id="FollowUpOn" class="form-control" [(ngModel)]="selectedFollowUpOption" [ngModelOptions]="{standalone: true}">
                     <option selected="selected" value="Never">Never</option>
                     <option value="SpecifiedDate">Specified Date</option>
                 </select>
                 
-                <!-- Additional input field for specific date -->
+                <!-- Additional input field for specific date --> 
                 <div *ngIf="selectedFollowUpOption === 'SpecifiedDate'">
-                    <label for="specifiedDateInput">Specify Date:</label>
-                    <input type="date" id="specifiedDateInput" name="specifiedDate" class="form-control" [(ngModel)]="specifiedDate">
+                    <label class="label" for="specifiedDateInput">Specify the followup date:</label>
+                    <!-- <input type="date" id="specifiedDateInput" name="specifiedDate" class="form-control" [(ngModel)]="specifiedDate" [ngModelOptions]="{standalone: true}"> -->
+                    <input type="date" id="specifiedDateInput" name="specifiedDate" class="form-control"
+                    [(ngModel)]="specifiedDate" [ngModelOptions]="{standalone: true}" style="margin-left: -1px;">
                 </div>
             </div>
 
@@ -336,9 +352,9 @@
               <div class="col-md-4">
                 <div class="form-group text-center">
                   <label>Current Location</label>
-                  <select class="form-control" name="Location">
+                  <select class="form-control" name="Location" [(ngModel)]="currentLocation" [ngModelOptions]="{standalone: true}" >
                     <option value="">Select</option>
-                    <option *ngFor="let location of Locations?.result || []" [value]="location">{{ location.state }}</option>
+                    <option *ngFor="let location of Locations?.result || []" [value]="location.state">{{ location.state }}</option>
                   </select>
                 </div>
               </div>

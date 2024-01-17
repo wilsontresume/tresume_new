@@ -293,6 +293,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
+
     this.getTraineeDetails();
     this.getFTCDetails(this.defaultStartDate, this.defaultEndDate);
     this.getPlacementDetails(this.defaultStartDate, this.defaultEndDate);
@@ -475,6 +477,8 @@ export class DashboardComponent implements OnInit {
                 }
               }
               console.log('this.lineChartData', this.lineChartData)
+              this.loading = false;
+
             }
           });
         });

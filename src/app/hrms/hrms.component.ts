@@ -17,7 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 export class HrmsComponent implements OnInit {
 
   candidates1: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
-  recruiterNames: string[] = ['Recruiter 1', 'Recruiter 2', 'Recruiter 3'];
+  recruiterNames: any ='';
+  recruiterName:any;
   candidateStatuses: string[] = ['', '', ''];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
@@ -70,7 +71,7 @@ export class HrmsComponent implements OnInit {
 
     this.addCandidate = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
-      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.minLength(3)]],
       recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
@@ -83,36 +84,38 @@ export class HrmsComponent implements OnInit {
       referralType: [''],
       university: [''],
       middleName: [''],
-      gender: ['male']
+      gender: ['male'],
+      Location:['']
     });
 
     // TimeSheet Module /////////////////////////////////////////////////////////////////////////////////////////
     // for Admin Dropdown
-    document.addEventListener('DOMContentLoaded', function () {
-      const dummyNames = ['','Name 1', 'Name 2', 'Name 3', 'Name 4', 'Name 5'];
-
-      const adminSelect = document.getElementById('adminSelect') as HTMLSelectElement;
-
-      dummyNames.forEach((name, index) => {
-        const option = document.createElement('option');
-        option.value = `value_${index + 1}`;
-        option.text = name;
-        adminSelect.add(option);
-      });
-    });
+    // document.addEventListener('DOMContentLoaded', function () {
+    //   const dummyNames: string[] = ['', 'Name 1', 'Name 2', 'Name 3', 'Name 4', 'Name 5'];
+    
+    //   const adminSelect: HTMLSelectElement = document.getElementById('adminSelect') as HTMLSelectElement;
+    
+    //   dummyNames.forEach((name: string, index: number) => {
+    //     const option: HTMLOptionElement = document.createElement('option');
+    //     option.value = `value_${index + 1}`;
+    //     option.text = name;
+    //     adminSelect.add(option);
+    //   });
+    // });
+    
 
     //Client Select
-    const clients: string[] = ["","Client 1", "Client 2", "Client 3", "Client 4", "Client 5", "Client 6"];
+    // const clients: string[] = ["", "Client 1", "Client 2", "Client 3", "Client 4", "Client 5", "Client 6"];
 
-    const clientSelect = document.getElementById("clientselect") as HTMLSelectElement;
-
-    clients.forEach((client, index) => {
-      const option = document.createElement("option");
-      option.value = index.toString();
-      option.text = client;
-      clientSelect.add(option);
-    });
-
+    // const clientSelect: HTMLSelectElement = document.getElementById("clientselect") as HTMLSelectElement;
+    
+    // clients.forEach((client: string, index: number) => {
+    //   const option: HTMLOptionElement = document.createElement("option");
+    //   option.value = index.toString();
+    //   option.text = client;
+    //   clientSelect.add(option);
+    // });
+    
   }
 
   
@@ -203,6 +206,10 @@ export class HrmsComponent implements OnInit {
 
   savehrmsdata() {
     this.loading = true;
+    var followupon = '';
+    if(this.selectedFollowUpOption == 'SpecifiedDate'){
+      followupon = this.specifiedDate;
+    }
 
     let Req = {
       firstName: this.addCandidate.value.firstName,
@@ -211,19 +218,23 @@ export class HrmsComponent implements OnInit {
       email: this.addCandidate.value.email,
       phone: this.addCandidate.value.phone,
       gender: this.addCandidate.value.gender,
-      recruiterName: this.addCandidate.value.recruiterName,
+      recruiterName: this.recruiterName,
       degree: this.addCandidate.value.degree,
       university: this.addCandidate.value.university,
-      groups: this.addCandidate.value.groups,
-      locationConstraint: this.addCandidate.value.locationConstraint,
       referralType: this.formData.referralType,
       notes: this.addCandidate.value.notes,
       candidateStatus: this.selectedcurrentstatus,
       legalStatus: this.formData.legalStatus,
-      marketerName: this.formData.marketerName,
       recruiteremail: this.userName,
       orgID:this.OrgID,
-      creeateby:this.userName
+      creeateby:this.userName,
+      followupon:followupon,
+      currentLocation:this.currentLocation
+      
+
+      // marketerName: this.formData.marketerName,
+      // groups: this.addCandidate.value.groups,
+      // locationConstraint: this.addCandidate.value.locationConstraint,
     };
     // console.log(Req);
     // console.log(Req);
@@ -251,16 +262,13 @@ export class HrmsComponent implements OnInit {
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
     this.loading = false;
-
     console.log(response);
   }
   
   private handleError(response: any): void {
     this.messageService.add({ severity: 'error', summary:  response.message });
     this.loading = false;
-
   }
-
 
   onSubmit() {
     console.log('Form Data:', this.formData);
@@ -269,7 +277,6 @@ export class HrmsComponent implements OnInit {
   sortBy: string = 'DateCreated';
   sortOrder: string = 'asc';
 
-  // Function to handle sorting
   sortTable(column: string) {
     if (this.sortBy === column) {
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
@@ -281,7 +288,6 @@ export class HrmsComponent implements OnInit {
     this.filteredCandidates = this.sortCandidates();
   }
 
-  // Function to sort the candidates based on the current sort settings
   sortCandidates(): any[] {
     return this.candidates.sort((a, b) => {
       const dateA = new Date(a.DateCreated).getTime();
@@ -300,14 +306,12 @@ export class HrmsComponent implements OnInit {
   isCandidateVisible(candidate: any): boolean {
     const searchValue = this.searchInput.toLowerCase();
 
-     // Filter for Follow Up On date range
      const followUpDate = new Date(candidate.FollowUpDate);
      const followUpStartDate = this.followUpStartDate ? new Date(this.followUpStartDate) : null;
      const followUpEndDate = this.followUpEndDate ? new Date(this.followUpEndDate) : null;
      const followUpInRange = (!followUpStartDate || followUpDate >= followUpStartDate) &&
        (!followUpEndDate || followUpDate <= followUpEndDate);
  
-     // Filter for Date Created date range
      const dateCreated = new Date(candidate.DateCreated);
      const dateCreatedStartDate = this.dateCreatedStartDate ? new Date(this.dateCreatedStartDate) : null;
      const dateCreatedEndDate = this.dateCreatedEndDate ? new Date(this.dateCreatedEndDate) : null;
@@ -332,7 +336,70 @@ export class HrmsComponent implements OnInit {
     });
   }
 
-    
+  fromDateEntered: boolean = false;
+  toDateEntered: boolean = false;
+
+  onClear() {
+    this.dateCreatedStartDate = '';
+    this.dateCreatedEndDate = '';
+    this.fromDateEntered = false;
+    this.toDateEntered = false;
+    this.filteredCandidates = [];
+    this.fetchhrmscandidatelist();
+  }
+
+  isSearchButtonDisabled(): boolean {
+    return !this.fromDateEntered || !this.toDateEntered || this.dateCreatedStartDate > this.dateCreatedEndDate;
+  }
+
+  onSearch(): void {
+    this.loading = true;
+    const Req = {
+      TraineeID: this.TraineeID,
+    };
+
+    this.service.gethrmscandidateList(Req).subscribe((response: any) => {
+      this.candidates = response.result;
+      this.candidates = this.candidates.filter(candidate => {
+        const candidateDate = new Date(candidate.DateCreated);
+        return candidateDate >= new Date(this.dateCreatedStartDate) && candidateDate <= new Date(this.dateCreatedEndDate);
+      });
+      this.loading = false;
+    });
+  }
+
+  followstartdate: boolean = false;
+  followenddate: boolean = false;
+  
+  clearAndReload() {
+    this.followUpStartDate = '';
+    this.followUpEndDate = '';
+    this.followstartdate = false;
+    this.followenddate = false;
+    this.fetchhrmscandidatelist();
+  }
+
+  followuponbutton(): boolean{
+    return  !this.followstartdate || !this.followenddate || this.followUpStartDate > this.followUpEndDate;
+  }
+
+  filterCandidates(): void {
+    this.loading = true;
+    const Req = {
+      TraineeID: this.TraineeID,
+    };
+  
+    this.service.gethrmscandidateList(Req).subscribe((response: any) => {
+      this.candidates = response.result;
+      this.candidates = this.candidates.filter(candidate => {
+        const followUpDate = new Date(candidate.followupon);
+        return followUpDate >= new Date(this.followUpStartDate) && followUpDate <= new Date(this.followUpEndDate);
+      });
+      this.loading = false;
+    });
+  }
+  
+
 }
 
 

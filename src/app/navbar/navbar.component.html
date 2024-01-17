@@ -206,7 +206,7 @@
                               </li>
 
                               <li class="nav-item" *ngIf="timesheetrole == 1">
-                                <a class="nav-link" routerLink="create-invoice">
+                                <a class="nav-link" routerLink="all-invoice">
                                     <i class="nav-icon fas fa-receipt"></i>
                                     <p>Invoice</p>
                                   </a>
@@ -266,7 +266,7 @@
                             <p>Job Boards</p>
                         </a>
                     </li> -->
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="checkFullAccess(12)">
                         <a class="nav-link" (click)="toggleDropdown('myAccountSubMenu')">
                           <i class="nav-icon fas fa-user-tie"></i>
                           <p>

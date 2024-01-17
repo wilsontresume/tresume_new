@@ -116,20 +116,27 @@ async function deactivatevendor(VendorID) {
 
 router.post('/addVendor', async (req, res) => {
   try {
-    const request = new sql.Request();
-    OrgID = req.body.OrgID;
-    const query = `INSERT INTO Vendors (VendorName, ContactNumber, EmailID, Address, VMSVendorName, FederalID,ZipCode, Website, Fax, Industry, Country, State, City, VendorStatusID,  VendorCategoryID, PrimaryOwner,RequiredDocuments, PaymentTerms, AboutCompany, Access, sendingEmail, posting, Notes) VALUES 
-    ('${req.body.VendorName}', '${req.body.ContactNumber}', '${req.body.VendorEmailID}', '${req.body.Address}', '${req.body.VMSVendorName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.VendorWebsite}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', ${req.body.VendorStatus}, ${req.body.VendorCategory}, '${req.body.PrimaryOwner}','${req.body.requiredDocuments}','${req.body.PaymentTerms}' ,'${req.body.AboutCompany}', '1', '', '','')`;
-
-    console.log(req);
+    var query = `INSERT INTO Vendors (VendorName, ContactNumber, EmailID, Address, VMSVendorName, FederalID,ZipCode, Website, Fax, Industry, Country, State, City, VendorStatusID,  VendorCategoryID, PrimaryOwner,RequiredDocuments, PaymentTerms, AboutCompany, Access, sendingEmail, posting, Notes, Active) VALUES 
+    ('${req.body.VendorName}', '${req.body.ContactNumber}', '${req.body.EmailID}', '${req.body.Address}', '${req.body.VMSVendorName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.Website}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', '${req.body.VendorStatusID}', '${req.body.VendorCategoryID}', '${req.body.PrimaryOwner}','${req.body.RequiredDocuments}','${req.body.PaymentTerms}', '${req.body.AboutCompany}', '${req.body.Access ? '1' : '0'}', '${req.body.sendingEmail ? '1' : '0'}', '${req.body.posting ? '1' : '0'}', '${req.body.Notes}', ${req.body.Active || '1'})`;
+ 
     console.log(query);
-    const result = await request.query(query);
-    console.log(result);
-    res.status(200).json({ success: true, message: 'Vendor added successfully' });
+    const pool = await sql.connect(config);
+    const request = new sql.Request(pool);
+    const recordset = await request.query(query);
+
+    const result = {
+      flag: 1,
+      message: "Vendor data inserted successfully!",
+    };
+    res.status(200).json(result);
+
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    console.error("Error inserting Vendor data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while inserting Vendor data!",
+    };
+    res.status(500).json(result);
   }
 });
-
 

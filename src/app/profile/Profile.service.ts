@@ -14,9 +14,20 @@ getUserProfile(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'getUserProfile', request);
 }
 
-// addTalentBenchList(request: any): Observable<ResponseDetails> {
-//     return this.http.post<ResponseDetails>(this.endpoint + 'addTalentBenchList', request);
-//   }
+updateMyProfile(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'updateMyProfile', request);
+  }
+
+  fetchProfileStateList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchProfileStateList', request);
+  }
+  
+  fetchProfileCityList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchProfileCityList', request);
+  }
+
+  
+
 }
 export interface ResponseDetails {
 flag?: any;
