@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   CompanyInfo = '';
   selectedLegalstatus:string = '';
   state: string[] = [];
-  city: string[] = [];
+  cities: string[] = ['option 1','option 2'];
   content: any;
   userName: string;
   firstName: string = '';
@@ -62,7 +62,6 @@ export class ProfileComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loading = true;
-    this.TraineeID = this.cookieService.get('TraineeID');
       this.fetchprofile();
       this.fetchState();
       this.fetchCity();
@@ -82,7 +81,7 @@ export class ProfileComponent implements OnInit {
       PhoneNumber: this.phoneNumber,
       Organization: this.companyName,
       state: this.state,
-      city: this.city,
+      city: this.cities,
       zipcode: this.zipcode,
       traineeID: this.TraineeID,
     };
@@ -176,8 +175,8 @@ fetchCity(){
     traineeID: this.TraineeID,
   };
   this.Service.fetchProfileCityList(Req).subscribe((x: any) => {
-    this.city = x.result;
-    console.log(this.city);
+    this.cities = x.result;
+  
   });
 }
 
