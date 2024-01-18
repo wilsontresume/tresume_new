@@ -6,25 +6,25 @@ import { environment } from '../../environments/environment';
 @Injectable()
 
 export class TalentBenchService {
-    public endpoint = environment.apiUrl;
+  public endpoint = environment.apiUrl;
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-getTalentBenchList(request: any): Observable<ResponseDetails> {
-  return this.http.post<ResponseDetails>(this.endpoint + 'getTalentBenchList', request);
-}
+  getTalentBenchList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getTalentBenchList', request);
+  }
 
-AddTalentBenchList(request: any): Observable<ResponseDetails> {
+  AddTalentBenchList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'AddTalentBenchList', request);
   }
 
-candidatestatus(request: any): Observable<ResponseDetails> {
-   return this.http.post<ResponseDetails>(this.endpoint + 'candidatestatus', request);
- }
+  candidatestatus(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'candidatestatus', request);
+  }
 
- getLegalStatus(request: any): Observable<ResponseDetails> {
-   return this.http.post<ResponseDetails>(this.endpoint + 'getLegalStatus', request);
- }
+  getLegalStatus(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getLegalStatus', request);
+  }
 
  fetchrecruiter(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'fetchrecruiter', request);
@@ -57,10 +57,15 @@ addGroup(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'addGroup', request);
 }
 
+  fetchGroupList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchGroupList', request);
+  }
 
-
+  TBupdateSelected(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'TBupdateSelected', request);
+  }
 }
 export interface ResponseDetails {
-flag?: any;
-result?: any;
+  flag?: any;
+  result?: any;
 }

@@ -50,7 +50,7 @@ router.post('/getTalentBenchList', async (req, res) => {
         TB.BenchStatus, (SELECT PhoneNumber FROM Phone WHERE PhoneID = (SELECT TOP(1) PhoneID FROM TraineePhone WHERE TraineeID = trn.TraineeID)) AS phone,
         trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, DATEDIFF(DAY, TB.CreateTime, GETUTCDATE()) AS age,
         CONCAT(T1.FirstName, ' ', T1.MiddleName, ' ', T1.LastName) AS Recruiter, ISNULL(TB.IsNew, '0') AS IsNew,
-        (SELECT traineeid FROM JBDetail WHERE jobid = '') AS JBTraineeID
+        (SELECT traineeid FROM JBDetail WHERE jobid = '') AS JBTraineeID, trn.groupid
       FROM
         Trainee trn (NOLOCK)
         LEFT JOIN TraineeRating tr (NOLOCK) ON tr.Active = 1 AND trn.TraineeID = tr.TraineeID AND tr.Recruiterid = '${traineeID}'
@@ -76,7 +76,7 @@ router.post('/getTalentBenchList', async (req, res) => {
         trn.TraineeID, T1.FirstName, T1.MiddleName, T1.LastName, trn.FirstName, trn.PhoneNumber, trn.LastName, trn.YearsOfExpInMonths,
         trn.CandidateStatus, TB.TBID, TB.GroupID, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus,
         trn.Notes, trn.Organization, trn.CurrentLocation, trn.Title, trn.LastUpdateTime, trn.CreateTime, tr.Rating, trn.Source,
-        TB.BenchStatus, trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, TB.IsNew
+        TB.BenchStatus, trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, TB.IsNew,trn.groupid
       ORDER BY
         trn.CreateTime DESC
     `;
@@ -117,7 +117,7 @@ router.post('/AddTalentBenchList', async function (req, res) {
     var query =
       "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
       req.body.email +
-      "' AND UserOrganizationID = '" +req.body.orgID + "') " +
+      "' AND UserOrganizationID = '" + req.body.orgID + "') " +
       "BEGIN " +
       "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation,talentpool ) " +
       "VALUES (" +
@@ -168,8 +168,6 @@ router.post('/AddTalentBenchList', async function (req, res) {
     res.status(500).send(data);
   }
 });
-
-
 
 async function generateTraineeID() {
   try {
@@ -280,4 +278,89 @@ router.post('/addGroup', async (req, res) => {
 function formatValue(value) {
   return value !== undefined ? `'${value}'` : '';
 }
+
+
+router.post('/fetchGroupList', async (req, res) => {
+  try {
+    const pool = new sql.ConnectionPool(config);
+    const poolConnect = pool.connect();
+    await poolConnect;
+
+    const OrganizationID = req.body.OrganizationID;
+
+    const request = new sql.Request(pool);
+
+    const query = "SELECT * FROM groups WHERE active = 1 AND orgID = '" + req.body.orgID + "' ";
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active groups found!",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching group data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching group data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+
+router.post('/TBupdateSelected', async (req, res) => {
+  try {
+    const pool = new sql.ConnectionPool(config);
+    const poolConnect = pool.connect();
+    await poolConnect;
+
+    const traineeID = req.body.traineeid;
+    const groupid = req.body.groupid;
+    const marketername = req.body.marketername;
+    var query = '';
+    if(groupid){
+      query = "UPDATE trainee SET groupid='"+groupid+"' WHERE traineeid = '"+traineeID+"'";
+    }else{
+      query = "UPDATE trainee SET MarketerName='"+marketername+"' WHERE traineeid = '"+traineeID+"'";
+    }
+
+    const request = new sql.Request(pool);
+
+
+    const recordset = await request.query(query);
+    console.log(recordset);
+    if (recordset&&recordset.rowsAffected) {
+      const result = {
+        flag: 1,
+        message: "Data Updated Successfully",
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        message: "Error please try again",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching group data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching group data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+
 module.exports = router;
