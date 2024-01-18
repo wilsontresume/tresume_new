@@ -13,32 +13,26 @@ export class AllInvoiceComponent implements OnInit {
   
 
   paymentReceivedAction() {
-    // Your paymentReceivedAction logic here
     console.log('Payment Received');
   }
 
   duplicateAction() {
-    // Your duplicateAction logic here
     console.log('Duplicate');
   }
 
   sendAction() {
-    // Your sendAction logic here
     console.log('Send');
   }
 
   handlePrint() {
-    // Add your print functionality here
     console.log("Print icon clicked");
   }
 
   handleFileUpload() {
-    // Add your file upload functionality here
     console.log("File upload icon clicked");
   }
 
   openSettings() {
-    // Add your settings functionality here
     console.log("Settings icon clicked");
   }
 

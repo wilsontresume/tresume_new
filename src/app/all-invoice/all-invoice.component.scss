@@ -128,7 +128,7 @@ padding: 5px 10px;
 .action-icons i {
   margin-right: 10px;
   font-size: 20px;
-  color: #333; /* You can adjust the color as needed */
+  color: #333;
   cursor: pointer;
 }
 .cards{
@@ -151,18 +151,18 @@ padding: 5px 10px;
 .balance-mark {
   content: '';
   display: inline-block;
-  width: 6px; /* Adjust the width of the yellow mark */
+  width: 6px;
   height: 31px;
   background-color: rgb(234, 181, 9);
-  margin-right: 10px; /* Adjust the margin to add space between the mark and the text */
+  margin-right: 10px;
 }
 .balance-marks {
   content: '';
   display: inline-block;
-  width: 6px; /* Adjust the width of the yellow mark */
+  width: 6px;
   height: 31px;
   background-color: rgb(215, 31, 31);
-  margin-right: 10px; /* Adjust the margin to add space between the mark and the text */
+  margin-right: 10px;
 }
 .opt{
   margin-top: 64px;
@@ -178,7 +178,7 @@ input[type="search"] {
   padding: 7px 8px;
   font-size: 14px;
   color: inherit;
-  border: 1px solid ;
+  border: 1px solid rgb(187, 178, 178) ;
   border-radius: 0.25rem;
   width: 169px;
   margin-left: 10px;
