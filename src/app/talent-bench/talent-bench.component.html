@@ -5,13 +5,18 @@
         <h2 class="text-dark">TALENT BENCH</h2>
       </div>
     </div><br>
-    <label for="selectCandidate pt-3">Select Candidate</label>
+    <label for="selectCandidate pt-3">Search Candidate</label>
     <div class="row">
       <div class="col-6">
-        <select id="selectCandidate" class="form-control">
+        <!-- <select id="selectCandidate" class="form-control">
           <option value="">Select Candidate</option>
           <option *ngFor="let candidate of candidates" [value]="candidate">{{ candidate }}</option>
-        </select>
+        </select> -->
+        <div class="form-group text-right d-flex">
+          <!-- <label for="search" class="label-large mt-2 mr-3">Search:  </label> -->
+          <input [(ngModel)]="search" type="text" class="form-control ml-6 mr-2" id="search"
+              placeholder=" Search candidates...">
+      </div>
       </div>
       <div class="col-1"></div>
       <div class="col-5">
@@ -27,11 +32,11 @@
     <div class="row">
       <div class="col-8"></div>
       <div class="col-4 text-Left">
-          <div class="form-group text-right d-flex">
+          <!-- <div class="form-group text-right d-flex">
               <label for="search" class="label-large mt-2 mr-3">Search:  </label>
               <input [(ngModel)]="search" type="text" class="form-control ml-6 mr-2" id="search"
                   placeholder=" Search candidates...">
-          </div>
+          </div> -->
       </div>
   </div>
     <div class="main-container">

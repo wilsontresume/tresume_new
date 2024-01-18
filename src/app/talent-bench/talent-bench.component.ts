@@ -109,6 +109,7 @@ isCandidateVisible(candidate: any): boolean {
 }
 
 updateSelected(selectedId: string, traineeID: number,type:any) {
+  this.loading = true;
  var req = {}
  if(type == 1){
   req = {
@@ -126,8 +127,10 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   this.service.TBupdateSelected(req).subscribe((x: any) => {
     if(x.flag == 1){
       this.messageService.add({ severity: 'success', summary: x.message });
+      this.loading = false;
     }else{
       this.messageService.add({ severity: 'error', summary: x.message });
+      this.loading = false;
     }
   });
 
