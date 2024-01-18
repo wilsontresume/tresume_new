@@ -189,6 +189,91 @@ async function generateTraineeID() {
   }
 }
 
+
+router.post('/getGroupList', async (req, res) => {
+  try {
+    const pool = new sql.ConnectionPool(config);
+    const poolConnect = pool.connect();
+    await poolConnect;
+    const OrganizationID = req.body.OrganizationID;
+
+    const request = new sql.Request(pool);
+
+    const query = `
+    SELECT
+    g.GroupName,
+    COUNT(t.traineeID) AS TotalTrainees
+FROM
+    groups g
+LEFT JOIN
+    trainee t ON g.GID = t.groupid
+           AND t.active = 1
+WHERE
+    g.active = 1 AND
+    g.orgID = '${OrganizationID}'
+GROUP BY
+    g.GID, g.GroupName;
+    `;
+
+    // console.log(query);
+
+    // console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active clients found!",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching talent bench data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching talent bench data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+
+router.post('/addGroup', async (req, res) => {
+  try {
+    var query = `
+    INSERT INTO groups (groupName, orgID,Active,createtime,CreatedBy)
+    VALUES (+'${req.body.groupName}', ${req.body.orgID}, ${req.body.Active || '1'},GETDATE(),'${req.body.createby}');
+  `;
+    console.log(query);
+    const pool = await sql.connect(config);
+    const request = new sql.Request(pool);
+    const recordset = await request.query(query);
+
+    const result = {
+      flag: 1,
+      message: "Client data inserted successfully!",
+    };
+    res.status(200).json(result);
+
+  } catch (error) {
+    console.error("Error inserting Client data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while inserting Client data!",
+    };
+    res.status(500).json(result);
+  }
+});
+
+
+
 // Helper function to format values
 function formatValue(value) {
   return value !== undefined ? `'${value}'` : '';

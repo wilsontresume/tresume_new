@@ -26,9 +26,36 @@ export class TalentBenchService {
     return this.http.post<ResponseDetails>(this.endpoint + 'getLegalStatus', request);
   }
 
-  fetchrecruiter(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'fetchrecruiter', request);
-  }
+ fetchrecruiter(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'fetchrecruiter', request);
+}
+
+// DownloadSubmission(request: any): Observable<ResponseDetails> {
+//   return this.http.post<ResponseDetails>(this.endpoint + 'DownloadSubmission', request);
+// }
+
+// downloadcandidatesubmission(traineeId: number): Observable<Blob> {
+//   return this.http.get(`${this.endpoint}/downloadcandidatesubmission?TraineeID=${traineeId}`, { responseType: 'blob' });
+// }
+
+downloadcandidatesubmission(traineeId: string): Observable<Blob> {
+  return this.http.get(`${this.endpoint}downloadcandidatesubmission?TraineeID=${traineeId}`, { responseType: 'blob' });
+}
+
+downloadcandidateInterview(traineeId: string): Observable<Blob> {
+  return this.http.get(`${this.endpoint}downloadcandidateInterview?TraineeID=${traineeId}`, { responseType: 'blob' });
+}
+
+downloadcandidatePlacement(traineeId: string): Observable<Blob> {
+  return this.http.get(`${this.endpoint}downloadcandidatePlacement?TraineeID=${traineeId}`, { responseType: 'blob' });
+}
+
+getGroupList(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'getGroupList', request);
+}
+addGroup(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'addGroup', request);
+}
 
   fetchGroupList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'fetchGroupList', request);
