@@ -715,7 +715,7 @@ router.post('/getPayItemList', async (req, res) => {
     const pool = await sql.connect(config);
     const request = pool.request();
     
-    const query =  "Select * from PayType";
+    const query =  "Select Text from PayType";
 
     console.log(query);
 
@@ -750,7 +750,7 @@ router.post('/getLocationList', async (req, res) => {
     const pool = await sql.connect(config);
     const request = pool.request();
     
-    const query =  "select * from Location ";
+    const query =  "select LocationName from Location ";
 
     console.log(query);
 

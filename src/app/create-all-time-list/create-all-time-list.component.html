@@ -46,27 +46,29 @@
         <td>
           <div class="row">
             <div class="input-group col-md-5">
-              <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem1"
+              <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="selectedItem1"
                 placeholder="Choose a Project" aria-describedby="searchIcon1">
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
-                  <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <i class="fas fa-caret-down" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" *ngFor="let option of dropdownOptions1" (click)="selectOption1(option.ProjectName)">{{
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions1"
+                      (click)="selectOption1(option.ProjectName)">{{
                       option.ProjectName }}</a>
                   </div>
                 </div>
               </div>
             </div>
             <div class="input-group col-md-5">
-              <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem2"
+              <input type="text" class="form-control custom-input" id="selectedItem2" [(ngModel)]="selectedItem2"
                 placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2">
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
                   <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" *ngFor="let option of dropdownOptions2" (click)="selectOption2(option)">{{
-                      option }}</a>
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions2"
+                      (click)="selectOption2(option.Text)">{{
+                      option.Text }}</a>
                   </div>
                 </div>
               </div>
@@ -75,7 +77,7 @@
 
           <div class="row">
             <div class="input-group col-md-5">
-              <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem3"
+              <input type="text" class="form-control custom-input" id="selectedItem3" [(ngModel)]="selectedItem3"
                 placeholder="Choose the service worked on" aria-label="Search" aria-describedby="searchIcon3">
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
@@ -89,14 +91,15 @@
             </div>
 
             <div class="input-group col-md-5">
-              <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem4"
+              <input type="text" class="form-control custom-input" id="selectedItem4" [(ngModel)]="selectedItem4"
                 placeholder="Choose a location" aria-label="Search" aria-describedby="searchIcon4">
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
                   <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" *ngFor="let option of dropdownOptions4" (click)="selectOption4(option)">{{
-                      option }}</a>
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions4"
+                      (click)="selectOption4(option.LocationName)">{{
+                      option.LocationName }}</a>
                   </div>
                 </div>
               </div>
@@ -148,10 +151,6 @@
       <td colspan="8" style="text-align: right;">0.00</td>
     </tbody>
   </table>
-
-
-
-
   <!-- <button (click)="deleteAllRows()">Minus</button> -->
   <div class="row mt-3">
     <div class="col-md-4">
@@ -160,7 +159,6 @@
     <div class="col-md-4 text-center">
       <button class="btn-primary btn-block fbtn">Copy last timesheet</button>
     </div>
-
     <div class="col-md-4 text-right">
       <button class="btn-primary btn-block fbtn">Save</button>
     </div>

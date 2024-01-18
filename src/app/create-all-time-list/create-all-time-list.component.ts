@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CreateAllTimeListService} from './create-all-time-list.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { BehaviorSubject, Observable } from 'rxjs'
 
 
 @Component({
@@ -13,8 +14,6 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./create-all-time-list.component.scss']
 })
 export class CreateAllTimeListComponent implements OnInit {
-
-
   // timesheetData: any[];
   // project: any;
   // clients: any;
@@ -29,6 +28,8 @@ export class CreateAllTimeListComponent implements OnInit {
   file1: File | null = null;
   file2: File | null = null;
 
+
+ 
 
   selectSunday(selectedDate: string) {
     const selectedDateObj = new Date(selectedDate);
@@ -106,33 +107,16 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addRowWithValues('', '', '', '', '','','', '', '', '', '', '', '' );
-    this.addRowWithValues('', '', '', '','','', '', '', '', '', '', '', '' );
+    this.addRowWithValues('', '', '', '', '','','', '','', '', '', '', '', '' );
+    this.addRowWithValues('', '', '', '','','', '', '', '','', '', '', '', '' );
    
     this.getProjectName();
     this.getCandidateName();
     this.getPayItem();
     this.getLocation();
+
     }
 
-  // addRow( selectOption1?: string, selectOption2?: string, selectOption3?: string, selectOption4?: string,textarea?: string, checkbox?: string,input?:string, input1?: string, input2?: string, input3?: string, input4?: string, input5?: string, input6?: string, input7?: string): void {
-  //   this.rows.push({
-  //     selectOption1: selectOption1 || '',
-  //     selectOption2: selectOption2 || '',
-  //     selectOption3: selectOption3 || '',
-  //     selectOption4: selectOption4 || '',
-  //     textarea: textarea || '',
-  //     checkbox: checkbox || '',
-  //     input1: input1 || '',
-  //     input2: input2 || '',
-  //     input3: input3 || '',
-  //     input4: input4 || '',
-  //     input5: input5 || '',
-  //     input6: input6 || '',
-  //     input7: input7 || '',
-     
-  //   });
-  // }
 
   deleteRow(index: number): void {
     this.rows.splice(index, 1);
@@ -150,11 +134,10 @@ export class CreateAllTimeListComponent implements OnInit {
     });
   }
 
-  private addRowWithValues( selectedItem1: any, selectedItem2: any, selectedItem3: any, selectedItem4: any, textarea: string, checkbox: any, input1: any, input2: any, input3: any, input4: any, input5: any, input6: any, input7: any,): void {
-    this.addRow(selectedItem1, selectedItem2, selectedItem3, selectedItem4, textarea, checkbox, input1, input2, input3, input4, input5, input6, input7);
+  private addRowWithValues( selectedItem1: any, selectedItem2: any, selectedItem3: any, selectedItem4: any, textarea: string, checkbox: any,input:any, input1: any, input2: any, input3: any, input4: any, input5: any, input6: any, input7: any,): void {
+    this.addRow(selectedItem1, selectedItem2, selectedItem3, selectedItem4, textarea, checkbox, input, input1, input2, input3, input4, input5, input6, input7);
   }
  
-
   selectedItem: string;
   dropdownOptions: string[] = [];
 
@@ -228,5 +211,8 @@ export class CreateAllTimeListComponent implements OnInit {
       this.dropdownOptions4 = x.result;
     });
   }
+
+
+ 
 
 }
