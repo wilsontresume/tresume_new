@@ -50,9 +50,10 @@
                 placeholder="Choose a Project" aria-describedby="searchIcon1">
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
-                  <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <i class="fas fa-caret-down" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" *ngFor="let option of dropdownOptions1" (click)="selectOption1(option.ProjectName)">{{
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions1"
+                      (click)="selectOption1(option.ProjectName)">{{
                       option.ProjectName }}</a>
                   </div>
                 </div>
@@ -65,7 +66,8 @@
                 <div class="input-group-text dropdown">
                   <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" *ngFor="let option of dropdownOptions2" (click)="selectOption2(option.Text)">{{
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions2"
+                      (click)="selectOption2(option.Text)">{{
                       option.Text }}</a>
                   </div>
                 </div>
@@ -95,7 +97,8 @@
                 <div class="input-group-text dropdown">
                   <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" *ngFor="let option of dropdownOptions4" (click)="selectOption4(option.LocationName)">{{
+                    <a class="dropdown-item" *ngFor="let option of dropdownOptions4"
+                      (click)="selectOption4(option.LocationName)">{{
                       option.LocationName }}</a>
                   </div>
                 </div>
@@ -148,10 +151,6 @@
       <td colspan="8" style="text-align: right;">0.00</td>
     </tbody>
   </table>
-
-
-
-
   <!-- <button (click)="deleteAllRows()">Minus</button> -->
   <div class="row mt-3">
     <div class="col-md-4">
@@ -160,7 +159,6 @@
     <div class="col-md-4 text-center">
       <button class="btn-primary btn-block fbtn">Copy last timesheet</button>
     </div>
-
     <div class="col-md-4 text-right">
       <button class="btn-primary btn-block fbtn">Save</button>
     </div>

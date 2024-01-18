@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   CompanyInfo = '';
   selectedLegalstatus:string = '';
   state: string[] = [];
-  cities: string[] = ['option 1','option 2'];
+  cities: string[] = [];
   content: any;
   userName: string;
   firstName: string = '';
@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit {
   confirmPassword: any;
   phoneNumber: number;
   selectedState: any;
- 
   logoImageUrl: string;
   editmode: boolean = false;
   myForm: any;
@@ -52,9 +51,6 @@ export class ProfileComponent implements OnInit {
   loading:boolean = false;
   UpdateProfileData:any;
   ProfileUpdate:any;
-
-  
-  
 
   constructor(private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
     this.TraineeID = this.cookieService.get('TraineeID');
