@@ -28,6 +28,8 @@ export class TalentBenchComponent implements OnInit {
   tableData: any[] = []; 
   searchTerm: string = '';
   noResultsFound: boolean = false;
+  newGroupName: any;
+  grouplistdata: any;
   
   constructor(private dialog: MatDialog,private cookieService: CookieService, private service:TalentBenchService,private messageService: MessageService,private formBuilder: FormBuilder) {
     }
@@ -77,6 +79,7 @@ export class TalentBenchComponent implements OnInit {
     this.getcandidaterstatus();
     this.getLegalStatusOptions();
     this.getOrgUserList();
+    this.getGroupList();
 
 
     this.addCandidate = this.formBuilder.group({
@@ -107,6 +110,145 @@ export class TalentBenchComponent implements OnInit {
     });
 
   }
+
+  // downloadSubmission() {
+  //   this.loading = true;
+  //   let Req = {
+  //     TraineeID: this.TraineeID,
+  //   };
+  //   this.service.DownloadSubmission(Req).subscribe(
+  //     (x: any) => {
+  //       this.handleSuccess(x);
+  //     },
+  //     (error: any) => {
+  //       this.handleError(error);
+  //     }
+  //   );
+  //   this.loading = false;
+  // }
+
+  downloadSubmission(candidateID:string) {
+    this.loading = true;
+  
+    this.service.downloadcandidatesubmission(candidateID).subscribe(
+      (blob: Blob) => {
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'submissions.xlsx';
+        link.click();
+        this.loading = false; 
+      },
+      (error: any) => {
+        this.loading = false;
+        this.handleError(error);
+      }
+    );
+  }
+  
+  downloadInterview(candidateID:string) {
+    this.loading = true;
+  
+    this.service.downloadcandidateInterview(candidateID).subscribe(
+      (blob: Blob) => {
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'Interview.xlsx';
+        link.click();
+        this.loading = false; 
+      },
+      (error: any) => {
+        this.loading = false;
+        this.handleError(error);
+      }
+    );
+  }
+
+  downloadPLacement(candidateID:string) {
+    this.loading = true;
+  
+    this.service.downloadcandidatePlacement(candidateID).subscribe(
+      (blob: Blob) => {
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'Placement.xlsx';
+        link.click();
+        this.loading = false; 
+      },
+      (error: any) => {
+        this.loading = false;
+        this.handleError(error);
+      }
+    );
+  }
+
+  addGroup(){
+    if (this.newGroupName.trim() !== '') {
+      this.loading = true;
+      const request = {
+        orgID: this.OrgID,
+        groupName: this.newGroupName.trim(),
+        Active: 1,
+        createby: this.userName
+      };
+  
+      this.service.addGroup(request).subscribe(
+        (response: any) => {
+          if (response.flag === 1) {
+            this.getGroupList();
+            this.messageService.add({ severity: 'success', summary: response.message });
+          } else {
+            this.loading = false;
+            console.error('Error adding group!');
+            this.messageService.add({ severity: 'error', summary: response.message });
+          }
+        },
+        (error: any) => {
+          this.loading = false;
+          this.messageService.add({ severity: 'error', summary: 'Error adding group' });
+          console.error('Error adding group:', error);
+        }
+      );
+    }
+  }
+  
+  
+  
+  getGroupList() {
+    const request = {
+      OrganizationID: this.OrgID,
+    };
+  
+    this.service.getGroupList(request).subscribe(
+      (res) => {
+        this.grouplistdata = res.result;
+        this.loading = false
+        console.error('No active clients found!');
+      },
+      (error) => {
+        this.loading = false;
+        console.error('Error fetching data:', error);
+      }
+    );
+  }
+
+  // downloadSubmission() {
+  //   this.loading = true;
+  //   let Req = {
+  //     TraineeID: this.TraineeID,
+  //   };
+  //   this.service.downloadcandidatesubmission(Req).subscribe((blob: Blob) => {
+  //     const link = document.createElement('a');
+  //     link.href = window.URL.createObjectURL(blob);
+  //     link.download = 'submissions.xlsx';
+  //     link.click();
+  //     this.handleSuccess(blob);
+  //     this.loading = false; 
+  //   },
+  //     (error: any) => {
+  //       this.loading = false;
+  //       this.handleError(error);
+  //     });
+  // }
 
   getLegalStatusOptions() {
     const request = {};
