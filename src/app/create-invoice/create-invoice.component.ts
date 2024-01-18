@@ -23,37 +23,32 @@ showModal: boolean = false;
 
 
 
-previousOption: string = ''; // Store the previous option
+previousOption: string = '';
 
 onOptionChanges(event: any) {
-  this.previousOption = this.selectedOption; // Store the previous option
+  this.previousOption = this.selectedOption;
   this.selectedOption = event.target.value;
-  // Rest of your logic for handling selected options
 }
 
 goToPreviousOption() {
   if (this.previousOption === 'example1' || this.previousOption === 'example2') {
-    this.selectedOption = this.previousOption; // Set the selected option to the previous one
+    this.selectedOption = this.previousOption;
     this.selectedOption = 'example1';}
 }
 selectedFilter: string = ''; 
 
 onFilterChanges(value: string) {
   this.selectedFilter = value;
-  // Add any other necessary logic based on the filter selection
 }
 
 onOptionChange(event: any) {
   this.selectedOption = event.target.value;
   if (this.selectedOption === 'example2') {
-    // Implement logic if 'Group time by service' is selected
   } else {
-    // Implement logic if 'Don't group time' is selected
   }
 }
 
 addAll() {
-  // Implement 'Add all' logic if required
 }
 
 
@@ -74,10 +69,8 @@ confirmDelete() {
 }
 
 deleteItems() {
-  // Simulating deletion with a log message
-  console.log("Item deleted!"); // Replace this with your actual deletion logic
+  console.log("Item deleted!"); 
 
-  // Close the modal after successful deletion (in a real scenario, this would be after deletion request/response)
   this.closeModal();
 }
 
@@ -86,7 +79,7 @@ closeModal1() {
 }
 
   togglePopup(event: Event): void {
-    event.preventDefault(); // Prevent the default link behavior
+    event.preventDefault(); 
     this.showPopup = !this.showPopup;
   }
 
@@ -102,7 +95,7 @@ showButtons: any;
   
   onFilterChange(value: string) {
     this.selectedOption = value;
-    this.showAdditionalInputs = this.selectedOption === 'option3'; // Update the condition here
+    this.showAdditionalInputs = this.selectedOption === 'option3'; 
     console.log('Selected Option:', this.selectedOption);
     console.log('showAdditionalInputs:', this.showAdditionalInputs);
   }
@@ -126,24 +119,20 @@ showButtons: any;
   items = [
     { id: 1, name: 'Item 1' },
     { id: 2, name: 'Item 2' },
-    // Add more items as needed
   ];
 
-  selectedItem: any; // To store the item to be deleted
+  selectedItem: any;
 
   openDeleteModal(item: any) {
-    this.selectedItem = item; // Store the item to be deleted
+    this.selectedItem = item;
   }
 
   deleteItem() {
-    // Implement your delete logic here using this.selectedItem.id
-    // Once deleted, remove the item from the items array or perform necessary actions
     console.log('Deleting item:', this.selectedItem);
-    // Example: this.items = this.items.filter(item => item.id !== this.selectedItem.id);
-    this.closeModal(); // Close the modal after deletion
+    this.closeModal(); 
   }
 
   closeModal() {
-    this.selectedItem = null; // Clear the selectedItem
+    this.selectedItem = null;
   }
 }
