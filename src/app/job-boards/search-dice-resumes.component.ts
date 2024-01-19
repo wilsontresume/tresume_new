@@ -275,6 +275,7 @@ export class SearchResumesDiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.cookieValue = this.cookieService.get('userName1');
     this.OrgID1 = this.cookieService.get('OrgID');
     this.userName1 = this.cookieService.get('userName1');
@@ -916,6 +917,7 @@ export class SearchResumesDiceComponent implements OnInit {
                 divid = x.result[0].id;
                 resolve();
               }
+              this.loading = false;
             })
             .catch((error: any) => {
               reject(error);

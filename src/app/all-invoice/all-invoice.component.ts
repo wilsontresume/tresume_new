@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-all-invoice',
   templateUrl: './all-invoice.component.html',
@@ -8,18 +9,30 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AllInvoiceComponent implements OnInit {
 
+
+  
+
+  paymentReceivedAction() {
+    console.log('Payment Received');
+  }
+
+  duplicateAction() {
+    console.log('Duplicate');
+  }
+
+  sendAction() {
+    console.log('Send');
+  }
+
   handlePrint() {
-    // Add your print functionality here
     console.log("Print icon clicked");
   }
 
   handleFileUpload() {
-    // Add your file upload functionality here
     console.log("File upload icon clicked");
   }
 
   openSettings() {
-    // Add your settings functionality here
     console.log("Settings icon clicked");
   }
 
