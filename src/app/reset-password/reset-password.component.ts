@@ -55,7 +55,7 @@ export class ResetPasswordComponent implements OnInit {
 
   validatePassword() {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (this.password === this.confirmPassword && passwordRegex.test(this.password)) {
+    if (this.password === this.confirmPassword) {
       this.isButtonEnabled = true;
     } else {
       this.isButtonEnabled = false;
