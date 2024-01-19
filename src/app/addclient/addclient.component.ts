@@ -135,7 +135,7 @@ export class AddclientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loading = true;
+    // this.loading = true;
     this.addClient = this.fb.group({
       ClientName: ['', [Validators.required, Validators.minLength(3)]],
       ContactNumber: ['', [Validators.required, Validators.maxLength(10)]],
@@ -150,8 +150,8 @@ export class AddclientComponent implements OnInit {
       state: [''],
       city: [''],
       Industry: [''],
-      ClientStatusID: [''],
-      ClientCategoryID: [''],
+      ClientStatusID: ['',[Validators.required,]],
+      ClientCategoryID: ['',[Validators.required,]],
       PrimaryOwner: [''],
       PaymentTerms: [''],
       AboutCompany: [''],
@@ -206,6 +206,9 @@ export class AddclientComponent implements OnInit {
     this.service.addClienta(Req).subscribe((x: any) => {
       console.log(x);
     });
+    this.addClient.reset();
+    this.selectedRequiredDocuments = [];
+    this.Notes = '';
   }
 
   cancel() {
@@ -258,6 +261,11 @@ export class AddclientComponent implements OnInit {
     this.service.getCity(Req).subscribe((x: any) => {
       this.city = x.result;
     });
+  }
+
+  isAddButtonEnabled(): boolean {
+    return this.addClient.get('ClientStatusID').value !== null &&
+           this.addClient.get('ClientCategoryID').value !== null;
   }
 }
 

@@ -259,5 +259,10 @@ selectedPrimaryOwner: any=0;
       this.city = x.result;
     });
   }
+
+  isAddButtonEnabled(): boolean {
+    return this.addVendor.get('VendorStatusID').value !== null &&
+           this.addVendor.get('VendorCategoryID').value !== null;
+  }
 }
 
