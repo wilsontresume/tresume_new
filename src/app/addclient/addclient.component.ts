@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddClientService } from './addclient.component.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
@@ -122,16 +122,20 @@ export class AddclientComponent implements OnInit {
     "Wireless"
   ];
   OrgID: string;
+  routeType: any;
   
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private service: AddClientService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) {
     
     this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
+    this.routeType = this.route.snapshot.params["routeType"];
   }
 
   ngOnInit(): void {
@@ -174,6 +178,9 @@ export class AddclientComponent implements OnInit {
   }
 
   addClientbutton() {
+    if(this.selectedClientStatusID && this.selectedClientCategoryID && this.selectedPrimaryOwner){
+     
+    this.loading = true;
     const documents = this.selectedRequiredDocuments.map(doc => doc.name).join(', ');
     console.log(documents);
     let Req = {
@@ -203,14 +210,35 @@ export class AddclientComponent implements OnInit {
       Notes: this.Notes,
     };
     console.log(Req);
-    this.service.addClienta(Req).subscribe((x: any) => {
-      console.log(x);
-    });
+    this.service.addClienta(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+        this.loading = false;
+      },
+      (error: any) => {
+        this.handleError(error);
+        this.loading = false;
+      }
+    );
     this.addClient.reset();
     this.selectedRequiredDocuments = [];
     this.Notes = '';
+    }else{
+      this.messageService.add({ severity: 'error', summary:  'Enter the required fields' });
+    }
   }
 
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary: response.message });
+    console.log(response);
+    this.loading = false;
+    this.router.navigate(['/allclient/'+this.routeType]);
+  }
+  
+  private handleError(response: any): void {
+    this.messageService.add({ severity: 'error', summary:  response.message });
+    this.loading = false;
+  }
   cancel() {
     this.addClient.reset();
     this.selectedRequiredDocuments = [];
