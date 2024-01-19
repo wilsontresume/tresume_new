@@ -31,10 +31,6 @@ export class AddClientService {
     return this.http.post<ResponseDetails>(this.endpoint + 'getCity', request);
   }
 
-  // getIndustry(request: any): Observable<ResponseDetails> {
-  //   return this.http.post<ResponseDetails>(this.endpoint + 'getIndustry', request);
-  // }
-
   getClientStatusID(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getClientStatusID', request);
   }
@@ -49,6 +45,10 @@ export class AddClientService {
 
   // getPaymentTerms(request: any): Observable<ResponseDetails> {
   //   return this.http.post<ResponseDetails>(this.endpoint + 'getPaymentTerms', request);
+  // }
+
+   // getIndustry(request: any): Observable<ResponseDetails> {
+  //   return this.http.post<ResponseDetails>(this.endpoint + 'getIndustry', request);
   // }
 
 }
