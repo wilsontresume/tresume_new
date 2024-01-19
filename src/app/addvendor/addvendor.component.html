@@ -145,7 +145,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>Status </label>
+                            <label>Status*</label>
                             <select class="form-control" name="VendorStatusID" [(ngModel)]="selectedVendorStatusID"
                                 [ngModelOptions]="{ standalone: true }" >
                                 <option value="" disabled>Select Status</option>
@@ -158,7 +158,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>Category</label>
+                            <label>Category*</label>
                             <select class="form-control" name="VendorCategoryID" [(ngModel)]="selectedVendorCategoryID"
                                 [ngModelOptions]="{ standalone: true }" >
                                 <option value="" disabled>Select Category</option>
@@ -172,7 +172,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group text-center">
-                            <label>Primary Owner</label>
+                            <label>Primary Owner*</label>
                             <select class="form-control" name="PrimaryOwner" [(ngModel)]="selectedPrimaryOwner"
                                 [ngModelOptions]="{ standalone: true }" >
                                 <option value="" disabled>Select Primary Owner</option>
@@ -256,5 +256,6 @@
         </div>
     </div>
 </div>
+<p-toast position="bottom-right"></p-toast>
 
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
