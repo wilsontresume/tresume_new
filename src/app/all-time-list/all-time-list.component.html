@@ -1,15 +1,15 @@
 <div class="header p-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row main pt-3 pl-3 pr-3">
             <h2 class="col-md-6">ALL TIME SHEET</h2>
             <div class="col-md-6 text-end">
-                <button class="btn float-right" [routerLink]="['/timesheetcreate']">Create</button>
-                <!-- <button class="btn mr-3 float-right" routerLink="/addadmin">Add Admin</button> -->
+                <!-- <div class="col-md-6 text-end" *ngIf="timesheetrole == 3"></div> -->
+                <button class="btn float-right" [routerLink]="['/createalltimelist']">Create</button>
             </div>
         </div>
-        <div class="container pt-3 bottomborder">
+        <div class="container-fluid pt-3 bottomborder">
             <div class="row mt-5">
-                <table class="table m-3">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Candidate</th>
@@ -36,13 +36,20 @@
                             <td>
                                 <div>
                                     <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
-                                        [routerLink]="['/timesheet/viewdetails']"></i>
+                                        [routerLink]="['/timesheetviewdetails']"></i>
                                 </div>
                             </td>
                         </tr>
+                        <tr *ngIf="noResultsFound" >
+                            <td colspan="9" class="text-center">
+                              No results found.
+                            </td>
+                          </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

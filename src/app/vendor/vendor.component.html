@@ -1,5 +1,5 @@
-<div class="header pt-4">
-    <div class="container pb-1">
+<div class="header p-3">
+    <div class="container-fluid pb-1">
         <div class="row main">
             <div class="col">
                 <h2 class="ml-3 mt-4 text-dark">ALL VENDORS</h2>
@@ -21,17 +21,17 @@
                     <th>Vendor Name</th>
                     <th>Email ID</th>
                     <th>Website</th>
-                    <th>Owner</th>
+                    <th>Contact number</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                 <tr *ngFor="let vendor of vendors">
-                    <td>{{ vendor.VendorName }}</td>
-                    <td>{{ vendor.EmailID }}</td>
-                    <td>{{ vendor.Website }}</td>
-                    <td>{{ vendor.PrimaryOwner}}</td>
+                    <td>{{ vendor.vendorname }}</td>
+                    <td>{{ vendor.emailid }}</td>
+                    <td>{{ vendor.contactnumber }}</td>
+                    <td>{{ vendor.primaryowner}}</td>
                     <td>
                         <div>
                             <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewvendor']"></i>
@@ -40,6 +40,11 @@
 
                     </td>
                 </tr>
+                <tr *ngIf="noResultsFound" >
+                    <td colspan="11" class="text-center">
+                      No results found.
+                    </td>
+                  </tr>
             </tbody>
         </table>
     </div>
@@ -58,3 +63,4 @@
         </div>
     </div>
 </div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

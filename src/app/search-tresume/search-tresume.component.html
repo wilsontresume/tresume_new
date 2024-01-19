@@ -23,7 +23,7 @@
             aria-controls="previewinfo" aria-selected="false">Preview Information</a>
         </li>
       </ul>
-    
+
 
 
       <div class="tab-content mt-3" id="myTabContent">
@@ -85,7 +85,7 @@
 
 
               <div class="col-md-4">
-                <div class="form-group text-center"> 
+                <div class="form-group text-center">
                   <label for="basicinfo">City *</label>
                   <select [(ngModel)]="selectedCity" name="city" id="city" class="form-control">
                     <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
@@ -214,7 +214,7 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="form-group text-center">                                        
+            <!-- <div class="form-group text-center">
                         </div> -->
 
             <div class="col-md-4 text-center">
@@ -600,3 +600,4 @@
   </div>
 </div>
 </div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
