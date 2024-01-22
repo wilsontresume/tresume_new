@@ -5,47 +5,73 @@
         <h2 class="text-dark">TALENT BENCH</h2>
       </div>
     </div><br>
-    <label for="selectCandidate pt-3">Search Candidate</label>
+    <label for="selectCandidate pt-3">Select Candidate</label>
     <div class="row">
       <div class="col-6">
-        <!-- <select id="selectCandidate" class="form-control">
+        <select id="selectCandidate" class="form-control">
           <option value="">Select Candidate</option>
           <option *ngFor="let candidate of candidates" [value]="candidate">{{ candidate }}</option>
-        </select> -->
+        </select>
         <div class="form-group text-right d-flex">
           <!-- <label for="search" class="label-large mt-2 mr-3">Search:  </label> -->
           <input [(ngModel)]="search" type="text" class="form-control ml-6 mr-2" id="search"
-              placeholder=" Search candidates...">
+            placeholder=" Search candidates...">
+        </div>
       </div>
-      </div>
-      <div class="col-1"></div>
       <div class="col-5">
-        <!-- <button class="btn ml-3">DSR</button> -->
-        <button class="btn ml-3" (click)="downloadExcel()">DSR</button>
-        <button class="btn ml-3">Export Report</button>
-        <button type="button" class="btn ml-3" data-toggle="modal" data-target=".bd-example-modal-xl">Add
-          Candidate</button>
-        <button type="button" class="btn ml-3" data-toggle="modal" data-target="#exampleModalLong">Group</button>
+        <div class="align" style="margin-left: 80px;">
+          <!-- <button class="btn ml-3">DSR</button> -->
+          <!-- <button class="btn ml-3" (click)="downloadExcel()">DSR</button> -->
+          <button class="btn ml-3">Export Report</button>
+          <button type="button" class="btn ml-3" data-toggle="modal" data-target=".bd-example-modal-xl">Add
+            Candidate</button>
+          <button type="button" class="btn ml-3" data-toggle="modal" data-target="#exampleModalLong">Group</button>
+      </div>
       </div>
     </div>
     <hr>
     <div class="row">
-      <div class="col-8"></div>
-      <div class="col-4 text-Left">
-          <!-- <div class="form-group text-right d-flex">
-              <label for="search" class="label-large mt-2 mr-3">Search:  </label>
-              <input [(ngModel)]="search" type="text" class="form-control ml-6 mr-2" id="search"
-                  placeholder=" Search candidates...">
-          </div> -->
+      <div class="col-6">
+        <div class="form-group">
+          <div style="display: flex; align-items: center; width: 100%;">
+            <label for="dateCreated" class="label-large" style="margin: auto;">Date Created</label>
+            <div class="Filterbtn" style="display: flex; justify-content: space-between; width: 200px;padding: 15px;">
+              <button class="btn btn-wdth text-white">Search</button>
+              <button class="btn btn-wdth text-white">Clear</button>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <div class="col">
+              <label>Start date:</label>
+              <input type="date" class="form-control" id="dateCreatedStartDate" placeholder="Start date">
+            </div>
+            <div class="col">
+              <label>End date:</label>
+              <input type="date" class="form-control" id="dateCreatedEndDate" placeholder="End date">
+            </div>
+          </div>
+        </div>
+       
       </div>
-  </div>
+      <div class="col-6" style="margin: auto;">
+        <!-- <button class="btn ml-3">DSR</button> -->
+        <div class="align" style="margin-left: 70px;">
+          <button class="btn ml-3" (click)="downloadExcel()">DSR</button>
+          <button class="btn ml-3">Placement</button>
+          <button type="button" class="btn ml-3">
+            Interview</button>
+          <button type="button" class="btn ml-3">Submission</button>
+      </div>
+      </div>
+    
+    </div>
     <div class="main-container">
-      <table class="table">
+      <!-- <table class="table">
         <thead>
           <tr>
             <th>Bench ID</th>
             <th>Name</th>
-            <!-- <th>Email</th> -->
             <th>Location</th>
             <th>Time on Bench (days)</th>
             <th>Title</th>
@@ -64,16 +90,10 @@
             <td>
               <div class="ml-10"> {{ item.FirstName }} {{ item.LastName }}</div>
               <i [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/0']" class="fas fa-network-wired icon"></i>
-              <!-- <i class="far fa-clipboard icon" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/1']" title="Submission Data"></i> -->
-              <!-- <i class="fas fa-pencil-alt icon" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/2']" title="Interview Data"></i> -->
-              <!-- <i class="far fa-file-alt icon" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/3']" title="Placement Data"></i> -->
-
-              <!-- <i class="far fa-clipboard icon" title="Submission Data" (click)="downloadSubmission()"></i> -->
               <i class="far fa-clipboard icon" title="Submission Data" (click)="downloadSubmission(item.TraineeID)"></i>
               <i class="fas fa-pencil-alt icon" title="Interview Data" (click)="downloadInterview(item.TraineeID)"></i>
               <i class="far fa-file-alt icon" title="Placement Data" (click)="downloadPLacement(item.TraineeID)"></i>
             </td>
-            <!-- <td>{{ item.UserName }}</td> -->
             <td>{{ item.CurrentLocation }}</td>
             <td>{{ item.age }}</td>
             <td>{{ item.TraineeTitle }}</td>
@@ -102,7 +122,61 @@
           </tr>
         </ng-container>
         </tbody>
-      </table>
+      </table> -->
+
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12" *ngFor="let item of tableData">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <a class="card-title" style="font-size:30px; color: #49274A;"><b>{{ item.TBID }}</b></a>
+                      <a class="card-subtitle mb-2" style="font-size:30px; color: #49274A;margin-left: 5px;" >{{ item.FirstName }} {{ item.LastName }}</a>
+                      <p class="card-text">Location: {{ item.CurrentLocation }}</p>
+                      <p class="card-text">Time On Bench: {{ item.age }}</p>
+                      <p class="card-text">Title: {{ item.TraineeTitle }}</p>
+                      <p class="card-text">Phone: {{ item.phone }}</p>
+                    </div>
+                    <div class="col-md-5">
+                      <p class="card-text">Status: {{ item.LegalStatus }}</p>
+                      <p class="card-text">Bill Date: {{ item.BillRate }}</p>
+                      <p class="card-text">Refer: {{ item.ReferredBy }}</p>
+                      <p class="card-text">Group Name:
+                        <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.groupid"
+                          (change)="updateSelected($event.target.value, item.TraineeID, 1)">
+                          <option *ngFor="let option of groupOptions" [value]="option.GID">
+                            {{ option.GroupName }}
+                          </option>
+                        </select>
+                      </p>
+                      <p class="card-text">Marketer Name:
+                        <select class="form-control" name="recruiterName" [(ngModel)]="item.RecruiterName"
+                          [ngModelOptions]="{standalone: true}" (change)="updateSelected($event.target.value, item.TraineeID, 2)">
+                          <option *ngFor="let name of recruiterNames" [value]="name.traineeid">
+                            {{ name.firstname }} {{ name.lastname }}
+                          </option>
+                        </select>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="icons">
+                    <i [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/0']" class="fas fa-network-wired icon larger-icon"></i>
+                    <i class="far fa-clipboard icon larger-icon" title="Submission Data" (click)="downloadSubmission(item.TraineeID)"></i>
+                    <i class="fas fa-pencil-alt icon larger-icon" title="Interview Data" (click)="downloadInterview(item.TraineeID)"></i>
+                    <i class="far fa-file-alt icon larger-icon" title="Placement Data" (click)="downloadPLacement(item.TraineeID)"></i>
+                  </div>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      
+      
     </div>
   </div>
 </div>
