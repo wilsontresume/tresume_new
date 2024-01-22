@@ -1,0 +1,23 @@
+
+input[type="search"] {
+    border: none;
+    background: white;
+    margin: 0;
+    padding: 7px 8px;
+    font-size: 14px;
+    color: inherit;
+    border: 1px solid rgb(187, 178, 178) ;
+    border-radius: 0.25rem;
+    width: 169px;
+    margin-left: 10px;
+  }
+  
+  input[type="search"]::placeholder {
+    color: #bbb;
+  }
+  
+  input[type="search"]:focus {
+    box-shadow: 0 0 3px 0 rgb(88, 21, 88);
+    border-color:rgb(88, 21, 88);
+    outline: none;
+  }

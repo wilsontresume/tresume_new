@@ -155,6 +155,7 @@ import { CreateInvoiceComponent } from './create-invoice/create-invoice.componen
 // import { TimesheetViewdetailsComponent } from './timesheet-viewdetails/timesheet-viewdetails.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
+import { PaymentComponent } from './all-invoice/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -246,6 +247,7 @@ import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
     CreateInvoiceComponent,
 
     AllInvoiceComponent,
+      PaymentComponent,
     // TimesheetViewdetailsComponent
 
   ],
@@ -297,6 +299,7 @@ import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
     EditorModule,
     ToastModule,
     RouterModule,
+    
 
 
 

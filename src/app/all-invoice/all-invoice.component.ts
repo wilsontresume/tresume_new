@@ -9,7 +9,23 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AllInvoiceComponent implements OnInit {
 
+  isRowSelected: boolean = false;
 
+  onRowHover(event: MouseEvent): void {
+    this.isRowSelected = true;
+  }
+
+  onRowOut(event: MouseEvent): void {
+    this.isRowSelected = false;
+  }
+
+
+  
+showModal: any;
+
+closeModal2() {
+  this.showModal = false;
+} 
   
 
   paymentReceivedAction() {
@@ -53,7 +69,13 @@ throw new Error('Method not implemented.');
     this.showTable = true;
    
   }   
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    
+    
+    
+    
+    ) {}
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }

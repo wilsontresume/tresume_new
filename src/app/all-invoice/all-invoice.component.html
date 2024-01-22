@@ -1,7 +1,7 @@
 <div class="container-fluid p-3">
   <div class="head d-flex justify-content-between p-3">
     <h2> ALL INVOICE</h2>
-    <a class="btn btn float-left" style=" height: 30px;" href="create-invoice">
+    <a class="btn btn float-left" style=" height: 29px;" href="create-invoice">
       + Create Invoice
   </a>
   </div>
@@ -35,88 +35,20 @@
 
           <div class="tab-content" style="margin-top: 26px;">
             <div id="allinvoices" class="tab-pane fade show active">
-              <div class="row">
-                <div class="col-md-2">
-                  <label for="batchActions">Batch Actions</label>
-                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="batchActions"
-                    name="batchActions">
-                    <option value="action1">Action 1</option>
-                    <option value="action2">Action 2</option>
-                  </select>
-                </div>
-
-                <div class="col-md-2">
-                  <label for="type">Type</label>
-                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="type" name="type">
-                    <option value="allTransaction">All transaction</option>
-                    <option value="allPlusDeposits">All plus deposits</option>
-                    <option value="estimate">Estimate</option>
-                    <option value="creditMemos">Credit memos</option>
-                    <option value="salesReceipt">Sales Receipts</option>
-                    <option value="unbilledIncome">Unbilled Income</option>
-                    <option value="moneyReceived">Money received</option>
-                    <option value="recentlyPaid">Recently paid</option>
-                  </select>
-                </div>
-
-                <div class="col-md-2">
-                  <label for="status">Status</label>
-                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="status" name="status">
-                    <option value="all">All</option>
-                    <option value="open">Open</option>
-                    <option value="overDue">Overdue</option>
-                    <option value="paid">Paid</option>
-                    <option value="voided">Voided</option>
-                  </select>
-                </div>
-
-                <div class="col-md-2">
-                  <label for="date">Date</label>
-                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="date" name="date">
-                    <option value="all">All</option>
-                    <option value="customDate" (click)="toggleCustomDateModel()">Custom dates</option>
-                    <option value="today">Today</option>
-                    <option value="yesterday">Yesterday</option>
-                    <option value="thisWeek">This week</option>
-                    <option value="lastWeek">Last week</option>
-                    <option value="thisMonth">This month</option>
-                    <option value="lastMonth">Last month</option>
-                    <option value="thisQuarter">This quarter</option>
-                    <option value="lastQuarter">Last quarter</option>
-                  </select>
-
-                  <div *ngIf="showCustomDateModel" class="custom-date-model">
-                    <label for="startDate">Start Date:</label>
-                    <input type="date" id="startDate" [(ngModel)]="startDate">
-
-                    <label for="endDate">End Date:</label>
-                    <input type="date" id="endDate" [(ngModel)]="endDate">
-
-                    <button (click)="resetDates()">Reset</button>
-                    <button (click)="applyDates()">Apply</button>
-                  </div>
-                </div>
-                <div class="col-md-2 mt-4 ">
-                  <a href="#" (click)="viewRecurringTemplates()" style="margin-left: 8px;"> Recurring templates</a>
-                </div>
-
-
-                <div class="col-md-2 mt-4">
-                  <a href="#" (click)="feedbackWithIcon()">Feedback </a>
-                </div>
+              
             
                 <div class="row col-md-2 mt-4 containers">
                   <input type="search" placeholder="Search...">
                 </div>
-              </div>
-              <div class="opt d-flex">
+            
+              <div class="opt d-flex" style="margin-top: 9px;">
                 <div class="btn-group mr-2">
                   <button type="button" class="btn btn-" data-toggle="modal" data-target="#exampleModal"
                     data-whatever="@fat">
                     Edit
                   </button>
                   <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+                    aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -245,6 +177,8 @@
                     <a class="dropdown-item" href="#">Statement</a>
 
                   </div>
+
+                  
                 </div>
               </div>
               <div class="row cards">
@@ -297,10 +231,79 @@
                   </div>
                 </div>
               </div>
+              <div class="row" style="margin-top: 5rem;">
+                <div class="col-md-2">
+                  <label for="batchActions">Batch Actions</label>
+                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="batchActions"
+                    name="batchActions">
+                    <option value="action1">Action 1</option>
+                    <option value="action2">Action 2</option>
+                  </select>
+                </div>
 
+                <div class="col-md-2">
+                  <label for="type">Type</label>
+                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="type" name="type">
+                    <option value="allTransaction">All transaction</option>
+                    <option value="allPlusDeposits">All plus deposits</option>
+                    <option value="estimate">Estimate</option>
+                    <option value="creditMemos">Credit memos</option>
+                    <option value="salesReceipt">Sales Receipts</option>
+                    <option value="unbilledIncome">Unbilled Income</option>
+                    <option value="moneyReceived">Money received</option>
+                    <option value="recentlyPaid">Recently paid</option>
+                  </select>
+                </div>
+
+                <div class="col-md-2">
+                  <label for="status">Status</label>
+                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="status" name="status">
+                    <option value="all">All</option>
+                    <option value="open">Open</option>
+                    <option value="overDue">Overdue</option>
+                    <option value="paid">Paid</option>
+                    <option value="voided">Voided</option>
+                  </select>
+                </div>
+
+                <div class="col-md-2">
+                  <label for="date">Date</label>
+                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="date" name="date">
+                    <option value="all">All</option>
+                    <option value="customDate" (click)="toggleCustomDateModel()">Custom dates</option>
+                    <option value="today">Today</option>
+                    <option value="yesterday">Yesterday</option>
+                    <option value="thisWeek">This week</option>
+                    <option value="lastWeek">Last week</option>
+                    <option value="thisMonth">This month</option>
+                    <option value="lastMonth">Last month</option>
+                    <option value="thisQuarter">This quarter</option>
+                    <option value="lastQuarter">Last quarter</option>
+                  </select>
+
+                  <div *ngIf="showCustomDateModel" class="custom-date-model">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" [(ngModel)]="startDate">
+
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" [(ngModel)]="endDate">
+
+                    <button (click)="resetDates()">Reset</button>
+                    <button (click)="applyDates()">Apply</button>
+                  </div>
+                </div>
+                <div class="col-md-2 mt-4 ">
+                  <a href="#" (click)="viewRecurringTemplates()" style="margin-left: 8px;"> Recurring templates</a>
+                </div>
+
+
+                <div class="col-md-2 mt-4">
+                  <a href="#" (click)="feedbackWithIcon()">Feedback </a>
+                </div>
+              </div>
 
               <div style="font-size: 12px;"> 
-                <table class="table no-border" style="margin-top: 50px;">
+                <table class="table no-border" style="margin-top: 6rem;">
                   <thead class="underline">
                     <tr>
                       <td><input type="checkbox"></td>
@@ -309,7 +312,9 @@
                       <th>NO.</th>
                       <th>CLIENT/PROJECT</th>
                       <th>MEMO</th>
-                      <th colspan="2">AMOUNT STATUS</th>
+                      <th colspan="2">AMOUNT </th>
+                      <th> STATUS <i class="fas fa-angle-down" style="margin-left: 5px;"></i></th>
+
                       <th>ACTION</th>
                       <td class="action-icons">
                         <i class="material-icons" onclick="handlePrint()">print</i>
@@ -318,232 +323,318 @@
                       </td>
 
                     </tr>
-                    <tr>
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
-                      <td>90801</td>
+                      <td>90801</td>  
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Partially paid</span><br>
-                        <!-- <p>Partially paid, $48 due</p> -->
+                      <td> $2,440.00<td>
+                          <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Sent 03/04/22</td> 
+                        
+                      
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                          
+                        </div>
 
                       </td>
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                          </div>
-                        </div>
-                      </td>
                     </tr>
-                    <tr>
+                
+
+
+
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
                       <td>90801</td>
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: green; margin-left: 5px;">
-                          <i class="fas fa-check-circle"></i>
-                        </span>
-                        <span style="color: green;">Paid</span>
-                      </td>
+                      <td> $2,440.00<td>
+                          <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
+
                       </td>
                     </tr>
 
-                    <tr>
+
+
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
                       <td>90801</td>
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: green; margin-left: 5px;">
-                          <i class="fas fa-check-circle"></i> 
-                        </span>
-                        <span style="color: green;">Paid</span>
+                      <td> $2,440.00<td>
+                          <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                        <p>Partially paid, $48 due</p>
 
                       </td>
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                          </div>
-                        </div>
-                      </td>
                     </tr>
-                    <tr>
+
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
                       <td>90801</td>
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: green; margin-left: 5px;">
-                          <i class="fas fa-check-circle"></i> 
-                        </span>
-                        <span style="color: green;">Paid</span>
+                      <td> $2,440.00<td>
+                          <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Partially paid $413.12 due</td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Partially paid</span><br>
-                        <!-- <p>Partially paid, $48 due</p>
-                                       -->
-                      </td>
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                        <p>Partially paid, $48 due</p>
 
                       </td>
+                    </tr>
+
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td> $2,440.00<td>
+                          <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
+
                       </td>
                     </tr>
+                    
+                
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
+                    <td><input type="checkbox"></td>
+                    <td>11/17/23</td>
+                    <td>Invoice</td>
+                    <td>90801</td>
+                    <td>TEK system Inc: Shushant Bathini </td>
+                    <td>11/17/2023 to 08/04/2023</td>
+                    <td> $2,440.00<td>
+                        <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Sent 03/04/22</td> 
+                      
+                    
+                    <td colspan="2">
+                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                         Receive Payment
+                      </a>
+                      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+               
+                
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                        </div>
+                        
+                      </div>
+
+                    </td>
+                  </tr>
+                  
+
+                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
+                    <td><input type="checkbox"></td>
+                    <td>11/17/23</td>
+                    <td>Invoice</td>
+                    <td>90801</td>
+                    <td>TEK system Inc: Shushant Bathini </td>
+                    <td>11/17/2023 to 08/04/2023</td>
+                    <td> $2,440.00<td>
+                        <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Partially paid $413.12 due</td> 
+                      
+                    
+                    <td colspan="2">
+                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                         Receive Payment
+                      </a>
+                      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+               
+                
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                        </div>
+                        
+                      </div>
+
+                    </td>
+                  </tr>
+         
+                
+        
+                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
+                <td><input type="checkbox"></td>
+                <td>11/17/23</td>
+                <td>Invoice</td>
+                <td>90801</td>
+                <td>TEK system Inc: Shushant Bathini </td>
+                <td>11/17/2023 to 08/04/2023</td>
+                <td> $2,440.00<td>
+                    <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Sent 03/04/22</td> 
+                  
+                
+                <td colspan="2">
+                  <button class="btn btn-" onclick="editAction()">Edit</button>
+                  <div class="btn-group received" style="margin-left: 5px;">
+                    <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                     Receive Payment
+                  </a>
+                  <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+           
+            
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                      <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                      <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
+                      <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                      <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                      <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                    </div>
+                    
+                  </div>
+
+                </td>
+              </tr>
+            
                   </thead>
                 </table>
               </div>
@@ -568,7 +659,8 @@
                     <th>NO.</th>
                     <th>CLIENT/PROJECT</th>
                     <th>MEMO</th>
-                    <th colspan="2">AMOUNT STATUS</th>
+                    <th colspan="2">AMOUNT </th>
+                       <th> STATUS</th>
                     <th>ACTION</th>
                     <td class="action-icons">
                       <i class="material-icons" onclick="handlePrint()">print</i>
@@ -576,235 +668,300 @@
                       <i class="fas fa-cog" onclick="openSettings()"></i>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
                     <td><input type="checkbox"></td>
                     <td>11/17/23</td>
                     <td>Invoice</td>
                     <td>90801</td>
                     <td>TEK system Inc: Shushant Bathini </td>
                     <td>11/17/2023 to 08/04/2023</td>
-                    <td>
-                      240.00
-                      <span style="color: green; margin-left: 5px;">
-                        <i class="fas fa-check-circle"></i>
-                      </span>
-                      <span style="color: green;">Paid</span>
-                    </td>
+                    <td> $2,440.00<td>
+                        <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                      
+                    
                     <td colspan="2">
                       <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received">
-                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                          Payment received
-                        </button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                         Receive Payment
+                      </a>
+                      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+               
+                
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
+                        
                       </div>
+
                     </td>
                   </tr>
-                  <tr>
+
+                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
                     <td><input type="checkbox"></td>
                     <td>11/17/23</td>
                     <td>Invoice</td>
                     <td>90801</td>
                     <td>TEK system Inc: Shushant Bathini </td>
                     <td>11/17/2023 to 08/04/2023</td>
-                    <td>
-                      240.00
-                      <span style="color: green; margin-left: 5px;">
-                        <i class="fas fa-check-circle"></i>
-                      </span>
-                      <span style="color: green;">Paid</span>
-                    </td>
+                    <td> $2,440.00<td>
+                        <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                      
+                    
                     <td colspan="2">
                       <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received">
-                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                          Payment received
-                        </button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                         Receive Payment
+                      </a>
+                      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+               
+                
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
+                        
                       </div>
+
                     </td>
                   </tr>
-                  <tr>
+
+                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
                     <td><input type="checkbox"></td>
                     <td>11/17/23</td>
                     <td>Invoice</td>
                     <td>90801</td>
                     <td>TEK system Inc: Shushant Bathini </td>
                     <td>11/17/2023 to 08/04/2023</td>
-                    <td>
-                      240.00
-                      <span style="color: green; margin-left: 5px;">
-                        <i class="fas fa-check-circle"></i>
-                      </span>
-                      <span style="color: green;">Paid</span>
-                    </td>
+                    <td> $2,440.00<td>
+                        <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                      
+                    
                     <td colspan="2">
                       <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received">
-                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                          Payment received
-                        </button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                         Receive Payment
+                      </a>
+                      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+               
+                
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
+                        
                       </div>
+
                     </td>
                   </tr>
-                  <tr>
+
+                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
                     <td><input type="checkbox"></td>
                     <td>11/17/23</td>
                     <td>Invoice</td>
                     <td>90801</td>
                     <td>TEK system Inc: Shushant Bathini </td>
                     <td>11/17/2023 to 08/04/2023</td>
-                    <td>
-                      240.00
-                      <span style="color: green; margin-left: 5px;">
-                        <i class="fas fa-check-circle"></i>
-                      </span>
-                      <span style="color: green;">Paid</span>
-                    </td>
+                    <td> $2,440.00<td>
+                        <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                      
+                    
                     <td colspan="2">
                       <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received">
-                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                          Payment received
-                        </button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                         Receive Payment
+                      </a>
+                      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+               
+                
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
+                        
                       </div>
+
                     </td>
                   </tr>
-                  <tr>
+
+                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
                     <td><input type="checkbox"></td>
                     <td>11/17/23</td>
                     <td>Invoice</td>
                     <td>90801</td>
                     <td>TEK system Inc: Shushant Bathini </td>
                     <td>11/17/2023 to 08/04/2023</td>
-                    <td>
-                      240.00
-                      <span style="color: green; margin-left: 5px;">
-                        <i class="fas fa-check-circle"></i>
-                      </span>
-                      <span style="color: green;">Paid</span>
-                    </td>
+                    <td> $2,440.00<td>
+                        <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                      
+                    
                     <td colspan="2">
                       <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received">
-                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                          Payment received
-                        </button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                         Receive Payment
+                      </a>
+                      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+               
+                
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
+                        
                       </div>
+
                     </td>
                   </tr>
-                  <tr>
+
+                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
                     <td><input type="checkbox"></td>
                     <td>11/17/23</td>
                     <td>Invoice</td>
                     <td>90801</td>
                     <td>TEK system Inc: Shushant Bathini </td>
                     <td>11/17/2023 to 08/04/2023</td>
-                    <td>
-                      240.00
-                      <span style="color: green; margin-left: 5px;">
-                        <i class="fas fa-check-circle"></i>
-                      </span>
-                      <span style="color: green;">Paid</span>
-                    </td>
+                    <td> $2,440.00<td>
+                        <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                      
+                    
                     <td colspan="2">
                       <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received">
-                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                          Payment received
-                        </button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                         Receive Payment
+                      </a>
+                      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+               
+                
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
+                        
                       </div>
+
                     </td>
                   </tr>
-                  <tr>
+
+                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
                     <td><input type="checkbox"></td>
                     <td>11/17/23</td>
                     <td>Invoice</td>
                     <td>90801</td>
                     <td>TEK system Inc: Shushant Bathini </td>
                     <td>11/17/2023 to 08/04/2023</td>
-                    <td>
-                      240.00
-                      <span style="color: green; margin-left: 5px;">
-                        <i class="fas fa-check-circle"></i>
-                      </span>
-                      <span style="color: green;">Paid</span>
-                    </td>
+                    <td> $2,440.00<td>
+                        <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                      
+                    
                     <td colspan="2">
                       <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received">
-                        <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                          Payment received
-                        </button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                         Receive Payment
+                      </a>
+                      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+               
+                
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
+                        
                       </div>
+
+                    </td>
+                  </tr>
+
+                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
+                    <td><input type="checkbox"></td>
+                    <td>11/17/23</td>
+                    <td>Invoice</td>
+                    <td>90801</td>
+                    <td>TEK system Inc: Shushant Bathini </td>
+                    <td>11/17/2023 to 08/04/2023</td>
+                    <td> $2,440.00<td>
+                        <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span></td> 
+                      
+                    
+                    <td colspan="2">
+                      <button class="btn btn-" onclick="editAction()">Edit</button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                         Receive Payment
+                      </a>
+                      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+               
+                
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                        </div>
+                        
+                      </div>
+
                     </td>
                   </tr>
 
@@ -829,7 +986,8 @@
                       <th>NO.</th>
                       <th>CLIENT/PROJECT</th>
                       <th>MEMO</th>
-                      <th colspan="2">AMOUNT STATUS</th>
+                      <th colspan="2">AMOUNT  </th>
+                       <th> STATUS</th>
                       <th>ACTION</th>
                       <td class="action-icons">
                         <i class="material-icons" onclick="handlePrint()">print</i>
@@ -837,236 +995,319 @@
                         <i class="fas fa-cog" onclick="openSettings()"></i>
                       </td>
                     </tr>
-                    <tr>
+                   
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
                       <td>90801</td>
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Partially paid</span><br>
-
-
-                      </td>
+                      <td> $2,440.00<td>
+                          <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Sent 03/04/22</td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
+
                       </td>
                     </tr>
-                    <tr>
+
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
                       <td>90801</td>
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                        <p>Partially paid, $48 due</p>
-
-                      </td>
+                      <td> $2,440.00<td>
+                        <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Partially paid $413.12 due</td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
+
                       </td>
                     </tr>
-                    <tr>
+
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
                       <td>90801</td>
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                        <p>Partially paid, $48 due</p>
-
-                      </td>
+                      <td> $2,440.00<td>
+                          <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Sent 03/04/22</td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
+
                       </td>
                     </tr>
-                    <tr>
+
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
                       <td>90801</td>
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Partially paid</span><br>
-
-                      </td>
+                      <td> $2,440.00<td>
+                          <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Sent 03/04/22</td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
+
                       </td>
                     </tr>
-                    <tr>
+
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
                       <td>90801</td>
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                        <p>Partially paid, $48 due</p>
-
-                      </td>
+                      <td> $2,440.00<td>
+                        <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Partially paid $413.12 due</td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
+
                       </td>
                     </tr>
-                    <tr>
+
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
                       <td>90801</td>
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Overdue 24 days</span><br>
-                        <p>Partially paid, $48 due</p>
-
-                      </td>
+                      <td> $2,440.00<td>
+                          <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Sent 03/04/22</td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
+
                       </td>
                     </tr>
-                    <tr>
+
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
                       <td><input type="checkbox"></td>
                       <td>11/17/23</td>
                       <td>Invoice</td>
                       <td>90801</td>
                       <td>TEK system Inc: Shushant Bathini </td>
                       <td>11/17/2023 to 08/04/2023</td>
-                      <td>
-                        240.00
-                        <span style="color: red; margin-left: 5px;">&#9888;Partially paid</span><br>
-
-                      </td>
+                      <td> $2,440.00<td>
+                          <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Sent 03/04/22</td> 
+                        
+                      
                       <td colspan="2">
                         <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received">
-                          <button type="button" class="btn pay dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" style="height: 30px; margin-top: -16px;">
-                            Payment received
-                          </button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send reminder</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
+                          
                         </div>
+
                       </td>
                     </tr>
+                      
+                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" [class.selected-row]="isRowSelected">
+
+                      <td><input type="checkbox"></td>
+                      <td>11/17/23</td>
+                      <td>Invoice</td>
+                      <td>90801</td>
+                      <td>TEK system Inc: Shushant Bathini </td>
+                      <td>11/17/2023 to 08/04/2023</td>
+                      <td> $2,440.00<td>
+                        <td><span style="color: red; margin-left: 5px;">&#9888;Overdue on</span>12/28/21  <br> Partially paid $413.12 due</td> 
+                        
+                      
+                      <td colspan="2">
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
+                        <div class="btn-group received" style="margin-left: 5px;">
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
+                           Receive Payment
+                        </a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                 
+                  
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
+                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          </div>
+                          
+                        </div>
+
+                      </td>
+                    </tr>
+
+
+
                   </thead>
                 </table>
               </div>
             </div>
           </div>
         </div>
-
-
 
       </div>
     </div>
