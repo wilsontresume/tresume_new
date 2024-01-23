@@ -13,17 +13,24 @@ export class ReviewService {
   // deleteplacementdata(Req: { TraineeInterviewID: number; }) {
   //   throw new Error('Method not implemented.');
   // }
-  private endpoint = environment.apiUrl; 
+  private endpoint = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  
+
   getTimesheetClientList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetClientList', request);
   }
   // saveSubmissionFormData(request: any): Observable<ResponseDetails> {
   //   return this.http.post<ResponseDetails>(this.endpoint + 'saveSubmissionFormData', request);
   // }
+
+  getTraineeClientList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeClientList', request);
+  }
   
+  getLocation(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getLocation', request);
+  }
 
 }
