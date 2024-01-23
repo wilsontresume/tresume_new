@@ -117,11 +117,11 @@ isScrolled: any;
 
   public hasToken() {
     let url = this.router.url;
-    return url !== "/" && url.indexOf("/login") === -1 && url.indexOf("/homelanding") === -1 && url.indexOf("/ats") === -1 && url.indexOf("/contact") === -1 && url.indexOf("/talent-suite") === -1  && url.indexOf("/workforce") === -1 && url.indexOf("/timesheet") === -1  && url.indexOf("/market") === -1  && url.indexOf("/features") === -1  && url.indexOf("/about") === -1 && url.indexOf("/monster") === -1    && url.indexOf("/dice") === -1 && url.indexOf("/career") === -1 && url.indexOf("/opt-nation") === -1 && url.indexOf("/joble") === -1 && url.indexOf("/yahoo") === -1 && url.indexOf("/adobe") === -1 && url.indexOf("/forgetPassword") === -1&& url.indexOf("/resetpassword") === -1;
+    return url !== "/" && url.indexOf("/login") === -1 && url.indexOf("/homelanding") === -1 && url.indexOf("/ats") === -1 && url.indexOf("/contact") === -1 && url.indexOf("/talent-suite") === -1  && url.indexOf("/workforce") === -1 && url.indexOf("/timesheet") === -1  && url.indexOf("/market") === -1  && url.indexOf("/features") === -1  && url.indexOf("/about") === -1 && url.indexOf("/monster") === -1    && url.indexOf("/dice") === -1 && url.indexOf("/career") === -1 && url.indexOf("/opt-nation") === -1 && url.indexOf("/joble") === -1 && url.indexOf("/yahoo") === -1 && url.indexOf("/adobe") === -1 && url.indexOf("/forgetPassword") === -1&& url.indexOf("/resetpassword") === -1 ;
   }
 
   /* getOnboardDetails() {
-    this.service1.getOnboardingSession(this.onboardSession).subscribe((x: any) => {
+    this.service1.getOnboardingSession(this.onboardSession).subscribe((x: any) => {z
       if (x[0]) {
         this.sessionDetails = x[0];
         this.service1.getTraineeDetails(this.sessionDetails.TraineeID).subscribe((x: any) => {
