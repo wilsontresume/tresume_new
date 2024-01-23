@@ -105,6 +105,7 @@ import { HrmsComponent } from './hrms/hrms.component';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TalentBenchComponent } from './talent-bench/talent-bench.component';
+import { MatSelectModule } from '@angular/material/select';
 
 //import { jsPDF } from 'jspdf';
 
@@ -156,6 +157,8 @@ import { CreateInvoiceComponent } from './create-invoice/create-invoice.componen
 import { NgxLoadingModule } from 'ngx-loading';
 import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
 import { PaymentComponent } from './all-invoice/payment/payment.component';
+import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
+import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
 
 @NgModule({
   declarations: [
@@ -245,9 +248,10 @@ import { PaymentComponent } from './all-invoice/payment/payment.component';
     ForgetPasswordComponent,
     LoginHomeHealthComponent,
     CreateInvoiceComponent,
-
     AllInvoiceComponent,
       PaymentComponent,
+      ArAgingReportComponent,
+      NewTimeSheetReportComponent,
     // TimesheetViewdetailsComponent
 
   ],
@@ -299,10 +303,7 @@ import { PaymentComponent } from './all-invoice/payment/payment.component';
     EditorModule,
     ToastModule,
     RouterModule,
-    
-
-
-
+    MatSelectModule,
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({
       validationMessages: [

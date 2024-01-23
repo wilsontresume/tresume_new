@@ -204,6 +204,7 @@ export class SearchResumesOptComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      this.loading = true;
         this.cookieValue = this.cookieService.get('employeruser')
         console.log(this.traineeId);
         this.OrgID1 = this.cookieService.get('OrgID');
@@ -513,6 +514,7 @@ export class SearchResumesOptComponent implements OnInit {
                     divid = x.result[0].id;
                     resolve();
                   }
+                  this.loading = false;
                 })
                 .catch((error: any) => {
                   reject(error);

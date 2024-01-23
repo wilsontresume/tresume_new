@@ -21,7 +21,7 @@ router.post('/getTraineeClientList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = pool.request();
-    const query = "select * from Clients where PrimaryOwner = '" +req.body.TraineeID+ "' and active = 1";
+    const query = "SELECT   V.ClientID,  V.ClientName,  V.EmailID,  V.ContactNumber, V.Website,  CONCAT(T.firstname, ' ', T.lastname) AS PrimaryOwner FROM   clients V INNER JOIN   Trainee T ON V.primaryowner = T.traineeid WHERE V.active = 1  AND V.primaryowner = '" + req.body.TraineeID + "'";
 
     console.log(query);
 
@@ -230,7 +230,7 @@ router.post('/getPrimaryOwner', async (req, res) => {
 router.post('/addClienta', async (req, res) => {
   try {   
     var query = `INSERT INTO Clients (ClientName, ContactNumber, EmailID, Address, VMSClientName, FederalID,ZipCode, Website, Fax, Industry, Country, State, City, ClientStatusID,  ClientCategoryID, PrimaryOwner,RequiredDocuments, PaymentTerms, AboutCompany, Access, sendingEmail, posting, Notes, Active) VALUES 
-    ('${req.body.ClientName}', '${req.body.ContactNumber}', '${req.body.EmailID}', '${req.body.Address}', '${req.body.VMSClientName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.Website}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', '${req.body.ClientStatusID}', '${req.body.ClientCategoryID}', '${req.body.PrimaryOwner}','${req.body.RequiredDocuments}','${req.body.PaymentTerms}', '${req.body.AboutCompany}', '${req.body.Access ? '1' : '0'}', '${req.body.sendingEmail ? '1' : '0'}', '${req.body.posting ? '1' : '0'}', '${req.body.Notes}',  ${req.body.Active || '1'})`;
+    ('${req.body.ClientName}', '${req.body.ContactNumber}', '${req.body.EmailID}', '${req.body.Address}', '${req.body.VMSClientName}', '${req.body.FederalID}', '${req.body.ZipCode}', '${req.body.Website}', '${req.body.Fax}', '${req.body.Industry}', '${req.body.Country}', '${req.body.State}', '${req.body.City}', '${req.body.ClientStatusID}', '${req.body.ClientCategoryID}', '${req.body.PrimaryOwner}','${req.body.RequiredDocuments}','${req.body.PaymentTerms}', '${req.body.AboutCompany}', '${req.body.Access ? '1' : '0'}', '${req.body.sendingEmail ? '1' : '0'}', '${req.body.posting ? '1' : '0'}', '${req.body.Notes}', ${req.body.Active || '1'})`;
    
     console.log(query);
     const pool = await sql.connect(config);

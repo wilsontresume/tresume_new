@@ -238,7 +238,7 @@ export class ReviewTresumeComponent implements OnChanges {
       interviewMode: this.myForm.get('interviewMode').value,
       interviewTimeZone:'EST',
       traineeID:this.candidateID,
-      recruiterID:this.recruiterName,
+      recruiterID:this.TraineeID,
       recruiteremail:this.userName,
       InterviewStatus:'SCHEDULED',
     };

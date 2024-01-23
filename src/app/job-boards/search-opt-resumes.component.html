@@ -91,10 +91,10 @@
         [columnDefs]="columnDefs" [gridOptions]="gridOptions" (gridReady)="onGridReady($event)">
     </ag-grid-angular>
 </div> -->
-<div *ngIf="loading" class="spinner">
+<!-- <div *ngIf="loading" class="spinner">
     <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
         fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-</div>
+</div> -->
 <div *ngIf="resultsFound" [ngStyle]="loading ? { opacity:'0.2'}: {opacity:'1'}">
     <div class="align-right">Total Results: {{totalResults}}</div>
     <!-- <div class="align-right">Monthly Quota: {{quota['us monthly']}}</div>
@@ -170,3 +170,4 @@
     </div>
 </p-sidebar>
 
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

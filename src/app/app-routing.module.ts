@@ -100,9 +100,8 @@ import { LoginHomeHealthComponent } from './login/login-homehealth.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
 import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
 import { PaymentComponent } from './all-invoice/payment/payment.component';
-
-
-
+import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
+import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -214,7 +213,8 @@ const routes: Routes = [
   { path: 'create-invoice', component: CreateInvoiceComponent },
   { path: 'all-invoice', component: AllInvoiceComponent },
   { path: 'payment', component: PaymentComponent },
-  
+  { path: 'timesheetreport', component: NewTimeSheetReportComponent },
+  { path: 'reports/ar-aging-report', component: ArAgingReportComponent },
   { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
   { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 
  
