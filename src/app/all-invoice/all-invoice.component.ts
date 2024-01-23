@@ -15,6 +15,7 @@ export class AllInvoiceComponent implements OnInit {
   showContent1 = false;
   showContent2 = false;
 
+  
   toggleContent(dropdown: string) {
     if (dropdown === 'dropdown1') {
       this.showContent1 = !this.showContent1;
