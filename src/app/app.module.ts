@@ -105,6 +105,7 @@ import { HrmsComponent } from './hrms/hrms.component';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TalentBenchComponent } from './talent-bench/talent-bench.component';
+import { MatSelectModule } from '@angular/material/select';
 
 //import { jsPDF } from 'jspdf';
 
@@ -156,6 +157,7 @@ import { CreateInvoiceComponent } from './create-invoice/create-invoice.componen
 import { NgxLoadingModule } from 'ngx-loading';
 import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
 import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
+import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
 
 @NgModule({
   declarations: [
@@ -248,6 +250,7 @@ import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.compon
 
     AllInvoiceComponent,
       ArAgingReportComponent,
+      NewTimeSheetReportComponent,
     // TimesheetViewdetailsComponent
 
   ],
@@ -299,6 +302,7 @@ import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.compon
     EditorModule,
     ToastModule,
     RouterModule,
+    MatSelectModule,
 
 
 
