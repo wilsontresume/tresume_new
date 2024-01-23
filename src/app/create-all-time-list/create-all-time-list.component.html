@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  <table>
+  <table class="container-fluid">
     <thead>
       <tr>
         <th>#</th>
@@ -132,15 +132,15 @@
             </div>
           </div>
         </td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.mon"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.tues"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.wed"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.thu"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.fri"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sat"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sun"></td>
+        <td style="text-align: center;"> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.mon"></td>
+        <td style="text-align: center;"> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.tues"></td>
+        <td style="text-align: center;"> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.wed"></td>
+        <td style="text-align: center;"> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.thu"></td>
+        <td style="text-align: center;"> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.fri"></td>
+        <td style="text-align: center;"> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sat"></td>
+        <td style="text-align: center;"> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sun"></td>
         <td class="text-right">{{ calculateTotal(row) }}</td>
-        <td><i class="fa fa-trash pl-3" (click)="removeRow(i)"></i></td>
+        <td><i class="fa fa-trash pl-3" type="button" data-toggle="modal" data-target="#exampleModal"></i></td>
       </tr>
       <td colspan="1"></td>
       <td colspan="1" style="text-align: right;">Total</td>
@@ -150,13 +150,33 @@
   <!-- <button (click)="deleteAllRows()">Minus</button> -->
   <div class="row mt-3">
     <div class="col-md-4">
-      <button (click)="addRow()" class="btn-primary btn-block fbtn">Add Lines</button>
+      <button class="btn-primary btn-block fbtn"(click)="addRow()">Add Lines</button>
     </div>
     <div class="col-md-4 text-center">
       <button class="btn-primary btn-block fbtn">Copy last timesheet</button>
     </div>
     <div class="col-md-4 text-right">
       <button class="btn-primary btn-block fbtn">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">Confirm!</h2>
+        <button  class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       Are you sure want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" (click)="removeRow(i)" class="btn btn-primary" data-dismiss="modal">ok</button>
+      </div>
     </div>
   </div>
 </div>
