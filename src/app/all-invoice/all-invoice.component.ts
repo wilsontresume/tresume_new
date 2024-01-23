@@ -6,11 +6,27 @@ import { MatDialog } from '@angular/material/dialog';
   selector: 'app-all-invoice',
   templateUrl: './all-invoice.component.html',
   styleUrls: ['./all-invoice.component.scss']
+  
 })
 export class AllInvoiceComponent implements OnInit {
 
   isRowSelected: boolean = false;
+  isContentVisible = false;
+  showContent1 = false;
+  showContent2 = false;
 
+  toggleContent(dropdown: string) {
+    if (dropdown === 'dropdown1') {
+      this.showContent1 = !this.showContent1;
+    } else if (dropdown === 'dropdown2') {
+      this.showContent2 = !this.showContent2;
+    }
+  }
+
+  
+  toggleContentVisibility() {
+    this.isContentVisible = !this.isContentVisible;
+  }
   onRowHover(event: MouseEvent): void {
     this.isRowSelected = true;
   }
@@ -26,6 +42,7 @@ showModal: any;
 closeModal2() {
   this.showModal = false;
 } 
+
   
 
   paymentReceivedAction() {
@@ -74,8 +91,8 @@ throw new Error('Method not implemented.');
     
     
     
-    
     ) {}
+    
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }

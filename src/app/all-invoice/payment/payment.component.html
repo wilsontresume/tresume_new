@@ -1,8 +1,49 @@
+<!-- payment.component.html -->
 
-    <div class="head d-flex justify-content-between p-3">
-      <h2> Receive Payment</h2>
+<div class="head d-flex justify-content-between p-3">
+  <h2>Receive Payment</h2>
+</div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <!-- First div - Client and Additional Input -->
+      <div class="col-md-3">
+        <label for="client">Client</label>
+        <div class="input-group">
+          <input type="text" id="client" class="form-control" placeholder="Select a client">
+          <div class="input-group-append">
+            <button class="btn  dropdown-toggle" type="button" id="clientDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Option 1</a>
+              <a class="dropdown-item" href="#">Option 2</a>
+              <a class="dropdown-item" href="#">Option 3</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3" style="margin-left: 3rem;">
+        <label for="search">Search</label>
+        <div class="input-group">
+          <input type="text" id="search" class="form-control" placeholder="Find by invoice no.">
+          <div class="input-group-append">
+            <button class="btn btn" type="button">Search</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Third div - "Don't have an account?" link -->
+      <div class="col-md-6 search"  >
+        <p class="mt-2">Don't have an account? <a href="#">Create a new sale</a></p>
+      </div>
+
+
+      <div class="col-md-3 text-right" style="margin-left: -3rem;">
+        <p class="mb-1 mr-6 ">Amount received</p>
+        <p class="font-weight-bold mb-0" style="font-size: 24px; margin-top: 13px;">$ 1,800.00</p>
+      </div>
+
+
     </div>
-
-
-      
+  </div>
     
