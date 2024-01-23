@@ -22,7 +22,7 @@
                     <th>Vendor Name</th>
                     <th>Email ID</th>
                     <th>Website</th>
-                    <th>Contact number</th>
+                    <th>Owner</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -31,12 +31,12 @@
                     <tr *ngIf="isVendorVisible(vendor)">
                         <td>{{ vendor.vendorname }}</td>
                         <td>{{ vendor.emailid }}</td>
-                        <td>{{ vendor.contactnumber }}</td>
+                        <td>{{ vendor.website }}</td>
                         <td>{{ vendor.primaryowner}}</td>
                         <td>
                             <div>
                                 <!-- <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewvendor']"></i> -->
-                                <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deletevendor(vendor.VendorID)"></i>
+                                <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deletevendor(vendor.vendorid)"></i>
                             </div>
 
                         </td>
@@ -65,4 +65,7 @@
         </div>
     </div>
 </div>
+
+<p-toast position="bottom-right"></p-toast>
+
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
