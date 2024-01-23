@@ -5,7 +5,8 @@ import { MessageService } from 'primeng/api';
 import { ProfileService} from './Profile.service';
 import { ViewChild } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
-import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
   CompanyInfo = '';
   selectedLegalstatus:string = '';
   state: string[] = [];
-  city: string[] = [];
+  cities: string[] = [];
   content: any;
   userName: string;
   firstName: string = '';
@@ -41,7 +42,6 @@ export class ProfileComponent implements OnInit {
   confirmPassword: any;
   phoneNumber: number;
   selectedState: any;
- 
   logoImageUrl: string;
   editmode: boolean = false;
   myForm: any;
@@ -53,15 +53,12 @@ export class ProfileComponent implements OnInit {
   UpdateProfileData:any;
   ProfileUpdate:any;
 
-  
-  
-
   constructor(private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
     this.TraineeID = this.cookieService.get('TraineeID');
   }
 
   async ngOnInit(): Promise<void> {
-    this.TraineeID = this.cookieService.get('TraineeID');
+    this.loading = true;
       this.fetchprofile();
       this.fetchState();
       this.fetchCity();
@@ -81,7 +78,7 @@ export class ProfileComponent implements OnInit {
       PhoneNumber: this.phoneNumber,
       Organization: this.companyName,
       state: this.state,
-      city: this.city,
+      city: this.cities,
       zipcode: this.zipcode,
       traineeID: this.TraineeID,
     };
@@ -156,6 +153,7 @@ fetchprofile(){
   this.Service.getUserProfile(Req).subscribe((x: any) => {
     this.profiledata = x.result;
     console.log(this.profiledata);
+    this.loading = false;
   });
 }
 
@@ -174,8 +172,8 @@ fetchCity(){
     traineeID: this.TraineeID,
   };
   this.Service.fetchProfileCityList(Req).subscribe((x: any) => {
-    this.city = x.result;
-    console.log(this.city);
+    this.cities = x.result;
+  
   });
 }
 

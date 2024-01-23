@@ -218,7 +218,7 @@ router.post('/validateemail', async (req, res) => {
     
     const request = new sql.Request();
 
-    const query1 = 'SELECT * FROM trainee WHERE username = @username';
+    const query1 = 'SELECT * FROM trainee WHERE username = @username AND Active=1';
     request.input('username', sql.NVarChar, username);
     
     const recordset = await request.query(query1);
@@ -228,7 +228,7 @@ router.post('/validateemail', async (req, res) => {
     if (trainee) {
       const resetKey = randomString(16, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
       
-      const query2 = 'UPDATE trainee SET resetkey = @resetKey WHERE username = @username';
+      const query2 = 'UPDATE trainee SET resetkey = @resetKey WHERE username = @username AND Active = 1';
       request.input('resetKey', sql.NVarChar, resetKey);
       
       await request.query(query2);
@@ -247,12 +247,12 @@ router.post('/validateemail', async (req, res) => {
         html: text,
       };
     
-      transporter.sendMail(mailData, (error, info) => {
-        if (error) {
-         console.log(error);
-        }
-        console.log('Mail Send');
-      });
+      // transporter.sendMail(mailData, (error, info) => {
+      //   if (error) {
+      //    console.log(error);
+      //   }
+      //   console.log('Mail Send');
+      // });
       
       const data = {
         flag: 1,
@@ -338,7 +338,7 @@ router.post('/validatekey', async (req, res) => {
         if (err) console.log(err);
         var request = new sql.Request();
     
-        var query = "SELECT * FROM trainee where resetkey ='"+valdatekey+"'";
+        var query = "SELECT * FROM trainee where resetkey ='"+valdatekey+"' AND Active = 1";
     
         console.log(query);
         request.query(query,

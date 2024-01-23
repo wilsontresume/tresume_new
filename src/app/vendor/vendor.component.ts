@@ -25,6 +25,7 @@ export class VendorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchvendorlist();
   }
@@ -41,12 +42,14 @@ export class VendorComponent implements OnInit {
     this.service.getTraineeVendorList(Req).subscribe((x: any) => {
       this.vendors = x.result;
       this.noResultsFound = this.vendors.length === 0;
+      this.loading = false;
+
     });
   }
 
 
-  deletevendor(VendorID: number) {
-    this.deleteIndex = VendorID;
+  deletevendor(vendorid: number) {
+    this.deleteIndex = vendorid;
     console.log(this.deleteIndex);
     this.showConfirmationDialog = true;
   }
@@ -55,7 +58,7 @@ export class VendorComponent implements OnInit {
   confirmDelete() {
     console.log(this.deleteIndex);
     let Req = {
-      VendorID: this.deleteIndex,
+      vendorid: this.deleteIndex,
     };
     this.service.deleteVendorAccount(Req).subscribe((x: any) => {
       var flag = x.flag;
