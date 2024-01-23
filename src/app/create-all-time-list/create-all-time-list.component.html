@@ -3,7 +3,7 @@
     <h2>Weekly Timesheet</h2>
     <i class="fa fa-close" [routerLink]="['/alltimelist']"></i>
   </div>
-  <div class="content p-3">
+  <div class="content pl-3 pt-1 pb-1">
     <div class="row">
       <div class="input-group col-md-3">
         <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem"
@@ -28,7 +28,7 @@
     <thead>
       <tr>
         <th>#</th>
-        <th style="width: 900px;">DETAILS</th>
+        <th style="width: 700px;">DETAILS</th>
         <th>MON</th>
         <th>TUE</th>
         <th>WED</th>
@@ -139,8 +139,8 @@
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.fri"></td>
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sat"></td>
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sun"></td>
-        <td>{{ calculateTotal(row) }}</td>
-        <td><i class="fa fa-trash" (click)="removeRow(i)"></i></td>
+        <td class="text-right">{{ calculateTotal(row) }}</td>
+        <td><i class="fa fa-trash pl-3" (click)="removeRow(i)"></i></td>
       </tr>
       <td colspan="1"></td>
       <td colspan="1" style="text-align: right;">Total</td>

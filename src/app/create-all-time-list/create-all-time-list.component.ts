@@ -206,8 +206,8 @@ export class CreateAllTimeListComponent implements OnInit {
   ngOnInit(): void {
     // this.addRowWithValues('', '', '', '', '','','', '','', '', '', '', '', '' );
     // this.addRowWithValues('', '', '', '','','', '', '', '','', '', '', '', '' );
-    this.addDefaultRows();
 
+    this.addDefaultRows();
     this.getProjectName();
     this.getCandidateName();
     this.getPayItem();
