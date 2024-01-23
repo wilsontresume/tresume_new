@@ -6,50 +6,58 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-invoice.component.scss']
 })
 export class CreateInvoiceComponent implements OnInit {
+
+
   cookieService: any;
   TraineeID: any;
   service: any;
+  OrgID: string = '';
+  showPopup: boolean = false;
+  showConfirmationDialog2: any;
+  showConfirmationDialog: any;
+  showConfirmationModal: boolean = false;
+  showModal: boolean = false;
+  previousOption: string = '';
   clients: any;
-
-OrgID: string = '';
-showPopup: boolean = false;
-showConfirmationDialog2: any;
-showConfirmationDialog: any;
-showConfirmationModal: boolean = false;
+  ClientName: any;
+  state: any;
 
 
-showModal: boolean = false;
-
-
-
-
-previousOption: string = '';
-
-onOptionChanges(event: any) {
-  this.previousOption = this.selectedOption;
-  this.selectedOption = event.target.value;
-}
-
-goToPreviousOption() {
-  if (this.previousOption === 'example1' || this.previousOption === 'example2') {
-    this.selectedOption = this.previousOption;
-    this.selectedOption = 'example1';}
-}
-selectedFilter: string = ''; 
-
-onFilterChanges(value: string) {
-  this.selectedFilter = value;
-}
-
-onOptionChange(event: any) {
-  this.selectedOption = event.target.value;
-  if (this.selectedOption === 'example2') {
-  } else {
+  ngOnInit(): void {
+    this.OrgID = this.cookieService.get('OrgID');
+    this.fetchclientlist();
+    this.getClientName();
+    this.getState();
   }
-}
 
-addAll() {
-}
+  constructor() { }
+
+  onOptionChanges(event: any) {
+    this.previousOption = this.selectedOption;
+    this.selectedOption = event.target.value;
+  }
+
+  goToPreviousOption() {
+    if (this.previousOption === 'example1' || this.previousOption === 'example2') {
+      this.selectedOption = this.previousOption;
+      this.selectedOption = 'example1';
+    }
+  }
+  selectedFilter: string = '';
+
+  onFilterChanges(value: string) {
+    this.selectedFilter = value;
+  }
+
+  onOptionChange(event: any) {
+    this.selectedOption = event.target.value;
+    if (this.selectedOption === 'example2') {
+    } else {
+    }
+  }
+
+  addAll() {
+  }
 
 
   onDropdownChange(event: any) {
@@ -57,29 +65,29 @@ addAll() {
       this.showModal = true;
     }
   }
-  
+
 
   closeModal2() {
     this.showModal = false;
   }
 
 
-confirmDelete() {
-  this.showConfirmationModal = true;
-}
+  confirmDelete() {
+    this.showConfirmationModal = true;
+  }
 
-deleteItems() {
-  console.log("Item deleted!"); 
+  deleteItems() {
+    console.log("Item deleted!");
 
-  this.closeModal();
-}
+    this.closeModal();
+  }
 
-closeModal1() {
-  this.showConfirmationModal = false;
-}
+  closeModal1() {
+    this.showConfirmationModal = false;
+  }
 
   togglePopup(event: Event): void {
-    event.preventDefault(); 
+    event.preventDefault();
     this.showPopup = !this.showPopup;
   }
 
@@ -89,21 +97,15 @@ closeModal1() {
 
   selectedOption: string = '';
   showAdditionalInputs: boolean = false;
-showButtons: any;
-  constructor() { }
+  showButtons: any;
 
-  
   onFilterChange(value: string) {
     this.selectedOption = value;
-    this.showAdditionalInputs = this.selectedOption === 'option3'; 
+    this.showAdditionalInputs = this.selectedOption === 'option3';
     console.log('Selected Option:', this.selectedOption);
     console.log('showAdditionalInputs:', this.showAdditionalInputs);
   }
-  ngOnInit(): void {
-    this.OrgID= this.cookieService.get('OrgID');
-    this.fetchclientlist();
-    
-  }
+
   fetchclientlist() {
     let Req = {
       TraineeID: this.TraineeID,
@@ -129,10 +131,28 @@ showButtons: any;
 
   deleteItem() {
     console.log('Deleting item:', this.selectedItem);
-    this.closeModal(); 
+    this.closeModal();
   }
 
   closeModal() {
     this.selectedItem = null;
+  }
+
+  getClientName() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getTraineeClientList(Req).subscribe((x: any) => {
+      this.ClientName = x.result;
+    });
+  }
+
+  getState() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getLocation(Req).subscribe((x: any) => {
+      this.state = x.result;
+    });
   }
 }
