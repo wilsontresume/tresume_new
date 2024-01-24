@@ -18,9 +18,11 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
-        <input type="date" id="selectedDate" class="form-control" [min]="minDate" [max]="maxDate" #datePicker
-          (change)="selectSunday(datePicker.value)" [(ngModel)]="selectedSunday">
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Select Date Range" bsDaterangepicker [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)" style="width: 16rem;">
+      </div>
+      
+      </div>
       </div>
     </div>
   </div>
@@ -29,17 +31,27 @@
       <tr>
         <th>#</th>
         <th style="width: 700px;">DETAILS</th>
-        <th>MON</th>
-        <th>TUE</th>
-        <th>WED</th>
-        <th>THU</th>
-        <th>FRI</th>
-        <th>SAT</th>
-        <th>SUN</th>
-        <th>TOTAL</th>
+        
+        <!-- "TOTAL" column always displayed -->
+      
+        
+        <ng-container *ngIf="selectedDateRange">
+          <!-- Dynamically generated date columns -->
+          <ng-container *ngFor="let item of getDatesWithDaysArray(selectedDateRange[0], selectedDateRange[1]); let i = index">
+            <th>
+              <div>{{ item.day }}</div>
+              <div>{{ item.date | date: 'dd/MM' }}</div>
+            </th>
+          </ng-container>
+          <!-- After selecting dates -->
+          <th>TOTAL (hrs)</th>
+          <th>TOTAL (amount)</th>
+        </ng-container>
+      
         <th></th>
       </tr>
     </thead>
+    
     <tbody>
       <tr *ngFor="let row of timesheetRows; let i = index">
         <td>{{ i + 1 }}</td>
@@ -106,12 +118,12 @@
             <div class="col-md-5">
               <textarea [(ngModel)]="row.textarea" class="custom-input p-2" placeholder="Description"></textarea>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5" style="  margin-left: 23px;">
               <div class="checkbox-group">
                 <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.checkbox">
                 <label for="myCheckbox" class="mt-2">Billable(/hr) $</label>
                 <input *ngIf="row.checkbox" class="bill-Amt ml-1" type="number" style="width: 60px; padding: 5px;"
-                  [(ngModel)]="row.input">
+                  [(ngModel)]="row.input" (ngModelChange)="updateTotalAmount()">
               </div>
             </div>
           </div>
@@ -123,7 +135,7 @@
               <input type="file" id="file1" class="form-control-file visually-hidden"
               (change)="onFileChange($event, 'file1', row)">
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5" style="margin-left: 24px;">
               <label for="file2" class="file-label">
                 <i class="fa fa-upload"></i> Status Report
               </label>
@@ -144,7 +156,7 @@
       </tr>
       <td colspan="1"></td>
       <td colspan="1" style="text-align: right;">Total</td>
-      <td colspan="8" style="text-align: right;">0.00</td>
+      <td colspan="8" style="text-align: right;">{{ totalAmount | number:'1.2-2' }}</td>
     </tbody>
   </table>
   <!-- <button (click)="deleteAllRows()">Minus</button> -->

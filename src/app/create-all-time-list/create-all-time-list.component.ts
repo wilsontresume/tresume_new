@@ -18,8 +18,11 @@ export class CreateAllTimeListComponent implements OnInit {
   // project: any;
   // clients: any;
   orgID: string;
+  rows: any[] = [];
   minDate: string;
   maxDate: string;
+  maxSelectableDays = 7;
+  maxAllowedDays: number = 7;
   selectedSunday: string = '';
   isSundaySelected: boolean = false;
   CAselectedFile: File | null = null;
@@ -30,6 +33,66 @@ export class CreateAllTimeListComponent implements OnInit {
 
  
   timesheetRows: any[] = [];
+
+  updateTotalAmount() {
+    // Calculate the total amount based on the row inputs and update the totalAmount variable
+    // Assuming 'rows' is an array of objects with 'checkbox' and 'input' properties
+
+    let totalAmount = 0;
+
+    this.rows.forEach(row => {
+      if (row.checkbox) {
+        totalAmount += row.input || 0;
+      }
+      this.row.totalAmount = this.calculateTotalAmount(this.row); 
+    });
+
+    // Assuming you have a variable named 'totalAmount' in your component
+    // Update it with the calculated total amount
+    this.totalAmount = totalAmount;
+  }
+  getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
+    const datesWithDaysArray: { date: Date; day: string }[] = [];
+    let currentDate = new Date(start);
+
+    while (currentDate <= end) {
+      datesWithDaysArray.push({
+        date: new Date(currentDate),
+        day: currentDate.toLocaleDateString('en-US', { weekday: 'short' })
+      });
+
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return datesWithDaysArray;
+  }
+
+  
+
+
+  onDateRangeChange(dates: Date[]) {
+    // Perform any additional logic or validation if needed
+  
+    // `dates` is an array containing the start and end dates
+    if (dates.length === 2) {
+      const startDate = new Date(dates[0]);
+      const endDate = new Date(dates[1]);
+  
+      // Calculate the difference in days
+      const dayDifference = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
+  
+      // Check if the selected range is more than 7 days
+      if (dayDifference >= this.maxSelectableDays) {
+        // Reset the selection or handle the validation as needed
+        this.selectedDateRange = [];
+        console.log('Please select a date range within 7 days.');
+      } else {
+        this.selectedDateRange = [startDate, endDate];
+      }
+    }
+  }
+
+
 
   dropdownOptions: any[] = [
     // { id: 1, options: [] },
@@ -76,7 +139,7 @@ export class CreateAllTimeListComponent implements OnInit {
     return dropdown ? dropdown.options : [];
   }
 
-  calculateTotal(row: any): number | string {
+  calculateTotalAmount(row: any): number | string {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
     const wed = row.wed || 0;
@@ -84,11 +147,27 @@ export class CreateAllTimeListComponent implements OnInit {
     const fri = row.fri || 0;
     const sat = row.sat || 0;
     const sun = row.sun || 0;
-    const total = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
+    const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
   
-    return isNaN(total) ? 'N/A' : total;
+    const hourlyRate = row.checkbox ? +row.input : 0; // Billable amount per hour
+  
+    const totalAmount = totalHours * hourlyRate;
+  
+    return isNaN(totalAmount) ? 'N/A' : totalAmount;
   }
+  calculateTotalHours(row: any): number | string {
+    const mon = row.mon || 0;
+    const tues = row.tues || 0;
+    const wed = row.wed || 0;
+    const thu = row.thu || 0;
+    const fri = row.fri || 0;
+    const sat = row.sat || 0;
+    const sun = row.sun || 0;
+    const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
   
+    return isNaN(totalHours) ? 'N/A' : totalHours;
+  }
+
   addDefaultRows() {
     this.timesheetRows.push({
       selectedOption1: null,
