@@ -1,0 +1,137 @@
+.container-fluid {
+    background-color: #fff;
+}
+
+$brand-primary: #49274a;
+
+.button {
+    background-color: $brand-primary ;
+    color: white;
+}
+
+.button:hover {
+    background-color: #94618E;
+}
+
+.button:active {
+    background-color: $brand-primary ;
+}
+
+.main {
+    border-top: 3px solid $brand-primary;
+    border-bottom: 3px solid $brand-primary;
+}
+
+.container-fluid {
+    background-color: #fff;
+    margin-bottom: 5px;
+}
+
+.search-label {
+    padding: 8px;
+}
+
+// table {
+//     width: 100%;
+//     border-collapse: collapse;
+//     margin-bottom: 20px;
+//     border: 1px solid #ccc;
+// }
+
+// th {
+//     border: 1px solid #ccc;
+//     padding: 10px;
+//     text-align: left;
+//     background-color: #e0e0e0;
+//     font-weight: bold;
+//     border: 1px solid #ccc;
+// }
+
+// td {
+//     padding: 10px;
+//     text-align: left;
+//     background-color: #fff;
+//     font-weight: bold;
+//     border: 1px solid #ccc;
+// }
+
+// tr{
+//   border-bottom: 1px solid #ccc; 
+// }
+
+// tr:nth-child(even) {
+//     background-color: #f9f9f9;
+// }
+
+tr:hover {
+    background-color: #e0e0e0;
+}
+
+// tbody {
+//     margin-bottom: 10px;
+//     padding-bottom: 10px;
+// }
+
+i {
+    margin: 5px;
+    color: #94618e;
+}
+
+td {
+    color: #94618e;
+}
+
+i:hover {
+    color: darkviolet;
+}
+
+.main-container {
+    background: #fff;
+    margin-top: 0;
+    border-radius: 5px;
+}
+
+.bs-datepicker {
+    background-color: rgb(56, 8, 56);
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 400;
+    color: rgb(56, 8, 56);
+}
+
+
+.table-container {
+    margin: 20px;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .data-table th, .data-table td {
+    border: 1px solid #e1e1e1;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .data-table th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .data-table tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .data-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  

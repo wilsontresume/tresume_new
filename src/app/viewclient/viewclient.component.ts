@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
-  selector: 'app-viewclient', 
-  templateUrl: './viewclient.component.html', 
-  styleUrls: ['./viewclient.component.scss'] 
+  selector: 'app-viewclient',
+  templateUrl: './viewclient.component.html',
+  styleUrls: ['./viewclient.component.scss']
 })
-export class ViewclientComponent implements OnInit { 
+export class ViewclientComponent implements OnInit {
+  loading:boolean = false;
+
   content: string = '';
   clients: any[] = [
     {
@@ -46,8 +50,8 @@ export class ViewclientComponent implements OnInit {
       option.toLowerCase().includes(event.query.toLowerCase())
     );
   }
-  
-  constructor(private router: Router) { 
+
+  constructor(private router: Router) {
     this.clientLeads = [{name:'Lead 1'}, {name:'Lead 2'}, {name:'Lead 3'}, {name:'Lead 4'}];
     this.requiredDocuments = [{name:'Document 1'}, {name:'Document 2'}, {name:'Document 3'}, {name:'Document 4'}];
   }
@@ -65,7 +69,7 @@ export class ViewclientComponent implements OnInit {
   enableEditing() {
     this.editing = true;
   }
-  
+
   sortBy(columnName: string) {
     if (this.sortByColumn === columnName) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';

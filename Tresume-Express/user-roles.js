@@ -128,7 +128,7 @@ router.post('/addMember', async (req, res) => {
 
     const result = await pool.request().query('SELECT ISNULL(MAX(ID), 0) AS lastId FROM MemberDetails');
     const lastId = result.recordset[0].lastId + 1;
-    const currentDate = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
+    const currentDate = new Date().toISOString().split('T')[0];
 
     const insertQuery = `INSERT INTO MemberDetails (ID, SubscriptionID, UserEmail, IsAdmin, Active, OrgId, CreateTime, CreateBy, UpdateTime, UpdateBy, TraineeID, FirstName, LastName, JobSlotCount, IsOwner, SlotsAlocDice, SlotsAlocCB, SlotsUsedDice, SlotsUsedCB, refreshperiod, RoleID, WFID, AccessOrg, PrimaryOrgID, TeamLead, HisCandidate, TeamCandidate, AllCandidate, DocumentAccess, Traker)
   VALUES (${lastId}, '0', '${req.body.UserEmail}', '0', '1', '${req.body.OrgId}', '${currentDate}', '${req.body.CreateBy}', '${currentDate}', '${req.body.CreateBy}', '', '${req.body.FirstName}', '${req.body.LastName}', '0', '0', '0', '0', '0', '0', '0', '${req.body.RoleID}', '1', '${req.body.OrgId}', '${req.body.OrgId}', '${req.body.TeamLead}', '', '', '', '0', '0')`;
@@ -188,6 +188,90 @@ async function deactivatememberdetails(email) {
   );
   return queryResult;
 }
+
+router.post('/getUserProfile', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    var query = "SELECT * FROM trainee where traineeid ="+req.body.traineeID;
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      }
+    );
+  });
+
+})
+
+  
+router.post('/updateMyProfile', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    var query = `UPDATE Trainee SET FirstName = '${req.body.FirstName}', MiddleName = '${req.body.MiddleName}', LastName = '${req.body.LastName}', YearsOfExpInMonths = '${req.body.YearsOfExpInMonths}', Title = '${req.body.Title}', DOB = '${req.body.DOB}', PhoneNumber = '${req.body.PhoneNumber}', state = '${req.body.state}', city = '${req.body.city}', zipcode = '${req.body.zipcode}', WHERE traineeID = ${req.body.traineeID}`;
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Database query error' });
+      }
+
+      var result = {
+        flag: 1,
+        result: recordset && recordset.recordsets && recordset.recordsets[0],
+      };
+
+      res.json(result);
+    });
+  });
+})
+
+
+router.post('/fetchProfileStateList', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    var query = "SELECT DISTINCT state FROM Usazipcodenew";
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+        res.send(result);
+      }
+    );
+  });
+})
+
+router.post('/fetchProfileCityList', async (req, res) => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    var query = "SELECT DISTINCT city FROM Usazipcodenew";
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+        res.send(result);
+      }
+    );
+  });
+})
 
 module.exports = router;
 

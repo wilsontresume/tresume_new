@@ -12,22 +12,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./vendor.component.scss']
 })
 export class VendorComponent implements OnInit {
-
+  
+  loading:boolean = false;
   deleteIndex: number;
   showConfirmationDialog: boolean = false;
   TraineeID: string = '';
   vendors: any[];
-
-  // vendor1 = [
-  //   { id: 1, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
-  //   { id: 2, vendorName: 'vendor A', EmailID: 'vendor_a@example.com', Website: 'www.vendor_a.com', Owner: 'John Doe', },
-  // ];
+  noResultsFound:boolean = true;
 
   constructor(private fb: FormBuilder, private cookieService: CookieService, private service: VendorService, private messageService: MessageService) {
 
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchvendorlist();
   }
@@ -43,12 +41,15 @@ export class VendorComponent implements OnInit {
     };
     this.service.getTraineeVendorList(Req).subscribe((x: any) => {
       this.vendors = x.result;
+      this.noResultsFound = this.vendors.length === 0;
+      this.loading = false;
+
     });
   }
 
 
-  deletevendor(VendorID: number) {
-    this.deleteIndex = VendorID;
+  deletevendor(vendorid: number) {
+    this.deleteIndex = vendorid;
     console.log(this.deleteIndex);
     this.showConfirmationDialog = true;
   }
@@ -57,7 +58,7 @@ export class VendorComponent implements OnInit {
   confirmDelete() {
     console.log(this.deleteIndex);
     let Req = {
-      VendorID: this.deleteIndex,
+      vendorid: this.deleteIndex,
     };
     this.service.deleteVendorAccount(Req).subscribe((x: any) => {
       var flag = x.flag;
@@ -81,5 +82,15 @@ export class VendorComponent implements OnInit {
   cancelDelete() {
     console.log(this.showConfirmationDialog);
     this.showConfirmationDialog = false;
+  }
+
+  searchInput: string = '';
+
+  isVendorVisible(vendor: any): boolean {
+    const searchValue = this.searchInput.toLowerCase();
+    return (
+      vendor.emailid.toLowerCase().includes(searchValue) ||
+      vendor.vendorname.toLowerCase().includes(searchValue)
+    );
   }
 }

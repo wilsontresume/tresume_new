@@ -18,7 +18,7 @@ const config = {
     user: "sa",
     password: "Tresume@123",
     server: "92.204.128.44",
-    database: "Tresume",
+    database: "Tresume_Beta",
     trustServerCertificate: true,
   };
   
@@ -48,7 +48,8 @@ const config = {
   }
   
   // Encryption function
-  function encrypt(text, key) {
+  function encrypter(text) {
+    var key = 'NesaMani&Co';
     const iv = crypto.randomBytes(16);
     const cipher = crypto.createCipheriv('aes-256-cbc', generateKey(key), iv);
     let encrypted = cipher.update(text, 'utf8', 'hex');
@@ -56,63 +57,346 @@ const config = {
     return iv.toString('hex') + encrypted;
   }
 
+  function decrypter(encryptedText) {
+    var key = 'NesaMani&Co';
+    const iv = Buffer.from(encryptedText.slice(0, 32), 'hex'); 
+    const encryptedData = encryptedText.slice(32); 
+  
+    const decipher = crypto.createDecipheriv('aes-256-cbc', generateKey(key), iv);
+    let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted;
+  }
   function randomString(length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
     return result;
 }
 
-  router.post('/ssologin', async (req, res) => {
-    console.log(req);
-    var UserName = req.body.username;
-    var PWD = req.body.password;
-    console.log(UserName);
-    try {
-      // const apiUrl = `https://tresume.us/api/Member/Login/${UserName}/${PWD}`;
-      const apiUrl = `http://localhost:59983/api/Member/Login/${UserName}/${PWD}`;
-      console.log(apiUrl);
-      const response = await axios.get(apiUrl);
-  
-      const responseData = response.data; 
-      console.log
-      if (responseData.TraineeID) {
-        
-        var accessToken = randomString(16, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-        try {
-          await sql.connect(config);
-          const query = `
-            INSERT INTO AccessToken (UserName, TraineeID, accessToken, createtime, expires_at, ipaddress, active)
-            VALUES (@UserName, @TraineeID, @accessToken, GETDATE(), DATEADD(minute, 3, GETDATE()), @ipaddress, 1)
-          `;
-          const request = new sql.Request();
-          request.input('UserName', sql.VarChar, UserName);
-          request.input('TraineeID', sql.Int, responseData.TraineeID);
-          request.input('accessToken', sql.VarChar, accessToken);
-          request.input('ipaddress', sql.VarChar, req.ip); 
-  
-          await request.query(query);
-          res.status(200).json({ 
-            message: 'Login successful' ,
-            data:responseData,
-            accessToken:accessToken
-          });
-        } catch (error) {
-          console.error('MSSQL Error:', error);
-          res.status(500).json({ message: 'An error occurred while inserting the token' });
-        } finally {
-          sql.close();
-        }
+router.post('/ssologin', async (req, res) => {
+  console.log(req);
+  var UserName = req.body.username;
+  var PWD = req.body.password;
+  console.log(UserName);
+  try {
+    // const apiUrl = `https://tresume.us/api/Member/Login/${UserName}/${PWD}`;
+    const apiUrl = `http://localhost:59983/api/Member/Login/${UserName}/${PWD}`;
+    console.log(apiUrl);
+    const response = await axios.get(apiUrl);
+
+    const responseData = response.data; 
+    console.log
+    if (responseData.TraineeID) {
+      
+      var accessToken = randomString(16, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+      sql.connect(config, function (err) {
+        if (err) console.log(err);
+        var request = new sql.Request();
+    
+        var query = "select * from trainee where active = 1 and username like '%"+UserName+"%'";
+    
+        console.log(query);
+        request.query(query,
+          function (err, recordset) {
+            if (err) console.log(err);
+    
+            var result = {
+              flag: 1,
+              result: recordset.recordsets[0],
+              data:responseData,
+            };
+    
+            res.send(result);
+          }
+        );
+      });
+
+      // try {
+      //   await sql.connect(config);
+      //   const query = `
+      //     INSERT INTO AccessToken (UserName, TraineeID, accessToken, createtime, expires_at, ipaddress, active)
+      //     VALUES (@UserName, @TraineeID, @accessToken, GETDATE(), DATEADD(minute, 3, GETDATE()), @ipaddress, 1)
+      //   `;
+      //   const request = new sql.Request();
+      //   request.input('UserName', sql.VarChar, UserName);
+      //   request.input('TraineeID', sql.Int, responseData.TraineeID);
+      //   request.input('accessToken', sql.VarChar, accessToken);
+      //   request.input('ipaddress', sql.VarChar, req.ip); 
+
+      //   await request.query(query);
+      //   res.status(200).json({ 
+      //     message: 'Login successful' ,
+      //     data:responseData,
+      //     accessToken:accessToken
+      //   });
+      // } catch (error) {
+      //   console.error('MSSQL Error:', error);
+      //   res.status(500).json({ message: 'An error occurred while inserting the token' });
+      // } finally {
+      //   sql.close();
+      // }
 
 
-        
-      } else {
-        
-        res.status(401).json({ message: 'Invalid credentials' });
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      res.status(500).json({ message: 'An error occurred' });
+      
+    } else {
+      
+      res.status(401).json({ message: 'Invalid credentials' });
     }
-  });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
 
-  module.exports = router;
+
+router.post('/getuseraccess', async (req, res) => {
+  var UserName = req.body.username;
+
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+
+    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+
+    console.log(query);
+    request.query(query,
+      function (err, recordset) {
+        if (err) console.log(err);
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      }
+    );
+  });
+})
+
+// router.post('/validateemail', async (req, res) => {
+//   console.log(req);
+//   var userEmail = req.body.email; 
+//   console.log(userEmail);
+
+//   var accessToken = randomString(16, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+  
+//   try {
+//     const query = "SELECT * FROM trainee WHERE UserName = '" + userEmail + "' AND Active = 1";
+
+//     sql.connect(config, function (err) {
+//       if (err) console.log(err);
+
+//       var request = new sql.Request();
+
+//       request.query(query, function (err, recordset) {
+//         if (err) {
+//           console.log(err);
+//           res.status(500).json({ message: 'An error occurred while validating email' });
+//         } else {
+//           if (recordset.recordsets[0].length > 0) {
+//             res.status(200).json({ message: 'Email is already registered' });
+//           } else {
+//             res.status(401).json({ message: 'Email is not valid' });
+//           }
+//         }
+//       });
+//     });
+
+//   } catch (error) {
+//     console.error('Error:', error);
+//     res.status(500).json({ message: 'An error occurred' });
+//   }
+// });
+
+router.post('/validateemail', async (req, res) => {
+  try {
+    const username = req.body.email;
+
+    await sql.connect(config);
+    
+    const request = new sql.Request();
+
+    const query1 = 'SELECT * FROM trainee WHERE username = @username AND Active=1';
+    request.input('username', sql.NVarChar, username);
+    
+    const recordset = await request.query(query1);
+
+    const trainee = recordset.recordset[0]; 
+
+    if (trainee) {
+      const resetKey = randomString(16, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+      
+      const query2 = 'UPDATE trainee SET resetkey = @resetKey WHERE username = @username AND Active = 1';
+      request.input('resetKey', sql.NVarChar, resetKey);
+      
+      await request.query(query2);
+
+      const resetUrl = `https://tresume.us/resetpassword/${resetKey}`;
+
+      var subject = "Tresume Password Reset Request";
+      var text = `<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;"><div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"><p style="color: #333;">Hello,<br><br>You have requested to reset your password. Click on the following link to reset your password:<br><br><a href="${resetUrl}" style="color: #007bff; text-decoration: none;">Reset Password</a><br><br>If you did not request this, please ignore this email.</p><p style="margin-top: 20px; font-style: italic; color: #666;">Regards,<br>Tresume</p></div></div>
+      ` 
+    
+    
+      const mailData = {
+        from: "support@tresume.us",
+        to: username,
+        subject: subject,
+        html: text,
+      };
+    
+      // transporter.sendMail(mailData, (error, info) => {
+      //   if (error) {
+      //    console.log(error);
+      //   }
+      //   console.log('Mail Send');
+      // });
+      
+      const data = {
+        flag: 1,
+        url: resetUrl,
+      };
+      res.send(data);
+    } else {
+      const data = {
+        flag: 2,
+        message: "Invalid username",
+      };
+      res.send(data);
+    }
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send('Server Error');
+  } finally {
+    sql.close();
+  }
+});
+
+router.post('/login', async (req, res) => {
+  console.log(req);
+  var UserName = req.body.username;
+  var PWD = req.body.password;
+  try {
+      
+      sql.connect(config, function (err) {
+        if (err) console.log(err);
+        var request = new sql.Request();
+        var querypassword;
+        var query1 = "select * from trainee where active = 1 and username like '%"+UserName+"%'";
+        var responseData;
+        request.query(query1,
+              function (err, recordset) {
+                if (err) console.log(err);
+                responseData =  recordset.recordsets[0];
+                if (responseData[0] && responseData[0].Password && responseData[0].Password.length === 64) {
+                  querypassword = decrypter(responseData[0].Password);
+                  console.log(responseData[0].Password);
+                  console.log(querypassword);
+                  if(PWD === querypassword){
+                    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+          
+                    console.log(query);
+                    request.query(query,
+                      function (err, recordset) {
+                        if (err) console.log(err);
+                
+                        var result = {
+                          flag: 1,
+                          result: recordset.recordsets[0],
+                          data:responseData,
+                        };
+                
+                        res.send(result);
+                      }
+                    );
+                }else{
+                  res.status(401).json({ message: 'Invalid credentials' });
+                }
+              }else{
+                var result = {
+                  flag: 2
+                };
+                res.send(result);
+              }
+              }
+            );
+      });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
+
+router.post('/validatekey', async (req, res) => {
+  console.log(req);
+  var valdatekey = req.body.validatekey;
+  
+  try {
+      sql.connect(config, function (err) {
+        if (err) console.log(err);
+        var request = new sql.Request();
+    
+        var query = "SELECT * FROM trainee where resetkey ='"+valdatekey+"' AND Active = 1";
+    
+        console.log(query);
+        request.query(query,
+          function (err, recordset) {
+            if (err) console.log(err);
+            var trainee = recordset.recordsets[0];
+            console.log(trainee);
+            if(trainee.length === 1){
+              var result = {
+                flag: 1,
+                message:'Valid key',
+              };
+              res.send(result);
+            }else{
+              var result = {
+                flag: 2,
+                message:'Not Valid Key',
+              };
+              res.send(result);
+            }
+          }
+        );
+      });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
+
+router.post('/updatepassword', async (req, res) => {
+  console.log(req);
+  var password = req.body.password;
+  var resetkey = req.body.resetkey;
+
+  var encryptpassword = encrypter(password);
+  try {
+      sql.connect(config, function (err) {
+        if (err) console.log(err);
+        var request = new sql.Request();
+    
+        var query = "UPDATE trainee set resetkey = '0', password = '"+encryptpassword+"' where resetkey ='"+resetkey+"'";
+
+        request.query(query,
+          function (err, recordset) {
+            if (err) console.log(err);
+        
+              var result = {
+                flag: 1,
+                message:'Password Updated Succesfully',
+              };
+              res.send(result);
+          }
+        );
+      });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
+
+module.exports = router;

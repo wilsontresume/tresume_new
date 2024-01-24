@@ -14,7 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class ImportDetailsComponent implements OnInit {
 
-
+     loading:boolean = false;
     public selectedState: string;
     public isCandidateSelected: boolean = false;
     public selectedEmployee: any;
