@@ -1,0 +1,610 @@
+<div class="container-fluid p-3">
+  <div class="head d-flex justify-content-between p-3">
+    <h2> CREATE INVOICE</h2>
+  </div>
+
+  <body>
+    <div class="row mt-4">
+      <div class="col-md-6 d-flex">
+        <div class="dropdown-container" style="margin-left: 16px;">
+          <label for="client" class="dropdown-label ml-3">Client</label> 
+          <select class="form-control" name="Client" formControlName="Client">
+            <option value="0" selected>Select Client</option>
+            <option *ngFor="let client of clients" [value]="ClientName">{{ client.ClientName }}</option>
+        </select>
+        </div>
+        <div class="clientemail mt-0 ml-3">
+          <label for="clientEmail" class="dropdown-label">Client Email</label>
+          <a href="#" class="text-decoration-none" style="margin-left: 11px;"
+            (click)="togglePopup($event)">Cc(2)/Bcc</a>
+
+          <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3"
+            style="width: 150px; height: 40px;">
+        </div>
+
+        <div class="popup" *ngIf="showPopup" (clickOutside)="closePopup()">
+          <div class="popover bs-popover-bottom" role="tooltip" style="max-height: 550px; position: relative;">
+            <div class="close-icon" (click)="closePopup()"
+              style="position: absolute; top: 5px; right: 5px; cursor: pointer;">
+              <i class="fas fa-times"></i>
+            </div>
+            <div class="popover-body" style="max-height: 500px; overflow-y: auto;">
+              <div class="form-group">
+                <label for="cc">Cc</label>
+                <mat-chip-list #ccChipList>
+                  <input type="text" placeholder="Enter emails" [(ngModel)]="ccEmails" [matChipInputFor]="ccChipList"
+                    matChipInput separatorKeyCodes="[ENTER, COMMA]">
+                  <mat-chip *ngFor="let cc of ccEmails" [selectable]="true" [removable]="true" (removed)="removeCc(cc)">
+                    {{ cc }}
+                    <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+              <div class="form-group">
+                <label for="bcc">Bcc</label>
+                <mat-chip-list #bccChipList>
+                  <input type="text" placeholder="Enter emails" [(ngModel)]="bccEmails" [matChipInputFor]="bccChipList"
+                    matChipInput separatorKeyCodes="[ENTER, COMMA]">
+                  <mat-chip *ngFor="let bcc of bccEmails" [selectable]="true" [removable]="true"
+                    (removed)="removeBcc(bcc)">
+                    {{ bcc }}
+                    <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" style="margin-left: 9rem;; margin-bottom: 2px;"
+              (click)="closePopup()">Add</button>
+
+          </div>
+        </div>
+
+        <div class="billingaddress mt-0 ml-3">
+          <label for="address" class="ml-0">Billing address</label>
+          <input type="text" id="billingaddress" placeholder="Email" class="form-control ml-3"
+            style="width: 150px; height: 40px;">
+        </div>
+        <div class="invoiceDate mt-0 ml-3">
+          <div class="form-group">
+            <label for="invoiceDate" class="ml-0">Invoice Date</label>
+            <input type="date" id="invoiceDate" class="form-control ml-0">
+          </div>
+        </div>
+        <div class="dueDate mt-0 ml-3">
+          <div class="form-group">
+            <label for="dueDate" class="ml-0">Due Date</label>
+            <input type="date" id="dueDate" class="form-control ml-0">
+          </div>
+        </div>
+        <div class="ml-3">
+          <!-- <h4>Online Payments <button type="button" class="btn btn-sm btn-outline-secondary ml-2">Edit</button></h4> -->
+        </div>
+      </div>
+
+      <div class="col-md-6  d-flex justify-content-start balance">
+        <div>
+          <p class="mb-1 mr-5 ">Balance Due</p>
+          <p class="font-weight-bold mb-0" style="font-size: 24px;">$ 1,800.00</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 d-flex ml-2 mt-5">
+      <div class="clientemail mt-0 ml-3">
+        <div class="form-group">
+          <label for="dropdown" class="ml-0">Terms</label>
+          <select id="terms" class="form-control ml-0" (change)="onDropdownChange($event)">
+            <option value="option1">10 days</option>
+            <option value="option2">20 days</option>
+            <option value="option3">Net 15</option>
+            <option value="addNew">Add New</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal5" tabindex="-1" role="dialog" [ngClass]="{'d-block': showModal}" style="display: none;">
+        <div class="modal5-dialog" role="document">
+          <div class="modal-content" style="height: 27rem; width: 18rem;  position: absolute; z-index: 999;">
+            <div class="modal-header">
+              <h5 class="modal-title">New Term</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal2()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style="height: 300px; overflow-y: auto;">
+              <label for="nameInput">*Name:</label><br>
+              <input type="text" id="name" name="name"><br><br>
+
+              <input type="radio" id="dueFixed" name="dueType" value="fixed">
+              <label for="dueFixed">Due in fixed number of days</label><br><br>
+
+              <input type="checkbox" id="checkBox" name="checkBox" class="larger-checkbox" style="margin-left: 34px;">
+              <label for="checkBox" style="margin-left: 4px ;">Days</label><br><br>
+
+              <input type="radio" id="dueFixed" name="dueType" value="fixed">
+              <label for="dueFixed" style="margin-left: 4px ;">Due in fixed number of days</label><br><br>
+
+              <input type="checkbox" id="checkBox" name="checkBox" class="larger-checkbox" style="margin-left: 34px;">
+              <label for="checkBox" style="margin-left: 4px ;">Days</label><br><br>
+
+              <input type="radio" id="dueFixed" name="dueType" value="fixed">
+              <label for="dueFixed">Due in fixed number of days</label><br><br>
+
+              <input type="checkbox" id="checkBox" name="checkBox" class="larger-checkbox" style="margin-left: 34px;">
+              <label for="checkBox" style="margin-left: 4px ;">Days</label><br><br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                (click)="closeModal2()">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ml-3">
+        <div class="form-group">
+          <label for="invoiceNo">Invoice No.</label>
+          <input type="text" id="invoiceNo" class="form-control" placeholder="Enter Invoice No"
+            style="width: 150px; height: 40px;">
+        </div>
+      </div>
+      <div class="ml-3">
+        <div class="form-group">
+          <label for="location">Location</label>
+          <select class="form-control" name="location" [(ngModel)]="state"
+          [ngModelOptions]="{standalone: true}">
+          <option value="0" selected>Select Location</option>
+          <option *ngFor="let state of state" [value]="state.state">{{ state.state }}</option>
+      </select>
+        </div>
+      </div>
+      <div class="fixed-width-wrapper">
+        <div class="text-center">
+          <button type="button" class="btn btn-demo arrow" data-toggle="modal" data-target="#myModal2">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+        style="height: 300px; overflow-y: auto;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+              Close
+            </div>
+            <div class="modal-body" style="max-height: 1000px; overflow-y: auto;">
+              <h2>Add to invoice</h2>
+              <div class="form-group">
+                <label for="filterBy">Filter by:</label>
+                <select class="form-control" id="filterBy" (change)="onFilterChanges($event.target.value)">
+                  <option value="option1">All dates</option>
+                  <option value="option2">This month (January)</option>
+                  <option value="option3">Last month (December)</option>
+                  <option value="option1">Custom</option>
+                </select>
+              </div>
+              <hr>
+              <p style="color: #999; font-style: italic;" *ngIf="selectedFilter !== 'option3'">There aren't any billable
+                items for that date range.</p>
+              <div *ngIf="selectedFilter === 'option3'">
+                <div class="form-group mb-3">
+                  <select class="form-control" (change)="onOptionChanges($event)" [(ngModel)]="selectedOption">
+                    <option value="" disabled selected>--Select--</option>
+                    <ng-container *ngIf="selectedFilter === 'option3'">
+                      <option value="example1" *ngIf="selectedOption !== 'example2' || showAdditionalInputs">Don't group
+                        time</option>
+                    </ng-container>
+                    <option value="example2">Group time by service</option>
+                  </select>
+                </div>
+                
+                <div *ngIf="selectedOption === 'example1' || showAdditionalInputs">
+
+                  <button class="btn " (click)="addAll()">Add all</button>
+                  <div *ngIf="showAdditionalInputs" class="mb-3">
+
+                  </div>
+                  <div class="card-display mt-3">
+                    <div class="card mb-3">
+                      <div class="card-body">
+                        <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
+                        <div class="row">
+                          <div class="col mt-3 d-flex justify-content-between">
+                            <p class="card-text" style="margin-left: -6rem;">Dec 11, 2023</p>
+                            <p>8:00</p>
+                          </div>
+                        </div>
+                        <div class="row" style="margin-top: -11px;">
+                          <div class="col">
+                            <p class="card-text">$360.00</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <p class="card-text">Kivani kotecha</p>
+                          </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col d-flex justify-content-between">
+                            <button class="btn btn-">Add</button>
+                            <button class="btn btn-">Open</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card mb-3">
+                      <div class="card-body">
+                        <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
+                        <div class="row">
+                          <div class="col mt-3 d-flex justify-content-between">
+                            <p class="card-text" style="margin-left: -6rem;">Dec 12, 2023</p>
+                            <p>8:00</p>
+                          </div>
+                        </div>
+                        <div class="row" style="margin-top: -11px;">
+                          <div class="col">
+                            <p class="card-text">$360.00</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <p class="card-text">Kivani kotecha</p>
+                          </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col d-flex justify-content-between">
+                            <button class="btn ">Add</button>
+                            <button class="btn ">Open</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card mb-3">
+                      <div class="card-body">
+                        <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
+                        <div class="row">
+                          <div class="col mt-3 d-flex justify-content-between">
+                            <p class="card-text" style="margin-left: -6rem;">Dec 13, 2023</p>
+                            <p>8:00</p>
+                          </div>
+                        </div>
+                        <div class="row" style="margin-top: -11px;">
+                          <div class="col">
+                            <p class="card-text">$360.00</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <p class="card-text">Kivani kotecha</p>
+                          </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col d-flex justify-content-between">
+                            <button class="btn">Add</button>
+                            <button class="btn">Open</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                   <div *ngIf="selectedOption === 'example2' && !showAdditionalInputs">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <h3 class="card-title" style="text-decoration: underline;">Time services</h3> <br>
+                      <div class="row">
+                        <div class="col mt-3 d-flex justify-content-between">
+                          <p class="card-text" style="margin-left: -6rem;">Dec 11 - Dec 22,<br> 2023</p>
+                          <p>8:00</p>
+                        </div>
+                      </div>
+                      <div class="row" style="margin-top: -11px;">
+                        <div class="col">
+                          <p class="card-text" style="margin-left: 9px;">$360.00</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <p class="card-text" style="margin-left: 9px;">Kivani kotecha</p>
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col d-flex justify-content-between">
+                          <button class="btn" style=" margin-left: 11rem;">Add</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn mt-3" (click)="goToPreviousOption()">Back</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 d-flex justify-content-end">
+        <div class="ml-1">
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-md-6 d-flex flex-column position-relative">
+  <div class="text-right mb-2">
+    <a href="#manage-tags" class="manage-tags-link">Manage Tags</a>
+  </div> -->
+
+
+    <div class="col-md-6 d-flex mt-4">
+      <!-- <div class="form-group ml-3 mt-2">
+    <label for="tags" class="dropdown-label">Tags</label>
+    <input type="text" id="tags" placeholder="Enter tags" class="form-control" style="width: 600px;">
+  </div> -->
+      <div class="col-md-6 d-flex justify-content-end">
+        <div class="ml-1">
+          <!-- <div class="form-group">
+      <label for="location">Location</label>
+      <select id="location" class="form-control">
+        <option value="location1">Location 1</option>
+        <option value="location2">Location 2</option>
+        <option value="location3">Location 3</option>
+        
+      </select>
+    </div> -->
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 d-flex mt-3" style="margin-left: 11px;">
+      <table class="table table-bordered" style="width: 100%; max-width: 1000px;">
+        <thead>
+          <tr>
+            <th>*</th>
+            <th>S/No</th>
+            <th>Service date</th>
+            <th>Product/service</th>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Rate</th>
+            <th>Amount</th>
+            <th>Attachment</th>
+            <th>  on</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td></td>
+            <td>1</td>
+            <td>12/04/2023</td>
+            <td>Services</td>
+            <td>Kivani kotecha</td>
+            <td>8</td>
+            <td>45</td>
+            <td>360.00</td>
+            <td><i class="fas fa-file attachment-symbol"></i></td>
+            <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>2</td>
+            <td>12/05/2023</td>
+            <td>Services</td>
+            <td>Kivani kotecha</td>
+            <td>8</td>
+            <td>45</td>
+            <td>360.00</td>
+            <td><i class="fas fa-file attachment-symbol"></i></td>
+            <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>3</td>
+            <td>12/06/2023</td>
+            <td>Services</td>
+            <td>Kivani kotecha</td>
+            <td>8</td>
+            <td>45</td>
+            <td>360.00</td>
+            <td><i class="fas fa-file attachment-symbol"></i></td>
+            <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>4</td>
+            <td>12/07/2023</td>
+            <td>Services</td>
+            <td>Kivani kotecha</td>
+            <td>8</td>
+            <td>45</td>
+            <td>360.00</td>
+            <td><i class="fas fa-file attachment-symbol"></i></td>
+            <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>5</td>
+            <td>12/08/2023</td>
+            <td>Services</td>
+            <td>Kivani kotecha</td>
+            <td>8</td>
+            <td>45</td>
+            <td>360.00</td>
+            <td><i class="fas fa-file attachment-symbol"></i></td>
+            <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>6</td>
+            <td>12/09/2023</td>
+            <td>Services</td>
+            <td>Kivani kotecha</td>
+            <td>8</td>
+            <td>45</td>
+            <td>360.00</td>
+            <td><i class="fas fa-file attachment-symbol"></i></td>
+            <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>7</td>
+            <td>12/10/2023</td>
+            <td>Services</td>
+            <td>Kivani kotecha</td>
+            <td>8</td>
+            <td>45</td>
+            <td>360.00</td>
+            <td><i class="fas fa-file attachment-symbol"></i></td>
+            <td><i class="fa fa-trash fa-lg ml-3 mr-2 delete-icon" (click)="confirmDelete()"></i></td>
+
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr style="border: none;">
+            <td colspan="8" class="text-right">Subtotal</td>
+            <td>$1,800.00</td>
+          </tr>
+          <tr style="border: none;">
+            <td colspan="8">
+              <label for="discountPercentage" class="mb-0 d-block text-right">Discount Percentage</label><br>
+              <div class="d-flex justify-content-end">
+                <select class="form-control form-control-sm dis" id="discountPercentage">
+                  <option>0%</option>
+                  <option>5%</option>
+                  <option>10%</option>
+                </select>
+              </div>
+            </td>
+            <td>$0.00</td>
+          </tr>
+          <tr style="border: none;">
+            <td colspan="8" class="text-right">Total</td>
+            <td>$1,800.00</td>
+          </tr>
+          <tr style="border: none;">
+            <td colspan="8" class="text-right">Balance Due</td>
+            <td>$1,800.00</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="modal1" tabindex="-1" role="dialog" [ngClass]="{'show': showConfirmationModal}"
+        *ngIf="showConfirmationModal">
+        <div class="modal1-dialog" role="document">
+          <div class="modal1-content">
+            <button type="button" class="close" (click)="closeModal1()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal1-header">
+              <h1 class="modal1-title">Are you sure?</h1>
+
+            </div>
+            <div class="modal1-body" style="margin-top: 40px;">
+              Would you do like to unlike the billable time?
+            </div>
+            <div class="modal1-footerbtn" style="margin-top: 34px;">
+              <button type="button" class="btn btn-secondary" (click)="closeModal1()">No, keep it</button>
+              <button type="button" class="btn btn-danger" (click)="deleteItems()">Yes, unlike it</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <tr>
+      <td colspan="10  ">
+        <button class="btn btn-  ml-3 mr-2">Add Lines</button>
+        <button class="btn btn-  mr-2">Clear All Lines</button>
+        <button class="btn btn-  mr-2">Add Subtotal</button>
+      </td>
+    </tr>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mt-4 mb-2 ml-3">
+          <label for="invoice-message">Message on Invoice</label>
+        </div>
+        <div class="scrollable-msg-box ml-3"
+          style="height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px;">
+          <p>Ram's payment to ASTA CRS</p>
+          <p>Payment method</p>
+          <p> ASTA CRS INC</p>
+          <p>Mail check box</p>
+        </div>
+        <div class="mt-4 mb-2 ml-3">
+          <label for="invoice-message">Message on Statement</label>
+        </div>
+        <div class="scrollable-msg-box ml-3"
+          style="height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px;">
+          <p>12/04/2023 to 12/08/2023</p>
+        </div>
+      </div>
+
+      <!-- <div class="col-md-4">
+          <div class="dropdown-container">
+            <div class="payment-options mt-3">
+              <div class="dropdown-container">
+                <h4>Online Payments <button type="button" class="btn btn-sm btn-outline-secondary ml-2">Edit</button></h4>
+        
+                <div class="payment-options mt-3">
+                  <div class="form-check d-flex flex-column">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="cardsSwitch">
+                      <label class="custom-control-label mr-2" for="cardsSwitch">Cards</label>
+                    </div>
+                  </div>
+                  <div class="form-check d-flex flex-column">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="bankTransferSwitch">
+                      <label class="custom-control-label mr-2" for="bankTransferSwitch">Bank Transfer</label>
+                    </div>
+                  </div>
+                  <div class="form-check d-flex flex-column">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="paypalSwitch">
+                      <label class="custom-control-label mr-2" for="paypalSwitch">PayPal</label>
+                    </div>
+                  </div>
+                  <div class="form-check d-flex flex-column">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="tipaSwitch">
+                      <label class="custom-control-label mr-2" for="tipaSwitch">Tipa</label>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+      <div class="row mt-3">
+        <div class="d-flex">
+          <button class="btn btn btn-block fbtn" style="margin-left: 25px ;">Cancel</button>
+        </div>
+        <div class="d-flex">
+          <button class="btn btn btn-block fbtn" style="margin-left: 21rem;">Print or Preview</button>
+        </div>
+        <div class="d-flex dropdown">
+          <button class="btn btn dropdown-toggle fbtn" type="button" id="saveAndNewDropdown"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 25rem;">
+            Save and New
+          </button>
+          <div class="dropdown-menu" aria-labelledby="saveAndNewDropdown">
+            <a class="dropdown-item" href="#">Save and close</a>
+            <a class="dropdown-item" href="#">Save and send</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</div>

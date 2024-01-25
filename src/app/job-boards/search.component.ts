@@ -21,16 +21,25 @@ import * as FileSaver from 'file-saver';
 
 
 export class SearchComponent implements OnInit {
-
+  loading:boolean = false;
     private cookieValue: any;
     UserOrganizationID: any;
+    showats:boolean = true;
+    showopt:boolean = false;
     constructor(private route: ActivatedRoute, private cookieService: CookieService) {
-        
+
     }
 
     ngOnInit(): void {
-        
-        this.cookieValue = this.cookieService.get('userName')
-        console.log(this.cookieValue);
+
+        this.UserOrganizationID = this.cookieService.get('OrgID')
+        console.log(this.UserOrganizationID);
+        if(this.UserOrganizationID === '127'){
+            this.showats = false;
+        }
+        if(this.UserOrganizationID === '130' || this.UserOrganizationID === '131'){
+            this.showopt = true;
+        }
+        console.log(this.showats);
     }
 }

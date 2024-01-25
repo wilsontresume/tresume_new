@@ -1,0 +1,67 @@
+<div class="login-container">
+    <div class="sub-container image-container login-page">
+        <div class="card" style="width: 20%;">
+            <div class="center-div">
+                <img src="https://tresume.us/img_Home/logo_new.png" alt="Logo">
+            </div>
+            <div style="text-align: center;
+            font-size: large;
+            font-weight: 500;">
+                <p>HR HealthLink</p>
+            </div>
+            <div class="card-body login-card-body" style="border-radius: 5px;">
+                <form (ngSubmit)="login()">
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Email" [(ngModel)]="username"
+                            [ngModelOptions]="{ standalone: true }" required="">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                        <div data-lastpass-icon-root="true"
+                            style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;">
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password"
+                            [ngModelOptions]="{ standalone: true }" required="">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <div data-lastpass-icon-root="true"
+                            style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row" style="padding: 10px 0px;">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block action-button">Sign In</button>
+                        </div>
+                    </div>
+                </form>
+                <p class="mb-1">
+                    <a href="forgot-password.html">Forgot Password?</a>
+                </p>
+                <p class="mb-0">
+                    <a href="register.html" class="text-center">Sign Up</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

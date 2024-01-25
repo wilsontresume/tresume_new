@@ -8,7 +8,7 @@
     color: #46103d;
     cursor: pointer;
   }
-  .container{
+  .container-fluid{
     background-color: #fff;
   }
   .main{
@@ -30,7 +30,7 @@
   }
   
   table {
-    width: 100%;
+    // width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
   }
@@ -66,4 +66,53 @@
 tbody{
   margin-bottom: 10px;
   padding-bottom: 10px;
+}
+.nav-tabs {
+  justify-content: space-around;
+  position: relative;
+  color: black;
+}
+
+.nav-item {
+  position: relative;
+}
+.nav-tabs .nav-link {
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  color: black;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  transition: all 0.3s;
+  border-bottom: 4px solid;
+  border-bottom: 4px solid rgb(88, 21, 88);;
+}
+
+.nav-link.active::after {
+  width: 100%;
+  left: 0;
+}
+
+.nav-item .nav-link {
+  transition: background-color 0.3s ease;
+}
+
+.nav-item .nav-link:hover {
+  background-color: rgba(241, 241, 241, 0.76); /* Change the alpha value to adjust transparency */
+}
+.tab-content {
+  margin-top: 20px; /* Adjust the value to control the space */
+}
+.nav-link {
+    font-size: 20px; /* Adjust the font size as needed */
+    color: #333; 
+    color: black;/* Dark color for the text */
+    /* Additional styles like font-weight, text-transform, etc., can be added here */
 }

@@ -103,8 +103,8 @@
 
         </div>
         <div class="col">
-            <div class="col post-job-boards"> 
-              
+            <div class="col post-job-boards">
+
                     <h4>Post on job Boards</h4>
                     <div *ngFor="let checkbox of checkboxes; let i = index">
                       <label>
@@ -114,3 +114,4 @@
         </div>
     </div>
 </div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

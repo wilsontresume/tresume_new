@@ -1,0 +1,192 @@
+<div class="container-fluid p-3">
+  <div class="head d-flex justify-content-between p-3">
+    <h2>Weekly Timesheet</h2>
+    <i class="fa fa-close" [routerLink]="['/alltimelist']"></i>
+  </div>
+  <div class="content pl-3 pt-1 pb-1">
+    <div class="row">
+      <div class="input-group col-md-3">
+        <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem"
+          placeholder="Who's time are you tracking?" aria-label="Search" aria-describedby="searchIcon">
+        <div class="input-group-append">
+          <div class="input-group-text dropdown">
+            <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <div class="dropdown-menu">
+              <a class="dropdown-item text-left" *ngFor="let option of dropdownOptions"
+                (click)="selectOption(option)">{{ option }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Select Date Range" bsDaterangepicker [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)" style="width: 16rem;">
+      </div>
+      <div class="col-md-3 text-right">
+        <strong>Total Hours <br>40 </strong>
+    </div>
+        <div class="col-md-3 action" style="margin-top: 60px; margin-left: 69rem;">
+
+          <i class="fas fa-print text-dark fa-lg mx-2 " onclick="handlePrint()"></i>
+    
+    <!-- Download Icon -->
+    <i class="fas fa-upload text-dark fa-lg mx-2" onclick="handleDownload()"></i>
+    
+    <!-- Settings Icon -->
+    <i class="fas fa-cog text-dark fa-lg mx-2" onclick="openSettings()"></i>
+  </div>
+
+      </div>
+      </div>
+  <table style="margin-top: 2rem;">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th style="width: 700px;">DETAILS</th>
+        
+        <!-- "TOTAL" column always displayed -->
+      
+        
+        <ng-container *ngIf="selectedDateRange">
+          <!-- Dynamically generated date columns -->
+          <ng-container *ngFor="let item of getDatesWithDaysArray(selectedDateRange[0], selectedDateRange[1]); let i = index">
+            <th>
+              <div>{{ item.day }}</div>
+              <div>{{ item.date | date: 'dd/MM' }}</div>
+            </th>
+          </ng-container>
+          <!-- After selecting dates -->
+          <th>Total</th>
+        </ng-container>
+      
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of timesheetRows; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <div class="row">
+            <div class="input-group col-md-5">
+              <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="row.selectedOption1"
+                placeholder="Choose a Project" aria-describedby="searchIcon1">
+              <div class="input-group-append">
+                <div class="input-group-text dropdown">
+                  <i class="fas fa-caret-down" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <div class="dropdown-menu" [(ngModel)]="row.detailsDropdown1" (change)="onDropdownChange(row.detailsDropdown1, row)">
+                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(1)" [value]="option">{{
+                      option.ProjectName }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="input-group col-md-5">
+              <input type="text" class="form-control custom-input" id="selectedItem2" [(ngModel)]="row.selectedOption2"
+                placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2">
+              <div class="input-group-append">
+                <div class="input-group-text dropdown">
+                  <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <div class="dropdown-menu" [(ngModel)]="row.detailsDropdown2" (change)="onDropdownChange(row.detailsDropdown2, row)">
+                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(2)" [value]="option">{{
+                      option}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-group col-md-5">
+              <input type="text" class="form-control custom-input" id="selectedItem3" [(ngModel)]="row.selectedOption3"
+                placeholder="Choose the service worked on" aria-label="Search" aria-describedby="searchIcon3">
+              <div class="input-group-append">
+                <div class="input-group-text dropdown">
+                  <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <div class="dropdown-menu" [(ngModel)]="row.detailsDropdown3" (change)="onDropdownChange(row.detailsDropdown3, row)">
+                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(3)" [value]="option">{{
+                      option }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group col-md-5">
+              <input type="text" class="form-control custom-input" id="selectedItem4" [(ngModel)]="row.selectedOption4"
+                placeholder="Choose a location" aria-label="Search" aria-describedby="searchIcon4">
+              <div class="input-group-append">
+                <div class="input-group-text dropdown">
+                  <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <div class="dropdown-menu" [(ngModel)]="row.detailsDropdown4" (change)="onDropdownChange(row.detailsDropdown4, row)">
+                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(4)" [value]="option">{{
+                      option.LocationName }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              <textarea [(ngModel)]="row.textarea" class="custom-input p-2" placeholder="Description"></textarea>
+            </div>
+            <div class="col-md-5" style="  margin-left: 23px;">
+              <div class="checkbox-group">
+                <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.checkbox">
+                <label for="myCheckbox" class="mt-2">Billable(/hr) $</label>
+                <input *ngIf="row.checkbox" class="bill-Amt ml-1" type="number" style="width: 60px; padding: 5px;"
+                  [(ngModel)]="row.input" (ngModelChange)="updateTotalAmount()">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              <label for="file1" class="file-label">
+                <i class="fa fa-upload"></i> Client Approved
+              </label>
+              <input type="file" id="file1" class="form-control-file visually-hidden"
+              (change)="onFileChange($event, 'file1', row)">
+            </div>
+            <div class="col-md-5" style="margin-left: 24px;">
+              <label for="file2" class="file-label">
+                <i class="fa fa-upload"></i> Status Report
+              </label>
+              <input type="file" id="file2" class="form-control-file visually-hidden"
+              (change)="onFileChange($event, 'file2', row)">
+            </div>
+          </div>
+        </td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.mon"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.tues"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.wed"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.thu"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.fri"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sat"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sun"></td>
+          <td class="text-right">
+            <div style="margin-top: 79px; display: flex; align-items: center;">
+              <div style="text-align: center; margin-left: 14px;">
+                <span><i>hrs</i></span><br>
+                {{ calculateTotalHours(row) }}
+              </div>
+            </div>        
+              <div style="margin-top: 40px;"><i>amount </i>{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}</div>
+          </td>
+
+        <td><i class="fa fa-trash pl-3" (click)="removeRow(i)"></i></td>
+      </tr> 
+        <td colspan="1"></td>
+        <td colspan="1" style="text-align: right;">Total</td>
+        <td colspan="8" style="text-align: right;">{{ totalAmount | number:'1.2-2' }}</td>
+    </tbody>
+  </table>
+  <!-- <button (click)="deleteAllRows()">Minus</button> -->
+  <div class="row mt-3">
+    <div class="col-md-4">
+      <button (click)="addRow()" class="btn-primary btn-block fbtn">Add Lines</button>
+    </div>
+    <div class="col-md-4 text-center">
+      <button class="btn-primary btn-block fbtn">Copy last timesheet</button>
+    </div>
+    <div class="col-md-4 text-right">
+      <button class="btn-primary btn-block fbtn">Save</button>
+    </div>
+  </div>
+</div>
