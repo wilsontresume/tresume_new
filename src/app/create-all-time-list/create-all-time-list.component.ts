@@ -5,6 +5,7 @@ import { CreateAllTimeListService} from './create-all-time-list.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs'
+  
 
 
 @Component({
@@ -24,6 +25,7 @@ export class CreateAllTimeListComponent implements OnInit {
   maxSelectableDays = 7;
   maxAllowedDays: number = 7;
   selectedSunday: string = '';
+  
   isSundaySelected: boolean = false;
   CAselectedFile: File | null = null;
   SRselectedFile: File | null = null;
@@ -31,6 +33,7 @@ export class CreateAllTimeListComponent implements OnInit {
   file1: File | null = null;
   file2: File | null = null;
 
+  
   //New Functions
   timesheetRows: any[] = [];
 
@@ -51,6 +54,7 @@ export class CreateAllTimeListComponent implements OnInit {
     // Update it with the calculated total amount
     this.totalAmount = totalAmount;
   }
+      
   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
     const datesWithDaysArray: { date: Date; day: string }[] = [];
     let currentDate = new Date(start);
@@ -114,7 +118,7 @@ export class CreateAllTimeListComponent implements OnInit {
       tues: 0,
       wed: 0,
       thu: 0,
-      fri: 0,
+      fri: 0, 
       sat: 0,
       sun: 0
     });
@@ -166,6 +170,7 @@ export class CreateAllTimeListComponent implements OnInit {
     const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
   
     return isNaN(totalHours) ? 'N/A' : totalHours;
+   
   }
 
   addDefaultRows() {

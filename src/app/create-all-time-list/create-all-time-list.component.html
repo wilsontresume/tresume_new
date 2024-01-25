@@ -21,10 +21,23 @@
       <div class="col-md-4">
         <input type="text" class="form-control" placeholder="Select Date Range" bsDaterangepicker [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)" style="width: 16rem;">
       </div>
-      
+      <div class="col-md-3 text-right">
+        <strong>Total Hours <br>40 </strong>
+    </div>
+        <div class="col-md-3 action" style="margin-top: 60px; margin-left: 69rem;">
+
+          <i class="fas fa-print text-dark fa-lg mx-2 " onclick="handlePrint()"></i>
+    
+    <!-- Download Icon -->
+    <i class="fas fa-upload text-dark fa-lg mx-2" onclick="handleDownload()"></i>
+    
+    <!-- Settings Icon -->
+    <i class="fas fa-cog text-dark fa-lg mx-2" onclick="openSettings()"></i>
+  </div>
+
       </div>
       </div>
-  <table>
+  <table style="margin-top: 2rem;">
     <thead>
       <tr>
         <th>#</th>
@@ -42,14 +55,12 @@
             </th>
           </ng-container>
           <!-- After selecting dates -->
-          <th>TOTAL (hrs)</th>
-          <th>TOTAL (amount)</th>
+          <th>Total</th>
         </ng-container>
       
         <th></th>
       </tr>
     </thead>
-    
     <tbody>
       <tr *ngFor="let row of timesheetRows; let i = index">
         <td>{{ i + 1 }}</td>
@@ -142,22 +153,28 @@
             </div>
           </div>
         </td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.mon"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.tues"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.wed"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.thu"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.fri"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sat"></td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sun"></td>
-        <td class="text-right">{{ calculateTotalHours(row) }}</td>
-       <td class="text-right">{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}</td>
-   
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.mon"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.tues"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.wed"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.thu"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.fri"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sat"></td>
+          <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sun"></td>
+          <td class="text-right">
+            <div style="margin-top: 79px; display: flex; align-items: center;">
+              <div style="text-align: center; margin-left: 14px;">
+                <span><i>hrs</i></span><br>
+                {{ calculateTotalHours(row) }}
+              </div>
+            </div>        
+              <div style="margin-top: 40px;"><i>amount </i>{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}</div>
+          </td>
 
         <td><i class="fa fa-trash pl-3" (click)="removeRow(i)"></i></td>
-      </tr>
-      <td colspan="1"></td>
-      <td colspan="1" style="text-align: right;">Total</td>
-      <td colspan="8" style="text-align: right;">{{ totalAmount | number:'1.2-2' }}</td>
+      </tr> 
+        <td colspan="1"></td>
+        <td colspan="1" style="text-align: right;">Total</td>
+        <td colspan="8" style="text-align: right;">{{ totalAmount | number:'1.2-2' }}</td>
     </tbody>
   </table>
   <!-- <button (click)="deleteAllRows()">Minus</button> -->
