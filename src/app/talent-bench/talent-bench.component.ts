@@ -208,7 +208,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     );
   }
 
-  downloadPLacement(candidateID:string) {
+  placementrecdownload(candidateID:string){
     this.loading = true;
   
     this.service.downloadcandidatePlacement(candidateID).subscribe(
@@ -256,7 +256,27 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     }
   }
   
+  deleteGroup(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.deleteGroup(Req).subscribe((x: any) => {
+      var flag = x.flag;
+      // this.();// update the list 
   
+      if (flag === 1) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Submission Deleted Sucessfully',
+        });
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Please try again later',
+        });
+      }
+    });
+  }
   
   getGroupList() {
     const request = {
@@ -409,4 +429,37 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     document.body.removeChild(link);
   }
 
+  //Date filter Tablet bench fetch list
+  startDate: string;  
+  endDate: string;
+  filteredTableData: any[];  
+
+  isFilterButtonEnabled(): boolean {
+    return !!this.startDate && !!this.endDate;
+  }
+
+  filterTableData() {
+    const startDateTime = this.startDate ? new Date(this.startDate) : null;
+    const endDateTime = this.endDate ? new Date(this.endDate) : null;
+
+    this.filteredTableData = this.tableData.filter(item => {
+      const itemCreateTime = new Date(item.CreateTime); 
+
+      return (
+        (!startDateTime || itemCreateTime >= startDateTime) &&
+        (!endDateTime || itemCreateTime <= endDateTime)
+      );
+    });
+    this.loading = false;
+  }
+  initializeData() {
+    this.filterTableData();
+    this.loading = true;
+  }
+
+  clearDates(): void {
+    this.startDate = '';
+    this.endDate = '';
+    this.filteredTableData = this.tableData; 
+  }
 }

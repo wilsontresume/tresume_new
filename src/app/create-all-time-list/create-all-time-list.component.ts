@@ -253,7 +253,7 @@ export class CreateAllTimeListComponent implements OnInit {
 
   getCandidateName() {
     let Req = {
-      OrgID: this.OrgID
+      TraineeID: this.TraineeID
     };
     this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
       this.dropdownOption1 = x.result;

@@ -203,21 +203,16 @@ router.post('/getGroupList', async (req, res) => {
     SELECT
     g.GroupName,
     COUNT(t.traineeID) AS TotalTrainees
-FROM
-    groups g
-LEFT JOIN
-    trainee t ON g.GID = t.groupid
-           AND t.active = 1
-WHERE
-    g.active = 1 AND
-    g.orgID = '${OrganizationID}'
-GROUP BY
-    g.GID, g.GroupName;
+    FROM
+        groups g
+    LEFT JOIN
+        trainee t ON g.GID = t.groupid AND t.active = 1
+    WHERE
+        g.active = 1 AND
+        g.orgID = '${OrganizationID}'
+    GROUP BY
+        g.GID, g.GroupName;
     `;
-
-    // console.log(query);
-
-    // console.log(query);
 
     const recordset = await request.query(query);
 
@@ -362,5 +357,47 @@ router.post('/TBupdateSelected', async (req, res) => {
   }
 });
 
+router.post('/deleteGroup', async (req, res) => {
+  try {
+    const grp = await deactivatedeleteGroup(req.body.GID);
+    if (grp) {
+      const result = {
+        flag: 1,
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error deleting Group Name:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while deleting the Group Name!",
+    };
+    res.status(500).send(result);
+  }
+
+})
+
+async function deactivatedeleteGroup(GID) {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    var query = "UPDATE groups set Active = 0 where GID ="+ GID ;
+    console.log(query);
+    const queryResult = await request.query(query);
+
+    if (queryResult.rowsAffected[0] === 0) {
+      throw new Error("No records found!");
+    }
+    return queryResult;
+  } catch (error) {
+    console.error("Error while deleting Group Name:", error);
+    throw error;
+  }
+}
 
 module.exports = router;
