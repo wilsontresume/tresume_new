@@ -644,8 +644,8 @@ router.post('/getTimesheetCandidatetList', async (req, res) => {
     const request = pool.request();
     
     // const query =  "select * from timesheet_project where projectname like '%value%' and orgID = this.orgID and active = 1";
-    const query =  "select * from Trainee where Active = 1 and istimesheet = 1 AND userorganizationid = '"+req.body.OrgID+ "'";
-
+    const query =  "select * from Trainee where Active = 1 and isFirstTimeLogin = 1 AND userorganizationid = '"+req.body.OrgID+ "'";
+    // const query =  "select  DISTINCT CONCAT(FirstName,'',LastName) as name from Trainee where Active = 1 and isFirstTimeLogin = 1 AND userorganizationid = '"+req.body.OrgID+ "'";
     console.log(query);
 
     const recordset = await request.query(query);
@@ -778,6 +778,31 @@ router.post('/getLocationList', async (req, res) => {
     res.status(500).send(result);
   }
 });
+
+router.post('/deletetimesheetdata', async (req, res) => {
+  try {
+    const interviewdata = await deactivateinterviewdata(req.body.TraineeInterviewID);
+    if (interviewdata) {
+      const result = {
+        flag: 1,
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error deleting timesheet:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while deleting the timesheet data!",
+    };
+    res.status(500).send(result);
+  }  
+
+})
 
 // router.post('/createTimesheet', async (req, res) => {
 //   sql.connect(config, function (err) {
