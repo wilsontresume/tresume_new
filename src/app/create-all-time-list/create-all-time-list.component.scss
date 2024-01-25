@@ -63,7 +63,6 @@ a{
   border-radius: 15px;
   }
 button{
-
   background-color: #561435;
   border: 1px solid #561435;
   color: #f0f0f0;
@@ -129,4 +128,12 @@ input[type="checkbox"]{
   font-style: italic;
   font-family: "Gill Sans", sans-serif;
   font-size: 15px;
+}
+.btn-primary:hover{
+  background-color: #5e105e;
+  border:1px solid #5e105e;
+}
+.btn-primary:active{
+  background-color: #350735;
+  border: 1px solid #350735;
 }

@@ -150,6 +150,20 @@ h2{
     border: none !important;
   }
   
+  hr {
+    margin-top: 12px;
+    margin-bottom: -12px;
+}
+
+.bn34 {
+  background: none;
+  cursor: pointer;
+  text-decoration: inherit;
+  font-size: 1rem;
+  color: #49274A;
+  border-image-slice: 1;
+  font-weight: 600;
+}
 
 //   .bg-clr {
 //     background-color: #46103d ; 
