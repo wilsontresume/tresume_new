@@ -13,27 +13,23 @@ export class CreateAllTimeListService {
     
 
     constructor(private http: HttpClient) { }
-    createTimesheet(data: any) {
-      return this.http.post(this.endpoint, data);
-    }
+createTimesheet(data: any) {
+return this.http.post(this.endpoint, data);
+}
 
-    getTimesheetCandidatetList(request: any): Observable<ResponseDetails> {
+getTimesheetCandidatetList(request: any): Observable<ResponseDetails> {
       return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetCandidatetList', request);
-    }
+}
 
-    getCreateProjectList(request: any): Observable<ResponseDetails> {
+getCreateProjectList(request: any): Observable<ResponseDetails> {
       return this.http.post<ResponseDetails>(this.endpoint + 'getCreateProjectList', request);
-  }
-
-    getPayItemList(request: any): Observable<ResponseDetails> {
+}
+getPayItemList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getPayItemList', request);
 }
-
-    getLocationList(request: any): Observable<ResponseDetails> {
+getLocationList(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'getLocationList', request);
 }
-
-
 deletetimesheetdata(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'deletetimesheetdata', request);
 }
