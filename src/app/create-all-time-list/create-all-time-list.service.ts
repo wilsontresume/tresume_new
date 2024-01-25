@@ -10,6 +10,7 @@ export class CreateAllTimeListService {
     public endpoint = environment.apiUrl;
     //public endpoint = 'https://alpha.tresume.us/TresumeAPI/';
     // public endpoint = 'http://localhost:3000/';
+    
 
     constructor(private http: HttpClient) { }
     createTimesheet(data: any) {
@@ -32,6 +33,10 @@ export class CreateAllTimeListService {
   return this.http.post<ResponseDetails>(this.endpoint + 'getLocationList', request);
 }
 
+
+deletetimesheetdata(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'deletetimesheetdata', request);
+}
 }
 export interface ResponseDetails {
     flag?: any;

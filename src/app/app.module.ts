@@ -156,6 +156,7 @@ import { CreateInvoiceComponent } from './create-invoice/create-invoice.componen
 // import { TimesheetViewdetailsComponent } from './timesheet-viewdetails/timesheet-viewdetails.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
+import { PaymentComponent } from './all-invoice/payment/payment.component';
 import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
 import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
 
@@ -247,8 +248,8 @@ import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sh
     ForgetPasswordComponent,
     LoginHomeHealthComponent,
     CreateInvoiceComponent,
-
     AllInvoiceComponent,
+      PaymentComponent,
       ArAgingReportComponent,
       NewTimeSheetReportComponent,
     // TimesheetViewdetailsComponent
@@ -303,9 +304,6 @@ import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sh
     ToastModule,
     RouterModule,
     MatSelectModule,
-
-
-
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({
       validationMessages: [

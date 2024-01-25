@@ -1,15 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("./database");
-var request = require("request");
 var sql = require("mssql");
-const axios = require("axios");
 const nodemailer = require("nodemailer");
-var crypto = require("crypto");
 const bodyparser = require('body-parser');
 const environment = process.env.NODE_ENV || "prod";
 const envconfig = require(`./config.${environment}.js`);
-const apiUrl = envconfig.apiUrl;
 router.use(bodyparser.json());
 
 const config = {
@@ -20,25 +15,13 @@ const config = {
   trustServerCertificate: true,
 };
 
-const transporter = nodemailer.createTransport({
-  port: 465,
-  host: "smtp.mail.yahoo.com",
-  auth: {
-    user: "support@tresume.us",
-    pass: "xzkmvglehwxeqrpd",
-  },
-  secure: true,
-});
-
 module.exports = router;
 
 router.post('/getTraineeVendorList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
-    const request = new sql.Request();
-    const query = "SELECT   V.vendorid,  V.vendorname,  V.emailid,  V.contactnumber,  CONCAT(T.firstname, ' ', T.lastname) AS primaryowner FROM   vendors V INNER JOIN   Trainee T ON V.primaryowner = T.traineeid WHERE   V.active = 1  AND V.primaryowner = '" + req.body.TraineeID + "'";
-
-    
+    const request = pool.request();
+    const query = "SELECT vendorid, vendorname, emailid, contactnumber, website,  CONCAT(firstname, ' ',lastname) AS PrimaryOwner FROM   vendors INNER JOIN   Trainee  ON primaryowner = traineeid WHERE active = 1  AND primaryowner = '" + req.body.TraineeID + "'";
 
     console.log(query);
 
@@ -53,15 +36,15 @@ router.post('/getTraineeVendorList', async (req, res) => {
     } else {
       const result = {
         flag: 0,
-        error: "No active vendors found! ",
+        error: "No active clients found! ",
       };
-      res.send(result);
+      res.send(result); 
     }
   } catch (error) {
-    console.error("Error fetching vendor data:", error);
+    console.error("Error fetching client data:", error);
     const result = {
       flag: 0,
-      error: "An error occurred while fetching vendor data!",
+      error: "An error occurred while fetching client data!",
     };
     res.status(500).send(result);
   }
@@ -70,9 +53,10 @@ router.post('/getTraineeVendorList', async (req, res) => {
 
 router.post('/deleteVendorAccount', async (req, res) => {
   const VendorID = req.body.VendorID;
+
   try {
-    const dVendor = await deactivatevendor(VendorID);
-    if (dVendor) {
+    const dvendor = await deactivatevendor(VendorID);
+    if (dvendor) {
       const result = {
         flag: 1,
       };
@@ -90,11 +74,9 @@ router.post('/deleteVendorAccount', async (req, res) => {
       error: "An error occurred while deleting the vendor!",
     };
     res.status(500).send(result);
-  }
+  }  
 
 })
-
-
 async function deactivatevendor(VendorID) {
   try {
     const pool = await sql.connect(config);
@@ -102,11 +84,11 @@ async function deactivatevendor(VendorID) {
     const queryResult = await request.query(
       `update Vendors set active = 0 where VendorID = '${VendorID}'`
     );
-
+    
     if (queryResult.rowsAffected[0] === 0) {
       throw new Error("No records found!");
     }
-
+    
     return queryResult;
   } catch (error) {
     console.error("Error while deleting vendor:", error);
