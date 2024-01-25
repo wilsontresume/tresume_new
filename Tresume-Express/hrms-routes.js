@@ -765,7 +765,7 @@ router.get('/downloadcandidatesubmission', async (req, res) => {
 
 
 router.get('/downloadcandidatePlacement', async (req, res) => {
-  console.log('Received request to /downloadcandidatesubmission');
+  console.log('Received request to /downloadcandidatePlacement');
   console.log('TraineeID:', req.query.TraineeID);
   
   const pool = await sql.connect(config);
@@ -830,51 +830,54 @@ router.get('/downloadcandidateInterview', async (req, res) => {
   
   try {
     var query = `
-    SELECT 
-          CONVERT(NVARCHAR, TI.InterviewDate, 101) AS Date,
-          CONCAT(T1.FirstName, ' ', T1.LastName) AS Marketer,
-          ISNULL(TI.Assistedby, '') AS Assigned,
-          TI.TraineeInterviewID,
-          TI.InterviewMode,
-          ISNULL(TI.Notes, '') AS Notes,
-          ISNULL(TI.ClientName, '') AS Client,
-          ISNULL(TI.VendorName, '') AS Vendor,
-          ISNULL(TI.SubVendor, '') AS SubVendor,
-          ISNULL(TI.TypeofAssistance, '') AS TypeofAssistance,
-          TI.TraineeID
+      SELECT 
+        CONVERT(NVARCHAR, TI.InterviewDate, 101) AS Date,
+        CONCAT(T1.FirstName, ' ', T1.LastName) AS Marketer,
+        ISNULL(TI.Assistedby, '') AS Assigned,
+        TI.TraineeInterviewID,
+        TI.InterviewMode,
+        ISNULL(TI.Notes, '') AS Notes,
+        ISNULL(TI.ClientName, '') AS Client,
+        ISNULL(TI.VendorName, '') AS Vendor,
+        ISNULL(TI.SubVendor, '') AS SubVendor,
+        ISNULL(TI.TypeofAssistance, '') AS TypeofAssistance,
+        TI.TraineeID
       FROM 
-          TraineeInterview TI
+        TraineeInterview TI
       LEFT JOIN 
-          Trainee T1 ON T1.TraineeID = TI.RecruiterID
+        Trainee T1 ON T1.TraineeID = TI.RecruiterID
       WHERE 
-          TI.Active = 1 AND TI.TraineeID = ${req.query.TraineeID}
+        TI.Active = 1 AND TI.TraineeID = ${req.query.TraineeID}
     `;
 
     const recordset = await request.query(query);
     var data = recordset.recordset;
-    console.log(data);
 
-    const workbook = new exceljs.Workbook();
-    const worksheet = workbook.addWorksheet('Interview');
+    if (data.length > 0) {
+      const workbook = new exceljs.Workbook();
+      const worksheet = workbook.addWorksheet('Interview');
     
-    const headers = Object.keys(data[0]);
-    worksheet.addRow(headers);
+      const headers = Object.keys(data[0]);
+      worksheet.addRow(headers);
 
+      data.forEach(row => {
+        worksheet.addRow(Object.values(row));
+      });
 
-    data.forEach(row => {
-      worksheet.addRow(Object.values(row));
-    });
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', 'attachment; filename=Interview.xlsx');
 
-    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=Interview.xlsx');
-
-    await workbook.xlsx.write(res);
-    res.end();
+      await workbook.xlsx.write(res);
+      res.end();
+    } else {
+      console.log('No data found');
+      res.status(404).send('No data found');
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
-})
+});
 
 
 router.post('/updateFinancial', async function (req, res) {

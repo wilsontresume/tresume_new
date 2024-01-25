@@ -57,13 +57,16 @@ addGroup(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'addGroup', request);
 }
 
-  fetchGroupList(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'fetchGroupList', request);
-  }
+fetchGroupList(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'fetchGroupList', request);
+}
 
-  TBupdateSelected(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'TBupdateSelected', request);
-  }
+TBupdateSelected(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'TBupdateSelected', request);
+}
+deleteGroup(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'deleteGroup', request);
+}
 }
 export interface ResponseDetails {
   flag?: any;
