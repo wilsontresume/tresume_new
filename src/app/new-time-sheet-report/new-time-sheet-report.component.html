@@ -1,1 +1,157 @@
+<div class="container mt-4">
+  <ul class="nav nav-tabs" id="myTabs">
+    <li class="nav-item">
+      <a class="nav-link active" id="report-tab" data-toggle="tab" href="#report">Report</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="performance-center-tab" data-toggle="tab" href="#performanceCenter">Performance Center</a>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-3">
+    <a href="#" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Report List
+    </a>
+    <h2 style="margin-top: 10px;">Time Activities by Employee Detail Report
+    </h2>
+    <div class="tab-pane fade show active" id="report">
+      <div class="row mb-3">
+        <div class="col">
+          <label for="dateRangeDropdown">Time Activity Date</label>
+          <select id="dateRangeDropdown" class="form-control">
+            <option *ngFor="let option of dateRangeOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="startDate">Start Date:</label>
+          <input type="date" id="startDate" class="form-control">
+        </div>
+        <div class="col">
+          <label for="endDate">End Date:</label>
+          <input type="date" id="endDate" class="form-control">
+        </div>
+        <div class="col"  style="display: flex;">
+          <button class="btn btn-primary" style="height: 40px;
+          margin-left: 30px;
+          border-radius: 38px;
+          margin-top: 25px;
+          color: black;
+          background-color: white;
+          border-color: black;">Customize</button>
+          <button class="btn btn-success" style=" height: 40px;
+          margin-left: 30px;
+          border-radius: 38px;
+          margin-top: 25px;
+          width: 161px;
+          font-size: 15px;">Save Customization</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label for="rowColumns">Row Columns:</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="dateRangeDropdown">Group by</label>
+          <div class="col d-flex p-0">
+          <select id="dateRangeDropdown" class="form-control1">
+            <option *ngFor="let option of employeeGroupByOptions" [value]="option">{{ option }}</option>
+          </select>
+          <!-- <div class="vertical-line"></div> -->
+            <button class="btn btn-primary" style="height: 40px;
+            margin-left: 30px;
+            border-radius: 38px;
+            color: black;
+            background-color: white;
+            border-color: black;">Run Report</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="tab-pane fade" id="performanceCenter">
+    </div>
+</div>
+</div>
+<div class="containers mt-4">
+  <div class="top-row">
+    <div class="top-row-content d-flex justify-content-between">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" id="sortByDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort by
+        </button>
+        <div class="dropdown-menu" aria-labelledby="sortByDropdown">
+          <a class="dropdown-item" href="#">Option 1</a>
+          <a class="dropdown-item" href="#">Option 2</a>
+          <a class="dropdown-item" href="#">Option 3</a>
+        </div>
+      </div>
+      <div  style="margin-left: 20px;
+      margin-top: 8px;
+      font-size: 19px;">
+      <a href="">Add notes</a>
+
+      </div>
+      <div class="ml-auto" style=" margin-top: 7px;">
+        <i style="font-size: 25px;" class="fas fa-envelope mr-3"></i>
+        <i style="font-size: 25px;" class="fas fa-print mr-3"></i>
+        <i style="font-size: 25px;" class="fas fa-share mr-3"></i>
+        <i style="font-size: 25px;" class="fas fa-cog"></i>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-4">
+      <div class="container text-center mt-5">
+          <h1 class="mt-5">IQLOGG INC <i class="fas fa-edit"></i></h1>
+          <h2>Time Activities by Employee Detail</h2>
+          <h3>Activity: January 1-24, 2024</h3>
+        </div>
+
+<div class="scroll-container">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover" id="keywords">
+      <thead class="thead-light">
+        <tr>
+          <th><span>Active Date</span></th>
+          <th><span>Client</span></th>
+          <th><span>Product/Service</span></th>
+          <th><span>Memo/Description</span></th>
+          <th><span>Rates</span></th>
+          <th><span>Duration</span></th>
+          <th><span>Billable</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of tableData">
+          <td>{{ row.activeDate }}</td>
+          <td>{{ row.client }}</td>
+          <td>{{ row.product }}</td>
+          <td>{{ row.description }}</td>
+          <td>{{ row.rates }}</td>
+          <td>{{ row.duration }}</td>
+          <td>{{ row.billable }}</td>
+        </tr>
+
+        <!-- Total row for Active Date -->
+        <tr>
+          <td>Total for Bala Rohit Reddy Gurivireddy</td>
+          <td colspan="6"></td>
+        </tr>
+
+        <!-- Total row for Duration -->
+        <tr>
+          <td></td>
+          <td colspan="5"></td>
+          <td>{{ getTotalDuration() }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  </div>
+</div>
+</div>
+
 

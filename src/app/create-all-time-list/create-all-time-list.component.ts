@@ -245,7 +245,7 @@ export class CreateAllTimeListComponent implements OnInit {
     }
  
   selectedItem: string;
-  dropdownOption: string[] = ['abc'];
+  dropdownOption1: string[] = [];
 
   selectOption(option: string): void {
     this.selectedItem = option;
@@ -256,7 +256,7 @@ export class CreateAllTimeListComponent implements OnInit {
       OrgID: this.OrgID
     };
     this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
-      this.dropdownOption = x.result;
+      this.dropdownOption1 = x.result;
     });
   }
 

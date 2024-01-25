@@ -779,6 +779,31 @@ router.post('/getLocationList', async (req, res) => {
   }
 });
 
+router.post('/deletetimesheetdata', async (req, res) => {
+  try {
+    const interviewdata = await deactivateinterviewdata(req.body.TraineeInterviewID);
+    if (interviewdata) {
+      const result = {
+        flag: 1,
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error deleting timesheet:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while deleting the timesheet data!",
+    };
+    res.status(500).send(result);
+  }  
+
+})
+
 // router.post('/createTimesheet', async (req, res) => {
 //   sql.connect(config, function (err) {
 //     if (err) console.log(err);
