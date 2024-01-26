@@ -1,0 +1,207 @@
+.nav-tabs {
+    justify-content: space-around;
+    position: relative;
+    color: black;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+  .nav-tabs .nav-link {
+    margin-bottom: -1px;
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    color: black;
+}
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #49274a;
+    transition: all 0.3s;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+    left: 0;
+  }
+
+  .table.no-border {
+    border-collapse: collapse;
+    border: none;
+}
+
+.underline th {
+    border-bottom: 2px solid #000;
+}
+.nav-link {
+  font-size: 20px; 
+  color: #333; 
+  color: black;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  transition: all 0.3s;
+  border-bottom: 4px solid;
+  border-bottom: 4px solid rgb(88, 21, 88);
+}
+
+
+.nav-link{
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  color: black;
+}
+.nav-link {
+  transition: background-color 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.nav-link:hover {
+  background-color: rgba(243, 242, 242, 0.666); 
+}
+
+.custom-date-model {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-date-model label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.custom-date-model input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.custom-date-model button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.custom-date-model button:hover {
+  background-color: #0056b3;
+}
+.searchInput{
+ width : 136px; height: 34px; margin-left: 25px;
+}
+.btn{
+  background-color: #380838;
+  color: white;
+font-size: 12px; 
+padding: 5px 10px;
+}
+
+.pay{
+    margin-top: -67px;
+    margin-bottom: -67px;
+    margin-left: 6px;
+}
+.action-icons {
+  display: flex;
+  align-items: center;
+  margin-left: -8rem;
+}
+
+.action-icons i {
+  margin-right: 10px;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+}
+.cards{
+  margin-top: 4rem;
+}
+.rec{
+  height: 13rem;
+  width: 53rem;
+}
+.square{
+  width: 15rem;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 10px; 
+}
+
+
+.balance-mark {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 31px;
+  background-color: rgb(234, 181, 9);
+  margin-right: 10px;
+}
+.balance-marks {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 31px;
+  background-color: rgb(215, 31, 31);
+  margin-right: 10px;
+}
+.opt{
+  margin-top: 64px;
+  margin-bottom: -52px;
+  margin-left: 57rem;
+}
+
+
+input[type="search"] {
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 7px 8px;
+  font-size: 14px;
+  color: inherit;
+  border: 1px solid rgb(187, 178, 178) ;
+  border-radius: 0.25rem;
+  width: 169px;
+  margin-left: 10px;
+}
+
+input[type="search"]::placeholder {
+  color: #bbb;
+}
+
+input[type="search"]:focus {
+  box-shadow: 0 0 3px 0 rgb(88, 21, 88);
+  border-color:rgb(88, 21, 88);
+  outline: none;
+}
+.form-check{
+  margin-left: 15px;
+  margin-bottom: -22px;
+  margin-top: 12px;
+}
+
+
+
+
+
+
+

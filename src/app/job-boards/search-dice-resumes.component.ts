@@ -23,6 +23,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import * as FileSaver from 'file-saver';
 import { MessageService } from 'primeng/api';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import * as html2pdf from 'html2pdf.js';
 
 const b64toBlob = (b64Data: any, contentType = '', sliceSize = 512) => {
   const byteCharacters = atob(b64Data);
@@ -51,6 +52,9 @@ const b64toBlob = (b64Data: any, contentType = '', sliceSize = 512) => {
   styleUrls: ['./search-resumes.component.scss'],
 })
 export class SearchResumesDiceComponent implements OnInit {
+
+  @ViewChild('pdfdoc') pdfdoc: ElementRef;
+
   form = new FormGroup({});
   form1 = new FormGroup({});
   model: any = {};
@@ -141,6 +145,20 @@ export class SearchResumesDiceComponent implements OnInit {
     'West Virginia',
     'Wisconsin',
     'Wyoming',
+    //canada
+    'Ontario',
+    'Alberta',
+    'British Columbia',
+    'Manitoba',
+    'New Brunswick',
+    'Newfoundland and Labrador',
+    'Nova Scotia',
+    'Prince Edward Island',
+    'Quebec',
+    'Saskatchewan',
+    'Northwest Territories',
+    'Nunavut',
+    'Yukon'
   ];
 
   workStatus: any[] = [
@@ -202,15 +220,16 @@ export class SearchResumesDiceComponent implements OnInit {
   application: any;
   isPDFSrc: boolean = false;
   objUrl: SafeHtml;
+  Htmlresumetopdf: string;
   componentInitialized: boolean;
   currentResumeResp: any;
   migratedProfiles: any[] = [];
   migratedResumeID: any;
 
   selectedWorkPermit: any[] = [];
-  onlyWithSecurityClearance:boolean;
-
-
+  onlyWithSecurityClearance: boolean;
+  workPermitDocuments:any;
+  isscocialprofiles:boolean;
   @ViewChild('lgModal', { static: false }) lgModal?: ModalDirective;
   @ViewChild('pdfTable', { static: false }) pdfTable: ElementRef;
   accessToken: any;
@@ -228,9 +247,22 @@ export class SearchResumesDiceComponent implements OnInit {
   jobID1: any = 2;
   isallowed: any = true;
   divcandidateemail: any = '';
-  availablecredits:any = 0;
+  availablecredits: any = 0;
   showcrediterror: boolean = false;
   jobTitle: string = '';
+
+  cfullname: string = '';
+  clocation: string = '';
+  cphone: string = '';
+  cworkpermit: string = '';
+  cyearsofexperiance: string = '';
+  cjobtitle: string = '';
+  csocialsource: any[] = [];
+  cskill: any[] = [];
+  cemail: string = '';
+  ccurrentexperiance: any[] = [];
+  coldexperiance: any[] = [];
+  ceducation: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -243,6 +275,7 @@ export class SearchResumesDiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.cookieValue = this.cookieService.get('userName1');
     this.OrgID1 = this.cookieService.get('OrgID');
     this.userName1 = this.cookieService.get('userName1');
@@ -440,7 +473,7 @@ export class SearchResumesDiceComponent implements OnInit {
   // }
 
   private download(params: any) {
-    
+
     if (!this.showcrediterror) {
       this.loading = true;
       let Req = {
@@ -451,75 +484,98 @@ export class SearchResumesDiceComponent implements OnInit {
         if (y.length > 0) {
           this.isPDFSrc = false;
           this.objUrl = this.sanitizer.bypassSecurityTrustHtml(y[0].HtmlResume);
+          this.Htmlresumetopdf = y[0].HtmlResume;
           this.loading = false;
           this.fileReady = true;
           this.visibleSidebar2 = true;
+          this.cfullname = y[0].FirstName ?? null + ' ' + y[0].LastName ?? null;
+          this.clocation = y[0].CurrentLocation ?? null;
+          this.cyearsofexperiance = (y[0].YearsOfExpInMonths / 12).toString() ?? null;
+          this.cemail = y[0].UserName ?? null;
+          this.cphone = y[0].PhoneNumber ?? null;
+          this.cjobtitle = y[0].Title ?? null;
+          const skillsString = y[0].Skill;
+          const skillsArray = skillsString.split(',');
+          const skillsJSON = skillsArray.map((skill: any) => ({ skill }));
+          const skillsObject:any = skillsJSON;
+          console.log(skillsObject);
+          this.cskill = skillsObject;
+          this.migratedResumeID = y[0].UserName ?? null;
         } else {
           this.adddivisionaudit();
-          this.service
-            .getDiceProfileView(params, this.accessToken)
-            .subscribe((x: any) => {
-              this.loading = false;
-              if (x.resume) {
-                let profileDetails = x;
-                let emailID = profileDetails.email[0];
-                this.divcandidateemail = profileDetails.email[0];
-                let firstName = profileDetails.firstName;
-                let lastName = profileDetails.lastName;
-                let title = profileDetails?.desiredJobTitles[0];
-                let CurrentLocation = profileDetails?.region;
-                let YearsOfExpInMonths = (
-                  profileDetails.yearsOfExperience * 12
-                ).toString();
-                let skilllist: any = profileDetails.skills;
-                let skills: any = [];
-                skilllist.forEach((itm: any) => {
-                  skills.push(itm.skill);
-                });
-                let HtmlResume = profileDetails.resume?.resumeHtml;
-                let source = 'Dice';
-                let ATSID = profileDetails.legacyIds[0];
-                this.migratedResumeID = emailID;
-                this.currentResumeResp = x.resume;
-                let b64Data: any = x.resume.resumeData;
-                let contentType = x.resume.contentType;
-                const blob = b64toBlob(b64Data, contentType);
-                this.isPDFSrc =
-                  contentType === 'application/pdf' ? true : false;
-                this.fileReady = true;
-                this.visibleSidebar2 = true;
-                let createRequest: DiceProfileRequestItem = {
-                  emailID: emailID,
-                  firstName: firstName,
-                  lastName: lastName,
-                  title: title,
-                  currentLocation: CurrentLocation,
-                  yearsOfExpInMonths: YearsOfExpInMonths,
-                  skills: skills,
-                  htmlResume: HtmlResume,
-                  source: source,
-                  ATSID: ATSID,
-                  traineeId: this.traineeId,
-                };
-                this.service
-                  .createJobSeekerProfile(createRequest)
-                  .subscribe((z) => {
-                    let saveResumeReq = {
-                      Filename:
-                        profileDetails.fullName + '_' + x.resume.filename,
-                      Content: b64Data,
-                      userName: this.traineeId,
-                      emailID: emailID,
-                    };
-                    this.service.saveResume(saveResumeReq).subscribe((x) => {});
-                  });
-              } else {
-                this.messageService.add({
-                  severity: 'warning',
-                  summary: 'No Resume Found',
-                });
-              }
+          this.service.getDiceProfileView(params, this.accessToken).subscribe((x: any) => {
+            let profileDetails = x;
+            this.loading = false;
+            this.cfullname = profileDetails?.fullName;
+            this.clocation = profileDetails?.region;
+            this.cphone = profileDetails?.phone?.[0] ?? null;
+            this.cemail = profileDetails?.email?.[0] ?? null;
+            this.cworkpermit = profileDetails?.workPermitDocuments?.[0] ?? null;
+            this.cyearsofexperiance = profileDetails?.yearsOfExperience;
+            this.cjobtitle = profileDetails?.desiredJobTitles?.[0] ?? null;
+            this.csocialsource = profileDetails?.socialProfiles;
+            this.ceducation = profileDetails?.education;
+            this.cskill = profileDetails?.skills;
+            console.log(this.cskill);
+            let emailID = profileDetails.email[0];
+            this.divcandidateemail = profileDetails.email[0];
+            let firstName = profileDetails.firstName;
+            let lastName = profileDetails.lastName;
+            let title = profileDetails?.desiredJobTitles[0];
+            let CurrentLocation = profileDetails?.region;
+            let YearsOfExpInMonths = (profileDetails.yearsOfExperience * 12).toString();
+            let skilllist: any = profileDetails.skills;
+            let skills: any = [];
+            skilllist.forEach((itm: any) => {
+              skills.push(itm.skill);
             });
+            this.visibleSidebar2 = true;
+            if (x.resume) {
+              let HtmlResume = profileDetails.resume?.resumeHtml;
+              let source = 'Dice';
+              let ATSID = profileDetails.legacyIds[0];
+              this.migratedResumeID = emailID;
+              this.currentResumeResp = x.resume;
+              let b64Data: any = x.resume.resumeData;
+              console.log(b64Data);
+              let contentType = x.resume.contentType;
+              const blob = b64toBlob(b64Data, contentType);
+              this.isPDFSrc = contentType === 'application/pdf' ? true : false;
+              this.fileReady = true;
+              this.objUrl = this.sanitizer.bypassSecurityTrustHtml(HtmlResume);
+              this.Htmlresumetopdf = HtmlResume;
+              let createRequest: DiceProfileRequestItem = {
+                emailID: emailID,
+                firstName: firstName,
+                lastName: lastName,
+                title: title,
+                currentLocation: CurrentLocation,
+                yearsOfExpInMonths: YearsOfExpInMonths,
+                skills: skills,
+                htmlResume: HtmlResume,
+                source: source,
+                ATSID: ATSID,
+                traineeId: this.traineeId,
+              };
+              this.service
+                .createJobSeekerProfile(createRequest)
+                .subscribe((z) => {
+                  let saveResumeReq = {
+                    Filename:
+                      profileDetails.fullName + '_' + x.resume.filename,
+                    Content: b64Data,
+                    userName: this.traineeId,
+                    emailID: emailID,
+                  };
+                  this.service.saveResume(saveResumeReq).subscribe((x) => { });
+                });
+            } else {
+              this.messageService.add({
+                severity: 'warning',
+                summary: 'No Resume Found',
+              });
+            }
+          });
         }
       });
     } else {
@@ -529,16 +585,32 @@ export class SearchResumesDiceComponent implements OnInit {
       });
     }
   }
+
   public downloadDoc() {
     let req = {
       userName: this.migratedResumeID,
     };
     this.service.getResumePath(req).subscribe((x: any) => {
-      FileSaver.saveAs(
-        'https://tresume.us/' + x[0].ResumePath,
-        x[0].ResumeName
-      );
+      if (x[0] && x[0].ResumePath) {
+        FileSaver.saveAs(
+          'https://tresume.us/' + x[0].ResumePath,
+          x[0].ResumeName
+        );
+      } else {
+        const pdfdoc = this.pdfdoc.nativeElement;
+        const pdfOptions = {
+          margin: 10,
+          filename: 'Resume.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        };
+
+        html2pdf().from(pdfdoc).set(pdfOptions).save();
+      }
     });
+
+
   }
 
   private yearsRender(params: any) {
@@ -577,6 +649,8 @@ export class SearchResumesDiceComponent implements OnInit {
   }
 
   public onSearch() {
+    
+
     let req =
       'q=' +
       encodeURIComponent(this.model.boolean) +
@@ -596,7 +670,12 @@ export class SearchResumesDiceComponent implements OnInit {
       }
       req += '&locations=' + encodeURIComponent(locations);
     }
-    req += this.daysWithin ? '&dateResumeLastUpdated=' + this.daysWithin : '';
+    if(this.isscocialprofiles){
+      req += this.daysWithin ? '&dateResumeLastUpdated=' + this.daysWithin : '';
+    }else{
+      req += this.daysWithin ? '&dateResumeLastUpdated=' + this.daysWithin : '&dateResumeLastUpdated=999';
+    }
+    
     req += this.selectedEducationDegree
       ? '&educationDegree=' + this.selectedEducationDegree.value
       : '';
@@ -604,9 +683,12 @@ export class SearchResumesDiceComponent implements OnInit {
       ? '&willingToRelocate=' + this.willingToRelocate
       : '';
     req += this.onlyWithSecurityClearance
-    ? '&onlyWithSecurityClearance=' + this.onlyWithSecurityClearance
-    : '';
+      ? '&onlyWithSecurityClearance=' + this.onlyWithSecurityClearance
+      : '';
     req += this.jobTitle ? '&jobTitle=' + this.jobTitle : '';
+    const workarray = this.selectedWorkstatus.map(item => item.value); 
+    const workPermit = workarray.join(', ');
+    req += workPermit ? '&workPermit=' +workPermit:'';
     if (this.yearsOfExp && this.yearsOfExpmin) {
       let exp =
         '{"min":' + this.yearsOfExpmin + ',"max":' + this.yearsOfExp + '}';
@@ -618,7 +700,7 @@ export class SearchResumesDiceComponent implements OnInit {
       let exp = '{"max":' + this.yearsOfExp + '}';
       req += '&yearsExperience=' + encodeURIComponent(exp);
     }
-
+    req += '&excludeThirdParty= true';
     console.log(req);
     this.loading = true;
     if (this.searchRequestItem.page == undefined) {
@@ -628,7 +710,7 @@ export class SearchResumesDiceComponent implements OnInit {
         dateTime: new Date(),
         userName: this.cookieValue,
       };
-      this.service.jobBoardAudit(auditReq).subscribe((x) => {});
+      this.service.jobBoardAudit(auditReq).subscribe((x) => { });
     }
 
     this.service.getDiceSearch(req, this.accessToken).subscribe((x: any) => {
@@ -641,17 +723,9 @@ export class SearchResumesDiceComponent implements OnInit {
       this.resultsFound = true;
       this.totalResults = response.meta.totalCount;
       this.rowData.map((items: any) => {
-        items.migrated = this.migratedProfiles.find(
-          (x) => x.ATSID == items.legacyIds[0]
-        )
-          ? true
-          : false;
+        items.migrated = this.migratedProfiles.find((x) => x.ATSID == items.legacyIds[0]) ? true : false;
         if (this.showcrediterror == true) {
-          items.showmigrated = this.migratedProfiles.find(
-            (x) => x.ATSID == items.EdgeID
-          )
-            ? true
-            : false;
+          items.showmigrated = this.migratedProfiles.find((x) => x.ATSID == items.EdgeID) ? true : false;
         }
         let item: any = items;
         items.diceSkills = [];
@@ -745,6 +819,17 @@ export class SearchResumesDiceComponent implements OnInit {
     } else {
       console.log('Error unbind pdf viewer');
     }
+    this.cfullname = '';
+    this.cjobtitle = '';
+    this.cyearsofexperiance = '';
+    this.cemail = '';
+    this.cphone = '';
+    this.clocation = '';
+    this.ceducation = [];
+    this.cworkpermit = '';
+    this.csocialsource = [];
+    this.cskill = [];
+    this.objUrl = '';
   }
 
   //Division
@@ -832,6 +917,7 @@ export class SearchResumesDiceComponent implements OnInit {
                 divid = x.result[0].id;
                 resolve();
               }
+              this.loading = false;
             })
             .catch((error: any) => {
               reject(error);

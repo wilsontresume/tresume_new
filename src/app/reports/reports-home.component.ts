@@ -22,8 +22,10 @@ interface IRange {
     providers: [DashboardService]
 })
 export class ReportsHomeComponent implements OnInit {
+
     userName: any;
     traineeId: any;
+   loading:boolean = false;
 
     constructor(private router: Router, private cookieService: CookieService, private service: AppService,) { }
 
@@ -43,5 +45,13 @@ export class ReportsHomeComponent implements OnInit {
     public routeLinks(route: string) {
         this.router.navigate(['reports/' + route])
     }
+
+    reports = [
+      { title: 'FTC Report', description: 'Generates a list of First Time Callers' },
+      { title: 'Interviews Report', description: 'Generates a list of Interviews scheduled during a time period' },
+      { title: 'Bench Tracker Report', description: 'Generates a list of Candidates currently on bench' },
+
+    ];
+
 
 }
