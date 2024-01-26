@@ -67,6 +67,9 @@ TBupdateSelected(request: any): Observable<ResponseDetails> {
 deleteGroup(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'deleteGroup', request);
 }
+checkEmail(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'checkEmail', request);
+}
 }
 export interface ResponseDetails {
   flag?: any;

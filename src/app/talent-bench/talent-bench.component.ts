@@ -462,4 +462,28 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     this.endDate = '';
     this.filteredTableData = this.tableData; 
   }
+
+  emailvalidation: boolean = false;
+  emailvalidationmessage: string = '';
+  onEmailInput() {
+    this.checkEmail();
+  }
+
+  checkEmail() {
+    const email = this.addCandidate.get('email').value;
+
+    if (email) {
+      let Req = {
+        email: email,
+        orgID: this.OrgID
+      };
+      this.service.checkEmail(Req).subscribe((x: any) => {
+        var flag = x.flag;
+        if (flag === 2) {
+          this.emailvalidation = true;
+          this.emailvalidationmessage = x.message;
+        }
+      });
+    }
+  }
 }

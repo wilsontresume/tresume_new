@@ -142,6 +142,23 @@ export class ReviewTresumeComponent implements OnChanges {
   submissionFormData: any = {};
   financialInfoFormData: any = {};
   siteVisitFormData: any = {};
+  emergencyContacts: any[] = [];
+
+  contactName: string = '';
+  contactPhone: string = '';
+  contactEmail: string = '';
+  passportNumber: string = '';
+  passportvalStartdate: string = '';
+  passportvalenddate: string = '';
+  iNumber: string = '';
+  iEndDate: string = '';
+  personalInfoAddress: string = '';
+  personalInfoAddress1: string = '';
+  personalInfoCountry: string = '';
+  personalState: string = '';
+  personalCity: string = '';
+  personalZipcode: string = '';
+  addressType: string = '';
 
   saveData() {
     this.loading = true;
@@ -196,6 +213,26 @@ export class ReviewTresumeComponent implements OnChanges {
       TraineeID:this.candidateID
     };
     console.log(Req);
+    
+    console.log('Education Data:');
+    for (let i = 0; i < this.educations.length; i++) {
+      console.log(`Row ${i + 1}:`, this.educations[i]);
+    }
+
+    console.log('Experience Data:');
+    for (let i = 0; i < this.experiences.length; i++) {
+      console.log(`Row ${i + 1}:`, this.experiences[i]);
+    }
+
+    console.log('Experience Data:');
+    this.emergencyContacts.forEach((contact, index) => {
+      console.log(`Emergency Contact ${index + 1}:`);
+      Object.entries(contact).forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+      });
+      console.log('---');
+    });
+
 
 
     this.service.updateGeneral(Req).subscribe(
@@ -207,6 +244,26 @@ export class ReviewTresumeComponent implements OnChanges {
         this.handleError(error);
       }
     );
+
+    const formData = {
+      'Emergency Contact Name': this.contactName,
+      'Emergency Contact Phone': this.contactPhone,
+      'Emergency Contact Email': this.contactEmail,
+      'Passport Number': this.passportNumber,
+      'Passport Validity Start Date': this.passportvalStartdate,
+      'Passport Validity End Date': this.passportvalenddate,
+      'I-94 Number': this.iNumber,
+      'I-94 Validity End Date': this.iEndDate,
+      'Address Line1': this.personalInfoAddress,
+      'Address Line2': this.personalInfoAddress1,
+      'Country': this.personalInfoCountry,
+      'State': this.personalState,
+      'City': this.personalCity,
+      'Zipcode': this.personalZipcode,
+      'Address Type': this.addressType
+    };
+    console.log("Personal-Info Tab")
+    console.log(formData);
     
   }
 
@@ -428,6 +485,7 @@ export class ReviewTresumeComponent implements OnChanges {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.routeType = this.route.snapshot.params["routeType"];
     this.onTabChange(parseInt(this.tabIndex));
+    this.candidateID = this.route.snapshot.params["traineeID"];
 
    }
 
