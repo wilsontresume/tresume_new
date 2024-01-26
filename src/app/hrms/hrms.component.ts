@@ -15,7 +15,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class HrmsComponent implements OnInit {
-
+  candidateID:any;
+  interviewData: any[];
   candidates1: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
   recruiterNames: any ='';
   recruiterName:any;
@@ -58,6 +59,7 @@ export class HrmsComponent implements OnInit {
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
     this.routeType = this.route.snapshot.params["routeType"];
+    this.candidateID = this.route.snapshot.params["traineeID"];
   }
 
   ngOnInit(): void {
@@ -66,7 +68,6 @@ export class HrmsComponent implements OnInit {
     this.getcandidaterstatus();
     this.getLegalStatusOptions();
     this.fetchhrmscandidatelist();
-
     this.gethrmsLocation();
 
     this.addCandidate = this.formBuilder.group({
@@ -118,6 +119,15 @@ export class HrmsComponent implements OnInit {
     
   }
 
+  
+  fetchinterviewlist() {
+    let Req = {
+      TraineeID: this.candidateID,
+    };
+    this.service.getInterviewList(Req).subscribe((x: any) => {
+    // this.interview = x.result;
+    });
+  }
   
 
   onEmailInput() {
