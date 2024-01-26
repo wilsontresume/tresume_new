@@ -11,6 +11,7 @@ const environment = process.env.NODE_ENV || "prod";
 const envconfig = require(`./config.${environment}.js`);
 const apiUrl = envconfig.apiUrl;
 router.use(bodyparser.json());
+const exceljs = require('exceljs');
 
 const config = {
   user: "sa",
@@ -658,6 +659,226 @@ async function generateSubmission() {
     throw error;
   }
 }
+
+// router.post('/DownloadSubmission', async (req, res) => {
+//   try {
+//     const pool = await sql.connect(config);
+//     const request = new sql.Request();
+//     const query = `SELECT 
+//                       S.submissionid,
+//                       S.Title,
+//                       S.SubmissionDate,
+//                       CONCAT(T.FirstName, ' ', T.LastName) AS MarketerName,
+//                       S.VendorName,
+//                       S.ClientName,
+//                       S.Note,
+//                       S.Rate,
+//                       S.CreateBy,
+//                       S.CreateTime,
+//                       S.Active,
+//                       S.CandidateID,
+//                       S.LastUpdateBy,
+//                       S.LastUpdateTime
+//                   FROM 
+//                       Submission S
+//                   INNER JOIN 
+//                       Trainee T ON S.CandidateID = T.TraineeID
+//                   WHERE 
+//                       T.TraineeID = ${req.body.TraineeID} AND S.Active = 1`;
+
+//     console.log(query);
+
+//     const recordset = await request.query(query);
+
+//     const result = {
+//       flag: 1,
+//       result: recordset.recordset,
+//     };
+//     res.status(200).send(result);
+
+//   } catch (error) {
+//     console.error("Error fetching candidates data:", error);
+//     const result = {
+//       flag: 0,
+//       error: "An error occurred while fetching candidates data!",
+//     };
+//     res.status(500).send(result); 
+//   }
+// });
+
+router.get('/downloadcandidatesubmission', async (req, res) => {
+  console.log('Received request to /downloadcandidatesubmission');
+  console.log('TraineeID:', req.query.TraineeID);
+  
+  const pool = await sql.connect(config);
+  const request = new sql.Request();
+  
+  try {
+    var query = `
+      SELECT 
+        S.submissionid,
+        S.Title,
+        S.SubmissionDate,
+        CONCAT(T.FirstName, ' ', T.LastName) AS MarketerName,
+        S.VendorName,
+        S.ClientName,
+        S.Note,
+        S.Rate,
+        S.CreateBy,
+        S.CreateTime,
+        S.Active,
+        S.TraineeID,
+        S.LastUpdateBy,
+        S.LastUpdateTime
+      FROM 
+        Submission S
+      INNER JOIN 
+        Trainee T ON S.TraineeID = T.TraineeID
+      WHERE 
+        T.TraineeID = ${req.query.TraineeID} AND S.Active = 1
+    `;
+    
+    const recordset = await request.query(query);
+    var data = recordset.recordset;
+    console.log(data);
+
+    const workbook = new exceljs.Workbook();
+    const worksheet = workbook.addWorksheet('Submissions');
+    
+    const headers = Object.keys(data[0]);
+    worksheet.addRow(headers);
+
+    data.forEach(row => {
+      worksheet.addRow(Object.values(row));
+    });
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=submissions.xlsx');
+
+    await workbook.xlsx.write(res);
+    res.end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+})
+
+
+router.get('/downloadcandidatePlacement', async (req, res) => {
+  console.log('Received request to /downloadcandidatePlacement');
+  console.log('TraineeID:', req.query.TraineeID);
+  
+  const pool = await sql.connect(config);
+  const request = new sql.Request();
+
+  try {
+    var query =`
+    SELECT 
+      TI.TraineeInterviewID,
+      CONCAT(T.FirstName, ' ', T.LastName) AS CandidateName,
+      CONCAT(R.FirstName, ' ', R.LastName) AS Recruiter,
+      TI.InterviewDate,
+      TI.InterviewStatus,
+      TI.Assistedby,
+      TI.TypeofAssistance,
+      TI.VendorName,
+      TI.ClientName,
+      TI.Notes,
+      TI.CreateTime
+  FROM 
+      TraineeInterview TI
+  INNER JOIN 
+      Trainee T ON TI.TraineeID = T.TraineeID
+  INNER JOIN 
+      Trainee R ON TI.RecruiterID = R.TraineeID
+  WHERE 
+      TI.Active = 1 AND TI.TraineeID = ${req.query.TraineeID}
+    `;
+
+    const recordset = await request.query(query);
+    var data = recordset.recordset;
+    console.log(data);
+
+    const workbook = new exceljs.Workbook();
+    const worksheet = workbook.addWorksheet('Placement');
+    
+    const headers = Object.keys(data[0]);
+    worksheet.addRow(headers);
+
+
+    data.forEach(row => {
+      worksheet.addRow(Object.values(row));
+    });
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=Placement.xlsx');
+
+    await workbook.xlsx.write(res);
+    res.end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+})
+
+router.get('/downloadcandidateInterview', async (req, res) => {
+  console.log('Received request to /downloadcandidateInterview');
+  console.log('TraineeID:', req.query.TraineeID);
+  
+  const pool = await sql.connect(config);
+  const request = new sql.Request();
+  
+  try {
+    var query = `
+      SELECT 
+        CONVERT(NVARCHAR, TI.InterviewDate, 101) AS Date,
+        CONCAT(T1.FirstName, ' ', T1.LastName) AS Marketer,
+        ISNULL(TI.Assistedby, '') AS Assigned,
+        TI.TraineeInterviewID,
+        TI.InterviewMode,
+        ISNULL(TI.Notes, '') AS Notes,
+        ISNULL(TI.ClientName, '') AS Client,
+        ISNULL(TI.VendorName, '') AS Vendor,
+        ISNULL(TI.SubVendor, '') AS SubVendor,
+        ISNULL(TI.TypeofAssistance, '') AS TypeofAssistance,
+        TI.TraineeID
+      FROM 
+        TraineeInterview TI
+      LEFT JOIN 
+        Trainee T1 ON T1.TraineeID = TI.RecruiterID
+      WHERE 
+        TI.Active = 1 AND TI.TraineeID = ${req.query.TraineeID}
+    `;
+
+    const recordset = await request.query(query);
+    var data = recordset.recordset;
+
+    if (data.length > 0) {
+      const workbook = new exceljs.Workbook();
+      const worksheet = workbook.addWorksheet('Interview');
+    
+      const headers = Object.keys(data[0]);
+      worksheet.addRow(headers);
+
+      data.forEach(row => {
+        worksheet.addRow(Object.values(row));
+      });
+
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', 'attachment; filename=Interview.xlsx');
+
+      await workbook.xlsx.write(res);
+      res.end();
+    } else {
+      console.log('No data found');
+      res.status(404).send('No data found');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 router.post('/updateFinancial', async function (req, res) {
   try {

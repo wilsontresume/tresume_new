@@ -64,6 +64,7 @@
             <div class="Filterbtn" style="display: flex; justify-content: space-between; width: 200px;">
               <button class="btn btn-wdth text-white" [disabled]="isSearchButtonDisabled()" (click)="onSearch()">Search</button>
               <button class="btn btn-wdth text-white" (click)="onClear()">Clear</button>
+              <!-- <button class="btn btn-wdth text-white" [ngClass]="{'fa-sort-asc': sortBy === 'DateCreated' && sortOrder === 'asc', 'fa-sort-desc': sortBy === 'DateCreated' && sortOrder === 'desc', 'fa-sort': sortBy !== 'DateCreated'}" >Sort</button> -->
             </div>
           </div>
           
@@ -84,7 +85,7 @@
 </div>
 
 
-  <div class="row mt-4 pl-3">
+  <!-- <div class="row mt-4 pl-3">
       <div class="col">
           <div class="table-container">
               <table class="table text-center">
@@ -121,13 +122,124 @@
                             </div>
                           </td> 
                           <td><i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 24px;"></i></td>
-                          
                       </tr>
                       </ng-container>
                   </tbody>
               </table>
           </div>
       </div>
+  </div> -->
+
+  <div class="main-container" *ngFor="let candidate of candidates">
+    <div class="col-12" *ngIf="isCandidateVisible(candidate)">
+      <div>
+        <div class="card mb-4">
+          <div class="card-body" style="line-height: 5px;padding: 15px;">
+            <div class="row">
+                <div>
+                  <a style="font-size:30px; color: #49274A;margin-left: 15px;"><b>{{ candidate.Name }}</b></a>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+              <div class="col-md-3">
+                <table class="table table-borderless no-border">
+                  <tr>
+                    <th>Phone:</th>
+                    <td>{{ candidate.Phone }}</td>
+                  </tr>
+                  <tr>
+                    <th>Email:</th>
+                    <td>{{ candidate.Email }}</td>
+                  </tr>
+                </table>
+                <table class="table table-borderless no-border">
+                  <tr>
+                    <th>Interview</th>
+                  </tr>
+                  <tr>
+                    <td>Record 2</td>
+                  </tr>
+                  <!-- <tr *ngFor="let job of interview">
+                    <td>{{ job.Marketer }}</td>
+                  </tr> -->
+                  <tr>
+                    <td>Record 2</td>
+                  </tr>
+                </table>
+                <button class="bn34" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/1']">Add Interview</button>
+
+              </div>
+              <div class="col-md-3">
+                <table class="table table-borderless no-border">
+                  <tr>
+                    <th>Viewed By:</th>
+                    <td>{{ candidate.CreatedBy }}</td>
+                  </tr>
+                  <tr>
+                    <th>Legal Status:</th>
+                    <td>{{ candidate.LegalStatus }}</td>
+                  </tr>
+                </table>
+                <table class="table table-borderless no-border">
+                  <tr>
+                    <th>Placement</th>
+                  </tr>
+                  <tr>
+                    <td>Record 1</td>
+                  </tr>
+                  <tr>
+                    <td>Record 2</td>
+                  </tr>
+                </table>
+                <button class="bn34" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/2']">Add Placement</button>
+
+              </div>
+              <div class="col-md-3">
+              <table class="table table-borderless no-border">
+                <tr>
+                  <th>Follow-Up-On:</th>
+                  <td>{{ candidate.followupon }}</td>
+                </tr>
+                <tr>
+                  <th>Candidate Status:</th>
+                  <td>{{ candidate.CandidateStatus }}</td>
+                </tr>
+              </table>
+              <table class="table table-borderless no-border">
+                <tr>
+                  <th>Submission</th>
+                </tr>
+                <tr>
+                  <td>Record 1</td>
+                </tr>
+                <tr>
+                  <td>Record 2</td>
+                </tr>
+              </table>
+              <button class="bn34" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/3']">Add Submission</button>
+
+              </div>
+              <div class="col-md-3">
+                  <table class="table table-borderless no-border">
+                    <tr>
+                      <th (click)="sortTable('DateCreated')">
+                        <span>Date Created</span>
+                        <i class="fa" [ngClass]="{'fa-sort-asc': sortBy === 'DateCreated' && sortOrder === 'asc', 'fa-sort-desc': sortBy === 'DateCreated' && sortOrder === 'desc', 'fa-sort': sortBy !== 'DateCreated'}"></i>
+                      </th>
+                      <td>{{ candidate.DateCreated | date:'MM/dd/yy' }}</td>
+                    </tr>
+                    <tr>
+                      <th>Action:</th>
+                      <td><i class="fa fa-eye fa-fw" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 20px;"></i></td>
+                    </tr>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   </div>

@@ -48,8 +48,8 @@ export class VendorComponent implements OnInit {
   }
 
 
-  deletevendor(VendorID: number) {
-    this.deleteIndex = VendorID;
+  deletevendor(vendorid: number) {
+    this.deleteIndex = vendorid;
     console.log(this.deleteIndex);
     this.showConfirmationDialog = true;
   }
@@ -58,7 +58,7 @@ export class VendorComponent implements OnInit {
   confirmDelete() {
     console.log(this.deleteIndex);
     let Req = {
-      VendorID: this.deleteIndex,
+      vendorid: this.deleteIndex,
     };
     this.service.deleteVendorAccount(Req).subscribe((x: any) => {
       var flag = x.flag;

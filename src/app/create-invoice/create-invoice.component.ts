@@ -6,87 +6,88 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-invoice.component.scss']
 })
 export class CreateInvoiceComponent implements OnInit {
+
+
   cookieService: any;
   TraineeID: any;
   service: any;
-  clients: any;
-
-OrgID: string = '';
+  OrgID: string = '';
   showPopup: boolean = false;
-showConfirmationDialog2: any;
-showConfirmationDialog: any;
-showConfirmationModal: boolean = false;
+  showConfirmationDialog2: any;
+  showConfirmationDialog: any;
+  showConfirmationModal: boolean = false;
+  showModal: boolean = false;
+  previousOption: string = '';
+  clients: any;
+  ClientName: any;
+  state: any;
 
 
-showModal: boolean = false;
-
-
-
-
-previousOption: string = ''; // Store the previous option
-
-onOptionChanges(event: any) {
-  this.previousOption = this.selectedOption; // Store the previous option
-  this.selectedOption = event.target.value;
-  // Rest of your logic for handling selected options
-}
-
-goToPreviousOption() {
-  if (this.previousOption === 'example1' || this.previousOption === 'example2') {
-    this.selectedOption = this.previousOption; // Set the selected option to the previous one
-    this.selectedOption = 'example1';}
-}
-selectedFilter: string = ''; 
-
-onFilterChanges(value: string) {
-  this.selectedFilter = value;
-  // Add any other necessary logic based on the filter selection
-}
-
-onOptionChange(event: any) {
-  this.selectedOption = event.target.value;
-  if (this.selectedOption === 'example2') {
-    // Implement logic if 'Group time by service' is selected
-  } else {
-    // Implement logic if 'Don't group time' is selected
+  ngOnInit(): void {
+    this.OrgID = this.cookieService.get('OrgID');
+    this.fetchclientlist();
+    this.getClientName();
+    this.getState();
   }
-}
 
-addAll() {
-  // Implement 'Add all' logic if required
-}
+  constructor() { }
+
+  onOptionChanges(event: any) {
+    this.previousOption = this.selectedOption;
+    this.selectedOption = event.target.value;
+  }
+
+  goToPreviousOption() {
+    if (this.previousOption === 'example1' || this.previousOption === 'example2') {
+      this.selectedOption = this.previousOption;
+      this.selectedOption = 'example1';
+    }
+  }
+  selectedFilter: string = '';
+
+  onFilterChanges(value: string) {
+    this.selectedFilter = value;
+  }
+
+  onOptionChange(event: any) {
+    this.selectedOption = event.target.value;
+    if (this.selectedOption === 'example2') {
+    } else {
+    }
+  }
+
+  addAll() {
+  }
 
 
-  onDropdownChange(event: any) {  
+  onDropdownChange(event: any) {
     if (event.target.value === 'addNew') {
       this.showModal = true;
     }
   }
-  
+
 
   closeModal2() {
     this.showModal = false;
   }
 
 
-confirmDelete() {
-  this.showConfirmationModal = true;
-}
+  confirmDelete() {
+    this.showConfirmationModal = true;
+  }
 
-deleteItems() {
-  // Simulating deletion with a log message
-  console.log("Item deleted!"); // Replace this with your actual deletion logic
+  deleteItems() {
+    console.log("Item deleted!");
 
-  // Close the modal after successful deletion (in a real scenario, this would be after deletion request/response)
-  this.closeModal();
-}
+    this.closeModal();
+  }
 
-closeModal1() {
-  this.showConfirmationModal = false;
-}
+  closeModal1() {
+    this.showConfirmationModal = false;
+  }
 
   togglePopup(event: Event): void {
-    event.preventDefault(); // Prevent the default link behavior
+    event.preventDefault();
     this.showPopup = !this.showPopup;
   }
 
@@ -96,21 +97,15 @@ closeModal1() {
 
   selectedOption: string = '';
   showAdditionalInputs: boolean = false;
-showButtons: any;
-  constructor() { }
+  showButtons: any;
 
-  
   onFilterChange(value: string) {
     this.selectedOption = value;
-    this.showAdditionalInputs = this.selectedOption === 'option3'; // Update the condition here
+    this.showAdditionalInputs = this.selectedOption === 'option3';
     console.log('Selected Option:', this.selectedOption);
     console.log('showAdditionalInputs:', this.showAdditionalInputs);
   }
-  ngOnInit(): void {
-    this.OrgID= this.cookieService.get('OrgID');
-    this.fetchclientlist();
-    
-  }
+
   fetchclientlist() {
     let Req = {
       TraineeID: this.TraineeID,
@@ -126,24 +121,38 @@ showButtons: any;
   items = [
     { id: 1, name: 'Item 1' },
     { id: 2, name: 'Item 2' },
-    // Add more items as needed
   ];
 
-  selectedItem: any; // To store the item to be deleted
+  selectedItem: any;
 
   openDeleteModal(item: any) {
-    this.selectedItem = item; // Store the item to be deleted
+    this.selectedItem = item;
   }
 
   deleteItem() {
-    // Implement your delete logic here using this.selectedItem.id
-    // Once deleted, remove the item from the items array or perform necessary actions
     console.log('Deleting item:', this.selectedItem);
-    // Example: this.items = this.items.filter(item => item.id !== this.selectedItem.id);
-    this.closeModal(); // Close the modal after deletion
+    this.closeModal();
   }
 
   closeModal() {
-    this.selectedItem = null; // Clear the selectedItem
+    this.selectedItem = null;
+  }
+
+  getClientName() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getTraineeClientList(Req).subscribe((x: any) => {
+      this.ClientName = x.result;
+    });
+  }
+
+  getState() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getLocation(Req).subscribe((x: any) => {
+      this.state = x.result;
+    });
   }
 }

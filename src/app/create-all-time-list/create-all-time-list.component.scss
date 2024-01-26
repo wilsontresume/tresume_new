@@ -15,7 +15,13 @@ table{
 .head {
   background-color: #f0f0f0;
 }
-
+.input-group-text{
+  background-color: #380838;
+ cursor: pointer;
+}
+.fa-caret-down{
+color: white;
+}
 td{
   padding: 5px;
   border-left: 1px solid #d9d3d3;
@@ -124,3 +130,4 @@ input[type="checkbox"]{
   font-family: "Gill Sans", sans-serif;
   font-size: 15px;
 }
+

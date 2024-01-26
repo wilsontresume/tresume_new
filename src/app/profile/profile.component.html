@@ -26,7 +26,7 @@
               </ng-container>
               <ng-template #editModeTemplate9>
                 <input type="text" class="custom-input" id="firstName"
-                  [(ngModel)]="firstName" name="firstName" required>
+                   name="firstName" value="{{profiledata[0].FirstName}}" >
               </ng-template>
             </div>
             <div class="col-md-4">
@@ -36,7 +36,7 @@
               </ng-container>
               <ng-template #editModeTemplate1>
                 <input type="text" class="custom-input" id="middleName" value="{{profiledata[0].MiddleName}}"
-                  [(ngModel)]="middleName" name="middleName" required>
+                   name="middleName" >
               </ng-template>
             </div>
             <div class="col-md-4">
@@ -46,7 +46,7 @@
               </ng-container>
               <ng-template #editModeTemplate2>
                 <input type="text" class="custom-input" id="lastName" value="{{profiledata[0].LastName}}"
-                  [(ngModel)]="lastName" name="lastName" required>
+                   name="lastName" >
               </ng-template>
             </div>
           </div>
@@ -81,7 +81,7 @@
                 <span class="m-2">{{profiledata[0].Title}}</span>
               </ng-container>
               <ng-template #editModeTemplate10>
-                <input type="text" class="custom-input" id="title" value="{{profiledata[0].Title}}" [(ngModel)]="title"
+                <input type="text" class="custom-input" id="title" value="{{profiledata[0].Title}}"
                   name="title" required>
                 <div
                   *ngIf="myForm.controls.title.invalid && (myForm.controls.title.dirty || myForm.controls.title.touched)">
@@ -104,7 +104,7 @@
               </ng-container>
               <ng-template #editModeTemplate8>
                 <input type="text" class="custom-input" id="phoneNumber" value="{{profiledata[0].PhoneNumber}}"
-                  [(ngModel)]="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
+                  name="phoneNumber" pattern="[0-9]{10}" required>
                 <div *ngIf="myForm.controls.phoneNumber.invalid && 
                                 (myForm.controls.phoneNumber.dirty || myForm.controls.phoneNumber.touched)">
                   <small class="text-danger">Please enter a valid 10-digit phone number</small>
@@ -136,21 +136,21 @@
             <div class="form-group col-4">
               <span class="label" for="state">State</span><br>
               <span *ngIf="!editmode">{{profiledata[0].state}}</span>
-              <select *ngIf="editmode" class="custom-input" id="state" [(ngModel)]="selectedState">
+              <select *ngIf="editmode" class="custom-input" id="state">
                 <option *ngFor="let stateObj of state" [value]="stateObj.state">{{stateObj.state}}</option>
               </select>
             </div>
             <div class="form-group col-4">
               <span class="label" for="city">City</span><br>
               <span *ngIf="!editmode">{{profiledata[0].city}}</span>
-              <select *ngIf="editmode" class="custom-input" id="city" [(ngModel)]="city">
-                <option *ngFor="let cities of city" [value]="cities.id">{{cities.city}}</option>
+              <select *ngIf="editmode" class="custom-input" id="city">
+                <option *ngFor="let city of cities" [value]="city.id">{{city.City}}</option>
               </select>
             </div>
             <div class="form-group col-4">
               <span class="label" for="zipcode">Zip Code</span>
               <span *ngIf="!editmode">{{profiledata[0].zipcode}}</span>
-              <input *ngIf="editmode" type="text" class="custom-input" id="zipcode" value="{{profiledata[0].zipcode}}" [(ngModel)]="zipcode">
+              <input *ngIf="editmode" type="text" class="custom-input" id="zipcode" value="{{profiledata[0].zipcode}}">
             </div>
           </div>
           <div *ngIf="editmode; else" class="row mt-4">
@@ -161,28 +161,10 @@
           </div>
         </div>
       </div>
-
       <div class="col-md-1">
         <i class='fas fa-pen' (click)="toggleEditMode1()"></i>
-
-
-
       </div>
     </div>
   </div>
- </mat-tab>
- 
-</form>
-</mat-tab-group>
-</div>
-
-<div class="col-md-1">
-  <i class='fas fa-pen' (click)="toggleEditMode1()"></i>
-  
-
-
-</div>
-</div>
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
-</div>

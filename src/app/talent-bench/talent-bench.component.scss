@@ -101,6 +101,9 @@ h2{
     margin-left: 10px;
   }
   
+  .label-large{
+    font-size: 16px;
+  }
   
   table {
     width: 100%;
@@ -143,7 +146,24 @@ h2{
   .invalid-input {
     border: 1px solid red;
   }
+  .no-border {
+    border: none !important;
+  }
+  
+  hr {
+    margin-top: 12px;
+    margin-bottom: -12px;
+}
 
+.bn34 {
+  background: none;
+  cursor: pointer;
+  text-decoration: inherit;
+  font-size: 1rem;
+  color: #49274A;
+  border-image-slice: 1;
+  font-weight: 600;
+}
 
 //   .bg-clr {
 //     background-color: #46103d ; 
