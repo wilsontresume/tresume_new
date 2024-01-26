@@ -73,16 +73,143 @@
             </td> -->
           </tr>
 
-          <tr *ngIf="noResultsFound">
+          <!-- <tr *ngIf="noResultsFound">
             <td colspan="11" class="text-center">
               No results found.
             </td>
           </tr>
         </tbody>
       </table>
+                <div class="icons" style="margin-top: 10px;margin-top: -12px;margin-left: 40rem;">
+                  <i [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/0']" class="fas fa-network-wired icon"
+                    style="font-size: 24px;"></i>
+                  <i class="far fa-clipboard icon" title="Submission Data"
+                    (click)="downloadSubmission(item.TraineeID)" style="font-size: 20px;margin-left: 20px;"></i>
+                  <i class="fas fa-pencil-alt icon" title="Interview Data"
+                    (click)="downloadInterview(item.TraineeID)" style="font-size: 20px;margin-left: 20px;"></i>
+                  <i class="far fa-file-alt icon" title="Placement Data"
+                    (click)="placementrecdownload(item.TraineeID)" style="font-size: 20px;margin-left: 20px;"></i>
+                </div>
+                </div>
+                <hr>
+                <div class="row">
+                <div class="col-md-3">
+                  <table class="table table-borderless no-border">
+                    <tr>
+                      <th>Location:</th>
+                      <td>{{ item.CurrentLocation }}</td>
+                    </tr>
+                    <tr>
+                      <th>Time On Bench:</th>
+                      <td>{{ item.age }}</td>
+                    </tr>
+                  </table>
+                  <hr>
+                  <table class="table table-borderless no-border">
+                    <tr>
+                      <th>Interview</th>
+                    </tr>
+                    <tr>
+                      <td>Record 1</td>
+                    </tr>
+                    <tr>
+                      <td>Record 2</td>
+                    </tr>
+                  </table>
+                  <button class="bn34" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/1']">Add Interview</button>
+
+                </div>
+                <div class="col-md-3">
+                  <table class="table table-borderless no-border">
+                    <tr>
+                      <th>Title:</th>
+                      <td>{{ item.TraineeTitle }}</td>
+                    </tr>
+                    <tr>
+                      <th>Phone:</th>
+                      <td>{{ item.phone }}</td>
+                    </tr>
+                  </table>
+                  <hr>
+                  <table class="table table-borderless no-border">
+                    <tr>
+                      <th>Placement</th>
+                    </tr>
+                    <tr>
+                      <td>Record 1</td>
+                    </tr>
+                    <tr>
+                      <td>Record 2</td>
+                    </tr>
+                  </table>
+                  <button class="bn34" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/2']">Add Placement</button>
+
+                </div>
+                <div class="col-md-3">
+                <table class="table table-borderless no-border">
+                  <tr>
+                    <th>Status:</th>
+                    <td>{{ item.LegalStatus }}</td>
+                  </tr>
+                  <tr>
+                    <th>Bill Date:</th>
+                    <td>{{ item.BillRate }}</td>
+                  </tr>
+                </table>
+                <hr>
+                <table class="table table-borderless no-border">
+                  <tr>
+                    <th>Submission</th>
+                  </tr>
+                  <tr>
+                    <td>Record 1</td>
+                  </tr>
+                  <tr>
+                    <td>Record 2</td>
+                  </tr>
+                </table>
+                <button class="bn34" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/3']">Add Submission</button>
+
+                </div>
+                <div class="col-md-3">
+                    <table class="table table-borderless no-border">
+                      <tr>
+                        <th style="line-height: 1rem;">Group Name:</th>
+                        <td>
+                          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.groupid"
+                            (change)="updateSelected($event.target.value, item.TraineeID, 1)">
+                            <option *ngFor="let option of groupOptions" [value]="option.GID">{{ option.GroupName }}</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="line-height: 1rem;">Marketer Name:</th>
+                        <td>
+                          <select class="form-control" name="recruiterName" [(ngModel)]="item.RecruiterName"
+                            [ngModelOptions]="{standalone: true}"
+                            (change)="updateSelected($event.target.value, item.TraineeID, 2)">
+                            <option *ngFor="let name of recruiterNames" [value]="name.traineeid">
+                              {{ name.firstname }} {{ name.lastname }}
+                            </option>
+                          </select>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th style="line-height: 1rem;">Date Created:</th>
+                        <td style="padding: 25px;">{{ item.CreateTime | date:'MM/dd/yy' }}</td>
+                      </tr>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <!--PopUp For Add Client-->
@@ -265,7 +392,7 @@
               <td>{{ item.groupName }}</td>
               <td>{{ item.candidateCount }}</td>
             </tr>
-          </table>
+          </table>          
         </div>
       </div>
 
