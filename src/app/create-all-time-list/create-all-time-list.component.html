@@ -29,24 +29,20 @@
       <tr>
         <th>#</th>
         <th style="width: 700px;">DETAILS</th>
-        
-        <!-- "TOTAL" column always displayed -->
-      
-        
-       <ng-container *ngIf="selectedDateRange">
-  <ng-container *ngFor="let item of getDatesWithDaysArray(selectedDateRange[0], selectedDateRange[1]); let i = index">
-    <th>
-      <div>{{ item.day }}</div>
-      <div>{{ item.date | date: 'dd/MM' }}</div>
-    </th>
-  </ng-container>
-  <!-- After selecting dates -->
-  <th>TOTAL</th>
-</ng-container>
-
-<!-- Additional column for input -->
-<th></th>
-</tr>
+        <ng-container *ngIf="selectedDateRange">
+          <ng-container *ngFor="let item of getDatesWithDaysArray(selectedDateRange[0], selectedDateRange[1]); let i = index">
+            <th>
+              <div>{{ item.day }}</div>
+              <div>{{ item.date | date: 'dd/MM' }}</div>
+            </th>
+          </ng-container>
+          <!-- After selecting dates -->
+          <th>TOTAL</th>
+          <th>Action</th>
+          <!-- Additional column for input -->  
+          <th></th>
+        </ng-container>
+      </tr>
     </thead>
     
     <tbody>

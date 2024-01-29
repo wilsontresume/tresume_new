@@ -134,6 +134,9 @@ padding: 5px 10px;
 .cards{
   margin-top: 4rem;
 }
+.card:hover {
+  box-shadow: 1px 4px 8px  #380838; /* Change the shadow color as needed */
+}
 .rec{
   height: 13rem;
   width: 53rem;
