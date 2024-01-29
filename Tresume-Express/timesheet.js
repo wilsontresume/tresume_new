@@ -643,9 +643,8 @@ router.post('/getTimesheetCandidatetList', async (req, res) => {
     const pool = await sql.connect(config);
     const request = pool.request();
     
-    // const query =  "select * from timesheet_project where projectname like '%value%' and orgID = this.orgID and active = 1";
-    const query =  "select * from Trainee where Active = 1 and isFirstTimeLogin = 1 AND userorganizationid = '"+req.body.OrgID+ "'";
-    // const query =  "select  DISTINCT CONCAT(FirstName,'',LastName) as name from Trainee where Active = 1 and isFirstTimeLogin = 1 AND userorganizationid = '"+req.body.OrgID+ "'";
+    const query =  "select * from Trainee where Active = 1 and isTimeSheet = 1 AND userorganizationid = '"+req.body.OrgID+ "'";
+    
     console.log(query);
 
     const recordset = await request.query(query);

@@ -17,7 +17,7 @@
         <div class="align" style="margin-left: 80px;">
           <!-- <button class="btn ml-3">DSR</button> -->
           <!-- <button class="btn ml-3" (click)="downloadExcel()">DSR</button> -->
-          <button class="btn ml-3">Export Report</button>
+          <!-- <button class="btn ml-3">Export Report</button> -->
           <button type="button" class="btn ml-3" data-toggle="modal" data-target=".bd-example-modal-xl">Add
             Candidate</button>
           <button type="button" class="btn ml-3" data-toggle="modal" data-target="#exampleModalLong">Group</button>
@@ -52,10 +52,9 @@
       <div class="col-6" style="margin: auto;">
         <div class="align" style="margin-left: 70px;">
           <button class="btn ml-3" (click)="downloadExcel()">DSR</button>
-          <button class="btn ml-3">Placement</button>
           <button type="button" class="btn ml-3">
             Interview</button>
-          <button type="button" class="btn ml-3">Submission</button>
+          <button class="btn ml-3">Placement</button>
         </div>
       </div>
 
@@ -97,20 +96,9 @@
                       <td>{{ item.age }}</td>
                     </tr>
                   </table>
-                  <hr>
-                  <table class="table table-borderless no-border">
-                    <tr>
-                      <th>Interview</th>
-                    </tr>
-                    <tr>
-                      <td>Record 1</td>
-                    </tr>
-                    <tr>
-                      <td>Record 2</td>
-                    </tr>
-                  </table>
-                  <button class="bn34" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/1']">Add Interview</button>
-                  
+                  <a class="bn59" data-toggle="modal" data-target="#exampleModalCenter" (click)="openInterviewModal(item.TraineeID)">
+                    <span class="bi bi-plus">+</span> Add Interview
+                  </a>
                 </div>
                 <div class="col-md-3">
                   <table class="table table-borderless no-border">
@@ -123,22 +111,11 @@
                       <td>{{ item.phone }}</td>
                     </tr>
                   </table>
-                  <hr>
-                  <table class="table table-borderless no-border">
-                    <tr>
-                      <th>Placement</th>
-                    </tr>
-                    <tr>
-                      <td>Record 1</td>
-                    </tr>
-                    <tr>
-                      <td>Record 2</td>
-                    </tr>
-                  </table>
-                  <button class="bn34" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/2']">Add Placement</button>
-
+                  <a class="bn59" [routerLink]="['/candidateView/'+item.TraineeID+'/create']">
+                    <span class="bi bi-plus">+</span> Add Placement
+                  </a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                 <table class="table table-borderless no-border">
                   <tr>
                     <th>Status:</th>
@@ -149,25 +126,15 @@
                     <td>{{ item.BillRate }}</td>
                   </tr>
                 </table>
-                <hr>
-                <table class="table table-borderless no-border">
-                  <tr>
-                    <th>Submission</th>
-                  </tr>
-                  <tr>
-                    <td>Record 1</td>
-                  </tr>
-                  <tr>
-                    <td>Record 2</td>
-                  </tr>
-                </table>
-                <button class="bn34" [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/3']">Add Submission</button>
-
+                <a class="bn59" data-toggle="modal" data-target="#exampleModalCenter2" (click)="openSubmissionModal(item.TraineeID)">
+                  <span class="bi bi-plus">+</span> Add
+                  Submission
+                </a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <table class="table table-borderless no-border">
                       <tr>
-                        <th style="line-height: 1rem;">Group Name:</th>
+                        <th style="margin-top: 5px;">Group Name:</th>
                         <td>
                           <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.groupid"
                             (change)="updateSelected($event.target.value, item.TraineeID, 1)">
@@ -187,15 +154,13 @@
                           </select>
                         </td>
                       </tr>
-
-                      <tr>
-                        <th style="line-height: 1rem;">Date Created:</th>
-                        <td style="padding: 25px;">{{ item.CreateTime | date:'MM/dd/yy' }}</td>
-                      </tr>
                     </table>
                 </div>
               </div>
-            </div>
+              <div class="span">
+                <span style="line-height: 1rem;">Date Created:</span>
+                <span style="padding: 25px;">{{ item.CreateTime | date:'MM/dd/yy' }}</span></div>
+              </div>
           </div>
           <hr>
         </div>
@@ -400,7 +365,7 @@
                 </button>
               </td>
             </tr>
-          </table>
+          </table>          
         </div>
       </div>
     </div>
@@ -421,6 +386,128 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle" >Interview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="interviewDate">Interview Date</label>
+                <input type="date" class="form-control" id="interviewDate" name="interviewDate" placeholder="Interview Date" [(ngModel)]="interviewDate">
+              </div>
+              <div class="col-md-4">
+                <label for="interviewTime">Interview Time</label>
+                <input type="time" class="form-control" id="interviewTime" name="interviewTime" placeholder="Interview Time" [(ngModel)]="interviewTime">
+              </div>
+              <div class="col-md-4">
+                <label for="interviewInfo">Notes</label>
+                <input type="text" class="form-control" id="interviewInfo" name="interviewInfo" placeholder="Notes" [(ngModel)]="interviewInfo">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <label for="client">Client</label>
+                <input type="text" class="form-control" id="client" name="client" placeholder="Client" [(ngModel)]="client">
+              </div>
+              <div class="col-md-4">
+                <label for="vendor">Vendor</label>
+                <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor" [(ngModel)]="vendor">
+              </div>
+              <div class="col-md-4">
+                <label for="subVendor">Sub Vendor</label>
+                <input type="text" class="form-control" id="subVendor" name="subVendor" placeholder="Sub Vendor" [(ngModel)]="subVendor">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <label for="assistedBy">Assisted by</label>
+                <input type="text" class="form-control" id="assistedBy" name="assistedBy" placeholder="Assisted by" [(ngModel)]="assistedBy">
+              </div>
+              <div class="col-md-4">
+                <label for="typeOfAssistance">Type of Assistance</label>
+                <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance" placeholder="Type of Assistance" [(ngModel)]="typeOfAssistance">
+              </div>
+              <div class="col-md-4">
+                <label for="interviewMode">Interview Mode</label>
+                <select class="form-control" id="interviewMode" name="interviewMode" [(ngModel)]="interviewMode">
+                  <option *ngFor="let mode of interviewModes" [ngValue]="mode">{{ mode }}</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveInterviewData()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Submission</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group mt-4">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Title" [(ngModel)]="title">
+              </div>
+              <div class="col-md-4">
+                <label for="submissionDate">Submission Date</label>
+                <input type="date" class="form-control" id="submissionDate" name="submissionDate" placeholder="Submission Date" [(ngModel)]="submissionDate">
+              </div>
+              <div class="col-md-4">
+                <label for="notes">Notes</label>
+                <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes" [(ngModel)]="notes">
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="vendorName">Vendor Name</label>
+                <input type="text" class="form-control" id="vendorName" name="vendorName" placeholder="Vendor Name" [(ngModel)]="vendorName">
+              </div>
+              <div class="col-md-4">
+                <label for="rate">Rate</label>
+                <input type="number" class="form-control" id="rate" name="rate" placeholder="Rate" [(ngModel)]="rate">
+              </div>
+              <div class="col-md-4">
+                <label for="clientName">Client Name</label>
+                <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" [(ngModel)]="clientName">
+              </div>
+            </div>
+          </div>
+        </form>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="getSubmissionList()">Save changes</button>
       </div>
     </div>
   </div>

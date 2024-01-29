@@ -13,7 +13,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
   providers: [CookieService,CreateAllTimeListService,MessageService],
   styleUrls: ['./create-all-time-list.component.scss']
 })
-export class CreateAllTimeListComponent implements OnInit {
+export class CreateAllTimeListComponent {
   // timesheetData: any[];
   // project: any;
   // clients: any;
@@ -283,15 +283,11 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.addRowWithValues('', '', '', '', '','','', '','', '', '', '', '', '' );
-    // this.addRowWithValues('', '', '', '','','', '', '', '','', '', '', '', '' );
-
     this.addDefaultRows();
     this.getProjectName();
     this.getCandidateName();
     this.getPayItem();
     this.getLocation();
-
     }
 
 
@@ -318,18 +314,33 @@ export class CreateAllTimeListComponent implements OnInit {
   selectedItem: string;
   // dropdownOption: string[] = [];
 
-  selectOption(option: string): void {
-    this.selectedItem = option;
-  }
-
   getCandidateName() {
     let Req = {
       OrgID: this.OrgID
     };
     this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
       this.dropdownOptions = x.result;
+      console.log("below this");
+      console.log(this.dropdownOptions);
     });
   }
+  
+  selectOption(option: string): void {
+    this.selectedItem = option;
+  }
+
+  // selectOption(option: string): void {
+  //   this.selectedItem = option;
+  // }
+
+  // getCandidateName() {
+  //   let Req = {
+  //     OrgID: this.OrgID
+  //   };
+  //   this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
+  //     this.dropdownOptions = x.result;
+  //   });
+  // }
 
   // selectedItem1: string;
   // dropdownOptions1: string[] = [];

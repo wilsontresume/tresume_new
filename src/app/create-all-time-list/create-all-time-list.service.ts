@@ -18,14 +18,14 @@ return this.http.post(this.endpoint, data);
 }
 
 getTimesheetCandidatetList(request: any): Observable<ResponseDetails> {
-      return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetCandidatetList', request);
+  return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetCandidatetList', request);
 }
 
 getCreateProjectList(request: any): Observable<ResponseDetails> {
-      return this.http.post<ResponseDetails>(this.endpoint + 'getCreateProjectList', request);
+  return this.http.post<ResponseDetails>(this.endpoint + 'getCreateProjectList', request);
 }
 getPayItemList(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'getPayItemList', request);
+  return this.http.post<ResponseDetails>(this.endpoint + 'getPayItemList', request);
 }
 getLocationList(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'getLocationList', request);

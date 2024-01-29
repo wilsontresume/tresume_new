@@ -67,6 +67,14 @@ export class HrmsService {
   getInterviewList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getInterviewList', request);
   }
+
+  insertTraineeInterview(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'insertTraineeInterview', request);
+  }
+
+  insertSubmissionInfo(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'insertSubmissionInfo', request);
+  }
   // checkEmail(email: string): Observable<any> {
   //   return this.http.post<any>(this.endpoint, { email });
   // }

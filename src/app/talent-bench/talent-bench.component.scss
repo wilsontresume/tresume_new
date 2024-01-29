@@ -164,6 +164,39 @@ h2{
   border-image-slice: 1;
   font-weight: 600;
 }
+.span{
+  font-size: smaller;
+  text-align: end;
+  margin-top: -12px;
+  margin-bottom: -6px;
+}
+
+// Add interview btn 
+.bn59 {
+  background-color: white; 
+  border: 1px solid #49274A; 
+  color: #49274A; 
+  font-weight: 600;
+  position: relative;
+  outline: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 45px;
+  width: 130px;
+  opacity: 1;
+  text-decoration: none;
+}
+
+
+.bn59 .bi {
+  font-size: 1.2rem;
+  margin-right: 5px; 
+}
+
+
 
 //   .bg-clr {
 //     background-color: #46103d ; 

@@ -344,7 +344,7 @@
       </mat-tab>
 
       <!-- INTERVIEW TAB -->
-      <mat-tab label="Interview" class="mt-5" *ngIf="routeType == 1">
+      <mat-tab label="Interview" class="mt-5" *ngIf="routeType == 1 || routeType == 3">
         <div class="container">
           <form [formGroup]="myForm">
             <div class="row">
@@ -488,7 +488,7 @@
         </div>
       </mat-tab>
       <!-- placement -->
-      <mat-tab label="Placement" class="mt-5" *ngIf="routeType == 1">
+      <mat-tab label="Placement" class="mt-5" *ngIf="routeType == 1 || routeType == 3">
         <div class="row">
           <!-- <div class="col-md-3 mt-3">
             <button class="btn" (click)="exportToExcel()">Email Placement Tracker</button>
@@ -555,7 +555,7 @@
         </div>
       </mat-tab>
       <!-- Content for Submission tab -->
-      <mat-tab label="Submission" class="mt-5" *ngIf="routeType == 1">
+      <mat-tab label="Submission" class="mt-5" *ngIf="routeType == 1 || routeType == 3">
         <div class="container">
           <!-- app.component.html -->
           <button class="btn btn1 mt-3 ml-4" (click)="downloadExcel()">Download DSR</button>
@@ -681,7 +681,7 @@
 
       </mat-tab>
       <!-- Content for Financial Info tab -->
-      <mat-tab label="Financial Info" class="mt-5">
+      <mat-tab label="Financial Info" class="mt-5" *ngIf="routeType == 1">
         <div class="container">
           <form [formGroup]="myFormFinancial">
             <div class="row textarea">
