@@ -6,8 +6,14 @@
   <div class="content pl-3 pt-1 pb-1">
     <div class="row">
       <div class="input-group col-md-3">
-        <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem"
-          placeholder="Who's time are you tracking?" aria-label="Search" aria-describedby="searchIcon">
+        <!-- <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem"
+          placeholder="Who's time are you tracking?" aria-label="Search" aria-describedby="searchIcon"> -->
+          <select class="form-control custom-input" [(ngModel)]="selectedItem" aria-label="Search" placeholder="Who's time are you tracking?" aria-describedby="searchIcon">
+            <option value="" disabled selected>Select an option</option>
+            <option *ngFor="let option of dropdownOptions" [value]="option">{{ option }}</option>
+          </select>
+          
+          
         <div class="input-group-append">
           <div class="input-group-text dropdown">
             <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -29,24 +35,20 @@
       <tr>
         <th>#</th>
         <th style="width: 700px;">DETAILS</th>
-        
-        <!-- "TOTAL" column always displayed -->
-      
-        
-       <ng-container *ngIf="selectedDateRange">
-  <ng-container *ngFor="let item of getDatesWithDaysArray(selectedDateRange[0], selectedDateRange[1]); let i = index">
-    <th>
-      <div>{{ item.day }}</div>
-      <div>{{ item.date | date: 'dd/MM' }}</div>
-    </th>
-  </ng-container>
-  <!-- After selecting dates -->
-  <th>TOTAL</th>
-</ng-container>
-
-<!-- Additional column for input -->
-<th></th>
-</tr>
+        <ng-container *ngIf="selectedDateRange">
+          <ng-container *ngFor="let item of getDatesWithDaysArray(selectedDateRange[0], selectedDateRange[1]); let i = index">
+            <th>
+              <div>{{ item.day }}</div>
+              <div>{{ item.date | date: 'dd/MM' }}</div>
+            </th>
+          </ng-container>
+          <!-- After selecting dates -->
+          <th>TOTAL</th>
+          <th>Action</th>
+          <!-- Additional column for input -->  
+          <th></th>
+        </ng-container>
+      </tr>
     </thead>
     
     <tbody>

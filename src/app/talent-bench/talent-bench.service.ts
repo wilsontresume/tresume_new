@@ -70,6 +70,14 @@ deleteGroup(request: any): Observable<ResponseDetails> {
 checkEmail(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'checkEmail', request);
 }
+
+insertTraineeInterview(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'insertTraineeInterview', request);
+}
+
+insertSubmissionInfo(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'insertSubmissionInfo', request);
+}
 }
 export interface ResponseDetails {
   flag?: any;

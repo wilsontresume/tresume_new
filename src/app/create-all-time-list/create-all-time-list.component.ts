@@ -242,18 +242,33 @@ export class CreateAllTimeListComponent implements OnInit {
   selectedItem: string;
   dropdownOption: string[] = [];
 
-  selectOption(option: string): void {
-    this.selectedItem = option;
-  }
-
   getCandidateName() {
     let Req = {
       OrgID: this.OrgID
     };
     this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
       this.dropdownOptions = x.result;
+      console.log("below this");
+      console.log(this.dropdownOptions);
     });
   }
+  
+  selectOption(option: string): void {
+    this.selectedItem = option;
+  }
+
+  // selectOption(option: string): void {
+  //   this.selectedItem = option;
+  // }
+
+  // getCandidateName() {
+  //   let Req = {
+  //     OrgID: this.OrgID
+  //   };
+  //   this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
+  //     this.dropdownOptions = x.result;
+  //   });
+  // }
 
   selectedItem1: string;
   dropdownOptions1: string[] = [];
