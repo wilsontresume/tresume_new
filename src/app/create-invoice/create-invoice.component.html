@@ -3,12 +3,12 @@
     <h2> CREATE INVOICE</h2>
   </div>
 
-  <body>
+  <body style="font-size: 14px">
     <div class="row mt-4">
       <div class="col-md-6 d-flex">
         <div class="dropdown-container" style="margin-left: 16px;">
           <label for="client" class="dropdown-label ml-3">Client</label> 
-          <select class="form-control" name="Client" formControlName="Client">
+          <select class="form-control" name="Client" formControlName="Client" style="width: 9rem">
             <option value="0" selected>Select Client</option>
             <option *ngFor="let client of clients" [value]="ClientName">{{ client.ClientName }}</option>
         </select>
@@ -162,7 +162,7 @@
       </div>
       <div class="fixed-width-wrapper">
         <div class="text-center">
-          <button type="button" class="btn btn-demo arrow" data-toggle="modal" data-target="#myModal2">
+          <button type="button" class="btn btn-demo arrow" data-toggle="modal" data-target="#myModal2" style="margin-left: 42rem;">
             <i class="fas fa-arrow-right"></i>
           </button>
         </div>
