@@ -201,6 +201,7 @@ router.post('/getGroupList', async (req, res) => {
 
     const query = `
     SELECT
+    g.GID,
     g.GroupName,
     COUNT(t.traineeID) AS TotalTrainees
     FROM

@@ -256,15 +256,17 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     }
   }
   
-  deleteGroup(){
+  deleteGroup(GID:any){
     let Req = {
-      OrgID: this.OrgID,
+      GID: GID,
     };
     this.service.deleteGroup(Req).subscribe((x: any) => {
       var flag = x.flag;
       // this.();// update the list 
   
       if (flag === 1) {
+        this.fetchgrouplist();
+        this.getGroupList();
         this.messageService.add({
           severity: 'success',
           summary: 'Submission Deleted Sucessfully',
