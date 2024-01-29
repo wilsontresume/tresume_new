@@ -299,17 +299,7 @@ export class ReviewTresumeComponent implements OnChanges {
       recruiteremail:this.userName,
       InterviewStatus:'SCHEDULED',
     };
-
-    // this.service.saveInterviewFormData(Req).subscribe((x: any) => {
-    //   console.log(x);
-    // });
-      // Log the form value, not the form itself
-  // console.log(this.myForm.value);
-
-  // // Assuming this.service is an Angular service
-  // this.service.insertTraineeInterview(this.myForm.value).subscribe((response: any) => {
-  // console.log(response);
-  //   });
+    
     console.log(Req);
 
     this.service.insertTraineeInterview(Req).subscribe(

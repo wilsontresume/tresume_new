@@ -4,7 +4,8 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-talent-bench',
@@ -33,8 +34,15 @@ export class TalentBenchComponent implements OnInit {
   grouplistdata: any;
   groupOptions: any;
   groupname: any;
+  candidateID:any;
+  routeType: any;
 
-  constructor(private dialog: MatDialog, private cookieService: CookieService, private service: TalentBenchService, private messageService: MessageService, private formBuilder: FormBuilder) {
+  constructor(private dialog: MatDialog, private cookieService: CookieService, private service: TalentBenchService, private messageService: MessageService, private formBuilder: FormBuilder,private route: ActivatedRoute) {
+    this.OrgID = this.cookieService.get('OrgID');
+    this.userName = this.cookieService.get('userName1');
+    this.TraineeID = this.cookieService.get('TraineeID');
+    this.routeType = this.route.snapshot.params["routeType"];
+    this.candidateID = this.route.snapshot.params["traineeID"];
   }
 
   recruiterNames: string[] = [];
@@ -362,18 +370,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
 
   }
 
-  private handleSuccess(response: any): void {
-    this.messageService.add({ severity: 'success', summary: response.message });
-    this.loading = false;
-    console.log(response);
-  }
-
-  private handleError(response: any): void {
-    this.messageService.add({ severity: 'error', summary: response.message });
-    this.loading = false;
-  }
-
-
   getOrgUserList() {
     let Req = {
       TraineeID: this.TraineeID,
@@ -408,7 +404,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   }
 
   searchInput: string = '';
-  submissionList: any[] = [];
   downloadExcel() {
     const data = this.tableData;
 
@@ -486,4 +481,101 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       });
     }
   }
+
+    // Add interview 
+    myForm: any;
+    interviewFormData: any = {};
+    submissionFormData: any = {};
+    interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
+    interviewDate: Date; 
+    interviewTime: string;
+    interviewInfo: string;
+    client: string;
+    vendor: string;
+    subVendor: string;
+    assistedBy: string;
+    typeOfAssistance: string;
+    interviewMode: string;
+    submissionList: any[] = []; 
+
+    title: string;
+    submissionDate: Date;
+    notes: string;
+    vendorName: string;
+    rate: number;
+    clientName: string;
+  
+    saveInterviewData() {
+      console.log('Saving data for the Interview tab:', this.interviewFormData);
+    
+      let Req = {
+        interviewDate: this.interviewDate,
+        interviewTime: this.interviewTime,
+        interviewInfo: this.interviewInfo,
+        client: this.client,
+        vendor: this.vendor,
+        subVendor: this.subVendor,
+        assistedBy: this.assistedBy,
+        typeOfAssistance: this.typeOfAssistance,
+        interviewMode: this.interviewMode,
+        interviewTimeZone: 'EST',
+        traineeID: this.candidateID,
+        recruiterID: this.TraineeID,
+        recruiteremail: this.userName,
+        InterviewStatus: 'SCHEDULED',
+      };
+      console.log(Req);
+      this.service.insertTraineeInterview(Req).subscribe(
+        (x: any) => {
+          this.handleSuccess(x);
+        },
+        (error: any) => {
+          this.handleError(error);
+        }
+      );
+    }
+  
+    openInterviewModal(candidateID: string) {
+      this.candidateID = candidateID;
+    }
+  
+    getSubmissionList() {
+      console.log('Saving data for the Submission tab:', this.submissionFormData);
+  
+      let Req = {
+        title: this.title,
+        submissionDate: this.submissionDate,
+        notes: this.notes,
+        vendorName: this.vendorName,
+        rate: this.rate,
+        clientName: this.clientName,
+        recruiteremail:this.userName,
+        MarketerID:this.TraineeID,
+        CandidateID:this.candidateID
+      };
+      console.log(Req);
+      this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
+        this.handleSuccess(x);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+    }
+  
+    openSubmissionModal(candidateID: string) {
+      this.candidateID = candidateID;
+    }
+  
+    private handleSuccess(response: any): void {
+      this.messageService.add({ severity: 'success', summary: response.message });
+      console.log(response);
+      this.loading = false;
+    }
+    
+    private handleError(response: any): void {
+      this.messageService.add({ severity: 'error', summary:  response.message });
+      this.loading = false;
+    }
+  
 }
