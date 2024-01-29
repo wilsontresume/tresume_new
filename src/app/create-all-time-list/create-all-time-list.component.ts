@@ -13,10 +13,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
   providers: [CookieService,CreateAllTimeListService,MessageService],
   styleUrls: ['./create-all-time-list.component.scss']
 })
-export class CreateAllTimeListComponent {
-  // timesheetData: any[];
-  // project: any;
-  // clients: any;
+export class CreateAllTimeListComponent implements OnInit {
   orgID: string;
   rows: any[] = [];
   minDate: string;
@@ -35,9 +32,6 @@ export class CreateAllTimeListComponent {
   timesheetRows: any[] = [];
 
   updateTotalAmount() {
-    // Calculate the total amount based on the row inputs and update the totalAmount variable
-    // Assuming 'rows' is an array of objects with 'checkbox' and 'input' properties
-
     let totalAmount = 0;
 
     this.rows.forEach(row => {
@@ -47,8 +41,6 @@ export class CreateAllTimeListComponent {
       this.row.totalAmount = this.calculateTotalAmount(this.row); 
     });
 
-    // Assuming you have a variable named 'totalAmount' in your component
-    // Update it with the calculated total amount
     this.totalAmount = totalAmount;
   }
   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
@@ -71,19 +63,13 @@ export class CreateAllTimeListComponent {
 
 
   onDateRangeChange(dates: Date[]) {
-    // Perform any additional logic or validation if needed
-  
-    // `dates` is an array containing the start and end dates
     if (dates.length === 2) {
       const startDate = new Date(dates[0]);
       const endDate = new Date(dates[1]);
   
-      // Calculate the difference in days
       const dayDifference = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
   
-      // Check if the selected range is more than 7 days
       if (dayDifference >= this.maxSelectableDays) {
-        // Reset the selection or handle the validation as needed
         this.selectedDateRange = [];
         console.log('Please select a date range within 7 days.');
       } else {
@@ -105,27 +91,27 @@ export class CreateAllTimeListComponent {
     this.timesheetRows.push({
       selectedOption: null,
       detailsDropdown: null,
-      dropdownId: 1,  // Specify the default dropdown id or adjust based on your requirements
+      dropdownId: 1,  
       textarea: '',
       checkbox: false,
       file1: null,
       file2: null,
-      mon: 0,
-      tues: 0,
-      wed: 0,
-      thu: 0,
-      fri: 0,
-      sat: 0,
-      sun: 0
+      mon: '',
+      tues: '',
+      wed: '',
+      thu: '',
+      fri: '',
+      sat: '',
+      sun: ''
     });
   }
   removeRow(index: number) {
     this.timesheetRows.splice(index, 1);
   }
 
-  onDropdownChange(selectedOption: string, row: any) {
-    row.selectedOption = selectedOption;
-  }
+  // onDropdownChange(selectedOption: string, row: any) {
+  //   row.selectedOption = selectedOption;
+  // }
 
   onFileChange(event: any, fieldName: string, row: any) {
     const fileList: FileList | null = event.target.files;
@@ -134,10 +120,10 @@ export class CreateAllTimeListComponent {
     }
   }
 
-  getDropdownOptions(dropdownId: number): string[] {
-    const dropdown = this.dropdownOptions.find(option => option.id === dropdownId);
-    return dropdown ? dropdown.options : [];
-  }
+  // getDropdownOptions(dropdownId: number): string[] {
+  //   const dropdown = this.dropdownOptions.find(option => option.id === dropdownId);
+  //   return dropdown ? dropdown.options : [];
+  // }
 
   calculateTotalAmount(row: any): number | string {
     const mon = row.mon || 0;
@@ -149,7 +135,7 @@ export class CreateAllTimeListComponent {
     const sun = row.sun || 0;
     const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
   
-    const hourlyRate = row.checkbox ? +row.input : 0; // Billable amount per hour
+    const hourlyRate = row.checkbox ? +row.input : 0; 
   
     const totalAmount = totalHours * hourlyRate;
   
@@ -230,52 +216,6 @@ export class CreateAllTimeListComponent {
     }
   }
 
-  // rows: any[] = [
-  //   { 
-  //     selectedValue: '',
-  //     description: '', 
-  //     checkbox: false, 
-  //     billableAmount: 0,
-  //   },
-
-  // ];
-
-
-  // rows: any[] = [];
-  // addRow(
-  //   selectOption1: string = '',
-  //   selectOption2: string = '',
-  //   selectOption3: string = '',
-  //   selectOption4: string = '',
-  //   textarea: string = '',
-  //   checkbox: boolean = false,
-  //   input: number = 0,
-  //   input1: number = 0,
-  //   input2: number = 0,
-  //   input3: number = 0,
-  //   input4: number = 0,
-  //   input5: number = 0,
-  //   input6: number = 0,
-  //   input7: number = 0
-  // ): void {
-  //   this.rows.push({
-  //     selectedItem1: selectOption1,
-  //     selectedItem2: selectOption2,
-  //     selectedItem3: selectOption3,
-  //     selectedItem4: selectOption4,
-  //     textarea: textarea,
-  //     checkbox: checkbox,
-  //     input: input,
-  //     input1: input1,
-  //     input2: input2,
-  //     input3: input3,
-  //     input4: input4,
-  //     input5: input5,
-  //     input6: input6,
-  //     input7: input7
-  //   });
-  // }
-
   
   constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService,private fm: FormsModule) {
     this.orgID= this.cookieService.get('OrgID');
@@ -283,36 +223,24 @@ export class CreateAllTimeListComponent {
   }
 
   ngOnInit(): void {
+    this.orgID= this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
+
     this.addDefaultRows();
     this.getProjectName();
     this.getCandidateName();
-    this.getPayItem();
     this.getLocation();
     }
 
-
-  // deleteRow(index: number): void {
-  //   this.rows.splice(index, 1);
-  //   this.updateSerialNumbers();
-  // }
 
   // deleteAllRows(): void {
   //   this.rows = this.rows.slice(0, 3);
   //   this.updateSerialNumbers();
   // }
 
-  // private updateSerialNumbers(): void {
-  //   this.rows.forEach((row, index) => {
-  //     row['sno'] = index + 1;
-  //   });
-  // }
-
-  // private addRowWithValues( selectedItem1: any, selectedItem2: any, selectedItem3: any, selectedItem4: any, textarea: string, checkbox: any,input:any, input1: any, input2: any, input3: any, input4: any, input5: any, input6: any, input7: any,): void {
-  //   this.addRow(selectedItem1, selectedItem2, selectedItem3, selectedItem4, textarea, checkbox, input, input1, input2, input3, input4, input5, input6, input7);
-  // }
  
   selectedItem: string;
-  // dropdownOption: string[] = [];
+  dropdownOption: string[] = [];
 
   getCandidateName() {
     let Req = {
@@ -342,63 +270,57 @@ export class CreateAllTimeListComponent {
   //   });
   // }
 
-  // selectedItem1: string;
-  // dropdownOptions1: string[] = [];
+  selectedItem1: string;
+  dropdownOptions1: string[] = [];
 
-  // selectOption1(option: string): void {
-  //   this.selectedItem1 = option;
-  // }
+  selectOption1(option: string): void {
+    this.selectedItem1 = option;
+  }
   
   // getProjectName() {
   //   let Req = {
-  //     TraineeID: this.TraineeID
+  //     OrgID: this.OrgID
   //   };
   //   this.Service.getCreateProjectList(Req).subscribe((x: any) => {
-  //     this.dropdownOptions1 = x.result;
+  //     // this.dropdownOptions1 = x.result;
+  //     this.ProjectName = x.result;
   //   });
   // }
 
-  // selectedItem2: string;
-  // dropdownOptions2: string[] = [];
+  getProjectName() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getCreateProjectList(Req).subscribe((x: any) => {
+      this.ProjectName = x.result;
+    });
+  }
+  
+  getDropdownOptions() {
+    return this.ProjectName;
+  }
 
-  // selectOption2(option: string): void {
-  //   this.selectedItem2 = option;
-  // }
+  onDropdownChange(selectedOption: any, row: any) {
+    row.selectedOption1 = selectedOption.ProjectName;
+  }
+  
+  
+  
+  selectedItem4: string;
+  dropdownOptions4: string[] = [];
 
+  selectOption4(option: string): void {
+    this.selectedItem4 = option;
+  }
 
-  // getPayItem() {
-  //   let Req = {
-  //     OrgID: this.OrgID
-  //   };
-  //   this.Service.getPayItemList(Req).subscribe((x: any) => {
-  //     this.dropdownOptions2 = x.result;
-  //   });
-  // }
-
-
-  // selectedItem3: string;
-  // dropdownOptions3: string[] = ['Service'];
-
-  // selectOption3(option: string): void {
-  //   this.selectedItem3 = option;
-  // }
-
-
-  // selectedItem4: string;
-  // dropdownOptions4: string[] = [];
-
-  // selectOption4(option: string): void {
-  //   this.selectedItem4 = option;
-  // }
-
-  // getLocation() {
-  //   let Req = {
-  //     OrgID: this.OrgID
-  //   };
-  //   this.Service.getLocationList(Req).subscribe((x: any) => {
-  //     this.dropdownOptions4 = x.result;
-  //   });
-  // }
+  getLocation() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getLocationList(Req).subscribe((x: any) => {
+      this.dropdownOptions4 = x.result;
+    });
+  }
 
 
  

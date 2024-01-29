@@ -56,19 +56,34 @@
         <td>{{ i + 1 }}</td>
         <td>
           <div class="row">
-            <div class="input-group col-md-5">
+            <!-- <div class="input-group col-md-5">
               <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="row.selectedOption1"
                 placeholder="Choose a Project" aria-describedby="searchIcon1">
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
                   <i class="fas fa-caret-down" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                   <div class="dropdown-menu" [(ngModel)]="row.detailsDropdown1" (change)="onDropdownChange(row.detailsDropdown1, row)">
-                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(1)" [value]="option">{{
+                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(1)" [value]="option.ProjectName">{{
                       option.ProjectName }}</a>
                   </div>
                 </div>
               </div>
+            </div> -->
+            <div class="input-group col-md-5">
+              <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="row.selectedOption1"
+                placeholder="Choose a Project" aria-describedby="searchIcon1">
+              <div class="input-group-append">
+                <div class="input-group-text dropdown">
+                  <i class="fas fa-caret-down" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(1)" (click)="onDropdownChange(option, row)">
+                      {{ option.ProjectName }}
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
+            
             <div class="input-group col-md-5">
               <input type="text" class="form-control custom-input" id="selectedItem2" [(ngModel)]="row.selectedOption2"
                 placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2">
@@ -155,7 +170,7 @@
          <i> amount </i>{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}
         </td>
 
-        <td><i class="fa fa-trash pl-3" (click)="removeRow(i)"></i></td>
+        <td><i class="fa fa-trash pl-3" type="button" data-toggle="modal" data-target="#exampleModalCenter"></i></td>
       </tr>
       <td colspan="1"></td>
       <td colspan="1" style="text-align: right;">Total</td>
@@ -172,6 +187,21 @@
     </div>
     <div class="col-md-4 text-right">
       <button class="btn-primary btn-block fbtn">Save</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+       Are you sure want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary text-left" (click)="removeRow(i)" data-dismiss="modal">Yes</button>
+      </div>
     </div>
   </div>
 </div>
