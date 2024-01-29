@@ -6,20 +6,14 @@
   <div class="content pl-3 pt-1 pb-1">
     <div class="row">
       <div class="input-group col-md-3">
-        <!-- <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem"
-          placeholder="Who's time are you tracking?" aria-label="Search" aria-describedby="searchIcon"> -->
-          <select class="form-control custom-input" [(ngModel)]="selectedItem" aria-label="Search" placeholder="Who's time are you tracking?" aria-describedby="searchIcon">
-            <option value="" disabled selected>Select an option</option>
-            <option *ngFor="let option of dropdownOptions" [value]="option">{{ option }}</option>
-          </select>
-          
-          
+        <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem"
+          placeholder="Who's time are you tracking?" aria-describedby="searchIcon">
         <div class="input-group-append">
           <div class="input-group-text dropdown">
             <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
             <div class="dropdown-menu">
               <a class="dropdown-item text-left" *ngFor="let option of dropdownOptions"
-                (click)="selectOption(option)">{{ option }}</a>
+                  (click)="onChangesDropdown(option)">{{ option.FirstName }} {{ option.LastName }}</a>
             </div>
           </div>
         </div>
@@ -56,19 +50,6 @@
         <td>{{ i + 1 }}</td>
         <td>
           <div class="row">
-            <!-- <div class="input-group col-md-5">
-              <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="row.selectedOption1"
-                placeholder="Choose a Project" aria-describedby="searchIcon1">
-              <div class="input-group-append">
-                <div class="input-group-text dropdown">
-                  <i class="fas fa-caret-down" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                  <div class="dropdown-menu" [(ngModel)]="row.detailsDropdown1" (change)="onDropdownChange(row.detailsDropdown1, row)">
-                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(1)" [value]="option.ProjectName">{{
-                      option.ProjectName }}</a>
-                  </div>
-                </div>
-              </div>
-            </div> -->
             <div class="input-group col-md-5">
               <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="row.selectedOption1"
                 placeholder="Choose a Project" aria-describedby="searchIcon1">
@@ -90,9 +71,8 @@
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
                   <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                  <div class="dropdown-menu" [(ngModel)]="row.detailsDropdown2" (change)="onDropdownChange(row.detailsDropdown2, row)">
-                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(2)" [value]="option">{{
-                      option}}</a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" *ngFor="let option of option1" (click)="onDropdownItemClick(option, row)">{{ option }}</a>
                   </div>
                 </div>
               </div>
@@ -106,23 +86,36 @@
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
                   <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                  <div class="dropdown-menu" [(ngModel)]="row.detailsDropdown3" (change)="onDropdownChange(row.detailsDropdown3, row)">
-                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(3)" [value]="option">{{
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" *ngFor="let option of option2"  (click)="onDropdownItemClicks(option, row)">{{
                       option }}</a>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="input-group col-md-5">
+            <!-- <div class="input-group col-md-5">
               <input type="text" class="form-control custom-input" id="selectedItem4" [(ngModel)]="row.selectedOption4"
                 placeholder="Choose a location" aria-label="Search" aria-describedby="searchIcon4">
               <div class="input-group-append">
                 <div class="input-group-text dropdown">
                   <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                  <div class="dropdown-menu" [(ngModel)]="row.detailsDropdown4" (change)="onDropdownChange(row.detailsDropdown4, row)">
-                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(4)" [value]="option">{{
+                  <div class="dropdown-menu" [(ngModel)]="row.detailsDropdown4" (change)="onDropdownChanges(row.detailsDropdown4, row)">
+                    <a class="dropdown-item" *ngFor="let option of getDropdownOption(4)" [value]="option">{{
                       option.LocationName }}</a>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="input-group col-md-5">
+              <input type="text" class="form-control custom-input" id="selectedItem4" [(ngModel)]="row.selectedOption4"
+                placeholder="Choose a location"  aria-describedby="searchIcon4">
+              <div class="input-group-append">
+                <div class="input-group-text dropdown">
+                  <i class="fas fa-caret-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" *ngFor="let option of getDropdownOption(4)"  (click)="onDropdownChanges(option, row)">{{
+                      option.city }}</a>
                   </div>
                 </div>
               </div>

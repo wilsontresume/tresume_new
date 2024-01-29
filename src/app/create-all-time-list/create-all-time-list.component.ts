@@ -14,7 +14,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
   styleUrls: ['./create-all-time-list.component.scss']
 })
 export class CreateAllTimeListComponent implements OnInit {
-  orgID: string;
+  OrgID: string;
   rows: any[] = [];
   minDate: string;
   maxDate: string;
@@ -58,10 +58,6 @@ export class CreateAllTimeListComponent implements OnInit {
 
     return datesWithDaysArray;
   }
-
-  
-
-
   onDateRangeChange(dates: Date[]) {
     if (dates.length === 2) {
       const startDate = new Date(dates[0]);
@@ -77,16 +73,6 @@ export class CreateAllTimeListComponent implements OnInit {
       }
     }
   }
-
-
-
-  dropdownOptions: any[] = [
-    { id: 1, options: ["Option A1", "Option A2", "Option A3"] },
-    { id: 2, options: ["Regular Type"] },
-    { id: 3, options: ["Service"] },
-    { id: 4, options: ["Option D1", "Option D2", "Option D3"] }
-  ];
-
   addRow() {
     this.timesheetRows.push({
       selectedOption: null,
@@ -109,10 +95,6 @@ export class CreateAllTimeListComponent implements OnInit {
     this.timesheetRows.splice(index, 1);
   }
 
-  // onDropdownChange(selectedOption: string, row: any) {
-  //   row.selectedOption = selectedOption;
-  // }
-
   onFileChange(event: any, fieldName: string, row: any) {
     const fileList: FileList | null = event.target.files;
     if (fileList && fileList.length > 0) {
@@ -120,10 +102,7 @@ export class CreateAllTimeListComponent implements OnInit {
     }
   }
 
-  // getDropdownOptions(dropdownId: number): string[] {
-  //   const dropdown = this.dropdownOptions.find(option => option.id === dropdownId);
-  //   return dropdown ? dropdown.options : [];
-  // }
+ 
 
   calculateTotalAmount(row: any): number | string {
     const mon = row.mon || 0;
@@ -141,6 +120,7 @@ export class CreateAllTimeListComponent implements OnInit {
   
     return isNaN(totalAmount) ? 'N/A' : totalAmount;
   }
+
   calculateTotalHours(row: any): number | string {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
@@ -218,13 +198,11 @@ export class CreateAllTimeListComponent implements OnInit {
 
   
   constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService,private fm: FormsModule) {
-    this.orgID= this.cookieService.get('OrgID');
-    this.TraineeID = this.cookieService.get('TraineeID');
+    this.OrgID= this.cookieService.get('OrgID');
   }
 
   ngOnInit(): void {
-    this.orgID= this.cookieService.get('OrgID');
-    this.TraineeID = this.cookieService.get('TraineeID');
+    this.OrgID= this.cookieService.get('OrgID');
 
     this.addDefaultRows();
     this.getProjectName();
@@ -238,37 +216,30 @@ export class CreateAllTimeListComponent implements OnInit {
   //   this.updateSerialNumbers();
   // }
 
- 
-  selectedItem: string;
+   selectedItem: string;
   dropdownOption: string[] = [];
-
+  
+  selectOption(option: string): void {
+    this.selectedItem = option;
+  }
   getCandidateName() {
     let Req = {
       OrgID: this.OrgID
     };
     this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
       this.dropdownOptions = x.result;
-      console.log("below this");
-      console.log(this.dropdownOptions);
     });
   }
   
-  selectOption(option: string): void {
-    this.selectedItem = option;
+  dropdownOptions() {
+    return this.dropdownOptions;
+  }
+  onChangesDropdown(selectedOption: any, row: any) {
+    this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
+  
+
   }
 
-  // selectOption(option: string): void {
-  //   this.selectedItem = option;
-  // }
-
-  // getCandidateName() {
-  //   let Req = {
-  //     OrgID: this.OrgID
-  //   };
-  //   this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
-  //     this.dropdownOptions = x.result;
-  //   });
-  // }
 
   selectedItem1: string;
   dropdownOptions1: string[] = [];
@@ -276,16 +247,6 @@ export class CreateAllTimeListComponent implements OnInit {
   selectOption1(option: string): void {
     this.selectedItem1 = option;
   }
-  
-  // getProjectName() {
-  //   let Req = {
-  //     OrgID: this.OrgID
-  //   };
-  //   this.Service.getCreateProjectList(Req).subscribe((x: any) => {
-  //     // this.dropdownOptions1 = x.result;
-  //     this.ProjectName = x.result;
-  //   });
-  // }
 
   getProjectName() {
     let Req = {
@@ -302,6 +263,7 @@ export class CreateAllTimeListComponent implements OnInit {
 
   onDropdownChange(selectedOption: any, row: any) {
     row.selectedOption1 = selectedOption.ProjectName;
+
   }
   
   
@@ -318,11 +280,24 @@ export class CreateAllTimeListComponent implements OnInit {
       OrgID: this.OrgID
     };
     this.Service.getLocationList(Req).subscribe((x: any) => {
-      this.dropdownOptions4 = x.result;
+      this.city = x.result;
     });
   }
-
-
+  getDropdownOption() {
+    return this.city;
+  }
+  onDropdownChanges(selectedOption: any, row: any) {
+    row.selectedOption4 = selectedOption.city;
+  }
  
+  option1=['Regular Type']
+  onDropdownItemClick(selectedOption: string, row: any): void {
+   row.selectedOption2 = selectedOption;
+  }
+
+  option2=['Service']
+  onDropdownItemClicks(selectedOption: string, row: any): void {
+   row.selectedOption3 = selectedOption;
+  }
 
 }
