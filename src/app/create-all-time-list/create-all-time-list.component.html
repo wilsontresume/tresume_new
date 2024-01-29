@@ -33,21 +33,20 @@
         <!-- "TOTAL" column always displayed -->
       
         
-        <ng-container *ngIf="selectedDateRange">
-          <!-- Dynamically generated date columns -->
-          <ng-container *ngFor="let item of getDatesWithDaysArray(selectedDateRange[0], selectedDateRange[1]); let i = index">
-            <th>
-              <div>{{ item.day }}</div>
-              <div>{{ item.date | date: 'dd/MM' }}</div>
-            </th>
-          </ng-container>
-          <!-- After selecting dates -->
-          <th>TOTAL (hrs)</th>
-          <th>TOTAL (amount)</th>
-        </ng-container>
-      
-        <th></th>
-      </tr>
+       <ng-container *ngIf="selectedDateRange">
+  <ng-container *ngFor="let item of getDatesWithDaysArray(selectedDateRange[0], selectedDateRange[1]); let i = index">
+    <th>
+      <div>{{ item.day }}</div>
+      <div>{{ item.date | date: 'dd/MM' }}</div>
+    </th>
+  </ng-container>
+  <!-- After selecting dates -->
+  <th>TOTAL</th>
+</ng-container>
+
+<!-- Additional column for input -->
+<th></th>
+</tr>
     </thead>
     
     <tbody>
@@ -149,9 +148,10 @@
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.fri"></td>
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sat"></td>
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sun"></td>
-        <td class="text-right">{{ calculateTotalHours(row) }}</td>
-       <td class="text-right">{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}</td>
-   
+        <td class="text-right">
+         <i> hrs </i><br> {{ calculateTotalHours(row) }}<br>
+         <i> amount </i>{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}
+        </td>
 
         <td><i class="fa fa-trash pl-3" type="button" data-toggle="modal" data-target="#exampleModalCenter"></i></td>
       </tr>

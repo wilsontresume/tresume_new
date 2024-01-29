@@ -216,23 +216,23 @@
                 <div *ngFor="let education of educations; let i = index" class="row" [id]="'educationRow' + i">
                   <div class="col-md-2 form-group">
                     <label for="education1">Degree</label>
-                    <input type="text" class="form-control" id="education1" placeholder="Degree">
+                    <input type="text" class="form-control" id="degree" placeholder="Degree"  [(ngModel)]="education.degree">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education2">University</label>
-                    <input type="text" class="form-control" id="education2" placeholder="University">
+                    <input type="text" class="form-control" id="university" placeholder="University"  [(ngModel)]="education.university">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education3">Attended from</label>
-                    <input type="text" class="form-control" id="education3" placeholder="Attended from">
+                    <input type="text" class="form-control" id="attendedfrom" placeholder="Attended from"  [(ngModel)]="education.attendedfrom">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education4">Attended to</label>
-                    <input type="text" class="form-control" id="education4" placeholder="Attended to">
+                    <input type="text" class="form-control" id="attendedto" placeholder="Attended to"  [(ngModel)]="education.attendedto">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education5">University Address</label>
-                    <input type="text" class="form-control" id="education5" placeholder="University Address">
+                    <input type="text" class="form-control" id="univAddress" placeholder="University Address"  [(ngModel)]="education.univAddress">
                   </div>
                   <div class="col-md-1">
                   <button class="btn mt-4 mb-2 mr-2" (click)="deleteRow(i)">&#xd7;</button>
@@ -269,71 +269,71 @@
                 </div>
               </div>
               <div class="tab-pane fade" id="personalinfo" role="tabpanel" aria-labelledby="personalinfo-tab">
-                <div class="container">
+                <div class="container" >
                   <div class="row">
                     <div class="col-md-4 form-group">
                       <label for="personalinfo1">Emergency Contact Name</label>
-                      <input type="text" class="form-control" id="personalinfo1" placeholder="Emergency Contact Name">
+                      <input type="text" class="form-control" id="contactName" placeholder="Emergency Contact Name"  [(ngModel)]="contactName">
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo2">Emergency Contact Phone</label>
-                      <input type="text" class="form-control" id="personalinfo2" placeholder="Emergency Contact Phone">
+                      <input type="text" class="form-control" id="contactPhone" placeholder="Emergency Contact Phone"  [(ngModel)]="contactPhone" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo3">Emergency Contact Email</label>
-                      <input type="text" class="form-control" id="personalinfo3" placeholder="Emergency Contact Email">
+                      <input type="text" class="form-control" id="contactEmail" placeholder="Emergency Contact Email"  [(ngModel)]="contactEmail" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo4">Passport Number</label>
-                      <input type="text" class="form-control" id="personalinfo4" placeholder="Passport Number">
+                      <input type="text" class="form-control" id="passportNumber" placeholder="Passport Number"  [(ngModel)]="passportNumber" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo5">Passport Validity Start Date</label>
-                      <input type="text" class="form-control" id="personalinfo5"
-                        placeholder="Passport Validity Start Date">
+                      <input type="text" class="form-control" id="passportvalStartdate"
+                        placeholder="Passport Validity Start Date"  [(ngModel)]="passportvalStartdate" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo6">Passport Validity End Date</label>
-                      <input type="text" class="form-control" id="personalinfo6"
-                        placeholder="Passport Validity End Date">
+                      <input type="text" class="form-control" id="passportvalenddate"
+                        placeholder="Passport Validity End Date" [(ngModel)]="passportvalenddate" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo7">I-94 Number</label>
-                      <input type="text" class="form-control" id="personalinfo7" placeholder="I-94 Number">
+                      <input type="text" class="form-control" id="iNumber" placeholder="I-94 Number" [(ngModel)]="iNumber" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo8">I-94 Validity End Date</label>
-                      <input type="text" class="form-control" id="personalinfo8" placeholder="I-94 Validity End Date">
+                      <input type="text" class="form-control" id="iEndDate" placeholder="I-94 Validity End Date" [(ngModel)]="iEndDate" >
                     </div>
-                    <div class="row">
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Address Line1</label>
-                        <input type="text" class="form-control" id="personalinfoAddress" placeholder="Address Line 1">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Address Line2</label>
-                        <input type="text" class="form-control empty-4" placeholder="Address Line 2">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Country</label>
-                        <input type="text" class="form-control empty-4" placeholder="Country">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">State</label>
-                        <input type="text" class="form-control" placeholder="State">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">City</label>
-                        <input type="text" class="form-control" placeholder="City">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Zipcode</label>
-                        <input type="text" class="form-control" placeholder="Zipcode">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Address Type</label>
-                        <input type="text" class="form-control" placeholder="Address Type (Home,work etc.)">
-                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfoAddress">Address Line1</label>
+                      <input type="text" class="form-control" id="personalInfoAddress" placeholder="Address Line 1"  [(ngModel)]="personalInfoAddress">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfoAddress1">Address Line2</label>
+                      <input type="text" class="form-control empty-4" id="personalInfoAddress1" placeholder="Address Line 2"  [(ngModel)]="personalInfoAddress1">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalInfoCountry">Country</label>
+                      <input type="text" class="form-control empty-4" placeholder="Country" id="personalInfoCountry" [(ngModel)]="personalInfoCountry" >
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalState">State</label>
+                      <input type="text" class="form-control" placeholder="State" id="personalState"  [(ngModel)]="personalState">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalCity">City</label>
+                      <input type="text" class="form-control" placeholder="City" id="PersonalCity"  [(ngModel)]="personalCity">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalZipcode">Zipcode</label>
+                      <input type="text" class="form-control" placeholder="Zipcode" id="personalZipcode"  [(ngModel)]="personalZipcode" >
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="AddressType">Address Type</label>
+                      <input type="text" class="form-control" placeholder="Address Type (Home, work etc.)" id="addressType" [(ngModel)]="addressType" >
                     </div>
                   </div>
                 </div>
@@ -342,6 +342,8 @@
           </div>
         </div>
       </mat-tab>
+
+      <!-- INTERVIEW TAB -->
       <mat-tab label="Interview" class="mt-5" *ngIf="routeType == 1">
         <div class="container">
           <form [formGroup]="myForm">
