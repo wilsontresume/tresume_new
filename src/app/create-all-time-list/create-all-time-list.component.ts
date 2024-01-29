@@ -332,63 +332,63 @@ export class CreateAllTimeListComponent implements OnInit {
     });
   }
 
-  // selectedItem1: string;
-  // dropdownOptions1: string[] = [];
+  selectedItem1: string;
+  dropdownOptions1: string[] = [];
 
-  // selectOption1(option: string): void {
-  //   this.selectedItem1 = option;
-  // }
+  selectOption1(option: string): void {
+    this.selectedItem1 = option;
+  }
   
-  // getProjectName() {
-  //   let Req = {
-  //     TraineeID: this.TraineeID
-  //   };
-  //   this.Service.getCreateProjectList(Req).subscribe((x: any) => {
-  //     this.dropdownOptions1 = x.result;
-  //   });
-  // }
+  getProjectName() {
+    let Req = {
+      TraineeID: this.TraineeID
+    };
+    this.Service.getCreateProjectList(Req).subscribe((x: any) => {
+      this.dropdownOptions1 = x.result;
+    });
+  }
 
-  // selectedItem2: string;
-  // dropdownOptions2: string[] = [];
+  selectedItem2: string;
+  dropdownOptions2: string[] = [];
 
-  // selectOption2(option: string): void {
-  //   this.selectedItem2 = option;
-  // }
-
-
-  // getPayItem() {
-  //   let Req = {
-  //     OrgID: this.OrgID
-  //   };
-  //   this.Service.getPayItemList(Req).subscribe((x: any) => {
-  //     this.dropdownOptions2 = x.result;
-  //   });
-  // }
+  selectOption2(option: string): void {
+    this.selectedItem2 = option;
+  }
 
 
-  // selectedItem3: string;
-  // dropdownOptions3: string[] = ['Service'];
+  getPayItem() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getPayItemList(Req).subscribe((x: any) => {
+      this.dropdownOptions2 = x.result;
+    });
+  }
 
-  // selectOption3(option: string): void {
-  //   this.selectedItem3 = option;
-  // }
+
+  selectedItem3: string;
+  dropdownOptions3: string[] = ['Service'];
+
+  selectOption3(option: string): void {
+    this.selectedItem3 = option;
+  }
 
 
-  // selectedItem4: string;
-  // dropdownOptions4: string[] = [];
+  selectedItem4: string;
+  dropdownOptions4: string[] = [];
 
-  // selectOption4(option: string): void {
-  //   this.selectedItem4 = option;
-  // }
+  selectOption4(option: string): void {
+    this.selectedItem4 = option;
+  }
 
-  // getLocation() {
-  //   let Req = {
-  //     OrgID: this.OrgID
-  //   };
-  //   this.Service.getLocationList(Req).subscribe((x: any) => {
-  //     this.dropdownOptions4 = x.result;
-  //   });
-  // }
+  getLocation() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getLocationList(Req).subscribe((x: any) => {
+      this.dropdownOptions4 = x.result;
+    });
+  }
 
 
  
