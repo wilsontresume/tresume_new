@@ -210,14 +210,30 @@ export class ReviewTresumeComponent implements OnChanges {
       otherNotes: this.FormGeneral.value.otherNotes,
       division: this.FormGeneral.value.division,
       dob: this.FormGeneral.value.dob,
-      TraineeID:this.candidateID
+      TraineeID:this.candidateID,
+      education:this.educations,
+      experiance:this.experiences,
+      EmergencyCname: this.contactName,
+      EmergencyPhone: this.contactPhone,
+      EmergencyEmail: this.contactEmail,
+      PassportNumber: this.passportNumber,
+      PassportValidityStartDate: this.passportvalStartdate,
+      PassportValidityEndDate: this.passportvalenddate,
+      I94Number: this.iNumber,
+      I94ValidityEndDate: this.iEndDate,
+      AddressLine1: this.personalInfoAddress,
+      AddressLine2: this.personalInfoAddress1,
+      Country: this.personalInfoCountry,
+      State: this.personalState,
+      City: this.personalCity,
+      Zipcode: this.personalZipcode,
+      AddressType: this.addressType
     };
     console.log(Req);
     
-    console.log('Education Data:');
-    for (let i = 0; i < this.educations.length; i++) {
-      console.log(`Row ${i + 1}:`, this.educations[i]);
-    }
+    console.log('Education Data:'+this.educations);
+   
+   
 
     console.log('Experience Data:');
     for (let i = 0; i < this.experiences.length; i++) {
