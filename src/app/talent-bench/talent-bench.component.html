@@ -52,8 +52,7 @@
       <div class="col-6" style="margin: auto;">
         <div class="align" style="margin-left: 70px;">
           <button class="btn ml-3" (click)="downloadExcel()">DSR</button>
-          <button type="button" class="btn ml-3">
-            Interview</button>
+          <button type="button" class="btn ml-3">Interview</button>
           <button class="btn ml-3">Placement</button>
         </div>
       </div>
@@ -73,7 +72,7 @@
                   </div> -->
 
                 <div class="icons" style="margin-top: 10px;margin-top: -12px;margin-left: 40rem;">
-                  <i [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/0']" class="fas fa-network-wired icon"
+                  <i [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/0']" class="fa fa-eye fa-fw pt-2"
                     style="font-size: 24px;"></i>
                   <i class="far fa-clipboard icon" title="Submission Data"
                     (click)="downloadSubmission(item.TraineeID)" style="font-size: 20px;margin-left: 20px;"></i>

@@ -144,21 +144,20 @@
           <div class="card mb-4">
             <div class="card-body" style="line-height: 5px;padding: 15px;">
               <div class="row">
-                <div class="d-flex justify-content-between align-items-center" style="padding: 15px;">
-
-                  <div style="text-align: left;">
-                    <a style="font-size: 26px; color: #49274A;"><b>{{ candidate.Name }}</b></a>
-                  </div>
-                
-                  <div style="margin-left: auto; text-align: right;">
-                    <span style="margin-left: 50px;font-size: 16px; color: #49274A;">View </span>
-                    <i class="fas fa-network-wired icon" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 20px;"></i>
-                  </div>
+                <div class="left-column" style="padding: 8px;font-weight: 500;">
+                    <div>
+                      <a style="font-size: 26px; color: #49274A;">{{ candidate.Name }}</a>
+                    </div>
                 </div>
+                <div class="column" style="text-align: end;margin-right: 40px;">
+                    <!-- <span style="font-size: 16px; color: #49274A;">View </span> -->
+                    <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 20px;"></i>
+                  </div>
               </div>
-              <hr style=" margin-top: -0.3rem;">
+              
+              <hr style="margin-top: 8px;">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <table class="table table-borderless no-border">
                     <tr>
                       <th>Phone:</th>
@@ -173,7 +172,7 @@
                     <span class="bi bi-plus">+</span> Add Interview
                   </a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <table class="table table-borderless no-border">
                     <tr>
                       <th>Viewed By:</th>
@@ -188,7 +187,7 @@
                     <span class="bi bi-plus">+</span> Add Placement
                   </a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <table class="table table-borderless no-border">
                     <tr>
                       <th>Follow-Up-On:</th>
@@ -203,22 +202,27 @@
                   <span class="bi bi-plus">+</span> Add Submission
                   </a>
                 </div>
-                <div class="col-md-3">
+                <div class="span">
+                  <span>Date Created : </span>
+                  <span>{{ candidate.DateCreated | date:'MM/dd/yy' }}</span>
+                </div>
+
+                <!-- <div class="col-md-3">
                   <table class="table table-borderless no-border">
                     <tr>
                       <th (click)="sortTable('DateCreated')">
                         <span>Date Created</span>
-                        <!-- <i class="fa"
-                          [ngClass]="{'fa-sort-asc': sortBy === 'DateCreated' && sortOrder === 'asc', 'fa-sort-desc': sortBy === 'DateCreated' && sortOrder === 'desc', 'fa-sort': sortBy !== 'DateCreated'}"></i> -->
+                        <i class="fa"
+                          [ngClass]="{'fa-sort-asc': sortBy === 'DateCreated' && sortOrder === 'asc', 'fa-sort-desc': sortBy === 'DateCreated' && sortOrder === 'desc', 'fa-sort': sortBy !== 'DateCreated'}"></i>
                       </th>
                       <td>{{ candidate.DateCreated | date:'MM/dd/yy' }}</td>
                     </tr>
-                    <!-- <tr>
+                    <tr>
                       <th>Action:</th>
                       <td><i class="fa fa-eye fa-fw" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 20px;"></i></td>
-                    </tr> -->
+                    </tr>
                   </table>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
