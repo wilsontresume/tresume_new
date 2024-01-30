@@ -3456,6 +3456,36 @@ app.post("/UpdateplacementsBytID", function (req, res) {
   });
 });
 
+app.post('/getDiceAuthToken', async (req, res) => {
+  try {
+    // Set up the HTTP headers for the request
+    const clientId = 'digitalmakerssolution';
+    const clientSecret = '8ea58fcc-8ddb-413c-8130-795d2a455009';
+    const authEndpoint = 'https://secure.dice.com/oauth/token';
+    const httpOptions = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+      },
+      withCredentials: true,
+    };
+
+    // Define the request body
+    const requestBody = 'grant_type=password&username=nithya@dmsol.in&password=Dicedms23@';
+
+    // Make a POST request to the authentication endpoint
+    const response = await axios.post(authEndpoint, requestBody, httpOptions);
+
+    // Send the response data to the client
+    res.json(response.data);
+  } catch (error) {
+    // Handle errors
+    console.error('Error getting Dice auth token:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

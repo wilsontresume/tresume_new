@@ -289,7 +289,8 @@ export class SearchResumesDiceComponent implements OnInit {
 
     this.initGrid();
     let request = '';
-    this.service.getDiceAuthToken(request).subscribe((x: any) => {
+    this.service.getDiceToken().subscribe((x: any) => {
+      console.log(x);
       if (x) {
         this.accessToken = x.access_token;
       }
