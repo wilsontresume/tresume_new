@@ -43,6 +43,7 @@ export class CreateAllTimeListComponent implements OnInit {
 
     this.totalAmount = totalAmount;
   }
+
   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
     const datesWithDaysArray: { date: Date; day: string }[] = [];
     let currentDate = new Date(start);
@@ -58,6 +59,7 @@ export class CreateAllTimeListComponent implements OnInit {
 
     return datesWithDaysArray;
   }
+
   onDateRangeChange(dates: Date[]) {
     if (dates.length === 2) {
       const startDate = new Date(dates[0]);
@@ -73,12 +75,14 @@ export class CreateAllTimeListComponent implements OnInit {
       }
     }
   }
+
   addRow() {
     this.timesheetRows.push({
       selectedOption: null,
       detailsDropdown: null,
       dropdownId: 1,  
-      textarea: '',
+      description: '',
+      billAmount:'',
       checkbox: false,
       file1: null,
       file2: null,
@@ -88,7 +92,9 @@ export class CreateAllTimeListComponent implements OnInit {
       thu: '',
       fri: '',
       sat: '',
-      sun: ''
+      sun: '',
+      totalHours: '',
+      totalAmount:''
     });
   }
   removeRow(index: number) {
@@ -136,39 +142,42 @@ export class CreateAllTimeListComponent implements OnInit {
 
   addDefaultRows() {
     this.timesheetRows.push({
-      selectedOption1: null,
-      detailsDropdown1: null,
-      dropdownId1: 1,
-      textarea1: '',
-      checkbox1: false,
-      file1_1: null,
-      file1_2: null,
-      mon1: 0,
-      tues1: 0,
-      wed1: 0,
-      thu1: 0,
-      fri1: 0,
-      sat1: 0,
-      sun1: 0
+      // selectedOption1: null,
+      // detailsDropdown1: null,
+      // dropdownId1: 1,
+      description: '',
+      checkbox: false,
+      billAmount:'',
+      clientAproved: null,
+      statusReport: null,
+      mon: 0,
+      tues: 0,
+      wed: 0,
+      thu: 0,
+      fri: 0,
+      sat: 0,
+      sun: 0,
+      totalHours:'',
+      totalAmount:'',
     });
 
     // Add the second default row
-    this.timesheetRows.push({
-      selectedOption2: null,
-      detailsDropdown2: null,
-      dropdownId2: 2,
-      textarea2: '',
-      checkbox2: false,
-      file2_1: null,
-      file2_2: null,
-      mon2: 0,
-      tues2: 0,
-      wed2: 0,
-      thu2: 0,
-      fri2: 0,
-      sat2: 0,
-      sun2: 0
-    });
+    // this.timesheetRows.push({
+    //   selectedOption2: null,
+    //   detailsDropdown2: null,
+    //   dropdownId2: 2,
+    //   textarea2: '',
+    //   checkbox2: false,
+    //   file2_1: null,
+    //   file2_2: null,
+    //   mon2: 0,
+    //   tues2: 0,
+    //   wed2: 0,
+    //   thu2: 0,
+    //   fri2: 0,
+    //   sat2: 0,
+    //   sun2: 0
+    // });
   }
 
   //New Functions ends...
@@ -208,6 +217,8 @@ export class CreateAllTimeListComponent implements OnInit {
     this.getProjectName();
     this.getCandidateName();
     this.getLocation();
+
+
     }
 
 
@@ -262,7 +273,7 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
   onDropdownChange(selectedOption: any, row: any) {
-    row.selectedOption1 = selectedOption.ProjectName;
+    row.projectName = selectedOption.ProjectName;
 
   }
   
@@ -287,17 +298,31 @@ export class CreateAllTimeListComponent implements OnInit {
     return this.city;
   }
   onDropdownChanges(selectedOption: any, row: any) {
-    row.selectedOption4 = selectedOption.city;
+    row.location = selectedOption.city;
   }
  
   option1=['Regular Type']
   onDropdownItemClick(selectedOption: string, row: any): void {
-   row.selectedOption2 = selectedOption;
+    row.payItem = selectedOption;
   }
 
   option2=['Service']
   onDropdownItemClicks(selectedOption: string, row: any): void {
-   row.selectedOption3 = selectedOption;
+   row.service = selectedOption;
   }
-
+    
+  SaveRow() {
+    let Req = {
+     data:this.timesheetRows,
+    };
+    console.log(Req);
+    // this.Service.createTimesheet(Req).subscribe(
+    //   (x: any) => {
+    //         this.handleSuccess(x);
+    //       },
+    //       (error: any) => {
+    //         this.handleError(error);
+    //       }
+    // );
+  }
 }
