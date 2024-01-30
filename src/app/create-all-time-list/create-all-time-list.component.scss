@@ -3,7 +3,6 @@ body {
   padding: 0;
   font-family: 'Arial', sans-serif;
 }
-
 .container-fluid {
   width: 100%;
   box-sizing: border-box;
@@ -56,24 +55,19 @@ input{
 a{
   cursor: pointer;
 }
+.btn{
+  border: 1px solid black;
+}
 .fbtn{
   margin: 10px;
   padding: 5px;
   width: 150px;
   border-radius: 15px;
-  }
-button{
-
   background-color: #380838;
   border: 1px solid #380838;
   color: #f0f0f0;
-}
+  }
 
-
-.btn{
-  background-color: #380838;
-  color: white;
-}
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -84,9 +78,16 @@ button{
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-
-
-
+.fbtn:hover{
+  background-color: white;
+  color: #380838;
+  border: 1px solid #380838;
+}
+.fbtn:active{
+  background-color: #380838;
+  border: 1px solid #380838;
+  color: #f0f0f0;
+}
 .file-label i {
   margin-right: 5px;
 }
