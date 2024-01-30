@@ -1,7 +1,7 @@
 <div class="header p-4">
   <div class="container-fluid">
     <div class="row main">
-      <div class="col-md-4">
+      <div class="col-md-2">
         <div *ngIf="routeType == 1">
           <h1 class="ml-3 mt-4">HRMS</h1>
         </div>
@@ -20,10 +20,10 @@
                   <option value="3">WILSON AM</option>
               </select>
           </div> -->
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="form-group text-center mt-4">
-          <label for="search" class="label-large">Search:</label>
-          <input [(ngModel)]="searchInput" type="text" class="form-control1 ml-6 mr-2" id="search"
+          <!-- <label for="search" class="label-large">Search:</label> -->
+          <input [(ngModel)]="searchInput" type="text" class="form-control" id="search"
             placeholder="Search Candidates..." [ngModelOptions]="{standalone: true}">
         </div>
       </div>
@@ -31,9 +31,12 @@
         <div class="form-group text-center mt-4 ">
           <button type="button" class="btn btn-wdth text-white" data-toggle="modal"
             data-target=".bd-example-modal-xl">Add Candidate</button>
-            <!-- <button type="button" class="btn btn-wdth text-white fa" style="margin-left: 15px;" [ngClass]="{'fa-sort-asc': sortBy === 'DateCreated' && sortOrder === 'asc', 'fa-sort-desc': sortBy === 'DateCreated' && sortOrder === 'desc', 'fa-sort': sortBy !== 'DateCreated'}">Sort by date
-          </button> -->
-
+            <span (click)="sortTable('DateCreated')">
+              <button  class="btn btn-wdth text-white" style="margin-left: 15px;"> Sort by date
+                <i class="fa text-white"
+                [ngClass]="{'fa-sort-asc': sortBy === 'DateCreated' && sortOrder === 'asc', 'fa-sort-desc': sortBy === 'DateCreated' && sortOrder === 'desc', 'fa-sort': sortBy !== 'DateCreated'}"></i>
+              </button>
+            </span>
         </div>
       </div>
     </div>
@@ -92,52 +95,7 @@
       </div>
     </div>
 
-
-    <!-- <div class="row mt-4 pl-3">
-      <div class="col">
-          <div class="table-container">
-              <table class="table text-center">
-                  <thead>
-                    <tr style="min-width: auto;">
-                      <th>Viewed By</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Legal Status</th>
-                      <th>Candidate Status</th>
-                      <th (click)="sortTable('DateCreated')">
-                        <span>Date Created</span>
-                        <i class="fa" [ngClass]="{'fa-sort-asc': sortBy === 'DateCreated' && sortOrder === 'asc', 'fa-sort-desc': sortBy === 'DateCreated' && sortOrder === 'desc', 'fa-sort': sortBy !== 'DateCreated'}"></i>
-                      </th>
-                      <th>Follow_Up_On</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <ng-container *ngFor="let candidate of candidates">
-                      <tr *ngIf="isCandidateVisible(candidate)">
-                          <td>{{ candidate.CreatedBy }}</td>
-                          <td>{{ candidate.Name }}</td>
-                          <td>{{ candidate.Email }}</td>
-                          <td>{{ candidate.Phone }}</td>
-                          <td>{{ candidate.LegalStatus }}</td>
-                          <td>{{ candidate.CandidateStatus }}</td>
-                          <td>{{ candidate.DateCreated | date:'MM/dd/yy' }}</td>
-                          <td>
-                            <div class="input-group d-flex justify-content-center align-items-center">
-                              {{ candidate.followupon }}
-                              
-                            </div>
-                          </td> 
-                          <td><i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 24px;"></i></td>
-                      </tr>
-                      </ng-container>
-                  </tbody>
-              </table>
-          </div>
-      </div>
-  </div> -->
-
+    <!-- card -->
     <div class="main-container" *ngFor="let candidate of candidates">
       <div class="col-12" *ngIf="isCandidateVisible(candidate)">
         <div>
@@ -150,13 +108,26 @@
                     </div>
                 </div>
                 <div class="column" style="text-align: end;margin-right: 40px;">
-                    <!-- <span style="font-size: 16px; color: #49274A;">View </span> -->
                     <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 20px;"></i>
                   </div>
               </div>
               
               <hr style="margin-top: 8px;">
               <div class="row">
+                <div class="col-md-5">
+                  <table class="table table-borderless no-border">
+                    <tr>
+                      <th>Email:</th>
+                      <td>{{ candidate.Email }}</td>
+                    </tr>
+                    <tr>
+                      <th>Candidate Status:</th>
+                      <td>{{ candidate.CandidateStatus }}</td>
+                    </tr>
+                  </table>
+                  <!-- <a class="button-10 " data-toggle="modal" data-target="#exampleModalCenter" (click)="openInterviewModal(candidate.TraineeID)">+ Add Interview
+                  </a> -->
+                </div>
                 <div class="col-md-4">
                   <table class="table table-borderless no-border">
                     <tr>
@@ -164,45 +135,43 @@
                       <td>{{ candidate.Phone }}</td>
                     </tr>
                     <tr>
-                      <th>Email:</th>
-                      <td>{{ candidate.Email }}</td>
-                    </tr>
-                  </table>
-                  <a class="bn59" data-toggle="modal" data-target="#exampleModalCenter" (click)="openInterviewModal(candidate.TraineeID)">
-                    <span class="bi bi-plus">+</span> Add Interview
-                  </a>
-                </div>
-                <div class="col-md-4">
-                  <table class="table table-borderless no-border">
-                    <tr>
-                      <th>Viewed By:</th>
-                      <td>{{ candidate.CreatedBy }}</td>
-                    </tr>
-                    <tr>
                       <th>Legal Status:</th>
                       <td>{{ candidate.LegalStatus }}</td>
                     </tr>
                   </table>
-                  <a class="bn59"  [routerLink]="['/candidateView/'+candidate.TraineeID+'/create']">
+                  <!-- <a class="bn59"  [routerLink]="['/candidateView/'+candidate.TraineeID+'/create']">
                     <span class="bi bi-plus">+</span> Add Placement
-                  </a>
+                  </a> -->
                 </div>
-                <div class="col-md-4">
-                  <table class="table table-borderless no-border">
+                <div class="col-md-3 align-items-center">
+                  <!-- <table class="table table-borderless no-border">
                     <tr>
-                      <th>Follow-Up-On:</th>
-                      <td>{{ candidate.followupon }}</td>
-                    </tr>
-                    <tr>
-                      <th>Candidate Status:</th>
-                      <td>{{ candidate.CandidateStatus }}</td>
-                    </tr>
-                  </table>
-                  <a class="bn59" data-toggle="modal" data-target="#exampleModalCenter2" (click)="openSubmissionModal(item.TraineeID)">
+                      <th style="text-align: center;">Follow-Up-On:</th>
+                      <td><input type="date" class="form-control" value="{{ candidate.followupon }}"></td>
+                  </tr>
+                  
+                  </table> -->
+                  <!-- <b>Followed Upon :</b>
+                  <input type="date" class="form-control" value="{{ candidate.followupon }}"> -->
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">FollowUpOn</span>
+                    </div>
+                    <input type="date" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="{{ candidate.followupon }}">
+                  </div>
+                  <!-- <a class="bn59" data-toggle="modal" data-target="#exampleModalCenter2" (click)="openSubmissionModal(item.TraineeID)">
                   <span class="bi bi-plus">+</span> Add Submission
-                  </a>
+                  </a> -->
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <b>Notes :</b> {{candidate.notes }}
+                  </div>
+                  
                 </div>
                 <div class="span">
+                  <span>Viewed By : </span>
+                  <span>{{ candidate.CreatedBy }}</span>&nbsp;&nbsp;
                   <span>Date Created : </span>
                   <span>{{ candidate.DateCreated | date:'MM/dd/yy' }}</span>
                 </div>
