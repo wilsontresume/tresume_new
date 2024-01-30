@@ -7,10 +7,14 @@ const axios = require("axios");
 const nodemailer = require("nodemailer");
 var crypto = require("crypto");
 const bodyparser = require('body-parser');
+const ExcelJS = require('exceljs');
+const fs = require('fs');
+ 
 const environment = process.env.NODE_ENV || "prod";
 const envconfig = require(`./config.${environment}.js`);
 const apiUrl = envconfig.apiUrl;
 router.use(bodyparser.json());
+
 
 const config = {
   user: "sa",
@@ -432,5 +436,245 @@ router.post('/checkEmail', async function (req, res) {
   }
 });
 
+
+async function executeQuery(query, params = []) {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool.request().query(query, ...params);
+    return result.recordset;
+  } catch (error) {
+    throw error;
+  }
+}
+
+router.get('/InterviewReportDownload', async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+          TI.TraineeInterviewID,
+          CONCAT(T.FirstName, ' ', T.LastName) AS CandidateName,
+          CONCAT(R.FirstName, ' ', R.LastName) AS Recruiter,
+          TI.InterviewDate,
+          TI.InterviewStatus,
+          TI.Assistedby,
+          TI.TypeofAssistance,
+          TI.VendorName,
+          TI.ClientName,
+          TI.Notes,
+          TI.CreateTime
+      FROM 
+          TraineeInterview TI
+      INNER JOIN 
+          Trainee T ON TI.TraineeID = T.TraineeID
+      INNER JOIN 
+          Trainee R ON TI.RecruiterID = R.TraineeID
+      WHERE 
+          TI.Active = 1 
+          AND TI.InterviewDate >= '${req.body.startdate}'
+          AND TI.InterviewDate < '${req.body.enddate}'
+          AND R.OrganizationID = '${req.body.OrgID}'`;
+
+    const result = await executeQuery(query);
+
+    // Create a new Excel workbook and worksheet
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('TraineeInterviews');
+
+    // Define column headers
+    const headers = [
+      'TraineeInterviewID',
+      'CandidateName',
+      'Recruiter',
+      'InterviewDate',
+      'InterviewStatus',
+      'Assistedby',
+      'TypeofAssistance',
+      'VendorName',
+      'ClientName',
+      'Notes',
+      'CreateTime',
+    ];
+
+    // Add headers to the worksheet
+    ws.addRow(headers);
+
+    // Add data to the worksheet
+    result.forEach((row) => {
+      ws.addRow(headers.map((header) => row[header]));
+    });
+
+    // Save the workbook to a file
+    const filePath = 'TraineeInterviews.xlsx';
+    await wb.xlsx.writeFile(filePath);
+
+    // Send the file for download
+    res.download(filePath, 'TraineeInterviews.xlsx', (err) => {
+      // Delete the file after download
+      fs.unlinkSync(filePath);
+    });
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+router.get('/DSRReportDownload', async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        s.submissionid,
+        s.title,
+        FORMAT(s.submissiondate, 'dd-MM-yyyy') AS SubmissionDate,
+        CONCAT(m.FirstName, ' ', m.LastName) AS Marketer,
+        CONCAT(t.FirstName, ' ', t.LastName) AS Candidate,
+        s.VendorName,
+        s.ClientName,
+        s.Note,
+        s.Rate,
+        FORMAT(s.createtime, 'dd-MM-yyyy') AS CreatedOn
+      FROM 
+        submission s
+      INNER JOIN 
+        Trainee t ON s.TraineeID = t.TraineeID
+      INNER JOIN 
+        Trainee m ON s.markerterid = m.TraineeID
+      WHERE 
+        s.Active = 1 
+        AND m.Active = 1 
+        AND s.SubmissionDate BETWEEN '${req.body.startdate}' AND '${req.body.enddate}'
+        AND m.OrganizationID = '${req.body.OrgID}'`;
+
+    const result = await executeQuery(query);
+
+    // Create a new Excel workbook and worksheet
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('Submissions');
+
+    // Define column headers
+    const headers = [
+      'SubmissionID',
+      'Title',
+      'SubmissionDate',
+      'Marketer',
+      'Candidate',
+      'VendorName',
+      'ClientName',
+      'Note',
+      'Rate',
+      'CreatedOn',
+    ];
+
+    // Add headers to the worksheet
+    ws.addRow(headers);
+
+    // Add data to the worksheet
+    result.forEach((row) => {
+      ws.addRow(headers.map((header) => row[header]));
+    });
+
+    // Save the workbook to a file
+    const filePath = 'Submissions.xlsx';
+    await wb.xlsx.writeFile(filePath);
+
+    // Send the file for download
+    res.download(filePath, 'Submissions.xlsx', (err) => {
+      // Delete the file after download
+      fs.unlinkSync(filePath);
+    });
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+
+router.get('/PlacementReportDownload', async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        P.PID,
+        T1.FirstName + ' ' + T1.LastName AS CandidateName,
+        T2.FirstName + ' ' + T2.LastName AS MarketerName,
+        T3.FirstName + ' ' + T3.LastName AS RecruiterName,
+        P.positiontitle,
+        P.BillType,
+        P.BillRate,
+        P.PlacedDate,
+        P.ClientState,
+        P.CandidateEmailId,
+        P.ClientAddress,
+        P.ClientManagerName,
+        P.ClientEmail,
+        P.ClientPhoneNumber,
+        P.VendorContactName,
+        P.VendorEmail,
+        P.VendorPhone,
+        P.VendorAddress,
+        P.SubVendorName
+      FROM 
+        placements P
+      LEFT JOIN 
+        Trainee T1 ON P.TraineeID = T1.TraineeID
+      LEFT JOIN 
+        Trainee T2 ON P.marketername = T2.TraineeID
+      LEFT JOIN 
+        Trainee T3 ON P.RecuiterID = T3.TraineeID
+      WHERE 
+        P.Active = 1 
+        AND P.PlacedDate >= '${req.body.startdate}'
+        AND P.PlacedDate <= '${req.body.enddate}'
+        AND T2.OrganizationID = '${req.body.OrgID}'`;
+
+    const result = await executeQuery(query);
+
+    // Create a new Excel workbook and worksheet
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('Placements');
+
+    // Define column headers
+    const headers = [
+      'PID',
+      'CandidateName',
+      'MarketerName',
+      'RecruiterName',
+      'positiontitle',
+      'BillType',
+      'BillRate',
+      'PlacedDate',
+      'ClientState',
+      'CandidateEmailId',
+      'ClientAddress',
+      'ClientManagerName',
+      'ClientEmail',
+      'ClientPhoneNumber',
+      'VendorContactName',
+      'VendorEmail',
+      'VendorPhone',
+      'VendorAddress',
+      'SubVendorName',
+    ];
+
+    // Add headers to the worksheet
+    ws.addRow(headers);
+
+    // Add data to the worksheet
+    result.forEach((row) => {
+      ws.addRow(headers.map((header) => row[header]));
+    });
+
+    // Save the workbook to a file
+    const filePath = 'Placements.xlsx';
+    await wb.xlsx.writeFile(filePath);
+
+    // Send the file for download
+    res.download(filePath, 'Placements.xlsx', (err) => {
+      // Delete the file after download
+      fs.unlinkSync(filePath);
+    });
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
 
 module.exports = router;
