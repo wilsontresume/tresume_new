@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { ElementRef, Renderer2 } from '@angular/core';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-talent-bench',
@@ -38,7 +38,7 @@ export class TalentBenchComponent implements OnInit {
   candidateID:any;
   routeType: any;
 
-  constructor(private dialog: MatDialog, private cookieService: CookieService, private service: TalentBenchService, private messageService: MessageService, private formBuilder: FormBuilder,private route: ActivatedRoute, private renderer: Renderer2, private el: ElementRef) {
+  constructor(private dialog: MatDialog, private cookieService: CookieService, private service: TalentBenchService, private messageService: MessageService, private formBuilder: FormBuilder,private route: ActivatedRoute, private renderer: Renderer2, private el: ElementRef,private datePipe: DatePipe) {
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
@@ -68,6 +68,12 @@ export class TalentBenchComponent implements OnInit {
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
+    const currentDate = new Date();
+    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    this.startDate = this.datePipe.transform(firstDayOfMonth, 'yyyy-MM-dd')!;
+
+    // Set end date as today
+    this.endDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd')!;
     this.fetchtalentbenchlist();
     this.getcandidaterstatus();
     this.getLegalStatusOptions();
@@ -98,7 +104,7 @@ export class TalentBenchComponent implements OnInit {
   search: string = '';
 
 isCandidateVisible(candidate: any): boolean {
-  console.log(candidate);
+  // console.log(candidate);
   const searchValue = this.search.toLowerCase();
   return (
     candidate.FirstName.toLowerCase().includes(searchValue) ||
@@ -142,8 +148,9 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     };
     this.service.fetchGroupList(Req).subscribe((x: any) => {
       this.groupOptions = x.result;
+      this.loading = false;
     });
-    this.loading = false;
+    
   }
 
   getcandidaterstatus() {
@@ -151,7 +158,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     };
     this.service.candidatestatus(Req).subscribe((x: any) => {
       this.currentStatusOptions = x;
-      console.log(this.currentStatusOptions);
+      // console.log(this.currentStatusOptions);
     });
 
   }
@@ -227,14 +234,14 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
             this.messageService.add({ severity: 'success', summary: response.message });
           } else {
             this.loading = false;
-            console.error('Error adding group!');
+            // console.error('Error adding group!');
             this.messageService.add({ severity: 'error', summary: response.message });
           }
         },
         (error: any) => {
           this.loading = false;
           this.messageService.add({ severity: 'error', summary: 'Error adding group' });
-          console.error('Error adding group:', error);
+          // console.error('Error adding group:', error);
         }
       );
     }
@@ -273,14 +280,91 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     this.service.getGroupList(request).subscribe(
       (res) => {
         this.grouplistdata = res.result;
-        console.error('No active clients found!');
+        // console.error('No active clients found!');
         this.loading = false
       },
       (error) => {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);
         this.loading = false;
       }
     );
+  }
+
+  dsrdownload() {
+    this.loading = true;
+
+    this.service.DSRReportDownload({
+      OrgID: this.OrgID,
+      startdate: this.startDate,
+      enddate: this.endDate,
+      options: { responseType: 'blob' } // Include options object
+    }).subscribe(
+      (res) => {
+        console.log(res);
+        this.saveFile(res, 'DSR_Report.xlsx');
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        console.error('Error downloading file:', error);
+      }
+    );
+  }
+
+  interviewdownload() {
+    this.loading = true;
+
+    this.service.InterviewReportDownload({
+      OrgID: this.OrgID,
+      startdate: this.startDate,
+      enddate: this.endDate,
+      options: { responseType: 'blob' } // Include options object
+    }).subscribe(
+      (res) => {
+        console.log(res);
+        this.saveFile(res, 'Interview_Report.xlsx');
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        console.error('Error downloading file:', error);
+      }
+    );
+  }
+
+  placementdownload() {
+    this.loading = true;
+
+    this.service.PlacementReportDownload({
+      OrgID: this.OrgID,
+      startdate: this.startDate,
+      enddate: this.endDate,
+      options: { responseType: 'blob' } // Include options object
+    }).subscribe(
+      (res) => {
+        console.log(res);
+        this.saveFile(res, 'Placement_Report.xlsx');
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        console.error('Error downloading file:', error);
+      }
+    );
+  }
+
+
+  private saveFile(data: any, filename: string) {
+    const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = filename;
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
   }
 
   getLegalStatusOptions() {
@@ -288,7 +372,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
 
     this.service.getLegalStatus(request).subscribe((response: any) => {
       this.legalStatusOptions = response;
-      console.log(this.legalStatusOptions);
+      // console.log(this.legalStatusOptions);
     });
   }
 
@@ -317,7 +401,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       currentLocation: ''
     };
 
-    console.log(Req);
+    // console.log(Req);
     this.service.AddTalentBenchList(Req).subscribe(
       (x: any) => {
         this.handleSuccess(x);
@@ -370,8 +454,8 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   }  
 
   //Date filter Tablet bench fetch list
-  startDate: string;  
-  endDate: string;
+  startDate: string = '';  
+  endDate: string = '';
   filteredTableData: any[];  
 
   isFilterButtonEnabled(): boolean {
@@ -451,7 +535,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     clientName: string;
   
     saveInterviewData() {
-      console.log('Saving data for the Interview tab:', this.interviewFormData);
+      // console.log('Saving data for the Interview tab:', this.interviewFormData);
     
       let Req = {
         interviewDate: this.interviewDate,
@@ -469,7 +553,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         recruiteremail: this.userName,
         InterviewStatus: 'SCHEDULED',
       };
-      console.log(Req);
+      // console.log(Req);
       this.service.insertTraineeInterview(Req).subscribe(
         (x: any) => {
           this.handleSuccess(x);
@@ -485,7 +569,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     }
   
     getSubmissionList() {
-      console.log('Saving data for the Submission tab:', this.submissionFormData);
+      // console.log('Saving data for the Submission tab:', this.submissionFormData);
   
       let Req = {
         title: this.title,
@@ -498,7 +582,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         MarketerID:this.TraineeID,
         CandidateID:this.candidateID
       };
-      console.log(Req);
+      // console.log(Req);
       this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
         this.handleSuccess(x);
       },
@@ -514,7 +598,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   
     private handleSuccess(response: any): void {
       this.messageService.add({ severity: 'success', summary: response.message });
-      console.log(response);
+      // console.log(response);
       this.loading = false;
     }
     

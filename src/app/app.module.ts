@@ -159,7 +159,7 @@ import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
 import { PaymentComponent } from './all-invoice/payment/payment.component';
 import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
 import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
-
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -327,7 +327,7 @@ import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sh
     PaginationModule.forRoot(),
     NgxLoadingModule.forRoot({})
   ],
-  providers: [CookieService, BsLocaleService, AuthGuard, AppService, AppConfigService,
+  providers: [CookieService, BsLocaleService, AuthGuard, AppService, AppConfigService,DatePipe,
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,

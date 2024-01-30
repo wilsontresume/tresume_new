@@ -447,7 +447,7 @@ async function executeQuery(query, params = []) {
   }
 }
 
-router.get('/InterviewReportDownload', async (req, res) => {
+router.post('/InterviewReportDownload', async (req, res) => {
   try {
     const query = `
       SELECT 
@@ -518,12 +518,12 @@ router.get('/InterviewReportDownload', async (req, res) => {
   }
 });
 
-router.get('/DSRReportDownload', async (req, res) => {
+router.post('/DSRReportDownload', async (req, res) => {
   try {
     const query = `
       SELECT 
-        s.submissionid,
-        s.title,
+        s.SubmissionID,
+        s.Title,
         FORMAT(s.submissiondate, 'dd-MM-yyyy') AS SubmissionDate,
         CONCAT(m.FirstName, ' ', m.LastName) AS Marketer,
         CONCAT(t.FirstName, ' ', t.LastName) AS Candidate,
@@ -588,7 +588,7 @@ router.get('/DSRReportDownload', async (req, res) => {
 });
 
 
-router.get('/PlacementReportDownload', async (req, res) => {
+router.post('/PlacementReportDownload', async (req, res) => {
   try {
     const query = `
       SELECT 
