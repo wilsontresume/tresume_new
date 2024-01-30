@@ -15,7 +15,20 @@ export class AllInvoiceComponent implements OnInit {
   showContent1 = false;
   showContent2 = false;
 
-  
+  isModalOpen: boolean = false;
+  shareLink: string = '';
+
+
+  openShareLinkModal(event: Event): void {
+    event.preventDefault(); // Prevents the default behavior (page reload)
+    this.shareLink = 'Your generated link'; // Replace with your actual link
+    this.isModalOpen = true;
+  }
+
+  closeModals(): void {
+    this.isModalOpen = false;
+  }
+
   toggleContent(dropdown: string) {
     if (dropdown === 'dropdown1') {
       this.showContent1 = !this.showContent1;
