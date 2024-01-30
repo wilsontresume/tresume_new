@@ -5,6 +5,7 @@ import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/fo
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
+import { ElementRef, Renderer2 } from '@angular/core';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class TalentBenchComponent implements OnInit {
   candidateID:any;
   routeType: any;
 
-  constructor(private dialog: MatDialog, private cookieService: CookieService, private service: TalentBenchService, private messageService: MessageService, private formBuilder: FormBuilder,private route: ActivatedRoute) {
+  constructor(private dialog: MatDialog, private cookieService: CookieService, private service: TalentBenchService, private messageService: MessageService, private formBuilder: FormBuilder,private route: ActivatedRoute, private renderer: Renderer2, private el: ElementRef) {
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
@@ -52,11 +53,6 @@ export class TalentBenchComponent implements OnInit {
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
   referralType: string[] = [''];
 
-
-  // onSubmit() {
-  //   console.log('Form Data:', this.formData);
-  // }
-
   dataArray: any[] = [
     { groupname: 'Group A', candidateCount: 10 },
     { groupname: 'Group B', candidateCount: 5 },
@@ -69,11 +65,6 @@ export class TalentBenchComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    // this.cookieService.set('userName1','karthik@tresume.us');
-    // this.cookieService.set('OrgID','82');
-    // this.cookieService.set('TraineeID','569');
-    // this.cookieService.set('TimesheetRole','1');
-    // this.cookieService.set('RoleID','17');
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
@@ -152,6 +143,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     this.service.fetchGroupList(Req).subscribe((x: any) => {
       this.groupOptions = x.result;
     });
+    this.loading = false;
   }
 
   getcandidaterstatus() {
@@ -163,22 +155,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     });
 
   }
-
-  // downloadSubmission() {
-  //   this.loading = true;
-  //   let Req = {
-  //     TraineeID: this.TraineeID,
-  //   };
-  //   this.service.DownloadSubmission(Req).subscribe(
-  //     (x: any) => {
-  //       this.handleSuccess(x);
-  //     },
-  //     (error: any) => {
-  //       this.handleError(error);
-  //     }
-  //   );
-  //   this.loading = false;
-  // }
 
   downloadSubmission(candidateID:string) {
     this.loading = true;
@@ -265,12 +241,12 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   }
   
   deleteGroup(GID:any){
+    this.loading = true;
     let Req = {
       GID: GID,
     };
     this.service.deleteGroup(Req).subscribe((x: any) => {
       var flag = x.flag;
-      // this.();// update the list 
   
       if (flag === 1) {
         this.fetchgrouplist();
@@ -284,6 +260,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
           severity: 'error',
           summary: 'Please try again later',
         });
+        this.loading = false;
       }
     });
   }
@@ -296,34 +273,15 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     this.service.getGroupList(request).subscribe(
       (res) => {
         this.grouplistdata = res.result;
-        this.loading = false
         console.error('No active clients found!');
+        this.loading = false
       },
       (error) => {
-        this.loading = false;
         console.error('Error fetching data:', error);
+        this.loading = false;
       }
     );
   }
-
-  // downloadSubmission() {
-  //   this.loading = true;
-  //   let Req = {
-  //     TraineeID: this.TraineeID,
-  //   };
-  //   this.service.downloadcandidatesubmission(Req).subscribe((blob: Blob) => {
-  //     const link = document.createElement('a');
-  //     link.href = window.URL.createObjectURL(blob);
-  //     link.download = 'submissions.xlsx';
-  //     link.click();
-  //     this.handleSuccess(blob);
-  //     this.loading = false; 
-  //   },
-  //     (error: any) => {
-  //       this.loading = false;
-  //       this.handleError(error);
-  //     });
-  // }
 
   getLegalStatusOptions() {
     const request = {};
@@ -382,15 +340,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       this.marketerNames = x;
     });
   }
-  //   fetchtalentbenchlist(){
-  //     let Req = {
-  //       OrgID: this.OrgID,
-  //     };
-  //   this.service.getTalentBenchList(Req).subscribe((x: any) => {
-  //     this.tableData = x.result;
-  //     this.noResultsFound = this.tableData.length === 0;
-  //   });
-  // }
+
   fetchtalentbenchlist() {
 
     let Req = {
@@ -401,30 +351,23 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       this.tableData = x.result;
       this.noResultsFound = this.tableData.length === 0;
       this.loading = false;
+      this.tableData.forEach(item => {
+        const age = item.age;
+      });
     });
 
   }
-
-  searchInput: string = '';
-  downloadExcel() {
-    const data = this.tableData;
-
-    let csvContent = "data:text/csv;charset=utf-8,";
-    csvContent += "TBID,UserName,email,CurrentLocation,Time on Bench ( Days ),TraineeTitle,LegalStatus,Phone,BillRate,ReferredBy\n";
-
-    data.forEach(item => {
-      csvContent += `${item.TBID},"${item.FirstName} ${item.LastName}",` +
-        `${item.UserName},${item.CurrentLocation},${item.age},${item.TraineeTitle},${item.LegalStatus},${item.phone},${item.BillRate},${item.ReferredBy}\n`;
-    });
-
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "table_data.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
+  getBackgroundColor(age: number | null): string {
+    if (age === null) {
+      return 'transparent'; 
+    } else if (age >= 1 && age <= 30) {
+      return '#a4e73466';
+    } else if (age >= 31 && age <= 90) {
+      return '#f4963980';
+    } else {
+      return '#e7602e99';
+    }
+  }  
 
   //Date filter Tablet bench fetch list
   startDate: string;  
@@ -579,5 +522,8 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       this.messageService.add({ severity: 'error', summary:  response.message });
       this.loading = false;
     }
-  
+    
+
+    // Interview Download 
+
 }
