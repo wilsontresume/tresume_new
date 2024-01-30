@@ -1,19 +1,88 @@
-h1{
+h1 {
   font-size: 26px;
   margin: 20px;
   font-weight: 500;
 }
+
 .tab-container {
   margin-top: 20px;
 }
+
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.notes-textarea {
+  background-color: grey;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%; 
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
 .tab-content {
   padding: 20px;
   border-top: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f2f2f5;
 }
 
+.btncolor {
+  background-color: #46103d;
+  color: #fff;
+}
 
+.container-fluid{
+  background-color: white;
+}
+.customize {
+  height: 40px;
+  margin-left: 30px;
+  border-radius: 38px;
+  margin-top: 25px;
+}
+
+.save {
+  height: 40px;
+  margin-left: 30px;
+  border-radius: 38px;
+  margin-top: 25px;
+  width: 161px;
+  font-size: 15px;
+}
+
+.run {
+  height: 40px;
+  margin-left: 30px;
+  border-radius: 38px;
+}
+
+.notes  
+{
+  margin-left: 20px;
+  margin-top: 8px;
+  font-size: 17px;
+}
+
+.sort 
+{
+  margin-left: 20px;
+  margin-top: 8px;
+  font-size: 17px;
+}
 .back-link {
   display: block;
   margin-bottom: 10px;
@@ -23,6 +92,10 @@ h1{
 
 .h2 {
   margin-bottom: 20px;
+}
+
+.thead-light {
+  background-color: grey; 
 }
 
 .dropdown-container {
@@ -41,17 +114,17 @@ h1{
 }
 
 .containers {
-  border: 1px solid #999494; /* Adjust border properties as needed */
+  border: 1px solid #999494;
   justify-content: center;
   margin-left: 37px;
   height: 46rem;
   width: 81rem;
 }
 
-ordered-section {
-  border: 1px solid #000; /* Adjust border properties as needed */
-  padding: 10px; /* Add padding as needed */
-  margin-bottom: 20px; /* Optional: Add margin to separate sections */
+.ordered-section {
+  border: 1px solid #000;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .header {
@@ -60,26 +133,19 @@ ordered-section {
   margin-bottom: 10px;
 }
 
-.tab-content {
-  flex-grow: 1;
-}
 .top-row {
-  border-bottom: 1px solid #999494;
-  padding: 10px; /* Add padding as needed */
+  padding: 10px;
 }
+
 .add-notes-btn {
-  height: 40px; /* Adjust height as needed */
+  height: 40px;
   margin-left: 7rem;
-    margin-top: -60px;
+  margin-top: -60px;
 }
+
 .scroll-container {
-  height: 300px; /* Adjust the height as needed */
+  height: 300px;
   overflow-y: scroll;
-}
-.vertical-line {
-  border-left: 1px solid #000; /* Change the color and width as needed */
-  height: 100px; /* Change the height as needed */
-  margin-left: 10px; /* Adjust the margin as needed */
 }
 
 .form-control1 {
@@ -96,8 +162,53 @@ ordered-section {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   box-shadow: inset 0 0 0 transparent;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+
 input[type="date"]::-webkit-calendar-picker-indicator {
   display: none;
 }
+
+// .vertical-line {
+//   border-left: 1px solid #000;
+//   height: 100px;
+//   margin-left: 10px;
+// }
+
+// .vertical-line {
+//   border-left: 1px solid grey;
+//   height: 2.5rem; 
+//   margin-right: 5px; 
+// }
+
+// .hidden-content {
+//   display: none;
+// }
+
+// .large-down-arrow-btn {
+//   cursor: pointer;
+//   bottom: -24px;
+//   right: 0;
+//   margin-right: 15px;
+//   height: 24px;
+//   width: 27px;
+//   border: none;
+//   border: 1px solid #e3eaf3;
+//   border-radius: 0 0 2px 2px;
+//   background-color: #f3f5f8;
+//   outline: none;
+// }
+
+// .large-down-arrow-btn i {
+//   font-size: 16px; 
+// }
+
+// .bi-chevron-down::before {
+//   content: '\e817';
+//   font-family: 'Glyphicons Halflings';  
+// }
+
+// .bi-chevron-up::before {
+//   content: '\e818';
+//   font-family: 'Glyphicons Halflings';  
+// }
