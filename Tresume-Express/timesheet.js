@@ -638,12 +638,14 @@ router.post("/deleteProject", async (req, res) => {
   }
 });
 
+
 router.post('/getTimesheetCandidatetList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = pool.request();
-    
-    const query =  "select * from Trainee where Active = 1 and isTimeSheet = 1 AND userorganizationid = '"+req.body.OrgID+ "'";
+  
+    const query =  "select * from Trainee where Active = 1 and isTimeSheet = 1 AND userorganizationid = '" + req.body.OrgID + "'";
+   
     
     console.log(query);
 
@@ -658,18 +660,20 @@ router.post('/getTimesheetCandidatetList', async (req, res) => {
     } else {
       const result = {
         flag: 0,
-        error: "No Candidates found!",
+        error: "No active results found!",
       };
       res.send(result);
     }
-  } catch (error) {
-    console.error("Error fetching project data:", error);
+  } 
+  catch (error) {
+    console.error("Error fetching candidate data:", error);
     const result = {
       flag: 0,
-      error: "An error occurred while fetching project data!",
+      error: "An error occurred while fetching candidate data!",
     };
     res.status(500).send(result);
   }
+  
 });
 
 
@@ -749,7 +753,8 @@ router.post('/getLocationList', async (req, res) => {
     const pool = await sql.connect(config);
     const request = pool.request();
     
-    const query =  "select LocationName from Location";
+    // const query =  "select LocationName from Location";
+    const query =  " select distinct city from UsazipcodeNew";
 
     console.log(query);
 
