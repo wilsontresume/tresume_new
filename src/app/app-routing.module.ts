@@ -213,7 +213,7 @@ const routes: Routes = [
   { path: 'create-invoice', component: CreateInvoiceComponent },
   { path: 'all-invoice', component: AllInvoiceComponent },
   { path: 'payment', component: PaymentComponent },
-  { path: 'timesheetreport', component: NewTimeSheetReportComponent },
+  { path: 'tsreport', component: NewTimeSheetReportComponent },
   { path: 'reports/ar-aging-report', component: ArAgingReportComponent },
   { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
   { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 
