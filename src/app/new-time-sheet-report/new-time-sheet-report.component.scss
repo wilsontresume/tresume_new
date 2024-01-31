@@ -15,23 +15,31 @@ h1 {
   align-items: flex-end;
   padding: 20px;
 }
-
-.notes-textarea {
-  background-color: grey;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 80%; 
+.notes-container {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  position: relative;
 }
 
 textarea {
-  width: 100%;
-  resize: vertical;
+  width: 900px;
+  height: 100px;
+  margin-bottom: 10px;
+  padding: 5px;
 }
 
-textarea {
-  width: 100%;
-  resize: vertical;
+.notes-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notes-actions i {
+  cursor: pointer;
+  font-size: 18px;
+  color: #888;
 }
 
 .tab-content {
@@ -66,7 +74,7 @@ textarea {
 
 .run {
   height: 40px;
-  margin-left: 30px;
+  align-items: left;
   border-radius: 38px;
 }
 
@@ -168,6 +176,27 @@ textarea {
 input[type="date"]::-webkit-calendar-picker-indicator {
   display: none;
 }
+
+[tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+[tooltip]:hover:after {
+  content: attr(data-tooltip);
+  position: absolute;
+  padding: 4px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 1000;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 
 // .vertical-line {
 //   border-left: 1px solid #000;
