@@ -11,7 +11,8 @@ import { BehaviorSubject, Observable } from 'rxjs'
   selector: 'app-create-all-time-list',
   templateUrl: './create-all-time-list.component.html',
   providers: [CookieService,CreateAllTimeListService,MessageService],
-  styleUrls: ['./create-all-time-list.component.scss']
+  styleUrls: ['./create-all-time-list.component.scss'],
+  
 })
 export class CreateAllTimeListComponent implements OnInit {
   OrgID: string;
@@ -33,16 +34,14 @@ export class CreateAllTimeListComponent implements OnInit {
 
   updateTotalAmount() {
     let totalAmount = 0;
-
     this.rows.forEach(row => {
       if (row.checkbox) {
         totalAmount += row.input || 0;
       }
       this.row.totalAmount = this.calculateTotalAmount(this.row); 
     });
-
     this.totalAmount = totalAmount;
-  }
+  }  
 
   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
     const datesWithDaysArray: { date: Date; day: string }[] = [];
@@ -82,8 +81,9 @@ export class CreateAllTimeListComponent implements OnInit {
       detailsDropdown: null,
       dropdownId: 1,  
       description: '',
-      billAmount:'',
-      checkbox: false,
+      hourlyRate: 0, // Add this property
+    billable: false,
+      
       file1: null,
       file2: null,
       mon: '',
@@ -110,6 +110,22 @@ export class CreateAllTimeListComponent implements OnInit {
 
  
 
+  // calculateTotalAmount(row: any): number | string {
+  //   const mon = row.mon || 0;
+  //   const tues = row.tues || 0;
+  //   const wed = row.wed || 0;
+  //   const thu = row.thu || 0;
+  //   const fri = row.fri || 0;
+  //   const sat = row.sat || 0;
+  //   const sun = row.sun || 0;
+  //   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
+  
+  //   const hourlyRate = row.checkbox ? +row.input : 0; 
+  
+  //   const totalAmount = totalHours * hourlyRate;
+  
+  //   return isNaN(totalAmount) ? 'N/A' : totalAmount;
+  // }
   calculateTotalAmount(row: any): number | string {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
@@ -120,13 +136,13 @@ export class CreateAllTimeListComponent implements OnInit {
     const sun = row.sun || 0;
     const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
   
-    const hourlyRate = row.checkbox ? +row.input : 0; 
+    const hourlyRate = row.billable ? +row.hourlyRate : 0; // Change this line
   
     const totalAmount = totalHours * hourlyRate;
   
     return isNaN(totalAmount) ? 'N/A' : totalAmount;
   }
-
+  
   calculateTotalHours(row: any): number | string {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
@@ -142,21 +158,18 @@ export class CreateAllTimeListComponent implements OnInit {
 
   addDefaultRows() {
     this.timesheetRows.push({
-      // selectedOption1: null,
-      // detailsDropdown1: null,
-      // dropdownId1: 1,
       description: '',
-      checkbox: false,
-      billAmount:'',
+      hourlyRate: 0, 
+      billable: false,
       clientAproved: null,
       statusReport: null,
-      mon: 0,
-      tues: 0,
-      wed: 0,
-      thu: 0,
-      fri: 0,
-      sat: 0,
-      sun: 0,
+      mon: '',
+      tues: '',
+      wed: '',
+      thu: '',
+      fri: '',
+      sat: '',
+      sun: '',
       totalHours:'',
       totalAmount:'',
     });
@@ -182,20 +195,20 @@ export class CreateAllTimeListComponent implements OnInit {
 
   //New Functions ends...
 
-  selectSunday(selectedDate: string) {
-    const selectedDateObj = new Date(selectedDate);
-    const dayOfWeek = selectedDateObj.getDay();
-    if (dayOfWeek === 0) {
-      this.selectedSunday = selectedDate;
-      this.isSundaySelected = true;
-    } else {
-      const previousSunday = new Date(selectedDateObj);
-      previousSunday.setDate(selectedDateObj.getDate() - dayOfWeek);
-      const formattedDate = previousSunday.toISOString().split('T')[0];
-      this.selectedSunday = formattedDate;
-      this.isSundaySelected = true;
-    }
-  }
+  // selectSunday(selectedDate: string) {
+  //   const selectedDateObj = new Date(selectedDate);
+  //   const dayOfWeek = selectedDateObj.getDay();
+  //   if (dayOfWeek === 0) {
+  //     this.selectedSunday = selectedDate;
+  //     this.isSundaySelected = true;
+  //   } else {
+  //     const previousSunday = new Date(selectedDateObj);
+  //     previousSunday.setDate(selectedDateObj.getDate() - dayOfWeek);
+  //     const formattedDate = previousSunday.toISOString().split('T')[0];
+  //     this.selectedSunday = formattedDate;
+  //     this.isSundaySelected = true;
+  //   }
+  // }
 
 
   onFileSelected(event: any, fileIdentifier: string): void {
@@ -208,6 +221,7 @@ export class CreateAllTimeListComponent implements OnInit {
   
   constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService,private fm: FormsModule) {
     this.OrgID= this.cookieService.get('OrgID');
+  
   }
 
   ngOnInit(): void {
@@ -276,9 +290,6 @@ export class CreateAllTimeListComponent implements OnInit {
     row.projectName = selectedOption.ProjectName;
 
   }
-  
-  
-  
   selectedItem4: string;
   dropdownOptions4: string[] = [];
 
@@ -325,4 +336,94 @@ export class CreateAllTimeListComponent implements OnInit {
     //       }
     // );
   }
+
+  selectedWeek: string = '';
+
+
+  onWeekSelect(week: string): void {
+    this.selectedWeek = week;
+  }
+   
+  // Its Important for showing the weeks only current month
+  // --------------------------------------------------
+  // generateWeeks(): string[] {
+  //   const today = new Date();
+  //   const currentDay = today.getDay();
+  //   const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - currentDay + (currentDay === 0 ? -6 : 1)); // Start from the beginning of the current or next week
+  
+  //   const weeks: string[] = [];
+  
+  //   for (let i = 0; i < 5; i++) { // Display 5 weeks ahead
+  //     const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
+  //     const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
+  //     weeks.push(weekString);
+  //     startDate.setDate(startDate.getDate() + 7); // Move to the next week
+  //   }
+  
+  //   return weeks;
+  // }
+  
+
+  generateWeeks(): string[] {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const weeks: string[] = [];
+  
+    for (let monthOffset = 0; monthOffset < 12; monthOffset++) { 
+      const targetMonth = (today.getMonth() + monthOffset) % 12;
+      const targetYear = currentYear + Math.floor((today.getMonth() + monthOffset) / 12);
+      
+      const startDate = this.getFirstMonday(new Date(targetYear, targetMonth, 1));
+  
+      for (let i = 0; i < 5; i++) { 
+        const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
+        const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
+        weeks.push(weekString);
+        startDate.setDate(startDate.getDate() + 7);
+      }
+    }
+  
+    return weeks;
+  }
+  
+  getFirstMonday(date: Date): Date {
+    while (date.getDay() !== 1) {
+      date.setDate(date.getDate() + 1);
+    }
+    return date;
+  }
+  
+  formatDate(date: Date): string {
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  }
+  
+
+  // ... (previous code)
+
+getDaysOfWeek(selectedWeek: string): string[] {
+  const daysOfWeek: string[] = [];
+  
+  if (selectedWeek) {
+    const [start, end] = selectedWeek.split(' to ');
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    while (startDate <= endDate) {
+      daysOfWeek.push(this.getDayOfWeek(startDate));
+      startDate.setDate(startDate.getDate() + 1);
+    }
+  }
+
+  return daysOfWeek;
+}
+
+getDayOfWeek(date: Date): string {
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  return days[date.getDay()];
+}
+
+
 }

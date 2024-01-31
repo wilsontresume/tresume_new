@@ -4,8 +4,8 @@
     <i class="fa fa-close" [routerLink]="['/alltimelist']"></i>
   </div>
   <div class="content pl-3 pt-1 pb-1 dropdown">
-    <div class="row" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <div class="input-group col-md-3">
+    <div class="row">
+      <div class="input-group col-md-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem"
           placeholder="Who's time are you tracking?" aria-describedby="searchIcon">
         <div class="input-group-append">
@@ -18,9 +18,22 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <!-- <div class="col-md-4">
         <input type="text" class="form-control" placeholder="Select Date Range" bsDaterangepicker
           [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)" style="width: 16rem;">
+      </div> -->
+      <div class="col-md-3">
+        <div class="weekly-datepicker">
+          <select id="weekPicker" [(ngModel)]="selectedWeek" (change)="onWeekSelect($event.target.value)">
+            <option value="" disabled>Select a week</option>
+            <!-- Add dynamic date options here -->
+            <option *ngFor="let week of generateWeeks()" [value]="week">{{ week }}</option>
+          </select>
+          <!-- Display the selected week -->
+          <!-- <div *ngIf="selectedWeek" class="selected-week">
+            You selected: {{ selectedWeek }}
+          </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -29,20 +42,19 @@
       <tr>
         <th>#</th>
         <th style="width: 700px;">DETAILS</th>
-        <ng-container *ngIf="selectedDateRange">
+        <!-- <ng-container *ngIf="selectedDateRange">
           <ng-container
             *ngFor="let item of getDatesWithDaysArray(selectedDateRange[0], selectedDateRange[1]); let i = index">
             <th>
               <div>{{ item.day }}</div>
               <div>{{ item.date | date: 'dd/MM' }}</div>
             </th>
-          </ng-container>
-          <!-- After selecting dates -->
+          </ng-container> -->
+          <th *ngFor="let day of getDaysOfWeek(selectedWeek)">{{ day }}</th>
           <th>TOTAL</th>
           <th>Action</th>
-          <!-- Additional column for input -->
           <th></th>
-        </ng-container>
+        <!-- </ng-container> -->
       </tr>
     </thead>
     <tbody>
@@ -97,7 +109,8 @@
             </div>
             <div class="input-group col-md-5 dropdown">
               <input type="text" class="form-control custom-input" id="selectedItem4" [(ngModel)]="row.location"
-                placeholder="Choose a location" aria-describedby="searchIcon4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                placeholder="Choose a location" aria-describedby="searchIcon4" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <i class="fas fa-caret-down"></i>
@@ -117,10 +130,10 @@
             </div>
             <div class="col-md-5">
               <div class="checkbox-group">
-                <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.checkbox">
+                <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.billable">
                 <label for="myCheckbox" class="mt-2">Billable(/hr) $</label>
-                <input *ngIf="row.checkbox" id="billAmount" class="bill-Amt ml-1" type="number"
-                  style="width: 60px; padding: 5px;" [(ngModel)]="row.billAmount" (ngModelChange)="updateTotalAmount()">
+                <input *ngIf="row.billable" id="billAmount" class="bill-Amt ml-1" type="number"
+                  style="width: 60px; padding: 5px;" [(ngModel)]="row.hourlyRate" (ngModelChange)="updateTotalAmount()">
               </div>
             </div>
           </div>
@@ -149,8 +162,10 @@
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sat" id="sat"></td>
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sun" id="sun"></td>
         <td class="text-right">
-          <i> hrs </i><br>{{ calculateTotalHours(row) }}<br>
-          <i> amount </i>{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}
+          <i> hrs </i><br>
+          <span [(ngModel)]="row.totalHours">{{ calculateTotalHours(row) }}</span><br>
+          <i> amount </i>
+          <span [(ngModel)]="row.totalAmount">{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}</span>
         </td>
 
         <td><i class="fa fa-trash pl-3" type="button" data-toggle="modal" data-target="#exampleModalCenter"></i></td>

@@ -300,7 +300,6 @@ import { TruncatePipe } from './truncate.pipe';
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
-    BsDatepickerModule.forRoot(),
     FileUploadModule,
     EditorModule,
     ToastModule,
