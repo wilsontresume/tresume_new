@@ -33,16 +33,14 @@ export class CreateAllTimeListComponent implements OnInit {
 
   updateTotalAmount() {
     let totalAmount = 0;
-
     this.rows.forEach(row => {
       if (row.checkbox) {
         totalAmount += row.input || 0;
       }
       this.row.totalAmount = this.calculateTotalAmount(this.row); 
     });
-
     this.totalAmount = totalAmount;
-  }
+  }  
 
   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
     const datesWithDaysArray: { date: Date; day: string }[] = [];
@@ -82,8 +80,9 @@ export class CreateAllTimeListComponent implements OnInit {
       detailsDropdown: null,
       dropdownId: 1,  
       description: '',
-      billAmount:'',
-      checkbox: false,
+      hourlyRate: 0, // Add this property
+    billable: false,
+      
       file1: null,
       file2: null,
       mon: '',
@@ -110,6 +109,22 @@ export class CreateAllTimeListComponent implements OnInit {
 
  
 
+  // calculateTotalAmount(row: any): number | string {
+  //   const mon = row.mon || 0;
+  //   const tues = row.tues || 0;
+  //   const wed = row.wed || 0;
+  //   const thu = row.thu || 0;
+  //   const fri = row.fri || 0;
+  //   const sat = row.sat || 0;
+  //   const sun = row.sun || 0;
+  //   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
+  
+  //   const hourlyRate = row.checkbox ? +row.input : 0; 
+  
+  //   const totalAmount = totalHours * hourlyRate;
+  
+  //   return isNaN(totalAmount) ? 'N/A' : totalAmount;
+  // }
   calculateTotalAmount(row: any): number | string {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
@@ -120,13 +135,13 @@ export class CreateAllTimeListComponent implements OnInit {
     const sun = row.sun || 0;
     const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
   
-    const hourlyRate = row.checkbox ? +row.input : 0; 
+    const hourlyRate = row.billable ? +row.hourlyRate : 0; // Change this line
   
     const totalAmount = totalHours * hourlyRate;
   
     return isNaN(totalAmount) ? 'N/A' : totalAmount;
   }
-
+  
   calculateTotalHours(row: any): number | string {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
@@ -146,17 +161,17 @@ export class CreateAllTimeListComponent implements OnInit {
       // detailsDropdown1: null,
       // dropdownId1: 1,
       description: '',
-      checkbox: false,
-      billAmount:'',
+      hourlyRate: 0, // Add this property
+      billable: false,
       clientAproved: null,
       statusReport: null,
-      mon: 0,
-      tues: 0,
-      wed: 0,
-      thu: 0,
-      fri: 0,
-      sat: 0,
-      sun: 0,
+      mon: '',
+      tues: '',
+      wed: '',
+      thu: '',
+      fri: '',
+      sat: '',
+      sun: '',
       totalHours:'',
       totalAmount:'',
     });
@@ -325,4 +340,6 @@ export class CreateAllTimeListComponent implements OnInit {
     //       }
     // );
   }
+
+  
 }

@@ -7,7 +7,7 @@
     <div class="row" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <div class="input-group col-md-3">
         <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem"
-          placeholder="Who's time are you tracking?" aria-describedby="searchIcon">
+          placeholder="Who's time are you tracking?" aria-describedby="searchIcon"> 
         <div class="input-group-append">
           <div class="input-group-text ">
             <i class="fas fa-caret-down"></i>
@@ -37,10 +37,8 @@
               <div>{{ item.date | date: 'dd/MM' }}</div>
             </th>
           </ng-container>
-          <!-- After selecting dates -->
           <th>TOTAL</th>
           <th>Action</th>
-          <!-- Additional column for input -->
           <th></th>
         </ng-container>
       </tr>
@@ -117,10 +115,10 @@
             </div>
             <div class="col-md-5">
               <div class="checkbox-group">
-                <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.checkbox">
+                <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.billable">
                 <label for="myCheckbox" class="mt-2">Billable(/hr) $</label>
-                <input *ngIf="row.checkbox" id="billAmount" class="bill-Amt ml-1" type="number"
-                  style="width: 60px; padding: 5px;" [(ngModel)]="row.billAmount" (ngModelChange)="updateTotalAmount()">
+                <input *ngIf="row.billable" id="billAmount" class="bill-Amt ml-1" type="number"
+                  style="width: 60px; padding: 5px;"  [(ngModel)]="row.hourlyRate" (ngModelChange)="updateTotalAmount()">
               </div>
             </div>
           </div>
@@ -149,8 +147,10 @@
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sat" id="sat"></td>
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sun" id="sun"></td>
         <td class="text-right">
-          <i> hrs </i><br>{{ calculateTotalHours(row) }}<br>
-          <i> amount </i>{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}
+          <i> hrs </i><br>
+          <span>{{ calculateTotalHours(row) }}</span><br>
+          <i> amount </i>
+          <span>{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}</span>
         </td>
 
         <td><i class="fa fa-trash pl-3" type="button" data-toggle="modal" data-target="#exampleModalCenter"></i></td>
