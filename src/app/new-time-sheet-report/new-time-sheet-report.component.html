@@ -1,25 +1,26 @@
 <div class="container-fluid pt-3 pl-5 pr-5 pb-5">
-  <a href="#" class="back-button"> <i class="fas fa-arrow-left"></i> Back to Report List </a>
+  <!-- <a href="#" class="back-button"> <i class="fas fa-arrow-left"></i> Back to Report List </a> -->
   <h2 style="margin-top: 10px;">Time Activities by Employee Detail Report </h2>
-  <div class="row mb-3" style="display: flex;">
-      <!-- <div class="col">
+
+  <!-- <div class="col">
         <label for="dateRangeDropdown">Time Activity Date</label>
         <select id="dateRangeDropdown" class="form-control">
           <option *ngFor="let option of dateRangeOptions" [value]="option">{{ option }}</option>
         </select>
       </div> -->
-      <div class="col mt-4">
-        <input id="startDate" class="form-control" bsDatepicker [(ngModel)]="startDate" [bsConfig]="datepickerConfig" />
-      </div>
-      <label class="mt-4">to</label>
-      <div class="col mt-4">
-        <input id="endDate" class="form-control" bsDatepicker [(ngModel)]="endDate" [bsConfig]="datepickerConfig" />
-      </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <input type="text" class="form-control mt-4 ml-2" placeholder="Select Date Range" bsDaterangepicker
+        [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)">
+    </div>
+    <div class="col-md-4 ml-2">
       <button class="btn btncolor run mt-4">Run Report</button>
     </div>
-    
-    <!-- <div class="vertical-line mr-2"></div> -->
-    <!-- <div class="col" style="display: flex;">
+  </div>
+
+  <!-- <div class="vertical-line mr-2"></div> -->
+  <!-- <div class="col" style="display: flex;">
       <button class="btn btncolor customize">Customize</button>
       <button class="btn btncolor save">Save Customization</button>
     </div> -->
@@ -69,13 +70,23 @@
                         <label for="sortindesc"> Descending order</label><br>
                       </div>
                     </div>
-                    <div class="notes"><a href="#" (click)="toggleNotes()">Add notes</a>
+                    <div class="notes">
+                      <a href="#" (click)="toggleNotes($event)">Add notes</a>
                     </div>
-                    <div class="ml-auto" style=" margin-top: 7px;">
-                      <i style="font-size: 25px;" class="fas fa-envelope mr-3"></i>
-                      <i style="font-size: 25px;" class="fas fa-print mr-3"></i>
-                      <i style="font-size: 25px;" class="fas fa-share mr-3"></i>
-                      <i style="font-size: 25px;" class="fas fa-cog"></i>
+                    <div class="ml-auto" style="margin-top: 7px;">
+                      <div>
+                        <i style="font-size: 25px;" class="fas fa-print mr-3"
+                          (click)="showExportOptions = !showExportOptions" title="Print Document"></i>
+
+                        <div *ngIf="showExportOptions" class="export-options mt-2 mr-2">
+                          <p (click)="exportAsPDF()">Export as PDF</p>
+                          <p (click)="exportAsExcel()">Export as Excel</p>
+                        </div>
+                      </div>
+
+                      <!-- <i style="font-size: 25px;" class="fas fa-envelope mr-3" (click)="sendEmail()" title="Send Email"></i> -->
+                      <!-- <i style="font-size: 25px;" class="fas fa-share mr-3" (click)="shareContent()" title="Share Content"></i>
+                      <i style="font-size: 25px;" class="fas fa-cog" (click)="openSettings()" title="Open Settings"></i> -->
                     </div>
                   </div>
                 </div>
@@ -130,14 +141,17 @@
               <td>{{ getTotalDuration() }}</td>
             </tr>
           </tbody>
-          <div *ngIf="showNotes" class="notes-textarea">
-            <textarea [(ngModel)]="notes"
-              placeholder="Add notes or include additional info with your report"></textarea>
-            4000 characters max
-          </div>
-          <br>
-          <div class="container justify-content-center">Tuesday, January 30, 2024 02:39 AM GMT+05:30</div>
         </table>
+        <div *ngIf="showNotes" class="notes-container col-md-12">
+          <i class="fas fa-times float-right" (click)="closeNotes()"></i>
+          <textarea class="mt-2" [(ngModel)]="notes"
+            placeholder="Add notes or include additional info with your report"></textarea>
+          <div class="notes-actions">
+            <div>4000 characters max</div>
+          </div>
+        </div>
+        <br>
+        <div class="container justify-content-center">Tuesday, January 30, 2024 02:39 AM GMT+05:30</div>
       </div>
     </div>
   </div>
