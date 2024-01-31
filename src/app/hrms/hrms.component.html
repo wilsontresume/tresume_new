@@ -165,7 +165,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <b>Notes :</b> {{candidate.notes }}
+                    <b>Notes :</b> {{candidate.notes | truncate:100}} <i class="fas fa-info-circle" *ngIf="candidate.notes.length > 100" title="{{candidate.notes}}"></i>
                   </div>
                   
                 </div>
