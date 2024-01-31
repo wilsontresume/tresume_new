@@ -75,9 +75,11 @@ export class HrmsService {
   insertSubmissionInfo(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'insertSubmissionInfo', request);
   }
-  // checkEmail(email: string): Observable<any> {
-  //   return this.http.post<any>(this.endpoint, { email });
-  // }
+  
+  hrmsupdateSelected(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'hrmsupdateSelected', request);
+  }
+  
 }
 export interface ResponseDetails {
   message(message: any): unknown;
