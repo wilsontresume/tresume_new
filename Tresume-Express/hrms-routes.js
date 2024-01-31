@@ -1392,6 +1392,46 @@ router.post('/getLocation', async (req, res) => {
   }
 });
 
+router.post('/hrmsupdateSelected', async (req, res) => {
+  try {
+    const pool = new sql.ConnectionPool(config);
+    const poolConnect = pool.connect();
+    await poolConnect;
+
+    const traineeID = req.body.traineeid;
+    const followupon = req.body.followupon;
+
+    const query = "UPDATE trainee SET followupon = @followupon WHERE traineeid = @traineeid";
+
+    const request = new sql.Request(pool);
+    request.input('followupon', sql.VarChar, followupon);
+    request.input('traineeid', sql.Int, traineeID);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.rowsAffected && recordset.rowsAffected[0] > 0) {
+      const result = {
+        flag: 1,
+        message: "Data Updated Successfully",
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        message: "Error please try again",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error updating data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while updating data!",
+    };
+    res.status(500).send(result);
+  }
+});
+
 // Helper function to format values
 function formatValue(value) {
   return value !== undefined ? `'${value}'` : '';

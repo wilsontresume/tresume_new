@@ -159,6 +159,9 @@ export class ReviewTresumeComponent implements OnChanges {
   showSSN: boolean = false;
   inputDisabled: boolean = true;
   loading:boolean = false;
+  phoneNumberG:any 
+  generalEmail:any 
+  DealOffered:any 
 
 
   startShowingSSN() {
@@ -201,29 +204,29 @@ export class ReviewTresumeComponent implements OnChanges {
     console.log('Saving data for the General tab:', this.generalFormData);
 
     let Req = {
-      firstName: this.FormGeneral.value.firstname,
-      middleName: this.FormGeneral.value.middleName,
-      lastName: this.FormGeneral.value.lastName,
-      recruiterName: this.FormGeneral.value.recruiterName,
-      phoneNumberG: this.FormGeneral.value.phoneNumberG,
-      generalEmail: this.FormGeneral.value.generalEmail,
-      refered: this.FormGeneral.value.refered,
-      DealOffered: this.FormGeneral.value.DealOffered,
-      ReferredBy: this.FormGeneral.value.ReferredBy,
-      ssn: this.FormGeneral.value.ssn,
-      statusDate: this.FormGeneral.value.statusDate,
-      duiFelonyInfo: this.FormGeneral.value.duiFelonyInfo,
-      currentStatus: this.FormGeneral.value.currentStatus,
-      legalStatusVal: this.FormGeneral.value.legalStatusVal,
-      legalStatusValend: this.FormGeneral.value.legalStatusValend,
-      selectedLegalStatus: this.FormGeneral.value.selectedLegalStatus,
-      ftcNotes: this.FormGeneral.value.ftcNotes,
-      otherNotes: this.FormGeneral.value.otherNotes,
-      division: this.FormGeneral.value.division,
-      dob: this.FormGeneral.value.dob,
-      TraineeID:this.candidateID,
-      education:this.educations,
-      experiance:this.experiences,
+      firstName: this.firstName,
+      middleName: this.middleName,
+      lastName: this.lastName,
+      recruiterName: this.recruiterName,
+      phoneNumberG: this.phoneNumberG,
+      generalEmail: this.generalEmail,
+      refered: this.SelectedRefered,
+      DealOffered: this.DealOffered,
+      ReferredBy: this.ReferredBy,
+      ssn: this.ssn,
+      statusDate: this.statusDate,
+      duiFelonyInfo: this.duiFelonyInfo,
+      currentStatus: this.selectedStatus,
+      legalStatusVal: this.legalStatusVal,
+      legalStatusValend: this.legalStatusValend,
+      selectedLegalStatus: this.selectedLegalStatus,
+      ftcNotes: this.ftcNotes,
+      otherNotes: this.otherNotes,
+      division: this.division,
+      dob: this.dob,
+      TraineeID: this.candidateID,
+      education: this.educations,
+      experiance: this.experiences,
       EmergencyCname: this.contactName,
       EmergencyPhone: this.contactPhone,
       EmergencyEmail: this.contactEmail,
@@ -239,7 +242,8 @@ export class ReviewTresumeComponent implements OnChanges {
       City: this.personalCity,
       Zipcode: this.personalZipcode,
       AddressType: this.addressType
-    };
+  };
+  
     console.log(Req);
     
     console.log('Education Data:'+this.educations);
