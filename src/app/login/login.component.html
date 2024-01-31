@@ -8,7 +8,7 @@
                 <form (ngSubmit)="login()" >
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email" [(ngModel)]="username" [ngModelOptions]="{ standalone: true }" required="">
-                        <div class="input-group-append"> 
+                        <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
@@ -37,8 +37,6 @@
                                 </label>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="row" style="padding: 10px 0px;">
                         <div class="col-12">
@@ -47,13 +45,10 @@
                     </div>
                 </form>
                 <p class="mb-1">
-                    <a href="forgot-password.html">Forgot Password?</a>
-                </p>
-                <p class="mb-0">
-                    <a href="register.html" class="text-center">Sign Up</a>
+                    <a href="forgetPassword">Forgot Password?</a>
                 </p>
             </div>
-
         </div>
     </div>
 </div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

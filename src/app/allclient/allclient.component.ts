@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { AllClientService } from './allclient.service';
 import { MessageService } from 'primeng/api';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-allclient',
@@ -11,18 +12,21 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./allclient.component.scss']
 })
 export class AllclientComponent implements OnInit {
-
+  
+  loading: boolean = false;
   deleteIndex: number;
   showConfirmationDialog: boolean = false;
   TraineeID: string = '';
   clients: any[];
   noResultsFound: boolean = false;
-  
-  constructor(private fb: FormBuilder, private cookieService: CookieService, private service: AllClientService, private messageService: MessageService) {
+  authType: any;
 
+  constructor(private fb: FormBuilder, private cookieService: CookieService, private service: AllClientService, private messageService: MessageService, private router: Router, private route: ActivatedRoute) {
+    this.authType = this.route.snapshot.params["authType"];
   }
-  
+
   ngOnInit(): void {
+    this.loading = true;
     this.TraineeID = this.cookieService.get('TraineeID');
     this.fetchclientlist();
   }
@@ -39,9 +43,11 @@ export class AllclientComponent implements OnInit {
     this.service.getTraineeClientList(Req).subscribe((x: any) => {
       this.clients = x.result;
       this.noResultsFound = this.clients.length === 0;
+    this.loading = false;
+
     });
   }
-  
+
 
   deleteclient(ClientID: number) {
     this.deleteIndex = ClientID;
@@ -78,5 +84,15 @@ export class AllclientComponent implements OnInit {
   cancelDelete() {
     console.log(this.showConfirmationDialog);
     this.showConfirmationDialog = false;
+  }
+
+  searchInput: string = '';
+
+  isClientVisible(client: any): boolean {
+    const searchValue = this.searchInput.toLowerCase();
+    return (
+      client.EmailID.toLowerCase().includes(searchValue) ||
+      client.ClientName.toLowerCase().includes(searchValue)
+    );
   }
 }

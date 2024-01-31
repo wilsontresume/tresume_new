@@ -132,20 +132,35 @@ export class IntegratedSearchComponent implements OnInit {
         'Washington DC',
         'West Virginia',
         'Wisconsin',
-        'Wyoming'
+        'Wyoming',
+        //canada
+        'Ontario',
+        'Alberta',
+        'British Columbia',
+        'Manitoba',
+        'New Brunswick',
+        'Newfoundland and Labrador',
+        'Nova Scotia',
+        'Prince Edward Island',
+        'Quebec',
+        'Saskatchewan',
+        'Northwest Territories',
+        'Nunavut',
+        'Yukon'
     ];
 
     workStatus: any[] = [
-        { value: 'CTAY', name: 'Can work for any employer' },
-        { value: 'CTCT', name: 'US Citizen' },
-        { value: 'CTEM', name: 'H1 Visa' },
-        { value: 'CTGR', name: 'Green Card Holder' },
-        { value: 'CTNO', name: 'Need H1 Visa Sponsor' },
-        { value: 'CTNS', name: 'Not Specified' },
-        { value: 'EATN', name: 'TN Permit Holder' },
-        { value: 'EAEA', name: 'Employment Authorization Document' },
+        {dicevale:'', cbvalue: 'CTAY', name: 'Can work for any employer' },
+        {dicevale:'us citizenship',cbvalue: 'CTCT', name: 'US Citizen' },
+        {dicevale:'have h1', cbvalue: 'CTEM', name: 'H1 Visa' },
+        {dicevale:'green card', cbvalue: 'CTGR', name: 'Green Card Holder' },
+        {dicevale:'need h1',cbvalue: 'CTNO', name: 'Need H1 Visa Sponsor' },
+        {dicevale:'',cbvalue: 'CTNS', name: 'Not Specified' },
+        {dicevale:'tn permit holder', cbvalue: 'EATN', name: 'TN Permit Holder' },
+        {dicevale:'', cbvalue: 'EAEA', name: 'Employment Authorization Document' },
 
     ];
+
 
     educationDegree: any[] = [
         { value: 'Vocational', name: 'Vocational' },
@@ -226,7 +241,7 @@ export class IntegratedSearchComponent implements OnInit {
     amonster:any=0;
     adice:any=0;
     acb=0;
-
+    onlyWithSecurityClearance:boolean = true;
 
     constructor(private route: ActivatedRoute, private service: JobBoardsService, private cookieService: CookieService, private messageService: MessageService, private sanitizer: DomSanitizer) {
         this.traineeId = sessionStorage.getItem("TraineeID");
@@ -234,6 +249,7 @@ export class IntegratedSearchComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.loading = true;
         this.cookieValue = this.cookieService.get('userName1')
         this.OrgID = this.cookieService.get('OrgID');
         this.userName1 = this.cookieService.get('userName1');
@@ -420,7 +436,7 @@ export class IntegratedSearchComponent implements OnInit {
 
     async onSearch() {
         // debugger;
-        const [result1, result2,result3,result4] = await Promise.all([this.monsterSearch(), this.cbSearch(),this.DiceSearch(),this.tresumeSearch()]);
+        const [result1, result2,result3,result4] = await Promise.all([this.monsterSearch(),this.DiceSearch(),this.tresumeSearch(),this.cbSearch()]);
 
         setTimeout(() => {
             this.shuffleResults();
@@ -547,10 +563,23 @@ export class IntegratedSearchComponent implements OnInit {
                             locationExpression: this.selectedState,
                             radius: this.searchRequestItem.locationRadius ? this.searchRequestItem.locationRadius : 25
                         }
-                    ]
+                    ],
+                    resumeUpdatedMaximumAge: this.daysWithin * 1440,
 
                 }
             };
+            if(this.yearsOfExp) {
+                objectReq.semantic.yearsOfExperience = {
+                    expression: this.yearsOfExp.toString()+'-'+(this.yearsOfExp+4).toString(),
+                    importance: 'Required'
+                 }
+            }
+            if (this.onlyWithSecurityClearance) {
+                objectReq.semantic.securityClearances = [{
+                    clearanceId: 'Active Confidential',
+                    countryAbbrev: 'US'
+                }]
+            }
             req = {
                 token: this.monsterAccessToken,
                 page: this.searchRequestItem.page,
@@ -601,9 +630,13 @@ export class IntegratedSearchComponent implements OnInit {
                     console.log('locations', `${locations}`);
                 }
                 req += '&locations=' + encodeURIComponent(locations);
-                req += this.daysWithin
-                    ? '&dateResumeLastUpdated=' + this.daysWithin
-                    : '';
+                req += this.daysWithin? '&dateResumeLastUpdated=' + this.daysWithin: '';
+                let exp = '{"min":' + this.yearsOfExp + '}';
+                req += exp?'&yearsExperience=' + encodeURIComponent(exp):'';
+                const workarray = this.selectedWorkstatus.map(item => item.dicevalue); 
+                const workPermit = workarray.join(', ');
+                req += workPermit ? '&workPermit=' +workPermit:'';
+                req += this.onlyWithSecurityClearance ? '&onlyWithSecurityClearance=' + this.onlyWithSecurityClearance : '';
             }
             this.loading = true;
             if (this.searchRequestItem.page == undefined) {
@@ -642,11 +675,15 @@ export class IntegratedSearchComponent implements OnInit {
   
     public tresumeSearch() {
         let req = {
-            "traineeId": "36960",
+            "traineeId": this.traineeId,
             'keyword': this.model.boolean,
-            'location': this.selectedState
+            'location': this.selectedState,
+            'yearsOfExp': this.yearsOfExp * 12,
+            'daysWithin': this.daysWithin,
+            'yearsOfExpmin':'',
+            'Jobboard':{ value: 'all', name: 'All' }
         }
-        this.service.getTresumedata(req).subscribe(x => {
+        this.service.getResumes2(req).subscribe(x => {
             let response = x.result;
             this.tresumeData = response;
             console.log(this.tresumeData)
@@ -681,7 +718,7 @@ export class IntegratedSearchComponent implements OnInit {
             facetFilter += ' SecurityClearance:' + this.hasSecurityClearance;
         }
         if (this.selectedWorkstatus.length > 0) {
-            facetFilter += ' WorkStatus:' + this.selectedWorkstatus[0].value;
+            facetFilter += ' WorkStatus:' + this.selectedWorkstatus[0].cbvalue;
         }
         if (this.selectedEducationDegree) {
             facetFilter += ' HighestEducationDegreeCode:' + this.selectedEducationDegree.value;
@@ -766,7 +803,7 @@ export class IntegratedSearchComponent implements OnInit {
                         this.messageService.add({ severity: 'warning', summary: 'Error', detail: 'You dont have enough Career Builder credit to View Resume' });
                     }
                 }
-
+                this.loading = false;
 
             });
         }

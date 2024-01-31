@@ -9,12 +9,15 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./all-time-list.component.scss']
 })
 export class AllTimeListComponent implements OnChanges {
+  loading:boolean = false;
 
   tableData: any [];
   showConfirmationDialog: boolean = false;
   router: any;
   OrgID:string = '';
   TraineeID:string = '';
+  noResultsFound: boolean = false;
+  timesheetrole: any;
 
   constructor(private cookieService: CookieService, private service: TimesheetListService, private messageService: MessageService)
   {}
@@ -22,21 +25,23 @@ export class AllTimeListComponent implements OnChanges {
   ngOnInit(): void {
     this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
+    this.timesheetrole = this.cookieService.get('timesheet_role');
     this.fetchtimesheet();
   }
 
   ngOnChanges(): void{
     // this.fetchtimesheet();
   }
+
   fetchtimesheet(){
     let Req = {
-      OrgID: this.OrgID,
+      traineeID: this.TraineeID,
+      timesheetrole:this.timesheetrole
     };
     this.service.getAllTimeList(Req).subscribe((x: any) => {
       this.tableData = x.result;
+      this.noResultsFound = this.tableData.length === 0;
     });
   }
-
- 
-
+  
 }

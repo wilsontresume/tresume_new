@@ -1,164 +1,200 @@
-<div class="container-fluid">
-  <div class="container-fluid main-container mt-4">
-    <div class="container-fluid">
-      <button class="btn btn1" id="saveButton" (click)="saveData()">{{
-        saveButtonLabel }}</button>
-    </div>
+<div class="header p-3">
+  <div class="container-fluid">
+
+      
+
     <!-- General tab -->
-    <mat-tab-group (selectedIndexChange)="onTabChange($event)" class="mt-3">
+   
+    <mat-tab-group (selectedIndexChange)="onTabChange($event)" [selectedIndex]="tabIndex" class="mt-2">
       <mat-tab label="General">
         <div class="container-fluid mt-3">
-        <form [formGroup]="FormGeneral">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="First Name">
+          <form [formGroup]="FormGeneral">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" class="form-control" id="firstName" placeholder="First Name" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="firstName" placeholder="First Name" formControlName="firstname"> -->
+                </div> 
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="middleName">Middle Name</label>
-                <input type="text" class="form-control" id="middleName" placeholder="Middle Name">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="middleName">Middle Name</label>
+                  <input type="text" class="form-control" id="middleName" placeholder="Middle Name" [(ngModel)]="middleName" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="middleName" placeholder="Middle Name" formControlName="middleName"> -->
+                </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-              </div>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-md-4">
-              <label for="interviewMode">Recruiter Name</label>
-              <select class="form-control" id="recruiterName" name="Recruiter Name" *ngFor="let item of items ">
-                <option value="In-Person">--Select--</option>
-                <option value="Name">{{item.value1}}</option>
-                <option value="Name">{{item.value2}}</option>
-                <option value="Name">{{item.value3}}</option>
-                <option value="Name">{{item.value4}}</option>
-                <option value="Name">{{item.value5}}</option>
-                <option value="Name">{{item.value6}}</option>
-              </select>
-            </div>
-            <div class="col-md-4">
-              <label for="phoneNumberG">Phone</label>
-              <input type="tel" class="form-control" id="phoneNumberG" name="phoneNumberG" placeholder="Phone" formControlName="phoneNumberG" [ngClass]="{ 'invalid-input': FormGeneral.get('phoneNumberG').invalid && FormGeneral.get('phoneNumberG').touched }">
-              <div *ngIf="FormGeneral.get('phoneNumberG').invalid && FormGeneral.get('phoneNumberG').touched"
-                class="validation-message" style="color: red;">
-                * Please enter valid Number.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <label for="generalEmail">Email</label>
-              <input type="email" class="form-control" id="generalEmail" name="generalEmail" placeholder="Email" formControlName="generalEmail" [ngClass]="{ 'invalid-input': FormGeneral.get('generalEmail').invalid && FormGeneral.get('generalEmail').touched }">
-              <div *ngIf="FormGeneral.get('generalEmail').invalid && FormGeneral.get('generalEmail').touched"
-                class="validation-message" style="color: red;">
-                * Please enter valid Number.
-              </div>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-md-4">
-              <label for="refered">Referred By</label>
-              <select [(ngModel)]="SelectedRefered" name="refered" id="refered" class="form-control" [ngModelOptions]="{standalone: true}">
-                <option value disabled selected>Select a Referrer</option>
-                <option *ngFor="let refered of referedby" [value]="refered">{{
-                  refered }}</option>
-              </select>
-            </div>
-            <div class="col-md-4">
-              <label for="assistedBy">Deal Offered (optional)</label>
-              <input type="text" class="form-control" id="assistedBy" name="assistedBy"
-                placeholder="Deal Offered (optional)">
-            </div>
-            <div class="col-md-4">
-              <label for="typeOfAssistance">Referred By (External) (optional)</label>
-              <input type="text" class="form-control" id="Referred By (External) (optional)" name="typeOfAssistance"
-                placeholder="Type of Assistance">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="ssn">SSN</label>
-                <div class="input-group">
-                <input type="{{ showSSN ? 'text' : 'password' }}" class="form-control" id="ssnInput" placeholder="Enter SSN" [(ngModel)]="ssn" [disabled]="inputDisabled" [ngModelOptions]="{standalone: true}">
-                <span id="toggleBtn" (mousedown)="startShowingSSN()" (mouseup)="stopShowingSSN()">
-                  <span class="fa fa-eye ml-2 mt-2" style="font-size: 25px;"></span>
-                </span>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" class="form-control" id="lastName" placeholder="Last Name" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="lastName" placeholder="Last Name" formControlName="lastName"> -->
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="statusDate">Status Date</label>
-                <input type="text" class="form-control" id="statusDate" placeholder="Status Date">
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="interviewMode">Recruiter Name</label>
+                <!-- <select class="form-control" id="recruiterName" name="Recruiter Name" *ngFor="let item of items"  [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}"> -->
+                  <select class="form-control" id="recruiterName" name="Recruiter Name" [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}">
+                    <option value disabled selected>Select a Referrer</option>
+                    <option *ngFor="let name of recruiterName" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="phoneNumberG">Phone</label>
+                <input type="tel" class="form-control" id="phoneNumberG" name="phoneNumberG" placeholder="Phone"
+                [(ngModel)]="phoneNumberG" [ngModelOptions]="{standalone: true}"
+                  [ngClass]="{ 'invalid-input': FormGeneral.get('phoneNumberG').invalid && FormGeneral.get('phoneNumberG').touched }">
+                <div *ngIf="FormGeneral.get('phoneNumberG').invalid && FormGeneral.get('phoneNumberG').touched"
+                  class="validation-message" style="color: red;">
+                  * Please enter valid Number.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="generalEmail">Email</label>
+                <input type="email" class="form-control" id="generalEmail" name="generalEmail" placeholder="Email"
+                [(ngModel)]="generalEmail" [ngModelOptions]="{standalone: true}"
+                  [ngClass]="{ 'invalid-input': FormGeneral.get('generalEmail').invalid && FormGeneral.get('generalEmail').touched }">
+                <div *ngIf="FormGeneral.get('generalEmail').invalid && FormGeneral.get('generalEmail').touched"
+                  class="validation-message" style="color: red;">
+                  * Please enter valid Number.
+                </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="duiFelonyInfo">DUI/Felony Info</label>
-                <input type="text" class="form-control" id="duiFelonyInfo" placeholder="DUI/Felony Info">
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="ReferredBy">Referred By</label>
+                <select [(ngModel)]="SelectedRefered" name="refered" id="refered" class="form-control"
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <select name="refered" id="ReferredBy" class="form-control" formControlName="ReferredBy"> -->
+                  <option value disabled selected>Select a Referrer</option>
+                  <option *ngFor="let refered of referedby" [value]="refered.id">{{refered.MemberFirstName }} {{refered.MemberLastName }}</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="DealOffered">Deal Offered (optional)</label>
+                <input type="text" class="form-control" id="DealOffered" name="DealOffered"
+                  placeholder="Deal Offered (optional)" [(ngModel)]="DealOffered" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="DealOffered" name="DealOffered"
+                    placeholder="Deal Offered (optional)" formControlName="DealOffered"> -->
+              </div>
+              <div class="col-md-4">
+                <label for="typeOfAssistance">Referred By (External) (optional)</label>
+                <input type="text" class="form-control" id="ReferredBy" name="typeOfAssistance"
+                  placeholder="Type of Assistance" [(ngModel)]="ReferredBy" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="ReferredBy" name="typeOfAssistance"
+                  placeholder="Type of Assistance" formControlName="ReferredBy"> -->
               </div>
             </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-md-4">
-              <label for="status">Current Status</label>
-              <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-control" [ngModelOptions]="{standalone: true}">
-                <option [ngValue]="null">Current Status</option>
-                <option *ngFor="let status of statuss" [value]="status">{{ status
-                  }}</option>
-              </select>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="ssn">SSN</label>
+                  <div class="input-group">
+                    <!-- <input type="{{ showSSN ? 'text' : 'password' }}" class="form-control" id="ssnInput"
+                      placeholder="Enter SSN" [(ngModel)]="ssn" 
+                      [ngModelOptions]="{standalone: true}"> -->
+                      <input type="{{ showSSN ? 'text' : 'password' }}" class="form-control" id="ssnInput"
+                      placeholder="Enter SSN" [(ngModel)]="ssn" 
+                      [ngModelOptions]="{standalone: true}">
+                    <span id="toggleBtn" (mousedown)="startShowingSSN()" (mouseup)="stopShowingSSN()">
+                      <span class="fa fa-eye ml-2 mt-2" style="font-size: 25px;"></span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="statusDate">Status Date</label>
+                  <input type="text" class="form-control" id="statusDate" placeholder="Status Date" [(ngModel)]="statusDate" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="date" class="form-control" id="statusDate" placeholder="Status Date" formControlName="statusDate"> -->
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="duiFelonyInfo">DUI/Felony Info</label>
+                  <input type="text" class="form-control" id="duiFelonyInfo" placeholder="DUI/Felony Info" [(ngModel)]="duiFelonyInfo" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="duiFelonyInfo" placeholder="DUI/Felony Info" formControlName="duiFelonyInfo"> -->
+                </div>
+              </div>
             </div>
-            <div class="col-md-4">
-              <label for="assistedBy">Legal Status Validity Start Date</label>
-              <input type="text" class="form-control" id="assistedBy" name="assistedBy"
-                placeholder="Legal Status Validity Start Date">
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="status">Current Status</label>
+                <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-control" [(ngModel)]="currentStatus" 
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-control" formControlName="status"> -->
+                  <option [ngValue]="null">Current Status</option>
+                  <option *ngFor="let status of statuss" [value]="status">{{ status
+                    }}</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="legalStatusVal">Legal Status Validity Start Date</label>
+                <input type="text" class="form-control" id="legalStatusVal" name="assistedBy"
+                  placeholder="Legal Status Validity Start Date"  [(ngModel)]="legalStatusVal" 
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="date" class="form-control" id="legalStatusVal" name="legalStatusVal"
+                  placeholder="Legal Status Validity Start Date" formControlName="legalStatusVal"> -->
+              </div>
+              <div class="col-md-4">
+                <label for="legalStatusValend">Legal Status Validity End Date</label>
+                <input type="text" class="form-control" id="legalStatusValend" name="legalStatusValend"
+                  placeholder="Legal Status Validity End Date" [(ngModel)]="legalStatusValend" 
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="date" class="form-control" id="legalStatusValend" name="legalStatusValend"
+                  placeholder="Legal Status Validity End Date" formControlName="legalStatusValend"> -->
+              </div>
             </div>
-            <div class="col-md-4">
-              <label for="typeOfAssistance">Legal Status Validity End Date</label>
-              <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance"
-                placeholder="Legal Status Validity End Date">
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="general">Legal Status</label>
+                <select [(ngModel)]="selectedLegalStatus" name="legalstatus" id="selectedLegalStatus" class="form-control"
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <select [(ngModel)]="selectedLegalStatus" name="legalstatus" id="selectedLegalStatus" class="form-control"
+                  formControlName="selectedLegalStatus"> -->
+                  <option value="legalstatus">--SELECT--</option>
+                  <option *ngFor="let legalstatus of legalstatuss" [value]="legalstatus">{{ legalstatus }}</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="ftcNotes">FTC Notes</label>
+                <input type="text" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
+                [ngModelOptions]="{standalone: true}">
+                <!-- <input type="text" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes" formControlName="ftcNotes"> -->
+              </div>
+              <div class="col-md-4">
+                <label for="otherNotes">Other Notes</label>
+                <input type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
+                  placeholder="Other Notes" [(ngModel)]="otherNotes" 
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="otherNotes" name="otherNotes"
+                  placeholder="Other Notes" formControlName="otherNotes"> -->
+              </div>
             </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-md-4">
-              <label for="general">Legal Status</label>
-              <select [(ngModel)]="selectedLegalStatus" name="legalstatus" id="legalstatus" class="form-control" [ngModelOptions]="{standalone: true}">
-                <option value="legalstatus">--SELECT--</option>
-                <option *ngFor="let legalstatus of legalstatuss" [value]="legalstatus">{{ legalstatus }}</option>
-              </select>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="interviewMode">Division</label>
+                <select [(ngModel)]="division" name="division" id="division" class="form-control"
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <select [(ngModel)]="division" name="division" id="division" class="form-control" formControlName="division"> -->
+                  <option value disabled selected>Division</option>
+                  <option *ngFor="let division of divisions" [value]="division">{{
+                    division }}</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="dob">DOB</label>
+                <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
+                  bsDatepicker  [(ngModel)]="dob" 
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
+                  bsDatepicker formControlName="dob"> -->
+              </div>
             </div>
-            <div class="col-md-4">
-              <label for="assistedBy">FTC Notes</label>
-              <input type="text" class="form-control" id="assistedBy" name="assistedBy" placeholder="FTC Notes">
-            </div>
-            <div class="col-md-4">
-              <label for="typeOfAssistance">Other Notes</label>
-              <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance"
-                placeholder="Other Notes">
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-md-4">
-              <label for="interviewMode">Division</label>
-              <select [(ngModel)]="SelectedDivision" name="division" id="division" class="form-control" [ngModelOptions]="{standalone: true}">
-                <option value disabled selected>Division</option>
-                <option *ngFor="let division of divisions" [value]="division">{{
-                  division }}</option>
-              </select>
-            </div>
-            <div class="col-md-4">
-              <label for="dob">DOB</label>
-              <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
-                bsDatepicker>
-            </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
         <div class="row mt-3">
           <div class="col-md-12">
             <ul class="nav nav-tabs" id="myTabs" role="tablist">
@@ -178,127 +214,127 @@
             </ul>
             <div class="tab-content mt-3" id="myTabContent">
               <div class="tab-pane fade show active" id="education" role="tabpanel" aria-labelledby="education-tab">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-3 form-group">
-                      <label for="education1">Degree</label>
-                      <input type="text" class="form-control" id="education1  " placeholder="Degree">
-                    </div>
-                    <div class="col-md-3 form-group">
-                      <label for="education2">University</label>
-                      <input type="text" class="form-control" id="education2" placeholder="University">
-                    </div>
-                    <div class="col-md-3 form-group">
-                      <label for="education3">Attended from</label>
-                      <input type="text" class="form-control" id="education3" placeholder="Attended from">
-                    </div>
-                    <div class="col-md-3 form-group">
-                      <label for="education4">Attended to</label>
-                      <input type="text" class="form-control" id="education4" placeholder="Attended to">
-                    </div>
-                    <div class="col-md-3 form-group">
-                      <label for="education5">University Address</label>
-                      <input type="text" class="form-control" id="education5" placeholder="University Address">
-                    </div>
+                <div *ngFor="let education of educations; let i = index" class="row" [id]="'educationRow' + i">
+                  <div class="col-md-2 form-group">
+                    <label for="education1">Degree</label>
+                    <input type="text" class="form-control" id="degree" placeholder="Degree"  [(ngModel)]="education.degree">
+                  </div>
+                  <div class="col-md-2 form-group">
+                    <label for="education2">University</label>
+                    <input type="text" class="form-control" id="university" placeholder="University"  [(ngModel)]="education.university">
+                  </div>
+                  <div class="col-md-2 form-group">
+                    <label for="education3">Attended from</label>
+                    <input type="text" class="form-control" id="attendedfrom" placeholder="Attended from"  [(ngModel)]="education.attendedfrom">
+                  </div>
+                  <div class="col-md-2 form-group">
+                    <label for="education4">Attended to</label>
+                    <input type="text" class="form-control" id="attendedto" placeholder="Attended to"  [(ngModel)]="education.attendedto">
+                  </div>
+                  <div class="col-md-2 form-group">
+                    <label for="education5">University Address</label>
+                    <input type="text" class="form-control" id="univAddress" placeholder="University Address"  [(ngModel)]="education.univAddress">
+                  </div>
+                  <div class="col-md-1">
+                  <button class="btn mt-4 mb-2 mr-2" (click)="deleteRow(i)">&#xd7;</button>
                   </div>
                 </div>
+                  <div class="col-md-1 float-right">
+                  <button class="btn mt-4 mb-3 mr-5" (click)="addRow()">&#x2b;</button>
+                  </div>
               </div>
               <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="experience-tab">
-
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-3 form-group">
-                      <label for="experience1">Title</label>
-                      <input type="text" class="form-control" id="experience1" placeholder="Title">
-                    </div>
-                    <div class="col-md-3 form-group">
-                      <label for="experience2">Employment Start Date</label>
-                      <input type="text" class="form-control" id="experience2" placeholder="Employment Start Date">
-                    </div>
-                    <div class="col-md-3 form-group">
-                      <label for="experience3">Employment End Date</label>
-                      <input type="text" class="form-control" id="experience3" placeholder="Employment End Date">
-                    </div>
-                    <div class="col-md-3 form-group">
-                      <label for="experience4">Skill(s)</label>
-                      <input type="text" class="form-control" id="experience4" placeholder="Skill(s)">
-                    </div>
+                <div *ngFor="let experience of experiences; let i = index" class="row" [id]="'experienceRow' + i">
+                  <div class="col-md-3 form-group">
+                    <label for="experience1">Title</label>
+                    <input type="text" class="form-control" id="experience1" placeholder="Title" [(ngModel)]="experience.title">
                   </div>
+                  <div class="col-md-3 form-group">
+                    <label for="experience2">Employment Start Date</label>
+                    <input type="text" class="form-control" id="experience2" placeholder="Employment Start Date" [(ngModel)]="experience.startDate">
+                  </div>
+                  <div class="col-md-3 form-group">
+                    <label for="experience3">Employment End Date</label>
+                    <input type="text" class="form-control" id="experience3" placeholder="Employment End Date" [(ngModel)]="experience.endDate">
+                  </div>
+                  <div class="col-md-2 form-group">
+                    <label for="experience4">Skill(s)</label>
+                    <input type="text" class="form-control" id="experience4" placeholder="Skill(s)" [(ngModel)]="experience.skills">
+                  </div>
+                  <div class="col-md-1">
+                    <button class="btn mt-4 mb-2 mr-2" (click)="deleteRow1(i)">&#xd7;</button>
+                  </div>
+                </div>
+                <div class="col-md-1 float-right">
+                  <button class="btn mt-4 mb-3 mr-5" (click)="addRow1()">&#x2b;</button>
                 </div>
               </div>
               <div class="tab-pane fade" id="personalinfo" role="tabpanel" aria-labelledby="personalinfo-tab">
-                <div class="container">
+                <div class="container" >
                   <div class="row">
                     <div class="col-md-4 form-group">
                       <label for="personalinfo1">Emergency Contact Name</label>
-                      <input type="text" class="form-control" id="personalinfo1" placeholder="Emergency Contact Name">
+                      <input type="text" class="form-control" id="contactName" placeholder="Emergency Contact Name"  [(ngModel)]="contactName">
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo2">Emergency Contact Phone</label>
-                      <input type="text" class="form-control" id="personalinfo2" placeholder="Emergency Contact Phone">
+                      <input type="text" class="form-control" id="contactPhone" placeholder="Emergency Contact Phone"  [(ngModel)]="contactPhone" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo3">Emergency Contact Email</label>
-                      <input type="text" class="form-control" id="personalinfo3" placeholder="Emergency Contact Email">
+                      <input type="text" class="form-control" id="contactEmail" placeholder="Emergency Contact Email"  [(ngModel)]="contactEmail" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo4">Passport Number</label>
-                      <input type="text" class="form-control" id="personalinfo4" placeholder="Passport Number">
+                      <input type="text" class="form-control" id="passportNumber" placeholder="Passport Number"  [(ngModel)]="passportNumber" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo5">Passport Validity Start Date</label>
-                      <input type="text" class="form-control" id="personalinfo5"
-                        placeholder="Passport Validity Start Date">
+                      <input type="text" class="form-control" id="passportvalStartdate"
+                        placeholder="Passport Validity Start Date"  [(ngModel)]="passportvalStartdate" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo6">Passport Validity End Date</label>
-                      <input type="text" class="form-control" id="personalinfo6"
-                        placeholder="Passport Validity End Date">
+                      <input type="text" class="form-control" id="passportvalenddate"
+                        placeholder="Passport Validity End Date" [(ngModel)]="passportvalenddate" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo7">I-94 Number</label>
-                      <input type="text" class="form-control" id="personalinfo7" placeholder="I-94 Number">
+                      <input type="text" class="form-control" id="iNumber" placeholder="I-94 Number" [(ngModel)]="iNumber" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo8">I-94 Validity End Date</label>
-                      <input type="text" class="form-control" id="personalinfo8" placeholder="I-94 Validity End Date">
+                      <input type="text" class="form-control" id="iEndDate" placeholder="I-94 Validity End Date" [(ngModel)]="iEndDate" >
                     </div>
-
-                    <div class="row">
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Address Line1</label>
-                        <input type="text" class="form-control" id="personalinfoAddress" placeholder="Address Line 1">
-                      </div>
-
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Address Line2</label>
-                        <input type="text" class="form-control empty-4" placeholder="Address Line 2">
-                      </div>
-
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Country</label>
-                        <input type="text" class="form-control empty-4" placeholder="Country">
-                      </div>
-
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">State</label>
-                        <input type="text" class="form-control" placeholder="State">
-                      </div>
-
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">City</label>
-                        <input type="text" class="form-control" placeholder="City">
-                      </div>
-
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Zipcode</label>
-                        <input type="text" class="form-control" placeholder="Zipcode">
-                      </div>
-
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Address Type</label>
-                        <input type="text" class="form-control" placeholder="Address Type (Home,work etc.)">
-                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfoAddress">Address Line1</label>
+                      <input type="text" class="form-control" id="personalInfoAddress" placeholder="Address Line 1"  [(ngModel)]="personalInfoAddress">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfoAddress1">Address Line2</label>
+                      <input type="text" class="form-control empty-4" id="personalInfoAddress1" placeholder="Address Line 2"  [(ngModel)]="personalInfoAddress1">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalInfoCountry">Country</label>
+                      <input type="text" class="form-control empty-4" placeholder="Country" id="personalInfoCountry" [(ngModel)]="personalInfoCountry" >
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalState">State</label>
+                      <input type="text" class="form-control" placeholder="State" id="personalState"  [(ngModel)]="personalState">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalCity">City</label>
+                      <input type="text" class="form-control" placeholder="City" id="PersonalCity"  [(ngModel)]="personalCity">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalZipcode">Zipcode</label>
+                      <input type="text" class="form-control" placeholder="Zipcode" id="personalZipcode"  [(ngModel)]="personalZipcode" >
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="AddressType">Address Type</label>
+                      <input type="text" class="form-control" placeholder="Address Type (Home, work etc.)" id="addressType" [(ngModel)]="addressType" >
                     </div>
                   </div>
                 </div>
@@ -307,110 +343,111 @@
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Interview" class="mt-5">
+
+      <!-- INTERVIEW TAB -->
+      <mat-tab label="Interview" class="mt-5" *ngIf="routeType == 1 || routeType == 3">
         <div class="container">
           <form [formGroup]="myForm">
             <div class="row">
               <div class="col-md-4">
                 <label for="interviewDate">Interview Date</label>
                 <input type="date" class="form-control" id="interviewDate" name="interviewDate"
-                  placeholder="Interview Date" formControlName="interviewDate"
-                  [ngClass]="{ 'invalid-input': myForm.get('interviewDate').invalid && myForm.get('interviewDate').touched }">
-                <div *ngIf="myForm.get('interviewDate').hasError('required') && myForm.get('interviewDate').touched"
+                  placeholder="Interview Date" formControlName="interviewDate">
+                  <!-- [ngClass]="{ 'invalid-input': myForm.get('interviewDate').invalid && myForm.get('interviewDate').touched }"> -->
+                <!-- <div *ngIf="myForm.get('interviewDate').hasError('required') && myForm.get('interviewDate').touched"
                   class="validation-message" style="color: red;">
                   *Please select an interview date.
                 </div>
                 <div *ngIf="myForm.get('interviewDate').hasError('futureDate') && myForm.get('interviewDate').touched"
                   class="validation-message" style="color: red;">
                   *Please select a future date for the interview.
-                </div>
+                </div> -->
               </div>
               <div class="col-md-4">
                 <label for="interviewTime">Interview Time</label>
                 <input type="time" class="form-control" id="interviewTime" name="interviewTime"
-                  placeholder="Interview Time" formControlName="interviewTime"
-                  [ngClass]="{ 'invalid-input': myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched }">
-                <div *ngIf="myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched"
+                  placeholder="Interview Time" formControlName="interviewTime">
+                  <!-- [ngClass]="{ 'invalid-input': myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched }"> -->
+                <!-- <div *ngIf="myForm.get('interviewTime').invalid && myForm.get('interviewTime').touched"
                   class="validation-message" style="color: red;">
                   * Please schedule interview Time.
-                </div>
+                </div> -->
               </div>
               <div class="col-md-4">
-                <label for="interviewInfo">Interview Info</label>
+                <label for="interviewInfo">Notes</label>
                 <input type="text" class="form-control" id="interviewInfo" name="interviewInfo"
-                  formControlName="interviewInfo" placeholder="Interview Info"
-                  [ngClass]="{ 'invalid-input': myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched }">
-                <div *ngIf="myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched"
+                  formControlName="interviewInfo" placeholder="Notes">
+                  <!-- [ngClass]="{ 'invalid-input': myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched }"> -->
+                <!-- <div *ngIf="myForm.get('interviewInfo').invalid && myForm.get('interviewInfo').touched"
                   class="validation-message" style="color: red;">
-                  * Please enter valid interview information.
-                </div>
+                  * Please enter valid Note.
+                </div> -->
               </div>
             </div>
             <div class="row mt-3">
               <div class="col-md-4">
                 <label for="client">Client</label>
                 <input type="text" class="form-control" id="client" name="client" placeholder="Client"
-                  formControlName="client"
-                  [ngClass]="{ 'invalid-input': myForm.get('client').invalid && myForm.get('client').touched }">
-                <div *ngIf="myForm.get('client').invalid && myForm.get('client').touched" class="validation-message"
+                  formControlName="client">
+                  <!-- [ngClass]="{ 'invalid-input': myForm.get('client').invalid && myForm.get('client').touched }"> -->
+                <!-- <div *ngIf="myForm.get('client').invalid && myForm.get('client').touched" class="validation-message"
                   style="color: red;">
                   * Please enter valid Client Name.
-                </div>
+                </div> -->
               </div>
               <div class="col-md-4">
                 <label for="vendor">Vendor</label>
                 <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor"
-                  formControlName="vendor"
-                  [ngClass]="{ 'invalid-input': myForm.get('vendor').invalid && myForm.get('vendor').touched }">
-                <div *ngIf="myForm.get('vendor').invalid && myForm.get('vendor').touched" class="validation-message"
+                  formControlName="vendor">
+                  <!-- [ngClass]="{ 'invalid-input': myForm.get('vendor').invalid && myForm.get('vendor').touched }"> -->
+                <!-- <div *ngIf="myForm.get('vendor').invalid && myForm.get('vendor').touched" class="validation-message"
                   style="color: red;">
                   * Please enter valid Vendor.
-                </div>
+                </div> -->
               </div>
               <div class="col-md-4">
                 <label for="subVendor">Sub Vendor</label>
                 <input type="text" class="form-control" id="subVendor" name="subVendor" placeholder="Sub Vendor"
-                  formControlName="subVendor"
-                  [ngClass]="{ 'invalid-input': myForm.get('subVendor').invalid && myForm.get('subVendor').touched }">
-                <div *ngIf="myForm.get('subVendor').invalid && myForm.get('subVendor').touched"
+                  formControlName="subVendor">
+                  <!-- [ngClass]="{ 'invalid-input': myForm.get('subVendor').invalid && myForm.get('subVendor').touched }"> -->
+                <!-- <div *ngIf="myForm.get('subVendor').invalid && myForm.get('subVendor').touched"
                   class="validation-message" style="color: red;">
                   * Please enter valid Sub Vendor.
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="row mt-3">
               <div class="col-md-4">
                 <label for="assistedBy">Assisted by</label>
                 <input type="text" class="form-control" id="assistedBy" name="assistedBy" placeholder="Assisted by"
-                  formControlName="assistedBy"
-                  [ngClass]="{ 'invalid-input': myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched }">
-                <div *ngIf="myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched"
+                  formControlName="assistedBy">
+                  <!-- [ngClass]="{ 'invalid-input': myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched }"> -->
+                <!-- <div *ngIf="myForm.get('assistedBy').invalid && myForm.get('assistedBy').touched"
                   class="validation-message" style="color: red;">
                   * Please enter valid Assisted information.
-                </div>
+                </div> -->
               </div>
               <div class="col-md-4">
                 <label for="typeOfAssistance">Type of Assistance</label>
                 <input type="text" class="form-control" id="typeOfAssistance" name="typeOfAssistance"
-                  placeholder="Type of Assistance" formControlName="typeOfAssistance"
-                  [ngClass]="{ 'invalid-input': myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched }">
-                <div *ngIf="myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched"
+                  placeholder="Type of Assistance" formControlName="typeOfAssistance">
+                  <!-- [ngClass]="{ 'invalid-input': myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched }"> -->
+                <!-- <div *ngIf="myForm.get('typeOfAssistance').invalid && myForm.get('typeOfAssistance').touched"
                   class="validation-message" style="color: red;">
                   * Please enter valid Type of Assistance.
-                </div>
+                </div> -->
               </div>
               <div class="col-md-4">
                 <label for="interviewMode">Interview Mode</label>
-                <select class="form-control" id="interviewMode" name="interviewMode" formControlName="interviewMode"
-                  [ngClass]="{ 'invalid-input': myForm.get('interviewMode').invalid && myForm.get('interviewMode').touched }">
-                  <option [ngValue]="null">--Select--</option>
+                <select class="form-control" id="interviewMode" name="interviewMode" formControlName="interviewMode">
+                  <!-- [ngClass]="{ 'invalid-input': myForm.get('interviewMode').invalid && myForm.get('interviewMode').touched }"> -->
                   <option *ngFor="let mode of interviewModes" [ngValue]="mode">{{
                     mode }}</option>
                 </select>
-                <div *ngIf="myForm.get('interviewMode').hasError('required') && myForm.get('interviewMode').touched"
+                <!-- <div *ngIf="myForm.get('interviewMode').hasError('required') && myForm.get('interviewMode').touched"
                   class="validation-message" style="color: red;">
                   *Please select an interview mode.
-                </div>
+                </div> -->
               </div>
             </div>
           </form>
@@ -422,7 +459,7 @@
                   <th>Marketer</th>
                   <th>Assisted by</th>
                   <th>Mode</th>
-                  <th>Interview Info</th>
+                  <th>Notes</th>
                   <th>Client</th>
                   <th>Vendor</th>
                   <th>Sub Vendor</th>
@@ -452,25 +489,31 @@
         </div>
       </mat-tab>
       <!-- placement -->
-      <mat-tab label="Placement" class="mt-5">
+      <mat-tab label="Placement" class="mt-5" *ngIf="routeType == 1 || routeType == 3">
         <div class="row">
-          <div class="col-md-3 mt-3">
-            <button class="btn">Email Placement traker</button>
-          </div>
-          <div class="col-md-9 mt-3 text-right">
-            <button class="btn">Add</button>
+          <!-- <div class="col-md-3 mt-3">
+            <button class="btn" (click)="exportToExcel()">Email Placement Tracker</button>
+          </div> -->
+
+          <!-- <div class="col-md-3 mt-3">
+            <button class="btn" (click)="downloadAndSendEmail()">Email Placement Tracker</button>
+          </div> -->
+          
+          <div class="col-md-12 mt-3 text-right">
+            <button class="btn" [routerLink]="['/candidateView/'+candidateID+'/create']" routerLinkActive="active">Add</button>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-3">
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="currentStatus">Selected Status</label>
-              <select class="form-control" id="currentStatus" [(ngModel)]="selectOptions" [ngModelOptions]="{standalone: true}">
+              <select class="form-control" id="currentStatus" [(ngModel)]="selectOptions"
+                [ngModelOptions]="{standalone: true}">
                 <option value>-- Select Current Status --</option>
                 <option *ngFor="let option of  currentStatusOptions" [value]="option">{{ option }}</option>
               </select>
-            </div>
+            </div> -->
           </div>
 
           <div class="table mt-4">
@@ -484,11 +527,7 @@
                   <th>End Client Name</th>
                   <th>Vendor</th>
                   <th>End Client Address</th>
-                  <th>Action
-                    <div [routerLink]="['/placementview']" routerLinkActive="active">
-                      <i class="fas fa-eye" style="font-size: 24px;"></i>
-                    </div>
-                  </th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -501,7 +540,14 @@
                   <td>{{ placement.VendorName }}</td>
                   <td>{{ placement.ClientAddress }}</td>
                   <td>
-                    <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteplacementdata(placement.PID)"></i>
+                    <div style="display: flex; align-items: center;">
+                      <!-- <div [routerLink]="['/candidateView/' + placement.PID + '/placementview/' + candidateID]" routerLinkActive="active"> -->
+                       <div>
+                        <i class="fas fa-eye" style="font-size: 24px;" [routerLink]="['/candidateView/' + candidateID + '/placement/' + placement.PID]" routerLinkActive="active">
+                        </i>
+                      </div>
+                      <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deleteplacementdata(placement.PID)"></i>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -510,28 +556,29 @@
         </div>
       </mat-tab>
       <!-- Content for Submission tab -->
-      <mat-tab label="Submission" class="mt-5">
+      <mat-tab label="Submission" class="mt-5" *ngIf="routeType == 1 || routeType == 3">
         <div class="container">
-          <button class="btn btn1">Download DSR</button>
+          <!-- app.component.html -->
+          <button class="btn btn1 mt-3 ml-4" (click)="downloadExcel()">Download DSR</button>
           <form [formGroup]="myFormSubmission">
             <div class="form-group mt-4">
               <div class="row">
                 <div class="col-md-4">
                   <label for="title">Title</label>
                   <input type="text" class="form-control" id="title" name="title" placeholder="Title"
-                    formControlName="title"
-                    [ngClass]="{ 'invalid-input': myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched }">
-                  <div *ngIf="myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched"
+                    formControlName="title">
+                    <!-- [ngClass]="{ 'invalid-input': myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched }"> -->
+                  <!-- <div *ngIf="myFormSubmission.get('title').invalid && myFormSubmission.get('title').touched"
                     class="validation-message" style="color: red;">
                     * Please enter valid Title.
-                  </div>
+                  </div> -->
                 </div>
                 <div class="col-md-4">
                   <label for="submissionDate">Submission Date</label>
                   <input type="date" class="form-control" id="submissionDate" name="submissionDate"
-                    placeholder="Submission Date" formControlName="submissionDate"
-                    [ngClass]="{ 'invalid-input': myFormSubmission.get('submissionDate').invalid && myFormSubmission.get('submissionDate').touched }">
-                  <div
+                    placeholder="Submission Date" formControlName="submissionDate">
+                    <!-- [ngClass]="{ 'invalid-input': myFormSubmission.get('submissionDate').invalid && myFormSubmission.get('submissionDate').touched }"> -->
+                  <!-- <div
                     *ngIf="myFormSubmission.get('submissionDate').hasError('required') && myFormSubmission.get('submissionDate').touched"
                     class="validation-message" style="color: red;">
                     *Please select a Submission Date.
@@ -540,17 +587,17 @@
                     *ngIf="myFormSubmission.get('submissionDate').hasError('futureDate') && myFormSubmission.get('submissionDate').touched"
                     class="validation-message" style="color: red;">
                     *Please select a future date for the Submission.
-                  </div>
+                  </div> -->
                 </div>
                 <div class="col-md-4">
                   <label for="notes">Notes</label>
                   <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes"
-                    formControlName="notes"
-                    [ngClass]="{ 'invalid-input': myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched }">
-                  <div *ngIf="myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched"
+                    formControlName="notes">
+                    <!-- [ngClass]="{ 'invalid-input': myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched }"> -->
+                  <!-- <div *ngIf="myFormSubmission.get('notes').invalid && myFormSubmission.get('notes').touched"
                     class="validation-message" style="color: red;">
                     * Please enter valid Note.
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -559,295 +606,336 @@
                 <div class="col-md-4">
                   <label for="vendorName">Vendor Name</label>
                   <input type="text" class="form-control" id="vendorName" name="vendorName" placeholder="Vendor Name"
-                    formControlName="vendorName"
-                    [ngClass]="{ 'invalid-input': myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched }">
-                  <div *ngIf="myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched"
+                    formControlName="vendorName">
+                    <!-- [ngClass]="{ 'invalid-input': myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched }"> -->
+                  <!-- <div *ngIf="myFormSubmission.get('vendorName').invalid && myFormSubmission.get('vendorName').touched"
                     class="validation-message" style="color: red;">
                     * Please enter valid Vendor Name.
-                  </div>
+                  </div> -->
                 </div>
                 <div class="col-md-4">
                   <label for="rate">Rate</label>
                   <input type="number" class="form-control" id="rate" name="rate" placeholder="Rate"
-                    formControlName="rate"
-                    [ngClass]="{ 'invalid-input': myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched }">
-                  <div *ngIf="myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched"
+                    formControlName="rate">
+                    <!-- [ngClass]="{ 'invalid-input': myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched }"> -->
+                  <!-- <div *ngIf="myFormSubmission.get('rate').invalid && myFormSubmission.get('rate').touched"
                     class="validation-message" style="color: red;">
                     * Should be Greater than 1$.
-                  </div>
+                  </div> -->
                 </div>
                 <div class="col-md-4">
                   <label for="clientName">Client Name</label>
                   <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name"
-                    formControlName="clientName"
-                    [ngClass]="{ 'invalid-input': myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched }">
-                  <div *ngIf="myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched"
+                    formControlName="clientName">
+                    <!-- [ngClass]="{ 'invalid-input': myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched }"> -->
+                  <!-- <div *ngIf="myFormSubmission.get('clientName').invalid && myFormSubmission.get('clientName').touched"
                     class="validation-message" style="color: red;">
                     * Please enter valid Client Name.
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
           </form>
         </div>
+        <div class="row mt-4 pl-3">
+          <div class="col">
+              <div class="table-container">
+                  <table class="table text-center">
+                      <thead>
+                          <tr>
+                              <th>Title</th>
+                              <th>SubmissionDate</th>
+                              <th>Marketer Name</th>
+                              <th>VendorName</th>
+                              <th>ClientName</th>
+                              <th>Note</th>
+                              <th>Rate</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let submission of submissionList">
+                          <td>{{ submission.Title }}</td>
+                          <td>{{ submission.SubmissionDate | date :  "MM/dd/y"}} </td>
+                          <td>{{ submission.MarketerName }}</td>
+                          <td>{{ submission.VendorName }}</td>
+                          <td>{{ submission.ClientName }}</td>
+                          <td>{{ submission.Note }}</td>
+                          <td>{{ submission.Rate }}</td>
+                          <td>
+                            <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deletesubmissiondata(submission.submissionid)"></i>
+                          </td>
+                          <!-- <td>
+                            <div class="input-group">
+                              <input type="date" class="form-control"
+                                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                placeholder="Follow Up On" style="width: 100px;">
+                              <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/1/'+ submission.TraineeID]" style="font-size: 24px;"></i>
+                            </div>
+                          </td> -->
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+
       </mat-tab>
       <!-- Content for Financial Info tab -->
-      <mat-tab label="Financial Info" class="mt-5">
-        <div class="container">
-          <div class="row textarea">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="financialNotes">Financial Notes</label>
-                <textarea class="form-control" id="financialNotes" rows="4"></textarea>
-              </div>
-            </div>
-            <div class="col-md-4 text-center top-titles">
-              <button type="button" class="btn">Email Recruitment Tracker</button>
-            </div>
-            <div class="col-md-4 top-titles">
-              <div class="form-group">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="healthInsurance"
-                    (change)="updateArray('Health Insurance')" [checked]="selectedOptions.includes('Health Insurance')">
-                  <label class="form-check-label" for="healthInsurance">Health
-                    Insurance</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="lifeInsurance"
-                    (change)="updateArray('Life Insurance')" [checked]="selectedOptions.includes('Life Insurance')">
-                  <label class="form-check-label" for="lifeInsurance">Life
-                    Insurance</label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="salaryinfo">Salary (Per hour)</label>
-                <input type="text" class="form-control" id="salaryinfo" placeholder="Salary Per hours">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="middleName">Perdeium</label>
-                <input type="text" class="form-control" id="middleName" placeholder="Perdeium">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="lastName">Legal Status</label>
-                <input type="text" class="form-control" id="lastName" placeholder="0">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="interviewMode">Marital Status</label>
-                <select class="form-control" id="legalStatus" name="Legal Status">
-
-                  <option *ngFor="let option of options" [value]="option">{{
-                    option }}</option>
-
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="firstName">State Tax Allowance</label>
-                <input type="text" class="form-control" id="firstName" placeholder="State Tax Allowance">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="middleName">State Tax Exemptions</label>
-                <input type="text" class="form-control" id="middleName" placeholder="State Tax Exemptions">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="lastName">Federal Tax Allowance</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Federal Tax Allowance">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="lastName">Federal Tax Additional Allowance</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Federal Tax Additional Allowance">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="firstName">LCA Rate</label>
-                <input type="text" class="form-control" id="firstName" placeholder="LCA Rate">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="middleName">LCA Date</label>
-                <input type="text" class="form-control" id="middleName" placeholder="LCA Date">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="lastName">GC Wages</label>
-                <input type="text" class="form-control" id="lastName" placeholder="GC Wages">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="lastName">GC Date</label>
-                <input type="text" class="form-control" id="lastName" placeholder="GC Date">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="legalStatus">Legal Status</label>
-                <select class="form-control" id="legalStatus" [(ngModel)]="selectedOption" [ngModelOptions]="{standalone: true}">
-                  <option value>-- Select State --</option>
-                  <option *ngFor="let option of legalStatusOptions" [value]="option">{{ option }}</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
+      <mat-tab label="Financial Info" class="mt-5" *ngIf="routeType == 1">
         <div class="container">
           <form [formGroup]="myFormFinancial">
-            <table class="table">
-              <thead>
-                <tr class="col-md-4">
-                  <th></th>
-                  <th>Bank 1</th>
-                  <th>Bank 2 (Split Salary)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="col-md-4">
-                  <th>Bank Name</th>
-                  <td>
-                    <input type="text" class="form-control" id="Bankname1" placeholder="1st Bank name" name="Bankname1">
-                  </td>
-                  <td>
-                    <input type="text" class="form-control" id="Bankname2" placeholder="2nd Bank name">
-                  </td>
-                </tr>
-                <tr class="col-md-4">
-                  <th>Account Type</th>
-                  <td>
-                    <input type="text" class="form-control" id="account-type1" placeholder="1st Bank Account Type"
-                      name="">
-                  </td>
-                  <td>
-                    <input type="text" class="form-control" id="account-type2" placeholder="2nd Bank Account Type">
-                  </td>
-                </tr>
-                <tr class="col-md-4">
-                  <th>Account number</th>
-                  <td>
-                    <input type="text" class="form-control" id="accountnum1" placeholder="1st Bank Account Number"
-                      name="accountnum1" formControlName="accountnum1" required
-                      [ngClass]="{ 'invalid-input': myFormFinancial.get('accountnum1').invalid && myFormFinancial.get('accountnum1').touched }">
-                    <div
-                      *ngIf="myFormFinancial.get('accountnum1').invalid && myFormFinancial.get('accountnum1').touched"
-                      class="validation-message" style="color: red;">
-                      * Please enter Account Number.
-                    </div>
-                  </td>
+            <div class="row textarea">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for=" FinancialNotes">Financial Notes</label>
+                  <!-- <textarea class="form-control" id=" FinancialNotes" rows="4" [(ngModel)]=" FinancialNotes" [ngModelOptions]="{standalone: true}"></textarea> -->
+                  <!-- <textarea class="form-control" id=" FinancialNotes" rows="4" formControlName=" FinancialNotes"></textarea> -->
+                </div>
+              </div>
+              <!-- <div class="col-md-4 text-center top-titles" *ngIf="routeType == 1">
+                <button type="button" class="btn">Email Recruitment Tracker</button>
+              </div> -->
+              <div class="col-md-4 top-titles">
+                <div class="form-group">
+                  <div class="form-check form-check-inline">
+                    <!-- <input class="form-check-input" type="checkbox" id="healthInsurance"
+                      (change)="updateArray('Health Insurance')"
+                      [checked]="selectedOptions.includes('Health Insurance')" [(ngModel)]="healthInsurance" [ngModelOptions]="{standalone: true}" > -->
+                      <input class="form-check-input" type="checkbox" id="healthInsurance"
+                      (change)="updateArray('Health Insurance')"
+                      [checked]="selectedOptions.includes('Health Insurance')" formControlName="healthInsurance" >
+                    <label class="form-check-label" for="healthInsurance">Health
+                      Insurance</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <!-- <input class="form-check-input" type="checkbox" id="lifeInsurance"
+                      (change)="updateArray('Life Insurance')" [checked]="selectedOptions.includes('Life Insurance')" [(ngModel)]="lifeInsurance" [ngModelOptions]="{standalone: true}" > -->
+                      <input class="form-check-input" type="checkbox" id="lifeInsurance"
+                      (change)="updateArray('Life Insurance')" [checked]="selectedOptions.includes('Life Insurance')" formControlName="lifeInsurance">
+                      <label class="form-check-label" for="lifeInsurance">Life
+                      Insurance</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="salaryinfo">Salary (Per hour)</label>
+                  <!-- <input type="text" class="form-control" id="salaryinfo" placeholder="Salary Per hours"  [(ngModel)]="salaryinfo" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="text" class="form-control" id="salaryinfo" placeholder="Salary Per hours" formControlName="salaryinfo">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="middleName">Perdeium</label>
+                  <!-- <input type="text" class="form-control" id="Perdeium" placeholder="Perdeium"  [(ngModel)]="Perdeium" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="text" class="form-control" id="Perdeium" placeholder="Perdeium" formControlName="Perdeium">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="lastName">Legal Status</label>
+                  <!-- <input type="text" class="form-control" id="legalStatus" placeholder="0"  [(ngModel)]="legalStatus" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="text" class="form-control" id="legalStatus" placeholder="0" formControlName="legalStatus">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="interviewMode">Marital Status</label>
+                  <!-- <select class="form-control" id="maritalStatus" name="Legal Status"  [(ngModel)]="maritalStatus" [ngModelOptions]="{standalone: true}"> -->
+                    <select class="form-control" id="maritalStatus" name="Legal Status" formControlName="maritalStatus">
 
-                  <td>
-                    <input type="number" class="form-control" id="accountnum2" placeholder="2nd Bank Account Number"
-                      name="accountnum2" formControlName="accountnum2" required pattern="[0-9]*"
-                      [ngClass]="{ 'invalid-input': myFormFinancial.get('accountnum2').invalid && myFormFinancial.get('accountnum2').touched }">
-                    <div
-                      *ngIf="myFormFinancial.get('accountnum2').invalid && myFormFinancial.get('accountnum2').touched"
-                      class="validation-message" style="color: red;">
-                      * Please enter Account Number.
-                    </div>
-                  </td>
-                </tr>
-                <tr class="col-md-4">
-                  <th>Routing Number</th>
-                  <td>
-                    <input type="text" class="form-control" id="routing-num1" placeholder="1st Bank Routing Number">
-                  </td>
-                  <td>
-                    <input type="text" class="form-control" id="routing-num2" placeholder="2nd Bank Routing Number">
-                  </td>
-                </tr>
-                <tr class="col-md-4">
-                  <th>Salary Deposit Type</th>
-                  <td>
-                    <select class="form-control" id="legalStatus" name="Legal Status">
-                      <option value="In-Person">--Select Salary Deposit--</option>
-                      <option value="In-Person">Fixed Amount</option>
-                      <option value="Phone">Percentage</option>
-                    </select>
-                  </td>
-                  <td class="tdata">
-                    Remaining salary(if any) will be deposited in this 2nd Account
-                  </td>
-                </tr>
-                <tr class="col-md-4">
-                  <th>How Much?</th>
-                  <td>
-                    <input type="text" class="form-control" id="account-num1"
-                      placeholder="How much salary in this Account?">
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    <option *ngFor="let option of options" [value]="option">{{
+                      option }}</option>
+
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="firstName">State Tax Allowance</label>
+                  <!-- <input type="text" class="form-control" id="stateTaxAllowance" placeholder="State Tax Allowance"  [(ngModel)]="stateTaxAllowance" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="text" class="form-control" id="stateTaxAllowance" placeholder="State Tax Allowance" formControlName="stateTaxAllowance">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="middleName">State Tax Exemptions</label>
+                  <!-- <input type="text" class="form-control" id="stateTaxExemptions" placeholder="State Tax Exemptions"  [(ngModel)]="stateTaxExemptions" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="text" class="form-control" id="stateTaxExemptions" placeholder="State Tax Exemptions" formControlName="stateTaxExemptions">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="lastName">Federal Tax Allowance</label>
+                  <!-- <input type="text" class="form-control" id="federalTaxAllowance" placeholder="Federal Tax Allowance"  [(ngModel)]="federalTaxAllowance" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="text" class="form-control" id="federalTaxAllowance" placeholder="Federal Tax Allowance" formControlName="federalTaxAllowance">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="lastName">Federal Tax Additional Allowance</label>
+                  <!-- <input type="text" class="form-control" id="federalAddAllowance" placeholder="Federal Tax Additional Allowance"  [(ngModel)]="federalAddAllowance" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="text" class="form-control" id="federalAddAllowance" placeholder="Federal Tax Additional Allowance" formControlName="federalAddAllowance">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="firstName">LCA Rate</label>
+                  <!-- <input type="number" class="form-control" id="lcaRate" placeholder="LCA Rate"  [(ngModel)]="lcaRate" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="number" class="form-control" id="lcaRate" placeholder="LCA Rate" formControlName="lcaRate">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="middleName">LCA Date</label>
+                  <!-- <input type="date" class="form-control" id="lcaDate" placeholder="LCA Date"  [(ngModel)]="lcaDate" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="date" class="form-control" id="lcaDate" placeholder="LCA Date" formControlName="lcaDate">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="lastName">GC Wages</label>
+                  <!-- <input type="number" class="form-control" id="gcWages" placeholder="GC Wages"  [(ngModel)]="gcWages" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="number" class="form-control" id="gcWages" placeholder="GC Wages" formControlName="gcWages">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="lastName">GC Date</label>
+                  <!-- <input type="date" class="form-control" id="gcDate" placeholder="GC Date"  [(ngModel)]="gcDate" [ngModelOptions]="{standalone: true}"> -->
+                  <input type="date" class="form-control" id="gcDate" placeholder="GC Date" formControlName="gcDate">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="State">State</label>
+                  <!-- <select class="form-control" id="State"  [(ngModel)]="State" [ngModelOptions]="{standalone: true}"> -->
+                    <select class="form-control" id="State" formControlName="State">
+                    <option value>-- Select State --</option>
+                    <option *ngFor="let option of legalStatusOptions" [value]="option">{{ option }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="container">
+              <table class="table">
+                <thead>
+                  <tr class="col-md-4">
+                    <th></th>
+                    <th>Bank 1</th>
+                    <th>Bank 2 (Split Salary)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="col-md-4">
+                    <th>Bank Name</th>
+                    <td>
+                      <!-- <input type="text" class="form-control" id="Bankname1" placeholder="1st Bank name"
+                        name="Bankname1"  [(ngModel)]="Bankname1" [ngModelOptions]="{standalone: true}"> -->
+                        <input type="text" class="form-control" id="Bankname1" placeholder="1st Bank name"
+                        name="Bankname1" formControlName="Bankname1">
+                    </td>
+                    <td>
+                      <!-- <input type="text" class="form-control" id="Bankname2" placeholder="2nd Bank name"  [(ngModel)]="Bankname2" [ngModelOptions]="{standalone: true}"> -->
+                      <input type="text" class="form-control" id="Bankname2" placeholder="2nd Bank name" formControlName="Bankname2">
+                    </td>
+                  </tr>
+                  <tr class="col-md-4">
+                    <th>Account Type</th>
+                    <td>
+                      <!-- <input type="text" class="form-control" id="account-type1" placeholder="1st Bank Account Type" name="accountType1"  [(ngModel)]="accountType1" [ngModelOptions]="{standalone: true}"> -->
+                      <input type="text" class="form-control" id="accountType1" placeholder="1st Bank Account Type" name="accountType1" formControlName="accountType1">
+                    </td>
+                    <td>
+                      <!-- <input type="text" class="form-control" id="accountType2" placeholder="2nd Bank Account Type"  [(ngModel)]="accountType2" [ngModelOptions]="{standalone: true}"> -->
+                      <input type="text" class="form-control" id="accountType2" placeholder="2nd Bank Account Type" formControlName="accountType2">
+                    </td>
+                  </tr>
+                  <tr class="col-md-4">
+                    <th>Account number</th>
+                    <td>
+                      <input type="text" class="form-control" id="accountnum1" placeholder="1st Bank Account Number"
+                        name="accountnum1" formControlName="accountnum1" required
+                        [ngClass]="{ 'invalid-input': myFormFinancial.get('accountnum1').invalid && myFormFinancial.get('accountnum1').touched }">
+                      <div
+                        *ngIf="myFormFinancial.get('accountnum1').invalid && myFormFinancial.get('accountnum1').touched"
+                        class="validation-message" style="color: red;">
+                        * Please enter Account Number.
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="number" class="form-control" id="accountnum2" placeholder="2nd Bank Account Number"
+                        name="accountnum2" formControlName="accountnum2" required pattern="[0-9]*"
+                        [ngClass]="{ 'invalid-input': myFormFinancial.get('accountnum2').invalid && myFormFinancial.get('accountnum2').touched }">
+                      <div
+                        *ngIf="myFormFinancial.get('accountnum2').invalid && myFormFinancial.get('accountnum2').touched"
+                        class="validation-message" style="color: red;">
+                        * Please enter Account Number.
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="col-md-4">
+                    <th>Routing Number</th>
+                    <td>
+                      <!-- <input type="text" class="form-control" id="routingnum1" placeholder="1st Bank Routing Number"  [(ngModel)]="routingnum1" [ngModelOptions]="{standalone: true}"> -->
+                      <input type="text" class="form-control" id="routingnum1" placeholder="1st Bank Routing Number" formControlName="routingnum1">
+                    </td>
+                    <td>
+                      <!-- <input type="text" class="form-control" id="routingnum2" placeholder="2nd Bank Routing Number"  [(ngModel)]="routingnum2" [ngModelOptions]="{standalone: true}"> -->
+                      <input type="text" class="form-control" id="routingnum2" placeholder="2nd Bank Routing Number" formControlName="routingnum2">
+                    </td>
+                  </tr>
+                  <tr class="col-md-4">
+                    <th>Salary Deposit Type</th>
+                    <td>
+                      <!-- <select class="form-control" id="salaryDepositType" name="Legal Status" [(ngModel)]="salaryDepositType" [ngModelOptions]="{standalone: true}"> -->
+                        <select class="form-control" id="salaryDepositType" name="Legal Status" formControlName="salaryDepositType" >
+                        <option value="Select Salary ">--Select Salary Deposit--</option>
+                        <option value="Fixed Amount">Fixed Amount</option>
+                        <option value="Percentage">Percentage</option>
+                      </select>
+                    </td>
+                    <td class="tdata">
+                      Remaining salary(if any) will be deposited in this 2nd Account
+                    </td>
+                  </tr>
+                  <tr class="col-md-4">
+                    <th>How Much?</th>
+                    <td>
+                      <!-- <input type="text" class="form-control" id="howMuch"
+                        placeholder="How much salary in this Account?"  [(ngModel)]="howMuch" [ngModelOptions]="{standalone: true}"> -->
+                        <input type="text" class="form-control" id="howMuch"
+                        placeholder="How much salary in this Account?" formControlName="howMuch">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </form>
         </div>
+      </mat-tab>
 
-      </mat-tab>
-      <mat-tab label="Site Visit" class="mt-5">
-        <div class="container">
-          <table>
-            <tbody>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th class="text-dark">Click to site visit</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                  <div [routerLink]="['/candidateView', 31466, 'sitevisit']" (click)="GoTonext()"
-                    routerLinkActive="active">
-                    <i class="fas fa-eye" style="font-size: 24px;"></i>
-                  </div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </mat-tab>
+      <!-- <mat-tab label="Site Visit" class="mt-5" *ngIf="routeType == 1">
+        <ng-template matTabContent>
+          <app-sitevisit [candidateId]="44267"></app-sitevisit>
+      </ng-template>
+      </mat-tab> -->
     </mat-tab-group>
+    <div class="parent-container">
+      <button class="btn btn1 mt-3 mb-3" id="saveButton" *ngIf="showSaveButton" (click)="saveData()" style="margin-left: auto; margin-right: 20px;">{{ saveButtonLabel }}</button>
+  </div>
+  
   </div>
 </div>
 
@@ -867,7 +955,7 @@
 
 <div *ngIf="showConfirmationDialog2" class="modal align-center">
   <div class="modal-content justify-content-center ">
-    <button type="button" class="close close-modal" (click)="cancelDeleteplacement()">
+    <button type="button" class="close close-modal" (click)="cancelDeleteearplacement()">
       <span aria-hidden="true">&times;</span>
     </button>
     <h2 class="text-center"><u>Delete Client</u></h2>
@@ -878,3 +966,20 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="showConfirmationDialog3" class="modal align-center">
+  <div class="modal-content justify-content-center ">
+    <button type="button" class="close close-modal" (click)="cancelDeletesubmission()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h2 class="text-center"><u>Delete Client</u></h2>
+    <p class="text-center">Are you sure you want to delete this client?</p><br>
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-sm btn-bgcolor text-white mr-5" (click)="confirmdeletesubmission()">Delete</button>
+      <button class="btn btn-sm btn-bgcolor text-white ml-5" (click)="canceldeletesubmission()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
