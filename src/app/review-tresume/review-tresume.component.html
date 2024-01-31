@@ -159,36 +159,57 @@
                 </select>
               </div>
               <div class="col-md-4">
-                <label for="ftcNotes">FTC Notes</label>
-                <input type="text" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
-                [ngModelOptions]="{standalone: true}">
-                <!-- <input type="text" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes" formControlName="ftcNotes"> -->
-              </div>
-              <div class="col-md-4">
-                <label for="otherNotes">Other Notes</label>
-                <input type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
-                  placeholder="Other Notes" [(ngModel)]="otherNotes" 
-                  [ngModelOptions]="{standalone: true}">
-                  <!-- <input type="text" class="form-control" id="otherNotes" name="otherNotes"
-                  placeholder="Other Notes" formControlName="otherNotes"> -->
-              </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-md-4">
                 <label for="interviewMode">Division</label>
                 <select [(ngModel)]="division" name="division" id="division" class="form-control"
                   [ngModelOptions]="{standalone: true}">
-                  <!-- <select [(ngModel)]="division" name="division" id="division" class="form-control" formControlName="division"> -->
                   <option value disabled selected>Division</option>
                   <option *ngFor="let division of divisions" [value]="division">{{
                     division }}</option>
                 </select>
+                <!-- <label for="ftcNotes">FTC Notes</label>
+                <input type="text" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
+                [ngModelOptions]="{standalone: true}"> -->
               </div>
               <div class="col-md-4">
                 <label for="dob">DOB</label>
                 <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
                   bsDatepicker  [(ngModel)]="dob" 
                   [ngModelOptions]="{standalone: true}">
+                <!-- <label for="otherNotes">Other Notes</label>
+                <input type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
+                  placeholder="Other Notes" [(ngModel)]="otherNotes" 
+                  [ngModelOptions]="{standalone: true}"> -->
+                  <!-- <input type="text" class="form-control" id="otherNotes" name="otherNotes"
+                  placeholder="Other Notes" formControlName="otherNotes"> -->
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <label for="ftcNotes">FTC Notes</label>
+                <!-- <input type="" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
+                [ngModelOptions]="{standalone: true}"> -->
+                <textarea type="" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
+                [ngModelOptions]="{standalone: true}" cols="30" rows="3"></textarea>
+                <!-- <label for="interviewMode">Division</label>
+                <select [(ngModel)]="division" name="division" id="division" class="form-control"
+                  [ngModelOptions]="{standalone: true}">
+                  <option value disabled selected>Division</option>
+                  <option *ngFor="let division of divisions" [value]="division">{{
+                    division }}</option>
+                </select> -->
+              </div>
+              <div class="col-md-6">
+                <label for="otherNotes">Other Notes</label>
+                <!-- <input type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
+                  placeholder="Other Notes" [(ngModel)]="otherNotes" 
+                  [ngModelOptions]="{standalone: true}"> -->
+                <textarea type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
+                placeholder="Other Notes" [(ngModel)]="otherNotes" 
+                [ngModelOptions]="{standalone: true}" cols="30" rows="3"></textarea>
+                <!-- <label for="dob">DOB</label>
+                <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
+                  bsDatepicker  [(ngModel)]="dob" 
+                  [ngModelOptions]="{standalone: true}"> -->
                   <!-- <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
                   bsDatepicker formControlName="dob"> -->
               </div>
