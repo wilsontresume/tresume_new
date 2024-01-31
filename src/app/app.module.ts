@@ -298,7 +298,6 @@ import { DatePipe } from '@angular/common';
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
-    BsDatepickerModule.forRoot(),
     FileUploadModule,
     EditorModule,
     ToastModule,
