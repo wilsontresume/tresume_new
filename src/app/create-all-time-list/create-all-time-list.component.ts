@@ -1,56 +1,58 @@
-import { Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormsModule  } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CreateAllTimeListService} from './create-all-time-list.service';
+import { CreateAllTimeListService } from './create-all-time-list.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
-import { BehaviorSubject, Observable } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs';
+import { NgZone } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-create-all-time-list',
   templateUrl: './create-all-time-list.component.html',
-  providers: [CookieService,CreateAllTimeListService,MessageService],
-  styleUrls: ['./create-all-time-list.component.scss']
+  providers: [DatePipe, CookieService, CreateAllTimeListService, MessageService],
+  styleUrls: ['./create-all-time-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class CreateAllTimeListComponent implements OnInit {
-  // timesheetData: any[];
-  // project: any;
-  // clients: any;
-  orgID: string;
+  OrgID: string;
   rows: any[] = [];
-  minDate: string;
-  maxDate: string;
-  maxSelectableDays = 7;
-  maxAllowedDays: number = 7;
-  selectedSunday: string = '';
-  isSundaySelected: boolean = false;
+  // minDate: string;
+  // maxDate: string;
+  // maxSelectableDays = 7;
+  // maxAllowedDays: number = 7;
+  // selectedSunday: string = '';
+  // isSundaySelected: boolean = false;
   CAselectedFile: File | null = null;
   SRselectedFile: File | null = null;
   [key: string]: any;
   file1: File | null = null;
   file2: File | null = null;
 
-  //New Functions
+  
   timesheetRows: any[] = [];
+  totalAmountForAllRows: number = 0;
+  totalAmount: number = 0;
 
   updateTotalAmount() {
-    // Calculate the total amount based on the row inputs and update the totalAmount variable
-    // Assuming 'rows' is an array of objects with 'checkbox' and 'input' properties
-
-    let totalAmount = 0;
-
-    this.rows.forEach(row => {
-      if (row.checkbox) {
-        totalAmount += row.input || 0;
-      }
-      this.row.totalAmount = this.calculateTotalAmount(this.row); 
-    });
-
-    // Assuming you have a variable named 'totalAmount' in your component
-    // Update it with the calculated total amount
-    this.totalAmount = totalAmount;
+    setTimeout(() => {
+      let totalAmount = 0;
+      this.timesheetRows.forEach(row => {
+        if (row.billable) {
+          totalAmount += +row.totalAmount;
+        }
+      });
+      this.totalAmountForAllRows = totalAmount;
+      this.cdr.markForCheck();
+    }, 0);
   }
+
+
   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
     const datesWithDaysArray: { date: Date; day: string }[] = [];
     let currentDate = new Date(start);
@@ -60,30 +62,19 @@ export class CreateAllTimeListComponent implements OnInit {
         date: new Date(currentDate),
         day: currentDate.toLocaleDateString('en-US', { weekday: 'short' })
       });
-
       currentDate.setDate(currentDate.getDate() + 1);
     }
-
     return datesWithDaysArray;
   }
 
-  
-
-
   onDateRangeChange(dates: Date[]) {
-    // Perform any additional logic or validation if needed
-  
-    // `dates` is an array containing the start and end dates
     if (dates.length === 2) {
       const startDate = new Date(dates[0]);
       const endDate = new Date(dates[1]);
-  
-      // Calculate the difference in days
+
       const dayDifference = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-  
-      // Check if the selected range is more than 7 days
+
       if (dayDifference >= this.maxSelectableDays) {
-        // Reset the selection or handle the validation as needed
         this.selectedDateRange = [];
         console.log('Please select a date range within 7 days.');
       } else {
@@ -92,39 +83,29 @@ export class CreateAllTimeListComponent implements OnInit {
     }
   }
 
-
-
-  dropdownOptions: any[] = [
-    { id: 1, options: ["Option A1", "Option A2", "Option A3"] },
-    { id: 2, options: ["Regular Type"] },
-    { id: 3, options: ["Service"] },
-    { id: 4, options: ["Option D1", "Option D2", "Option D3"] }
-  ];
-
   addRow() {
     this.timesheetRows.push({
       selectedOption: null,
       detailsDropdown: null,
-      dropdownId: 1,  // Specify the default dropdown id or adjust based on your requirements
-      textarea: '',
-      checkbox: false,
+      dropdownId: 1,
+      description: '',
+      hourlyRate: 0,
+      billable: false,
       file1: null,
       file2: null,
-      mon: 0,
-      tues: 0,
-      wed: 0,
-      thu: 0,
-      fri: 0,
-      sat: 0,
-      sun: 0
+      mon: '',
+      tues: '',
+      wed: '',
+      thu: '',
+      fri: '',
+      sat: '',
+      sun: '',
+      totalHours: '',
+      totalAmount: '',
     });
   }
   removeRow(index: number) {
     this.timesheetRows.splice(index, 1);
-  }
-
-  onDropdownChange(selectedOption: string, row: any) {
-    row.selectedOption = selectedOption;
   }
 
   onFileChange(event: any, fieldName: string, row: any) {
@@ -134,10 +115,6 @@ export class CreateAllTimeListComponent implements OnInit {
     }
   }
 
-  getDropdownOptions(dropdownId: number): string[] {
-    const dropdown = this.dropdownOptions.find(option => option.id === dropdownId);
-    return dropdown ? dropdown.options : [];
-  }
 
   calculateTotalAmount(row: any): number | string {
     const mon = row.mon || 0;
@@ -148,13 +125,18 @@ export class CreateAllTimeListComponent implements OnInit {
     const sat = row.sat || 0;
     const sun = row.sun || 0;
     const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
-  
-    const hourlyRate = row.checkbox ? +row.input : 0; // Billable amount per hour
-  
+
+    const hourlyRate = row.billable ? +row.hourlyRate : 0;
     const totalAmount = totalHours * hourlyRate;
-  
-    return isNaN(totalAmount) ? 'N/A' : totalAmount;
+
+    row.totalAmount = isNaN(totalAmount) ? 'N/A' : totalAmount;
+
+    this.updateTotalAmount();
+    return row.totalAmount;
+
   }
+
+
   calculateTotalHours(row: any): number | string {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
@@ -164,62 +146,28 @@ export class CreateAllTimeListComponent implements OnInit {
     const sat = row.sat || 0;
     const sun = row.sun || 0;
     const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
-  
+
     return isNaN(totalHours) ? 'N/A' : totalHours;
   }
 
   addDefaultRows() {
     this.timesheetRows.push({
-      selectedOption1: null,
-      detailsDropdown1: null,
-      dropdownId1: 1,
-      textarea1: '',
-      checkbox1: false,
-      file1_1: null,
-      file1_2: null,
-      mon1: 0,
-      tues1: 0,
-      wed1: 0,
-      thu1: 0,
-      fri1: 0,
-      sat1: 0,
-      sun1: 0
+      description: '',
+      hourlyRate: '',
+      billable: false,
+      clientAproved: null,
+      statusReport: null,
+      mon: '',
+      tues: '',
+      wed: '',
+      thu: '',
+      fri: '',
+      sat: '',
+      sun: '',
+      totalHours: '',
+      totalAmount: '',
     });
 
-    // Add the second default row
-    this.timesheetRows.push({
-      selectedOption2: null,
-      detailsDropdown2: null,
-      dropdownId2: 2,
-      textarea2: '',
-      checkbox2: false,
-      file2_1: null,
-      file2_2: null,
-      mon2: 0,
-      tues2: 0,
-      wed2: 0,
-      thu2: 0,
-      fri2: 0,
-      sat2: 0,
-      sun2: 0
-    });
-  }
-
-  //New Functions ends...
-
-  selectSunday(selectedDate: string) {
-    const selectedDateObj = new Date(selectedDate);
-    const dayOfWeek = selectedDateObj.getDay();
-    if (dayOfWeek === 0) {
-      this.selectedSunday = selectedDate;
-      this.isSundaySelected = true;
-    } else {
-      const previousSunday = new Date(selectedDateObj);
-      previousSunday.setDate(selectedDateObj.getDate() - dayOfWeek);
-      const formattedDate = previousSunday.toISOString().split('T')[0];
-      this.selectedSunday = formattedDate;
-      this.isSundaySelected = true;
-    }
   }
 
 
@@ -230,98 +178,42 @@ export class CreateAllTimeListComponent implements OnInit {
     }
   }
 
-  // rows: any[] = [
-  //   { 
-  //     selectedValue: '',
-  //     description: '', 
-  //     checkbox: false, 
-  //     billableAmount: 0,
-  //   },
 
-  // ];
+  constructor(private zone: NgZone, private cdr: ChangeDetectorRef, private fb: FormBuilder, private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService, private fm: FormsModule) {
+    this.OrgID = this.cookieService.get('OrgID');
 
-
-  // rows: any[] = [];
-  // addRow(
-  //   selectOption1: string = '',
-  //   selectOption2: string = '',
-  //   selectOption3: string = '',
-  //   selectOption4: string = '',
-  //   textarea: string = '',
-  //   checkbox: boolean = false,
-  //   input: number = 0,
-  //   input1: number = 0,
-  //   input2: number = 0,
-  //   input3: number = 0,
-  //   input4: number = 0,
-  //   input5: number = 0,
-  //   input6: number = 0,
-  //   input7: number = 0
-  // ): void {
-  //   this.rows.push({
-  //     selectedItem1: selectOption1,
-  //     selectedItem2: selectOption2,
-  //     selectedItem3: selectOption3,
-  //     selectedItem4: selectOption4,
-  //     textarea: textarea,
-  //     checkbox: checkbox,
-  //     input: input,
-  //     input1: input1,
-  //     input2: input2,
-  //     input3: input3,
-  //     input4: input4,
-  //     input5: input5,
-  //     input6: input6,
-  //     input7: input7
-  //   });
-  // }
-
-  
-  constructor(private fb: FormBuilder,private router: Router, private Service: CreateAllTimeListService, private messageService: MessageService, private cookieService: CookieService,private fm: FormsModule) {
-    this.orgID= this.cookieService.get('OrgID');
-    this.TraineeID = this.cookieService.get('TraineeID');
   }
 
   ngOnInit(): void {
-    // this.addRowWithValues('', '', '', '', '','','', '','', '', '', '', '', '' );
-    // this.addRowWithValues('', '', '', '','','', '', '', '','', '', '', '', '' );
+    this.OrgID = this.cookieService.get('OrgID');
 
     this.addDefaultRows();
     this.getProjectName();
     this.getCandidateName();
-    this.getPayItem();
     this.getLocation();
 
-    }
+    this.selectedWeek = '2024-02-05 to 2024-02-11';
+    this.updateDynamicDays(this.selectedWeek);
 
 
-  // deleteRow(index: number): void {
-  //   this.rows.splice(index, 1);
-  //   this.updateSerialNumbers();
-  // }
+
+  }
+  updateDynamicDays(selectedWeek: string): void {
+    this.dynamicDays = this.getWeekData(selectedWeek).days;
+  }
+
 
   // deleteAllRows(): void {
   //   this.rows = this.rows.slice(0, 3);
   //   this.updateSerialNumbers();
   // }
 
-  // private updateSerialNumbers(): void {
-  //   this.rows.forEach((row, index) => {
-  //     row['sno'] = index + 1;
-  //   });
-  // }
-
-  // private addRowWithValues( selectedItem1: any, selectedItem2: any, selectedItem3: any, selectedItem4: any, textarea: string, checkbox: any,input:any, input1: any, input2: any, input3: any, input4: any, input5: any, input6: any, input7: any,): void {
-  //   this.addRow(selectedItem1, selectedItem2, selectedItem3, selectedItem4, textarea, checkbox, input, input1, input2, input3, input4, input5, input6, input7);
-  // }
- 
   selectedItem: string;
-  // dropdownOption: string[] = [];
+  dropdownOption: string[] = [];
 
   selectOption(option: string): void {
     this.selectedItem = option;
   }
-
   getCandidateName() {
     let Req = {
       OrgID: this.OrgID
@@ -331,65 +223,216 @@ export class CreateAllTimeListComponent implements OnInit {
     });
   }
 
-  // selectedItem1: string;
-  // dropdownOptions1: string[] = [];
-
-  // selectOption1(option: string): void {
-  //   this.selectedItem1 = option;
-  // }
-  
-  // getProjectName() {
-  //   let Req = {
-  //     TraineeID: this.TraineeID
-  //   };
-  //   this.Service.getCreateProjectList(Req).subscribe((x: any) => {
-  //     this.dropdownOptions1 = x.result;
-  //   });
-  // }
-
-  // selectedItem2: string;
-  // dropdownOptions2: string[] = [];
-
-  // selectOption2(option: string): void {
-  //   this.selectedItem2 = option;
-  // }
+  dropdownOptions() {
+    return this.dropdownOptions;
+  }
+  onChangesDropdown(selectedOption: any, row: any) {
+    this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
 
 
-  // getPayItem() {
-  //   let Req = {
-  //     OrgID: this.OrgID
-  //   };
-  //   this.Service.getPayItemList(Req).subscribe((x: any) => {
-  //     this.dropdownOptions2 = x.result;
-  //   });
-  // }
+  }
 
 
-  // selectedItem3: string;
-  // dropdownOptions3: string[] = ['Service'];
+  selectedItem1: string;
+  dropdownOptions1: string[] = [];
 
-  // selectOption3(option: string): void {
-  //   this.selectedItem3 = option;
-  // }
+  selectOption1(option: string): void {
+    this.selectedItem1 = option;
+  }
+
+  getProjectName() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getCreateProjectList(Req).subscribe((x: any) => {
+      this.ProjectName = x.result;
+    });
+  }
+
+  getDropdownOptions() {
+    return this.ProjectName;
+  }
+
+  onDropdownChange(selectedOption: any, row: any) {
+    row.projectName = selectedOption.ProjectName;
+
+  }
+  selectedItem4: string;
+  dropdownOptions4: string[] = [];
+
+  selectOption4(option: string): void {
+    this.selectedItem4 = option;
+  }
+
+  getLocation() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getLocationList(Req).subscribe((x: any) => {
+      this.city = x.result;
+    });
+  }
+  getDropdownOption() {
+    return this.city;
+  }
+  onDropdownChanges(selectedOption: any, row: any) {
+    row.location = selectedOption.city;
+  }
+
+  option1 = ['Regular Type']
+  onDropdownItemClick(selectedOption: string, row: any): void {
+    row.payItem = selectedOption;
+  }
+
+  option2 = ['Service']
+  onDropdownItemClicks(selectedOption: string, row: any): void {
+    row.service = selectedOption;
+  }
+
+  SaveRow() {
+    let Req = {
+      data: this.timesheetRows,
+    };
+    console.log(Req);
+    // this.Service.createTimesheet(Req).subscribe(
+    //   (x: any) => {
+    //         this.handleSuccess(x);
+    //       },
+    //       (error: any) => {
+    //         this.handleError(error);
+    //       }
+    // );
+  }
+
+  selectedWeek: string = '';
 
 
-  // selectedItem4: string;
-  // dropdownOptions4: string[] = [];
+  onWeekSelect(week: string): void {
+    this.selectedWeek = week;
+  }
 
-  // selectOption4(option: string): void {
-  //   this.selectedItem4 = option;
-  // }
+  generateWeeks(): string[] {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const weeks: string[] = [];
 
-  // getLocation() {
-  //   let Req = {
-  //     OrgID: this.OrgID
-  //   };
-  //   this.Service.getLocationList(Req).subscribe((x: any) => {
-  //     this.dropdownOptions4 = x.result;
-  //   });
-  // }
+    this.zone.runOutsideAngular(() => {
+      for (let monthOffset = 0; monthOffset < 12; monthOffset++) {
+        const targetMonth = (today.getMonth() + monthOffset) % 12;
+        const targetYear = currentYear + Math.floor((today.getMonth() + monthOffset) / 12);
+
+        const startDate = this.getFirstMonday(new Date(targetYear, targetMonth, 1));
+
+        for (let i = 0; i < 5; i++) {
+          const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
+          const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
+          weeks.push(weekString);
+          startDate.setDate(startDate.getDate() + 7);
+        }
+      }
+    });
+    return weeks;
+  }
+
+  getFirstMonday(date: Date): Date {
+    while (date.getDay() !== 1) {
+      date.setDate(date.getDate() + 1);
+    }
+    return date;
+  }
+
+  formatDate(date: Date): string {
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  }
 
 
- 
+  dynamicDays: string[] = [];
 
+  getWeekDates(selectedWeek: string): Date[] {
+    const [start, end] = selectedWeek.split(' to ').map(dateString => new Date(dateString));
+    const dates: Date[] = [];
+    let currentDate = new Date(start);
+
+    while (currentDate <= end) {
+      dates.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return dates;
+  }
 }
+
+// calculateTotalAmount(row: any): number | string {
+//   const mon = row.mon || 0;
+//   const tues = row.tues || 0;
+//   const wed = row.wed || 0;
+//   const thu = row.thu || 0;
+//   const fri = row.fri || 0;
+//   const sat = row.sat || 0;
+//   const sun = row.sun || 0;
+//   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
+
+//   const hourlyRate = row.checkbox ? +row.input : 0;
+
+//   const totalAmount = totalHours * hourlyRate;
+
+//   return isNaN(totalAmount) ? 'N/A' : totalAmount;
+// }
+
+
+// Add the second default row
+// this.timesheetRows.push({
+//   selectedOption2: null,
+//   detailsDropdown2: null,
+//   dropdownId2: 2,
+//   textarea2: '',
+//   checkbox2: false,
+//   file2_1: null,
+//   file2_2: null,
+//   mon2: 0,
+//   tues2: 0,
+//   wed2: 0,
+//   thu2: 0,
+//   fri2: 0,
+//   sat2: 0,
+//   sun2: 0
+// });
+
+
+// selectSunday(selectedDate: string) {
+//   const selectedDateObj = new Date(selectedDate);
+//   const dayOfWeek = selectedDateObj.getDay();
+//   if (dayOfWeek === 0) {
+//     this.selectedSunday = selectedDate;
+//     this.isSundaySelected = true;
+//   } else {
+//     const previousSunday = new Date(selectedDateObj);
+//     previousSunday.setDate(selectedDateObj.getDate() - dayOfWeek);
+//     const formattedDate = previousSunday.toISOString().split('T')[0];
+//     this.selectedSunday = formattedDate;
+//     this.isSundaySelected = true;
+//   }
+// }
+
+
+// Its Important for showing the weeks, only current month
+// --------------------------------------------------
+// generateWeeks(): string[] {
+//   const today = new Date();
+//   const currentDay = today.getDay();
+//   const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - currentDay + (currentDay === 0 ? -6 : 1)); // Start from the beginning of the current or next week
+
+//   const weeks: string[] = [];
+
+//   for (let i = 0; i < 5; i++) { // Display 5 weeks ahead
+//     const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
+//     const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
+//     weeks.push(weekString);
+//     startDate.setDate(startDate.getDate() + 7); // Move to the next week
+//   }
+
+//   return weeks;
+// }

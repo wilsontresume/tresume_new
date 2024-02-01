@@ -7,10 +7,14 @@ const axios = require("axios");
 const nodemailer = require("nodemailer");
 var crypto = require("crypto");
 const bodyparser = require('body-parser');
+const ExcelJS = require('exceljs');
+const fs = require('fs');
+ 
 const environment = process.env.NODE_ENV || "prod";
 const envconfig = require(`./config.${environment}.js`);
 const apiUrl = envconfig.apiUrl;
 router.use(bodyparser.json());
+
 
 const config = {
   user: "sa",
@@ -43,47 +47,45 @@ router.post('/getTalentBenchList', async (req, res) => {
     const request = new sql.Request(pool);
 
     const query = `
-      SELECT
-        trn.TraineeID, trn.FirstName, trn.LastName, trn.YearsOfExpInMonths, trn.Organization, trn.CandidateStatus, trn.PhoneNumber,
-        TB.GroupID, trn.CurrentLocation, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus, trn.Notes,
-        trn.Title AS [TraineeTitle], COUNT(trn.TraineeID) OVER() AS overall_count, ISNULL(tr.Rating, 0) AS QuickRate, TB.TBID, trn.Source,
-        TB.BenchStatus, (SELECT PhoneNumber FROM Phone WHERE PhoneID = (SELECT TOP(1) PhoneID FROM TraineePhone WHERE TraineeID = trn.TraineeID)) AS phone,
-        trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, DATEDIFF(DAY, TB.CreateTime, GETUTCDATE()) AS age,
-        CONCAT(T1.FirstName, ' ', T1.MiddleName, ' ', T1.LastName) AS Recruiter, ISNULL(TB.IsNew, '0') AS IsNew,
-        (SELECT traineeid FROM JBDetail WHERE jobid = '') AS JBTraineeID, trn.groupid
-      FROM
-        Trainee trn (NOLOCK)
-        LEFT JOIN TraineeRating tr (NOLOCK) ON tr.Active = 1 AND trn.TraineeID = tr.TraineeID AND tr.Recruiterid = '${traineeID}'
-        LEFT JOIN Trainee T1 ON T1.TraineeID = trn.RecruiterName AND T1.Active = 1
-        JOIN TalentBench TB (NOLOCK) ON TB.Active = 1 AND trn.TraineeID = TB.TraineeID
-      WHERE
-        trn.Talentpool = 1
-        AND (trn.UserOrganizationID = '${OrganizationID}' OR trn.TraineeID IN (
-          SELECT ja.TraineeID
-          FROM JobApplication ja
-          WHERE ja.Active = 1 AND ja.JobID IN (
-            SELECT j.JobID
-            FROM Job j
-            WHERE j.Active = 1 AND j.RecruiterID IN (
-              SELECT TraineeID
-              FROM Trainee
-              WHERE OrganizationID = '${OrganizationID}' AND Active = 1 AND Role = 'RECRUITER'
-            )
-          )
-        ))
-        AND trn.active = 1 AND trn.Role = 'TRESUMEUSER'
-      GROUP BY
-        trn.TraineeID, T1.FirstName, T1.MiddleName, T1.LastName, trn.FirstName, trn.PhoneNumber, trn.LastName, trn.YearsOfExpInMonths,
-        trn.CandidateStatus, TB.TBID, TB.GroupID, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus,
-        trn.Notes, trn.Organization, trn.CurrentLocation, trn.Title, trn.LastUpdateTime, trn.CreateTime, tr.Rating, trn.Source,
-        TB.BenchStatus, trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, TB.IsNew,trn.groupid
-      ORDER BY
-        trn.CreateTime DESC
+    SELECT
+    trn.TraineeID, trn.FirstName, trn.LastName, trn.YearsOfExpInMonths, trn.Organization, org.organizationname, trn.CandidateStatus, trn.PhoneNumber,
+    TB.GroupID, trn.CurrentLocation, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus, trn.Notes,
+    trn.Title AS [TraineeTitle], COUNT(trn.TraineeID) OVER() AS overall_count, ISNULL(tr.Rating, 0) AS QuickRate, TB.TBID, trn.Source,
+    TB.BenchStatus, (SELECT PhoneNumber FROM Phone WHERE PhoneID = (SELECT TOP(1) PhoneID FROM TraineePhone WHERE TraineeID = trn.TraineeID)) AS phone,
+    trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, DATEDIFF(DAY, TB.CreateTime, GETUTCDATE()) AS age,
+    CONCAT(T1.FirstName, ' ', T1.MiddleName, ' ', T1.LastName) AS Recruiter, ISNULL(TB.IsNew, '0') AS IsNew,
+    (SELECT traineeid FROM JBDetail WHERE jobid = '') AS JBTraineeID, trn.groupid
+FROM
+    Trainee trn (NOLOCK)
+    LEFT JOIN TraineeRating tr (NOLOCK) ON tr.Active = 1 AND trn.TraineeID = tr.TraineeID AND tr.Recruiterid = '${traineeID}'
+    LEFT JOIN Trainee T1 ON T1.TraineeID = trn.RecruiterName AND T1.Active = 1
+    JOIN TalentBench TB (NOLOCK) ON TB.Active = 1 AND trn.TraineeID = TB.TraineeID
+    JOIN organization org ON trn.UserOrganizationID = org.organizationid -- Added join to fetch organizationname
+WHERE
+    trn.Talentpool = 1
+    AND (trn.UserOrganizationID = '${OrganizationID}' OR trn.TraineeID IN (
+      SELECT ja.TraineeID
+      FROM JobApplication ja
+      WHERE ja.Active = 1 AND ja.JobID IN (
+        SELECT j.JobID
+        FROM Job j
+        WHERE j.Active = 1 AND j.RecruiterID IN (
+          SELECT TraineeID
+          FROM Trainee
+          WHERE OrganizationID = '${OrganizationID}' AND Active = 1 AND Role = 'RECRUITER'
+        )
+      )
+    ))
+    AND trn.active = 1 AND trn.Role = 'TRESUMEUSER'
+GROUP BY
+    trn.TraineeID, T1.FirstName, T1.MiddleName, T1.LastName, trn.FirstName, trn.PhoneNumber, trn.LastName, trn.YearsOfExpInMonths,
+    trn.CandidateStatus, TB.TBID, TB.GroupID, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus,
+    trn.Notes, trn.Organization, org.organizationname, trn.CurrentLocation, trn.Title, trn.LastUpdateTime, trn.CreateTime, tr.Rating, trn.Source,
+    TB.BenchStatus, trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, TB.IsNew, trn.groupid
+ORDER BY
+    trn.CreateTime DESC
     `;
 
-    // console.log(query);
-
-    // console.log(query);
 
     const recordset = await request.query(query);
 
@@ -201,6 +203,7 @@ router.post('/getGroupList', async (req, res) => {
 
     const query = `
     SELECT
+    g.GID,
     g.GroupName,
     COUNT(t.traineeID) AS TotalTrainees
     FROM
@@ -399,5 +402,277 @@ async function deactivatedeleteGroup(GID) {
     throw error;
   }
 }
+
+// Endpoint to check if email exists
+router.post('/checkEmail', async function (req, res) {
+  const email = req.body.email;
+  const orgID = req.body.orgID;
+
+  try {
+    await sql.connect(config);
+    const result = await sql.query`SELECT * FROM Trainee WHERE Active = 1 AND userOrganizationID =${orgID}  AND userName = ${email}`;
+
+    if (result.recordset.length > 0) {
+      
+      const data = {
+        flag: 2,
+        message: "The candidate is already under "+result.recordset[0].CreateBy,
+      };
+      res.send(data);
+    } else {
+      const data = {
+        flag: 1,
+        message: "The candidate is not available",
+      };
+      res.send(data);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  } finally {
+    await sql.close();
+  }
+});
+
+
+async function executeQuery(query, params = []) {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool.request().query(query, ...params);
+    return result.recordset;
+  } catch (error) {
+    throw error;
+  }
+}
+
+router.post('/InterviewReportDownload', async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+          TI.TraineeInterviewID,
+          CONCAT(T.FirstName, ' ', T.LastName) AS CandidateName,
+          CONCAT(R.FirstName, ' ', R.LastName) AS Recruiter,
+          TI.InterviewDate,
+          TI.InterviewStatus,
+          TI.Assistedby,
+          TI.TypeofAssistance,
+          TI.VendorName,
+          TI.ClientName,
+          TI.Notes,
+          TI.CreateTime
+      FROM 
+          TraineeInterview TI
+      INNER JOIN 
+          Trainee T ON TI.TraineeID = T.TraineeID
+      INNER JOIN 
+          Trainee R ON TI.RecruiterID = R.TraineeID
+      WHERE 
+          TI.Active = 1 
+          AND TI.InterviewDate >= '${req.body.startdate}'
+          AND TI.InterviewDate < '${req.body.enddate}'
+          AND R.OrganizationID = '${req.body.OrgID}'`;
+
+    const result = await executeQuery(query);
+
+    // Create a new Excel workbook and worksheet
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('TraineeInterviews');
+
+    // Define column headers
+    const headers = [
+      'TraineeInterviewID',
+      'CandidateName',
+      'Recruiter',
+      'InterviewDate',
+      'InterviewStatus',
+      'Assistedby',
+      'TypeofAssistance',
+      'VendorName',
+      'ClientName',
+      'Notes',
+      'CreateTime',
+    ];
+
+    // Add headers to the worksheet
+    ws.addRow(headers);
+
+    // Add data to the worksheet
+    result.forEach((row) => {
+      ws.addRow(headers.map((header) => row[header]));
+    });
+
+    // Save the workbook to a file
+    const filePath = 'TraineeInterviews.xlsx';
+    await wb.xlsx.writeFile(filePath);
+
+    // Send the file for download
+    res.download(filePath, 'TraineeInterviews.xlsx', (err) => {
+      // Delete the file after download
+      fs.unlinkSync(filePath);
+    });
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+router.post('/DSRReportDownload', async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        s.SubmissionID,
+        s.Title,
+        FORMAT(s.submissiondate, 'dd-MM-yyyy') AS SubmissionDate,
+        CONCAT(m.FirstName, ' ', m.LastName) AS Marketer,
+        CONCAT(t.FirstName, ' ', t.LastName) AS Candidate,
+        s.VendorName,
+        s.ClientName,
+        s.Note,
+        s.Rate,
+        FORMAT(s.createtime, 'dd-MM-yyyy') AS CreatedOn
+      FROM 
+        submission s
+      INNER JOIN 
+        Trainee t ON s.TraineeID = t.TraineeID
+      INNER JOIN 
+        Trainee m ON s.markerterid = m.TraineeID
+      WHERE 
+        s.Active = 1 
+        AND m.Active = 1 
+        AND s.SubmissionDate BETWEEN '${req.body.startdate}' AND '${req.body.enddate}'
+        AND m.OrganizationID = '${req.body.OrgID}'`;
+
+    const result = await executeQuery(query);
+
+    // Create a new Excel workbook and worksheet
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('Submissions');
+
+    // Define column headers
+    const headers = [
+      'SubmissionID',
+      'Title',
+      'SubmissionDate',
+      'Marketer',
+      'Candidate',
+      'VendorName',
+      'ClientName',
+      'Note',
+      'Rate',
+      'CreatedOn',
+    ];
+
+    // Add headers to the worksheet
+    ws.addRow(headers);
+
+    // Add data to the worksheet
+    result.forEach((row) => {
+      ws.addRow(headers.map((header) => row[header]));
+    });
+
+    // Save the workbook to a file
+    const filePath = 'Submissions.xlsx';
+    await wb.xlsx.writeFile(filePath);
+
+    // Send the file for download
+    res.download(filePath, 'Submissions.xlsx', (err) => {
+      // Delete the file after download
+      fs.unlinkSync(filePath);
+    });
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+
+router.post('/PlacementReportDownload', async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        P.PID,
+        T1.FirstName + ' ' + T1.LastName AS CandidateName,
+        T2.FirstName + ' ' + T2.LastName AS MarketerName,
+        T3.FirstName + ' ' + T3.LastName AS RecruiterName,
+        P.positiontitle,
+        P.BillType,
+        P.BillRate,
+        P.PlacedDate,
+        P.ClientState,
+        P.CandidateEmailId,
+        P.ClientAddress,
+        P.ClientManagerName,
+        P.ClientEmail,
+        P.ClientPhoneNumber,
+        P.VendorContactName,
+        P.VendorEmail,
+        P.VendorPhone,
+        P.VendorAddress,
+        P.SubVendorName
+      FROM 
+        placements P
+      LEFT JOIN 
+        Trainee T1 ON P.TraineeID = T1.TraineeID
+      LEFT JOIN 
+        Trainee T2 ON P.marketername = T2.TraineeID
+      LEFT JOIN 
+        Trainee T3 ON P.RecuiterID = T3.TraineeID
+      WHERE 
+        P.Active = 1 
+        AND P.PlacedDate >= '${req.body.startdate}'
+        AND P.PlacedDate <= '${req.body.enddate}'
+        AND T2.OrganizationID = '${req.body.OrgID}'`;
+
+    const result = await executeQuery(query);
+
+    // Create a new Excel workbook and worksheet
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('Placements');
+
+    // Define column headers
+    const headers = [
+      'PID',
+      'CandidateName',
+      'MarketerName',
+      'RecruiterName',
+      'positiontitle',
+      'BillType',
+      'BillRate',
+      'PlacedDate',
+      'ClientState',
+      'CandidateEmailId',
+      'ClientAddress',
+      'ClientManagerName',
+      'ClientEmail',
+      'ClientPhoneNumber',
+      'VendorContactName',
+      'VendorEmail',
+      'VendorPhone',
+      'VendorAddress',
+      'SubVendorName',
+    ];
+
+    // Add headers to the worksheet
+    ws.addRow(headers);
+
+    // Add data to the worksheet
+    result.forEach((row) => {
+      ws.addRow(headers.map((header) => row[header]));
+    });
+
+    // Save the workbook to a file
+    const filePath = 'Placements.xlsx';
+    await wb.xlsx.writeFile(filePath);
+
+    // Send the file for download
+    res.download(filePath, 'Placements.xlsx', (err) => {
+      // Delete the file after download
+      fs.unlinkSync(filePath);
+    });
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
 
 module.exports = router;

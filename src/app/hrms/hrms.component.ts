@@ -15,7 +15,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class HrmsComponent implements OnInit {
-
+  candidateID:any;
+  interviewData: any[];
   candidates1: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
   recruiterNames: any ='';
   recruiterName:any;
@@ -37,11 +38,11 @@ export class HrmsComponent implements OnInit {
   routeType: any;
   currentStatusOptions:any = [];
   legalStatusOptions:any;
-  // currentStatusOptions:any;
   selectedcurrentstatus: any;
   currentLocation: any;
   filteredCandidates: any[];
   specifiedDate: string = ''; 
+  modalService: any;
 
     onFollowUpOptionChange() {
     }
@@ -53,11 +54,20 @@ export class HrmsComponent implements OnInit {
   dateCreatedStartDate: string = '';
   dateCreatedEndDate: string = '';
 
+  title: string;
+  submissionDate: Date;
+  notes: string;
+  vendorName: string;
+  rate: number;
+  clientName: string;
+
   constructor(private cookieService: CookieService, private service: HrmsService, private messageService: MessageService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
     this.routeType = this.route.snapshot.params["routeType"];
+    this.candidateID = this.route.snapshot.params["traineeID"];
+    
   }
 
   ngOnInit(): void {
@@ -66,7 +76,6 @@ export class HrmsComponent implements OnInit {
     this.getcandidaterstatus();
     this.getLegalStatusOptions();
     this.fetchhrmscandidatelist();
-
     this.gethrmsLocation();
 
     this.addCandidate = this.formBuilder.group({
@@ -119,6 +128,15 @@ export class HrmsComponent implements OnInit {
   }
 
   
+  fetchinterviewlist() {
+    let Req = {
+      TraineeID: this.candidateID,
+    };
+    this.service.getInterviewList(Req).subscribe((x: any) => {
+    // this.interview = x.result;
+    });
+  }
+  
 
   onEmailInput() {
     this.checkEmail();
@@ -137,6 +155,11 @@ export class HrmsComponent implements OnInit {
         if (flag === 2) {
           this.emailvalidation = true;
           this.emailvalidationmessage = x.message;
+        } 
+        else if (flag === 1){
+          this.emailvalidation = false;
+          this.emailvalidationmessage = '';
+
         }
       });
     }
@@ -259,17 +282,6 @@ export class HrmsComponent implements OnInit {
     
   }
 
-  private handleSuccess(response: any): void {
-    this.messageService.add({ severity: 'success', summary: response.message });
-    this.loading = false;
-    console.log(response);
-  }
-  
-  private handleError(response: any): void {
-    this.messageService.add({ severity: 'error', summary:  response.message });
-    this.loading = false;
-  }
-
   onSubmit() {
     console.log('Form Data:', this.formData);
   }
@@ -300,6 +312,19 @@ export class HrmsComponent implements OnInit {
       }
     });
   }
+
+
+  sortCandidatesdate(sortByField: string) {
+    // Your logic to update sortBy and sortOrder based on your requirements for sorting candidates
+    if (this.sortBy === sortByField) {
+      // If already sorting by the same field, toggle the sort order
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      // If sorting by a different field, set the new field and default to ascending order
+      this.sortBy = sortByField;
+      this.sortOrder = 'asc';
+    }} 
+
 
   searchInput: string = '';
 
@@ -398,8 +423,122 @@ export class HrmsComponent implements OnInit {
       this.loading = false;
     });
   }
-  
 
+  // Add interview 
+  myForm: any;
+  interviewFormData: any = {};
+  submissionFormData: any = {};
+  interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
+  interviewDate: Date; 
+  interviewTime: string;
+  interviewInfo: string;
+  client: string;
+  vendor: string;
+  subVendor: string;
+  assistedBy: string;
+  typeOfAssistance: string;
+  interviewMode: string;
+  submissionList: any[] = []; 
+
+  saveInterviewData() {
+    console.log('Saving data for the Interview tab:', this.interviewFormData);
+  
+    let Req = {
+      interviewDate: this.interviewDate,
+      interviewTime: this.interviewTime,
+      interviewInfo: this.interviewInfo,
+      client: this.client,
+      vendor: this.vendor,
+      subVendor: this.subVendor,
+      assistedBy: this.assistedBy,
+      typeOfAssistance: this.typeOfAssistance,
+      interviewMode: this.interviewMode,
+      interviewTimeZone: 'EST',
+      traineeID: this.candidateID,
+      recruiterID: this.TraineeID,
+      recruiteremail: this.userName,
+      InterviewStatus: 'SCHEDULED',
+    };
+    console.log(Req);
+    this.service.insertTraineeInterview(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+  }
+
+  openInterviewModal(candidateID: string) {
+    this.candidateID = candidateID;
+  }
+
+  getSubmissionList() {
+    console.log('Saving data for the Submission tab:', this.submissionFormData);
+
+    let Req = {
+      title: this.title,
+      submissionDate: this.submissionDate,
+      notes: this.notes,
+      vendorName: this.vendorName,
+      rate: this.rate,
+      clientName: this.clientName,
+      recruiteremail:this.userName,
+      MarketerID:this.TraineeID,
+      CandidateID:this.candidateID
+    };
+    console.log(Req);
+    this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
+      this.handleSuccess(x);
+    },
+    (error: any) => {
+      this.handleError(error);
+    }
+  );
+  }
+
+  openSubmissionModal(candidateID: string) {
+    this.candidateID = candidateID;
+  }
+
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary: response.message });
+    console.log(response);
+    this.loading = false;
+    this.fetchinterviewlist();
+  }
+  
+  private handleError(response: any): void {
+    this.messageService.add({ severity: 'error', summary:  response.message });
+    this.loading = false;
+  }
+
+  updateSelected(selectedId: any, traineeID: number,type:any) {
+    this.loading = true;
+    var req = {}
+   if(type == 1){
+    req = {
+      traineeid : traineeID,
+      followupon : selectedId
+    }
+   }else{
+    req = {
+      traineeid : traineeID,
+      followupon : selectedId
+    }
+  }
+    this.service.hrmsupdateSelected(req).subscribe((x: any) => {
+      if(x.flag == 1){
+        this.messageService.add({ severity: 'success', summary: x.message });
+        this.loading = false;
+      }else{
+        this.messageService.add({ severity: 'error', summary: x.message });
+        this.loading = false;
+      }
+    });
+  
+   }
 }
 
 

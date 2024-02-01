@@ -4,7 +4,9 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { ElementRef, Renderer2 } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-talent-bench',
@@ -33,8 +35,15 @@ export class TalentBenchComponent implements OnInit {
   grouplistdata: any;
   groupOptions: any;
   groupname: any;
+  candidateID:any;
+  routeType: any;
 
-  constructor(private dialog: MatDialog, private cookieService: CookieService, private service: TalentBenchService, private messageService: MessageService, private formBuilder: FormBuilder) {
+  constructor(private dialog: MatDialog, private cookieService: CookieService, private service: TalentBenchService, private messageService: MessageService, private formBuilder: FormBuilder,private route: ActivatedRoute, private renderer: Renderer2, private el: ElementRef,private datePipe: DatePipe) {
+    this.OrgID = this.cookieService.get('OrgID');
+    this.userName = this.cookieService.get('userName1');
+    this.TraineeID = this.cookieService.get('TraineeID');
+    this.routeType = this.route.snapshot.params["routeType"];
+    this.candidateID = this.route.snapshot.params["traineeID"];
   }
 
   recruiterNames: string[] = [];
@@ -43,11 +52,6 @@ export class TalentBenchComponent implements OnInit {
   marketerName: string[] = [''];
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
   referralType: string[] = [''];
-
-
-  // onSubmit() {
-  //   console.log('Form Data:', this.formData);
-  // }
 
   dataArray: any[] = [
     { groupname: 'Group A', candidateCount: 10 },
@@ -61,14 +65,15 @@ export class TalentBenchComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    // this.cookieService.set('userName1','karthik@tresume.us');
-    // this.cookieService.set('OrgID','82');
-    // this.cookieService.set('TraineeID','569');
-    // this.cookieService.set('TimesheetRole','1');
-    // this.cookieService.set('RoleID','17');
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
+    const currentDate = new Date();
+    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    this.startDate = this.datePipe.transform(firstDayOfMonth, 'yyyy-MM-dd')!;
+
+    // Set end date as today
+    this.endDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd')!;
     this.fetchtalentbenchlist();
     this.getcandidaterstatus();
     this.getLegalStatusOptions();
@@ -99,7 +104,7 @@ export class TalentBenchComponent implements OnInit {
   search: string = '';
 
 isCandidateVisible(candidate: any): boolean {
-  console.log(candidate);
+  // console.log(candidate);
   const searchValue = this.search.toLowerCase();
   return (
     candidate.FirstName.toLowerCase().includes(searchValue) ||
@@ -143,7 +148,9 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     };
     this.service.fetchGroupList(Req).subscribe((x: any) => {
       this.groupOptions = x.result;
+      this.loading = false;
     });
+    
   }
 
   getcandidaterstatus() {
@@ -151,26 +158,10 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     };
     this.service.candidatestatus(Req).subscribe((x: any) => {
       this.currentStatusOptions = x;
-      console.log(this.currentStatusOptions);
+      // console.log(this.currentStatusOptions);
     });
 
   }
-
-  // downloadSubmission() {
-  //   this.loading = true;
-  //   let Req = {
-  //     TraineeID: this.TraineeID,
-  //   };
-  //   this.service.DownloadSubmission(Req).subscribe(
-  //     (x: any) => {
-  //       this.handleSuccess(x);
-  //     },
-  //     (error: any) => {
-  //       this.handleError(error);
-  //     }
-  //   );
-  //   this.loading = false;
-  // }
 
   downloadSubmission(candidateID:string) {
     this.loading = true;
@@ -243,28 +234,30 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
             this.messageService.add({ severity: 'success', summary: response.message });
           } else {
             this.loading = false;
-            console.error('Error adding group!');
+            // console.error('Error adding group!');
             this.messageService.add({ severity: 'error', summary: response.message });
           }
         },
         (error: any) => {
           this.loading = false;
           this.messageService.add({ severity: 'error', summary: 'Error adding group' });
-          console.error('Error adding group:', error);
+          // console.error('Error adding group:', error);
         }
       );
     }
   }
   
-  deleteGroup(){
+  deleteGroup(GID:any){
+    this.loading = true;
     let Req = {
-      OrgID: this.OrgID,
+      GID: GID,
     };
     this.service.deleteGroup(Req).subscribe((x: any) => {
       var flag = x.flag;
-      // this.();// update the list 
   
       if (flag === 1) {
+        this.fetchgrouplist();
+        this.getGroupList();
         this.messageService.add({
           severity: 'success',
           summary: 'Submission Deleted Sucessfully',
@@ -274,6 +267,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
           severity: 'error',
           summary: 'Please try again later',
         });
+        this.loading = false;
       }
     });
   }
@@ -286,41 +280,99 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     this.service.getGroupList(request).subscribe(
       (res) => {
         this.grouplistdata = res.result;
+        // console.error('No active clients found!');
         this.loading = false
-        console.error('No active clients found!');
       },
       (error) => {
+        // console.error('Error fetching data:', error);
         this.loading = false;
-        console.error('Error fetching data:', error);
       }
     );
   }
 
-  // downloadSubmission() {
-  //   this.loading = true;
-  //   let Req = {
-  //     TraineeID: this.TraineeID,
-  //   };
-  //   this.service.downloadcandidatesubmission(Req).subscribe((blob: Blob) => {
-  //     const link = document.createElement('a');
-  //     link.href = window.URL.createObjectURL(blob);
-  //     link.download = 'submissions.xlsx';
-  //     link.click();
-  //     this.handleSuccess(blob);
-  //     this.loading = false; 
-  //   },
-  //     (error: any) => {
-  //       this.loading = false;
-  //       this.handleError(error);
-  //     });
-  // }
+  dsrdownload() {
+    this.loading = true;
+
+    this.service.DSRReportDownload({
+      OrgID: this.OrgID,
+      startdate: this.startDate,
+      enddate: this.endDate,
+      options: { responseType: 'blob' } // Include options object
+    }).subscribe(
+      (res) => {
+        console.log(res);
+        this.saveFile(res, 'DSR_Report.xlsx');
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        console.error('Error downloading file:', error);
+      }
+    );
+  }
+
+  interviewdownload() {
+    this.loading = true;
+
+    this.service.InterviewReportDownload({
+      OrgID: this.OrgID,
+      startdate: this.startDate,
+      enddate: this.endDate,
+      options: { responseType: 'blob' } // Include options object
+    }).subscribe(
+      (res) => {
+        console.log(res);
+        this.saveFile(res, 'Interview_Report.xlsx');
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        console.error('Error downloading file:', error);
+      }
+    );
+  }
+
+  placementdownload() {
+    this.loading = true;
+
+    this.service.PlacementReportDownload({
+      OrgID: this.OrgID,
+      startdate: this.startDate,
+      enddate: this.endDate,
+      options: { responseType: 'blob' } // Include options object
+    }).subscribe(
+      (res) => {
+        console.log(res);
+        this.saveFile(res, 'Placement_Report.xlsx');
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        console.error('Error downloading file:', error);
+      }
+    );
+  }
+
+
+  private saveFile(data: any, filename: string) {
+    const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = filename;
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+  }
 
   getLegalStatusOptions() {
     const request = {};
 
     this.service.getLegalStatus(request).subscribe((response: any) => {
       this.legalStatusOptions = response;
-      console.log(this.legalStatusOptions);
+      // console.log(this.legalStatusOptions);
     });
   }
 
@@ -349,7 +401,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       currentLocation: ''
     };
 
-    console.log(Req);
+    // console.log(Req);
     this.service.AddTalentBenchList(Req).subscribe(
       (x: any) => {
         this.handleSuccess(x);
@@ -362,18 +414,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
 
   }
 
-  private handleSuccess(response: any): void {
-    this.messageService.add({ severity: 'success', summary: response.message });
-    this.loading = false;
-    console.log(response);
-  }
-
-  private handleError(response: any): void {
-    this.messageService.add({ severity: 'error', summary: response.message });
-    this.loading = false;
-  }
-
-
   getOrgUserList() {
     let Req = {
       TraineeID: this.TraineeID,
@@ -384,15 +424,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       this.marketerNames = x;
     });
   }
-  //   fetchtalentbenchlist(){
-  //     let Req = {
-  //       OrgID: this.OrgID,
-  //     };
-  //   this.service.getTalentBenchList(Req).subscribe((x: any) => {
-  //     this.tableData = x.result;
-  //     this.noResultsFound = this.tableData.length === 0;
-  //   });
-  // }
+
   fetchtalentbenchlist() {
 
     let Req = {
@@ -403,35 +435,27 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       this.tableData = x.result;
       this.noResultsFound = this.tableData.length === 0;
       this.loading = false;
+      this.tableData.forEach(item => {
+        const age = item.age;
+      });
     });
 
   }
-
-  searchInput: string = '';
-  submissionList: any[] = [];
-  downloadExcel() {
-    const data = this.tableData;
-
-    let csvContent = "data:text/csv;charset=utf-8,";
-    csvContent += "TBID,UserName,email,CurrentLocation,Time on Bench ( Days ),TraineeTitle,LegalStatus,Phone,BillRate,ReferredBy\n";
-
-    data.forEach(item => {
-      csvContent += `${item.TBID},"${item.FirstName} ${item.LastName}",` +
-        `${item.UserName},${item.CurrentLocation},${item.age},${item.TraineeTitle},${item.LegalStatus},${item.phone},${item.BillRate},${item.ReferredBy}\n`;
-    });
-
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "table_data.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
+  getBackgroundColor(age: number | null): string {
+    if (age === null) {
+      return 'transparent'; 
+    } else if (age >= 1 && age <= 30) {
+      return '#a4e73466';
+    } else if (age >= 31 && age <= 90) {
+      return '#f4963980';
+    } else {
+      return '#e7602e99';
+    }
+  }  
 
   //Date filter Tablet bench fetch list
-  startDate: string;  
-  endDate: string;
+  startDate: string = '';  
+  endDate: string = '';
   filteredTableData: any[];  
 
   isFilterButtonEnabled(): boolean {
@@ -462,4 +486,128 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     this.endDate = '';
     this.filteredTableData = this.tableData; 
   }
+
+  emailvalidation: boolean = false;
+  emailvalidationmessage: string = '';
+  onEmailInput() {
+    this.checkEmail();
+  }
+
+  checkEmail() {
+    const email = this.addCandidate.get('email').value;
+
+    if (email) {
+      let Req = {
+        email: email,
+        orgID: this.OrgID
+      };
+      this.service.checkEmail(Req).subscribe((x: any) => {
+        var flag = x.flag;
+        if (flag === 2) {
+          this.emailvalidation = true;
+          this.emailvalidationmessage = x.message;
+        }
+      });
+    }
+  }
+
+    // Add interview 
+    myForm: any;
+    interviewFormData: any = {};
+    submissionFormData: any = {};
+    interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
+    interviewDate: Date; 
+    interviewTime: string;
+    interviewInfo: string;
+    client: string;
+    vendor: string;
+    subVendor: string;
+    assistedBy: string;
+    typeOfAssistance: string;
+    interviewMode: string;
+    submissionList: any[] = []; 
+
+    title: string;
+    submissionDate: Date;
+    notes: string;
+    vendorName: string;
+    rate: number;
+    clientName: string;
+  
+    saveInterviewData() {
+      // console.log('Saving data for the Interview tab:', this.interviewFormData);
+    
+      let Req = {
+        interviewDate: this.interviewDate,
+        interviewTime: this.interviewTime,
+        interviewInfo: this.interviewInfo,
+        client: this.client,
+        vendor: this.vendor,
+        subVendor: this.subVendor,
+        assistedBy: this.assistedBy,
+        typeOfAssistance: this.typeOfAssistance,
+        interviewMode: this.interviewMode,
+        interviewTimeZone: 'EST',
+        traineeID: this.candidateID,
+        recruiterID: this.TraineeID,
+        recruiteremail: this.userName,
+        InterviewStatus: 'SCHEDULED',
+      };
+      // console.log(Req);
+      this.service.insertTraineeInterview(Req).subscribe(
+        (x: any) => {
+          this.handleSuccess(x);
+        },
+        (error: any) => {
+          this.handleError(error);
+        }
+      );
+    }
+  
+    openInterviewModal(candidateID: string) {
+      this.candidateID = candidateID;
+    }
+  
+    getSubmissionList() {
+      // console.log('Saving data for the Submission tab:', this.submissionFormData);
+  
+      let Req = {
+        title: this.title,
+        submissionDate: this.submissionDate,
+        notes: this.notes,
+        vendorName: this.vendorName,
+        rate: this.rate,
+        clientName: this.clientName,
+        recruiteremail:this.userName,
+        MarketerID:this.TraineeID,
+        CandidateID:this.candidateID
+      };
+      // console.log(Req);
+      this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
+        this.handleSuccess(x);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+    }
+  
+    openSubmissionModal(candidateID: string) {
+      this.candidateID = candidateID;
+    }
+  
+    private handleSuccess(response: any): void {
+      this.messageService.add({ severity: 'success', summary: response.message });
+      // console.log(response);
+      this.loading = false;
+    }
+    
+    private handleError(response: any): void {
+      this.messageService.add({ severity: 'error', summary:  response.message });
+      this.loading = false;
+    }
+    
+
+    // Interview Download 
+
 }

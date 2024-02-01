@@ -1,157 +1,158 @@
-<div class="container mt-4">
-  <ul class="nav nav-tabs" id="myTabs">
-    <li class="nav-item">
-      <a class="nav-link active" id="report-tab" data-toggle="tab" href="#report">Report</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="performance-center-tab" data-toggle="tab" href="#performanceCenter">Performance Center</a>
-    </li>
-  </ul>
+<div class="container-fluid pt-3 pl-5 pr-5 pb-5">
+  <!-- <a href="#" class="back-button"> <i class="fas fa-arrow-left"></i> Back to Report List </a> -->
+  <h2 style="margin-top: 10px;">Time Activities by Employee Detail Report </h2>
 
-  <div class="tab-content mt-3">
-    <a href="#" class="back-button">
-      <i class="fas fa-arrow-left"></i> Back to Report List
-    </a>
-    <h2 style="margin-top: 10px;">Time Activities by Employee Detail Report
-    </h2>
-    <div class="tab-pane fade show active" id="report">
-      <div class="row mb-3">
-        <div class="col">
-          <label for="dateRangeDropdown">Time Activity Date</label>
-          <select id="dateRangeDropdown" class="form-control">
-            <option *ngFor="let option of dateRangeOptions" [value]="option">{{ option }}</option>
-          </select>
-        </div>
-        <div class="col">
-          <label for="startDate">Start Date:</label>
-          <input type="date" id="startDate" class="form-control">
-        </div>
-        <div class="col">
-          <label for="endDate">End Date:</label>
-          <input type="date" id="endDate" class="form-control">
-        </div>
-        <div class="col"  style="display: flex;">
-          <button class="btn btn-primary" style="height: 40px;
-          margin-left: 30px;
-          border-radius: 38px;
-          margin-top: 25px;
-          color: black;
-          background-color: white;
-          border-color: black;">Customize</button>
-          <button class="btn btn-success" style=" height: 40px;
-          margin-left: 30px;
-          border-radius: 38px;
-          margin-top: 25px;
-          width: 161px;
-          font-size: 15px;">Save Customization</button>
-        </div>
-      </div>
+  <!-- <div class="col">
+        <label for="dateRangeDropdown">Time Activity Date</label>
+        <select id="dateRangeDropdown" class="form-control">
+          <option *ngFor="let option of dateRangeOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div> -->
 
-      <div class="row">
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <input type="text" class="form-control mt-4 ml-2" placeholder="Select Date Range" bsDaterangepicker
+        [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)">
+    </div>
+    <div class="col-md-4 ml-2">
+      <button class="btn btncolor run mt-4">Run Report</button>
+    </div>
+  </div>
+
+  <!-- <div class="vertical-line mr-2"></div> -->
+  <!-- <div class="col" style="display: flex;">
+      <button class="btn btncolor customize">Customize</button>
+      <button class="btn btncolor save">Save Customization</button>
+    </div> -->
+  <!-- <div class="content-container" [ngClass]="{'hidden-content': !showReportPanel}">
+    <div class="row">
         <div class="col">
-          <label for="rowColumns">Row Columns:</label>
+          <label for="rowColumns">Row/Columns:</label>
         </div>
       </div>
       <div class="row">
-        <div class="col">
-          <label for="dateRangeDropdown">Group by</label>
-          <div class="col d-flex p-0">
-          <select id="dateRangeDropdown" class="form-control1">
+        <div class="col d-flex">
+          <label for="dateRangeDropdown" class="mr-2 mt-2">Group by </label>
+          <select id="dateRangeDropdown" class="form-control1 mr-2">
             <option *ngFor="let option of employeeGroupByOptions" [value]="option">{{ option }}</option>
           </select>
-          <!-- <div class="vertical-line"></div> -->
-            <button class="btn btn-primary" style="height: 40px;
-            margin-left: 30px;
-            border-radius: 38px;
-            color: black;
-            background-color: white;
-            border-color: black;">Run Report</button>
+        </div>
+      </div>
+  </div> -->
+  <!-- <div class="col-md-12 text-right">
+    <button class="large-down-arrow-btn" (click)="toggleStageOpen()"
+      [attr.aria-expanded]="showReportPanel ? 'true' : 'false'" aria-label="Report Customization panel">
+      <i class="fas" [ngClass]="{'fa-chevron-down': !showReportPanel, 'fa-chevron-up': showReportPanel}"></i>
+    </button>
+  </div> -->
+
+  <div class="container-fluid mt-1">
+    <div class="scroll-container">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="keywords">
+          <thead>
+            <tr>
+              <th colspan="7">
+                <div class="top-row">
+                  <div class="top-row-content d-flex justify-content-between">
+                    <div class="dropdown sort">
+                      <a href="#" class="dropdown-toggle" role="button" id="sortButton"
+                        (click)="toggleSortingOptions($event)">Sort </a>
+                      <div *ngIf="showSortingOptions" class="sorting-options-popup">
+                        <br> <label> Sort by </label>
+                        <select id="dateRangeDropdown" class="form-control1" style="width:100px">
+                          <option *ngFor="let option of sortbyoptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <br> <label> Sort in </label><br>
+                        <input type="radio" id="sortinasc" name="sortinasc" value="sortinasc" checked>
+                        <label for="sortinasc"> Ascending order</label><br><br>
+                        <input type="radio" id="sortindesc" name="sortindesc" value="sortindesc">
+                        <label for="sortindesc"> Descending order</label><br>
+                      </div>
+                    </div>
+                    <div class="notes">
+                      <a href="#" (click)="toggleNotes($event)">Add notes</a>
+                    </div>
+                    <div class="ml-auto" style="margin-top: 7px;">
+                      <div>
+                        <i style="font-size: 25px;" class="fas fa-print mr-3"
+                          (click)="showExportOptions = !showExportOptions" title="Print Document"></i>
+
+                        <div *ngIf="showExportOptions" class="export-options mt-2 mr-2">
+                          <p (click)="exportAsPDF()">Export as PDF</p>
+                          <p (click)="exportAsExcel()">Export as Excel</p>
+                        </div>
+                      </div>
+
+                      <!-- <i style="font-size: 25px;" class="fas fa-envelope mr-3" (click)="sendEmail()" title="Send Email"></i> -->
+                      <!-- <i style="font-size: 25px;" class="fas fa-share mr-3" (click)="shareContent()" title="Share Content"></i>
+                      <i style="font-size: 25px;" class="fas fa-cog" (click)="openSettings()" title="Open Settings"></i> -->
+                    </div>
+                  </div>
+                </div>
+              </th>
+            </tr>
+
+            <tr>
+              <th colspan="7">
+                <div class="text-center">
+                  <h1 *ngIf="!editMode" (click)="toggleEditMode()">ASTA CRS INC <i class="fas fa-edit"></i></h1>
+                  <div *ngIf="editMode">
+                    <input type="text" [(ngModel)]="companyName" class="form-control" (blur)="toggleEditMode()" />
+                  </div>
+                  <h2 *ngIf="!editMode">Time Activities by Employee Detail</h2>
+                  <div *ngIf="editMode">
+                    <input type="text" [(ngModel)]="timeActivity" class="form-control" (blur)="toggleEditMode()" />
+                  </div>
+                  <h3 *ngIf="!editMode">Activity: January 1-24, 2024</h3>
+                  <div *ngIf="editMode">
+                    <input type="text" [(ngModel)]="Activity" class="form-control" (blur)="toggleEditMode()" />
+                  </div>
+                </div>
+              </th>
+            </tr>
+            <tr class="thead-light">
+              <th><span>Active Date</span></th>
+              <th><span>Client</span></th>
+              <th><span>Product/Service</span></th>
+              <th><span>Memo/Description</span></th>
+              <th><span>Rates</span></th>
+              <th><span>Duration</span></th>
+              <th><span>Billable</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of tableData">
+              <td>{{ row.activeDate }}</td>
+              <td>{{ row.client }}</td>
+              <td>{{ row.product }}</td>
+              <td>{{ row.description }}</td>
+              <td>{{ row.rates }}</td>
+              <td>{{ row.duration }}</td>
+              <td>{{ row.billable }}</td>
+            </tr>
+            <tr>
+              <td>Total for Bala Rohit Reddy Gurivireddy</td>
+              <td colspan="6"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td colspan="5"></td>
+              <td>{{ getTotalDuration() }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="showNotes" class="notes-container col-md-12">
+          <i class="fas fa-times float-right" (click)="closeNotes()"></i>
+          <textarea class="mt-2" [(ngModel)]="notes"
+            placeholder="Add notes or include additional info with your report"></textarea>
+          <div class="notes-actions">
+            <div>4000 characters max</div>
           </div>
         </div>
-
-      </div>
-    </div>
-    <div class="tab-pane fade" id="performanceCenter">
-    </div>
-</div>
-</div>
-<div class="containers mt-4">
-  <div class="top-row">
-    <div class="top-row-content d-flex justify-content-between">
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" id="sortByDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Sort by
-        </button>
-        <div class="dropdown-menu" aria-labelledby="sortByDropdown">
-          <a class="dropdown-item" href="#">Option 1</a>
-          <a class="dropdown-item" href="#">Option 2</a>
-          <a class="dropdown-item" href="#">Option 3</a>
-        </div>
-      </div>
-      <div  style="margin-left: 20px;
-      margin-top: 8px;
-      font-size: 19px;">
-      <a href="">Add notes</a>
-
-      </div>
-      <div class="ml-auto" style=" margin-top: 7px;">
-        <i style="font-size: 25px;" class="fas fa-envelope mr-3"></i>
-        <i style="font-size: 25px;" class="fas fa-print mr-3"></i>
-        <i style="font-size: 25px;" class="fas fa-share mr-3"></i>
-        <i style="font-size: 25px;" class="fas fa-cog"></i>
+        <br>
+        <div class="container justify-content-center">Tuesday, January 30, 2024 02:39 AM GMT+05:30</div>
       </div>
     </div>
   </div>
-  <div class="container mt-4">
-      <div class="container text-center mt-5">
-          <h1 class="mt-5">IQLOGG INC <i class="fas fa-edit"></i></h1>
-          <h2>Time Activities by Employee Detail</h2>
-          <h3>Activity: January 1-24, 2024</h3>
-        </div>
-
-<div class="scroll-container">
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover" id="keywords">
-      <thead class="thead-light">
-        <tr>
-          <th><span>Active Date</span></th>
-          <th><span>Client</span></th>
-          <th><span>Product/Service</span></th>
-          <th><span>Memo/Description</span></th>
-          <th><span>Rates</span></th>
-          <th><span>Duration</span></th>
-          <th><span>Billable</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of tableData">
-          <td>{{ row.activeDate }}</td>
-          <td>{{ row.client }}</td>
-          <td>{{ row.product }}</td>
-          <td>{{ row.description }}</td>
-          <td>{{ row.rates }}</td>
-          <td>{{ row.duration }}</td>
-          <td>{{ row.billable }}</td>
-        </tr>
-
-        <!-- Total row for Active Date -->
-        <tr>
-          <td>Total for Bala Rohit Reddy Gurivireddy</td>
-          <td colspan="6"></td>
-        </tr>
-
-        <!-- Total row for Duration -->
-        <tr>
-          <td></td>
-          <td colspan="5"></td>
-          <td>{{ getTotalDuration() }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  </div>
 </div>
-</div>
-
-
