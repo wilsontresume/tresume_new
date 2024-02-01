@@ -1,4 +1,3 @@
-
 <div class="container-fluid p-3">
   <div class="head d-flex justify-content-between p-3">
     <h2>Weekly Timesheet</h2>
@@ -27,7 +26,6 @@
         <div class="weekly-datepicker">
           <select id="weekPicker" [(ngModel)]="selectedWeek" (change)="onWeekSelect($event.target.value)">
             <!-- <option value="" disabled>Select a week</option> -->
-         
             <option *ngFor="let week of generateWeeks()" [value]="week" value="">{{ week }}</option>
           </select>
           <!-- Display the selected week -->
@@ -36,7 +34,7 @@
           </div> -->
         </div>
       </div>
-      
+
     </div>
   </div>
   <table>
@@ -50,9 +48,8 @@
             <span class="date">{{ date.getDate() }}</span>
           </th>
         </ng-container>
-          <th>TOTAL</th>
-          <th>Action</th>
-        <!-- </ng-container> -->
+        <th>TOTAL</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
