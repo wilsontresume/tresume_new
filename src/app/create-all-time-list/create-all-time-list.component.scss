@@ -144,21 +144,6 @@ select {
   border-color: #ccc;
 }
 
-<<<<<<< Updated upstream
-=======
-
-.gray-theme select {
-  width: 100%;
-  padding: 8px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease-in-out;
-  border-color: #ccc;
-}
-
->>>>>>> Stashed changes
 .gray-theme select:focus {
   border-color: #007bff;
   outline: none; 
@@ -173,11 +158,8 @@ textarea:focus{
   border-color: #007bff;
   outline: none; 
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-<<<<<<< Updated upstream
 }
 th span.date {
   font-family: 'Arial', sans-serif;
   color: #007bff;
-=======
->>>>>>> Stashed changes
 }
