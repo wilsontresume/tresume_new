@@ -37,6 +37,7 @@ export class CreateAllTimeListComponent implements OnInit {
   
   timesheetRows: any[] = [];
   totalAmountForAllRows: number = 0;
+<<<<<<< Updated upstream
   totalAmount: number = 0;
 
   updateTotalAmount() {
@@ -52,6 +53,20 @@ export class CreateAllTimeListComponent implements OnInit {
     }, 0);
   }
 
+=======
+
+ updateTotalAmount() {
+  let totalAmount = 0;
+  this.rows.forEach(row => {
+    if (row.checkbox) {
+      totalAmount += row.input || 0;
+    }
+    row.totalAmount = this.calculateTotalAmount(row); 
+   
+  });
+  this.totalAmount = totalAmount;
+}
+>>>>>>> Stashed changes
 
   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
     const datesWithDaysArray: { date: Date; day: string }[] = [];
@@ -116,6 +131,26 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
 
+<<<<<<< Updated upstream
+=======
+  // calculateTotalAmount(row: any): number | string {
+  //   const mon = row.mon || 0;
+  //   const tues = row.tues || 0;
+  //   const wed = row.wed || 0;
+  //   const thu = row.thu || 0;
+  //   const fri = row.fri || 0;
+  //   const sat = row.sat || 0;
+  //   const sun = row.sun || 0;
+  //   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
+  
+  //   const hourlyRate = row.checkbox ? +row.input : 0; 
+  
+  //   const totalAmount = totalHours * hourlyRate;
+  
+  //   return isNaN(totalAmount) ? 'N/A' : totalAmount;
+  // }
+
+>>>>>>> Stashed changes
   calculateTotalAmount(row: any): number | string {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
@@ -310,7 +345,30 @@ export class CreateAllTimeListComponent implements OnInit {
   onWeekSelect(week: string): void {
     this.selectedWeek = week;
   }
+<<<<<<< Updated upstream
 
+=======
+   
+  // Its Important for showing the weeks, only current month
+  // --------------------------------------------------
+  // generateWeeks(): string[] {
+  //   const today = new Date();
+  //   const currentDay = today.getDay();
+  //   const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - currentDay + (currentDay === 0 ? -6 : 1)); // Start from the beginning of the current or next week
+  
+  //   const weeks: string[] = [];
+  
+  //   for (let i = 0; i < 5; i++) { // Display 5 weeks ahead
+  //     const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
+  //     const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
+  //     weeks.push(weekString);
+  //     startDate.setDate(startDate.getDate() + 7); // Move to the next week
+  //   }
+  
+  //   return weeks;
+  // }
+  
+>>>>>>> Stashed changes
 
   generateWeeks(): string[] {
     const today = new Date();
@@ -350,6 +408,7 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
 
+<<<<<<< Updated upstream
   dynamicDays: string[] = [];
 
   getWeekDates(selectedWeek: string): Date[] {
@@ -382,6 +441,10 @@ export class CreateAllTimeListComponent implements OnInit {
 
 //   return isNaN(totalAmount) ? 'N/A' : totalAmount;
 // }
+=======
+
+
+>>>>>>> Stashed changes
 
 
 // Add the second default row
