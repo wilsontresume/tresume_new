@@ -171,7 +171,7 @@ const routes: Routes = [
   { path: 'viewvendor',component:ViewvendorComponent},
   { path: 'addvendor',component:AddvendorComponent},
   { path: 'assignrole',component:AssignRoleComponent},
-  { path: 'homelanding',component:HomeComponent},
+  { path: '',component:HomeComponent},
   { path: 'about',component:AboutComponent},
   { path: 'ats',component:AtsComponent},
   { path: 'workforce',component:WorkforceComponent},
@@ -215,8 +215,8 @@ const routes: Routes = [
   { path: 'payment', component: PaymentComponent },
   { path: 'tsreport', component: NewTimeSheetReportComponent },
   { path: 'reports/ar-aging-report', component: ArAgingReportComponent },
-  { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
-  { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 
+  // { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
+  { path: '**', redirectTo: '', pathMatch: 'full' }, 
  
 ];
 
