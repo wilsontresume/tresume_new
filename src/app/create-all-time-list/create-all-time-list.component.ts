@@ -1,3 +1,6 @@
+
+
+
 import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule  } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -31,17 +34,19 @@ export class CreateAllTimeListComponent implements OnInit {
 
   //New Functions
   timesheetRows: any[] = [];
+  totalAmountForAllRows: number = 0;
 
-  updateTotalAmount() {
-    let totalAmount = 0;
-    this.rows.forEach(row => {
-      if (row.checkbox) {
-        totalAmount += row.input || 0;
-      }
-      this.row.totalAmount = this.calculateTotalAmount(this.row); 
-    });
-    this.totalAmount = totalAmount;
-  }  
+ updateTotalAmount() {
+  let totalAmount = 0;
+  this.rows.forEach(row => {
+    if (row.checkbox) {
+      totalAmount += row.input || 0;
+    }
+    row.totalAmount = this.calculateTotalAmount(row); 
+   
+  });
+  this.totalAmount = totalAmount;
+}
 
   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
     const datesWithDaysArray: { date: Date; day: string }[] = [];
@@ -126,6 +131,7 @@ export class CreateAllTimeListComponent implements OnInit {
   
   //   return isNaN(totalAmount) ? 'N/A' : totalAmount;
   // }
+
   calculateTotalAmount(row: any): number | string {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
@@ -344,7 +350,7 @@ export class CreateAllTimeListComponent implements OnInit {
     this.selectedWeek = week;
   }
    
-  // Its Important for showing the weeks only current month
+  // Its Important for showing the weeks, only current month
   // --------------------------------------------------
   // generateWeeks(): string[] {
   //   const today = new Date();
@@ -401,29 +407,10 @@ export class CreateAllTimeListComponent implements OnInit {
   }
   
 
-  // ... (previous code)
 
-getDaysOfWeek(selectedWeek: string): string[] {
-  const daysOfWeek: string[] = [];
-  
-  if (selectedWeek) {
-    const [start, end] = selectedWeek.split(' to ');
-    const startDate = new Date(start);
-    const endDate = new Date(end);
 
-    while (startDate <= endDate) {
-      daysOfWeek.push(this.getDayOfWeek(startDate));
-      startDate.setDate(startDate.getDate() + 1);
-    }
-  }
 
-  return daysOfWeek;
-}
-
-getDayOfWeek(date: Date): string {
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  return days[date.getDay()];
-}
 
 
 }
+
