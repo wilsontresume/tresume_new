@@ -2,9 +2,9 @@
     <div class="container-fluid">
         <accordion [isAnimated]="true">
             <accordion-group heading="Upload Documents" [isOpen]=true>
-                <div>
+                <!-- <div>
                     <i class="fa fa-arrow-left clickable" (click)="goBack()"> Back to profile</i>
-                </div>
+                </div> -->
                 <div style="padding: 15px 8px;">
                     <alert *ngIf="toggleSuccess" type="success" dismissOnTimeout="5000" dismissible=true
                         (onClosed)="onClosed()">File uploaded successfully

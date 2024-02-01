@@ -1,6 +1,5 @@
 .row{
   padding:10px;
-
 }
 .container-fluid{
   background-color: #fff;
@@ -112,6 +111,7 @@ tbody{
 .btn-bgcolor
 {
 background-color: #46103d ; 
+color:white;
 }   
 
 .modal {
@@ -174,7 +174,11 @@ background-color: #46103d ;
 }
 
 ::ng-deep .mat-tab-label-content {
-  font-size: 16px;
+  font-size: 12px;
+}
+
+::ng-deep .mat-tab-label{
+  min-width: 150px !important;
 }
 
 ::ng-deep .mat-ink-bar {

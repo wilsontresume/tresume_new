@@ -6,7 +6,8 @@
     <!-- General tab -->
    
     <mat-tab-group (selectedIndexChange)="onTabChange($event)" [selectedIndex]="tabIndex" class="mt-2">
-      <mat-tab label="General">
+
+      <mat-tab label="General" style="font-size:16px">
         <div class="container-fluid mt-3">
           <form [formGroup]="FormGeneral">
             <div class="row">
@@ -947,16 +948,25 @@
         </div>
       </mat-tab>
 
-      <!-- <mat-tab label="Site Visit" class="mt-5" *ngIf="routeType == 1">
+      <mat-tab label="Document" class="mt-5" *ngIf="routeType == 1">
         <ng-template matTabContent>
-          <app-sitevisit [candidateId]="44267"></app-sitevisit>
+          <app-candidate [candidateId]="candidateID"></app-candidate>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab label="Site Visit" class="mt-5" *ngIf="routeType == 1">
+        <ng-template matTabContent>
+          <app-sitevisit [candidateId]="candidateID"></app-sitevisit>
       </ng-template>
-      </mat-tab> -->
+      </mat-tab>
+
     </mat-tab-group>
+    <!-- <div class="text-right"><button class="btn btn-bgcolor" [routerLink]="['/candidateview/']">Document</button>
+    <button class="btn btn-bgcolor ml-3" [routerLink]="['/candidateview/']">Sitevisit</button>
+    </div> -->
     <div class="parent-container">
       <button class="btn btn1 mt-3 mb-3" id="saveButton" *ngIf="showSaveButton" (click)="saveData()" style="margin-left: auto; margin-right: 20px;">{{ saveButtonLabel }}</button>
   </div>
-  
   </div>
 </div>
 
