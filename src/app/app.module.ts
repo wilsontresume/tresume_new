@@ -159,8 +159,10 @@ import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
 import { PaymentComponent } from './all-invoice/payment/payment.component';
 import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
 import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
+import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.component';
 import { DatePipe } from '@angular/common';
 import { TruncatePipe } from './truncate.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -253,6 +255,7 @@ import { TruncatePipe } from './truncate.pipe';
       PaymentComponent,
       ArAgingReportComponent,
       NewTimeSheetReportComponent,
+      SendInvoiceComponent,
       TruncatePipe,
     // TimesheetViewdetailsComponent
 
