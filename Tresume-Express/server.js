@@ -675,20 +675,28 @@ app.post("/uploadinsert", function (req, res) {
   });
 });
 
-app.get("/sitevisit/:traineeID", function (req, res) {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
+app.get("/sitevisit/:traineeID", async function (req, res) {
+  try {
+    await sql.connect(config);
+
+    const request = new sql.Request();
     request.input("TraineeID", sql.VarChar, req.params.traineeID);
-    request.execute("GetTraineeDetails", function (err, recordset) {
-      if (err) console.log(err);
-      var result = {
-        flag: 1,
-        result: recordset.recordsets[0],
-      };
-      res.send(result);
-    });
-  });
+
+    const recordset = await request.execute("GetTraineeDetails");
+
+    const result = {
+      flag: 1,
+      result: recordset.recordsets[0],
+    };
+
+    res.send(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ flag: 0, error: "Internal Server Error" });
+  } finally {
+    // Make sure to close the SQL connection in the finally block
+    sql.close();
+  }
 });
 
 app.post("/updateJobDuties", function (req, res) {
