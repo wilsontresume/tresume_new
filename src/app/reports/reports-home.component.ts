@@ -46,6 +46,11 @@ export class ReportsHomeComponent implements OnInit {
         this.router.navigate(['reports/' + route])
     }
 
+    public timesheetrouteLinks(route: string) {
+        this.router.navigate([ route])
+    }
+
+    
     reports = [
       { title: 'FTC Report', description: 'Generates a list of First Time Callers' },
       { title: 'Interviews Report', description: 'Generates a list of Interviews scheduled during a time period' },
