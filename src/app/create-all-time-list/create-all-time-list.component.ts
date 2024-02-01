@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-create-all-time-list',
   templateUrl: './create-all-time-list.component.html',
-  providers: [DatePipe,CookieService, CreateAllTimeListService, MessageService],
+  providers: [DatePipe, CookieService, CreateAllTimeListService, MessageService],
   styleUrls: ['./create-all-time-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
@@ -22,19 +22,19 @@ import { DatePipe } from '@angular/common';
 export class CreateAllTimeListComponent implements OnInit {
   OrgID: string;
   rows: any[] = [];
-  minDate: string;
-  maxDate: string;
-  maxSelectableDays = 7;
-  maxAllowedDays: number = 7;
-  selectedSunday: string = '';
-  isSundaySelected: boolean = false;
+  // minDate: string;
+  // maxDate: string;
+  // maxSelectableDays = 7;
+  // maxAllowedDays: number = 7;
+  // selectedSunday: string = '';
+  // isSundaySelected: boolean = false;
   CAselectedFile: File | null = null;
   SRselectedFile: File | null = null;
   [key: string]: any;
   file1: File | null = null;
   file2: File | null = null;
 
-  //New Functions
+  
   timesheetRows: any[] = [];
   totalAmountForAllRows: number = 0;
   totalAmount: number = 0;
@@ -49,11 +49,11 @@ export class CreateAllTimeListComponent implements OnInit {
       });
       this.totalAmountForAllRows = totalAmount;
       this.cdr.markForCheck();
-    }, 0); 
+    }, 0);
   }
-  
 
-   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
+
+  getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
     const datesWithDaysArray: { date: Date; day: string }[] = [];
     let currentDate = new Date(start);
 
@@ -101,7 +101,7 @@ export class CreateAllTimeListComponent implements OnInit {
       sat: '',
       sun: '',
       totalHours: '',
-      totalAmount: ''
+      totalAmount: '',
     });
   }
   removeRow(index: number) {
@@ -114,22 +114,7 @@ export class CreateAllTimeListComponent implements OnInit {
       row[fieldName] = fileList[0];
     }
   }
-  // calculateTotalAmount(row: any): number | string {
-  //   const mon = row.mon || 0;
-  //   const tues = row.tues || 0;
-  //   const wed = row.wed || 0;
-  //   const thu = row.thu || 0;
-  //   const fri = row.fri || 0;
-  //   const sat = row.sat || 0;
-  //   const sun = row.sun || 0;
-  //   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
 
-  //   const hourlyRate = row.checkbox ? +row.input : 0; 
-
-  //   const totalAmount = totalHours * hourlyRate;
-
-  //   return isNaN(totalAmount) ? 'N/A' : totalAmount;
-  // }
 
   calculateTotalAmount(row: any): number | string {
     const mon = row.mon || 0;
@@ -140,17 +125,17 @@ export class CreateAllTimeListComponent implements OnInit {
     const sat = row.sat || 0;
     const sun = row.sun || 0;
     const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
-  
+
     const hourlyRate = row.billable ? +row.hourlyRate : 0;
     const totalAmount = totalHours * hourlyRate;
-  
+
     row.totalAmount = isNaN(totalAmount) ? 'N/A' : totalAmount;
-  
-    this.updateTotalAmount(); 
+
+    this.updateTotalAmount();
     return row.totalAmount;
-    
+
   }
-  
+
 
   calculateTotalHours(row: any): number | string {
     const mon = row.mon || 0;
@@ -183,41 +168,7 @@ export class CreateAllTimeListComponent implements OnInit {
       totalAmount: '',
     });
 
-    // Add the second default row
-    // this.timesheetRows.push({
-    //   selectedOption2: null,
-    //   detailsDropdown2: null,
-    //   dropdownId2: 2,
-    //   textarea2: '',
-    //   checkbox2: false,
-    //   file2_1: null,
-    //   file2_2: null,
-    //   mon2: 0,
-    //   tues2: 0,
-    //   wed2: 0,
-    //   thu2: 0,
-    //   fri2: 0,
-    //   sat2: 0,
-    //   sun2: 0
-    // });
   }
-
-  //New Functions ends...
-
-  // selectSunday(selectedDate: string) {
-  //   const selectedDateObj = new Date(selectedDate);
-  //   const dayOfWeek = selectedDateObj.getDay();
-  //   if (dayOfWeek === 0) {
-  //     this.selectedSunday = selectedDate;
-  //     this.isSundaySelected = true;
-  //   } else {
-  //     const previousSunday = new Date(selectedDateObj);
-  //     previousSunday.setDate(selectedDateObj.getDate() - dayOfWeek);
-  //     const formattedDate = previousSunday.toISOString().split('T')[0];
-  //     this.selectedSunday = formattedDate;
-  //     this.isSundaySelected = true;
-  //   }
-  // }
 
 
   onFileSelected(event: any, fileIdentifier: string): void {
@@ -241,9 +192,8 @@ export class CreateAllTimeListComponent implements OnInit {
     this.getCandidateName();
     this.getLocation();
 
-    // Example: Set initial selectedWeek
-this.selectedWeek = '2024-02-05 to 2024-02-11'; // Replace with your initial value
-this.updateDynamicDays(this.selectedWeek);
+    this.selectedWeek = '2024-02-05 to 2024-02-11';
+    this.updateDynamicDays(this.selectedWeek);
 
 
 
@@ -361,25 +311,6 @@ this.updateDynamicDays(this.selectedWeek);
     this.selectedWeek = week;
   }
 
-  // Its Important for showing the weeks, only current month
-  // --------------------------------------------------
-  // generateWeeks(): string[] {
-  //   const today = new Date();
-  //   const currentDay = today.getDay();
-  //   const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - currentDay + (currentDay === 0 ? -6 : 1)); // Start from the beginning of the current or next week
-
-  //   const weeks: string[] = [];
-
-  //   for (let i = 0; i < 5; i++) { // Display 5 weeks ahead
-  //     const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
-  //     const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
-  //     weeks.push(weekString);
-  //     startDate.setDate(startDate.getDate() + 7); // Move to the next week
-  //   }
-
-  //   return weeks;
-  // }
-
 
   generateWeeks(): string[] {
     const today = new Date();
@@ -387,20 +318,20 @@ this.updateDynamicDays(this.selectedWeek);
     const weeks: string[] = [];
 
     this.zone.runOutsideAngular(() => {
-    for (let monthOffset = 0; monthOffset < 12; monthOffset++) {
-      const targetMonth = (today.getMonth() + monthOffset) % 12;
-      const targetYear = currentYear + Math.floor((today.getMonth() + monthOffset) / 12);
+      for (let monthOffset = 0; monthOffset < 12; monthOffset++) {
+        const targetMonth = (today.getMonth() + monthOffset) % 12;
+        const targetYear = currentYear + Math.floor((today.getMonth() + monthOffset) / 12);
 
-      const startDate = this.getFirstMonday(new Date(targetYear, targetMonth, 1));
+        const startDate = this.getFirstMonday(new Date(targetYear, targetMonth, 1));
 
-      for (let i = 0; i < 5; i++) {
-        const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
-        const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
-        weeks.push(weekString);
-        startDate.setDate(startDate.getDate() + 7);
+        for (let i = 0; i < 5; i++) {
+          const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
+          const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
+          weeks.push(weekString);
+          startDate.setDate(startDate.getDate() + 7);
+        }
       }
-    }
-  });
+    });
     return weeks;
   }
 
@@ -420,22 +351,89 @@ this.updateDynamicDays(this.selectedWeek);
 
 
   dynamicDays: string[] = [];
- 
+
   getWeekDates(selectedWeek: string): Date[] {
     const [start, end] = selectedWeek.split(' to ').map(dateString => new Date(dateString));
     const dates: Date[] = [];
     let currentDate = new Date(start);
-  
+
     while (currentDate <= end) {
       dates.push(new Date(currentDate));
       currentDate.setDate(currentDate.getDate() + 1);
     }
-  
+
     return dates;
   }
-  
-  
-
-  
 }
 
+// calculateTotalAmount(row: any): number | string {
+//   const mon = row.mon || 0;
+//   const tues = row.tues || 0;
+//   const wed = row.wed || 0;
+//   const thu = row.thu || 0;
+//   const fri = row.fri || 0;
+//   const sat = row.sat || 0;
+//   const sun = row.sun || 0;
+//   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
+
+//   const hourlyRate = row.checkbox ? +row.input : 0;
+
+//   const totalAmount = totalHours * hourlyRate;
+
+//   return isNaN(totalAmount) ? 'N/A' : totalAmount;
+// }
+
+
+// Add the second default row
+// this.timesheetRows.push({
+//   selectedOption2: null,
+//   detailsDropdown2: null,
+//   dropdownId2: 2,
+//   textarea2: '',
+//   checkbox2: false,
+//   file2_1: null,
+//   file2_2: null,
+//   mon2: 0,
+//   tues2: 0,
+//   wed2: 0,
+//   thu2: 0,
+//   fri2: 0,
+//   sat2: 0,
+//   sun2: 0
+// });
+
+
+// selectSunday(selectedDate: string) {
+//   const selectedDateObj = new Date(selectedDate);
+//   const dayOfWeek = selectedDateObj.getDay();
+//   if (dayOfWeek === 0) {
+//     this.selectedSunday = selectedDate;
+//     this.isSundaySelected = true;
+//   } else {
+//     const previousSunday = new Date(selectedDateObj);
+//     previousSunday.setDate(selectedDateObj.getDate() - dayOfWeek);
+//     const formattedDate = previousSunday.toISOString().split('T')[0];
+//     this.selectedSunday = formattedDate;
+//     this.isSundaySelected = true;
+//   }
+// }
+
+
+// Its Important for showing the weeks, only current month
+// --------------------------------------------------
+// generateWeeks(): string[] {
+//   const today = new Date();
+//   const currentDay = today.getDay();
+//   const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - currentDay + (currentDay === 0 ? -6 : 1)); // Start from the beginning of the current or next week
+
+//   const weeks: string[] = [];
+
+//   for (let i = 0; i < 5; i++) { // Display 5 weeks ahead
+//     const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
+//     const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
+//     weeks.push(weekString);
+//     startDate.setDate(startDate.getDate() + 7); // Move to the next week
+//   }
+
+//   return weeks;
+// }
