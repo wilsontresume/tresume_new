@@ -967,4 +967,5 @@ cancelDeletesubmission() {
     document.body.appendChild(link);
     link.click();
   }
+
 }
