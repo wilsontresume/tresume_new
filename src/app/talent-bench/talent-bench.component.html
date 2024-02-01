@@ -17,8 +17,7 @@
         </div>
 
         <div class="form-group text-right d-flex" style="margin-top: 30px;">
-          <label for="search" class="label-large mt-2 mr-3">Search: </label>
-          <input [(ngModel)]="search" type="text" class="form-control ml-6 mr-2" id="search"
+          <input [(ngModel)]="search" type="text"  class="form-control ml-6 mr-2 " id="search" 
             placeholder=" Search candidates...">
         </div>
       </div>
@@ -64,6 +63,7 @@
                 <!-- Right column -->
                 <div class="col-md-6">
                   <div class="icons" style="margin-top: 10px;margin-top:-21px;margin-right: 50px; text-align: right;">
+                    <a class="badge badge-warning"  style="font-size: 16px; color: #49274A;margin-right: 15px;"><i class="fas fa-globe"> </i> {{ item.organizationname }}</a>
                     <i [routerLink]="['/reviewtresume/3/'+item.TraineeID+'/0']" class="fa fa-eye fa-fw pt-2" style="font-size: 24px;"></i>
                     <i class="far fa-clipboard icon" title="Submission Data" (click)="downloadSubmission(item.TraineeID)" style="font-size: 20px;margin-left: 20px;"></i>
                     <i class="fas fa-pencil-alt icon" title="Interview Data" (click)="downloadInterview(item.TraineeID)" style="font-size: 20px;margin-left: 20px;"></i>
