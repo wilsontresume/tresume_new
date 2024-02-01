@@ -133,8 +133,6 @@ select {
   padding: 8px;
   font-size: 14px;
 }
-
-
 .gray-theme select {
   width: 100%;
   padding: 8px;
@@ -163,3 +161,8 @@ textarea:focus{
 }
 
 
+th span.date {
+  // font-family: "Gill Sans", sans-serif;
+  font-family: 'Arial', sans-serif;
+  color: #007bff;
+}
