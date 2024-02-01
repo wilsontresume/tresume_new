@@ -10,18 +10,31 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AllInvoiceComponent implements OnInit {
 
-  isRowSelected: boolean = false;
+  isRowSelected = false;
   isContentVisible = false;
   showContent1 = false;
   showContent2 = false;
 
-  isModalOpen: boolean = false;
-  shareLink: string = '';
-
+  isModalOpen = false;
+  shareLink = '';
+row: any;
+  
+uploadFile(event: any): void {
+  const fileList: FileList = event.target.files;
+  if (fileList.length > 0) {
+    const file: File = fileList[0];
+    // You can perform further actions with the uploaded file
+    console.log('File uploaded:', file);
+  }
+}
+selectDocument(event: Event): void {
+  event.preventDefault();
+  document.getElementById('uploadInput')?.click();
+}
 
   openShareLinkModal(event: Event): void {
-    event.preventDefault(); // Prevents the default behavior (page reload)
-    this.shareLink = 'Your generated link'; // Replace with your actual link
+    event.preventDefault();
+    this.shareLink = 'Your generated link';
     this.isModalOpen = true;
   }
 
@@ -29,6 +42,13 @@ export class AllInvoiceComponent implements OnInit {
     this.isModalOpen = false;
   }
 
+  copyLink(): void {
+    console.log('Copy Link logic');
+  }
+
+  save(): void {
+    console.log('Save logic');
+  }
   toggleContent(dropdown: string) {
     if (dropdown === 'dropdown1') {
       this.showContent1 = !this.showContent1;

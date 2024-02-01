@@ -159,6 +159,7 @@ import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
 import { PaymentComponent } from './all-invoice/payment/payment.component';
 import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
 import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
+import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.component';
 
 @NgModule({
   declarations: [
@@ -252,6 +253,7 @@ import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sh
       PaymentComponent,
       ArAgingReportComponent,
       NewTimeSheetReportComponent,
+      SendInvoiceComponent,
     // TimesheetViewdetailsComponent
 
   ],

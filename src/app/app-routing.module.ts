@@ -102,6 +102,7 @@ import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
 import { PaymentComponent } from './all-invoice/payment/payment.component';
 import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
 import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
+import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -215,6 +216,7 @@ const routes: Routes = [
   { path: 'payment', component: PaymentComponent },
   { path: 'timesheetreport', component: NewTimeSheetReportComponent },
   { path: 'reports/ar-aging-report', component: ArAgingReportComponent },
+  { path: 'send-invoice', component: SendInvoiceComponent },
   { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
   { path: '**', redirectTo: 'homelanding', pathMatch: 'full' }, 
  

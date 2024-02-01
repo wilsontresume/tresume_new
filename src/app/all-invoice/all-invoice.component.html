@@ -490,30 +490,19 @@
                           <div class="dropdown-menu">
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a> 
-                            <a class="dropdown-item" href="#" (click)="openShareLinkModal($event)" style="z-index: 999px;">Share invoice link</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
+                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
-
                         </div>
 
                       </td> 
                     </tr>
-                    <div *ngIf="isModalOpen" class="modal-overlays">
-                      <div class="modal-contents">
-                        <span (click)="closeModals()" class="close-button">&times;</span>
-                        <h2>Send your customer a link to their invoice</h2>
-                        <p>Skip the cluttered inbox and share an invoice link instead. Your customer can download, print, or pay it in an instant.</p>
-                        <p class="link-content">Your link goes here...</p>
-                        <hr class="grey-line">
-                        <div class="button-container">
-                          <button class="copy-link-button" (click)="copyLink()">Copy Link</button>
-                          <button class="save-button" (click)="save()">Save</button>
-                        </div>
-                      </div>
-                    </div>
+                    <!-- -->
                     
+                    
+                  
 
 
 
@@ -549,9 +538,9 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a> 
+                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
                         </div>
@@ -593,8 +582,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -636,8 +625,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -678,8 +667,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -722,8 +711,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -766,8 +755,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -811,8 +800,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -885,8 +874,8 @@
                           <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                           <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                          <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
 
@@ -926,8 +915,8 @@
                           <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                           <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                          <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
 
@@ -967,8 +956,8 @@
                           <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                           <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                          <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
 
@@ -1008,8 +997,8 @@
                           <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                           <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                          <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
 
@@ -1049,8 +1038,8 @@
                           <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                           <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                          <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
 
@@ -1090,8 +1079,8 @@
                           <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                           <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                          <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
 
@@ -1131,8 +1120,8 @@
                           <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                           <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                          <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
 
@@ -1173,8 +1162,8 @@
                           <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                           <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                           <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                          <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                          <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                         </div>
 
@@ -1247,8 +1236,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -1290,8 +1279,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -1333,8 +1322,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -1376,8 +1365,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -1419,8 +1408,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -1462,8 +1451,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -1505,8 +1494,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -1548,8 +1537,8 @@
                             <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="#" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Create task</a>
-                            <a class="dropdown-item" href="#" (click)="sendAction()">Share invoice link</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
                           </div>
 
@@ -1562,6 +1551,112 @@
               </div>
             </div>
           </div>
+          <div class="modal fade" id="shareLinkModal" tabindex="-1" role="dialog" aria-labelledby="shareLinkModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="shareLinkModalLabel">Send your customer a link to their invoice</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Skip the cluttered inbox and share an invoice link instead. Your customer can download, print, or pay it in an instant.</p>
+                            <p class="link-content">http://localhost:4200/homelanding</p>
+                            <hr class="grey-line">
+                            <div class="button-container">
+                              <button class="copy-link-button" (click)="copyLink()">Copy Link</button>
+                              <button class="save-button" (click)="save()">Save</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade big-modal" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="createTaskModal" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h2 style="margin-left: auto;">Add task</h2>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            
+                            
+                              <div class="modal-body">
+
+                                <div class="container mt-3">
+                                  <div class="row">
+                                    <div class="col">
+                                      <div class="taskname mt-0 ml-3">
+                                        <label for="taskname" class="ml-0">Task Name </label>
+                                        <input type="text" id="taskname" placeholder="Enter task name" class="form-control ml-0" style="width: 28rem; height: 40px;">
+                                      </div>
+                                    </div>
+                                  </div>
+                              
+                                  <div class="row mt-3">
+                                    <div class="col-md-6">
+                                      <div class="form-group ml-3">
+                                        <label for="assignedTo">Assigned To</label>
+                                        <select class="form-control" id="assignedTo">
+                                          <!-- Add options for assigned to here -->
+                                          <option value="user1">User 1</option>
+                                          <option value="user2">User 2</option>
+                                          <option value="user3">User 3</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                              
+                                    <div class="col-md-6">
+                                      <div class="form-group ml-3">
+                                        <label for="dueDate">Due Date</label>
+                                        <input type="date" id="dueDate" class="form-control">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row mt-3">
+                                  <div class="col">
+                                    <div class="form-group ml-3">
+                                      <label for="notes">Notes</label>
+                                      <textarea id="notes" class="form-control" rows="3" placeholder="Enter notes"></textarea>
+                                      <p>Invoice no: 92093| Amount: $750.55| Client: Swoon Group, LLC:Ketul Shailesh Patel </p>
+                                    </div>
+                                  </div>
+                                </div>  
+                                <div class="row mt-3">
+                                  <div class="col">
+                                    <h5 class="ml-3">Attach Documents</h5>
+                                    <div class="ml-3">
+                                      <label for="uploadInput" class="btn">
+                                        <i class="fa fa-upload"></i> Upload Document
+                                      </label>
+                                      <input type="file" id="uploadInput" style="display: none" (change)="uploadFile($event)">
+                                    
+                                      &nbsp; <!-- Non-breaking space for spacing -->
+                                    
+                                      <label for="uploadInput" class="btn" (click)="selectDocument($event)">
+                                        <i class="fa fa-file"></i> Select Document
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                            
+                                  
+                                <div class="modal-footer" style="margin-top: 2rem;">
+                                  <div class="button-container">
+                                    <button class="save-button btn" (click)="save()">Save</button>
+                                  </div>
+                                </div>
+                                  <!-- Increase the height by adding more content or adjusting the height property -->
+                                  <div></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                    
         </div>
       </div>
     </div>
