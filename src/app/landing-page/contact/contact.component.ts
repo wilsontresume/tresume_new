@@ -11,6 +11,7 @@ export class ContactComponent implements OnInit {
 
   contactForm: any;
   contactService: any;
+  isNavbarCollapsed = false;
 
   constructor(private fb: FormBuilder,private contact:ContactService) {
 
@@ -49,6 +50,9 @@ export class ContactComponent implements OnInit {
     }
   }
 
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
   // @HostListener('window:scroll', [])
   // onWindowScroll() {
   //   const offset = window.scrollY;

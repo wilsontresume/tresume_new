@@ -7,11 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MonsterComponent implements OnInit {
 isScrolled: any;
+isNavbarCollapsed: boolean = true;
 
   constructor() { }
 
   ngOnInit(): void {
     window.scrollTo(0,0);
   }
- 
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
 }

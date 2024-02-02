@@ -2,42 +2,51 @@
 <!-- conent -->
 <section id="team" class="pb-5">
   <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
-    <a routerLink="/homelanding"><img src="../assets/img/logo.png" style="height: 90px;" alt=""></a>
+    <a routerLink="/homelanding" class="navbar-brand">
+        <img src="../assets/img/logo.png" style="height: 90px;" alt="">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-            Products
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
-            <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
-            <a class="dropdown-item" routerLink="/workforce">Workforce</a>
-            <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
-          </div>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/market">Marketplace</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/features">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/contact">Contact Us</a>
-        </li>
-      </ul>
-      <div class="content" style="margin-right: 62px;">
-        <a href="login" class="bn5">Login</a>
-      </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'show': isNavbarCollapsed}">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Products
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+                    <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+                    <a class="dropdown-item" routerLink="/workforce">Workforce</a>
+                    <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/market">Marketplace</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/features">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/contact">Contact Us</a>
+            </li>
+            <li class="nav-item ">
+              <a href="login" class="nav-link login-btn-mobile">Login</a>
+            </li>
+
+            <li class="nav-item ">
+              <a class=" login-btn-web bn5" style=" margin: 0;" routerLink="/login">Login</a>
+
+            </li>
+        </ul>
     </div>
   </nav>
+
+
   <div class="background-video video-container">
     <video autoplay muted loop class="blur-video video-background" style="width: 100%; height: fit-content;">
       <source src="../../../assets/videos/homepage.mp4" type="video/mp4">
@@ -127,7 +136,7 @@
               <div class="frontside">
                 <div class="card">
                   <div class="card-body text-center">
-                    <p><img class=" img-fluid" src="../../../assets/img/seam.png" alt="card image">
+                    <p><img class=" img-fluid" src="../../../assets/img/intel.png" alt="card image">
                     </p>
                     <h4 class="card-title">Engaging Candidate Experience</h4>
                     <p class="card-text">Create an exceptional candidate experience from the first interaction to
@@ -154,7 +163,7 @@
               <div class="frontside">
                 <div class="card">
                   <div class="card-body text-center">
-                    <p><img class=" img-fluid" src="../../../assets/img/workplays.png" alt="card image">
+                    <p><img class=" img-fluid" src="../../../assets/img/automat.png" alt="card image">
                     </p>
                     <h4 class="card-title" style="    margin-left: 35px;">Automated Workflows</h4>
                     <p class="card-text"> Automate repetitive tasks and workflows, freeing up valuable time for
@@ -214,7 +223,7 @@
               <div class="frontside">
                 <div class="card">
                   <div class="card-body text-center">
-                    <p><img class=" img-fluid" src="../../../assets/img/comunicate.png" alt="card image">
+                    <p><img class=" img-fluid" src="../../../assets/img/easycom.png" alt="card image">
                     </p>
                     <h4 class="card-title">Easy Communicate with candidates</h4>
                     <p class="card-text">The ART has an automated effective system that figure out the correct time
@@ -254,7 +263,7 @@
           user-centric
           approach, we help you build a high-performing workforce that drives your organization's growth.</p>
       </div>
-      <img src="../../../assets/img/preview.png" alt="Solution Image" class="solution-image">
+      <img src="../../../assets/img/human.jpg" alt="Solution Image" class="solution-image">
     </div>
   </div>
 </section>
