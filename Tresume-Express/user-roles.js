@@ -213,65 +213,28 @@ router.post('/getUserProfile', async (req, res) => {
 
   
 router.post('/updateMyProfile', async (req, res) => {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    var query = `UPDATE Trainee SET FirstName = '${req.body.FirstName}', MiddleName = '${req.body.MiddleName}', LastName = '${req.body.LastName}', YearsOfExpInMonths = '${req.body.YearsOfExpInMonths}', Title = '${req.body.Title}', DOB = '${req.body.DOB}', PhoneNumber = '${req.body.PhoneNumber}', state = '${req.body.state}', city = '${req.body.city}', zipcode = '${req.body.zipcode}', WHERE traineeID = ${req.body.traineeID}`;
+  try {
+    await sql.connect(config);
+
+    const request = new sql.Request();
+    const query = `UPDATE Trainee SET FirstName = '${req.body.FirstName}', MiddleName = '${req.body.MiddleName}', LastName = '${req.body.LastName}', YearsOfExpInMonths = '${req.body.YearsOfExpInMonths}', Title = '${req.body.Title}', DOB = '${req.body.DOB}', PhoneNumber = '${req.body.PhoneNumber}', state = '${req.body.state}', city = '${req.body.city}', zipcode = '${req.body.zipcode}' WHERE traineeID = ${req.body.traineeID}`;
+
     console.log(query);
-    request.query(query, function (err, recordset) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ error: 'Database query error' });
-      }
 
-      var result = {
-        flag: 1,
-        result: recordset && recordset.recordsets && recordset.recordsets[0],
-      };
+    const recordset = await request.query(query);
 
-      res.json(result);
-    });
-  });
-})
+    const result = {
+      flag: 1,
+      result: recordset || recordset.recordsets || recordset.recordsets[0],
+    };
 
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database query error' });
+  }
+});
 
-router.post('/fetchProfileStateList', async (req, res) => {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    var query = "SELECT DISTINCT state FROM Usazipcodenew";
-    console.log(query);
-    request.query(query,
-      function (err, recordset) {
-        if (err) console.log(err);
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0],
-        };
-        res.send(result);
-      }
-    );
-  });
-})
-
-router.post('/fetchProfileCityList', async (req, res) => {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    var query = "SELECT DISTINCT city FROM Usazipcodenew";
-    console.log(query);
-    request.query(query,
-      function (err, recordset) {
-        if (err) console.log(err);
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0],
-        };
-        res.send(result);
-      }
-    );
-  });
-})
 
 module.exports = router;
 
