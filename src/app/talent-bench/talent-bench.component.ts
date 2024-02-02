@@ -18,6 +18,7 @@ export class TalentBenchComponent implements OnInit {
 
   loading: boolean = true;
   candidates: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
+  // formData: any = {};
   OrgID: string = '';
   userName: string = '';
   TraineeID: string = '';
@@ -51,6 +52,7 @@ export class TalentBenchComponent implements OnInit {
   marketerName: string[] = [''];
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
   referralType: string[] = [''];
+  formData: any = {};
 
   dataArray: any[] = [
     { groupname: 'Group A', candidateCount: 10 },

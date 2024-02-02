@@ -296,18 +296,11 @@
           <div class="row">
             <div class="col-md-4" *ngIf="routeType == 1 || routeType == 2">
               <label class="label">Recruiter Name *</label>
-              <!-- // check next 2 line if any error  -->
-              <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
-                  <option *ngFor="let name of recruiterNames" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option> -->
-              <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }"> -->
               <select class="form-control" name="recruiterName" [(ngModel)]="recruiterName"
                 [ngModelOptions]="{standalone: true}">
                 <option *ngFor="let name of recruiterNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname
                   }}</option>
               </select>
-              <!-- <div *ngIf="addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched" class="validation-message" style="color: red;">
-                  * Please select at least one Recruiter Name.
-                </div> -->
             </div>
             <div class="col-md-4" *ngIf="routeType == 1">
               <label class="label">Degree</label>
@@ -321,10 +314,6 @@
           </div>
           <div class="row">
             <div class="col-md-4" *ngIf="routeType == 1">
-              <!-- <label class="label">Candidate Status</label>
-                <select class="form-control" name="candidateStatus" [(ngModel)]="formData.candidateStatus" [ngModelOptions]="{standalone: true}">
-                  <option *ngFor="let status of candidateStatuses" [value]="status">{{ status }}</option>
-                </select> -->
               <label class="label">Candidate Status</label>
               <select class="form-control" id="currentStatus" [(ngModel)]="selectedcurrentstatus"
                 [ngModelOptions]="{standalone: true}">
@@ -341,9 +330,6 @@
             </div>
             <div class="col-md-4" *ngIf="routeType == 1">
               <label class="label">Legal Status *</label>
-              <!-- <select class="form-control" name="legalStatus" [(ngModel)]="formData.legalStatus" [ngModelOptions]="{standalone: true}">
-                  <option *ngFor="let stat of legalStatus" [value]="stat">{{ stat }}</option>
-                </select> -->
               <select class="form-control" name="legalStatus" [(ngModel)]="legalStatus"
                 [ngModelOptions]="{standalone: true}">
                 <option value>-- Select Legal Status --</option>
@@ -353,50 +339,10 @@
             </div>
           </div>
           <div class="row">
-            <!-- <div class="col-md-4" *ngIf="routeType == 1">
-                <label class="label">Marketer Name</label>
-                <select class="form-control" name="marketerName" [(ngModel)]="formData.marketerName" [ngModelOptions]="{standalone: true}">
-                  <option *ngFor="let name of marketerNames" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option>
-                </select>
-              </div> -->
-            <!-- <div class="col-md-4" *ngIf="routeType == 1">
-                <label class="label">Follow Up on*</label>
-                <input type="text" class="form-control" name="followUpon" placeholder="Select Option" formControlName="followUpon">
-              </div> -->
             <div class="col-md-4" *ngIf="routeType == 1">
-              <!-- <label class="label">Location Constraint</label>
-                <div class="radio">
-                  <input type="radio" name="locationConstraint" value="yes">Yes
-                  <input type="radio" name="locationConstraint" value="no">No
-                </div> -->
             </div>
-            <!-- <div class="col-md-4">
-                <label class="label">Video</label>
-                <input type="file" class="form-control" name="video">
-              </div> -->
           </div>
-          <!-- <div class="row">
-              <div class="col-md-4" *ngIf="routeType == 1">
-                <label class="label">Referral Type</label>
-                <select class="form-control" name="referralType" [(ngModel)]="formData.referralType" [ngModelOptions]="{standalone: true}">
-                  <option *ngFor="let type of referralTypes" [value]="type">{{ type }}</option>
-                </select>
-              </div>
-              <div class="col-md-4" *ngIf="routeType == 1">
-                <label class="label">Notes</label>
-                <textarea class="textarea" name="notes" rows="4" formControlName="notes"></textarea>
-              </div>
-            </div> -->
-
           <div class="row">
-            <!-- <div class="col-md-4">
-                <label class="label">Follow Up On *</label>
-                <select name="FollowUpOn" id="FollowUpOn" class="form-control" [(ngModel)]="selectedFollowUpOption">
-                  <option selected="selected" value="Never">Never</option>
-                  <option value="SpecifiedDate">Specified Date</option>
-                </select>
-              </div> -->
-
             <div class="col-md-4">
               <label class="label">Follow Up On *</label>
               <select name="FollowUpOn" id="FollowUpOn" class="form-control" [(ngModel)]="selectedFollowUpOption"
@@ -408,7 +354,6 @@
               <!-- Additional input field for specific date -->
               <div *ngIf="selectedFollowUpOption === 'SpecifiedDate'">
                 <label class="label" for="specifiedDateInput">Specify the followup date:</label>
-                <!-- <input type="date" id="specifiedDateInput" name="specifiedDate" class="form-control" [(ngModel)]="specifiedDate" [ngModelOptions]="{standalone: true}"> -->
                 <input type="date" id="specifiedDateInput" name="specifiedDate" class="form-control"
                   [(ngModel)]="specifiedDate" [ngModelOptions]="{standalone: true}" style="margin-left: -1px;">
               </div>

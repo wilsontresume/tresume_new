@@ -112,71 +112,151 @@ ORDER BY
   }
 });
 
+// router.post('/AddTalentBenchList', async function (req, res) {
+//   try {
+//     var TraineeID = await generateTraineeID();
+//     console.log(TraineeID);
+//     var query =
+//       "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
+//       req.body.email +
+//       "' AND UserOrganizationID = '" + req.body.orgID + "') " +
+//       "BEGIN " +
+//       "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation,talentpool ) " +
+//       "VALUES (" +
+//       `'${TraineeID}',` +
+//       ` ${formatValue(req.body.email || '')},` +
+//       ` ${formatValue(req.body.firstName || '')},` +
+//       ` ${formatValue(req.body.phone || '')},` +
+//       ` ${formatValue(req.body.middleName || '')},` +
+//       ` ${formatValue(req.body.lastName || '')},` +
+//       ` ${formatValue(req.body.legalStatus || '')},` +
+//       ` ${formatValue(req.body.candidateStatus || '')},` +
+//       ` ${formatValue(req.body.degree || '')},` +
+//       ` ${formatValue(req.body.gender || '')},` +
+//       ` ${formatValue(req.body.notes || '')},` +
+//       ` ${formatValue(req.body.recruiterName || '')},` +
+//       ` ${formatValue(req.body.referralType || '')},` +
+//       ` ${formatValue(req.body.locationConstraint || '')},` +
+//       ` ${formatValue(req.body.marketerName || '')},` +
+//       ' 1,' +
+//       " 'ACTIVE'," +
+//       " 'READY'," +
+//       " 'TRESUMEUSER', " +
+//       " GETDATE(), " +
+//       ` ${formatValue(req.body.orgID || '')},` +
+//       ` ${formatValue(req.body.createby || '')},` +
+//       ` ${formatValue(req.body.followupon || '')},` +
+//       ` ${formatValue(req.body.currentLocation || '')}` +
+//       ",1) END";
+
+//     console.log(query);
+
+//     await sql.connect(config);
+//     var request = new sql.Request();
+//     var result = await request.query(query);
+
+
+
+//     const data = {
+//       flag: 1,
+//       message: "Trainee Candidate Data Fetched",
+//     };
+
+//     res.send(data);
+//   }
+//   catch (error) {
+//     const data = {
+//       flag: 1,
+//       message: "Internal Server Error",
+//     };
+//     res.status(500).send(data);
+//   }
+// });
+
+// router.post('/AddTalentBenchList', async function (req, res) {
+//   try {
+//     var TraineeID = await generateTraineeID();
+//     console.log(TraineeID);
+
+//     // Insert into Trainee table
+//     var traineeQuery =
+//     "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
+//     req.body.email +
+//     "' AND UserOrganizationID = '" + req.body.orgID + "') " +
+//     "BEGIN " +
+//     "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation,talentpool ) " +
+//     "VALUES (" +
+//     `'${TraineeID}',` +
+//     ` ${formatValue(req.body.email || '')},` +
+//     ` ${formatValue(req.body.firstName || '')},` +
+//     ` ${formatValue(req.body.phone || '')},` +
+//     ` ${formatValue(req.body.middleName || '')},` +
+//     ` ${formatValue(req.body.lastName || '')},` +
+//     ` ${formatValue(req.body.legalStatus || '')},` +
+//     ` ${formatValue(req.body.candidateStatus || '')},` +
+//     ` ${formatValue(req.body.degree || '')},` +
+//     ` ${formatValue(req.body.gender || '')},` +
+//     ` ${formatValue(req.body.notes || '')},` +
+//     ` ${formatValue(req.body.recruiterName || '')},` +
+//     ` ${formatValue(req.body.referralType || '')},` +
+//     ` ${formatValue(req.body.locationConstraint || '')},` +
+//     ` ${formatValue(req.body.marketerName || '')},` +
+//     ' 1,' +
+//     " 'ACTIVE'," +
+//     " 'READY'," +
+//     " 'TRESUMEUSER', " +
+//     " GETDATE(), " +
+//     ` ${formatValue(req.body.orgID || '')},` +
+//     ` ${formatValue(req.body.createby || '')},` +
+//     ` ${formatValue(req.body.followupon || '')},` +
+//     ` ${formatValue(req.body.currentLocation || '')}` +
+//     ",1) END";
+
+//     console.log(traineeQuery);
+
+//     await sql.connect(config);
+//     var traineeRequest = new sql.Request();
+//     var traineeResult = await traineeRequest.query(traineeQuery);
+
+//     // Insert into TalentBench table
+//     var talentBenchQuery =
+//     "INSERT INTO TalentBench " +
+//     "([TraineeID], [Name], [ReferredBy], [Currency], [BillRate], [PayType], [TaxTerm], [ConsultantType], [JobTitle], [LocationPreference], [BenchStatus], [Availability], [txtComments], [Active], [CreateBy], [CreateTime], [GroupID], [IsNew]) " +
+//     "VALUES (" +
+//     `'${TraineeID}',` + 
+//     ` ${formatValue(req.body.firstName + ' ' + req.body.lastName || '')},` +
+//     ` ${formatValue(req.body.recruiterName || '')},` +
+//     " NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'TRESUMEUSER', GETDATE(), NULL, 1)";
+  
+
+//     console.log(talentBenchQuery);
+//     await sql.connect(config);
+//     var talentBenchRequest = new sql.Request();
+//     var talentBenchResult = await talentBenchRequest.query(talentBenchQuery);
+
+//     const data = {
+//       flag: 1,
+//       message: "Trainee Candidate Data Fetched",
+//     };
+//     res.send(data);
+//   }
+//   catch (error) {
+//     const data = {
+//       flag: 1,
+//       message: "Internal Server Error",
+//     };
+//     res.status(500).send(data);
+//   }
+// });
+
 router.post('/AddTalentBenchList', async function (req, res) {
   try {
+    // Generate TraineeID
     var TraineeID = await generateTraineeID();
     console.log(TraineeID);
-    var query =
-      "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
-      req.body.email +
-      "' AND UserOrganizationID = '" + req.body.orgID + "') " +
-      "BEGIN " +
-      "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation,talentpool ) " +
-      "VALUES (" +
-      `'${TraineeID}',` +
-      ` ${formatValue(req.body.email || '')},` +
-      ` ${formatValue(req.body.firstName || '')},` +
-      ` ${formatValue(req.body.phone || '')},` +
-      ` ${formatValue(req.body.middleName || '')},` +
-      ` ${formatValue(req.body.lastName || '')},` +
-      ` ${formatValue(req.body.legalStatus || '')},` +
-      ` ${formatValue(req.body.candidateStatus || '')},` +
-      ` ${formatValue(req.body.degree || '')},` +
-      ` ${formatValue(req.body.gender || '')},` +
-      ` ${formatValue(req.body.notes || '')},` +
-      ` ${formatValue(req.body.recruiterName || '')},` +
-      ` ${formatValue(req.body.referralType || '')},` +
-      ` ${formatValue(req.body.locationConstraint || '')},` +
-      ` ${formatValue(req.body.marketerName || '')},` +
-      ' 1,' +
-      " 'ACTIVE'," +
-      " 'READY'," +
-      " 'TRESUMEUSER', " +
-      " GETDATE(), " +
-      ` ${formatValue(req.body.orgID || '')},` +
-      ` ${formatValue(req.body.createby || '')},` +
-      ` ${formatValue(req.body.followupon || '')},` +
-      ` ${formatValue(req.body.currentLocation || '')}` +
-      ",1) END";
 
-    console.log(query);
-
+    // Connect to SQL Server
     await sql.connect(config);
-    var request = new sql.Request();
-    var result = await request.query(query);
-
-
-
-    const data = {
-      flag: 1,
-      message: "Trainee Candidate Data Fetched",
-    };
-
-    res.send(data);
-  }
-  catch (error) {
-    const data = {
-      flag: 1,
-      message: "Internal Server Error",
-    };
-    res.status(500).send(data);
-  }
-});
-
-router.post('/AddTalentBenchList', async function (req, res) {
-  try {
-    var TraineeID = await generateTraineeID();
-    console.log(TraineeID);
 
     // Insert into Trainee table
     var traineeQuery =
@@ -214,7 +294,6 @@ router.post('/AddTalentBenchList', async function (req, res) {
 
     console.log(traineeQuery);
 
-    await sql.connect(config);
     var traineeRequest = new sql.Request();
     var traineeResult = await traineeRequest.query(traineeQuery);
 
@@ -225,23 +304,35 @@ router.post('/AddTalentBenchList', async function (req, res) {
     "VALUES (" +
     `'${TraineeID}',` +
     ` ${formatValue(req.body.firstName + ' ' + req.body.lastName || '')},` +
-    ` ${formatValue(req.body.recruiterName || '')},` +
     " NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'TRESUMEUSER', GETDATE(), NULL, 1)";
-  
 
-    console.log(talentBenchQuery);
+
+
+  // If recruiterName is not provided, set it to an empty string in the query
+  if (!req.body.recruiterName) {
+    talentBenchQuery = talentBenchQuery.replace(` ${formatValue(req.body.recruiterName || '')}`, " ''");
+  }
+
+  console.log(talentBenchQuery);
+
 
     var talentBenchRequest = new sql.Request();
     var talentBenchResult = await talentBenchRequest.query(talentBenchQuery);
+
+    // Close the SQL connection
+    await sql.close();
 
     const data = {
       flag: 1,
       message: "Trainee Candidate Data Fetched",
     };
-
     res.send(data);
-  }
-  catch (error) {
+  } catch (error) {
+    console.error("Error:", error.message);
+
+    // Close the SQL connection in case of an error
+    await sql.close();
+
     const data = {
       flag: 1,
       message: "Internal Server Error",
@@ -249,6 +340,7 @@ router.post('/AddTalentBenchList', async function (req, res) {
     res.status(500).send(data);
   }
 });
+
 
 
 async function generateTraineeID() {
