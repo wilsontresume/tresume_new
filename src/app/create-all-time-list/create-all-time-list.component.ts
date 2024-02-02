@@ -38,7 +38,6 @@ export class CreateAllTimeListComponent implements OnInit {
   timesheetRows: any[] = [];
   totalAmountForAllRows: number = 0;
   totalAmount: number = 0;
-
   updateTotalAmount() {
     setTimeout(() => {
       let totalAmount = 0;
@@ -146,12 +145,19 @@ export class CreateAllTimeListComponent implements OnInit {
     const sat = row.sat || 0;
     const sun = row.sun || 0;
     const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
-
+   
+    row.totalHours = totalHours;
+   
     return isNaN(totalHours) ? 'N/A' : totalHours;
+    
   }
 
   addDefaultRows() {
     this.timesheetRows.push({
+      projectName:'',
+      payItem: '',
+      service:'',
+      location:'',
       description: '',
       hourlyRate: '',
       billable: false,
@@ -164,10 +170,9 @@ export class CreateAllTimeListComponent implements OnInit {
       fri: '',
       sat: '',
       sun: '',
-      totalHours: '',
+      totalHours: 0,
       totalAmount: '',
     });
-
   }
 
 
@@ -436,3 +441,4 @@ export class CreateAllTimeListComponent implements OnInit {
 
 //   return weeks;
 // }
+
