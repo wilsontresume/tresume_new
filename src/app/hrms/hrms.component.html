@@ -108,6 +108,7 @@
                     </div>
                 </div>
                 <div class="column" style="text-align: end;margin-right: 40px;">
+                  <a class="badge badge-warning"  style="font-size: 16px; color: #49274A;margin-right: 15px;"><i class="fas fa-globe"> </i> {{ candidate.organizationname }}</a>
                     <i class="fa fa-eye fa-fw pt-2" [routerLink]="['/reviewtresume/'+routeType+'/'+candidate.TraineeID+'/0']" style="font-size: 20px;"></i>
                   </div>
               </div>
@@ -157,7 +158,8 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm">FollowUpOn</span>
                     </div>
-                    <input type="date" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="{{ candidate.followupon }}">
+                    <input type="date" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="{{ candidate.followupon }}" 
+                    (change)="updateSelected($event.target.value, candidate.TraineeID, 1)">
                   </div>
                   <!-- <a class="bn59" data-toggle="modal" data-target="#exampleModalCenter2" (click)="openSubmissionModal(item.TraineeID)">
                   <span class="bi bi-plus">+</span> Add Submission
@@ -165,7 +167,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <b>Notes :</b> {{candidate.notes }}
+                    <b>Notes :</b> {{candidate.notes | truncate:100}} <i class="fas fa-info-circle" *ngIf="candidate.notes.length > 100" title="{{candidate.notes}}"></i>
                   </div>
                   
                 </div>
@@ -292,7 +294,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4" *ngIf="routeType == 1 && routeType == 2">
+            <div class="col-md-4" *ngIf="routeType == 1 || routeType == 2">
               <label class="label">Recruiter Name *</label>
               <!-- // check next 2 line if any error  -->
               <!-- <select class="form-control" name="recruiterName" formControlName="recruiterName" [ngClass]="{ 'invalid-input': addCandidate.get('recruiterName').hasError('atLeastOneSelected') && addCandidate.get('recruiterName').touched }">
@@ -338,7 +340,7 @@
               </select>
             </div>
             <div class="col-md-4" *ngIf="routeType == 1">
-              <label class="label">Legal Status</label>
+              <label class="label">Legal Status *</label>
               <!-- <select class="form-control" name="legalStatus" [(ngModel)]="formData.legalStatus" [ngModelOptions]="{standalone: true}">
                   <option *ngFor="let stat of legalStatus" [value]="stat">{{ stat }}</option>
                 </select> -->

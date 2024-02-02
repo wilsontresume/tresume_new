@@ -29,7 +29,7 @@ td{
 textarea{
   padding: 5px;
   border:  1px solid #d9d3d3;
-  width: 280px;
+  width: 290px;
   height: 50px;
 }
 th{
@@ -94,7 +94,7 @@ a{
 
 .file-label{
   margin-right: 6px;
-  width: 280px;
+  width: 290px;
   border: none;
   outline: none;
 }
@@ -129,4 +129,37 @@ input[type="checkbox"]{
   font-family: "Gill Sans", sans-serif;
   font-size: 15px;
 }
+select {
+  padding: 8px;
+  font-size: 14px;
+}
+.gray-theme select {
+  width: 100%;
+  padding: 8px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
+  border-color: #ccc;
+}
 
+.gray-theme select:focus {
+  border-color: #007bff;
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+input:focus{
+  border-color: #007bff;
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+textarea:focus{
+  border-color: #007bff;
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+th span.date {
+  font-family: 'Arial', sans-serif;
+  color: #007bff;
+}

@@ -159,9 +159,12 @@ import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
 import { PaymentComponent } from './all-invoice/payment/payment.component';
 import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
 import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
+import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.component';
 import { DatePipe } from '@angular/common';
 import { MonsterComponent } from './landing-page/monster/monster.component';
 import { AdobeComponent } from './landing-page/adobe/adobe.component';
+import { TruncatePipe } from './truncate.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -256,6 +259,8 @@ import { AdobeComponent } from './landing-page/adobe/adobe.component';
       NewTimeSheetReportComponent,
       MonsterComponent,
       AdobeComponent
+      SendInvoiceComponent,
+      TruncatePipe,
     // TimesheetViewdetailsComponent
 
   ],
@@ -302,7 +307,6 @@ import { AdobeComponent } from './landing-page/adobe/adobe.component';
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
-    BsDatepickerModule.forRoot(),
     FileUploadModule,
     EditorModule,
     ToastModule,

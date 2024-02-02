@@ -27,14 +27,11 @@ export class SiteVisitComponent implements OnInit {
 
     @ViewChild('lgModal', { static: false }) lgModal?: ModalDirective;
 
-    constructor(private route: ActivatedRoute, private service: CandidateService, private dashservice: DashboardService) {
-        // this.traineeId = this.route.snapshot.params["traineeId"];
-        this.traineeId = '44267';
-        console.log(this.candidateId);
-        
+    constructor(private route: ActivatedRoute, private service: CandidateService, private dashservice: DashboardService) { 
     }
 
     ngOnInit(): void {
+        this.traineeId=this.candidateId;
         this.service.getSiteVisitDetails(this.traineeId).subscribe(x => {
             let response = x.result;
             if (response) {

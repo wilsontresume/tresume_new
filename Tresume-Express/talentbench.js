@@ -47,47 +47,45 @@ router.post('/getTalentBenchList', async (req, res) => {
     const request = new sql.Request(pool);
 
     const query = `
-      SELECT
-        trn.TraineeID, trn.FirstName, trn.LastName, trn.YearsOfExpInMonths, trn.Organization, trn.CandidateStatus, trn.PhoneNumber,
-        TB.GroupID, trn.CurrentLocation, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus, trn.Notes,
-        trn.Title AS [TraineeTitle], COUNT(trn.TraineeID) OVER() AS overall_count, ISNULL(tr.Rating, 0) AS QuickRate, TB.TBID, trn.Source,
-        TB.BenchStatus, (SELECT PhoneNumber FROM Phone WHERE PhoneID = (SELECT TOP(1) PhoneID FROM TraineePhone WHERE TraineeID = trn.TraineeID)) AS phone,
-        trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, DATEDIFF(DAY, TB.CreateTime, GETUTCDATE()) AS age,
-        CONCAT(T1.FirstName, ' ', T1.MiddleName, ' ', T1.LastName) AS Recruiter, ISNULL(TB.IsNew, '0') AS IsNew,
-        (SELECT traineeid FROM JBDetail WHERE jobid = '') AS JBTraineeID, trn.groupid
-      FROM
-        Trainee trn (NOLOCK)
-        LEFT JOIN TraineeRating tr (NOLOCK) ON tr.Active = 1 AND trn.TraineeID = tr.TraineeID AND tr.Recruiterid = '${traineeID}'
-        LEFT JOIN Trainee T1 ON T1.TraineeID = trn.RecruiterName AND T1.Active = 1
-        JOIN TalentBench TB (NOLOCK) ON TB.Active = 1 AND trn.TraineeID = TB.TraineeID
-      WHERE
-        trn.Talentpool = 1
-        AND (trn.UserOrganizationID = '${OrganizationID}' OR trn.TraineeID IN (
-          SELECT ja.TraineeID
-          FROM JobApplication ja
-          WHERE ja.Active = 1 AND ja.JobID IN (
-            SELECT j.JobID
-            FROM Job j
-            WHERE j.Active = 1 AND j.RecruiterID IN (
-              SELECT TraineeID
-              FROM Trainee
-              WHERE OrganizationID = '${OrganizationID}' AND Active = 1 AND Role = 'RECRUITER'
-            )
-          )
-        ))
-        AND trn.active = 1 AND trn.Role = 'TRESUMEUSER'
-      GROUP BY
-        trn.TraineeID, T1.FirstName, T1.MiddleName, T1.LastName, trn.FirstName, trn.PhoneNumber, trn.LastName, trn.YearsOfExpInMonths,
-        trn.CandidateStatus, TB.TBID, TB.GroupID, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus,
-        trn.Notes, trn.Organization, trn.CurrentLocation, trn.Title, trn.LastUpdateTime, trn.CreateTime, tr.Rating, trn.Source,
-        TB.BenchStatus, trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, TB.IsNew,trn.groupid
-      ORDER BY
-        trn.CreateTime DESC
+    SELECT
+    trn.TraineeID, trn.FirstName, trn.LastName, trn.YearsOfExpInMonths, trn.Organization, org.organizationname, trn.CandidateStatus, trn.PhoneNumber,
+    TB.GroupID, trn.CurrentLocation, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus, trn.Notes,
+    trn.Title AS [TraineeTitle], COUNT(trn.TraineeID) OVER() AS overall_count, ISNULL(tr.Rating, 0) AS QuickRate, TB.TBID, trn.Source,
+    TB.BenchStatus, (SELECT PhoneNumber FROM Phone WHERE PhoneID = (SELECT TOP(1) PhoneID FROM TraineePhone WHERE TraineeID = trn.TraineeID)) AS phone,
+    trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, DATEDIFF(DAY, TB.CreateTime, GETUTCDATE()) AS age,
+    CONCAT(T1.FirstName, ' ', T1.MiddleName, ' ', T1.LastName) AS Recruiter, ISNULL(TB.IsNew, '0') AS IsNew,
+    (SELECT traineeid FROM JBDetail WHERE jobid = '') AS JBTraineeID, trn.groupid
+FROM
+    Trainee trn (NOLOCK)
+    LEFT JOIN TraineeRating tr (NOLOCK) ON tr.Active = 1 AND trn.TraineeID = tr.TraineeID AND tr.Recruiterid = '${traineeID}'
+    LEFT JOIN Trainee T1 ON T1.TraineeID = trn.RecruiterName AND T1.Active = 1
+    JOIN TalentBench TB (NOLOCK) ON TB.Active = 1 AND trn.TraineeID = TB.TraineeID
+    JOIN organization org ON trn.UserOrganizationID = org.organizationid -- Added join to fetch organizationname
+WHERE
+    trn.Talentpool = 1
+    AND (trn.UserOrganizationID = '${OrganizationID}' OR trn.TraineeID IN (
+      SELECT ja.TraineeID
+      FROM JobApplication ja
+      WHERE ja.Active = 1 AND ja.JobID IN (
+        SELECT j.JobID
+        FROM Job j
+        WHERE j.Active = 1 AND j.RecruiterID IN (
+          SELECT TraineeID
+          FROM Trainee
+          WHERE OrganizationID = '${OrganizationID}' AND Active = 1 AND Role = 'RECRUITER'
+        )
+      )
+    ))
+    AND trn.active = 1 AND trn.Role = 'TRESUMEUSER'
+GROUP BY
+    trn.TraineeID, T1.FirstName, T1.MiddleName, T1.LastName, trn.FirstName, trn.PhoneNumber, trn.LastName, trn.YearsOfExpInMonths,
+    trn.CandidateStatus, TB.TBID, TB.GroupID, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus,
+    trn.Notes, trn.Organization, org.organizationname, trn.CurrentLocation, trn.Title, trn.LastUpdateTime, trn.CreateTime, tr.Rating, trn.Source,
+    TB.BenchStatus, trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, TB.IsNew, trn.groupid
+ORDER BY
+    trn.CreateTime DESC
     `;
 
-    // console.log(query);
-
-    // console.log(query);
 
     const recordset = await request.query(query);
 

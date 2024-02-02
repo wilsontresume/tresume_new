@@ -68,10 +68,17 @@ export class NavbarComponent implements OnInit {
     }
 
     public logout() {
-        this.cookieService.deleteAll();
+        // Delete all cookies with proper options
+        this.cookieService.deleteAll('/', 'https://homehealth.tresume.us/');
+    
+        // Clear sessionStorage
         sessionStorage.clear();
+    
+        // Generate a random query parameter to force a page reload
         const randomQueryParam = Math.random().toString(36).substring(7);
-        this.router.navigate(['/login'], { queryParams: { refresh: randomQueryParam } });
+    
+        // Redirect to the base URL
+        this.router.navigate([''], { queryParams: { refresh: randomQueryParam } });
     }
     
       toggleDropdown(subMenuId: string): void {

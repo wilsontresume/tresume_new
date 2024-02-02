@@ -35,7 +35,7 @@ router.post('/gethrmscandidateList', async (req, res) => {
     try {
       const pool = await sql.connect(config);
       const request = new sql.Request();
-      const query = "SELECT T.TraineeID,CONCAT(CreatedBy.FirstName, ' ', CreatedBy.LastName) AS CreatedBy, CONCAT(T.FirstName, ' ', T.LastName) AS Name, T.UserName AS Email, T.PhoneNumber AS Phone, T.LegalStatus AS LegalStatus, CS.Value AS CandidateStatus, T.CreateTime AS DateCreated,T.followupon,T.notes FROM Trainee T INNER JOIN CandidateStatus CS ON T.CandidateStatus = CS.CandidateStatusID LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName WHERE T.RecruiterName = '"+ req.body.TraineeID + "' order by T.CreateTime desc";
+      const query = "SELECT T.TraineeID, CONCAT(CreatedBy.FirstName, ' ', CreatedBy.LastName) AS CreatedBy, CONCAT(T.FirstName, ' ', T.LastName) AS Name, T.UserName AS Email, T.PhoneNumber AS Phone, T.LegalStatus AS LegalStatus, CS.Value AS CandidateStatus, T.CreateTime AS DateCreated, T.followupon, T.notes, O.organizationname FROM Trainee T INNER JOIN CandidateStatus CS ON T.CandidateStatus = CS.CandidateStatusID LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName LEFT JOIN organization O ON T.userorganizationid = O.organizationid WHERE T.RecruiterName = '"+ req.body.TraineeID + "' ORDER BY T.CreateTime DESC";
   
       console.log(query);
   
@@ -1387,6 +1387,46 @@ router.post('/getLocation', async (req, res) => {
     const result = {
       flag: 0,
       error: "An error occurred while fetching Location!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+router.post('/hrmsupdateSelected', async (req, res) => {
+  try {
+    const pool = new sql.ConnectionPool(config);
+    const poolConnect = pool.connect();
+    await poolConnect;
+
+    const traineeID = req.body.traineeid;
+    const followupon = req.body.followupon;
+
+    const query = "UPDATE trainee SET followupon = @followupon WHERE traineeid = @traineeid";
+
+    const request = new sql.Request(pool);
+    request.input('followupon', sql.VarChar, followupon);
+    request.input('traineeid', sql.Int, traineeID);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.rowsAffected && recordset.rowsAffected[0] > 0) {
+      const result = {
+        flag: 1,
+        message: "Data Updated Successfully",
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        message: "Error please try again",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error updating data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while updating data!",
     };
     res.status(500).send(result);
   }

@@ -155,6 +155,11 @@ export class HrmsComponent implements OnInit {
         if (flag === 2) {
           this.emailvalidation = true;
           this.emailvalidationmessage = x.message;
+        } 
+        else if (flag === 1){
+          this.emailvalidation = false;
+          this.emailvalidationmessage = '';
+
         }
       });
     }
@@ -509,6 +514,31 @@ export class HrmsComponent implements OnInit {
     this.loading = false;
   }
 
+  updateSelected(selectedId: any, traineeID: number,type:any) {
+    this.loading = true;
+    var req = {}
+   if(type == 1){
+    req = {
+      traineeid : traineeID,
+      followupon : selectedId
+    }
+   }else{
+    req = {
+      traineeid : traineeID,
+      followupon : selectedId
+    }
+  }
+    this.service.hrmsupdateSelected(req).subscribe((x: any) => {
+      if(x.flag == 1){
+        this.messageService.add({ severity: 'success', summary: x.message });
+        this.loading = false;
+      }else{
+        this.messageService.add({ severity: 'error', summary: x.message });
+        this.loading = false;
+      }
+    });
+  
+   }
 }
 
 
