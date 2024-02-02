@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,Input } from '@angular/core';
 import { HttpClient, HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 import { DatePipe, formatDate } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -38,7 +38,7 @@ export class CandidateComponent implements OnInit {
   placementList:any;
   //uploadUrl = 'http://localhost:3000/uploadDocument';
   @ViewChild('childModal', { static: false }) childModal?: ModalDirective;
-
+  @Input() candidateId: string;
   form = new FormGroup({});
   model: any = {};
   //options: FormlyFormOptions = {};
@@ -211,12 +211,13 @@ export class CandidateComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private service: CandidateService, private modalService: BsModalService, private messageService: MessageService) {
-    this.traineeId = this.route.snapshot.params["traineeId"];
+    // this.traineeId = this.route.snapshot.params["traineeId"];
     this.response = '';
     this.loggedTraineeId = sessionStorage.getItem("TraineeID");
   }
 
   ngOnInit(): void {
+    this.traineeId=this.candidateId;
     this.initGrid();
     this.getDocuments();
     let Req = {

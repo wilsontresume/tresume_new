@@ -60,6 +60,11 @@
         Compliance Report
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" id="timesheet-tab" data-toggle="tab" href="#timesheet" routerLink="timesheet">
+        Timesheet Report
+      </a>
+    </li>
   </ul>
         <!-- Tab Content -->
         <div class="tab-content mt-3">
@@ -193,6 +198,19 @@
                   <a class="clickable" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-bottom: 10px;">Legal Status Report</a>
                   <p style="margin-bottom: 10px;">This Report generates Legal Status of the Employees</p>
                   <button class="btn btn-primary" style="background-color: #49274a; width: 100%;border: none;" (click)="routeLinks('legalstatus')">View Report</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Tab 4: Timesheet Report -->
+          <div class="tab-pane fade" id="timesheet">
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <div style="background-color: #f0f0f0; border-radius: 8px; padding: 10px; text-align: center;">
+                  <i class="fas fa-clipboard-check" style="font-size: 4rem; color: #49274a; margin-bottom: 10px;"></i>
+                  <a class="clickable" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-bottom: 10px;" >Timesheet Report</a>
+                  <p style="margin-bottom: 10px;">This Report generates the timesheet status of the Candidate</p>
+                  <button class="btn btn-primary" style="background-color: #49274a; width: 100%; border: none;" (click)="timesheetrouteLinks('tsreport')">View Report</button>
                 </div>
               </div>
             </div>

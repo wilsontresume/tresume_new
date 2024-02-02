@@ -67,6 +67,26 @@ TBupdateSelected(request: any): Observable<ResponseDetails> {
 deleteGroup(request: any): Observable<ResponseDetails> {
   return this.http.post<ResponseDetails>(this.endpoint + 'deleteGroup', request);
 }
+checkEmail(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'checkEmail', request);
+}
+
+insertTraineeInterview(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'insertTraineeInterview', request);
+}
+
+insertSubmissionInfo(request: any): Observable<ResponseDetails> {
+  return this.http.post<ResponseDetails>(this.endpoint + 'insertSubmissionInfo', request);
+}
+PlacementReportDownload(request: any): Observable<any> {
+  return this.http.post(this.endpoint + 'PlacementReportDownload',  request, { responseType: 'blob' });
+}
+DSRReportDownload(request: any): Observable<any> {
+  return this.http.post(this.endpoint + 'DSRReportDownload', request, { responseType: 'blob' });
+}
+InterviewReportDownload(request: any): Observable<any> {
+  return this.http.post(this.endpoint + 'InterviewReportDownload', request, { responseType: 'blob' });
+}
 }
 export interface ResponseDetails {
   flag?: any;

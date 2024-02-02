@@ -675,20 +675,28 @@ app.post("/uploadinsert", function (req, res) {
   });
 });
 
-app.get("/sitevisit/:traineeID", function (req, res) {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
+app.get("/sitevisit/:traineeID", async function (req, res) {
+  try {
+    await sql.connect(config);
+
+    const request = new sql.Request();
     request.input("TraineeID", sql.VarChar, req.params.traineeID);
-    request.execute("GetTraineeDetails", function (err, recordset) {
-      if (err) console.log(err);
-      var result = {
-        flag: 1,
-        result: recordset.recordsets[0],
-      };
-      res.send(result);
-    });
-  });
+
+    const recordset = await request.execute("GetTraineeDetails");
+
+    const result = {
+      flag: 1,
+      result: recordset.recordsets[0],
+    };
+
+    res.send(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ flag: 0, error: "Internal Server Error" });
+  } finally {
+    // Make sure to close the SQL connection in the finally block
+    sql.close();
+  }
 });
 
 app.post("/updateJobDuties", function (req, res) {
@@ -1867,7 +1875,7 @@ app.post("/getCBAuthToken", function (req, res) {
     grant_type: "refresh_token",
     client_id: "Cd2543bf6",
     client_secret: "mmYQ7+pkLk1VQq+to5Pc1t+4agJ8f/WhyhSccR5yHdhfZhdFgYdI6mLyZhmNmWZCxg6D7PAWXuS5VaJENtlVvw==",
-    refresh_token: "puseyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkExMjhHQ00ifQ.HCns1QTBojD7MMdUUkQ_BLgbHeS0Tc47cWbhjWkoXDCn7vEfvdFAPca3cTay4AhyQuWDIPwcQ81QcAuSscqbIPQbxPU_TrYAzNpPcpe8kfG-URRjHNY1YN6i7-peWJ5C20UMyfcHvDtxnd1j--Ceq1R8qKSa7PCvNq4WJcqx6PFTRhIhY-t7kwQm_ifHWVESj2n8KL8zUj9r8KY7O8b57AfLCxQsNwRLOCAthoihsgOphlo48jyb0zx3xQmlhisYVqsEleeAckjH1e15mxb_hwkBLMSjy4mzPsycFkedrpCqwPncx3ahnFTsqBZU1jmouURRPAO6Sqqk0tMxYdjlTA.Y43rjWbHMGjLyYV4.NwsLKcoNZM7bE49ounX2W3Pq-7tGKvLUX_1qns7OgVypHx8c991aMVSAjlzWVX8cGosWIuVJTB7PpORTp_yXYEGQhbDka3vLB0FreaGQEWQUbh-CoDNtwpLxYaKRkNBsK293nq6_i3Cu4dJUJbIagScG-1grTq4nHESL9MabaMounb1IHzkDy5J-UPxq7H3_KsRK93alX51Qz-KaZS7Q-QPP3B5Oz8XKHwiLo12C7MQTRYCze_cZ5tlLNOIO-yxUN-DunvAogKQPWdarburW_IpywNAWTJvV-MeH7lg69EiBk-M1QaV050NtRl6xzB9mthEgwXYwLb29K8MTopMDXQ.RguI_ezJFdQLn-LzzjIs4g",
+    refresh_token: "puseyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkExMjhHQ00ifQ.P6CIgTiHUv03hGXLV8hwh4iEXWJ6qOtbKPAaczPhaDrlIuSr-aqBTY6O61c-cv47Nywk-eo2iBu3ICt84jfvdGk6DeiX0g54Vf2Vook_htxPCFp6OF4f9mMOFJQajBPapVOq5tWpT24IdFlnLP-t1MEuE8a1ZtYxGBii303QBIVL0KoQFc7CbhHWGXgK2CRqMHjtBUasyiFcH1KmT7v1EIWw0u9xfa6zMdThF3i0t19ZIa4beeXzfAO-g6eikm-5rDKQ8VCSj-cIJguJKwFmabb5LBCcAFlHGGqWw_e85PiT180OOW1QMZxKrlKV-C0gocr3WBNKYBQIJ9awid8KJQ.S6lfcmhmy6zhF02i.Hbfbsuv0RA0ZOUHy3Bc3RLrVje_8fj2RSdOuWgSY5HYLGxIjpjSXHJx_imuRLsK7QH3s0zaMCzijksa1-51cGGmJhYubVL7yYr-sYwqmP46rWXiRiMXYRNeBkTvfSvG4YxYHl--2D5X1VaLDlQBx0KQoBNJQcTsrwqYSq3bgeNhec-LldKf2I_ajbrm_3KQRj_d1Lr-T1cAx8BH7_-3F0do6bDQyAfnAdiSJnLgt-SPYvSEAUfbHK_fpn_jViVp10VX_LMigJs1bGfhKgI2GxHUppOSxD3CP7BcPVGuYNQY3bM0e8KpOrkV6rErJC_plHVrk_U1NxXeLHIGMTRl3Ow.eHXdT-H9LaLC0Sg4oIu9HA",
     scope: "offline_access"
   };
 
@@ -3455,6 +3463,36 @@ app.post("/UpdateplacementsBytID", function (req, res) {
     });
   });
 });
+
+app.post('/getDiceAuthToken', async (req, res) => {
+  try {
+    // Set up the HTTP headers for the request
+    const clientId = 'digitalmakerssolution';
+    const clientSecret = '8ea58fcc-8ddb-413c-8130-795d2a455009';
+    const authEndpoint = 'https://secure.dice.com/oauth/token';
+    const httpOptions = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+      },
+      withCredentials: true,
+    };
+
+    // Define the request body
+    const requestBody = 'grant_type=password&username=nithya@dmsol.in&password=Dicedms23@';
+
+    // Make a POST request to the authentication endpoint
+    const response = await axios.post(authEndpoint, requestBody, httpOptions);
+
+    // Send the response data to the client
+    res.json(response.data);
+  } catch (error) {
+    // Handle errors
+    console.error('Error getting Dice auth token:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

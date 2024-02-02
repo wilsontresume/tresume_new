@@ -117,6 +117,7 @@ export class JobBoardsService {
         let httpOptions = {
             //headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic Y3AtYXN0YWNyczo2OGZmYzY5NS05YWM2LTRkMDYtODg3YS05YWY0NmRlYWRiY2U=' }),
             headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ZGlnaXRhbG1ha2Vyc3NvbHV0aW9uOjhlYTU4ZmNjLThkZGItNDEzYy04MTMwLTc5NWQyYTQ1NTAwOQ==' }),
+            withCredentials: true 
         };
         //request = 'grant_type=password&username=santh@astacrs.com&password=Astanew_2021';
         request = 'grant_type=password&username=nithya@dmsol.in&password=Dicedms23@';
@@ -135,6 +136,10 @@ export class JobBoardsService {
             headers: new HttpHeaders({ 'Authorization': 'bearer ' + token }),
         };
         return this.http.get<ResponseDetails>('https://talent-api.dice.com/v2/profiles/' + request, httpOptions);
+    }
+
+    getDiceToken(): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getDiceAuthToken', null);
     }
 
     //Jooble API

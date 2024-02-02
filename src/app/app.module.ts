@@ -160,6 +160,8 @@ import { PaymentComponent } from './all-invoice/payment/payment.component';
 import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
 import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
 import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.component';
+import { DatePipe } from '@angular/common';
+import { TruncatePipe } from './truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -254,6 +256,7 @@ import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.co
       ArAgingReportComponent,
       NewTimeSheetReportComponent,
       SendInvoiceComponent,
+      TruncatePipe,
     // TimesheetViewdetailsComponent
 
   ],
@@ -300,7 +303,6 @@ import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.co
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
-    BsDatepickerModule.forRoot(),
     FileUploadModule,
     EditorModule,
     ToastModule,
@@ -329,7 +331,7 @@ import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.co
     PaginationModule.forRoot(),
     NgxLoadingModule.forRoot({})
   ],
-  providers: [CookieService, BsLocaleService, AuthGuard, AppService, AppConfigService,
+  providers: [CookieService, BsLocaleService, AuthGuard, AppService, AppConfigService,DatePipe,
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,

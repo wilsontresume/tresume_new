@@ -66,10 +66,6 @@ export class ReviewTresumeComponent implements OnChanges {
   title: any;
   showSaveButton: boolean;
 
-  siteVisitTabClicked() {
-    console.log('Additional logic for Site Visit tab click');
-  }
-
   //generalinfo
 
   jobs: any[];
@@ -114,6 +110,43 @@ export class ReviewTresumeComponent implements OnChanges {
     'DATA',
   ];
 
+  generalFormData: any = {};
+  interviewFormData: any = {};
+  placementFormData: any = {};
+  submissionFormData: any = {};
+  financialInfoFormData: any = {};
+  siteVisitFormData: any = {};
+  emergencyContacts: any[] = [];
+
+  contactName: string = '';
+  contactPhone: string = '';
+  contactEmail: string = '';
+  passportNumber: string = '';
+  passportvalStartdate: string = '';
+  passportvalenddate: string = '';
+  iNumber: string = '';
+  iEndDate: string = '';
+  personalInfoAddress: string = '';
+  personalInfoAddress1: string = '';
+  personalInfoCountry: string = '';
+  personalState: string = '';
+  personalCity: string = '';
+  personalZipcode: string = '';
+  addressType: string = '';
+
+  TraineeID: string;
+  interviewDate: string;
+  interviewTime: string;
+  selectedInterviewMode: string;
+  interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
+  http: any;
+  editRowIndex: number;
+  showConfirmationDialog: boolean;
+  deleteIndex: number;
+  reviewService: any;
+  placementList: any;
+  candidateID:any;
+
   selectedStatus: string = '-PLACED/WORKING AT CLIENT LOCATION-';
   statuss: string[] = ['ON TRAINING', 'DIRECT MARKETTING', 'ON BENCH', 'MARKETTING ON HOLD', 'HAS OFFER', 'FIRST TIME CALLER', 'DROPPED TRAINING'];
 
@@ -126,6 +159,11 @@ export class ReviewTresumeComponent implements OnChanges {
   showSSN: boolean = false;
   inputDisabled: boolean = true;
   loading:boolean = false;
+  phoneNumberG:any 
+  generalEmail:any 
+  DealOffered:any 
+
+
   startShowingSSN() {
     this.showSSN = true;
     this.inputDisabled = false;
@@ -135,13 +173,6 @@ export class ReviewTresumeComponent implements OnChanges {
     this.showSSN = false;
     this.inputDisabled = true;
   }
-
-  generalFormData: any = {};
-  interviewFormData: any = {};
-  placementFormData: any = {};
-  submissionFormData: any = {};
-  financialInfoFormData: any = {};
-  siteVisitFormData: any = {};
 
   saveData() {
     this.loading = true;
@@ -173,40 +204,92 @@ export class ReviewTresumeComponent implements OnChanges {
     console.log('Saving data for the General tab:', this.generalFormData);
 
     let Req = {
-      firstName: this.FormGeneral.value.firstname,
-      middleName: this.FormGeneral.value.middleName,
-      lastName: this.FormGeneral.value.lastName,
-      recruiterName: this.FormGeneral.value.recruiterName,
-      phoneNumberG: this.FormGeneral.value.phoneNumberG,
-      generalEmail: this.FormGeneral.value.generalEmail,
-      refered: this.FormGeneral.value.refered,
-      DealOffered: this.FormGeneral.value.DealOffered,
-      ReferredBy: this.FormGeneral.value.ReferredBy,
-      ssn: this.FormGeneral.value.ssn,
-      statusDate: this.FormGeneral.value.statusDate,
-      duiFelonyInfo: this.FormGeneral.value.duiFelonyInfo,
-      currentStatus: this.FormGeneral.value.currentStatus,
-      legalStatusVal: this.FormGeneral.value.legalStatusVal,
-      legalStatusValend: this.FormGeneral.value.legalStatusValend,
-      selectedLegalStatus: this.FormGeneral.value.selectedLegalStatus,
-      ftcNotes: this.FormGeneral.value.ftcNotes,
-      otherNotes: this.FormGeneral.value.otherNotes,
-      division: this.FormGeneral.value.division,
-      dob: this.FormGeneral.value.dob,
-      TraineeID:this.candidateID
-    };
+      firstName: this.firstName,
+      middleName: this.middleName,
+      lastName: this.lastName,
+      recruiterName: this.recruiterName,
+      phoneNumberG: this.phoneNumberG,
+      generalEmail: this.generalEmail,
+      refered: this.SelectedRefered,
+      DealOffered: this.DealOffered,
+      ReferredBy: this.ReferredBy,
+      ssn: this.ssn,
+      statusDate: this.statusDate,
+      duiFelonyInfo: this.duiFelonyInfo,
+      currentStatus: this.selectedStatus,
+      legalStatusVal: this.legalStatusVal,
+      legalStatusValend: this.legalStatusValend,
+      selectedLegalStatus: this.selectedLegalStatus,
+      ftcNotes: this.ftcNotes,
+      otherNotes: this.otherNotes,
+      division: this.division,
+      dob: this.dob,
+      TraineeID: this.candidateID,
+      education: this.educations,
+      experiance: this.experiences,
+      EmergencyCname: this.contactName,
+      EmergencyPhone: this.contactPhone,
+      EmergencyEmail: this.contactEmail,
+      PassportNumber: this.passportNumber,
+      PassportValidityStartDate: this.passportvalStartdate,
+      PassportValidityEndDate: this.passportvalenddate,
+      I94Number: this.iNumber,
+      I94ValidityEndDate: this.iEndDate,
+      AddressLine1: this.personalInfoAddress,
+      AddressLine2: this.personalInfoAddress1,
+      Country: this.personalInfoCountry,
+      State: this.personalState,
+      City: this.personalCity,
+      Zipcode: this.personalZipcode,
+      AddressType: this.addressType
+  };
+  
     console.log(Req);
+    
+    console.log('Education Data:'+this.educations);
 
+    console.log('Experience Data:');
+    for (let i = 0; i < this.experiences.length; i++) {
+      console.log(`Row ${i + 1}:`, this.experiences[i]);
+    }
+
+    console.log('Experience Data:');
+    this.emergencyContacts.forEach((contact, index) => {
+      console.log(`Emergency Contact ${index + 1}:`);
+      Object.entries(contact).forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+      });
+      console.log('---');
+    });
 
     this.service.updateGeneral(Req).subscribe(
       (x: any) => {
         this.handleSuccess(x);
-
       },
       (error: any) => {
         this.handleError(error);
       }
     );
+
+    const formData = {
+      'Emergency Contact Name': this.contactName,
+      'Emergency Contact Phone': this.contactPhone,
+      'Emergency Contact Email': this.contactEmail,
+      'Passport Number': this.passportNumber,
+      'Passport Validity Start Date': this.passportvalStartdate,
+      'Passport Validity End Date': this.passportvalenddate,
+      'I-94 Number': this.iNumber,
+      'I-94 Validity End Date': this.iEndDate,
+      'Address Line1': this.personalInfoAddress,
+      'Address Line2': this.personalInfoAddress1,
+      'Country': this.personalInfoCountry,
+      'State': this.personalState,
+      'City': this.personalCity,
+      'Zipcode': this.personalZipcode,
+      'Address Type': this.addressType
+    };
+      console.log("Personal-Info Tab")
+      console.log(formData);
     
   }
 
@@ -242,23 +325,12 @@ export class ReviewTresumeComponent implements OnChanges {
       recruiteremail:this.userName,
       InterviewStatus:'SCHEDULED',
     };
-
-    // this.service.saveInterviewFormData(Req).subscribe((x: any) => {
-    //   console.log(x);
-    // });
-      // Log the form value, not the form itself
-  // console.log(this.myForm.value);
-
-  // // Assuming this.service is an Angular service
-  // this.service.insertTraineeInterview(this.myForm.value).subscribe((response: any) => {
-  // console.log(response);
-  //   });
+    
     console.log(Req);
 
     this.service.insertTraineeInterview(Req).subscribe(
       (x: any) => {
         this.handleSuccess(x);
-
       },
       (error: any) => {
         this.handleError(error);
@@ -353,10 +425,7 @@ export class ReviewTresumeComponent implements OnChanges {
     if (tabIndex >= 0 && tabIndex < tabLabels.length) {
       this.currentTabIndex = tabIndex;
       this.tabIndex = tabIndex;
-    
-      // Determine if the save button should be visible based on the tabIndex
       this.showSaveButton = tabIndex !== 2;
-    
       this.saveButtonLabel = `Save ${tabLabels[tabIndex]}`;
       this.router.navigate(['/reviewtresume/'+this.routeType+'/'+this.candidateID+'/'+tabIndex]);
     }
@@ -385,39 +454,6 @@ export class ReviewTresumeComponent implements OnChanges {
     }
   }
 
-  //interview
-  // addRow() {
-  //   this.rows.push({});
-  // }
-
-  // deleteRow() {
-  //   if (this.rows.length > 1) {
-  //     this.rows.pop();
-  //   }
-  // }
-  // addRow1() {
-  //   this.rows.push({});
-  // }
-  // deleteRow1() {
-  //   if (this.rows.length > 1) {
-  //     this.rows.pop();
-  //   }
-  // }
-
-  TraineeID: string;
-  interviewDate: string;
-  interviewTime: string;
-  selectedInterviewMode: string;
-  interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
-  http: any;
-  editRowIndex: number;
-  showConfirmationDialog: boolean;
-  deleteIndex: number;
-  reviewService: any;
-  placementList: any;
-  candidateID:any;
-
-
   constructor(private route: ActivatedRoute,private cookieService: CookieService, private service: ReviewService, private messageService: MessageService, private formBuilder: FormBuilder,private AppService:AppService, private router:Router) {
     
     this.candidateID = this.route.snapshot.params["traineeID"];
@@ -428,6 +464,7 @@ export class ReviewTresumeComponent implements OnChanges {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.routeType = this.route.snapshot.params["routeType"];
     this.onTabChange(parseInt(this.tabIndex));
+    this.candidateID = this.route.snapshot.params["traineeID"];
 
    }
 
@@ -516,24 +553,6 @@ export class ReviewTresumeComponent implements OnChanges {
       
     });
 
-    
-
-  // Email Tracker T-1
-  // async function emailPlacementTracker() {
-  //   try {
-  //     // Assuming you have the user's email, replace 'user@email.com' with the actual user's email
-  //     const userEmail: string = 'user@email.com';
-
-  //     const response: Response = await fetch('/email-placement-tracker?email=' + encodeURIComponent(userEmail));
-  //     const result: string = await response.text();
-
-  //     console.log(result);
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // }
-
-
     // this.disableFormGroup(this.myFormFinancial);
     var viewaccess = this.AppService.checkViewOnly(2);
     if(!viewaccess){
@@ -545,41 +564,6 @@ export class ReviewTresumeComponent implements OnChanges {
     
   }
 
-  // private convertToCSV(data: any[]): string {
-  //   const header = Object.keys(data[0]).join(',') + '\n';
-  //   const rows = data.map(row => Object.values(row).join(',') + '\n');
-  //   return header + rows.join('');
-  // }
-
-  // exportToExcel() {
-  //   const data = this.placementList.map(placement => ({
-  //     POStartDate: placement.POStartDate,
-  //     POEndDate: placement.POEndDate,
-  //     PositionTitle: placement.PositionTitle,
-  //     MarketerFirstName: placement.MarketerFirstName,
-  //     ClientName: placement.ClientName,
-  //     VendorName: placement.VendorName,
-  //     ClientAddress: placement.ClientAddress,
-  //   }));
-  
-  //   // Convert data to CSV format
-  //   const csvData = this.convertToCSV(data);
-  
-  //   // Create Blob and download
-  //   const blob = new Blob([csvData], { type: 'text/csv' });
-  //   const url = window.URL.createObjectURL(blob);
-  
-  //   const a = document.createElement('a');
-  //   a.href = url;
-  //   a.download = 'placement_data.csv';
-  //   document.body.appendChild(a);
-  //   a.click();
-  //   document.body.removeChild(a);
-  
-  // }
-  
-  
-  
   disableGeneralFields() {
     Object.keys(this.FormGeneral.controls).forEach(controlName => {
       this.FormGeneral.get(controlName)?.disable();
@@ -642,14 +626,9 @@ export class ReviewTresumeComponent implements OnChanges {
     const Req = {
       TraineeID: this.candidateID
     };
-
     this.service.getPlacementList(Req).subscribe((x: any) => {
       this.placementList = x.result;
     });
-    // this.TraineeID = this.cookieService.get('TraineeID');
-    // this.reviewService.getPlacementList({}).subscribe((response: { result: any; }) => {
-    //   this.placementList = response.result; 
-    // });
   }
 
   getSubmissionList() {
@@ -934,12 +913,7 @@ cancelDeletesubmission() {
     });
   }
 
-  // deleteRow(index: number) {
-  //   this.educations.splice(index, 1);
-  // }
-
   //Above function will remove all row in education tab
-
   deleteRow(index: number) {
     if (this.educations.length > 1) {
       this.educations.splice(index, 1);
@@ -947,7 +921,6 @@ cancelDeletesubmission() {
   }
 
   // Experience
-
   experienceForm: FormGroup;
   experiences = [{
     title: '',
@@ -998,22 +971,5 @@ cancelDeletesubmission() {
     document.body.appendChild(link);
     link.click();
   }
-
-  // This is for email tracker in the placement tab // HRMS
-  // downloadAndSendEmail() {
-  //   this.service.getTableData().subscribe(data => {
-  //     // Simulate download
-  //     const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-  //     const link = document.createElement('a');
-  //     link.href = window.URL.createObjectURL(blob);
-  //     link.download = 'table-data.json';
-  //     link.click();
-
-  //     // Send email (Note: You need a backend API for this)
-  //     this.service.getTableData().subscribe(response => {
-  //       console.log('Email sent successfully:', response);
-  //     });
-  //   });
-  // }
 
 }

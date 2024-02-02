@@ -638,14 +638,15 @@ router.post("/deleteProject", async (req, res) => {
   }
 });
 
+
 router.post('/getTimesheetCandidatetList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = pool.request();
+  
+    const query =  "select * from Trainee where Active = 1 and isTimeSheet = 1 AND userorganizationid = '" + req.body.OrgID + "'";
+   
     
-    // const query =  "select * from timesheet_project where projectname like '%value%' and orgID = this.orgID and active = 1";
-    const query =  "select * from Trainee where Active = 1 and isFirstTimeLogin = 1 AND userorganizationid = '"+req.body.OrgID+ "'";
-    // const query =  "select  DISTINCT CONCAT(FirstName,'',LastName) as name from Trainee where Active = 1 and isFirstTimeLogin = 1 AND userorganizationid = '"+req.body.OrgID+ "'";
     console.log(query);
 
     const recordset = await request.query(query);
@@ -659,18 +660,20 @@ router.post('/getTimesheetCandidatetList', async (req, res) => {
     } else {
       const result = {
         flag: 0,
-        error: "No Candidates found!",
+        error: "No active results found!",
       };
       res.send(result);
     }
-  } catch (error) {
-    console.error("Error fetching project data:", error);
+  } 
+  catch (error) {
+    console.error("Error fetching candidate data:", error);
     const result = {
       flag: 0,
-      error: "An error occurred while fetching project data!",
+      error: "An error occurred while fetching candidate data!",
     };
     res.status(500).send(result);
   }
+  
 });
 
 
@@ -710,39 +713,39 @@ router.post('/getCreateProjectList', async (req, res) => {
 });
 
 
-router.post('/getPayItemList', async (req, res) => {
-  try {
-    const pool = await sql.connect(config);
-    const request = pool.request();
+// router.post('/getPayItemList', async (req, res) => {
+//   try {
+//     const pool = await sql.connect(config);
+//     const request = pool.request();
     
-    const query =  "Select Text from PayType";
+//     const query =  "Select Text from PayType";
 
-    console.log(query);
+//     console.log(query);
 
-    const recordset = await request.query(query);
+//     const recordset = await request.query(query);
 
-    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
-      const result = {
-        flag: 1,
-        result: recordset.recordsets[0],
-      };
-      res.send(result);
-    } else {
-      const result = {
-        flag: 0,
-        error: "No active projects found!",
-      };
-      res.send(result);
-    }
-  } catch (error) {
-    console.error("Error fetching project data:", error);
-    const result = {
-      flag: 0,
-      error: "An error occurred while fetching project data!",
-    };
-    res.status(500).send(result);
-  }
-});
+//     if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+//       const result = {
+//         flag: 1,
+//         result: recordset.recordsets[0],
+//       };
+//       res.send(result);
+//     } else {
+//       const result = {
+//         flag: 0,
+//         error: "No active projects found!",
+//       };
+//       res.send(result);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching project data:", error);
+//     const result = {
+//       flag: 0,
+//       error: "An error occurred while fetching project data!",
+//     };
+//     res.status(500).send(result);
+//   }
+// });
 
 
 router.post('/getLocationList', async (req, res) => {
@@ -750,7 +753,8 @@ router.post('/getLocationList', async (req, res) => {
     const pool = await sql.connect(config);
     const request = pool.request();
     
-    const query =  "select LocationName from Location ";
+    // const query =  "select LocationName from Location";
+    const query =  " select distinct city from UsazipcodeNew";
 
     console.log(query);
 

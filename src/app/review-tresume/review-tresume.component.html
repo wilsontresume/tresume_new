@@ -6,29 +6,30 @@
     <!-- General tab -->
    
     <mat-tab-group (selectedIndexChange)="onTabChange($event)" [selectedIndex]="tabIndex" class="mt-2">
-      <mat-tab label="General">
+
+      <mat-tab label="General" style="font-size:16px">
         <div class="container-fluid mt-3">
           <form [formGroup]="FormGeneral">
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="firstName">First Name</label>
-                  <!-- <input type="text" class="form-control" id="firstName" placeholder="First Name" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}"> -->
-                  <input type="text" class="form-control" id="firstName" placeholder="First Name" formControlName="firstname">
+                  <input type="text" class="form-control" id="firstName" placeholder="First Name" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="firstName" placeholder="First Name" formControlName="firstname"> -->
                 </div> 
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="middleName">Middle Name</label>
-                  <!-- <input type="text" class="form-control" id="middleName" placeholder="Middle Name" [(ngModel)]="middleName" [ngModelOptions]="{standalone: true}"> -->
-                  <input type="text" class="form-control" id="middleName" placeholder="Middle Name" formControlName="middleName">
+                  <input type="text" class="form-control" id="middleName" placeholder="Middle Name" [(ngModel)]="middleName" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="middleName" placeholder="Middle Name" formControlName="middleName"> -->
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="lastName">Last Name</label>
-                  <!-- <input type="text" class="form-control" id="lastName" placeholder="Last Name" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}"> -->
-                  <input type="text" class="form-control" id="lastName" placeholder="Last Name" formControlName="lastName">
+                  <input type="text" class="form-control" id="lastName" placeholder="Last Name" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="lastName" placeholder="Last Name" formControlName="lastName"> -->
                 </div>
               </div>
             </div>
@@ -36,7 +37,7 @@
               <div class="col-md-4">
                 <label for="interviewMode">Recruiter Name</label>
                 <!-- <select class="form-control" id="recruiterName" name="Recruiter Name" *ngFor="let item of items"  [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}"> -->
-                  <select class="form-control" id="recruiterName" name="Recruiter Name" [(ngModel)]="FormGeneral.recruiterName" [ngModelOptions]="{standalone: true}">
+                  <select class="form-control" id="recruiterName" name="Recruiter Name" [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}">
                     <option value disabled selected>Select a Referrer</option>
                     <option *ngFor="let name of recruiterName" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option>
                 </select>
@@ -44,7 +45,7 @@
               <div class="col-md-4">
                 <label for="phoneNumberG">Phone</label>
                 <input type="tel" class="form-control" id="phoneNumberG" name="phoneNumberG" placeholder="Phone"
-                  formControlName="phoneNumberG"
+                [(ngModel)]="phoneNumberG" [ngModelOptions]="{standalone: true}"
                   [ngClass]="{ 'invalid-input': FormGeneral.get('phoneNumberG').invalid && FormGeneral.get('phoneNumberG').touched }">
                 <div *ngIf="FormGeneral.get('phoneNumberG').invalid && FormGeneral.get('phoneNumberG').touched"
                   class="validation-message" style="color: red;">
@@ -54,7 +55,7 @@
               <div class="col-md-4">
                 <label for="generalEmail">Email</label>
                 <input type="email" class="form-control" id="generalEmail" name="generalEmail" placeholder="Email"
-                  formControlName="generalEmail"
+                [(ngModel)]="generalEmail" [ngModelOptions]="{standalone: true}"
                   [ngClass]="{ 'invalid-input': FormGeneral.get('generalEmail').invalid && FormGeneral.get('generalEmail').touched }">
                 <div *ngIf="FormGeneral.get('generalEmail').invalid && FormGeneral.get('generalEmail').touched"
                   class="validation-message" style="color: red;">
@@ -65,26 +66,26 @@
             <div class="row mt-2">
               <div class="col-md-4">
                 <label for="ReferredBy">Referred By</label>
-                <!-- <select [(ngModel)]="SelectedRefered" name="refered" id="refered" class="form-control"
-                  [ngModelOptions]="{standalone: true}"> -->
-                  <select name="refered" id="ReferredBy" class="form-control" formControlName="ReferredBy">
+                <select [(ngModel)]="SelectedRefered" name="refered" id="refered" class="form-control"
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <select name="refered" id="ReferredBy" class="form-control" formControlName="ReferredBy"> -->
                   <option value disabled selected>Select a Referrer</option>
                   <option *ngFor="let refered of referedby" [value]="refered.id">{{refered.MemberFirstName }} {{refered.MemberLastName }}</option>
                 </select>
               </div>
               <div class="col-md-4">
                 <label for="DealOffered">Deal Offered (optional)</label>
-                <!-- <input type="text" class="form-control" id="assistedBy" name="assistedBy"
-                  placeholder="Deal Offered (optional)" [(ngModel)]="assistedBy" [ngModelOptions]="{standalone: true}"> -->
-                  <input type="text" class="form-control" id="DealOffered" name="DealOffered"
-                    placeholder="Deal Offered (optional)" formControlName="DealOffered">
+                <input type="text" class="form-control" id="DealOffered" name="DealOffered"
+                  placeholder="Deal Offered (optional)" [(ngModel)]="DealOffered" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="DealOffered" name="DealOffered"
+                    placeholder="Deal Offered (optional)" formControlName="DealOffered"> -->
               </div>
               <div class="col-md-4">
                 <label for="typeOfAssistance">Referred By (External) (optional)</label>
-                <!-- <input type="text" class="form-control" id="ReferredBy" name="typeOfAssistance"
-                  placeholder="Type of Assistance" [(ngModel)]="ReferredBy" [ngModelOptions]="{standalone: true}"> -->
-                  <input type="text" class="form-control" id="ReferredBy" name="typeOfAssistance"
-                  placeholder="Type of Assistance" formControlName="ReferredBy">
+                <input type="text" class="form-control" id="ReferredBy" name="typeOfAssistance"
+                  placeholder="Type of Assistance" [(ngModel)]="ReferredBy" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="ReferredBy" name="typeOfAssistance"
+                  placeholder="Type of Assistance" formControlName="ReferredBy"> -->
               </div>
             </div>
             <div class="row">
@@ -96,7 +97,8 @@
                       placeholder="Enter SSN" [(ngModel)]="ssn" 
                       [ngModelOptions]="{standalone: true}"> -->
                       <input type="{{ showSSN ? 'text' : 'password' }}" class="form-control" id="ssnInput"
-                      placeholder="Enter SSN" formControlName="ssnInput">
+                      placeholder="Enter SSN" [(ngModel)]="ssn" 
+                      [ngModelOptions]="{standalone: true}">
                     <span id="toggleBtn" (mousedown)="startShowingSSN()" (mouseup)="stopShowingSSN()">
                       <span class="fa fa-eye ml-2 mt-2" style="font-size: 25px;"></span>
                     </span>
@@ -106,24 +108,24 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="statusDate">Status Date</label>
-                  <!-- <input type="text" class="form-control" id="statusDate" placeholder="Status Date" [(ngModel)]="statusDate" [ngModelOptions]="{standalone: true}"> -->
-                  <input type="date" class="form-control" id="statusDate" placeholder="Status Date" formControlName="statusDate">
+                  <input type="text" class="form-control" id="statusDate" placeholder="Status Date" [(ngModel)]="statusDate" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="date" class="form-control" id="statusDate" placeholder="Status Date" formControlName="statusDate"> -->
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="duiFelonyInfo">DUI/Felony Info</label>
-                  <!-- <input type="text" class="form-control" id="duiFelonyInfo" placeholder="DUI/Felony Info" [(ngModel)]="duiFelonyInfo" [ngModelOptions]="{standalone: true}"> -->
-                  <input type="text" class="form-control" id="duiFelonyInfo" placeholder="DUI/Felony Info" formControlName="duiFelonyInfo">
+                  <input type="text" class="form-control" id="duiFelonyInfo" placeholder="DUI/Felony Info" [(ngModel)]="duiFelonyInfo" [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="text" class="form-control" id="duiFelonyInfo" placeholder="DUI/Felony Info" formControlName="duiFelonyInfo"> -->
                 </div>
               </div>
             </div>
             <div class="row mt-2">
               <div class="col-md-4">
                 <label for="status">Current Status</label>
-                <!-- <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-control" [(ngModel)]="currentStatus" 
-                  [ngModelOptions]="{standalone: true}"> -->
-                  <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-control" formControlName="status">
+                <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-control" [(ngModel)]="currentStatus" 
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-control" formControlName="status"> -->
                   <option [ngValue]="null">Current Status</option>
                   <option *ngFor="let status of statuss" [value]="status">{{ status
                     }}</option>
@@ -131,65 +133,86 @@
               </div>
               <div class="col-md-4">
                 <label for="legalStatusVal">Legal Status Validity Start Date</label>
-                <!-- <input type="text" class="form-control" id="legalStatusVal" name="assistedBy"
+                <input type="text" class="form-control" id="legalStatusVal" name="assistedBy"
                   placeholder="Legal Status Validity Start Date"  [(ngModel)]="legalStatusVal" 
-                  [ngModelOptions]="{standalone: true}"> -->
-                  <input type="date" class="form-control" id="legalStatusVal" name="legalStatusVal"
-                  placeholder="Legal Status Validity Start Date" formControlName="legalStatusVal">
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="date" class="form-control" id="legalStatusVal" name="legalStatusVal"
+                  placeholder="Legal Status Validity Start Date" formControlName="legalStatusVal"> -->
               </div>
               <div class="col-md-4">
                 <label for="legalStatusValend">Legal Status Validity End Date</label>
-                <!-- <input type="text" class="form-control" id="legalStatusValend" name="legalStatusValend"
+                <input type="text" class="form-control" id="legalStatusValend" name="legalStatusValend"
                   placeholder="Legal Status Validity End Date" [(ngModel)]="legalStatusValend" 
-                  [ngModelOptions]="{standalone: true}"> -->
-                  <input type="date" class="form-control" id="legalStatusValend" name="legalStatusValend"
-                  placeholder="Legal Status Validity End Date" formControlName="legalStatusValend">
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <input type="date" class="form-control" id="legalStatusValend" name="legalStatusValend"
+                  placeholder="Legal Status Validity End Date" formControlName="legalStatusValend"> -->
               </div>
             </div>
             <div class="row mt-2">
               <div class="col-md-4">
                 <label for="general">Legal Status</label>
-                <!-- <select [(ngModel)]="selectedLegalStatus" name="legalstatus" id="selectedLegalStatus" class="form-control"
-                  [ngModelOptions]="{standalone: true}"> -->
-                  <select [(ngModel)]="selectedLegalStatus" name="legalstatus" id="selectedLegalStatus" class="form-control"
-                  formControlName="selectedLegalStatus">
+                <select [(ngModel)]="selectedLegalStatus" name="legalstatus" id="selectedLegalStatus" class="form-control"
+                  [ngModelOptions]="{standalone: true}">
+                  <!-- <select [(ngModel)]="selectedLegalStatus" name="legalstatus" id="selectedLegalStatus" class="form-control"
+                  formControlName="selectedLegalStatus"> -->
                   <option value="legalstatus">--SELECT--</option>
                   <option *ngFor="let legalstatus of legalstatuss" [value]="legalstatus">{{ legalstatus }}</option>
                 </select>
               </div>
               <div class="col-md-4">
-                <label for="ftcNotes">FTC Notes</label>
-                <!-- <input type="text" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
-                [ngModelOptions]="{standalone: true}"> -->
-                <input type="text" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes" formControlName="ftcNotes">
-              </div>
-              <div class="col-md-4">
-                <label for="otherNotes">Other Notes</label>
-                <!-- <input type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
-                  placeholder="Other Notes" [(ngModel)]="otherNotes" 
-                  [ngModelOptions]="{standalone: true}"> -->
-                  <input type="text" class="form-control" id="otherNotes" name="otherNotes"
-                  placeholder="Other Notes" formControlName="otherNotes">
-              </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-md-4">
                 <label for="interviewMode">Division</label>
-                <!-- <select [(ngModel)]="division" name="division" id="division" class="form-control"
-                  [ngModelOptions]="{standalone: true}"> -->
-                  <select [(ngModel)]="division" name="division" id="division" class="form-control" formControlName="division">
+                <select [(ngModel)]="division" name="division" id="division" class="form-control"
+                  [ngModelOptions]="{standalone: true}">
                   <option value disabled selected>Division</option>
                   <option *ngFor="let division of divisions" [value]="division">{{
                     division }}</option>
                 </select>
+                <!-- <label for="ftcNotes">FTC Notes</label>
+                <input type="text" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
+                [ngModelOptions]="{standalone: true}"> -->
               </div>
               <div class="col-md-4">
                 <label for="dob">DOB</label>
-                <!-- <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
+                <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
+                  bsDatepicker  [(ngModel)]="dob" 
+                  [ngModelOptions]="{standalone: true}">
+                <!-- <label for="otherNotes">Other Notes</label>
+                <input type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
+                  placeholder="Other Notes" [(ngModel)]="otherNotes" 
+                  [ngModelOptions]="{standalone: true}"> -->
+                  <!-- <input type="text" class="form-control" id="otherNotes" name="otherNotes"
+                  placeholder="Other Notes" formControlName="otherNotes"> -->
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <label for="ftcNotes">FTC Notes</label>
+                <!-- <input type="" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
+                [ngModelOptions]="{standalone: true}"> -->
+                <textarea type="" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
+                [ngModelOptions]="{standalone: true}" cols="30" rows="3"></textarea>
+                <!-- <label for="interviewMode">Division</label>
+                <select [(ngModel)]="division" name="division" id="division" class="form-control"
+                  [ngModelOptions]="{standalone: true}">
+                  <option value disabled selected>Division</option>
+                  <option *ngFor="let division of divisions" [value]="division">{{
+                    division }}</option>
+                </select> -->
+              </div>
+              <div class="col-md-6">
+                <label for="otherNotes">Other Notes</label>
+                <!-- <input type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
+                  placeholder="Other Notes" [(ngModel)]="otherNotes" 
+                  [ngModelOptions]="{standalone: true}"> -->
+                <textarea type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
+                placeholder="Other Notes" [(ngModel)]="otherNotes" 
+                [ngModelOptions]="{standalone: true}" cols="30" rows="3"></textarea>
+                <!-- <label for="dob">DOB</label>
+                <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
                   bsDatepicker  [(ngModel)]="dob" 
                   [ngModelOptions]="{standalone: true}"> -->
-                  <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
-                  bsDatepicker formControlName="dob">
+                  <!-- <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
+                  bsDatepicker formControlName="dob"> -->
               </div>
             </div>
           </form>
@@ -216,23 +239,23 @@
                 <div *ngFor="let education of educations; let i = index" class="row" [id]="'educationRow' + i">
                   <div class="col-md-2 form-group">
                     <label for="education1">Degree</label>
-                    <input type="text" class="form-control" id="education1" placeholder="Degree">
+                    <input type="text" class="form-control" id="degree" placeholder="Degree"  [(ngModel)]="education.degree">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education2">University</label>
-                    <input type="text" class="form-control" id="education2" placeholder="University">
+                    <input type="text" class="form-control" id="university" placeholder="University"  [(ngModel)]="education.university">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education3">Attended from</label>
-                    <input type="text" class="form-control" id="education3" placeholder="Attended from">
+                    <input type="text" class="form-control" id="attendedfrom" placeholder="Attended from"  [(ngModel)]="education.attendedfrom">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education4">Attended to</label>
-                    <input type="text" class="form-control" id="education4" placeholder="Attended to">
+                    <input type="text" class="form-control" id="attendedto" placeholder="Attended to"  [(ngModel)]="education.attendedto">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education5">University Address</label>
-                    <input type="text" class="form-control" id="education5" placeholder="University Address">
+                    <input type="text" class="form-control" id="univAddress" placeholder="University Address"  [(ngModel)]="education.univAddress">
                   </div>
                   <div class="col-md-1">
                   <button class="btn mt-4 mb-2 mr-2" (click)="deleteRow(i)">&#xd7;</button>
@@ -269,71 +292,71 @@
                 </div>
               </div>
               <div class="tab-pane fade" id="personalinfo" role="tabpanel" aria-labelledby="personalinfo-tab">
-                <div class="container">
+                <div class="container" >
                   <div class="row">
                     <div class="col-md-4 form-group">
                       <label for="personalinfo1">Emergency Contact Name</label>
-                      <input type="text" class="form-control" id="personalinfo1" placeholder="Emergency Contact Name">
+                      <input type="text" class="form-control" id="contactName" placeholder="Emergency Contact Name"  [(ngModel)]="contactName">
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo2">Emergency Contact Phone</label>
-                      <input type="text" class="form-control" id="personalinfo2" placeholder="Emergency Contact Phone">
+                      <input type="text" class="form-control" id="contactPhone" placeholder="Emergency Contact Phone"  [(ngModel)]="contactPhone" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo3">Emergency Contact Email</label>
-                      <input type="text" class="form-control" id="personalinfo3" placeholder="Emergency Contact Email">
+                      <input type="text" class="form-control" id="contactEmail" placeholder="Emergency Contact Email"  [(ngModel)]="contactEmail" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo4">Passport Number</label>
-                      <input type="text" class="form-control" id="personalinfo4" placeholder="Passport Number">
+                      <input type="text" class="form-control" id="passportNumber" placeholder="Passport Number"  [(ngModel)]="passportNumber" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo5">Passport Validity Start Date</label>
-                      <input type="text" class="form-control" id="personalinfo5"
-                        placeholder="Passport Validity Start Date">
+                      <input type="text" class="form-control" id="passportvalStartdate"
+                        placeholder="Passport Validity Start Date"  [(ngModel)]="passportvalStartdate" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo6">Passport Validity End Date</label>
-                      <input type="text" class="form-control" id="personalinfo6"
-                        placeholder="Passport Validity End Date">
+                      <input type="text" class="form-control" id="passportvalenddate"
+                        placeholder="Passport Validity End Date" [(ngModel)]="passportvalenddate" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo7">I-94 Number</label>
-                      <input type="text" class="form-control" id="personalinfo7" placeholder="I-94 Number">
+                      <input type="text" class="form-control" id="iNumber" placeholder="I-94 Number" [(ngModel)]="iNumber" >
                     </div>
                     <div class="col-md-4 form-group">
                       <label for="personalinfo8">I-94 Validity End Date</label>
-                      <input type="text" class="form-control" id="personalinfo8" placeholder="I-94 Validity End Date">
+                      <input type="text" class="form-control" id="iEndDate" placeholder="I-94 Validity End Date" [(ngModel)]="iEndDate" >
                     </div>
-                    <div class="row">
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Address Line1</label>
-                        <input type="text" class="form-control" id="personalinfoAddress" placeholder="Address Line 1">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Address Line2</label>
-                        <input type="text" class="form-control empty-4" placeholder="Address Line 2">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Country</label>
-                        <input type="text" class="form-control empty-4" placeholder="Country">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">State</label>
-                        <input type="text" class="form-control" placeholder="State">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">City</label>
-                        <input type="text" class="form-control" placeholder="City">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Zipcode</label>
-                        <input type="text" class="form-control" placeholder="Zipcode">
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label for="personalinfoAddress">Address Type</label>
-                        <input type="text" class="form-control" placeholder="Address Type (Home,work etc.)">
-                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfoAddress">Address Line1</label>
+                      <input type="text" class="form-control" id="personalInfoAddress" placeholder="Address Line 1"  [(ngModel)]="personalInfoAddress">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="personalinfoAddress1">Address Line2</label>
+                      <input type="text" class="form-control empty-4" id="personalInfoAddress1" placeholder="Address Line 2"  [(ngModel)]="personalInfoAddress1">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalInfoCountry">Country</label>
+                      <input type="text" class="form-control empty-4" placeholder="Country" id="personalInfoCountry" [(ngModel)]="personalInfoCountry" >
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalState">State</label>
+                      <input type="text" class="form-control" placeholder="State" id="personalState"  [(ngModel)]="personalState">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalCity">City</label>
+                      <input type="text" class="form-control" placeholder="City" id="PersonalCity"  [(ngModel)]="personalCity">
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="PersonalZipcode">Zipcode</label>
+                      <input type="text" class="form-control" placeholder="Zipcode" id="personalZipcode"  [(ngModel)]="personalZipcode" >
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="AddressType">Address Type</label>
+                      <input type="text" class="form-control" placeholder="Address Type (Home, work etc.)" id="addressType" [(ngModel)]="addressType" >
                     </div>
                   </div>
                 </div>
@@ -342,7 +365,9 @@
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Interview" class="mt-5" *ngIf="routeType == 1">
+
+      <!-- INTERVIEW TAB -->
+      <mat-tab label="Interview" class="mt-5" *ngIf="routeType == 1 || routeType == 3">
         <div class="container">
           <form [formGroup]="myForm">
             <div class="row">
@@ -486,7 +511,7 @@
         </div>
       </mat-tab>
       <!-- placement -->
-      <mat-tab label="Placement" class="mt-5" *ngIf="routeType == 1">
+      <mat-tab label="Placement" class="mt-5" *ngIf="routeType == 1 || routeType == 3">
         <div class="row">
           <!-- <div class="col-md-3 mt-3">
             <button class="btn" (click)="exportToExcel()">Email Placement Tracker</button>
@@ -553,7 +578,7 @@
         </div>
       </mat-tab>
       <!-- Content for Submission tab -->
-      <mat-tab label="Submission" class="mt-5" *ngIf="routeType == 1">
+      <mat-tab label="Submission" class="mt-5" *ngIf="routeType == 1 || routeType == 3">
         <div class="container">
           <!-- app.component.html -->
           <button class="btn btn1 mt-3 ml-4" (click)="downloadExcel()">Download DSR</button>
@@ -679,7 +704,7 @@
 
       </mat-tab>
       <!-- Content for Financial Info tab -->
-      <mat-tab label="Financial Info" class="mt-5">
+      <mat-tab label="Financial Info" class="mt-5" *ngIf="routeType == 1">
         <div class="container">
           <form [formGroup]="myFormFinancial">
             <div class="row textarea">
@@ -923,16 +948,25 @@
         </div>
       </mat-tab>
 
-      <!-- <mat-tab label="Site Visit" class="mt-5" *ngIf="routeType == 1">
+      <mat-tab label="Document" class="mt-5" *ngIf="routeType == 1">
         <ng-template matTabContent>
-          <app-sitevisit [candidateId]="44267"></app-sitevisit>
+          <app-candidate [candidateId]="candidateID"></app-candidate>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab label="Site Visit" class="mt-5" *ngIf="routeType == 1">
+        <ng-template matTabContent>
+          <app-sitevisit [candidateId]="candidateID"></app-sitevisit>
       </ng-template>
-      </mat-tab> -->
+      </mat-tab>
+
     </mat-tab-group>
+    <!-- <div class="text-right"><button class="btn btn-bgcolor" [routerLink]="['/candidateview/']">Document</button>
+    <button class="btn btn-bgcolor ml-3" [routerLink]="['/candidateview/']">Sitevisit</button>
+    </div> -->
     <div class="parent-container">
       <button class="btn btn1 mt-3 mb-3" id="saveButton" *ngIf="showSaveButton" (click)="saveData()" style="margin-left: auto; margin-right: 20px;">{{ saveButtonLabel }}</button>
   </div>
-  
   </div>
 </div>
 
