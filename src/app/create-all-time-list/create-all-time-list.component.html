@@ -1,3 +1,6 @@
+
+
+
 <div class="container-fluid p-3">
   <div class="head d-flex justify-content-between p-3">
     <h2>Weekly Timesheet</h2>
@@ -47,7 +50,7 @@
             <span class="date">{{ date.getDate() }}</span>
           </th>
         </ng-container>
-        <th>TOTAL</th>
+        <th style="width: 70px">TOTAL</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -55,8 +58,9 @@
       <tr *ngFor="let row of timesheetRows; let i = index">
         <td>{{ i + 1 }}</td>
         <td>
-          <div class="row dropdown">
-            <div class="input-group col-md-5 mr-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="row">
+            <div class="col-md-5 mr-5 dropdown">
+            <div class="input-group " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="row.projectName"
                 placeholder="Choose a Project" aria-describedby="searchIcon1">
               <div class="input-group-append">
@@ -71,10 +75,11 @@
                 </div>
               </div>
             </div>
-            <div class="input-group col-md-5">
+            </div>
+            <div class="dropdown col-md-5">
+            <div class="input-group"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <input type="text" class="form-control custom-input" id="selectedItem2" [(ngModel)]="row.payItem"
-                placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+                placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2" >
               <div class="input-group-append">
                 <div class="input-group-text">
                   <i class="fas fa-caret-down"></i>
@@ -86,8 +91,10 @@
               </div>
             </div>
           </div>
-          <div class="row dropdown">
-            <div class="input-group col-md-5 mr-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          </div>
+          <div class="row">
+            <div class="col-md-5 mr-5 dropdown">
+            <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <input type="text" class="form-control custom-input" id="selectedItem3" [(ngModel)]="row.service"
                 placeholder="Choose the service worked on" aria-label="Search" aria-describedby="searchIcon3">
               <div class="input-group-append">
@@ -101,10 +108,11 @@
                 </div>
               </div>
             </div>
-            <div class="input-group col-md-5 dropdown">
+          </div>
+          <div class="col-md-5 dropdown">
+            <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <input type="text" class="form-control custom-input" id="selectedItem4" [(ngModel)]="row.location"
-                placeholder="Choose a location" aria-describedby="searchIcon4" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+                placeholder="Choose a location" aria-describedby="searchIcon4">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <i class="fas fa-caret-down"></i>
@@ -116,6 +124,7 @@
                 </div>
               </div>
             </div>
+          </div>
           </div>
           <div class="row">
             <div class="col-md-5 mr-5">
