@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OptNationComponent implements OnInit {
 isScrolled: any;
+isNavbarCollapsed: boolean = false;
 
   constructor() { }
 
@@ -16,4 +17,7 @@ isScrolled: any;
   cards = [
     { title: 'OPT Nation', text: 'Premium Job Board', imageSrc: 'assets/img/cb_logo.svg', link: 'opt-nation' },
   ];
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
 }

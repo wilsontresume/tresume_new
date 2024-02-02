@@ -161,6 +161,8 @@ import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.compon
 import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
 import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.component';
 import { DatePipe } from '@angular/common';
+import { MonsterComponent } from './landing-page/monster/monster.component';
+import { AdobeComponent } from './landing-page/adobe/adobe.component';
 import { TruncatePipe } from './truncate.pipe';
 
 @NgModule({
@@ -255,6 +257,8 @@ import { TruncatePipe } from './truncate.pipe';
       PaymentComponent,
       ArAgingReportComponent,
       NewTimeSheetReportComponent,
+      MonsterComponent,
+      AdobeComponent
       SendInvoiceComponent,
       TruncatePipe,
     // TimesheetViewdetailsComponent
