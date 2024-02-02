@@ -951,7 +951,6 @@ var query = "UPDATE Trainee SET " +
     res.status(500).send(data);
   }
 });
-
 router.post('/updateGeneral', async function (req, res) {
   try {
     var query =
@@ -978,12 +977,11 @@ router.post('/updateGeneral', async function (req, res) {
       "  TraineeID = " + formatValue(req.body.TraineeID);
 
     console.log(query);
- 
 
     await sql.connect(config);
     var request = new sql.Request();
     var result = await request.query(query);
-    
+
     const data = {
       flag: 1,
       message: "Data Updated",
@@ -991,8 +989,9 @@ router.post('/updateGeneral', async function (req, res) {
 
     res.send(data);
   } catch (error) {
+    console.error(error); 
     const data = {
-      flag: 1,
+      flag: 0, 
       message: "Internal Server Error",
     };
     res.status(500).send(data);
@@ -1345,7 +1344,9 @@ router.post("/fetchrecruiter", function (req, res) {
     if (err) console.log(err);
     var request = new sql.Request();
     request.query(
-      "select traineeid,firstname,lastname from trainee where organizationid = "+req.body.orgID+" and active = 1",
+      // "select traineeid,firstname,lastname from trainee where organizationid = "+req.body.orgID+" and active = 1",
+      "SELECT DISTINCT traineeid, firstname, lastname FROM trainee WHERE organizationid = " + req.body.orgID + " AND active = 1 ORDER BY firstname ASC, lastname ASC",
+
       function (err, recordset) {
         if (err) console.log(err);
         var result = {

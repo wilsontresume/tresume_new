@@ -22,7 +22,8 @@ export class AllJobPostingsComponent implements OnInit{
   jobs:any[];
   noResultsFound:boolean = true;
 
-roles: string[] = ["Recruiter", "Admin", "User"];
+// roles: string[] = ["Recruiter", "Admin", "User"];
+
 ngOnInit(): void {
   this.loading = true;
   this.OrgID = this.cookieService.get('OrgID');

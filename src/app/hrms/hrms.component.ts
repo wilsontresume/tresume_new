@@ -128,14 +128,14 @@ export class HrmsComponent implements OnInit {
   }
 
   
-  fetchinterviewlist() {
-    let Req = {
-      TraineeID: this.candidateID,
-    };
-    this.service.getInterviewList(Req).subscribe((x: any) => {
-    // this.interview = x.result;
-    });
-  }
+  // fetchinterviewlist() {
+  //   let Req = {
+  //     TraineeID: this.candidateID,
+  //   };
+  //   this.service.getInterviewList(Req).subscribe((x: any) => {
+  //   // this.interview = x.result;
+  //   });
+  // }
   
 
   onEmailInput() {
@@ -506,7 +506,7 @@ export class HrmsComponent implements OnInit {
     this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
     this.loading = false;
-    this.fetchinterviewlist();
+    // this.fetchinterviewlist();
   }
   
   private handleError(response: any): void {

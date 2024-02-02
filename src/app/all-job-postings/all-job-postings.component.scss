@@ -49,7 +49,7 @@
   }
   
   i{
-    margin: 5px;
+    margin: 2px;
     color: #94618e;
     cursor: pointer;
   }
@@ -60,12 +60,30 @@
   i:hover {
     color: darkviolet;
   }
+  
  .main-container{
   background:#fff;
   margin-top: 0;
   border-radius: 5px;
  }
+
 tbody{
   margin-bottom: 10px;
   padding-bottom: 10px;
+}
+
+#assignee {
+  border: 2px solid #94618e; 
+  color: #94618e; 
+  width: 150px;
+  padding: 5px; 
+}
+
+#assignee option {
+  color: #94618e;
+}
+
+#assignee option:checked {
+  background-color: #94618e; 
+  color: white; 
 }
