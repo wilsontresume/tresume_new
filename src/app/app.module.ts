@@ -258,7 +258,7 @@ import { TruncatePipe } from './truncate.pipe';
       ArAgingReportComponent,
       NewTimeSheetReportComponent,
       MonsterComponent,
-      AdobeComponent
+      AdobeComponent,
       SendInvoiceComponent,
       TruncatePipe,
     // TimesheetViewdetailsComponent
