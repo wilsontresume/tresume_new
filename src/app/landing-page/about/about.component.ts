@@ -13,10 +13,15 @@ export class AboutComponent implements OnInit {
     window.scrollTo(0,0);
   }
   isScrolled = false;
+  isNavbarCollapsed = false;
+
 
   // @HostListener('window:scroll', [])
   // onWindowScroll() {
   //   const offset = window.scrollY;
   //   this.isScrolled = offset > 50;
   // }
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
 }

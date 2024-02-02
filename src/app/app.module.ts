@@ -160,6 +160,8 @@ import { PaymentComponent } from './all-invoice/payment/payment.component';
 import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
 import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
 import { DatePipe } from '@angular/common';
+import { MonsterComponent } from './landing-page/monster/monster.component';
+import { AdobeComponent } from './landing-page/adobe/adobe.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -252,6 +254,8 @@ import { DatePipe } from '@angular/common';
       PaymentComponent,
       ArAgingReportComponent,
       NewTimeSheetReportComponent,
+      MonsterComponent,
+      AdobeComponent
     // TimesheetViewdetailsComponent
 
   ],

@@ -7,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdobeComponent implements OnInit {
 isScrolled: any;
+isNavbarCollapsed: boolean = false;
+
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
 
 }

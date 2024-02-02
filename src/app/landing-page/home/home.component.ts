@@ -13,6 +13,11 @@ export class HomeComponent implements OnInit {
     window.scrollTo(0,0);
   }
   isScrolled = false;
+  isNavbarCollapsed = false;
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
+
 
   // @HostListener('window:scroll', [])
   // onWindowScroll() {

@@ -7,11 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobleeComponent implements OnInit {
 isScrolled: any;
+isNavbarCollapsed: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
     window.scrollTo(0,0);
   }
-
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
 }

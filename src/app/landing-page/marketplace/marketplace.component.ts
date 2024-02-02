@@ -8,6 +8,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class MarketplaceComponent implements OnInit {
 
 isScrolled = false;
+isNavbarCollapsed = false;
 
 
   constructor() { }
@@ -27,5 +28,7 @@ isScrolled = false;
   ngOnInit(): void {
     window.scrollTo(0,0);
   }
-
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
 }
