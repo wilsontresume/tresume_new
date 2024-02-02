@@ -16,8 +16,8 @@
         <div class="card card-outline text-center p-4">
           <div class="text-center">
           </div>
-          <h2 class="card-title text-center pt-3 mb-0">{{profiledata[0].FirstName}} {{profiledata[0].LastName}}</h2>
-          <p class="card-text text-center pt-1 JD">{{profiledata[0].Title}}</p>
+          <h2 class="card-title text-center pt-3 mb-0">{{profiledata.FirstName}} {{profiledata.LastName}}</h2>
+          <p class="card-text text-center pt-1 JD">{{profiledata.Title}}</p>
         </div>
       </div>
       <div class="col-md-8">
@@ -27,55 +27,46 @@
             <div class="col-md-4">
               <span class="label" for="firstName">First Name</span><br>
               <ng-container *ngIf="!editmode; else editModeTemplate9">
-                <span class="m-2">{{profiledata[0].FirstName}}</span>
+                <span class="m-2">{{profiledata.FirstName}}</span>
               </ng-container>
               <ng-template #editModeTemplate9>
                 <input type="text" class="custom-input" id="firstName"
-                   name="firstName" value="{{profiledata[0].FirstName}}" >
+                   name="firstName" [(ngModel)]="profiledata.FirstName" value="{{profiledata.FirstName}}">
               </ng-template>
             </div>
             <div class="col-md-4">
               <span class="label" for="middleName">Middle Name</span><br>
               <ng-container *ngIf="!editmode; else editModeTemplate1">
-                <span class="m-2">{{profiledata[0].MiddleName}}</span>
+                <span class="m-2">{{profiledata.MiddleName}}</span>
               </ng-container>
               <ng-template #editModeTemplate1>
-                <input type="text" class="custom-input" id="middleName" value="{{profiledata[0].MiddleName}}"
-                   name="middleName" >
+                <input type="text" class="custom-input" id="middleName" value="{{profiledata.MiddleName}}"
+                   name="middleName" [(ngModel)]="profiledata.MiddleName" >
               </ng-template>
             </div>
             <div class="col-md-4">
               <span class="label" for="lastName">Last Name</span><br>
               <ng-container *ngIf="!editmode; else editModeTemplate2">
-                <span class="m-2">{{profiledata[0].LastName}}</span>
+                <span class="m-2">{{profiledata.LastName}}</span>
               </ng-container>
               <ng-template #editModeTemplate2>
-                <input type="text" class="custom-input" id="lastName" value="{{profiledata[0].LastName}}"
-                   name="lastName" >
+                <input type="text" class="custom-input" id="lastName" value="{{profiledata.LastName}}"
+                   name="lastName" [(ngModel)]="profiledata.LastName">
               </ng-template>
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-md-4">
               <span class="label" for="userName">User Name</span><br>
-                <span class="m-2">{{profiledata[0].UserName}}</span>
-             
+                <span class="m-2">{{profiledata.UserName}}</span>
             </div>
             <div class="col-md-4">
               <span class="label" for="yearsOfExperience">Years of Experience(In Months)</span><br>
               <ng-container *ngIf="!editmode; else editModeTemplate4">
-                <span class="m-2">{{profiledata[0].YearsOfExpInMonths}}</span>
+                <span class="m-2">{{profiledata.YearsOfExpInMonths}}</span>
               </ng-container>
               <ng-template #editModeTemplate4>
-                <select class="custom-input" id="yearsOfExperience" [(ngModel)]="yearsOfExperience"
-                  name="yearsOfExperience" required>
-                  <option value="" disabled selected>Select years of experience</option>
-                  <option value="0">0 years</option>
-                  <option value="1">1 year</option>
-                  <option value="2">2 years</option>
-                  <option value="3">3 years</option>
-                  <option value="4">4 years</option>
-                </select>
+                <input class="custom-input" type="text" id="yearsOfExperience" [(ngModel)]="profiledata.YearsOfExpInMonths" name="yearsOfExperience" required placeholder="Enter YOE">
               </ng-template>
             </div>
           </div>
@@ -83,37 +74,29 @@
             <div class="col-md-4">
               <span class="label" for="title">Title</span><br>
               <ng-container *ngIf="!editmode;else editModeTemplate10">
-                <span class="m-2">{{profiledata[0].Title}}</span>
+                <span class="m-2">{{profiledata.Title}}</span>
               </ng-container>
               <ng-template #editModeTemplate10>
-                <input type="text" class="custom-input" id="title" value="{{profiledata[0].Title}}"
-                  name="title" required>
-                <div
-                  *ngIf="myForm.controls.title.invalid && (myForm.controls.title.dirty || myForm.controls.title.touched)">
-                  <small class="text-danger">Title is required</small>
-                </div>
+                <input type="text" class="custom-input" id="title" value="{{profiledata.Title}}"
+                  name="title" [(ngModel)]="profiledata.Title" required>
+                
               </ng-template>
             </div>
             <div class="col-md-4">
               <span class="label" for="dob">DOB</span><br>
               <ng-container *ngIf="!editmode;else editModeTemplate7">
-                <span class="m-2">{{profiledata[0].DOB | date:'dd-MM-yyyy'}}</span></ng-container>
+                <span class="m-2">{{profiledata.DOB | date:'dd-MM-yyyy'}}</span></ng-container>
               <ng-template #editModeTemplate7>
-                <input type="date" class="custom-input" id="dob" [(ngModel)]="dob" name="dob" required>
+                <input type="date" class="custom-input" id="dob" name="dob" [value]="profiledata.DOB | date:'yyyy-MM-dd'" (input)="updateDOB($event)" required>
               </ng-template>
             </div>
             <div class="col-md-4">
               <span class="label" for="phoneNumber">Phone</span><br>
               <ng-container *ngIf="!editmode;else editModeTemplate8">
-                <span class="m-2">{{profiledata[0].PhoneNumber}}</span>
+                <span class="m-2">{{profiledata.PhoneNumber}}</span>
               </ng-container>
               <ng-template #editModeTemplate8>
-                <input type="text" class="custom-input" id="phoneNumber" value="{{profiledata[0].PhoneNumber}}"
-                  name="phoneNumber" pattern="[0-9]{10}" required>
-                <div *ngIf="myForm.controls.phoneNumber.invalid && 
-                                (myForm.controls.phoneNumber.dirty || myForm.controls.phoneNumber.touched)">
-                  <small class="text-danger">Please enter a valid 10-digit phone number</small>
-                </div>
+                <input type="text" class="custom-input" id="phoneNumber" value="{{profiledata.PhoneNumber}}" [(ngModel)]="profiledata.PhoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
               </ng-template>
             </div>
           </div>
@@ -121,9 +104,9 @@
           <div class="form-row">
             <div class="form-group col-4">
               <span class="label" for="companyName">Organization</span><br>
-              <span *ngIf="!editmode" class="m-2">{{profiledata[0].Organization}}</span>
+              <span *ngIf="!editmode" class="m-2" [(ngModel)]="profiledata.Organization">{{profiledata.Organization}}</span>
             </div>
-            <div class="form-group col-6">
+            <!-- <div class="form-group col-6">
               <span class="label" for="logo">Logo Type</span><br>
               <span *ngIf="!editmode" class="m-2">Image.png</span>
               <div *ngIf="editmode" class="logo">
@@ -135,39 +118,42 @@
                   <img src="{{ logoImageUrl }}" alt="Selected Logo" *ngIf="logoImageUrl" width="50" height="50">
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="form-row mt-2">
             <div class="form-group col-4">
               <span class="label" for="state">State</span><br>
-              <span *ngIf="!editmode">{{profiledata[0].state}}</span>
-              <select *ngIf="editmode" class="custom-input" id="state">
+              <span *ngIf="!editmode">{{profiledata.state}}</span>
+              <select *ngIf="editmode" class="custom-input" id="state" [(ngModel)]="selectedstate" (change)="fetchCity()">
+                <option [value]="profiledata.state" selected>{{profiledata.state}}</option>
                 <option *ngFor="let stateObj of state" [value]="stateObj.state">{{stateObj.state}}</option>
               </select>
             </div>
+            
             <div class="form-group col-4">
               <span class="label" for="city">City</span><br>
-              <span *ngIf="!editmode">{{profiledata[0].city}}</span>
-              <select *ngIf="editmode" class="custom-input" id="city">
-                <option *ngFor="let city of cities" [value]="city.id">{{city.City}}</option>
+              <span *ngIf="!editmode">{{profiledata.City}}</span>
+              <select *ngIf="editmode" class="custom-input" id="city"[(ngModel)]="selectedcity">
+              <option value="" selected>Select City</option>
+                <option *ngFor="let city of city" [value]="city.city">{{city.city}}</option>
               </select>
             </div>
             <div class="form-group col-4">
-              <span class="label" for="zipcode">Zip Code</span>
-              <span *ngIf="!editmode">{{profiledata[0].zipcode}}</span>
-              <input *ngIf="editmode" type="text" class="custom-input" id="zipcode" value="{{profiledata[0].zipcode}}">
+              <span class="label" for="zipcode">Zip Code</span><br>
+              <span *ngIf="!editmode">{{profiledata.zipcode}}</span>
+              <input *ngIf="editmode" type="text" class="custom-input" id="zipcode" value="{{profiledata.zipcode}}" [(ngModel)]="profiledata.zipcode">
             </div>
           </div>
           <div *ngIf="editmode; else" class="row mt-4">
             <div class="col text-right">
-              <button class="btn m-2" (click)="toggleEditMode1()">Cancel</button>
+              <button class="btn m-2" (click)="cancel()">Cancel</button>
               <button class="btn m-2" (click)="updateProfile()">Save</button>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-1">
-        <i class='fas fa-pen' (click)="toggleEditMode1()"></i>
+        <i class='fas fa-pen' (click)="cancel()"></i>
       </div>
     </div>
   </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { ProfileService} from './Profile.service';
@@ -24,24 +25,25 @@ export class ProfileComponent implements OnInit {
   CompanyInfo = '';
   selectedLegalstatus:string = '';
   state: string[] = [];
-  cities: string[] = [];
+  selectedstate:any;
+  selectedcity:any;
+  city: string[] = [];
   content: any;
   userName: string;
-  firstName: string = '';
-  middleName: string = '';
-  lastName: string = '';
+  FirstName: string = '';
+  MiddleName: string = '';
+  LastName: string = '';
   profile:any;
   yearsOfExperience: number = 0;
   monthsOfExperience: number = 0;
   companyName: string;
   zipcode: string;
-  title: string;
+  Title: string;
   dob: string;
   oldPassword: any;
   newPassword: any;
   confirmPassword: any;
   phoneNumber: number;
-  selectedState: any;
   logoImageUrl: string;
   editmode: boolean = false;
   myForm: any;
@@ -52,9 +54,11 @@ export class ProfileComponent implements OnInit {
   loading:boolean = false;
   UpdateProfileData:any;
   ProfileUpdate:any;
+  routeType: any;
 
-  constructor(private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
+  constructor( private router: Router,  private route: ActivatedRoute, private fb: FormBuilder, private Service: ProfileService, private messageService: MessageService, private cookieService: CookieService,) {
     this.TraineeID = this.cookieService.get('TraineeID');
+    this.routeType = this.route.snapshot.params["routeType"];
   }
 
   async ngOnInit(): Promise<void> {
@@ -62,41 +66,46 @@ export class ProfileComponent implements OnInit {
       this.fetchprofile();
       this.fetchState();
       this.fetchCity();
-      this.updateProfile();
   }
 
   
   updateProfile() {
-    let Req = {
-      FirstName: this.firstName,
-      MiddleName: this.middleName,
-      LastName: this.lastName,
-      UserName: this.userName,
-      YearsOfExpInMonths: this.yearsOfExperience,
-      Title: this.title,
-      DOB: this.dob,
-      PhoneNumber: this.phoneNumber,
-      Organization: this.companyName,
-      state: this.state,
-      city: this.cities,
-      zipcode: this.zipcode,
-      traineeID: this.TraineeID,
+    const req = {
+      FirstName: this.profiledata.FirstName,
+      MiddleName: this.profiledata.MiddleName,
+      LastName: this.profiledata.LastName,
+      UserName: this.profiledata.userName,
+      YearsOfExpInMonths: this.profiledata.YearsOfExpInMonths,
+      Title: this.profiledata.Title,
+      DOB: this.profiledata.DOB,
+      PhoneNumber: this.profiledata.PhoneNumber,
+      Organization: this.profiledata.Organization,
+      state: this.selectedstate,
+      city: this.selectedcity,
+      zipcode: this.profiledata.zipcode,
+      traineeID: this.profiledata.TraineeID,
     };
-    console.log(Req);
-    this.Service.updateMyProfile(Req).subscribe(
-      (x: any) => {
-            this.handleSuccess(x);
-          },
-          (error: any) => {
-            this.handleError(error);
-          }
+  
+    console.log(req);
+  
+    this.Service.updateMyProfile(req).subscribe(
+      (response: any) => {
+        this.handleSuccess(response);
+        this.fetchprofile();
+        this.editmode = false;
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
     );
   }
+  
 
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
     this.loading = false;
+    // this.router.navigate(['/profile/'+this.routeType]);
   }
   
   private handleError(response: any): void {
@@ -134,7 +143,7 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  toggleEditMode1() {
+  cancel() {
     if (this.editmode === true) {
       this.editmode = false;
     } else {
@@ -151,7 +160,7 @@ fetchprofile(){
     traineeID: this.TraineeID,
   };
   this.Service.getUserProfile(Req).subscribe((x: any) => {
-    this.profiledata = x.result;
+    this.profiledata = x.result[0];
     console.log(this.profiledata);
     this.loading = false;
   });
@@ -161,7 +170,7 @@ fetchState(){
   let Req = {
     traineeID: this.TraineeID,
   };
-  this.Service.fetchProfileStateList(Req).subscribe((x: any) => {
+  this.Service.getLocation(Req).subscribe((x: any) => {
     this.state = x.result;
     console.log(this.state);
   });
@@ -169,11 +178,12 @@ fetchState(){
 
 fetchCity(){
   let Req = {
-    traineeID: this.TraineeID,
+    TraineeID: this.TraineeID,
+    State: this.selectedstate
   };
-  this.Service.fetchProfileCityList(Req).subscribe((x: any) => {
-    this.cities = x.result;
-  
+  this.Service.getCity(Req).subscribe((x: any) => {
+    this.city = x.result;
+    console.log(this.selectedstate);
   });
 }
 
@@ -182,5 +192,18 @@ SavePassword(){
   
 }
 
+
+formattedDate(dateString: string): string {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.getMonth() + 1; 
+  const year = date.getFullYear();
+  const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+  return formattedDate;
+}
+
+updateDOB(event: any): void {
+  this.profiledata.DOB = event.target.value;
+}
 
 }
