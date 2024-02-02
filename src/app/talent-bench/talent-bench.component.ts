@@ -18,7 +18,6 @@ export class TalentBenchComponent implements OnInit {
 
   loading: boolean = true;
   candidates: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
-  // formData: any = {};
   OrgID: string = '';
   userName: string = '';
   TraineeID: string = '';
@@ -72,7 +71,6 @@ export class TalentBenchComponent implements OnInit {
     const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
     this.startDate = this.datePipe.transform(firstDayOfMonth, 'yyyy-MM-dd')!;
 
-    // Set end date as today
     this.endDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd')!;
     this.fetchtalentbenchlist();
     this.getcandidaterstatus();
@@ -104,7 +102,6 @@ export class TalentBenchComponent implements OnInit {
   search: string = '';
 
 isCandidateVisible(candidate: any): boolean {
-  // console.log(candidate);
   const searchValue = this.search.toLowerCase();
   return (
     candidate.FirstName.toLowerCase().includes(searchValue) ||
@@ -158,7 +155,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     };
     this.service.candidatestatus(Req).subscribe((x: any) => {
       this.currentStatusOptions = x;
-      // console.log(this.currentStatusOptions);
     });
 
   }
@@ -372,7 +368,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
 
     this.service.getLegalStatus(request).subscribe((response: any) => {
       this.legalStatusOptions = response;
-      // console.log(this.legalStatusOptions);
     });
   }
 
@@ -453,7 +448,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     }
   }  
 
-  //Date filter Tablet bench fetch list
   startDate: string = '';  
   endDate: string = '';
   filteredTableData: any[];  
@@ -510,13 +504,12 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       });
     }
   }
-
     // Add interview 
     myForm: any;
     interviewFormData: any = {};
     submissionFormData: any = {};
     interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
-    interviewDate: Date; 
+    interviewDate: any; 
     interviewTime: string;
     interviewInfo: string;
     client: string;
@@ -526,17 +519,14 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     typeOfAssistance: string;
     interviewMode: string;
     submissionList: any[] = []; 
-
     title: string;
-    submissionDate: Date;
+    submissionDate: any;
     notes: string;
     vendorName: string;
-    rate: number;
+    rate: any;
     clientName: string;
   
     saveInterviewData() {
-      // console.log('Saving data for the Interview tab:', this.interviewFormData);
-    
       let Req = {
         interviewDate: this.interviewDate,
         interviewTime: this.interviewTime,
@@ -553,24 +543,37 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         recruiteremail: this.userName,
         InterviewStatus: 'SCHEDULED',
       };
-      // console.log(Req);
       this.service.insertTraineeInterview(Req).subscribe(
         (x: any) => {
           this.handleSuccess(x);
+          this.clearFields();
         },
         (error: any) => {
           this.handleError(error);
+          this.clearFields();
         }
       );
     }
   
+    clearFields() {
+      this.interviewDate = null;
+      this.interviewTime = '';
+      this.interviewInfo = '';
+      this.client = '';
+      this.vendor = '';
+      this.subVendor = '';
+      this.assistedBy = '';
+      this.typeOfAssistance = '';
+      this.interviewMode = '';
+      this.candidateID = '';
+      this.TraineeID = '';
+      this.userName = '';
+    }
     openInterviewModal(candidateID: string) {
       this.candidateID = candidateID;
     }
   
     getSubmissionList() {
-      // console.log('Saving data for the Submission tab:', this.submissionFormData);
-  
       let Req = {
         title: this.title,
         submissionDate: this.submissionDate,
@@ -582,14 +585,22 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         MarketerID:this.TraineeID,
         CandidateID:this.candidateID
       };
-      // console.log(Req);
       this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
         this.handleSuccess(x);
+        this.clearFieldsSubmission();
       },
       (error: any) => {
         this.handleError(error);
       }
     );
+    }
+    clearFieldsSubmission() {
+      this.title = '';
+      this.submissionDate = '';
+      this.notes = '';
+      this.vendorName = '';
+      this.rate = '';
+      this.clientName = '';
     }
   
     openSubmissionModal(candidateID: string) {
@@ -598,7 +609,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   
     private handleSuccess(response: any): void {
       this.messageService.add({ severity: 'success', summary: response.message });
-      // console.log(response);
       this.loading = false;
     }
     
@@ -606,8 +616,4 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       this.messageService.add({ severity: 'error', summary:  response.message });
       this.loading = false;
     }
-    
-
-    // Interview Download 
-
 }

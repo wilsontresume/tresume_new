@@ -162,6 +162,7 @@ export class ReviewTresumeComponent implements OnChanges {
   phoneNumberG:any 
   generalEmail:any 
   DealOffered:any 
+  selectedrecruiterName: any;
 
 
   startShowingSSN() {
@@ -207,7 +208,7 @@ export class ReviewTresumeComponent implements OnChanges {
       firstName: this.firstName,
       middleName: this.middleName,
       lastName: this.lastName,
-      recruiterName: this.recruiterName,
+      recruiterName: this.selectedrecruiterName,
       phoneNumberG: this.phoneNumberG,
       generalEmail: this.generalEmail,
       refered: this.SelectedRefered,
@@ -667,29 +668,32 @@ export class ReviewTresumeComponent implements OnChanges {
       TraineeID: this.candidateID,
     };
     this.service.getCandidateInfo(Req).subscribe((x: any) => {
-      this.FormGeneral.patchValue({
-    phoneNumberG: x.result[0].PhoneNumber || '', // Patching respective values to form controls
-    generalEmail: x.result[0].UserName || '',
-    recruiterName: x.result[0].RecruiterName || '',
-    legalStatusVal: x.result[0].LegalStatusValidFrom || '', 
-    firstname: x.result[0].FirstName || '',
-    middleName: x.result[0].MiddleName || '',
-    lastName: x.result[0].LastName || '',
-    refered: x.result[0].refered || '',
-    DealOffered: x.result[0].DealOffered || '',
-    ReferredBy: x.result[0].ReferredBy_external || '',
-    ssnInput: x.result[0].SSn || '',
-    statusDate: x.result[0].statusdate || '',
-    duiFelonyInfo: x.result[0].DuiFelonyInfo || '',
-    status: x.result[0].Candidatestatus || '',
-    legalStatusValend: x.result[0].Legalenddate || '',
-    selectedLegalStatus: x.result[0].LegalStatus || '',  
-    ftcNotes: x.result[0].FTCNotes || '',
-    otherNotes: x.result[0].Notes || '',
-    division: x.result[0].division || '',
-    dob: x.result[0].DOB || '',
+      this.middleName = x.result[0].MiddleName || '';
+      this.phoneNumberG = x.result[0].PhoneNumber || ''; 
+      this.generalEmail = x.result[0].UserName || '';
+      this.selectedrecruiterName = x.result[0].RecruiterName || '';
+      this.legalStatusVal = x.result[0].LegalStatusValidFrom || ''; 
+      this.firstName = x.result[0].FirstName || '';
+      this.middleName = x.result[0].MiddleName || '';
+      this.lastName = x.result[0].LastName || '';
+      this.SelectedRefered = x.result[0].refered || '';
+      this.DealOffered = x.result[0].DealOffered || '';
+      this.ReferredBy = x.result[0].ReferredBy_external || '';
+      this.ssn = x.result[0].SSn || '';
+      this.statusDate = x.result[0].statusdate || '';
+      this.duiFelonyInfo = x.result[0].DuiFelonyInfo || '';
+      this.currentStatus = x.result[0].Candidatestatus || '';
+      this.legalStatusValend = x.result[0].Legalenddate || '';
+      this.selectedLegalStatus = x.result[0].LegalStatus || '';  
+      this.ftcNotes = x.result[0].FTCNotes || '';
+      this.otherNotes = x.result[0].Notes || '';
+      this.division = x.result[0].division || '';
+      this.dob = x.result[0].DOB || '';
+
+      // this.FormGeneral.patchValue({
+        
   
-      });
+      // });
       this.myFormFinancial.patchValue({
         accountnum1: x.result[0].Bank1AccountNumber || '',
         accountnum2: x.result[0].Bank2AccountNumber || '',

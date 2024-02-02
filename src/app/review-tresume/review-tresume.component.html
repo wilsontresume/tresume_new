@@ -37,7 +37,7 @@
               <div class="col-md-4">
                 <label for="interviewMode">Recruiter Name</label>
                 <!-- <select class="form-control" id="recruiterName" name="Recruiter Name" *ngFor="let item of items"  [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}"> -->
-                  <select class="form-control" id="recruiterName" name="Recruiter Name" [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}">
+                  <select class="form-control" id="selectedrecruiterName" name="Recruiter Name" [(ngModel)]="selectedrecruiterName" [ngModelOptions]="{standalone: true}">
                     <option value disabled selected>Select a Referrer</option>
                     <option *ngFor="let name of recruiterName" [value]="name.id">{{name.MemberFirstName }} {{name.MemberLastName }}</option>
                 </select>
