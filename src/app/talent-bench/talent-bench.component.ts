@@ -80,12 +80,14 @@ export class TalentBenchComponent implements OnInit {
     this.getOrgUserList();
     this.getGroupList();
     this.fetchgrouplist();
+    this.startDate = '';
+    this.endDate = '';
 
     this.addCandidate = this.formBuilder.group({
       FirstName: ['', [Validators.required, Validators.minLength(3)]],
       MiddleName: [''],
       LastName: ['', [Validators.required]],
-      Email: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.minLength(3)]],
       Phone: ['', [Validators.required, Validators.minLength(3)]],
       Gender: ['male'],
       RecruiterName: [''],
@@ -502,6 +504,11 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         if (flag === 2) {
           this.emailvalidation = true;
           this.emailvalidationmessage = x.message;
+        } 
+        else if (flag === 1){
+          this.emailvalidation = false;
+          this.emailvalidationmessage = '';
+
         }
       });
     }
