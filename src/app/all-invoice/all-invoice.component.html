@@ -94,10 +94,8 @@
                           </div>
                           <div class="col-6">
                             <label for="dropdown">Client display name</label>
-                            <select class="form-control" id="dropdown">
-                              <option value="option1">Option 1</option>
-                              <option value="option2">Option 2</option>
-                              <option value="option3">Option 3</option>
+                            <select class="form-control" id="ClientName">
+                              <option *ngFor="let option of Clients" [value]="option.value">{{ option.label }}</option>
                             </select>
                           </div>
                         </div>

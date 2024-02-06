@@ -14,11 +14,8 @@ export class PaymentComponent implements OnInit {
     { description: 'Invoice # 91049 (12/16/23)', dueDate: new Date('2024-01-18'), originalAmount: 2200.00, openBalance: 2200.00, paymentAmount: 0, selected: false },
     { description: 'Invoice # 91049 (12/16/23)', dueDate: new Date('2024-01-18'), originalAmount: 2200.00, openBalance: 2200.00, paymentAmount: 0, selected: false },
     { description: 'Invoice # 91049 (12/16/23)', dueDate: new Date('2024-01-18'), originalAmount: 2200.00, openBalance: 2200.00, paymentAmount: 0, selected: false },
-    // Add more data as needed...
   ];
-  constructor() { }
-
+  constructor() {}
   ngOnInit(): void {
   }
-
 }

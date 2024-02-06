@@ -1,17 +1,20 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
-
+import { AllInvoiceService } from './all-invoice.service';
+import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-all-invoice',
   templateUrl: './all-invoice.component.html',
-  styleUrls: ['./all-invoice.component.scss']
-  
+  styleUrls: ['./all-invoice.component.scss'],
+  providers: [ CookieService, AllInvoiceService, MessageService],
+
 })
 export class AllInvoiceComponent implements OnInit {
-deleteAction() {
-throw new Error('Method not implemented.');
-}
+
+  deleteAction() {
+    throw new Error('Method not implemented.');
+  }
 
   isRowSelected = false;
   isContentVisible = false;
@@ -20,26 +23,26 @@ throw new Error('Method not implemented.');
 
   isModalOpen = false;
   shareLink = '';
-row: any;
-  
+  row: any;
 
-duplicateActions(): void {
-  // Your delete logic here
-  console.log('Deleting...');
-}
+  Clients: any[] = [];
 
-uploadFile(event: any): void {
-  const fileList: FileList = event.target.files;
-  if (fileList.length > 0) {
-    const file: File = fileList[0];
-    // You can perform further actions with the uploaded file
-    console.log('File uploaded:', file);
+  duplicateActions(): void {
+    // Your delete logic here
+    console.log('Deleting...');
   }
-}
-selectDocument(event: Event): void {
-  event.preventDefault();
-  document.getElementById('uploadInput')?.click();
-}
+
+  uploadFile(event: any): void {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      console.log('File uploaded:', file);
+    }
+  }
+  selectDocument(event: Event): void {
+    event.preventDefault();
+    document.getElementById('uploadInput')?.click();
+  }
 
   openShareLinkModal(event: Event): void {
     event.preventDefault();
@@ -66,7 +69,7 @@ selectDocument(event: Event): void {
     }
   }
 
-  
+
   toggleContentVisibility() {
     this.isContentVisible = !this.isContentVisible;
   }
@@ -79,14 +82,14 @@ selectDocument(event: Event): void {
   }
 
 
-  
-showModal: any;
 
-closeModal2() {
-  this.showModal = false;
-} 
+  showModal: any;
 
-  
+  closeModal2() {
+    this.showModal = false;
+  }
+
+
 
   paymentReceivedAction() {
     console.log('Payment Received');
@@ -113,33 +116,46 @@ closeModal2() {
   }
 
 
-feedbackWithIcon() {
-throw new Error('Method not implemented.');
-}
+  feedbackWithIcon() {
+    throw new Error('Method not implemented.');
+  }
 
-provideFeedback: any;
-closeModal() {
-throw new Error('Method not implemented.');
-}
+  provideFeedback: any;
+  closeModal() {
+    throw new Error('Method not implemented.');
+  }
 
- selectedType: string;
+  selectedType: string;
   showTable: boolean = false;
 
   viewRecurringTemplates() {
     this.showTable = true;
-   
-  }   
+
+  }
   constructor(
     private dialog: MatDialog,
-    
-    
-    
-    ) {}
-    
+    private Service: AllInvoiceService,
+
+  ) { }
+
   ngOnInit(): void {
     throw new Error('Method not implemented.');
+    this.fetchClients();
   }
 
+  fetchClients(){
+    let Req = {
+      // traineeID: this.TraineeID,
+      // timesheetrole:this.timesheetrole
+    };
+    this.Service.getClientDropdowns(Req).subscribe((x: any) => {
+        this.Clients = x.result;
+      },
+      (error) => {
+        console.error('Error fetching dropdown options:', error);
+      }
+    );
+  }
 
   activeTab: string = 'allinvoices';
   showCustomDateModel: boolean = false;
@@ -149,11 +165,11 @@ throw new Error('Method not implemented.');
   toggleCustomDateModel() {
     this.showCustomDateModel = !this.showCustomDateModel;
   }
-  
-  
 
-  resetDates() {  
-    this.startDate = '';  
+
+
+  resetDates() {
+    this.startDate = '';
     this.endDate = '';
   }
 
@@ -164,8 +180,10 @@ throw new Error('Method not implemented.');
 
   }
 
- 
-  }
+
+
+
+}
 
 
 
