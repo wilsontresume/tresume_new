@@ -7,10 +7,10 @@
       <button class="btn">Change Password</button>
     </div> -->
     <div class="col mt-2 text-right">
-    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-      Change Password
-    </button>
-  </div>
+      <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+        Change Password
+      </button>
+    </div>
     <div class="row pt-2">
       <div class="col-md-3">
         <div class="card card-outline text-center p-4">
@@ -30,8 +30,8 @@
                 <span class="m-2">{{profiledata.FirstName}}</span>
               </ng-container>
               <ng-template #editModeTemplate9>
-                <input type="text" class="custom-input" id="firstName"
-                   name="firstName" [(ngModel)]="profiledata.FirstName" value="{{profiledata.FirstName}}">
+                <input type="text" class="custom-input" id="firstName" name="firstName"
+                  [(ngModel)]="profiledata.FirstName" value="{{profiledata.FirstName}}">
               </ng-template>
             </div>
             <div class="col-md-4">
@@ -41,7 +41,7 @@
               </ng-container>
               <ng-template #editModeTemplate1>
                 <input type="text" class="custom-input" id="middleName" value="{{profiledata.MiddleName}}"
-                   name="middleName" [(ngModel)]="profiledata.MiddleName" >
+                  name="middleName" [(ngModel)]="profiledata.MiddleName">
               </ng-template>
             </div>
             <div class="col-md-4">
@@ -50,15 +50,15 @@
                 <span class="m-2">{{profiledata.LastName}}</span>
               </ng-container>
               <ng-template #editModeTemplate2>
-                <input type="text" class="custom-input" id="lastName" value="{{profiledata.LastName}}"
-                   name="lastName" [(ngModel)]="profiledata.LastName">
+                <input type="text" class="custom-input" id="lastName" value="{{profiledata.LastName}}" name="lastName"
+                  [(ngModel)]="profiledata.LastName">
               </ng-template>
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-md-4">
               <span class="label" for="userName">User Name</span><br>
-                <span class="m-2">{{profiledata.UserName}}</span>
+              <span class="m-2">{{profiledata.UserName}}</span>
             </div>
             <div class="col-md-4">
               <span class="label" for="yearsOfExperience">Years of Experience(In Months)</span><br>
@@ -66,7 +66,9 @@
                 <span class="m-2">{{profiledata.YearsOfExpInMonths}}</span>
               </ng-container>
               <ng-template #editModeTemplate4>
-                <input class="custom-input" type="text" id="yearsOfExperience" [(ngModel)]="profiledata.YearsOfExpInMonths" name="yearsOfExperience" required placeholder="Enter YOE">
+                <input class="custom-input" type="text" id="yearsOfExperience"
+                  [(ngModel)]="profiledata.YearsOfExpInMonths" name="yearsOfExperience" required
+                  placeholder="Enter YOE">
               </ng-template>
             </div>
           </div>
@@ -77,9 +79,9 @@
                 <span class="m-2">{{profiledata.Title}}</span>
               </ng-container>
               <ng-template #editModeTemplate10>
-                <input type="text" class="custom-input" id="title" value="{{profiledata.Title}}"
-                  name="title" [(ngModel)]="profiledata.Title" required>
-                
+                <input type="text" class="custom-input" id="title" value="{{profiledata.Title}}" name="title"
+                  [(ngModel)]="profiledata.Title" required>
+
               </ng-template>
             </div>
             <div class="col-md-4">
@@ -87,7 +89,8 @@
               <ng-container *ngIf="!editmode;else editModeTemplate7">
                 <span class="m-2">{{profiledata.DOB | date:'dd-MM-yyyy'}}</span></ng-container>
               <ng-template #editModeTemplate7>
-                <input type="date" class="custom-input" id="dob" name="dob" [value]="profiledata.DOB | date:'yyyy-MM-dd'" (input)="updateDOB($event)" required>
+                <input type="date" class="custom-input" id="dob" name="dob"
+                  [value]="profiledata.DOB | date:'yyyy-MM-dd'" (input)="updateDOB($event)" required>
               </ng-template>
             </div>
             <div class="col-md-4">
@@ -96,7 +99,8 @@
                 <span class="m-2">{{profiledata.PhoneNumber}}</span>
               </ng-container>
               <ng-template #editModeTemplate8>
-                <input type="text" class="custom-input" id="phoneNumber" value="{{profiledata.PhoneNumber}}" [(ngModel)]="profiledata.PhoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
+                <input type="text" class="custom-input" id="phoneNumber" value="{{profiledata.PhoneNumber}}"
+                  [(ngModel)]="profiledata.PhoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
               </ng-template>
             </div>
           </div>
@@ -104,7 +108,8 @@
           <div class="form-row">
             <div class="form-group col-4">
               <span class="label" for="companyName">Organization</span><br>
-              <span *ngIf="!editmode" class="m-2" [(ngModel)]="profiledata.Organization">{{profiledata.Organization}}</span>
+              <span *ngIf="!editmode" class="m-2"
+                [(ngModel)]="profiledata.Organization">{{profiledata.Organization}}</span>
             </div>
             <!-- <div class="form-group col-6">
               <span class="label" for="logo">Logo Type</span><br>
@@ -124,24 +129,26 @@
             <div class="form-group col-4">
               <span class="label" for="state">State</span><br>
               <span *ngIf="!editmode">{{profiledata.state}}</span>
-              <select *ngIf="editmode" class="custom-input" id="state" [(ngModel)]="selectedstate" (change)="fetchCity()">
+              <select *ngIf="editmode" class="custom-input" id="state" [(ngModel)]="selectedstate"
+                (change)="fetchCity()">
                 <option [value]="profiledata.state" selected>{{profiledata.state}}</option>
                 <option *ngFor="let stateObj of state" [value]="stateObj.state">{{stateObj.state}}</option>
               </select>
             </div>
-            
+
             <div class="form-group col-4">
               <span class="label" for="city">City</span><br>
               <span *ngIf="!editmode">{{profiledata.City}}</span>
-              <select *ngIf="editmode" class="custom-input" id="city"[(ngModel)]="selectedcity">
-              <option value="" selected>Select City</option>
+              <select *ngIf="editmode" class="custom-input" id="city" [(ngModel)]="selectedcity">
+                <option value="" selected>Select City</option>
                 <option *ngFor="let city of city" [value]="city.city">{{city.city}}</option>
               </select>
             </div>
             <div class="form-group col-4">
               <span class="label" for="zipcode">Zip Code</span><br>
               <span *ngIf="!editmode">{{profiledata.zipcode}}</span>
-              <input *ngIf="editmode" type="text" class="custom-input" id="zipcode" value="{{profiledata.zipcode}}" [(ngModel)]="profiledata.zipcode">
+              <input *ngIf="editmode" type="text" class="custom-input" id="zipcode" value="{{profiledata.zipcode}}"
+                [(ngModel)]="profiledata.zipcode">
             </div>
           </div>
           <div *ngIf="editmode; else" class="row mt-4">
@@ -167,32 +174,49 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Change Password</h2>
-        <button type="button" class="close"  data-dismiss="modal">
+        <h2 class="modal-title text-center">Change Password</h2>
+        <button type="button" class="close" data-dismiss="modal">
           <span>&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="form-group d-flex">
-            <label for="oldPassword" class="col-md-4 mt-2">Old Password</label>
-            <input type="password" class="form-control password-custom" id="oldPassword" placeholder="Enter old password">
+        <form class="justify-content-center">
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" id="oldpassword" name="oldpassword" [(ngModel)]="oldPassword"
+                [ngModelOptions]="{standalone: true}" (change)="validatekey()"
+                placeholder="Old Password">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+            </div>
+        </div>
+          <div class="input-group mb-3">
+              <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password"
+                  [ngModelOptions]="{standalone: true}" (input)="validatePassword()"
+                  placeholder="New Password">
+              <div class="input-group-append">
+                  <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                  </div>
+              </div>
           </div>
-          <div class="form-group d-flex">
-            <label for="newPassword" class="col-md-4 mt-2">New Password</label>
-            <input type="password" class="form-control password-custom" id="newPassword" placeholder="Enter new password">
+          <div class="input-group mb-3">
+              <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                  [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}"
+                  (input)="validatePassword()" placeholder="Confirm Password">
+              <div class="input-group-append">
+                  <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                  </div>
+              </div>
           </div>
-          <div class="form-group d-flex">
-            <label for="confirmPassword" class="col-md-4 mt-2">Confirm Password</label>
-            <input type="password" class="form-control password-custom" id="confirmPassword" placeholder="Confirm new password">
+          <div class="bottom-center">
+              <button class="btn btn-primary btn-block action-button" type="submit"
+                  [disabled]="!isButtonEnabled" (click)="resetPassword()">Update Password</button>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">        
-        <button type="button" class="btn" data-dismiss="modal">Close</button>
-        <button type="button" class="btn" data-dismiss="modal"(click)="SavePassword()">Save</button>
+      </form>
       </div>
     </div>
   </div>
 </div>
-

@@ -26,8 +26,16 @@ updateMyProfile(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getCity', request);
   }
 
+  changePassword(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'changePassword', request);
+  }
+  validatepassword(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'validatepassword', request);
+  }
+  newpassword(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'newpassword ', request);
+  }
   
-
 }
 export interface ResponseDetails {
 flag?: any;
