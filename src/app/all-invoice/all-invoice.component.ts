@@ -9,6 +9,9 @@ import { MatDialog } from '@angular/material/dialog';
   
 })
 export class AllInvoiceComponent implements OnInit {
+deleteAction() {
+throw new Error('Method not implemented.');
+}
 
   isRowSelected = false;
   isContentVisible = false;
@@ -19,6 +22,12 @@ export class AllInvoiceComponent implements OnInit {
   shareLink = '';
 row: any;
   
+
+duplicateActions(): void {
+  // Your delete logic here
+  console.log('Deleting...');
+}
+
 uploadFile(event: any): void {
   const fileList: FileList = event.target.files;
   if (fileList.length > 0) {
@@ -140,6 +149,8 @@ throw new Error('Method not implemented.');
   toggleCustomDateModel() {
     this.showCustomDateModel = !this.showCustomDateModel;
   }
+  
+  
 
   resetDates() {  
     this.startDate = '';  
