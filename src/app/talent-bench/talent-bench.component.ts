@@ -443,7 +443,7 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   getBackgroundColor(age: number | null): string {
     if (age === null) {
       return 'transparent'; 
-    } else if (age >= 1 && age <= 30) {
+    } else if (age >= 0 && age <= 30) {
       return '#a4e73466';
     } else if (age >= 31 && age <= 90) {
       return '#f4963980';
