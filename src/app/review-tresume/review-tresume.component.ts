@@ -17,6 +17,7 @@ export class ReviewTresumeComponent implements OnChanges {
 
   showConfirmationDialog2: boolean;
   showConfirmationDialog3: boolean;
+  showmovetotalentbench: boolean = false;
   myForm: any;
   interviewForm: any;
   myFormSubmission: any;
@@ -163,6 +164,7 @@ export class ReviewTresumeComponent implements OnChanges {
   generalEmail:any 
   DealOffered:any 
   selectedrecruiterName: any;
+  state: any;
 
 
   startShowingSSN() {
@@ -475,6 +477,12 @@ export class ReviewTresumeComponent implements OnChanges {
     // this.fetchCandidateInfo();
     // this.getSubmissionList() ;
     // this.getOrgUserList();
+    this.getmarketername();
+    this.getcandidaterstatus();
+    this.getLegalStatusOptions();
+    this.getState();
+    
+
     this.currentTabIndex = this.tabIndex;
     
     this.FormGeneral = this.formBuilder.group({
@@ -564,6 +572,7 @@ export class ReviewTresumeComponent implements OnChanges {
     }
     
   }
+  
 
   disableGeneralFields() {
     Object.keys(this.FormGeneral.controls).forEach(controlName => {
@@ -650,7 +659,44 @@ export class ReviewTresumeComponent implements OnChanges {
       this.interview = x.result;
     });
   }
+  recruiterNames: string[] = [];
+  marketerNames: string[] = [''];
+  currentStatusOptions: any = [];
 
+  getmarketername() {
+    let Req = {
+      TraineeID: this.TraineeID,
+      orgID: this.OrgID
+    };
+    this.service.fetchrecruiter(Req).subscribe((x: any) => {
+      this.recruiterNames = x;
+      this.marketerNames = x;
+    });
+  }
+  getcandidaterstatus() {
+    const Req = {
+    };
+    this.service.candidatestatus(Req).subscribe((x: any) => {
+      this.currentStatusOptions = x;
+    });
+  }
+  getLegalStatusOptions() {
+    const request = {};
+
+    this.service.getLegalStatus(request).subscribe((response: any) => {
+      this.legalStatusOptions = response;
+    });
+  }
+
+  getState() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getLocation(Req).subscribe((x: any) => {
+      this.state = x.result;
+    });
+  }
+  
   getOrgUserList() {
     let Req = {
       TraineeID: this.candidateID,
@@ -805,7 +851,7 @@ export class ReviewTresumeComponent implements OnChanges {
 
   //placement tab
 
-  currentStatusOptions: string[] = ['ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING', 'ON BENCH', 'MARKETING ON HOLD', 'HAS OFFER', 'PLACED/WORKING AT THE CLIENT LOCATION', 'FIRST TIME CALLER', 'DROPPED-TRAINING', 'DROPPED-MARKETING', 'DROPED-OTHER', 'TERMINATE', 'REPLACED AS CLIENT SITE'];
+  // currentStatusOptions: string[] = ['ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING', 'ON BENCH', 'MARKETING ON HOLD', 'HAS OFFER', 'PLACED/WORKING AT THE CLIENT LOCATION', 'FIRST TIME CALLER', 'DROPPED-TRAINING', 'DROPPED-MARKETING', 'DROPED-OTHER', 'TERMINATE', 'REPLACED AS CLIENT SITE'];
   selectOptions: string = '';
   workStartDate: string = '';
   workEndDate: string = '';
@@ -974,6 +1020,14 @@ cancelDeletesubmission() {
     link.setAttribute("download", "submission_data.csv");
     document.body.appendChild(link);
     link.click();
+  }
+
+  movetoTB() {
+
+    this.showmovetotalentbench = true;
+  }
+  cancelMoveTB(){
+    this.showmovetotalentbench = false;
   }
 
 }
