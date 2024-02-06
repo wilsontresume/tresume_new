@@ -134,7 +134,21 @@ export class SearchResumesMonsterComponent implements OnInit {
         'Washington DC',
         'West Virginia',
         'Wisconsin',
-        'Wyoming'
+        'Wyoming',
+        //canada
+        'Ontario',
+        'Alberta',
+        'British Columbia',
+        'Manitoba',
+        'New Brunswick',
+        'Newfoundland and Labrador',
+        'Nova Scotia',
+        'Prince Edward Island',
+        'Quebec',
+        'Saskatchewan',
+        'Northwest Territories',
+        'Nunavut',
+        'Yukon'
     ];
 
     workStatus: any[] = [
@@ -231,7 +245,7 @@ export class SearchResumesMonsterComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+        this.loading=true;
         this.OrgID = this.cookieService.get('OrgID');
         this.userName1 = this.cookieService.get('userName1');
         this.TraineeID = this.cookieService.get('TraineeID');
@@ -646,6 +660,7 @@ export class SearchResumesMonsterComponent implements OnInit {
                     divid = x.result[0].id;
                     resolve();
                   }
+                  this.loading = false;
                 })
                 .catch((error: any) => {
                   reject(error);

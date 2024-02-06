@@ -124,7 +124,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6" style="padding: 40px 20px; margin-top: 20px; color:red;" *ngIf="yearsOfExpmin > yearsOfExp">
+          <div class="col-md-6" style="padding: 40px 20px; margin-top: 20px; color:red;"
+            *ngIf="yearsOfExpmin > yearsOfExp">
             Max experience should not be smaller than min experience.
           </div>
         </div>
@@ -176,7 +177,7 @@
                 {{ jobDetail.location?.city }}, {{ jobDetail.location?.state }}
               </i>
               <i class="label fa fa-building">
-                Experience: 
+                Experience:
                 {{
                 jobDetail.relevance.experience &&
                 jobDetail.relevance?.experience?.company.name && jobDetail.yearsOfExperience
@@ -244,6 +245,4 @@
 </p-sidebar>
 
 <p-toast position="bottom-right"></p-toast>
-<div *ngIf="loading" class="loader-container">
-  <app-loader class="loader"></app-loader>
-</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

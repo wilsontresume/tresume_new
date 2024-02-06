@@ -1,17 +1,20 @@
+$brand-primary:#49274a;
+
 .bg-clr {
     background-color: #46103d ; 
   }
  
-.container{
+.container-fluid{
   background-color: #fff;
-  width: 100%;
 }
   table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
   }
-  
+  .label-large {
+    font-size: 18px;
+}
   th, td {
     border: 1px solid #ccc;
     padding: 10px;
@@ -40,6 +43,7 @@
   td{
     color: #94618e;
   }
+  
   i:hover {
     color:#46103d;
   }
@@ -83,7 +87,7 @@ label{
   margin-left: 5px;
 }
 .btn{
-  background-color: #49274A;
+  background-color: $brand-primary;
   color: #ffffff;
 }
 button{
@@ -102,7 +106,7 @@ border: none;
   margin-bottom: 0;
 }
 form {
-  padding: 20px;
+  padding: 10px;
 }
 .container2{
   background-color: #f2f2f2;
@@ -129,5 +133,95 @@ textarea {
 }
 
 
+.form-control1 {
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.bn34 {
+  background: none;
+  cursor: pointer;
+  text-decoration: inherit;
+  font-size: 1rem;
+  color: #49274A;
+  border-image-slice: 1;
+  font-weight: 600;
+}
+
+// Add interview btn 
+.bn59 {
+  background-color: white; 
+  border: 1px solid #49274A; 
+  color: #49274A; 
+  font-weight: 600;
+  position: relative;
+  outline: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 45px;
+  width: 130px;
+  opacity: 1;
+  text-decoration: none;
+}
 
 
+.bn59 .bi {
+  font-size: 1.2rem;
+  margin-right: 5px; 
+}
+
+.span{
+  font-size: smaller;
+  margin-top: -6px;
+  margin-bottom: -6px;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.row {
+  display: flex;
+}
+
+.left-column {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.column {
+  flex: 1;
+  padding-left: 10px; 
+}
+
+.button-10 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+  width: 150px;
+  height: 30px;
+  color: #fff;
+  background: linear-gradient(180deg, #49274A 0%, #49274A 100%);
+   background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.button-10:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}

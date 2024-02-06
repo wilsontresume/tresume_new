@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,Input } from '@angular/core';
 import { HttpClient, HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 import { DatePipe, formatDate } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,15 +12,16 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { startWith, tap, filter } from 'rxjs/operators';
 import { AlertComponent } from 'ngx-bootstrap/alert';
 import { environment } from '../../environments/environment';
-
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-candidate',
   templateUrl: './candidate.component.html',
   styleUrls: ['./candidate.component.scss'],
-  providers: [CandidateService]
+  providers: [CandidateService,MessageService]
 })
 export class CandidateComponent implements OnInit {
+  loading:boolean = false;
 
   public traineeId: any;
   public loggedTraineeId: any;
@@ -34,9 +35,10 @@ export class CandidateComponent implements OnInit {
   response: string;
   modaltest: string;
   uploadUrl = `${environment.apiUrl}uploadDocument`;
+  placementList:any;
   //uploadUrl = 'http://localhost:3000/uploadDocument';
   @ViewChild('childModal', { static: false }) childModal?: ModalDirective;
-
+  @Input() candidateId: string;
   form = new FormGroup({});
   model: any = {};
   //options: FormlyFormOptions = {};
@@ -208,15 +210,25 @@ export class CandidateComponent implements OnInit {
   compMsg: string = "These documents are expired or will be expiring soon. Please update them.";
 
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private service: CandidateService, private modalService: BsModalService) {
-    this.traineeId = this.route.snapshot.params["traineeId"];
+  constructor(private route: ActivatedRoute, private http: HttpClient, private service: CandidateService, private modalService: BsModalService, private messageService: MessageService) {
+    // this.traineeId = this.route.snapshot.params["traineeId"];
     this.response = '';
     this.loggedTraineeId = sessionStorage.getItem("TraineeID");
   }
 
   ngOnInit(): void {
+    this.traineeId=this.candidateId;
     this.initGrid();
     this.getDocuments();
+    let Req = {
+      TraineeID: this.traineeId,
+    };
+
+    this.service.getplacementsBytID(Req).subscribe((x: any) => {
+      
+      this.placementList = x.result;
+      console.log(this.placementList);
+    });
   }
 
   public initGrid() {
@@ -228,16 +240,26 @@ export class CandidateComponent implements OnInit {
       { headerName: 'Document Start Date', field: 'StartDate', resizable: true, valueFormatter: this.renderCell.bind(this) },
       { headerName: 'Document Expiry Date', field: 'ExpiryDate', resizable: true, cellStyle: this.renderCellstyle.bind(this), valueFormatter: this.renderCell.bind(this) },
       { headerName: 'Other Info', field: 'info', sortable: false, resizable: true, valueFormatter: this.renderInfoCell.bind(this) },
-      { 
-        headerName: 'Action', 
-        field: 'Active', 
-        resizable: true, 
+      {
+        headerName: 'Placement',
+        field: 'PlacementID',
+        resizable: true,
+        cellRenderer: this.renderActionButton2.bind(this),
+        suppressMenu: true,
+        suppressMovable: true,
+        pinned: "right"
+      },
+      {
+        headerName: 'Action',
+        field: 'Active',
+        resizable: true,
         cellRenderer: this.renderActionButton.bind(this),
-        suppressMenu: true, 
-        suppressMovable: true, 
-        pinned: "right" 
+        suppressMenu: true,
+        suppressMovable: true,
+        pinned: "right"
       },
     ];
+
 
     this.columnDefs.push({
       headerName: '', field: 'download', minWidth: 15, maxWidth: 50,
@@ -260,6 +282,8 @@ export class CandidateComponent implements OnInit {
       pinned: "right"
     });
 
+
+
     this.gridOptions = {
       rowData: this.rowData,
       columnDefs: this.columnDefs,
@@ -269,11 +293,10 @@ export class CandidateComponent implements OnInit {
   }
 
   public renderActionButton(params: any): any {
-    const isActive = params.value; // Assuming 'Active' is a boolean field
-    
+    const isActive = params.value; 
     const toggleSwitchContainer = document.createElement('label');
     toggleSwitchContainer.classList.add('switch');
-  
+
     const toggleSwitchInput = document.createElement('input');
     toggleSwitchInput.type = 'checkbox';
     toggleSwitchInput.checked = isActive;
@@ -283,33 +306,112 @@ export class CandidateComponent implements OnInit {
     toggleslidet.classList.add('slider');
     toggleslidet.classList.add('round');
 
-  
+
     toggleSwitchContainer.appendChild(toggleSwitchInput);
     toggleSwitchContainer.appendChild(toggleslidet);
     return toggleSwitchContainer;
   }
-  
-  public toggleAction(data: any, isActive: boolean): void {
-   console.log(data.CandidateDocumentID);
-   console.log(isActive);
-   var status = 0;
-   if(isActive){
-    status=1;
-   }
 
-   let Req = {
-    status: status,
-    docId: data.CandidateDocumentID,
-   
-};
-this.service.changeDocStatus(Req).subscribe((x: any) => {
-    
-    console.log(x);
-});
+  // public renderActionButton2(params: any): any {
+  //   const dropdownContainer = document.createElement('div');
+  //   const dropdown = document.createElement('select');
+  //   const PID = params.value;
+  //   this.placementList.forEach((placement: { PID: { toString: () => string; }; ClientName: string; }) => {
+  //     const option = document.createElement('option');
+  //     option.value = placement.PID.toString(); 
+  //     option.text = placement.ClientName; 
+  //     dropdown.appendChild(option);
+  //   });
+
+  //   dropdown.addEventListener('change', () => {
+  //     const selectedOptionIndex = dropdown.selectedIndex;
+  //     const selectedOptionValue = dropdown.options[selectedOptionIndex].value;
+  //     this.handleDropdownChange(params.data, selectedOptionValue);
+  //   });
+
+  //   dropdownContainer.appendChild(dropdown); 
+  //   return dropdownContainer;
+  // }
+  public renderActionButton2(params: any): any {
+    const dropdownContainer = document.createElement('div');
+    const dropdown = document.createElement('select');
+    const PID = params.value;
+  
+    let found = false; // Flag to check if PID is found in placementList
+  
+    this.placementList.forEach((placement: { PID: { toString: () => string; }; ClientName: string; }) => {
+      const option = document.createElement('option');
+      option.value = placement.PID.toString();
+      option.text = placement.ClientName;
+  
+      // Check if the current option's PID matches the params.value (PID)
+      if (placement.PID.toString() === PID) {
+        option.selected = true; // Set the option as selected
+        found = true; // Set found to true as the PID is found
+      }
+  
+      dropdown.appendChild(option);
+    });
+  
+    // If PID not found, create a default 'Please select Placement' option
+    if (!found) {
+      const defaultOption = document.createElement('option');
+      defaultOption.value = ''; // Set a default value if needed
+      defaultOption.text = 'Please select Placement';
+      defaultOption.selected = true; // Set the default option as selected
+      dropdown.insertBefore(defaultOption, dropdown.firstChild); // Insert at the beginning of the dropdown
+    }
+  
+    dropdown.addEventListener('change', () => {
+      const selectedOptionIndex = dropdown.selectedIndex;
+      const selectedOptionValue = dropdown.options[selectedOptionIndex].value;
+      this.handleDropdownChange(params.data, selectedOptionValue);
+    });
+  
+    dropdownContainer.appendChild(dropdown);
+    return dropdownContainer;
+  }
+  
+  handleDropdownChange(data: any, selectedOptionValue: string) {
+
+    console.log(data);
+    console.log(selectedOptionValue);
+    let Req = {
+      CID: data.CandidateDocumentID,
+      PID: selectedOptionValue
+    };
+
+    this.service.UpdateplacementsBytID(Req).subscribe((x: any) => {
+
+      this.messageService.add({ severity: 'success', summary: 'Placement Document Updated Successfully.' });
+    });
 
   }
 
-  
+
+
+
+  public toggleAction(data: any, isActive: boolean): void {
+    console.log(data.CandidateDocumentID);
+    console.log(isActive);
+    var status = 0;
+    if (isActive) {
+      status = 1;
+    }
+
+    let Req = {
+      status: status,
+      docId: data.CandidateDocumentID,
+
+    };
+    this.service.changeDocStatus(Req).subscribe((x: any) => {
+
+      console.log(x);
+    });
+
+  }
+
+
 
   public getDocuments() {
     this.service.getDocuments({ traineeID: this.traineeId }).subscribe(x => {
@@ -317,6 +419,7 @@ this.service.changeDocStatus(Req).subscribe((x: any) => {
       if (response) {
         this.rowData = response;
         this.sizeToFit();
+        console.log(this.rowData);
       }
     });
   }

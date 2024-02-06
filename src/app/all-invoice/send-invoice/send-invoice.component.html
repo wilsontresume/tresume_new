@@ -1,0 +1,194 @@
+<div class="container-fluid p-3">
+    <div class="head d-flex justify-content-between p-3">
+      <h2> SEND INVOICE</h2>
+
+    </div>
+    <body>
+        
+<div class="container mt-3">
+    <div class="row">
+      <!-- Left side -->
+      <div class="col-md-6">
+        <div class="mb-3">
+          <h2>Send Invoice 91048</h2>
+        </div>
+  
+        <!-- From input -->
+        <div class="form-group row">
+          <label for="fromInput" class="col-sm-2 col-form-label">From</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="fromInput" placeholder="Enter your email">
+          </div>
+        </div>
+  
+        <!-- To input -->
+        <div class="form-group row">
+          <label for="toInput" class="col-sm-2 col-form-label">To</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="toInput" placeholder="Enter recipient's email" style="width: 459px;">
+          </div>
+          <div class="col-sm-2">
+            <a href="#" id="ccBccInput" style="margin-left: 25px;" (click)="togglePopup($event)"  >Cc/Bcc</a>
+          </div>
+        </div>
+        
+        <div class="popup" *ngIf="showPopup" (clickOutside)="closePopup()" style="margin-left: 18rem;">
+          <div class="popover bs-popover-bottom" role="tooltip" style="max-height: 550px; position: relative;">
+            <div class="close-icon" (click)="closePopup()"
+              style="position: absolute; top: 5px; right: 5px; cursor: pointer;">
+              <i class="fas fa-times"></i>
+            </div>
+            <div class="popover-body" style="max-height: 500px; overflow-y: auto;">
+              <div class="form-group">
+                <label for="cc">Cc</label>
+                <mat-chip-list #ccChipList>
+                  <input type="text" placeholder="Enter emails" [(ngModel)]="ccEmails" [matChipInputFor]="ccChipList"
+                    matChipInput separatorKeyCodes="[ENTER, COMMA]" style="margin-left: 10px;">
+                  <mat-chip *ngFor="let cc of ccEmails" [selectable]="true" [removable]="true" (removed)="removeCc(cc)">
+                    {{ cc }}
+                    <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+              <div class="form-group">
+                <label for="bcc">Bcc</label>
+                <mat-chip-list #bccChipList>
+                  <input type="text" placeholder="Enter emails" [(ngModel)]="bccEmails" [matChipInputFor]="bccChipList"
+                    matChipInput separatorKeyCodes="[ENTER, COMMA]" style="margin-left: 4px;">
+                  <mat-chip *ngFor="let bcc of bccEmails" [selectable]="true" [removable]="true"
+                    (removed)="removeBcc(bcc)">
+                    {{ bcc }}
+                    <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" style="margin-left: 13rem; margin-bottom: 2px;"
+              (click)="closePopup()">Add</button>
+
+          </div>
+        </div>
+
+        <!-- Send me a copy checkbox -->
+        <div class="form-check" style="margin-left: 6rem;">
+          <input type="checkbox" class="form-check-input" id="sendCopyCheckbox">
+          <label class="form-check-label" for="sendCopyCheckbox">Send me a copy</label>
+        </div>
+  
+        <!-- Subject input -->
+        <div class="form-group row" style="margin-top: 23px;">
+          <label for="subjectInput" class="col-sm-2 col-form-label">Subject</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="SubjectInput" placeholder="Subject">
+          </div>
+        </div>
+        
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Attachments</label>
+          <div class="col-sm-10">
+            <div class="d-flex align-items-center" (click)="selectFile('invoiceAttachment')">
+              <i class="fas fa-file-pdf mr-2"></i>
+              <span>Invoice PDF</span>
+            </div>
+        
+            <div class="d-flex align-items-center mt-2" (click)="selectFile('imageAttachment')">
+              <i class="fas fa-image mr-2"></i>
+              <span>Nov 5th week.png</span>
+            </div>
+        
+            <!-- Hidden file input elements -->
+            <input type="file" style="display: none;" id="invoiceAttachment" (change)="handleFileChange($event)">
+            <input type="file" style="display: none;" id="imageAttachment" (change)="handleFileChange($event)">
+          </div>
+        </div>
+        
+
+
+<div class="form-group row">
+  <label for="bodyInput" class="col-sm-2 col-form-label">Email Body</label>
+  <div class="col-sm-10">
+    <textarea class="form-control" id="bodyInput" placeholder="Enter your email body"></textarea>
+    <div class="mt-2">
+      <a href="#" id="onlineDeliverySettingsLink">Manage online delivery settings</a>
+    </div>
+  </div>
+</div>
+      </div>
+  
+      <!-- Right side with border and page scroller -->
+      <div class="col-md-6 border">
+        <div class="overflow-auto" style="max-height: 300px;">
+          <!-- Content with page scroller -->
+          
+          <div class="text-center mt-3">
+            <h3>INVOICE 91048 DETAILS</h3>
+            <img  src="../../../assets/img/Asta crs.jpg" alt="Invoice Image" style="max-width: 100%; height: auto;">
+            <br> <h3>ASTA CRS INC</h3>
+        </div>
+        
+        <div class="text-center mt-3" style="background-color: #deebf9; padding: 10px 20px; margin: 0 10%; border-radius: 10px;">
+          <h4>DUE 01/13/2024</h4>
+          <p style="font-size: 35px; color: #333; font-weight: bold;">$500.00</p>
+          <button class="btn btn-primary mt-3">Review and Pay</button>
+      </div>
+      
+      
+      <div style="margin-top: 27px;">
+        Dear Tek System Inc,
+        <p style="margin-top: 18px;">Your invoice is attached. Please remit payment at your earliest convenience. <br> Thank you for your business - we appreciate it very much.</p> 
+        
+        <div style="margin-top: -28px;">
+          <br><br> Sincerely,
+          <br><br><span style="margin-top: 2px;">ASTA CRS</span>
+      </div>
+    </div>
+    <div class="text-center mt-3" style="background-color: #f4f0f5fe; padding: 10px 20px; margin: 0 10%; border-radius: 10px; height: 15rem;">
+      <div class="row">
+          <div class="col-md-6 mx-auto text-md-left">
+              <div style="font-weight: bold; color: #333; margin-top: 26px; margin-left: 34px;">Bill to</div>
+          </div>
+          <div class="col-md-6 mx-auto text-md-left" style="margin-left: -10px;">
+              <div style="margin-left: -48px; margin-top: 10px; margin-top: 24px;">
+                  <p>Tek System Inc 7437 Race Road hanover, MD <br> 21076</p>  
+                  <!-- Add more content as needed -->
+              </div>
+          </div>
+      </div>
+  
+      <div class="row">
+          <div class="col-md-12 bill text-center"></div>
+      </div>
+  
+      <div class="row">
+          <div class="col-md-6 mx-auto text-md-left">
+              <div class="side">Terms</div>
+          </div>
+          <div class="col-md-6 mx-auto text-md-left" style="margin-left: -10px;">
+              <div class="net">
+                  <p>Net 30</p>  
+                  <!-- Add more content as needed -->
+              </div>
+          </div>
+      </div>
+  </div>
+  
+    
+          <!-- ... (more content) ... -->
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <button class="btn ">Cancel</button>
+      </div>
+      <div class="col-md-6 text-md-right">
+        <button class="btn">Send</button>
+      </div>
+    </div>
+    
+  </div>
+
+    </body>
