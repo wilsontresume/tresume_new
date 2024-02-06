@@ -1,7 +1,7 @@
 <div class="header p-3">
   <div class="container-fluid">
 
-    <button class="btn btn-primary mt-3" (click)="movetoTB()">Move to Talent
+    <button class="btn btn-primary mt-3" (click)="movetoTB()" *ngIf="routeType == 1">Move to Talent
       Bench</button>
     <!-- General tab -->
 
@@ -1212,18 +1212,21 @@
         <div class="col">
           <label for="desired-sell-rate">Desired Sell Rate*</label>
           <div class="second" style="display: flex; align-items: center;">
-            <select name id class="form-control"
+            <select name id class="form-control" [(ngModel)]="Currency"
+            [ngModelOptions]="{standalone: true}"
               style="flex: 1;margin-right: 5px;">
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="INR">INR</option>
+              <option value="1" selected>USD</option>
+              <option value="2">EUR</option>
+              <option value="3">INR</option>
             </select>
-            <input type="number" name id class="form-control" style="flex: 1;">
+            <input type="number" name id class="form-control" style="flex: 1;" [(ngModel)]="BillRate"
+            [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="col">
           <label for="referred-by">Referred By</label>
-          <input type="text" id="referred-by" name="referred-by"
+          <input type="text" id="referred-by" name="referred-by" [(ngModel)]="ReferredBy2"
+          [ngModelOptions]="{standalone: true}"
             class="form-control">
         </div>
       </div>
@@ -1231,14 +1234,16 @@
         <div class="col">
           <div class="second"
             style="display: flex; align-items: center;margin-top: 27px;">
-            <select name id class="form-control"
+            <select name id class="form-control" [(ngModel)]="PayType"
+            [ngModelOptions]="{standalone: true}"
               style="flex: 1;margin-right: 5px;">
-              <option value="hour">HOURLY</option>
+              <option value="hour" selected>HOURLY</option>
               <option value="day">DAILY</option>
               <option value="year">YEARLY</option>
               <option value="biweekly">BI-WEEKLY</option>
             </select>
-            <select name id class="form-control" style="flex: 1;">
+            <select name id class="form-control" style="flex: 1;" [(ngModel)]="TaxTerm"
+            [ngModelOptions]="{standalone: true}">
               <option value="0">Select</option>
               <option value="1">1099</option>
               <option value="2">C2C</option>
@@ -1254,7 +1259,7 @@
         </div>
         <div class="col">
           <label for="legal-status">Legal Status*</label>
-          <select class="form-control" name="legalStatus"
+          <select class="form-control" name="legalStatus" 
             [(ngModel)]="legalStatus"
             [ngModelOptions]="{standalone: true}">
             <option value>-- Select Legal Status --</option>
@@ -1277,7 +1282,7 @@
         <div class="col">
           <label for="marketer-name">Marketer Name</label>
           <select class="form-control" name="recruiterName"
-            [(ngModel)]="RecruiterName" [ngModelOptions]="{standalone: true}">
+            [(ngModel)]="MarketerName" [ngModelOptions]="{standalone: true}">
             <option *ngFor="let name of recruiterNames"
               [value]="name.traineeid">
               {{ name.firstname }} {{ name.lastname }}
@@ -1288,7 +1293,8 @@
       <div class="row">
         <div class="col">
           <label for="availability">Availability*</label>
-          <select name id class="form-control">
+          <select name id class="form-control" [(ngModel)]="Availability"
+          [ngModelOptions]="{standalone: true}">
             <option value>Select</option>
             <option value="immediately">Immedidately</option>
             <option value="1week">1 Week</option>
@@ -1311,16 +1317,17 @@
         <div class="col">
           <label for="comments">Comments</label>
           <textarea id="comments" name="comments" cols="30" rows="3"
-            class="form-control"></textarea>
+            class="form-control" [(ngModel)]="txtComments"
+            [ngModelOptions]="{standalone: true}"></textarea>
         </div>
       </div>
     </form>
 
     <div class="d-flex justify-content-center">
       <button class="btn btn-sm btn-bgcolor text-white mr-5"
-        (click)="movetotalentbench()">Delete</button>
+        (click)="cancelMoveTB()">Close</button>
       <button class="btn btn-sm btn-bgcolor text-white ml-5"
-        (click)="cancelMoveTB()">Cancel</button>
+        (click)="movetotalentbench()">Move</button>
     </div>
   </div>
 </div>

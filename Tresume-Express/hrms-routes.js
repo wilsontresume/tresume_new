@@ -1433,6 +1433,48 @@ router.post('/hrmsupdateSelected', async (req, res) => {
   }
 });
 
+router.post('/MoveToTalentBench', async (req, res) => {
+  try {
+      await sql.connect(config);
+
+      // Update Trainee table to set TalentPool = 1
+      const updateQuery = `
+          UPDATE Trainee
+          SET TalentPool = 1
+          WHERE TraineeID = '${req.body.TraineeID}';
+      `;
+
+      // Execute the update query
+      await sql.query(updateQuery);
+
+      // SQL query to insert data into TalentBench
+      const insertQuery = `
+          INSERT INTO [dbo].[TalentBench]
+          ([TraineeID], [Name], [ReferredBy], [Currency], [BillRate], [PayType], [TaxTerm], 
+          [ConsultantType], [JobTitle], [LocationPreference], [BenchStatus], [Availability], 
+          [txtComments], [Active], [CreateBy], [CreateTime], [GroupID], [IsNew])
+          VALUES
+          ('${req.body.TraineeID}', '${req.body.Name}', '${req.body.ReferredBy}', '${req.body.Currency}', '${req.body.BillRate}', '${req.body.PayType}', '${req.body.TaxTerm}', 
+          '${req.body.ConsultantType}', '${req.body.JobTitle}', '${req.body.LocationPreference}', '${req.body.BenchStatus}', '${req.body.Availability}', 
+          '${req.body.txtComments}', '1', '${req.body.CreateBy}', GETDATE(), '1', '1');
+      `;
+
+      console.log(insertQuery);
+
+      // Execute the insert query
+      await sql.query(insertQuery);
+
+      // Close connection
+      await sql.close();
+
+      // Send success response
+      res.status(200).json({ success: true, message: 'Data moved to TalentBench successfully' });
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ success: false, message: 'An error occurred while moving data to TalentBench' });
+  }
+});
+
 // Helper function to format values
 function formatValue(value) {
   return value !== undefined ? `'${value}'` : '';

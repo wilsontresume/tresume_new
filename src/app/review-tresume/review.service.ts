@@ -102,6 +102,10 @@ export class ReviewService {
     return this.http.post<ResponseDetails>(this.endpoint + 'deletesubmissiondata', request);
   }
 
+  MoveToTalentBench(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'MoveToTalentBench', request);
+  }
+
   // This is for email tracker in the placement tab // HRMS
   // getTableData(): Observable<any[]> {
   //   return this.http.get<any[]>(`${this.endpoint}/table-data`);

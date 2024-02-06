@@ -165,6 +165,15 @@ export class ReviewTresumeComponent implements OnChanges {
   DealOffered:any 
   selectedrecruiterName: any;
   state: any;
+  ReferredBy2: any;
+  Currency: any;
+  BillRate: any;
+  PayType: any;
+  TaxTerm: any;
+  ConsultantType: any;
+  selectedstate: any;
+  Availability: any;
+  txtComments: any;
 
 
   startShowingSSN() {
@@ -1028,6 +1037,39 @@ cancelDeletesubmission() {
   }
   cancelMoveTB(){
     this.showmovetotalentbench = false;
+  }
+
+  movetotalentbench(){
+
+    let Req = {
+      TraineeID: this.TraineeID,
+      Name:this.firstName +' '+this.lastName,
+      ReferredBy:this.ReferredBy2,
+      Currency:this.Currency,
+      BillRate:this.BillRate,
+      PayType:this.PayType,
+      TaxTerm:this.TaxTerm,
+      ConsultantType:this.ConsultantType,
+      JobTitle:this.title,
+      LocationPreference:this.selectedstate,
+      BenchStatus:'ACTIVEBENCH',
+      Availability:this.Availability,
+      txtComments:this.txtComments,
+      CreateBy:this.userName
+    };
+
+ this.service.MoveToTalentBench(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+        this.cancelMoveTB()
+      },
+      (error: any) => {
+        this.handleError(error);
+        this.cancelMoveTB()
+      }
+    );
+
+
   }
 
 }
