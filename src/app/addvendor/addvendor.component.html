@@ -15,8 +15,7 @@
                             <input name="VendorName" type="text" maxlength="500" id="VendorName" class="form-control"
                                 placeholder="Vendor Name" formControlName="VendorName"
                                 [ngClass]="{ 'invalid-input': addVendor.get('VendorName').invalid && addVendor.get('VendorName').touched }">
-                            <div *ngIf="addVendor.get('VendorName').invalid && addVendor.get('VendorName').touched"
-                                class="validation-message" style="color: red;text-align: left;">
+                            <div *ngIf="addVendor.get('VendorName').invalid && addVendor.get('VendorName').touched" class="validation-message" style="color: red;text-align: left;">
                                 * Please enter valid Vendor.
                             </div>
                         </div>
