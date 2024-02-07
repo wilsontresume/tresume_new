@@ -72,6 +72,7 @@ export class ReviewTresumeComponent implements OnChanges {
   jobs: any[];
   SelectedRefered: string = '';
   firstName: string = '';
+  test: string = '';
   middleName: string = '';
   lastName: string = '';
   phoneNumber: number;
@@ -147,12 +148,13 @@ export class ReviewTresumeComponent implements OnChanges {
   reviewService: any;
   placementList: any;
   candidateID:any;
-
+  selectedcurrentstatus:string='';
   selectedStatus: string = '-PLACED/WORKING AT CLIENT LOCATION-';
   statuss: string[] = ['ON TRAINING', 'DIRECT MARKETTING', 'ON BENCH', 'MARKETTING ON HOLD', 'HAS OFFER', 'FIRST TIME CALLER', 'DROPPED TRAINING'];
 
 
   selectedLegalStatus: string = '-eligible to work in US-';
+
   legalstatuss: string[] = ['eligible to work in US', 'US CITIZEN', 'GC', 'F-1', 'F1-CPT', 'TSP-EAD', 'GC-EAD', 'L2-EAD'];
 
   //General - SSN
@@ -228,7 +230,7 @@ export class ReviewTresumeComponent implements OnChanges {
       ssn: this.ssn,
       statusDate: this.statusDate,
       duiFelonyInfo: this.duiFelonyInfo,
-      currentStatus: this.selectedStatus,
+      selectedcurrentstatus: this.selectedcurrentstatus,
       legalStatusVal: this.legalStatusVal,
       legalStatusValend: this.legalStatusValend,
       selectedLegalStatus: this.selectedLegalStatus,
@@ -515,6 +517,7 @@ export class ReviewTresumeComponent implements OnChanges {
       otherNotes: [''],
       division: [''],
       dob: [''],
+      selectedcurrentstatus:[''],
     });
     
     this.myForm = this.formBuilder.group({
@@ -723,6 +726,9 @@ export class ReviewTresumeComponent implements OnChanges {
       TraineeID: this.candidateID,
     };
     this.service.getCandidateInfo(Req).subscribe((x: any) => {
+      console.log(x.result[0].Candidatestatus);
+      this.test = x.result[0].Candidatestatus;  
+      this.selectedcurrentstatus = x.result[0].Candidatestatus;
       this.middleName = x.result[0].MiddleName || '';
       this.phoneNumberG = x.result[0].PhoneNumber || ''; 
       this.generalEmail = x.result[0].UserName || '';
@@ -737,7 +743,7 @@ export class ReviewTresumeComponent implements OnChanges {
       this.ssn = x.result[0].SSn || '';
       this.statusDate = x.result[0].statusdate || '';
       this.duiFelonyInfo = x.result[0].DuiFelonyInfo || '';
-      this.currentStatus = x.result[0].Candidatestatus || '';
+      
       this.legalStatusValend = x.result[0].Legalenddate || '';
       this.selectedLegalStatus = x.result[0].LegalStatus || '';  
       this.ftcNotes = x.result[0].FTCNotes || '';
@@ -1056,6 +1062,7 @@ cancelDeletesubmission() {
       Availability:this.Availability,
       txtComments:this.txtComments,
       CreateBy:this.userName
+      
     };
 
  this.service.MoveToTalentBench(Req).subscribe(

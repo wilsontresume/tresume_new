@@ -330,7 +330,7 @@
             </div>
             <div class="col-md-4" *ngIf="routeType == 1">
               <label class="label">Legal Status *</label>
-              <select class="form-control" name="legalStatus" [(ngModel)]="legalStatus"
+              <select class="form-control" name="LegalStatus" [(ngModel)]="LegalStatus"
                 [ngModelOptions]="{standalone: true}">
                 <option value>-- Select Legal Status --</option>
                 <option *ngFor="let stat of legalStatusOptions" [value]="stat.LegalStatusID">{{ stat.LegalValue }}

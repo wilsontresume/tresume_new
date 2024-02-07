@@ -23,7 +23,7 @@ export class HrmsComponent implements OnInit {
   candidateStatuses: string[] = ['', '', ''];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
-  legalStatus: string[] = [];
+  LegalStatus: string[] = [];
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
@@ -86,7 +86,7 @@ export class HrmsComponent implements OnInit {
       recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
       degree: [''],
       groups: [''],
-      legalStatus: [''],
+      LegalStatus: [''],
       locationConstraint: ['yes'],
       marketerName: [''],
       notes: [''],
@@ -247,7 +247,7 @@ export class HrmsComponent implements OnInit {
       referralType: this.formData.referralType,
       notes: this.addCandidate.value.notes,
       candidateStatus: this.selectedcurrentstatus,
-      legalStatus: this.formData.legalStatus,
+      LegalStatus: this.LegalStatus,
       recruiteremail: this.userName,
       orgID:this.OrgID,
       creeateby:this.userName,
@@ -329,8 +329,9 @@ export class HrmsComponent implements OnInit {
   searchInput: string = '';
 
   isCandidateVisible(candidate: any): boolean {
-    const searchValue = this.searchInput.toLowerCase();
 
+    console.log(candidate);
+    const searchValue = this.searchInput.toLowerCase();
      const followUpDate = new Date(candidate.FollowUpDate);
      const followUpStartDate = this.followUpStartDate ? new Date(this.followUpStartDate) : null;
      const followUpEndDate = this.followUpEndDate ? new Date(this.followUpEndDate) : null;

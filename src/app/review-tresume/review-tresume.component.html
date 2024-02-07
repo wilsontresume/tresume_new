@@ -18,7 +18,6 @@
                   <input type="text" class="form-control" id="firstName"
                     placeholder="First Name" [(ngModel)]="firstName"
                     [ngModelOptions]="{standalone: true}">
-                  <!-- <input type="text" class="form-control" id="firstName" placeholder="First Name" formControlName="firstname"> -->
                 </div>
               </div>
               <div class="col-md-4">
@@ -27,7 +26,6 @@
                   <input type="text" class="form-control" id="middleName"
                     placeholder="Middle Name" [(ngModel)]="middleName"
                     [ngModelOptions]="{standalone: true}">
-                  <!-- <input type="text" class="form-control" id="middleName" placeholder="Middle Name" formControlName="middleName"> -->
                 </div>
               </div>
               <div class="col-md-4">
@@ -36,21 +34,18 @@
                   <input type="text" class="form-control" id="lastName"
                     placeholder="Last Name" [(ngModel)]="lastName"
                     [ngModelOptions]="{standalone: true}">
-                  <!-- <input type="text" class="form-control" id="lastName" placeholder="Last Name" formControlName="lastName"> -->
                 </div>
               </div>
             </div>
             <div class="row mt-2">
               <div class="col-md-4">
                 <label for="interviewMode">Recruiter Name</label>
-                <!-- <select class="form-control" id="recruiterName" name="Recruiter Name" *ngFor="let item of items"  [(ngModel)]="recruiterName" [ngModelOptions]="{standalone: true}"> -->
                 <select class="form-control" id="selectedrecruiterName"
                   name="Recruiter Name" [(ngModel)]="selectedrecruiterName"
                   [ngModelOptions]="{standalone: true}">
                   <option value disabled selected>Select a Referrer</option>
-                  <option *ngFor="let name of recruiterName"
-                    [value]="name.id">{{name.MemberFirstName }}
-                    {{name.MemberLastName }}</option>
+                  <option *ngFor="let name of recruiterNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname
+                   }}</option>
                 </select>
               </div>
               <div class="col-md-4">
@@ -86,7 +81,6 @@
                 <select [(ngModel)]="SelectedRefered" name="refered"
                   id="refered" class="form-control"
                   [ngModelOptions]="{standalone: true}">
-                  <!-- <select name="refered" id="ReferredBy" class="form-control" formControlName="ReferredBy"> -->
                   <option value disabled selected>Select a Referrer</option>
                   <option *ngFor="let refered of referedby"
                     [value]="refered.id">{{refered.MemberFirstName }}
@@ -100,8 +94,6 @@
                   placeholder="Deal Offered (optional)"
                   [(ngModel)]="DealOffered"
                   [ngModelOptions]="{standalone: true}">
-                <!-- <input type="text" class="form-control" id="DealOffered" name="DealOffered"
-                    placeholder="Deal Offered (optional)" formControlName="DealOffered"> -->
               </div>
               <div class="col-md-4">
                 <label for="typeOfAssistance">Referred By (External)
@@ -110,8 +102,6 @@
                   name="typeOfAssistance"
                   placeholder="Type of Assistance" [(ngModel)]="ReferredBy"
                   [ngModelOptions]="{standalone: true}">
-                <!-- <input type="text" class="form-control" id="ReferredBy" name="typeOfAssistance"
-                  placeholder="Type of Assistance" formControlName="ReferredBy"> -->
               </div>
             </div>
             <div class="row">
@@ -119,9 +109,6 @@
                 <div class="form-group">
                   <label for="ssn">SSN</label>
                   <div class="input-group">
-                    <!-- <input type="{{ showSSN ? 'text' : 'password' }}" class="form-control" id="ssnInput"
-                      placeholder="Enter SSN" [(ngModel)]="ssn" 
-                      [ngModelOptions]="{standalone: true}"> -->
                     <input type="{{ showSSN ? 'text' : 'password' }}"
                       class="form-control" id="ssnInput"
                       placeholder="Enter SSN" [(ngModel)]="ssn"
@@ -140,7 +127,6 @@
                   <input type="text" class="form-control" id="statusDate"
                     placeholder="Status Date" [(ngModel)]="statusDate"
                     [ngModelOptions]="{standalone: true}">
-                  <!-- <input type="date" class="form-control" id="statusDate" placeholder="Status Date" formControlName="statusDate"> -->
                 </div>
               </div>
               <div class="col-md-4">
@@ -149,7 +135,6 @@
                   <input type="text" class="form-control" id="duiFelonyInfo"
                     placeholder="DUI/Felony Info" [(ngModel)]="duiFelonyInfo"
                     [ngModelOptions]="{standalone: true}">
-                  <!-- <input type="text" class="form-control" id="duiFelonyInfo" placeholder="DUI/Felony Info" formControlName="duiFelonyInfo"> -->
                 </div>
               </div>
             </div>
@@ -157,13 +142,11 @@
               <div class="col-md-4">
                 <label for="status">Current Status</label>
                 <select [(ngModel)]="selectedStatus" name="status" id="status"
-                  class="form-control" [(ngModel)]="currentStatus"
+                  class="form-control" [(ngModel)]="selectedcurrentstatus"
                   [ngModelOptions]="{standalone: true}">
-                  <!-- <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-control" formControlName="status"> -->
                   <option [ngValue]="null">Current Status</option>
-                  <option *ngFor="let status of statuss" [value]="status">{{
-                    status
-                    }}</option>
+                  <option *ngFor="let option of  currentStatusOptions" [value]="option.CandidateStatusID">{{ option.Value
+                  }}</option>
                 </select>
               </div>
               <div class="col-md-4">
@@ -174,8 +157,6 @@
                   placeholder="Legal Status Validity Start Date"
                   [(ngModel)]="legalStatusVal"
                   [ngModelOptions]="{standalone: true}">
-                <!-- <input type="date" class="form-control" id="legalStatusVal" name="legalStatusVal"
-                  placeholder="Legal Status Validity Start Date" formControlName="legalStatusVal"> -->
               </div>
               <div class="col-md-4">
                 <label for="legalStatusValend">Legal Status Validity End
@@ -185,8 +166,6 @@
                   placeholder="Legal Status Validity End Date"
                   [(ngModel)]="legalStatusValend"
                   [ngModelOptions]="{standalone: true}">
-                <!-- <input type="date" class="form-control" id="legalStatusValend" name="legalStatusValend"
-                  placeholder="Legal Status Validity End Date" formControlName="legalStatusValend"> -->
               </div>
             </div>
             <div class="row mt-2">
@@ -195,8 +174,6 @@
                 <select [(ngModel)]="selectedLegalStatus" name="legalstatus"
                   id="selectedLegalStatus" class="form-control"
                   [ngModelOptions]="{standalone: true}">
-                  <!-- <select [(ngModel)]="selectedLegalStatus" name="legalstatus" id="selectedLegalStatus" class="form-control"
-                  formControlName="selectedLegalStatus"> -->
                   <option value="legalstatus">--SELECT--</option>
                   <option *ngFor="let legalstatus of legalstatuss"
                     [value]="legalstatus">{{ legalstatus }}</option>
@@ -212,9 +189,6 @@
                     [value]="division">{{
                     division }}</option>
                 </select>
-                <!-- <label for="ftcNotes">FTC Notes</label>
-                <input type="text" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
-                [ngModelOptions]="{standalone: true}"> -->
               </div>
               <div class="col-md-4">
                 <label for="dob">DOB</label>
@@ -222,47 +196,23 @@
                   placeholder="DOB" [(bsValue)]="dob"
                   bsDatepicker [(ngModel)]="dob"
                   [ngModelOptions]="{standalone: true}">
-                <!-- <label for="otherNotes">Other Notes</label>
-                <input type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
-                  placeholder="Other Notes" [(ngModel)]="otherNotes" 
-                  [ngModelOptions]="{standalone: true}"> -->
-                <!-- <input type="text" class="form-control" id="otherNotes" name="otherNotes"
-                  placeholder="Other Notes" formControlName="otherNotes"> -->
               </div>
             </div>
             <div class="row mt-2">
               <div class="col-md-6">
                 <label for="ftcNotes">FTC Notes</label>
-                <!-- <input type="" class="form-control" id="ftcNotes" name="ftcNotes" placeholder="FTC Notes"  [(ngModel)]="ftcNotes" 
-                [ngModelOptions]="{standalone: true}"> -->
                 <textarea type class="form-control" id="ftcNotes"
                   name="ftcNotes" placeholder="FTC Notes" [(ngModel)]="ftcNotes"
                   [ngModelOptions]="{standalone: true}" cols="30"
                   rows="3"></textarea>
-                <!-- <label for="interviewMode">Division</label>
-                <select [(ngModel)]="division" name="division" id="division" class="form-control"
-                  [ngModelOptions]="{standalone: true}">
-                  <option value disabled selected>Division</option>
-                  <option *ngFor="let division of divisions" [value]="division">{{
-                    division }}</option>
-                </select> -->
               </div>
               <div class="col-md-6">
                 <label for="otherNotes">Other Notes</label>
-                <!-- <input type="text" class="form-control" id="typeOfAssistance" name="otherNotes"
-                  placeholder="Other Notes" [(ngModel)]="otherNotes" 
-                  [ngModelOptions]="{standalone: true}"> -->
                 <textarea type="text" class="form-control" id="typeOfAssistance"
                   name="otherNotes"
                   placeholder="Other Notes" [(ngModel)]="otherNotes"
                   [ngModelOptions]="{standalone: true}" cols="30"
                   rows="3"></textarea>
-                <!-- <label for="dob">DOB</label>
-                <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
-                  bsDatepicker  [(ngModel)]="dob" 
-                  [ngModelOptions]="{standalone: true}"> -->
-                <!-- <input type="text" class="form-control" id="dob" name="dob" placeholder="DOB" [(bsValue)]="dob"
-                  bsDatepicker formControlName="dob"> -->
               </div>
             </div>
           </form>
@@ -1303,7 +1253,7 @@
           </select>
         </div>
         <div class="col">
-          <label for="candidate-status">Candidate Status</label>
+          <label for="candidate-status">Candidate Status {{test}}</label>
           <select class="form-control" id="currentStatus"
             [(ngModel)]="selectedcurrentstatus"
             [ngModelOptions]="{standalone: true}">
