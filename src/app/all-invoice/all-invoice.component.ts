@@ -27,8 +27,7 @@ throw new Error('Method not implemented.');
   isModalOpen = false;
   shareLink = '';
   row: any;
-
-
+  selectedClient: string = '';
 openModal1() {
   // Show the modal and overlay
   this.isModalOpen = true;
@@ -64,7 +63,7 @@ cancelDelete() {
   this.confirmed.emit(false);
 }
 
-  Clients: any[] = [];
+
 
   duplicateActions(): void {
     // Your delete logic here
@@ -171,31 +170,6 @@ cancelDelete() {
     this.showTable = true;
 
   }
-  constructor(
-    private dialog: MatDialog,
-    private Service: AllInvoiceService,
-
-  ) { }
-
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-    this.fetchClients();
-  }
-
-  fetchClients(){
-    let Req = {
-      // traineeID: this.TraineeID,
-      // timesheetrole:this.timesheetrole
-    };
-    this.Service.getClientDropdowns(Req).subscribe((x: any) => {
-        this.Clients = x.result;
-      },
-      (error) => {
-        console.error('Error fetching dropdown options:', error);
-      }
-    );
-  }
-
   activeTab: string = 'allinvoices';
   showCustomDateModel: boolean = false;
   startDate: string = '';
@@ -220,7 +194,151 @@ cancelDelete() {
   }
 
 
+  constructor(
+    private dialog: MatDialog,
+    private Service: AllInvoiceService,
 
+  ) { }
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+    // this.fetchClients();
+    // this.fetchBatchactions();
+  }
+
+  Clients: any[] = [];
+
+  fetchClients(){
+    let Req = {
+      // traineeID: this.TraineeID
+    };
+    this.Service.getClientDropdowns(Req).subscribe((x: any) => {
+        this.Clients = x.result;
+      },
+      (error) => {
+        console.error('Error fetching dropdown options:', error);
+      }
+    );
+  }
+
+
+  BatchOptions: any[]=[];
+
+  fetchBatchactions(){
+    let Req = {
+      // traineeID: this.TraineeID
+    };
+    this.Service.getBatchActions(Req).subscribe((x: any) => {
+        this.BatchOptions = x.result;
+      },
+      (error) => {
+        console.error('Error fetching dropdown options:', error);
+      }
+    );
+  }
+
+  invoiceTypes: any[]=[];
+
+  fetchInvoiceTypes(){
+    let Req = {
+      // traineeID: this.TraineeID
+    };
+    this.Service.getInvoiceTypes(Req).subscribe((x: any) => {
+        this.invoiceTypes = x.result;
+      },
+      (error) => {
+        console.error('Error fetching dropdown options:', error);
+      }
+    );
+  }
+
+  invoiceStatus: any[] =[];
+  fetchInvoiceStatus(){
+    let Req = {
+      // traineeID: this.TraineeID
+    };
+    this.Service.getInvoiceStatus(Req).subscribe((x: any) => {
+        this.invoiceStatus = x.result;
+      },
+      (error) => {
+        console.error('Error fetching dropdown options:', error);
+      }
+    );
+  }
+
+//   newTransaction: any[] = ['abc','bca'];
+//  fetchNewTransaction(){
+//     let Req = {
+//       // traineeID: this.TraineeID
+//     };
+//     this.Service.getNewTransaction(Req).subscribe((x: any) => {
+//         this.invoiceStatus = x.result;
+//       },
+//       (error) => {
+//         console.error('Error fetching dropdown options:', error);
+//       }
+//     );
+//   }
+ 
+  title: string = '';
+  firstName: string = '';
+  middleName: string = '';
+  lastName: string = '';
+  suffix: string = '';
+  companyName: string = '';
+  clients: any[] = [];
+
+  email: string = '';
+  phoneNumber: string = '';
+  mobileNumber: string = '';
+  fax: string = '';
+  other: string = '';
+  website: string = '';
+  nameToPrint: string = '';
+  isSubClient: boolean = false;
+
+  saveFormData(){
+    console.log(`
+      Title: ${this.title}
+      First Name: ${this.firstName}
+      Middle Name: ${this.middleName}
+      Suffix: ${this.suffix}
+      Company Name: ${this.companyName}
+      Selected Client: ${this.selectedClient}
+      Email: ${this.email}
+      Phone Number: ${this.phoneNumber}
+      Mobile Number: ${this.mobileNumber}
+      Fax: ${this.fax}
+      Other: ${this.other}
+      Website: ${this.website}
+      Name to Print: ${this.nameToPrint}
+      Is Sub Client: ${this.isSubClient}
+    `);
+  }
+
+// formDataArray: any[] = [];
+// saveFormData() {
+//   const formDataObject = {
+//     Title: this.title,
+//     FirstName: this.firstName,
+//     MiddleName: this.middleName,
+//     Suffix: this.suffix,
+//     CompanyName: this.companyName,
+//     SelectedClient: this.selectedClient,
+//     Email: this.email,
+//     PhoneNumber: this.phoneNumber,
+//     MobileNumber: this.mobileNumber,
+//     Fax: this.fax,
+//     Other: this.other,
+//     Website: this.website,
+//     NameToPrint: this.nameToPrint,
+//     IsSubClient: this.isSubClient
+//   };
+
+//   this.formDataArray.push(formDataObject);
+
+//   console.log("Name and Content:", this.formDataArray);
+// }
 
 }
 

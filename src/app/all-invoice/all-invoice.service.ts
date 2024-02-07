@@ -15,6 +15,18 @@ export class AllInvoiceService {
     getClientDropdowns(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getClientDropdowns', request);
     }
+    getBatchActions(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getBatchActions', request);
+    }
+    getInvoiceTypes(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getInvoiceTypes', request);
+    }
+    getInvoiceStatus(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getInvoiceStatus', request);
+    }
+    getNewTransaction(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getNewTransaction', request);
+    }
 }
 export interface ResponseDetails {
     flag?: any;

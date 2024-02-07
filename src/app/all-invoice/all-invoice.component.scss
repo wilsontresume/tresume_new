@@ -112,6 +112,12 @@
   color: white;
 font-size: 12px; 
 padding: 5px 10px;
+
+}
+.footerbtn{
+  font-size: 14px; 
+  height: 30px;
+width: 70px;
 }
 
 .pay{
@@ -502,4 +508,14 @@ input[type="search"]:focus {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1001; 
+}
+
+.custom-modal-dialog {
+  max-width: 700px;
+  // max-width: 900px;
+}
+
+.custom-checkbox {
+  transform: scale(1.7);
+  cursor: pointer;
 }
