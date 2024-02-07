@@ -51,12 +51,41 @@
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Make inactive</a>
+                    <a class="dropdown-item" href="#" (click)="openModal($event)">Make inactive</a>
                     <a class="dropdown-item" href="#">Merge contacts</a>
                   </div>
                 </div>
 
 
+
+
+
+                <div id="overlay bg" [ngClass]="{'show': isModalOpen}" (click)="closeModal4()">
+                  <div class="modal open" id="myModal" tabindex="-1" role="dialog" [ngClass]="{'show': isModalOpen}">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Make Inactive</h4>
+                          <button type="button" class="close" (click)="closeModal4()">
+                            <span>&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <!-- Your modal content goes here -->
+                          <p>This is a sample modal content.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" (click)="closeModal4()">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+                
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                   aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -495,14 +524,17 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                             <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                            <a class="dropdown-item" href="#" (click)="duplicateActions()">Print</a>
-                           <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
-
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
+                            
                      </div>
                         </div>
 
                       </td> 
                     </tr>
 
+
+
+                    
              
 
 
@@ -542,8 +574,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
-                            </div>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>                            </div>
 
                         </div>
 
@@ -588,7 +619,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -633,7 +664,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -677,7 +708,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -723,7 +754,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -769,7 +800,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -816,7 +847,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -892,7 +923,7 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                             <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                           </div>
 
                       </div>
@@ -935,7 +966,7 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                             <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                           </div>
 
                       </div>
@@ -978,7 +1009,7 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                             <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                           </div>
 
                       </div>
@@ -1021,7 +1052,7 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                             <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                           </div>
 
                       </div>
@@ -1064,7 +1095,7 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                             <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                           </div>
 
                       </div>
@@ -1107,7 +1138,7 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                             <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                           </div>
 
                       </div>
@@ -1150,7 +1181,7 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                             <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                           </div>
 
                       </div>
@@ -1194,7 +1225,7 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                             <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                           </div>
 
                       </div>
@@ -1270,7 +1301,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
                         </div>
 
@@ -1314,7 +1345,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -1359,7 +1390,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -1404,7 +1435,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -1449,7 +1480,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -1494,7 +1525,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -1539,7 +1570,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
                         </div>
 
@@ -1583,7 +1614,7 @@
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
                               <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" (click)="deleteAction()">Delete</a>
+                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                             </div>
 
                         </div>
@@ -1700,6 +1731,27 @@
                           </div>
                       </div>
                   </div>
+
+                  <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          <div class="modal-body d-flex flex-column align-items-center">
+                            <i class="fas fa-exclamation-circle fa-3x mb-3 red-icon"></i>
+                            <h2>Delete invoice?</h2>
+                            <p style="font-size: 16px;">This erases the invoice forever, and your customer won't be able to pay it. You can't undo this.</p>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" (click)="confirmDelete()">Yes</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancelDelete()">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+
+
+
                     
         </div>
       </div>
