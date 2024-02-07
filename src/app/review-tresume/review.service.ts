@@ -74,6 +74,21 @@ export class ReviewService {
   getOrgUserList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getOrgUserList', request);
   }
+  getLocation(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getLocation', request);
+  }
+
+  candidatestatus(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'candidatestatus', request);
+  }
+
+  getLegalStatus(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getLegalStatus', request);
+  }
+
+  fetchrecruiter(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'fetchrecruiter', request);
+  }
   
   updateFinancial(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'updateFinancial', request);
@@ -85,6 +100,10 @@ export class ReviewService {
 
   deletesubmissiondata(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'deletesubmissiondata', request);
+  }
+
+  MoveToTalentBench(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'MoveToTalentBench', request);
   }
 
   // This is for email tracker in the placement tab // HRMS

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AllInvoiceService } from './all-invoice.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -11,19 +11,58 @@ import { MessageService } from 'primeng/api';
 
 })
 export class AllInvoiceComponent implements OnInit {
-
-  deleteAction() {
-    throw new Error('Method not implemented.');
-  }
+  @Output() confirmed = new EventEmitter<boolean>();
+   @Output() modalClosed = new EventEmitter<void>();
+  makeInactiveModal: any;
+isModal3Open: any;
+// openMakeInactiveModal: any;
+deleteAction() {
+throw new Error('Method not implemented.');
+}
 
   isRowSelected = false;
   isContentVisible = false;
   showContent1 = false;
   showContent2 = false;
-
   isModalOpen = false;
   shareLink = '';
   row: any;
+
+
+openModal1() {
+  // Show the modal and overlay
+  this.isModalOpen = true;
+}
+
+openModal(event: Event) {
+  // Prevent the default behavior of the anchor link
+  event.preventDefault();
+
+  // Show the modal by manipulating the DOM directly
+  const modalElement = document.getElementById('myModal');
+  if (modalElement) {
+    modalElement.classList.add('show');
+    modalElement.style.display = 'block';
+  }
+}
+
+closeModal4() {
+  // Close the modal by manipulating the DOM directly
+  const modalElement = document.getElementById('myModal');
+  if (modalElement) {
+    modalElement.classList.remove('show');
+    modalElement.style.display = 'none';
+  }
+}
+
+
+confirmDelete() {
+  this.confirmed.emit(true);
+}
+
+cancelDelete() {
+  this.confirmed.emit(false);
+}
 
   Clients: any[] = [];
 

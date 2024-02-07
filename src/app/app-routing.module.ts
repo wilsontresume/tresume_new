@@ -167,7 +167,7 @@ const routes: Routes = [
   { path: 'password',component:PasswordComponent},
   { path: 'aboutme',component:AboutmeComponent},
   { path: 'batch',component:BatchComponent},
-  { path: 'vendor',component:VendorComponent},
+  { path: 'vendor/:authType',component:VendorComponent, canActivate: [AuthGuard] },
   { path: 'addadmin', component:AddAdminComponent,canActivate: [AuthGuard]},
   { path: 'viewvendor',component:ViewvendorComponent},
   { path: 'addvendor',component:AddvendorComponent},
