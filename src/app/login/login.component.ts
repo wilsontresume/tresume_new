@@ -15,6 +15,8 @@ import { HttpClient, HttpEvent, HttpParams, HttpRequest, HttpHeaders } from '@an
 export class LoginComponent {
   loading:boolean = false;
 
+  showpassword: boolean = false;
+  inputDisabled: boolean = true;
   username: string;
   password: string;
   errorMessage: string;
@@ -102,4 +104,15 @@ export class LoginComponent {
       }
     );
   }
+
+  startShowing() {
+    const passwordField = document.getElementById('passwordField') as HTMLInputElement;
+    passwordField.type = 'text';
+}
+
+stopShowing() {
+    const passwordField = document.getElementById('passwordField') as HTMLInputElement;
+    passwordField.type = 'password';
+}
+
 }

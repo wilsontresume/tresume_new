@@ -18,10 +18,12 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{ standalone: true }" required="">
+                        <input type="password" id="passwordField" class="form-control" placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{ standalone: true }" required="">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                                <span id="toggleBtn" (mousedown)="startShowing()" (mouseup)="stopShowing()" (touchstart)="startShowing()" (touchend)="stopShowing()">
+                                    <span class="fa fa-eye" style="font-size: 20px;"></span>
+                                </span>                                                               
                             </div>
                         </div>
                         <div data-lastpass-icon-root="true"

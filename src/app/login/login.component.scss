@@ -44,3 +44,10 @@ $brand-primary:#49274a;
     background-color: $brand-primary;
 }
   
+#toggleBtn:hover {
+    cursor: pointer;
+}
+
+#toggleBtn:active {
+    cursor: pointer; 
+}
