@@ -317,8 +317,7 @@
               <label class="label">Candidate Status</label>
               <select class="form-control" id="currentStatus" [(ngModel)]="selectedcurrentstatus"
                 [ngModelOptions]="{standalone: true}">
-                <option *ngFor="let option of  currentStatusOptions" [value]="option.CandidateStatusID">{{ option.Value
-                  }}</option>
+                <option *ngFor="let option of  currentStatusOptions" [value]="option.CSID">{{ option.CSName }}</option>
               </select>
             </div>
             <div class="col-md-4" *ngIf="routeType == 1">

@@ -1305,7 +1305,7 @@ router.post("/candidatestatus", function (req, res) {
     if (err) console.log(err);
     var request = new sql.Request();
     request.query(
-      "select * from CandidateStatus",
+      "SELECT * FROM CurrentStatus",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
