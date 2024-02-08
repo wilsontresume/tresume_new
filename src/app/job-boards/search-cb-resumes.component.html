@@ -180,4 +180,6 @@
     </div>
 </p-sidebar>
 <p-toast position="bottom-right"></p-toast>
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+<div *ngIf="loading" class="loader-container">
+    <app-loader class="loader"></app-loader>
+  </div>

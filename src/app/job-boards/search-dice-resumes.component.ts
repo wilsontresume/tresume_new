@@ -255,13 +255,13 @@ export class SearchResumesDiceComponent implements OnInit {
   clocation: string = '';
   cphone: string = '';
   cworkpermit: string = '';
-  cyearsofexperiance: string = '';
+  cyearsofExperience: string = '';
   cjobtitle: string = '';
   csocialsource: any[] = [];
   cskill: any[] = [];
   cemail: string = '';
-  ccurrentexperiance: any[] = [];
-  coldexperiance: any[] = [];
+  ccurrentExperience: any[] = [];
+  coldExperience: any[] = [];
   ceducation: any[] = [];
 
   constructor(
@@ -275,7 +275,6 @@ export class SearchResumesDiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loading = true;
     this.cookieValue = this.cookieService.get('userName1');
     this.OrgID1 = this.cookieService.get('OrgID');
     this.userName1 = this.cookieService.get('userName1');
@@ -290,7 +289,6 @@ export class SearchResumesDiceComponent implements OnInit {
     this.initGrid();
     let request = '';
     this.service.getDiceToken().subscribe((x: any) => {
-      console.log(x);
       if (x) {
         this.accessToken = x.access_token;
       }
@@ -491,7 +489,7 @@ export class SearchResumesDiceComponent implements OnInit {
           this.visibleSidebar2 = true;
           this.cfullname = y[0].FirstName ?? null + ' ' + y[0].LastName ?? null;
           this.clocation = y[0].CurrentLocation ?? null;
-          this.cyearsofexperiance = (y[0].YearsOfExpInMonths / 12).toString() ?? null;
+          this.cyearsofExperience = (y[0].YearsOfExpInMonths / 12).toString() ?? null;
           this.cemail = y[0].UserName ?? null;
           this.cphone = y[0].PhoneNumber ?? null;
           this.cjobtitle = y[0].Title ?? null;
@@ -512,7 +510,7 @@ export class SearchResumesDiceComponent implements OnInit {
             this.cphone = profileDetails?.phone?.[0] ?? null;
             this.cemail = profileDetails?.email?.[0] ?? null;
             this.cworkpermit = profileDetails?.workPermitDocuments?.[0] ?? null;
-            this.cyearsofexperiance = profileDetails?.yearsOfExperience;
+            this.cyearsofExperience = profileDetails?.yearsOfExperience;
             this.cjobtitle = profileDetails?.desiredJobTitles?.[0] ?? null;
             this.csocialsource = profileDetails?.socialProfiles;
             this.ceducation = profileDetails?.education;
@@ -822,7 +820,7 @@ export class SearchResumesDiceComponent implements OnInit {
     }
     this.cfullname = '';
     this.cjobtitle = '';
-    this.cyearsofexperiance = '';
+    this.cyearsofExperience = '';
     this.cemail = '';
     this.cphone = '';
     this.clocation = '';
@@ -918,7 +916,6 @@ export class SearchResumesDiceComponent implements OnInit {
                 divid = x.result[0].id;
                 resolve();
               }
-              this.loading = false;
             })
             .catch((error: any) => {
               reject(error);

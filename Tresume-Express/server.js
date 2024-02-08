@@ -25,8 +25,8 @@ const environment = process.env.NODE_ENV || 'prod';
 const envconfig = require(`./config.${environment}.js`);
 const apiUrl = envconfig.apiUrl;
 const port = envconfig.port;
-var cors = require('cors');
-app.use(cors())
+// var cors = require('cors');
+// app.use(cors())
 
 const cron = require('node-cron');
 
@@ -154,7 +154,7 @@ var config = {
   user: "sa",
   password: "Tresume@123",
   server: "92.204.128.44",
-  database: "Tresume_Beta",
+  database: "Tresume",
   trustServerCertificate: true,
 };
 

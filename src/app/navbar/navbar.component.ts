@@ -68,18 +68,17 @@ export class NavbarComponent implements OnInit {
     }
 
     public logout() {
-        // Delete all cookies with proper options
-        this.cookieService.deleteAll('/', 'https://homehealth.tresume.us/');
-    
-        // Clear sessionStorage
+        document.cookie.split(";").forEach(cookie => {
+            const eqPos = cookie.indexOf("=");
+            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        });
         sessionStorage.clear();
-    
-        // Generate a random query parameter to force a page reload
         const randomQueryParam = Math.random().toString(36).substring(7);
-    
-        // Redirect to the base URL
         this.router.navigate([''], { queryParams: { refresh: randomQueryParam } });
     }
+    
+    
     
       toggleDropdown(subMenuId: string): void {
         this.isDropdownOpen[subMenuId] = !this.isDropdownOpen[subMenuId];

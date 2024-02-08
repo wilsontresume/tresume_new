@@ -42,7 +42,11 @@ export class ForgetPasswordComponent implements OnInit {
       email: this.email,
     };
     this.service.validateemail(Req).subscribe((x: any) => {
-
+      if(x.flag == 1){
+        alert('Password Reset has been sent to your email address.');
+      }else{
+        alert('Check your Email ID and Try again');
+      }
     });
   }
 }

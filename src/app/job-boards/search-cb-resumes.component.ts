@@ -226,7 +226,6 @@ export class SearchResumesCBComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loading = true;
         this.cookieValue = this.cookieService.get('userName1')
         //division
         this.OrgID = this.cookieService.get('OrgID');
@@ -671,7 +670,6 @@ export class SearchResumesCBComponent implements OnInit {
                                 divid = x.result[0].id;
                                 resolve();
                             }
-                            this.loading = false;
                         })
                         .catch((error: any) => {
                             reject(error);

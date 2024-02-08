@@ -245,7 +245,7 @@ export class SearchResumesMonsterComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loading=true;
+
         this.OrgID = this.cookieService.get('OrgID');
         this.userName1 = this.cookieService.get('userName1');
         this.TraineeID = this.cookieService.get('TraineeID');
@@ -660,7 +660,6 @@ export class SearchResumesMonsterComponent implements OnInit {
                     divid = x.result[0].id;
                     resolve();
                   }
-                  this.loading = false;
                 })
                 .catch((error: any) => {
                   reject(error);
