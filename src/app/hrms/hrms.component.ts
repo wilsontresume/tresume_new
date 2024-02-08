@@ -36,7 +36,7 @@ export class HrmsComponent implements OnInit {
   emailvalidation: boolean = false;
   emailvalidationmessage: string = '';
   routeType: any;
-  currentStatusOptions:any = [];
+  currentStatusOptions:any;
   legalStatusOptions:any;
   selectedcurrentstatus: any;
   currentLocation: any;
@@ -184,10 +184,10 @@ export class HrmsComponent implements OnInit {
 
   getcandidaterstatus(){
     const Req = {
-         };
+
+    };
     this.service.candidatestatus(Req).subscribe((x: any) => {
       this.currentStatusOptions = x;
-      console.log(this.currentStatusOptions);
     });
   }
 
