@@ -52,15 +52,15 @@ WHERE
     } else {
       const result = {
         flag: 0,
-        error: "No active clients found! ",
+        error: "No active vendors found! ",
       };
       res.send(result); 
     }
   } catch (error) {
-    console.error("Error fetching client data:", error);
+    console.error("Error fetching vendor data:", error);
     const result = {
       flag: 0,
-      error: "An error occurred while fetching client data!",
+      error: "An error occurred while fetching vendor data!",
     };
     res.status(500).send(result);
   }

@@ -47,6 +47,8 @@ const assignrole = require('./assignrole');
 const projects = require('./project');
 const jobBoardAccount = require('./jobBoardAccount')
 const leadenquiry = require('./enquiry')
+const jobapplication = require('./jobapplication')
+
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -65,6 +67,7 @@ app.use('/', assignrole);
 app.use('/', projects);
 app.use('/', jobBoardAccount);
 app.use('/', leadenquiry);
+app.use('/', jobapplication);
 
 
 app.use(session({
