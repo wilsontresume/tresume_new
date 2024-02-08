@@ -171,13 +171,12 @@
             <div class="row mt-2">
               <div class="col-md-4">
                 <label for="general">Legal Status</label>
-                <select [(ngModel)]="selectedLegalStatus" name="legalstatus"
-                  id="selectedLegalStatus" class="form-control"
-                  [ngModelOptions]="{standalone: true}">
-                  <option value="legalstatus">--SELECT--</option>
-                  <option *ngFor="let legalstatus of legalstatuss"
-                    [value]="legalstatus">{{ legalstatus }}</option>
-                </select>
+                <select class="form-control" name="LegalStatus" [(ngModel)]="LegalStatus"
+                [ngModelOptions]="{standalone: true}">
+                <option value>-- Select Legal Status --</option>
+                <option *ngFor="let stat of legalStatusOptions" [value]="stat.LegalStatusID">{{ stat.LegalValue }}
+                </option>
+              </select>
               </div>
               <div class="col-md-4">
                 <label for="interviewMode">Division</label>
