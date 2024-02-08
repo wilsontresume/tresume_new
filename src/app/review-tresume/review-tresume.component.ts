@@ -19,6 +19,8 @@ export class ReviewTresumeComponent implements OnChanges {
   showConfirmationDialog3: boolean;
   showmovetotalentbench: boolean = false;
   myForm: any;
+  LegalStatus: any;
+
   interviewForm: any;
   myFormSubmission: any;
   myFormFinancial: any;
