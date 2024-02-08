@@ -261,29 +261,30 @@ li {
 }
 
 
-.col_white_amrc {
-  color: #FFF;
-}
+// .col_white_amrc {
+//   color: #FFF;
+// }
 
 .space{
   margin-left: 20px;
 }
-#keyFeatures {
-  font-size: 54px;
-}
 
-#keyFeatures span {
-  opacity: 0;
-  transform: translateY(20px);
-  display: inline-block;
-  animation: fadeInUp 1s forwards ease-out;
+#keyFeatures {
+    font-size: 54px;
+
+    span {
+        opacity: 0;
+        transform: translateY(20px);
+        display: inline-block;
+        animation: fadeInUp 1s forwards ease-out;
+    }
 }
 
 @keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 #keyFeatures span:nth-child(1) { animation-delay: 0.1s; }
