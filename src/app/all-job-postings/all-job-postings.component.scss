@@ -48,6 +48,10 @@
     background-color: #e0e0e0;
   }
   
+tbody{
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
   i{
     margin: 2px;
     color: #94618e;
@@ -67,10 +71,6 @@
   border-radius: 5px;
  }
 
-tbody{
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-}
 
 #assignee {
   border: 2px solid #94618e; 

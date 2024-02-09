@@ -195,7 +195,6 @@ export class HrmsComponent implements OnInit {
     };
     this.service.candidatestatus(Req).subscribe((x: any) => {
       this.currentStatusOptions = x;
-      console.log(this.currentStatusOptions);
     });
   }
 

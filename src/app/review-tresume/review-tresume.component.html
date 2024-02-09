@@ -141,13 +141,10 @@
             <div class="row mt-2">
               <div class="col-md-4">
                 <label for="status">Current Status</label>
-                <select [(ngModel)]="selectedStatus" name="status" id="status"
-                  class="form-control" [(ngModel)]="selectedcurrentstatus"
-                  [ngModelOptions]="{standalone: true}">
-                  <option [ngValue]="null">Current Status</option>
-                  <option *ngFor="let option of  currentStatusOptions" [value]="option.CandidateStatusID">{{ option.Value
-                  }}</option>
-                </select>
+                <select class="form-control" id="currentStatus" [(ngModel)]="selectedcurrentstatus"
+                [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let option of  currentStatusOptions" [value]="option.CSID">{{ option.CSName }}</option>
+              </select>
               </div>
               <div class="col-md-4">
                 <label for="legalStatusVal">Legal Status Validity Start

@@ -1,23 +1,33 @@
 <div class="content-header">
-<div class="container mt-4 p-0">
-    <div class="row">
-      <div class="col-12 pl-3">
-        <h2 class="text-left">SUBMITTED CANDIDATES</h2>
-      </div>
+  <div class="container">
+    <div>
+      <h2>SUBMITTED CANDIDATES</h2>
     </div>
-    <div class="row mt-4">
-      <div class="col-12 text-center">
-        <p class="admin">ADMIN</p>
-      </div>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email Id</th>
+          <th>Phone Number</th>
+          <th>Recruiter Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let candidates of submittedCandidates">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="noResultsFound">
+          <td colspan="5" class="text-center">
+            No results found.
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-    <div class="row mt-4">
-      <div class="col-12">
-        <hr>
-        <p class="text-left pl-4">No Candidates submitted yet</p>
-        <hr>
-      </div>
-    </div>
-  </div>
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
