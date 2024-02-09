@@ -47,9 +47,9 @@
           <a class="dropdown-item" href="#" (click)="saveAs('pdf')">As PDF</a>
         </div>
       </div>
-      <div class="display d-flex justify-content-center align-items-center">
+      <!-- <div class="display d-flex justify-content-center align-items-center">
       <span>Displaying 0 of 0 Applications</span>
-      </div>
+      </div> -->
     </div>
     <div class="d-flex justify-content-end">
       <div class="form-group d-flex mt-2">
@@ -90,11 +90,14 @@
           <td>{{ job.JobType }}</td>
           <!-- <td>{{ job.assignee }}</td> -->
         </tr>
+        <tr *ngIf="noResultsFound" >
+          <td colspan="10" class="text-center">
+            No results found.
+          </td>
+        </tr>
       </tbody>
     </table>
-    <div class="container">
-      <span class="found">No Applications Found..</span>
-    </div>
+ 
   </div>
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

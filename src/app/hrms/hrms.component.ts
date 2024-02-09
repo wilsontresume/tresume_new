@@ -203,7 +203,6 @@ export class HrmsComponent implements OnInit {
   
 
   fetchhrmscandidatelist() {
-
     this.loading = true;
     let Req = {
       TraineeID: this.TraineeID,
