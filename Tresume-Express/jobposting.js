@@ -54,10 +54,10 @@ router.post('/getJobPostingList', async (req, res) => {
     console.error(error);
     const result = {
       flag: 0,
-      message:'Internal server error',
+      message: 'Internal server error',
     };
 
-   
+
     return res.send(result);
   }
 });
@@ -88,7 +88,7 @@ router.post('/deleteJobPosting', async (req, res) => {
 
 })
 
-async function deactivatetrainee(email){
+async function deactivatetrainee(email) {
   const pool = await sql.connect(config);
   const request = pool.request();
   const queryResult = await request.query(
@@ -97,7 +97,7 @@ async function deactivatetrainee(email){
   return queryResult;
 }
 
-async function deactivatememberdetails(email){
+async function deactivatememberdetails(email) {
   const pool = await sql.connect(config);
   const request = pool.request();
   const queryResult = await request.query(
@@ -105,6 +105,41 @@ async function deactivatememberdetails(email){
   );
   return queryResult;
 }
+
+
+router.post('/getSubmittedCandidateList', async (req, res) => {
+  try {
+    sql.connect(config, async function (err) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Database connection error' });
+      }
+
+      const request = new sql.Request();
+      const query = "SELECT CS.SubmittedID, T.FirstName AS FirstName, T.LastName AS LastName, T.UserName, T.PhoneNumber, CONCAT(MD.FirstName, ' ', MD.LastName) AS RecruiterName FROM Trainee T INNER JOIN CandidateSubmitted CS ON T.TraineeID = CS. CandidateID INNER JOIN MemberDetails MD ON CS.RecruiterID = MD.ID WHERE CS.JobID = '" + req.body.JobID + "'";
+
+
+      console.log(query);
+      const recordset = await request.query(query);
+
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+
+      res.send(result);
+    });
+  } catch (error) {
+    console.error(error);
+    const result = {
+      flag: 0,
+      message: 'Internal server error',
+    };
+
+
+    return res.send(result);
+  }
+});
 
 module.exports = router;
 

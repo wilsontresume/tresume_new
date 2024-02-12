@@ -6,6 +6,7 @@
     <table>
       <thead>
         <tr>
+          <th>Submitted ID</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email Id</th>
@@ -15,19 +16,19 @@
       </thead>
       <tbody>
         <tr *ngFor="let candidates of submittedCandidates">
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{ submittedCandidates.SubmittedID }}</td>
+          <td>{{ candidates.FirstName }}</td>
+          <td>{{ candidates.LastName }}</td>
+          <td>{{ candidates.UserName }}</td>
+          <td>{{ candidates.PhoneNumber }}</td>
+          <td>{{ candidates.RecruiterName }}</td>
         </tr>
         <tr *ngIf="noResultsFound">
-          <td colspan="5" class="text-center">
+          <td colspan="6" class="text-center">
             No results found.
           </td>
         </tr>
       </tbody>
     </table>
-
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

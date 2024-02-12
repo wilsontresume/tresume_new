@@ -14,13 +14,14 @@ import { MessageService } from 'primeng/api';
 export class SubmittedCandiatesComponent implements OnInit {
 
   loading:boolean = false;
-  submittedCandidates:any[];
+  submittedCandidates: any[] =[];
    noResultsFound:boolean = true;
-  OrgID:string = '';
+   traineeID:string = '';
+   JobID: string='';
 
   constructor(private cookieService: CookieService, private service: SubmittedCandidatesService, private messageService: MessageService) { 
     
-    this.OrgID = this.cookieService.get('OrgID');
+    this.traineeID = this.cookieService.get('traineeID');
 
   }
   ngOnInit(): void {
@@ -28,11 +29,10 @@ export class SubmittedCandiatesComponent implements OnInit {
 
   }
 
-
-  
 fetchSubmittedCandidateList(){
   let Req = {
-    OrgID: this.OrgID,
+    JobID:this.JobID,
+    traineeID: this.traineeID,
   };
   this.service.getSubmittedCandidateList(Req).subscribe((x: any) => {
     this.submittedCandidates = x.result;
@@ -40,5 +40,4 @@ fetchSubmittedCandidateList(){
   this.loading = false;
   });
 }
-
 }
