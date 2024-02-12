@@ -23,7 +23,7 @@ export class HrmsComponent implements OnInit {
   candidateStatuses: string[] = ['', '', ''];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
-  LegalStatus: string[] = [];
+  LegalStatus: any;
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
@@ -43,6 +43,8 @@ export class HrmsComponent implements OnInit {
   filteredCandidates: any[];
   specifiedDate: string = '';
   modalService: any;
+  useremail: any;
+  isAdmin: string;
 
   onFollowUpOptionChange() {
   }
@@ -68,6 +70,9 @@ export class HrmsComponent implements OnInit {
     this.routeType = this.route.snapshot.params["routeType"];
     this.candidateID = this.route.snapshot.params["traineeID"];
 
+    this.useremail = this.cookieService.get('userName1');
+    this.isAdmin = this.cookieService.get('IsAdmin');
+    console.log(this.isAdmin);
   }
 
   ngOnInit(): void {
@@ -232,7 +237,9 @@ export class HrmsComponent implements OnInit {
     let Req = {
       TraineeID: this.TraineeID,
       Page: this.currentPage,
-      PageSize: this.pageSize
+      PageSize: this.pageSize,
+      useremail:this.useremail,
+      admin:this.isAdmin
     };
 
     this.service.gethrmscandidateList(Req).subscribe((response: any) => {

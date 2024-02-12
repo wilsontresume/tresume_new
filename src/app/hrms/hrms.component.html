@@ -100,7 +100,7 @@
   <div *ngIf="loading">Loading...</div>
 <div *ngIf="!loading">
     <div class="main-container" *ngFor="let candidate of candidates">
-      <div class="col-12" *ngIf="isCandidateVisible(candidate)">
+      <!-- <div class="col-12" *ngIf="isCandidateVisible(candidate)"> -->
         <div>
           <div class="card mb-4">
             <div class="card-body" style="line-height: 5px;padding: 15px;">
@@ -170,7 +170,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <b>Notes :</b> {{candidate.notes | truncate:100}} <i class="fas fa-info-circle" *ngIf="candidate.notes.length > 100" title="{{candidate.notes}}"></i>
+                    <b>Notes :</b> {{candidate.notes}}
                   </div>
                   
                 </div>
@@ -201,7 +201,7 @@
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
     </div>
     <div class="pagination-container">
