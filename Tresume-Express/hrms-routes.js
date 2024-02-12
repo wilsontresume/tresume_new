@@ -38,9 +38,37 @@ router.post('/gethrmscandidateList', async (req, res) => {
       var traineeid = req.body.TraineeID;
       var useremail = req.body.useremail;
       var admin = req.body.admin;
+      var searchterm = req.body.searchterm;
+      var Page = req.body.Page;
       var query = '';
       if(admin){
-        query = "SELECT T.TraineeID, CONCAT(T.firstname, ' ', T.lastname) AS Name, CONCAT(CreatedBy.firstname, ' ', CreatedBy.lastname) AS CreatedBy, T.username AS Email, O.organizationname, T.LegalStatus AS LegalStatus, T.PhoneNumber AS Phone, CS.CSName AS CandidateStatus, T.followupon, T.notes, T.CreateTime AS DateCreated FROM Trainee T INNER JOIN Memberdetails M ON T.userorganizationid IN (SELECT Value FROM dbo.SplitString(M.accessorg, ',')) INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID LEFT JOIN Trainee CreatedBy ON T.createby = CreatedBy.username INNER JOIN Organization O ON T.userorganizationid = O.organizationid WHERE M.useremail = '"+useremail+"' AND T.active = 1 AND (T.talentpool IS NULL OR T.talentpool = 0) ORDER BY T.CreateTime DESC";
+        query = `WITH CountCTE AS (
+          SELECT COUNT(*) AS TotalCount
+          FROM Trainee T
+          INNER JOIN Memberdetails M ON T.userorganizationid IN (SELECT Value FROM dbo.SplitString(M.accessorg, ','))
+          INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
+          LEFT JOIN Trainee CreatedBy ON T.createby = CreatedBy.username
+          INNER JOIN Organization O ON T.userorganizationid = O.organizationid
+          WHERE M.useremail = '${useremail}' AND T.active = 1 AND (T.talentpool IS NULL OR T.talentpool = 0)
+              AND (T.FirstName LIKE '%${searchterm}%' OR T.LastName LIKE '%${searchterm}%' OR T.UserName LIKE '%${searchterm}%')
+      ),
+      PaginatedResults AS (
+          SELECT T.TraineeID, CONCAT(T.firstname, ' ', T.lastname) AS Name, CONCAT(CreatedBy.firstname, ' ', CreatedBy.lastname) AS CreatedBy,
+              T.username AS Email, O.organizationname, T.LegalStatus AS LegalStatus, T.PhoneNumber AS Phone, CS.CSName AS CandidateStatus,
+              T.followupon, T.notes, T.CreateTime AS DateCreated
+          FROM Trainee T
+          INNER JOIN Memberdetails M ON T.userorganizationid IN (SELECT Value FROM dbo.SplitString(M.accessorg, ','))
+          INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
+          LEFT JOIN Trainee CreatedBy ON T.createby = CreatedBy.username
+          INNER JOIN Organization O ON T.userorganizationid = O.organizationid
+          WHERE M.useremail = '${useremail}' AND T.active = 1 AND (T.talentpool IS NULL OR T.talentpool = 0)
+              AND (T.FirstName LIKE '%${searchterm}%' OR T.LastName LIKE '%${searchterm}%' OR T.UserName LIKE '%${searchterm}%')
+          ORDER BY T.CreateTime DESC
+          OFFSET ${Page} ROWS FETCH NEXT 25 ROWS ONLY
+      )
+      SELECT TotalCount, *
+      FROM CountCTE
+      CROSS JOIN PaginatedResults;`;
       }else{
         query = "SELECT T.TraineeID, CONCAT(CreatedBy.FirstName, ' ', CreatedBy.LastName) AS CreatedBy,  CONCAT(T.FirstName, ' ', T.LastName) AS Name, T.UserName AS Email, T.PhoneNumber AS Phone,  T.LegalStatus AS LegalStatus, CS.CSName AS CandidateStatus, T.CreateTime AS DateCreated,  T.followupon, T.notes, O.organizationname FROM Trainee T INNER JOIN Currentstatus CS ON  T.CandidateStatus = CS.CSID LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName LEFT  JOIN organization O ON T.userorganizationid = O.organizationid WHERE T.RecruiterName = '"+ traineeid+ "'ORDER BY T.CreateTime DESC";
       }

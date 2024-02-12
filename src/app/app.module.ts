@@ -165,6 +165,7 @@ import { MonsterComponent } from './landing-page/monster/monster.component';
 import { AdobeComponent } from './landing-page/adobe/adobe.component';
 import { TruncatePipe } from './truncate.pipe';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -314,6 +315,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     RouterModule,
     MatSelectModule,
     ScrollingModule,
+    NgxDatatableModule,
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({
       validationMessages: [

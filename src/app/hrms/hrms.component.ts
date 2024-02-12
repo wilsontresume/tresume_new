@@ -45,6 +45,7 @@ export class HrmsComponent implements OnInit {
   modalService: any;
   useremail: any;
   isAdmin: string;
+  searchterm: string = '';
 
   onFollowUpOptionChange() {
   }
@@ -230,7 +231,7 @@ export class HrmsComponent implements OnInit {
   pageSize: number = 3;
   totalRecords: number;
   totalPages: number;
-  pagesToShow: number = 5;
+  pagesToShow: number = 10;
 
   fetchhrmscandidatelist() {
     this.loading = true;
@@ -239,12 +240,13 @@ export class HrmsComponent implements OnInit {
       Page: this.currentPage,
       PageSize: this.pageSize,
       useremail:this.useremail,
-      admin:this.isAdmin
+      admin:this.isAdmin,
+      searchterm:this.searchterm
     };
 
     this.service.gethrmscandidateList(Req).subscribe((response: any) => {
       this.candidates = response.result;
-      this.totalRecords = response.totalRecords;
+      this.totalRecords = response.result[0].TotalCount[0];
       this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
       this.noResultsFound = this.candidates.length === 0;
       this.loading = false;
