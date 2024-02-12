@@ -47,9 +47,9 @@
           <a class="dropdown-item" href="#" (click)="saveAs('pdf')">As PDF</a>
         </div>
       </div>
-      <div class="display d-flex justify-content-center align-items-center">
+      <!-- <div class="display d-flex justify-content-center align-items-center">
       <span>Displaying 0 of 0 Applications</span>
-      </div>
+      </div> -->
     </div>
     <div class="d-flex justify-content-end">
       <div class="form-group d-flex mt-2">
@@ -65,32 +65,39 @@
           <th>Legal Status</th>
           <th>Pay Rate</th>
           <th>Source</th>
-          <th>job Type</th>
+          <th>Total Applicants</th>
+          <th>Posted On</th>
+          <th>Posted By</th>
+          <th>Job Type</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let job of jobs">
-          <td>{{ job.Date }}</td>
+          <td>{{ job.PostDay }}</td>
           <td>{{ job.Name }}</td>
-          <td>{{ job.jobTittle }}</td>
+          <td>{{ job.JobTitle }}</td>
+          <td>{{ job.JobStatus}}</td>
           <td>{{ job.PayRate }}</td>
           <td>{{ job.Source }}</td>
           <td>
-            {{ job.totalApplicants }}
+            {{ job.TotalApplicant }}
             <a [routerLink]="['/applicantdetails']">
               <i class="fas fa-external-link-alt"></i>
             </a>
           </td>
-          <td>{{ job.postedOn | date }}</td>
-          <td>{{ job.postedBy }}</td>
-          <td>{{ job.jobType }}</td>
-          <td>{{ job.assignee }}</td>
+          <td>{{ job.CreateTime | date }}</td>
+          <td>{{ job.CreateBy }}</td>
+          <td>{{ job.JobType }}</td>
+          <!-- <td>{{ job.assignee }}</td> -->
+        </tr>
+        <tr *ngIf="noResultsFound" >
+          <td colspan="10" class="text-center">
+            No results found.
+          </td>
         </tr>
       </tbody>
     </table>
-    <div class="container">
-      <span class="found">No Applications Found..</span>
-    </div>
+ 
   </div>
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
