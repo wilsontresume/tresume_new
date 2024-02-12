@@ -70,7 +70,30 @@ router.post('/gethrmscandidateList', async (req, res) => {
       FROM CountCTE
       CROSS JOIN PaginatedResults;`;
       }else{
-        query = "SELECT T.TraineeID, CONCAT(CreatedBy.FirstName, ' ', CreatedBy.LastName) AS CreatedBy,  CONCAT(T.FirstName, ' ', T.LastName) AS Name, T.UserName AS Email, T.PhoneNumber AS Phone,  T.LegalStatus AS LegalStatus, CS.CSName AS CandidateStatus, T.CreateTime AS DateCreated,  T.followupon, T.notes, O.organizationname FROM Trainee T INNER JOIN Currentstatus CS ON  T.CandidateStatus = CS.CSID LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName LEFT  JOIN organization O ON T.userorganizationid = O.organizationid WHERE T.RecruiterName = '"+ traineeid+ "'ORDER BY T.CreateTime DESC";
+        query = `WITH CountCTE AS (
+          SELECT COUNT(*) AS TotalCount
+          FROM Trainee T
+          INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
+          LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName
+          LEFT JOIN organization O ON T.userorganizationid = O.organizationid
+          WHERE T.RecruiterName = '${traineeid}'
+      ),
+      PaginatedResults AS (
+          SELECT T.TraineeID, CONCAT(CreatedBy.FirstName, ' ', CreatedBy.LastName) AS CreatedBy,
+                 CONCAT(T.FirstName, ' ', T.LastName) AS Name, T.UserName AS Email,
+                 T.PhoneNumber AS Phone, T.LegalStatus AS LegalStatus, CS.CSName AS CandidateStatus,
+                 T.CreateTime AS DateCreated, T.followupon, T.notes, O.organizationname
+          FROM Trainee T
+          INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
+          LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName
+          LEFT JOIN organization O ON T.userorganizationid = O.organizationid
+          WHERE T.RecruiterName = '${traineeid}'
+          ORDER BY T.CreateTime DESC
+          OFFSET '${Page}' ROWS FETCH NEXT 25 ROWS ONLY
+      )
+      SELECT TotalCount, *
+      FROM CountCTE
+      CROSS JOIN PaginatedResults;`;
       }
       
   
