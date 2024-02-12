@@ -176,6 +176,7 @@ export class ReviewTresumeComponent implements OnChanges {
   TaxTerm: any;
   ConsultantType: any;
   selectedstate: any;
+  selectedstate1: any;
   Availability: any;
   txtComments: any;
 
@@ -402,7 +403,7 @@ export class ReviewTresumeComponent implements OnChanges {
       GCWages: this.myFormFinancial.value.gcWages,
       Lcadate: this.myFormFinancial.value.lcaDate,
       LCARate: this.myFormFinancial.value.lcaRate,
-      state: this.myFormFinancial.value.State,
+      state: this.selectedstate1,
       healthInsurance: this.myFormFinancial.value.healthInsurance,
       lifeInsurance: this.myFormFinancial.value.lifeInsurance,
 
@@ -709,6 +710,7 @@ export class ReviewTresumeComponent implements OnChanges {
     this.service.getLocation(Req).subscribe((x: any) => {
       this.state = x.result;
     });
+    console.log(this.selectedstate1);
   }
   
   getOrgUserList() {
