@@ -62,10 +62,12 @@ export class LoginComponent {
             const RoleID = response.result[0].RoleID
             const timesheet_role = response.data[0].timesheet_role
             const timesheet_admin = response.data[0].timesheet_admin
+            const IsAdmin = response.result[0].IsAdmin
             this.cookieService.set('userName1', userName);
             this.cookieService.set('OrgID', orgID);
             this.cookieService.set('TraineeID', traineeID);
             this.cookieService.set('ViewOnly', ViewOnly);
+            this.cookieService.set('IsAdmin', IsAdmin);
             this.cookieService.set('timesheet_role', timesheet_role);
             this.cookieService.set('timesheet_admin', timesheet_admin);
             this.cookieService.set('FullAccess', FullAccess);
