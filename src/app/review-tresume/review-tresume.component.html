@@ -945,18 +945,15 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
-                  <label for="State">State</label>
-                  <!-- <select class="form-control" id="State"  [(ngModel)]="State" [ngModelOptions]="{standalone: true}"> -->
-                  <select class="form-control" id="State"
-                    formControlName="State">
-                    <option value>-- Select State --</option>
-                    <option *ngFor="let option of legalStatusOptions"
-                      [value]="option">{{ option }}</option>
+                  <label>State</label>
+                  <select class="form-control" name="State" [(ngModel)]="selectedstate"
+                      [ngModelOptions]="{standalone: true}">
+                      <option value="0" selected>Select State</option>
+                      <option *ngFor="let state of state" [value]="state.state">{{ state.state }}</option>
                   </select>
                 </div>
               </div>
             </div>
-
             <div class="container">
               <table class="table">
                 <thead>
