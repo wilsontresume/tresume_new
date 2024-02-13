@@ -15,20 +15,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let candidates of submittedCandidates">
-          <td>{{ submittedCandidates.SubmittedID }}</td>
-          <td>{{ candidates.FirstName }}</td>
-          <td>{{ candidates.LastName }}</td>
-          <td>{{ candidates.UserName }}</td>
-          <td>{{ candidates.PhoneNumber }}</td>
-          <td>{{ candidates.RecruiterName }}</td>
-        </tr>
-        <tr *ngIf="noResultsFound">
-          <td colspan="6" class="text-center">
-            No results found.
-          </td>
-        </tr>
+        <ng-container *ngIf="submittedCandidates.length > 0; else noResults">
+          <tr *ngFor="let candidate of submittedCandidates">
+            <td>{{ candidate.SubmittedID }}</td>
+            <td>{{ candidate.FirstName }}</td>
+            <td>{{ candidate.LastName }}</td>
+            <td>{{ candidate.UserName }}</td>
+            <td>{{ candidate.PhoneNumber }}</td>
+            <td>{{ candidate.RecruiterName }}</td>
+          </tr>
+        </ng-container>
+        <ng-template #noResults>
+          <tr>
+            <td colspan="6" class="text-center">No results found.</td>
+          </tr>
+        </ng-template>
       </tbody>
     </table>
+  </div>
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

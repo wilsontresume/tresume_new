@@ -13,6 +13,8 @@ export class SubmittedCandidatesService {
 getSubmittedCandidateList(request: any): Observable<any> {
   return this.http.post(this.endpoint + 'getSubmittedCandidateList', request, { responseType: 'blob' });
 }
+
+
 }
 export interface ResponseDetails {
   flag?: any;

@@ -23,6 +23,7 @@
     "@nguniversal/express-engine": "^13.0.1",
     "@ngx-formly/bootstrap": "^5.0.0",
     "@ngx-formly/core": "^5.0.0",
+    "@swimlane/ngx-datatable": "^20.1.0",
     "@types/file-saver": "^2.0.3",
     "admin-lte": "^3.2.0",
     "ag-grid-angular": "^26.0.0",
