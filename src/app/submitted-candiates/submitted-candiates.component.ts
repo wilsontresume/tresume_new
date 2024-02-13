@@ -13,30 +13,31 @@ import { ActivatedRoute } from '@angular/router';
   providers: [SubmittedCandidatesService, CookieService, MessageService],
 })
 export class SubmittedCandiatesComponent implements OnInit {
+
   loading: boolean = false;
   submittedCandidates: any[] = [];
   noResultsFound: boolean = true;
   traineeID: string = '';
   JobID: string = '';
   candidates: any[];
+  jobTitle: string = '';
 
   constructor(private cookieService: CookieService, private service: SubmittedCandidatesService, private messageService: MessageService, private route: ActivatedRoute,) { 
      this.traineeID = this.cookieService.get('traineeID');
-       this.route.params.subscribe(params => {
-      this.JobID = params['jobId']; 
-    });
+    
   }
   ngOnInit(){
-     this.fetchSubmittedCandidateList();
+    
+    this.route.queryParams.subscribe(params => {
+      this.jobTitle = params['jobTitle'];
+      this.fetchSubmittedCandidateList();
+    });
   }
 
+  
   fetchSubmittedCandidateList() {
-    let Req = {
-      JobID: this.JobID,
-      traineeID: this.traineeID,
-    };
     this.loading = true; 
-    this.service.getSubmittedCandidateList(Req).subscribe(
+    this.service.getSubmittedCandidateList(this.jobTitle).subscribe(
       (response: any) => {
         this.submittedCandidates = response.result;
         this.noResultsFound = this.submittedCandidates.length === 0;
@@ -45,7 +46,6 @@ export class SubmittedCandiatesComponent implements OnInit {
       (error) => {
         console.error('Error fetching submitted candidates:', error);
         this.loading = false;
-       
         this.messageService.add({severity:'error', summary:'Error', detail:'Failed to fetch submitted candidates. Please try again.'});
       }
     );

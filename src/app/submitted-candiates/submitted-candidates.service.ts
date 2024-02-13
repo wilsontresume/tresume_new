@@ -10,11 +10,9 @@ export class SubmittedCandidatesService {
 
   constructor(private http: HttpClient) { }
 
-getSubmittedCandidateList(request: any): Observable<any> {
-  return this.http.post(this.endpoint + 'getSubmittedCandidateList', request, { responseType: 'blob' });
-}
-
-
+  getSubmittedCandidateList(jobTitle: string): Observable<any> {
+    return this.http.post<any>(this.endpoint + 'getSubmittedCandidateList', { jobTitle: jobTitle });
+  }
 }
 export interface ResponseDetails {
   flag?: any;
