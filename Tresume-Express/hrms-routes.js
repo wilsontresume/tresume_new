@@ -100,7 +100,7 @@ router.post('/gethrmscandidateList', async (req, res) => {
       console.log(query);
   
       const recordset = await request.query(query);
-  
+      console.log();
       if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
         const result = {
           flag: 1,
@@ -967,7 +967,7 @@ var query = "UPDATE Trainee SET " +
   "FinancialNotes = '" + req.body.FinancialNotes +
   "', Salary = '" + req.body.Salary +
   "', Perdeium = '" + req.body.Perdeium +
-  "', LegalStatus = '" + req.body.LegalStatus1 +
+  "', LegalStatus = '" + req.body.selectedLegalStatus +
   "', MaritalStatus = '" + req.body.MaritalStatus +
   "', StateTaxAllowance = '" + req.body.StateTaxAllowance +
   "', StateTaxExemptions = '" + req.body.StateTaxExemptions +

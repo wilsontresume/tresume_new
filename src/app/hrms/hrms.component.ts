@@ -241,7 +241,27 @@ export class HrmsComponent implements OnInit {
       PageSize: this.pageSize,
       useremail:this.useremail,
       admin:this.isAdmin,
-      searchterm:this.searchterm
+      searchterm:this.searchInput
+    };
+
+    this.service.gethrmscandidateList(Req).subscribe((response: any) => {
+      this.candidates = response.result;
+      this.totalRecords = response.result[0].TotalCount[0];
+      this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
+      this.noResultsFound = this.candidates.length === 0;
+      this.loading = false;
+    });
+  }
+
+  searchhrmscandidatelist(searchterm:string) {
+    this.loading = true;
+    let Req = {
+      TraineeID: this.TraineeID,
+      Page: this.currentPage,
+      PageSize: this.pageSize,
+      useremail:this.useremail,
+      admin:this.isAdmin,
+      searchterm:this.searchInput
     };
 
     this.service.gethrmscandidateList(Req).subscribe((response: any) => {
