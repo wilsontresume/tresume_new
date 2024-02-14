@@ -284,7 +284,8 @@ router.post('/login', async (req, res) => {
         if (err) console.log(err);
         var request = new sql.Request();
         var querypassword;
-        var query1 = "select * from trainee where active = 1 and username like '%"+UserName+"%'";
+        var query1 = "select * from trainee where active = 1 and username = '"+UserName+"'";
+        console.log(query1);
         var responseData;
         request.query(query1,
               function (err, recordset) {

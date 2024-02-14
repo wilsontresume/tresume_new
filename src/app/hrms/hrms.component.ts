@@ -227,7 +227,7 @@ export class HrmsComponent implements OnInit {
   //   });
   // }
 
-  currentPage: number = 1;
+  currentPage: number = 0;
   pageSize: number = 3;
   totalRecords: number;
   totalPages: number;
@@ -266,10 +266,19 @@ export class HrmsComponent implements OnInit {
 
     this.service.gethrmscandidateList(Req).subscribe((response: any) => {
       this.candidates = response.result;
-      this.totalRecords = response.result[0].TotalCount[0];
-      this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
-      this.noResultsFound = this.candidates.length === 0;
-      this.loading = false;
+      console.log(this.candidates);
+      if(this.candidates.length === 0){
+        this.messageService.add({ severity: 'danger', summary: 'No Records Found Please Try Again'});
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.totalRecords = response.result[0].TotalCount[0];
+        this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
+        this.noResultsFound = this.candidates.length === 0;
+       
+      }
+      
+      
     });
   }
 
