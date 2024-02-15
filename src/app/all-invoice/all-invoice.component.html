@@ -51,31 +51,29 @@
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" (click)="openModal($event)">Make inactive</a>
-                    <a class="dropdown-item" href="#">Merge contacts</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#makeInactiveModal">Make inactive</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mergeContactsModal">Merge contacts</a>
                   </div>
                 </div>
 
+              
+                <div class="modal fade" id="makeInactiveModal" tabindex="-1" role="dialog" aria-labelledby="makeInactiveModal" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" id="modal-3">
 
-
-
-
-                <div id="overlay bg" [ngClass]="{'show': isModalOpen}" (click)="closeModal4()">
-                  <div class="modal open" id="myModal" tabindex="-1" role="dialog" [ngClass]="{'show': isModalOpen}">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title">Make Inactive</h4>
-                          <button type="button" class="close" (click)="closeModal4()">
-                            <span>&times;</span>
-                          </button>
+                      <div class="modal-body  modal-body-with-space" >
+                        <div class="exclamation-icon">
+                          <i class="fas fa-exclamation-circle"></i>
                         </div>
-                        <div class="modal-body">
-                          <!-- Your modal content goes here -->
-                          <p>This is a sample modal content.</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" (click)="closeModal4()">Close</button>
+                        <p>Either Tek System Inc or its sub-clients have an open balance. If Tek Systems Inc has sub-clients, making this client inactive and will create one or more adjusting transaction.</p> <br>
+                        <p>If this clients has active projects, it will not be made inactive.</p> <br>
+                        <p>Is this OK?</p>
+                        <hr class="grey-line">
+                        <div class="button-container">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <span class="button-space"></span> <!-- Add this line for spacing -->
+                          <button class="save-button" (click)="save()">Yes, make inactive</button>
+                          
                         </div>
                       </div>
                     </div>
@@ -85,7 +83,81 @@
 
 
 
-                
+
+
+
+                <div class="modal fade" id="mergeContactsModal" tabindex="-1" role="dialog" aria-labelledby="mergeContactsModal" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" id="modal-4">  
+                      <div class="modal-body">
+                        
+                        <div class="row">
+                          <div class="col-md-10">
+                            <!-- Heading "Merge contacts" in the center of the popup -->
+                            <h2 class="text-center darker-heading">Merge Contacts</h2>
+                          </div>
+                          <div class="col-md-2 text-right">
+                            <!-- Close button -->
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        </div> 
+                        <!-- 2. Input text or dropdown for "Merge transactions from" -->
+                        <div class="form-group" style="margin-top: 5rem;">
+                          <label for="mergeFrom">Merge transactions from:</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="mergeFrom" placeholder="Select a value" readonly>
+                            <div class="input-group-append">
+                              <button class="btn dropdown-toggle" type="button" id="mergeFromDropdown" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false" style="width: 43px;"></button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Option 1</a>
+                                <a class="dropdown-item" href="#">Option 2</a>
+                                <a class="dropdown-item" href="#">Option 3</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <!-- 3. Paragraph below the input -->
+                        <p> <i class="fas fa-exclamation-circle" style="color: orangered;"></i> Make sure to save any address, phone numbers, or other details from this contact. After you merge transactions, all info from this contact will be deleted. </p>
+                    
+                        <!-- 4. Input for "Into" -->
+                        <div class="form-group">
+                          <label for="mergeInto" class="light-label">Into:</label>
+
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="mergeInto" placeholder="Select a value" readonly>
+                            <div class="input-group-append">
+                              <button class="btn dropdown-toggle" type="button" id="mergeIntoDropdown" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"style="width: 43px;"></button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Option A</a>
+                                <a class="dropdown-item" href="#">Option B</a>
+                                <a class="dropdown-item" href="#">Option C</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <hr class="grey-line">
+                        
+                        <div class="button-container" style="margin-top: 4rem;">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <span class="button-space"></span>
+                          <button class="save-button" (click)="save()">Merge</button>
+                        </div>
+                      </div>
+                    
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                   aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -201,8 +273,8 @@
                     <a class="dropdown-item" href="#">Sales Receipt</a>
                     <a class="dropdown-item" href="#">Credit Memo</a>
                     <a class="dropdown-item" href="#">Delayed Charge</a>
-                    <a class="dropdown-item" href="#">Time Activity</a>
-                    <a class="dropdown-item" href="#">Statement</a>
+                    <a class="dropdown-item" href="time-activity">Time activity</a>
+                    <a class="dropdown-item" href="create-statements">Statement</a>
 
                   </div>
 

@@ -25,33 +25,46 @@ throw new Error('Method not implemented.');
   isModalOpen = false;
   shareLink = '';
   row: any;
+ 
+  tableData = [
+    {
+      date: '11/17/23',
+      type: 'Invoice',
+      number: '90801',
+      clientProject: 'TEK system Inc: Shushant Bathini',
+      memo: '11/17/2023 to 08/04/2023',
+      amount: '$2,440.00',
+      status: '<span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Sent 03/04/22'
+    },
+    // Add more data objects as needed
+  ];
 
+// openModal1() {
+//   // Show the modal and overlay
+//   this.isModalOpen = true;
+// }
 
-openModal1() {
-  // Show the modal and overlay
-  this.isModalOpen = true;
-}
+// openModal(event: Event) {
+//   // Prevent the default behavior of the anchor link
+//   event.preventDefault();
 
-openModal(event: Event) {
-  // Prevent the default behavior of the anchor link
-  event.preventDefault();
+//   // Show the modal by manipulating the DOM directly
+//   const modalElement = document.getElementById('myModal');
+//   if (modalElement) {
+//     modalElement.classList.add('show');
+//     modalElement.style.display = 'block';
+//   }
+// }
 
-  // Show the modal by manipulating the DOM directly
-  const modalElement = document.getElementById('myModal');
-  if (modalElement) {
-    modalElement.classList.add('show');
-    modalElement.style.display = 'block';
-  }
-}
+// closeModal4() {
+//   // Close the modal by manipulating the DOM directly
+//   const modalElement = document.getElementById('myModal');
+//   if (modalElement) {
+//     modalElement.classList.remove('show');
+//     modalElement.style.display = 'none';
+//   }
+// }
 
-closeModal4() {
-  // Close the modal by manipulating the DOM directly
-  const modalElement = document.getElementById('myModal');
-  if (modalElement) {
-    modalElement.classList.remove('show');
-    modalElement.style.display = 'none';
-  }
-}
 
 
 confirmDelete() {

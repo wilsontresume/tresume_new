@@ -162,6 +162,8 @@ import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sh
 import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.component';
 import { DatePipe } from '@angular/common';
 import { TruncatePipe } from './truncate.pipe';
+import { TimeActivityComponent } from './all-invoice/time-activity/time-activity.component';
+import { CreateStatementsComponent } from './all-invoice/create-statements/create-statements.component';
 
 @NgModule({
   declarations: [
@@ -257,6 +259,8 @@ import { TruncatePipe } from './truncate.pipe';
       NewTimeSheetReportComponent,
       SendInvoiceComponent,
       TruncatePipe,
+      TimeActivityComponent,
+      CreateStatementsComponent,
     // TimesheetViewdetailsComponent
 
   ],

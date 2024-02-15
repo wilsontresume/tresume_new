@@ -1,0 +1,130 @@
+<div class="container-fluid p-3">
+    <div class="head d-flex justify-content-between p-3">
+      <h2>Create Statements</h2>
+  
+    </div>
+  
+    <body>
+
+
+<div class="container mt-3">
+    <div class="row my-2">
+      <div class="col-md-3">
+        <!-- Dropdown for Statement Type -->
+        <div class="form-group" style="margin-top: 11px;">
+          <label for="statementType">Statement Type</label>
+          <select class="form-control" id="statementType">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row my-2">
+      <div class="col-md-3">
+        <!-- Date Input for Statement Date -->
+        <div class="form-group">
+          <label for="statementDate">Statement Date</label>
+          <input type="date" class="form-control" id="statementDate">
+        </div>
+      </div>
+    </div>
+  
+    <div class="row my-2">
+        <div class="col-md-3">
+          <!-- Start Date Input -->
+          <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input type="date" class="form-control" id="startDate" [(ngModel)]="startDate">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <!-- End Date Input -->
+          <div class="form-group">
+            <label for="endDate">End Date</label>
+            <input type="date" class="form-control" id="endDate" [(ngModel)]="endDate">
+          </div>
+        </div>
+      </div>
+    
+      <div class="row my-2">
+      </div>
+
+      <div *ngIf="showHiddenContent" style="    margin-top: 3rem;">
+        <!-- Display your hidden table contents here -->
+
+        <div class="balance-card">
+            <mat-card class="square-card">
+              <mat-card-header>
+                <h3 style="margin-left: -39px;">
+                  TOTAL BALANCE FOR 1ST CUSTOMER    
+                </h3>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{ balanceAmount | currency: 'USD' }}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+
+        
+        <mat-tab-group style="margin-top: 4rem;">
+            <!-- Tab 1: Missing email address -->
+            <mat-tab label="Missing Email Address">
+              <!-- Content for Missing Email Address tab -->
+              <p>Content for Missing Email Address tab</p>
+            </mat-tab>
+ <!-- Tab 2: Statements Available -->
+ <mat-tab label="Statements Available">
+    <!-- Content for Statements Available tab -->
+    <div class="row my-2">
+      <div class="col-md-12">
+        <!-- Statements Available Table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Check Box</th>
+              <th>Recipients</th>
+              <th>Email Address</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>Tek System Inc</td>
+              <td><input type="text" class="form-control"></td>
+              <td>-$69,384.55</td>            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>        
+        <table class="table">
+          <!-- Your table contents -->
+        </table>
+      </div>
+
+
+      
+  
+    <div class="row my-2">
+      <div class="col-md-3">
+        <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom" (click)="applyChanges()" title="If you make changes to any of the statement criteria,you need to click Apply to update the balance and number of customers. This does not save the statements.">Apply</button>      </div>
+    </div>
+
+  
+  </div>
+      
+  
+
+
+
+
+
+
+
