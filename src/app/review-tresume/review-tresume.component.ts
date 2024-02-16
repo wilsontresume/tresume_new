@@ -752,6 +752,19 @@ export class ReviewTresumeComponent implements OnChanges {
       this.otherNotes = x.result[0].Notes || '';
       this.division = x.result[0].division || '';
       this.dob = x.result[0].DOB || '';
+      this.contactName = x.result[0].EmergConName || '';
+      this.contactPhone = x.result[0].EmergConPhone || '';
+      this.contactEmail = x.result[0].EmergConemail || '';
+      this.passportNumber = x.result[0].PassportNumber || '';
+      this.personalInfoAddress = x.result[0].Address || '';
+      this.personalInfoAddress1 = x.result[0].addressline2 || '';
+      this.personalInfoCountry = x.result[0].Country || '';
+      this.personalState = x.result[0].state || '';
+      this.personalCity = x.result[0].City || '';
+      this.personalZipcode = x.result[0].Zipcode || '';
+      this.addressType = x.result[0].AddressType || '';
+      this.passportvalStartdate = x.result[0].PassvalidateStartdate || '';
+      this.passportvalenddate = x.result[0].Passvalidateenddate || '';
 
       // this.FormGeneral.patchValue({
         
