@@ -621,12 +621,7 @@ router.post("/getCandidateInfo", async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = new sql.Request();
-    const query =
-      "select t.FTCNotes,t.FirstName ,t.LastName ,t.MiddleName,CONVERT(NVARCHAR(10),t.DOB,101) AS DOB,T.PhoneNumber,(t.FirstName + ' '+t.LastName) as Name,t.UserName,Cs.CSName,T.Candidatestatus,d.Value,t.division,t.SSn,T.RecruiterName,t.marketername,T.ReferredBy,T.DealOffered,t.DuiFelonyInfo,T.EmergConName,t.EmergConPhone,t.EmergConemail,t.ReferredBy_external,t.PassportNumber,t.Address,t.validateNumber, CONVERT(NVARCHAR(10),t.statusdate,101) AS statusdate,CONVERT(NVARCHAR(10),t.LegalStatusValidFrom,101) AS Legalstartdate, CONVERT(NVARCHAR(10),t.LegalStatusValidTo,101) AS Legalenddate,CONVERT(NVARCHAR(10),t.PassValidityEndDate,101) AS Passvalidateenddate,CONVERT(NVARCHAR(10),t.PassvalidityStartDate,101) AS PassvalidateStartdate,CONVERT(NVARCHAR(10),t.validateEnddate,101) AS ValidateEndDate,CONVERT(NVARCHAR(10),t.EmploymentStartDate,101) AS EmploymentStartDate,CONVERT(NVARCHAR(10),t.EmploymentEndDate,101) AS EmploymentEndDate,t.Title,t.Skill,t.Country,t.state,t.City,t.Zipcode,t.Notes,t.LegalStatus,  t.FinancialNotes,t.Salary,t.State,t.Perdeium,t.MaritalStatus,t.LCARate,t.FState,t.GCWages,t.StateTaxAllowance,t.StateTaxExemptions,t.FederalTaxAllowance,t.HealthInsurance,t.LifeInsurance,t.FederalTaxAdditionalAllowance,t.Bank1Name,t.Bank1AccountType,t.Bank1AccountNumber,t.Bank1RoutingNumber,t.SalaryDepositType,t.HowMuch,t.Bank2Name,t.Bank2AccountType,t.Bank2AccountNumber,t.Bank2RoutingNumber,CONVERT(NVARCHAR(10),t.Lcadate,101) AS Lcadate,CONVERT(NVARCHAR(10),t.Gcdate,101) AS Gcdate from Trainee t LEFT Join Currentstatus cs On cs.CsID=T.Candidatestatus LEFT Join Department d On d.DepartmentID = T.Division   left Join Phone p On p.PhoneID=(select TOP 1 PhoneID from TraineePhone where TraineeID='" +
-      req.body.TraineeID +
-      "'AND Active = 1) AND p.Active = 1  where TraineeID = '" +
-      req.body.TraineeID +
-      "' and t.Active=1";
+    const query = "select t.FTCNotes,t.FirstName ,t.LastName ,t.MiddleName,CONVERT(NVARCHAR(10),t.DOB,101) AS DOB,T.PhoneNumber,(t.FirstName + ' '+t.LastName) as Name,t.UserName,Cs.CSName,T.Candidatestatus,d.Value,t.division,t.SSn,T.RecruiterName,t.marketername,T.ReferredBy,T.DealOffered,t.DuiFelonyInfo,T.EmergConName,t.EmergConPhone,t.EmergConemail,t.ReferredBy_external,t.PassportNumber,t.Address,t.addressline2,t.validateNumber, CONVERT(NVARCHAR(10),t.statusdate,101) AS statusdate,CONVERT(NVARCHAR(10),t.LegalStatusValidFrom,101) AS Legalstartdate, CONVERT(NVARCHAR(10),t.LegalStatusValidTo,101) AS Legalenddate,CONVERT(NVARCHAR(10),t.PassValidityEndDate,101) AS Passvalidateenddate,CONVERT(NVARCHAR(10),t.PassvalidityStartDate,101) AS PassvalidateStartdate,CONVERT(NVARCHAR(10),t.validateEnddate,101) AS ValidateEndDate,CONVERT(NVARCHAR(10),t.EmploymentStartDate,101) AS EmploymentStartDate,CONVERT(NVARCHAR(10),t.EmploymentEndDate,101) AS EmploymentEndDate,t.Title,t.Skill,t.Country,t.state,t.City,t.Zipcode,t.AddressType,t.Notes,t.LegalStatus,  t.FinancialNotes,t.Salary,t.State,t.Perdeium,t.MaritalStatus,t.LCARate,t.FState,t.GCWages,t.StateTaxAllowance,t.StateTaxExemptions,t.FederalTaxAllowance,t.HealthInsurance,t.LifeInsurance,t.FederalTaxAdditionalAllowance,t.Bank1Name,t.Bank1AccountType,t.Bank1AccountNumber,t.Bank1RoutingNumber,t.SalaryDepositType,t.HowMuch,t.Bank2Name,t.Bank2AccountType,t.Bank2AccountNumber,t.Bank2RoutingNumber,CONVERT(NVARCHAR(10),t.Lcadate,101) AS Lcadate,CONVERT(NVARCHAR(10),t.Gcdate,101) AS Gcdate from Trainee t LEFT Join Currentstatus cs On cs.CsID=T.Candidatestatus LEFT Join Department d On d.DepartmentID = T.Division   left Join Phone p On p.PhoneID=(select TOP 1 PhoneID from TraineePhone where TraineeID='"+req.body.TraineeID+"'AND Active = 1) AND p.Active = 1  where TraineeID = '"+req.body.TraineeID+"' and t.Active=1";
 
     console.log(query);
 
@@ -1101,44 +1096,36 @@ router.post("/updateGeneral", async function (req, res) {
   try {
     var query =
       "UPDATE Trainee SET " +
-      "  ReferredBy = " +
-      formatValue(req.body.ReferredBy) +
-      ", DealOffered = " +
-      formatValue(req.body.DealOffered) +
-      ", Division = " +
-      formatValue(req.body.division) +
-      ", DOB = " +
-      formatValue(req.body.dob) +
-      ", DuiFelonyInfo = " +
-      formatValue(req.body.duiFelonyInfo) +
-      ", FirstName = " +
-      formatValue(req.body.firstName) +
-      ", FTCNotes = " +
-      formatValue(req.body.ftcNotes) +
-      ", UserName = " +
-      formatValue(req.body.generalEmail) +
-      ", LastName = " +
-      formatValue(req.body.lastName) +
-      ", LegalStatusValidFrom = " +
-      formatValue(req.body.legalStatusVal) +
-      ", LegalStatusValidTo = " +
-      formatValue(req.body.legalStatusValend) +
-      ", MiddleName = " +
-      formatValue(req.body.middleName) +
-      ", Notes = " +
-      formatValue(req.body.otherNotes) +
-      ", PhoneNumber = " +
-      formatValue(req.body.phoneNumberG) +
-      ", RecruiterName = " +
-      formatValue(req.body.recruiterName) +
-      ", ReferredBy_external = " +
-      formatValue(req.body.refered) +
-      ", LegalStatus = " +
-      formatValue(req.body.selectedLegalStatus) +
-      ", candidatestatus = " +
-      formatValue(req.body.selectedcurrentstatus) +
-      ", statusdate = " +
-      formatValue(req.body.statusDate) +
+      "  ReferredBy = " + formatValue(req.body.ReferredBy) +
+      ", DealOffered = " + formatValue(req.body.DealOffered) +
+      ", Division = " + formatValue(req.body.division) +
+      ", DOB = " + formatValue(req.body.dob) +
+      ", DuiFelonyInfo = " + formatValue(req.body.duiFelonyInfo) +
+      ", FirstName = " + formatValue(req.body.firstName) +
+      ", FTCNotes = " + formatValue(req.body.ftcNotes) +
+      ", UserName = " + formatValue(req.body.generalEmail) +
+      ", LastName = " + formatValue(req.body.lastName) +
+      ", LegalStatusValidFrom = " + formatValue(req.body.legalStatusVal) +
+      ", LegalStatusValidTo = " + formatValue(req.body.legalStatusValend) +
+      ", MiddleName = " + formatValue(req.body.middleName) +
+      ", Notes = " + formatValue(req.body.otherNotes) +
+      ", PhoneNumber = " + formatValue(req.body.phoneNumberG) +
+      ", RecruiterName = " + formatValue(req.body.recruiterName) +
+      ", ReferredBy_external = " + formatValue(req.body.refered) +
+      ", LegalStatus = " + formatValue(req.body.selectedLegalStatus) +
+      ", statusdate = " + formatValue(req.body.statusDate) +
+      ", EmergConName = " + formatValue(req.body.EmergencyCname) +
+      ", EmergConPhone = " + formatValue(req.body.EmergencyPhone) +
+      ", EmergConemail = " + formatValue(req.body.EmergencyEmail) +
+      ", PassportNumber = " + formatValue(req.body.PassportNumber) +
+      ", Address = " + formatValue(req.body.AddressLine1) +
+      ", addressline2 = " + formatValue(req.body.AddressLine2) +
+      ", country = " + formatValue(req.body.Country) +
+      ", state = " + formatValue(req.body.State) +
+      ", City = " + formatValue(req.body.City) +
+      ", Zipcode = " + formatValue(req.body.Zipcode) +
+      ", AddressType = " + formatValue(req.body.AddressType) +
+
       " WHERE " +
       "  TraineeID = " +
       formatValue(req.body.TraineeID);
