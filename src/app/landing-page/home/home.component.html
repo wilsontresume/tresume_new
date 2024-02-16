@@ -54,12 +54,16 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-8">
-                  <div class="content">
+                  <div class="content" style="margin-top: -4rem;">
                     <h3 data-animation="animated slideInRight" style="text-align: justify; font-size: 30px;">
-                      Welcome to Tresume -The Ultimate 360* ATS and Workforce Management System for Smart and Efficient Recruitment
+                    <p style="font-size: 33px;
+                    font-weight: 700;">  Tresume - The Ultimate 360&deg; ATS and Workforce</p>
+                      <p style="font-size: 33px;
+                      font-weight: 700;">Management System for Smart and Efficient Recruitment
+                      </p>
                     </h3>
                     <h1 data-animation="animated slideInLeft">
-                      <span>Empowering</span> Your Hiring Process
+                      <span>Empowering</span> Your  <span>Hiring</span> Process
                     </h1>
                     <!-- <p>
                       Tresume offers a cutting-edge Applicant Tracking System (ATS) platform that seamlessly integrates with top job boards,
@@ -421,10 +425,10 @@
             <div class="footer-social-icon">
               <span>Follow us</span>
               <ul class="social_icon">
-                <li><a href="https://www.facebook.com/p/Tresume-100057032697312/"> <i class="fa fa-facebook"></i></a></li>
-                <li><a href="https://twitter.com/Tresume2"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="https://www.linkedin.com/company/tresume/"><i class="fa fa-linkedin-square"></i></a></li>
-                <li><a href="https://www.youtube.com/@tresumeus3304/featured"><i class="fa fa-youtube"></i></a></li>
+                <li><a href="https://www.facebook.com/p/Tresume-100057032697312/" target="_blank"> <i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/Tresume2"  target="_blank"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="https://www.linkedin.com/company/tresume/"  target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
+                <li><a href="https://www.youtube.com/@tresumeus3304/featured"  target="_blank"><i class="fa fa-youtube"></i></a></li>
               </ul>
             </div>
           </div>
@@ -435,15 +439,14 @@
               <h3>Useful Links</h3>
             </div>
             <ul>
-              <li><a href="#">Our Team</a></li>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Our Gallery</a></li>
-              <li><a href="#">Selection Process</a></li>
-              <li><a href="#">FAQ</a></li>
-              <li><a href="#">Sponsorship</a></li>
-              <li><a href="#">Our Policies</a></li>
-              <li><a href="#">Our Team</a></li>
-              <li><a href="#">Contact us</a></li>
+              <li><a routerLink="/about"  href="#">About Us</a></li>
+              <li><a routerLink="/market" href="#">MarketPlace</a></li>
+              <li><a routerLink="/features" href="#">Features</a></li>
+              <li><a routerLink="/contact" href="#">Contact us</a></li>
+              <li><a  routerLink="/workforce" href="#">WorkForce</a></li>
+              <li><a routerLink="/timesheet">TimeSheet</a></li>
+              <li><a  routerLink="/ats">ATS</a></li>
+              <li><a routerLink="/talent-suite">Talent Suite</a></li>
             </ul>
           </div>
         </div>
@@ -456,9 +459,8 @@
               <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
             </div>
             <div class="subscribe-form">
-              <form action="#">
-                <input type="text" placeholder="Email Address">
-                <button><i class="fa fa-telegram" aria-hidden="true"></i></button>
+              <form action="#" >
+                <li style="text-align: center;font-size: 22px;"><a routerLink="/contact" style="color: white; font-weight: bold;">Contact us</a></li>
               </form>
             </div>
           </div>
@@ -478,7 +480,7 @@
           <div class="footer-menu">
             <ul>
               <li><a href="#">Home</a></li>
-              <li><a href="#">Terms</a></li>
+                <li><a href="#">Terms</a></li>
               <li><a href="#">Privacy</a></li>
               <li><a href="#">Policy</a></li>
               <li><a href="#">Contact</a></li>
