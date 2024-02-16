@@ -1,8 +1,16 @@
 <div class="header p-3">
   <div class="container-fluid">
-
+<div class="row">
+  <div class="col-md-6">
     <button class="btn btn-primary mt-3" (click)="movetoTB()" *ngIf="routeType == 1">Move to Talent
       Bench</button>
+  </div>
+  <div class="col-md-6">
+    <button class="btn btn-primary mt-3 float-right" (click)="movetoBack()" >Back</button>
+  </div>
+</div>
+    
+      
     <!-- General tab -->
 
     <mat-tab-group (selectedIndexChange)="onTabChange($event)"
@@ -168,10 +176,10 @@
             <div class="row mt-2">
               <div class="col-md-4">
                 <label for="general">Legal Status</label>
-                <select class="form-control" name="LegalStatus" [(ngModel)]="LegalStatus"
+                <select class="form-control" name="LegalStatus" [(ngModel)]="selectedLegalStatus"
                 [ngModelOptions]="{standalone: true}">
                 <option value>-- Select Legal Status --</option>
-                <option *ngFor="let stat of legalStatusOptions" [value]="stat.LegalStatusID">{{ stat.LegalValue }}
+                <option *ngFor="let stat of legalStatusOptions" [value]="stat.LegalValue">{{ stat.LegalText }}
                 </option>
               </select>
               </div>
@@ -242,76 +250,86 @@
                   <div class="col-md-2 form-group">
                     <label for="education1">Degree</label>
                     <input type="text" class="form-control" id="degree"
-                      placeholder="Degree" [(ngModel)]="education.degree">
+                      placeholder="Degree" [(ngModel)]="education.Title" (change)="UpdateTresumeNode(1,education)">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education2">University</label>
                     <input type="text" class="form-control" id="university"
                       placeholder="University"
-                      [(ngModel)]="education.university">
+                      [(ngModel)]="education.Org" (change)="UpdateTresumeNode(1,education)">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education3">Attended from</label>
-                    <input type="text" class="form-control" id="attendedfrom"
+                    <input type="date" class="form-control" id="attendedfrom"
                       placeholder="Attended from"
-                      [(ngModel)]="education.attendedfrom">
+                      [ngModel]="education.NodeDate | date:'yyyy-MM-dd'"
+                      (ngModelChange)="education.NodeDate = $event" (change)="UpdateTresumeNode(1,education)">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education4">Attended to</label>
-                    <input type="text" class="form-control" id="attendedto"
+                    <input type="date" class="form-control" id="attendedto"
                       placeholder="Attended to"
-                      [(ngModel)]="education.attendedto">
+                      [ngModel]="education.NodeDateTo | date:'yyyy-MM-dd'"
+                      (ngModelChange)="education.NodeDateTo = $event" (change)="UpdateTresumeNode(1,education)">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="education5">University Address</label>
                     <input type="text" class="form-control" id="univAddress"
                       placeholder="University Address"
-                      [(ngModel)]="education.univAddress">
+                      [(ngModel)]="education.Location" (change)="UpdateTresumeNode(1,education)">
                   </div>
                   <div class="col-md-1">
                     <button class="btn mt-4 mb-2 mr-2"
-                      (click)="deleteRow(i)">&#xd7;</button>
+                      (click)="deleteRow(i,education.TresumeNodeID)">&#xd7;</button>
                   </div>
                 </div>
-                <div class="col-md-1 float-right">
-                  <button class="btn mt-4 mb-3 mr-5"
-                    (click)="addRow()">&#x2b;</button>
+                <div class="col-md-2 float-right">
+                  <button class="btn btn-sm mt-4 mb-3 mr-5"
+                    (click)="addRow()">&#x2b; Add Education</button>
                 </div>
               </div>
               <div class="tab-pane fade" id="experience" role="tabpanel"
                 aria-labelledby="experience-tab">
                 <div *ngFor="let experience of experiences; let i = index"
                   class="row" [id]="'experienceRow' + i">
-                  <div class="col-md-3 form-group">
+                  <div class="col-md-2 form-group">
                     <label for="experience1">Title</label>
                     <input type="text" class="form-control" id="experience1"
-                      placeholder="Title" [(ngModel)]="experience.title">
+                      placeholder="Title" [(ngModel)]="experience.Title" (change)="UpdateTresumeNode(2,experience)">
                   </div>
-                  <div class="col-md-3 form-group">
+                  <div class="col-md-2 form-group">
+                    <label for="education2">Organization</label>
+                    <input type="text" class="form-control" id="university"
+                      placeholder="University"
+                      [(ngModel)]="experience.Org" (change)="UpdateTresumeNode(2,experience)">
+                  </div>
+                  <div class="col-md-2 form-group">
                     <label for="experience2">Employment Start Date</label>
                     <input type="text" class="form-control" id="experience2"
                       placeholder="Employment Start Date"
-                      [(ngModel)]="experience.startDate">
+                      [ngModel]="experience.NodeDate | date:'yyyy-MM-dd'"
+                      (ngModelChange)="experience.NodeDate = $event" (change)="UpdateTresumeNode(2,experience)">
                   </div>
-                  <div class="col-md-3 form-group">
+                  <div class="col-md-2 form-group">
                     <label for="experience3">Employment End Date</label>
                     <input type="text" class="form-control" id="experience3"
                       placeholder="Employment End Date"
-                      [(ngModel)]="experience.endDate">
+                      [ngModel]="experience.NodeDateTo | date:'yyyy-MM-dd'"
+                      (ngModelChange)="experience.NodeDateTo = $event" (change)="UpdateTresumeNode(2,experience)">
                   </div>
                   <div class="col-md-2 form-group">
                     <label for="experience4">Skill(s)</label>
                     <input type="text" class="form-control" id="experience4"
-                      placeholder="Skill(s)" [(ngModel)]="experience.skills">
+                      placeholder="Skill(s)" [(ngModel)]="experience.Skill" (change)="UpdateTresumeNode(2,experience)">
                   </div>
                   <div class="col-md-1">
                     <button class="btn mt-4 mb-2 mr-2"
-                      (click)="deleteRow1(i)">&#xd7;</button>
+                      (click)="deleteRow1(i,experience.TresumeNodeID)">&#xd7;</button>
                   </div>
                 </div>
-                <div class="col-md-1 float-right">
-                  <button class="btn mt-4 mb-3 mr-5"
-                    (click)="addRow1()">&#x2b;</button>
+                <div class="col-md-2 float-right">
+                  <button class="btn btn-sm mb-3 mr-5"
+                    (click)="addRow1()">&#x2b; Experiance</button>
                 </div>
               </div>
               <div class="tab-pane fade" id="personalinfo" role="tabpanel"
@@ -591,7 +609,7 @@
 
           <div class="col-md-12 mt-3 text-right">
             <button class="btn"
-              [routerLink]="['/candidateView/'+candidateID+'/create']"
+              [routerLink]="['/candidateView/'+candidateID+'/create/'+routeType]"
               routerLinkActive="active">Add</button>
           </div>
         </div>
@@ -944,18 +962,15 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
-                  <label for="State">State</label>
-                  <!-- <select class="form-control" id="State"  [(ngModel)]="State" [ngModelOptions]="{standalone: true}"> -->
-                  <select class="form-control" id="State"
-                    formControlName="State">
-                    <option value>-- Select State --</option>
-                    <option *ngFor="let option of legalStatusOptions"
-                      [value]="option">{{ option }}</option>
+                  <label>State</label>
+                  <select class="form-control" name="State" [(ngModel)]="selectedstate"
+                      [ngModelOptions]="{standalone: true}">
+                      <option value="0" selected>Select State</option>
+                      <option *ngFor="let state of state" [value]="state.state">{{ state.state }}</option>
                   </select>
                 </div>
               </div>
             </div>
-
             <div class="container">
               <table class="table">
                 <thead>
@@ -1206,11 +1221,11 @@
         <div class="col">
           <label for="legal-status">Legal Status*</label>
           <select class="form-control" name="legalStatus" 
-            [(ngModel)]="legalStatus"
+            [(ngModel)]="selectedLegalStatus"
             [ngModelOptions]="{standalone: true}">
             <option value>-- Select Legal Status --</option>
             <option *ngFor="let stat of legalStatusOptions"
-              [value]="stat.LegalStatusID">{{ stat.LegalValue }}
+              [value]="stat.LegalValue">{{ stat.LegalText }}
             </option>
           </select>
         </div>
@@ -1241,7 +1256,7 @@
           <label for="availability">Availability*</label>
           <select name id class="form-control" [(ngModel)]="Availability"
           [ngModelOptions]="{standalone: true}">
-            <option value>Select</option>
+            <option value="0">Select</option>
             <option value="immediately">Immedidately</option>
             <option value="1week">1 Week</option>
             <option value="2week">2 Week</option>
@@ -1249,12 +1264,12 @@
           </select>
         </div>
         <div class="col">
-          <label for="candidate-status">Candidate Status {{test}}</label>
+          <label for="candidate-status">Candidate Status</label>
           <select class="form-control" id="currentStatus"
             [(ngModel)]="selectedcurrentstatus"
             [ngModelOptions]="{standalone: true}">
             <option *ngFor="let option of  currentStatusOptions"
-              [value]="option.CandidateStatusID">{{ option.Value
+              [value]="option.CSID">{{ option.CSName
               }}</option>
           </select>
         </div>

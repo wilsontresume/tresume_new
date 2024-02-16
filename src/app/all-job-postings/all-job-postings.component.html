@@ -43,7 +43,7 @@
         <td>{{ job.PayRate }}</td>
         <td>{{ job.NewApplicants }}</td>
         <td>
-          {{ job.totalApplicants }}
+          {{ job.TotalApplicants }}
           <a [routerLink]="['/applicantdetails']">
             <i class="fas fa-external-link-alt"></i></a>
         </td>
@@ -63,7 +63,7 @@
         </td>
         <td>
           <a [routerLink]="['/Myjobs/createnewjob']"><i class="fas fa-pencil-alt"></i></a>
-          <a [routerLink]="['/submittedcandidates']"><i class="fas fa-id-badge"></i></a>
+          <a [routerLink]="['/submitted-candidates']"><i class="fas fa-id-badge"></i></a>
           <i class="fas fa-trash-alt" data-toggle="modal" data-target="#exampleModal"></i>
         </td>
       </tr>

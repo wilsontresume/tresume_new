@@ -38,6 +38,13 @@ export class TalentBenchComponent implements OnInit {
   candidateID:any;
   routeType: any;
 
+  currentPage: number = 0;
+  pageSize: number = 3;
+  totalRecords: number;
+  totalPages: number;
+  pagesToShow: number = 10;
+  searchInput:string = '';
+
   constructor(private dialog: MatDialog, private cookieService: CookieService, private service: TalentBenchService, private messageService: MessageService, private formBuilder: FormBuilder,private route: ActivatedRoute, private renderer: Renderer2, private el: ElementRef,private datePipe: DatePipe) {
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
@@ -175,8 +182,8 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         this.loading = false; 
       },
       (error: any) => {
-        this.loading = false;
-        this.handleError(error);
+        this.loading = false;   
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No Record Found' });
       }
     );
   }
@@ -194,7 +201,10 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       },
       (error: any) => {
         this.loading = false;
-        this.handleError(error);
+        // this.handleError(error);
+        // this.messageService.add({ severity: 'error',  });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No Record Found' });
+
       }
     );
   }
@@ -211,8 +221,8 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         this.loading = false; 
       },
       (error: any) => {
-        this.loading = false;
-        this.handleError(error);
+        this.loading = false;      
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No Record Found' });
       }
     );
   }
@@ -425,21 +435,61 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   }
 
   fetchtalentbenchlist() {
-
+    this.loading = true;
     let Req = {
       traineeID: this.TraineeID,
-      OrganizationID: this.OrgID
+      OrganizationID: this.OrgID,
+      username:this.userName,
+      Page: this.currentPage,
+      searchterm: this.searchInput,
+      startdate:'',
+      enddate:''
     };
     this.service.getTalentBenchList(Req).subscribe((x: any) => {
       this.tableData = x.result;
       this.noResultsFound = this.tableData.length === 0;
-      this.loading = false;
-      this.tableData.forEach(item => {
-        const age = item.age;
-      });
+      if(this.tableData.length === 0){
+        this.messageService.add({ severity: 'danger', summary: 'No Records Found Please Try Again'});
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.tableData.forEach(item => {
+          const age = item.age;
+        });
+      }
     });
 
   }
+
+  searchhtalentbenchlist(searchterm:string) {
+this.loading = true;
+    let Req = {
+      traineeID: this.TraineeID,
+      OrganizationID: this.OrgID,
+      username:this.userName,
+      Page: 0,
+      searchterm:this.searchInput,
+      startdate:'',
+      enddate:''
+    };
+    this.service.getTalentBenchList(Req).subscribe((x: any) => {
+      this.tableData = x.result;
+      this.noResultsFound = this.tableData.length === 0;
+      if(this.tableData.length === 0){
+        this.messageService.add({ severity: 'danger', summary: 'No Records Found Please Try Again'});
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.tableData.forEach(item => {
+          const age = item.age;
+        });
+      }
+     
+    });
+
+  }
+
+
   getBackgroundColor(age: number | null): string {
     if (age === null) {
       return 'transparent'; 
@@ -463,17 +513,35 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   filterTableData() {
     const startDateTime = this.startDate ? new Date(this.startDate) : null;
     const endDateTime = this.endDate ? new Date(this.endDate) : null;
-
-    this.filteredTableData = this.tableData.filter(item => {
-      const itemCreateTime = new Date(item.CreateTime); 
-
-      return (
-        (!startDateTime || itemCreateTime >= startDateTime) &&
-        (!endDateTime || itemCreateTime <= endDateTime)
-      );
+    this.searchInput = '';
+    let Req = {
+      traineeID: this.TraineeID,
+      OrganizationID: this.OrgID,
+      username:this.userName,
+      Page: 0,
+      searchterm:'',
+      startdate:startDateTime,
+      enddate:endDateTime
+    };
+    this.service.getTalentBenchList(Req).subscribe((x: any) => {
+      this.tableData = x.result;
+      this.noResultsFound = this.tableData.length === 0;
+      if(this.tableData.length === 0){
+        this.messageService.add({ severity: 'danger', summary: 'No Records Found Please Try Again'});
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.tableData.forEach(item => {
+          const age = item.age;
+        });
+      }
+     
     });
+
+    
     this.loading = false;
   }
+
   initializeData() {
     this.filterTableData();
     this.loading = true;
@@ -624,5 +692,47 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     private handleError(response: any): void {
       this.messageService.add({ severity: 'error', summary:  response.message });
       this.loading = false;
+    }
+
+    onPageChange(pageNumber: number) {
+      this.currentPage = pageNumber;
+      this.fetchtalentbenchlist();
+    }
+
+  
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.fetchtalentbenchlist();
+      }
+    }
+  
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.fetchtalentbenchlist();
+      }
+    }
+  
+    calculatePageRange(): number[] {
+      const currentPageIndex = this.currentPage - 1;
+      const halfPagesToShow = Math.floor(this.pagesToShow / 2);
+      let startPage: number, endPage: number;
+  
+      if (this.totalPages <= this.pagesToShow) {
+        startPage = 1;
+        endPage = this.totalPages;
+      } else if (currentPageIndex - halfPagesToShow <= 0) {
+        startPage = 1;
+        endPage = this.pagesToShow;
+      } else if (currentPageIndex + halfPagesToShow >= this.totalPages) {
+        startPage = this.totalPages - this.pagesToShow + 1;
+        endPage = this.totalPages;
+      } else {
+        startPage = currentPageIndex - halfPagesToShow + 1;
+        endPage = startPage + this.pagesToShow - 1;
+      }
+  
+      return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
     }
 }

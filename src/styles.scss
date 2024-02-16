@@ -296,3 +296,6 @@ body {
 //   flex-basis: auto;
 //   justify-content: center;
 // }
+.modal-backdrop {
+  display: none; /* Completely hide the backdrop */
+}

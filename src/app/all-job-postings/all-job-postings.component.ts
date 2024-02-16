@@ -27,7 +27,7 @@ export class AllJobPostingsComponent implements OnInit{
 ngOnInit(): void {
   this.loading = true;
   this.OrgID = this.cookieService.get('OrgID');
-  this.JobID = this.cookieService.get('userName1');
+  // this.JobID = this.cookieService.get('userName1');
   this.TraineeID = this.cookieService.get('TraineeID');
   this.fetchjobpostinglist();
 }
@@ -47,6 +47,7 @@ fetchjobpostinglist(){
     this.jobs = x.result;
     this.noResultsFound = this.jobs.length === 0;
   this.loading = false;
+  
   });
 }
 

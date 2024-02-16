@@ -170,15 +170,17 @@ export class ReviewTresumeComponent implements OnChanges {
   selectedrecruiterName: any;
   state: any;
   ReferredBy2: any;
-  Currency: any;
+  Currency: string = '1';
   BillRate: any;
-  PayType: any;
-  TaxTerm: any;
+  PayType: string = 'hour';
+  TaxTerm: string = '0';
   ConsultantType: any;
-  selectedstate: any;
-  Availability: any;
+  selectedstate: string = '0';
+  selectedstate1: any;
+  Availability: any = '0';
   txtComments: any;
-
+  MarketerName: any;
+  TresumeID:any = '';
 
   startShowingSSN() {
     this.showSSN = true;
@@ -402,7 +404,7 @@ export class ReviewTresumeComponent implements OnChanges {
       GCWages: this.myFormFinancial.value.gcWages,
       Lcadate: this.myFormFinancial.value.lcaDate,
       LCARate: this.myFormFinancial.value.lcaRate,
-      state: this.myFormFinancial.value.State,
+      state: this.selectedstate1,
       healthInsurance: this.myFormFinancial.value.healthInsurance,
       lifeInsurance: this.myFormFinancial.value.lifeInsurance,
 
@@ -709,6 +711,7 @@ export class ReviewTresumeComponent implements OnChanges {
     this.service.getLocation(Req).subscribe((x: any) => {
       this.state = x.result;
     });
+    console.log(this.selectedstate1);
   }
   
   getOrgUserList() {
@@ -745,7 +748,7 @@ export class ReviewTresumeComponent implements OnChanges {
       this.ssn = x.result[0].SSn || '';
       this.statusDate = x.result[0].statusdate || '';
       this.duiFelonyInfo = x.result[0].DuiFelonyInfo || '';
-      
+      this.MarketerName = x.result[0].marketername || '';
       this.legalStatusValend = x.result[0].Legalenddate || '';
       this.selectedLegalStatus = x.result[0].LegalStatus || '';  
       this.ftcNotes = x.result[0].FTCNotes || '';
@@ -765,6 +768,29 @@ export class ReviewTresumeComponent implements OnChanges {
       this.addressType = x.result[0].AddressType || '';
       this.passportvalStartdate = x.result[0].PassvalidateStartdate || '';
       this.passportvalenddate = x.result[0].Passvalidateenddate || '';
+      if(x.tresumeInfo.length ===0){
+        // this.addRow();
+        // this.addRow1();
+      }else{
+        var tinfo = x.tresumeInfo
+        tinfo.forEach((item: { TresumeNodeTypeID?: any; Title?: string; Org?: string; NodeDate?: string; NodeDateTo?: string; 
+          Location?: string; TresumeNodeID?: string; TresumeID?: string; Skill?: string; }) => {
+          // Check the value of TresumeNodeTypeID
+          if (item.TresumeNodeTypeID === 1) {
+            this.educations.push(item);
+            this.TresumeID = item.TresumeID;
+          } else if (item.TresumeNodeTypeID === 2) {
+            this.experiences.push(item);
+            this.TresumeID = item.TresumeID;
+          }
+        });
+        if(this.educations.length ===0){
+          // this.addRow();
+        }
+        if(this.experiences.length ===0){
+          // this.addRow1();
+        }
+      }
 
       // this.FormGeneral.patchValue({
         
@@ -975,53 +1001,113 @@ cancelDeletesubmission() {
   }
 
   // Education
-  educations = [{
-    degree: '',
-    university: '',
-    attendFrom: '',
-    attendTo: '',
-    universityAddress: ''
-  }];
+  educations:any[] = [];
 
   addRow() {
-    this.educations.push({
-      degree: '',
-      university: '',
-      attendFrom: '',
-      attendTo: '',
-      universityAddress: ''
-    });
+
+    let req = {
+     
+      TresumeID:this.TresumeID,
+      username:this.userName,
+      type:1
+    };
+    this.service.addTresumeNode(req).subscribe(
+      (x: any) => {
+        this.educations.push({
+          Title: '',
+          Org: '',
+          NodeDate: '',
+          NodeDateTo: '',
+          Location: '',
+          TresumeNodeID:x.TresumeNodeID,
+          TresumeID:x.TresumeID
+        });
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'danger', summary: 'Error adding Education. Please try again' });
+      }
+    );
+
   }
 
   //Above function will remove all row in education tab
-  deleteRow(index: number) {
-    if (this.educations.length > 1) {
-      this.educations.splice(index, 1);
-    }
+  deleteRow(index: number,TresumeNodeID:any) {
+    let req = {
+      TresumeNodeID:TresumeNodeID,  
+    };
+    this.service.DeleteTresumeNode(req).subscribe(
+      (x: any) => {
+        this.messageService.add({ severity: 'Success', summary: 'Education Deleted Successfully' });
+        this.educations.splice(index, 1);
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+      }
+    );
+      
+    
   }
 
   // Experience
   experienceForm: FormGroup;
-  experiences = [{
-    title: '',
-    startDate: '',
-    endDate: '',
-    skills: ''
-  }];
+  experiences:any = [];
 
   addRow1() {
-    this.experiences.push({
-      title: '',
-      startDate: '',
-      endDate: '',
-      skills: ''
-    });
+
+    let req = {
+     
+      TresumeID:this.TresumeID,
+      username:this.userName,
+      type:2
+    };
+    this.service.addTresumeNode(req).subscribe(
+      (x: any) => {
+        this.experiences.push({
+          Title: '',
+          Org: '',
+          NodeDate: '',
+          NodeDateTo: '',
+          TresumeNodeID:x.TresumeNodeID,
+          TresumeID:x.TresumeID,
+          Skill:''
+        });
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+      }
+    );
+   
   }
 
-  deleteRow1(index: number) {
-    if (this.experiences.length > 1) {
-      this.experiences.splice(index, 1);
-    }
+  UpdateTresumeNode(type:any,data:any){
+    console.log(data);
+    let req = {
+      data:data,  
+    };
+    this.service.UpdateTresumeNode(req).subscribe(
+      (x: any) => {
+        
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+      }
+    );
+  }
+
+  deleteRow1(index: number,TresumeNodeID:any) {
+    let req = {
+      TresumeNodeID:TresumeNodeID,  
+    };
+    this.service.DeleteTresumeNode(req).subscribe(
+      (x: any) => {
+        this.messageService.add({ severity: 'Success', summary: 'Experiance Deleted Successfully' });
+        this.experiences.splice(index, 1);
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+      }
+    );
+      
   }
 
   // download DSR Submission tab 
@@ -1063,7 +1149,7 @@ cancelDeletesubmission() {
   movetotalentbench(){
 
     let Req = {
-      TraineeID: this.TraineeID,
+      TraineeID: this.candidateID,
       Name:this.firstName +' '+this.lastName,
       ReferredBy:this.ReferredBy2,
       Currency:this.Currency,
@@ -1092,6 +1178,14 @@ cancelDeletesubmission() {
     );
 
 
+  }
+
+  movetoBack(){
+    if(this.routeType == 1){
+      this.router.navigate(['/candidates/1']);
+    }else if(this.routeType ==3){
+      this.router.navigate(['/talentBench']);
+    }
   }
 
 }

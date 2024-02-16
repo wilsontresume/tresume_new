@@ -164,6 +164,8 @@ import { DatePipe } from '@angular/common';
 import { MonsterComponent } from './landing-page/monster/monster.component';
 import { AdobeComponent } from './landing-page/adobe/adobe.component';
 import { TruncatePipe } from './truncate.pipe';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -312,6 +314,8 @@ import { TruncatePipe } from './truncate.pipe';
     ToastModule,
     RouterModule,
     MatSelectModule,
+    ScrollingModule,
+    NgxDatatableModule,
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyModule.forRoot({
       validationMessages: [

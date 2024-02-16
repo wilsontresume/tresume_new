@@ -24,7 +24,7 @@
         <div class="form-group text-center mt-4">
           <!-- <label for="search" class="label-large">Search:</label> -->
           <input [(ngModel)]="searchInput" type="text" class="form-control" id="search"
-            placeholder="Search Candidates..." [ngModelOptions]="{standalone: true}">
+            placeholder="Search Candidates..." [ngModelOptions]="{standalone: true}" (ngModelChange)="searchhrmscandidatelist(searchInput)">
         </div>
       </div>
       <div class="col-md-4">
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="row mt-3">
+    <!-- <div class="row mt-3">
       <div class="col-md-6">
         <div class="form-group">
           <div style="display: flex; justify-content: flex-end; align-items: center; width: 100%;">
@@ -74,7 +74,7 @@
               <button class="btn btn-wdth text-white" [disabled]="isSearchButtonDisabled()"
                 (click)="onSearch()">Search</button>
               <button class="btn btn-wdth text-white" (click)="onClear()">Clear</button>
-              <!-- <button class="btn btn-wdth text-white" [ngClass]="{'fa-sort-asc': sortBy === 'DateCreated' && sortOrder === 'asc', 'fa-sort-desc': sortBy === 'DateCreated' && sortOrder === 'desc', 'fa-sort': sortBy !== 'DateCreated'}" >Sort</button> -->
+             
             </div>
           </div>
 
@@ -93,11 +93,14 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <!-- card -->
+    
+  <!-- card -->
+  <div *ngIf="loading">Loading...</div>
+<div *ngIf="!loading">
     <div class="main-container" *ngFor="let candidate of candidates">
-      <div class="col-12" *ngIf="isCandidateVisible(candidate)">
+      <!-- <div class="col-12" *ngIf="isCandidateVisible(candidate)"> -->
         <div>
           <div class="card mb-4">
             <div class="card-body" style="line-height: 5px;padding: 15px;">
@@ -167,7 +170,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <b>Notes :</b> {{candidate.notes | truncate:100}} <i class="fas fa-info-circle" *ngIf="candidate.notes.length > 100" title="{{candidate.notes}}"></i>
+                    <b>Notes :</b> {{candidate.notes | truncate:100}}
                   </div>
                   
                 </div>
@@ -198,11 +201,18 @@
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
-
+    </div>
+    <div class="pagination-container">
+      <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <ng-container *ngFor="let pageNumber of calculatePageRange()">
+        <button class="pagination-button" (click)="onPageChange(pageNumber)" [disabled]="currentPage === pageNumber">{{ pageNumber }}</button>
+      </ng-container>
+      <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>    
   </div>
-</div>
+  </div>
 
 
 
@@ -314,18 +324,22 @@
           </div>
           <div class="row">
             <div class="col-md-4" *ngIf="routeType == 1">
-              <label class="label">Candidate Status</label>
+              <label class="label">Candidate Status *</label>
               <select class="form-control" id="currentStatus" [(ngModel)]="selectedcurrentstatus"
                 [ngModelOptions]="{standalone: true}">
                 <option *ngFor="let option of  currentStatusOptions" [value]="option.CSID">{{ option.CSName }}</option>
               </select>
             </div>
-            <div class="col-md-4" *ngIf="routeType == 1">
-              <label class="label">Referral Type</label>
-              <select class="form-control" name="referralType" [(ngModel)]="formData.referralType"
-                [ngModelOptions]="{standalone: true}">
-                <option *ngFor="let type of referralTypes" [value]="type">{{ type }}</option>
-              </select>
+            <div class="col-md-4">
+              <div class="form-group text-center">
+                <label>Current Location</label>
+                <select class="form-control" name="Location" [(ngModel)]="currentLocation"
+                  [ngModelOptions]="{standalone: true}">
+                  <option value="">Select</option>
+                  <option *ngFor="let location of Locations?.result || []" [value]="location.state">{{ location.state }}
+                  </option>
+                </select>
+              </div>
             </div>
             <div class="col-md-4" *ngIf="routeType == 1">
               <label class="label">Legal Status *</label>
@@ -349,8 +363,6 @@
                 <option selected="selected" value="Never">Never</option>
                 <option value="SpecifiedDate">Specified Date</option>
               </select>
-
-              <!-- Additional input field for specific date -->
               <div *ngIf="selectedFollowUpOption === 'SpecifiedDate'">
                 <label class="label" for="specifiedDateInput">Specify the followup date:</label>
                 <input type="date" id="specifiedDateInput" name="specifiedDate" class="form-control"
@@ -364,14 +376,16 @@
             </div>
 
             <div class="col-md-4">
-              <div class="form-group text-center">
-                <label>Current Location</label>
-                <select class="form-control" name="Location" [(ngModel)]="currentLocation"
-                  [ngModelOptions]="{standalone: true}">
-                  <option value="">Select</option>
-                  <option *ngFor="let location of Locations?.result || []" [value]="location.state">{{ location.state }}
-                  </option>
-                </select>
+              <label class="label">Referral Type *</label>
+              <select name="referralType" id="referralType" class="form-control" [(ngModel)]="formData.referralType" [ngModelOptions]="{standalone: true}" (change)="onReferralTypeChange()">
+                <option value="Phone">Phone</option>
+                <option value="Email">Email</option>
+                <option value="Others">Others</option>
+              </select>
+              <div *ngIf="formData.referralType === 'Others'">
+                <label class="label" for="otherReferralTypeInput">Others:</label>
+                <input type="text" id="otherReferralTypeInput" name="otherReferralType" class="form-control"
+                      [(ngModel)]="formData.otherReferralType" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
           </div>

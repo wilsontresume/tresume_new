@@ -157,7 +157,7 @@ router.post('/getuseraccess', async (req, res) => {
     if (err) console.log(err);
     var request = new sql.Request();
 
-    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID,MD.IsAdmin FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
 
     console.log(query);
     request.query(query,
@@ -284,7 +284,8 @@ router.post('/login', async (req, res) => {
         if (err) console.log(err);
         var request = new sql.Request();
         var querypassword;
-        var query1 = "select * from trainee where active = 1 and username like '%"+UserName+"%'";
+        var query1 = "select * from trainee where active = 1 and username = '"+UserName+"'";
+        console.log(query1);
         var responseData;
         request.query(query1,
               function (err, recordset) {
@@ -295,7 +296,7 @@ router.post('/login', async (req, res) => {
                   console.log(responseData[0].Password);
                   console.log(querypassword);
                   if(PWD === querypassword){
-                    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+                    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID, MD.IsAdmin FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
           
                     console.log(query);
                     request.query(query,

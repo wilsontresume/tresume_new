@@ -94,6 +94,14 @@ form,
     border: 1px solid red;
   }
 
+  .modal{
+    z-index: 9999 !important;
+  }
+  .modal-backdrop{
+    z-index: 0 !important;
+    display: none !important;
+  }
+
 /* button[type="submit"] {
     background-color: #4CAF50;
     color: #ffffff;
