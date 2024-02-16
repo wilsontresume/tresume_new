@@ -328,3 +328,29 @@ h2{
 // .invalid-input {
 //   border: 1px solid red;
 // }
+
+.pagination-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination-button {
+  padding: 10px 15px;
+  margin: 0 5px;
+  font-size: 16px;
+  color: #fff;
+  background-color:#49274A;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button:hover {
+  background-color:#49274A;
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

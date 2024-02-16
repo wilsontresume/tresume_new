@@ -110,7 +110,7 @@ const routes: Routes = [
   { path: 'candidateView/:traineeId', component: CandidateComponent, canActivate: [AuthGuard]   },
   { path: 'candidateView/:traineeId/sitevisit', component: SiteVisitComponent, canActivate: [AuthGuard]   },
   { path: 'placementview', component: PlacementViewComponent, canActivate: [AuthGuard]   },
-  { path: 'candidateView/:traineeId/create', component: PlacementViewComponent, canActivate: [AuthGuard]   },
+  { path: 'candidateView/:traineeId/create/:routetype', component: PlacementViewComponent, canActivate: [AuthGuard]   },
   { path: 'candidateView/:traineeId/placement/:placementID', component: PlacementViewComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchResumesComponent, canActivate: [AuthGuard]  },
   { path: 'search/cb', component: SearchResumesCBComponent , canActivate: [AuthGuard]  },

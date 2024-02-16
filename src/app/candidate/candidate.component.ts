@@ -517,8 +517,18 @@ export class CandidateComponent implements OnInit {
   }
 
   private download(params: any) {
+    // if (params.data) {
+    //   FileSaver.saveAs("https://tresume.us/" + params.data.DocumentPath, params.data.DocumentName);
+    // }
     if (params.data) {
-      FileSaver.saveAs("https://tresume.us/" + params.data.DocumentPath, params.data.DocumentName);
+      var documentUrl = "https://tresume.us/" + params.data.DocumentPath;
+      var documentName = params.data.DocumentName;
+      var newWindow = window.open(documentUrl, '_blank');
+      if (newWindow) {
+        newWindow.focus();
+      } else {
+        console.error('Unable to open new window. Popup blocker may be enabled.');
+      }
     }
   }
 

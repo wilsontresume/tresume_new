@@ -17,8 +17,8 @@
         </div>
 
         <div class="form-group text-right d-flex" style="margin-top: 30px;">
-          <input [(ngModel)]="search" type="text"  class="form-control ml-6 mr-2 " id="search" 
-            placeholder=" Search candidates...">
+          <input [(ngModel)]="searchInput" type="text"  class="form-control ml-6 mr-2 " id="search" 
+            placeholder=" Search candidates..." (ngModelChange)="searchhtalentbenchlist(searchInput)">
         </div>
       </div>
       <div class="col-6">
@@ -75,8 +75,8 @@
                 <div class="col-md-3">
                   <table class="table table-borderless no-border">
                     <tr>
-                      <th [ngStyle]="{ 'background-color': getBackgroundColor(item.age) }">Time On Bench:</th>
-                      <td [ngStyle]="{ 'background-color': getBackgroundColor(item.age) }">{{ item.age }}</td>
+                      <th [ngStyle]="{ 'background-color': getBackgroundColor(item.Age) }">Time On Bench:</th>
+                      <td [ngStyle]="{ 'background-color': getBackgroundColor(item.Age) }">{{ item.Age }}</td>
                     </tr>
                     <tr>
                       <th>Location:</th>
@@ -92,7 +92,7 @@
                   <table class="table table-borderless no-border">
                     <tr>
                       <th>Title:</th>
-                      <td>{{ item.TraineeTitle }}</td>
+                      <td>{{ item.Title }}</td>
                     </tr>
                     <tr>
                       <th>Phone:</th>
@@ -155,7 +155,15 @@
           </div>
           <hr>
         </div>
+         
       </div>
+    </div>
+    <div class="pagination-container">
+      <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <ng-container *ngFor="let pageNumber of calculatePageRange()">
+        <button class="pagination-button" (click)="onPageChange(pageNumber)" [disabled]="currentPage === pageNumber">{{ pageNumber }}</button>
+      </ng-container>
+      <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
     </div>
   </div>
 </div>
