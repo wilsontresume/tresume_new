@@ -47,10 +47,12 @@ export class OnboardingListComponent implements OnInit {
         label: 'Last 90 Days'
     }];
     traineeId: string | null;
+    useremail: string;
 
 
 
     constructor(private service: OnboardingService, private router: Router, private cookieService: CookieService, private dialog: MatDialog) {
+        this.useremail = this.cookieService.get('userName1')
         this.frameworkComponents = {
             'ProgressRenderer': ProgressRenderer,
         }
@@ -61,6 +63,8 @@ export class OnboardingListComponent implements OnInit {
 
     ngOnInit(): void {
         //this.showCcpaPopup();
+       
+        this.fetchEmployeeList();
         this.OrgID = this.cookieService.get('OrgID') || "9";
         let cellRendererFn = function (params: any): any { return null; };
         this.columnDefs = [
@@ -120,7 +124,7 @@ export class OnboardingListComponent implements OnInit {
 
     public getOnboardList(startDate?: string, endDate?: string) {
         let requestItem: any = {
-            OrgID: this.OrgID || "9",
+            useremail: this.useremail,
             startDate: startDate,
             endDate: endDate
         }
@@ -227,4 +231,24 @@ export class OnboardingListComponent implements OnInit {
           }
         }); */
     }
+    employees: any[];
+    fetchEmployeeList(){
+        let Req = {
+            useremail: this.useremail,
+        };
+        this.service.getOnboardingList(Req).subscribe((x: any) => {
+          this.employees = x.result;        
+        });
+      }
+
+      getBackgroundColor(completion: number): string {
+        if (completion < 25) {
+            return "#e7602e99"; // light red
+        } else if (completion >= 25 && completion <= 75) {
+            return "#f4963980"; // light orange
+        } else {
+            return "#a4e73466"; // light green
+        }
+    }
+    
 }

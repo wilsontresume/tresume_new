@@ -224,9 +224,20 @@ export class CreateAllTimeListComponent implements OnInit {
     });
   }
 
-  dropdownOptions() {
-    return this.dropdownOptions;
-  }
+  // getCandidateName() {
+  //   this.Service.getTimesheetCandidatetList(this.OrgID).subscribe(
+  //     (response: any) => {
+  //       this.dropdownOptions = response.result;
+  //     },
+  //     (error) => {
+  //       console.error("Error fetching candidate names:", error);
+  //     }
+  //   );
+  // }
+
+  // dropdownOptions() {
+  //   return this.dropdownOptions;
+  // }
   onChangesDropdown(selectedOption: any, row: any) {
     this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
   }
