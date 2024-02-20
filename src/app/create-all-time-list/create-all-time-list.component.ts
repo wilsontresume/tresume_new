@@ -22,12 +22,13 @@ import { DatePipe } from '@angular/common';
 export class CreateAllTimeListComponent implements OnInit {
   OrgID: string;
   rows: any[] = [];
-  // minDate: string;
-  // maxDate: string;
-  // maxSelectableDays = 7;
-  // maxAllowedDays: number = 7;
-  // selectedSunday: string = '';
-  // isSundaySelected: boolean = false;
+  minDate: string;
+  maxDate: string;
+  maxSelectableDays = 7;
+  selectedDateRange: Date[] = [];
+  maxAllowedDays: number = 7;
+  selectedSunday: string = '';
+  isSundaySelected: boolean = false;
   CAselectedFile: File | null = null;
   SRselectedFile: File | null = null;
   [key: string]: any;
@@ -66,22 +67,40 @@ export class CreateAllTimeListComponent implements OnInit {
     return datesWithDaysArray;
   }
 
-  onDateRangeChange(dates: Date[]) {
+  // onDateRangeChange(dates: Date[]): void {
+  //   if (dates.length === 2) {
+  //     const startDate = new Date(dates[0]);
+  //     const endDate = new Date(dates[1]);
+  //     const startDayOfWeek = startDate.getDay();
+  //     const endDayOfWeek = endDate.getDay();  
+  //     if (startDayOfWeek !== 1 || endDayOfWeek !== 0) {
+  //       this.selectedDateRange = [];
+  //       console.log('Please select a date range that begins on a Monday and ends on a Sunday.');
+  //     } else {
+  //       this.selectedDateRange = [startDate, endDate];
+  //     }
+  //   }
+  // }
+  
+  onDateRangeChange(dates: Date[]): void {
     if (dates.length === 2) {
       const startDate = new Date(dates[0]);
       const endDate = new Date(dates[1]);
-
-      const dayDifference = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-
-      if (dayDifference >= this.maxSelectableDays) {
+      const startDayOfWeek = startDate.getDay();
+      const endDayOfWeek = endDate.getDay();  
+      if (startDayOfWeek !== 1 || endDayOfWeek !== 0) {
         this.selectedDateRange = [];
-        console.log('Please select a date range within 7 days.');
+        console.log('Please select a date range of 7 days that begins on a Monday!');
+        this.showMessage('Please select a date range of 7 days that begins on a Monday!');
       } else {
         this.selectedDateRange = [startDate, endDate];
       }
     }
   }
-
+  showMessage(message: string): void {
+    alert(message);
+  }
+  
   addRow() {
     this.timesheetRows.push({
       selectedOption: null,
@@ -197,6 +216,9 @@ export class CreateAllTimeListComponent implements OnInit {
     this.getLocation();
     // this.selectedWeek = '2024-02-05 to 2024-02-11';
     this.updateDynamicDays(this.selectedWeek);
+
+    this.minMonday = this.getRecentMonday();
+    this.maxSunday = this.getUpcomingSunday();
   }
   updateDynamicDays(selectedWeek: string): void {
     this.dynamicDays = this.getWeekData(selectedWeek).days;
@@ -218,7 +240,7 @@ export class CreateAllTimeListComponent implements OnInit {
     let Req = {
       OrgID: this.OrgID
     };
-    
+
     this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
       this.dropdownOptions = x.result;
     });
