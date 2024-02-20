@@ -19,17 +19,19 @@ export class ImportDetailsComponent implements OnInit {
     public isCandidateSelected: boolean = false;
     public selectedEmployee: any;
     public OrgID: any;
+    useremail: string;
 
     constructor(private service: OnboardingService, private router: Router, private cookieService: CookieService) {
+        this.useremail = this.cookieService.get('userName1'); 
     }
 
     public candidateNames: any;
 
     ngOnInit(): void {
-        this.OrgID = this.cookieService.get('OrgID')
-        console.log('this.OrgID', this.OrgID)
+        this.useremail = this.cookieService.get('userName1')
+        console.log('this.useremail', this.useremail)
         let requestItem: any = {
-            OrgID: this.OrgID || 9,
+            useremail: this.useremail ,
         }
         this.service.getCandidateByStatusList(requestItem).subscribe(x => {
             this.candidateNames = x;
