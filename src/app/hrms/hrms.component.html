@@ -313,6 +313,22 @@
               </select>
             </div>
             <div class="col-md-4" *ngIf="routeType == 1">
+              <label class="label">Candidate Status *</label>
+              <select class="form-control" id="currentStatus" [(ngModel)]="selectedcurrentstatus"
+                [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let option of  currentStatusOptions" [value]="option.CSID">{{ option.CSName }}</option>
+              </select>
+            </div>
+            <div class="col-md-4" *ngIf="routeType == 1">
+              <label class="label">Legal Status *</label>
+              <select class="form-control" name="LegalStatus" [(ngModel)]="LegalStatus"
+                [ngModelOptions]="{standalone: true}">
+                <option value>-- Select Legal Status --</option>
+                <option *ngFor="let stat of legalStatusOptions" [value]="stat.LegalValue">{{ stat.LegalText }}
+                </option>
+              </select>
+            </div>
+            <!-- <div class="col-md-4" *ngIf="routeType == 1">
               <label class="label">Degree</label>
               <input type="text" class="form-control" name="degree" placeholder="Degree" formControlName="degree">
             </div>
@@ -320,16 +336,10 @@
               <label class="label">University</label>
               <input type="text" class="form-control" name="university" placeholder="University"
                 formControlName="university">
-            </div>
+            </div> -->
           </div>
           <div class="row">
-            <div class="col-md-4" *ngIf="routeType == 1">
-              <label class="label">Candidate Status *</label>
-              <select class="form-control" id="currentStatus" [(ngModel)]="selectedcurrentstatus"
-                [ngModelOptions]="{standalone: true}">
-                <option *ngFor="let option of  currentStatusOptions" [value]="option.CSID">{{ option.CSName }}</option>
-              </select>
-            </div>
+            
             <div class="col-md-4">
               <div class="form-group text-center">
                 <label>Current Location</label>
@@ -341,21 +351,6 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-4" *ngIf="routeType == 1">
-              <label class="label">Legal Status *</label>
-              <select class="form-control" name="LegalStatus" [(ngModel)]="LegalStatus"
-                [ngModelOptions]="{standalone: true}">
-                <option value>-- Select Legal Status --</option>
-                <option *ngFor="let stat of legalStatusOptions" [value]="stat.LegalStatusID">{{ stat.LegalValue }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4" *ngIf="routeType == 1">
-            </div>
-          </div>
-          <div class="row">
             <div class="col-md-4">
               <label class="label">Follow Up On *</label>
               <select name="FollowUpOn" id="FollowUpOn" class="form-control" [(ngModel)]="selectedFollowUpOption"
@@ -369,12 +364,6 @@
                   [(ngModel)]="specifiedDate" [ngModelOptions]="{standalone: true}" style="margin-left: -1px;">
               </div>
             </div>
-
-            <div class="col-md-4" *ngIf="routeType == 1">
-              <label class="label">Notes</label>
-              <textarea class="textarea" name="notes" rows="4" formControlName="notes"></textarea>
-            </div>
-
             <div class="col-md-4">
               <label class="label">Referral Type *</label>
               <select name="referralType" id="referralType" class="form-control" [(ngModel)]="formData.referralType" [ngModelOptions]="{standalone: true}" (change)="onReferralTypeChange()">
@@ -388,6 +377,20 @@
                       [(ngModel)]="formData.otherReferralType" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
+            
+          </div>
+          <div class="row">
+            <div class="col-md-4" *ngIf="routeType == 1">
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-4" *ngIf="routeType == 1">
+              <label class="label">Notes</label>
+              <textarea class="textarea" name="notes" rows="2" formControlName="notes"></textarea>
+            </div>
+
+            
           </div>
 
           <!-- For TimeSheet -->

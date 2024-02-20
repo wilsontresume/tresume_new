@@ -230,7 +230,7 @@ export class ReviewTresumeComponent implements OnChanges {
       generalEmail: this.generalEmail,
       refered: this.SelectedRefered,
       DealOffered: this.DealOffered,
-      ReferredBy: this.ReferredBy,
+      ReferredBy: this.SelectedRefered,
       ssn: this.ssn,
       statusDate: this.statusDate,
       duiFelonyInfo: this.duiFelonyInfo,
@@ -259,7 +259,8 @@ export class ReviewTresumeComponent implements OnChanges {
       State: this.personalState,
       City: this.personalCity,
       Zipcode: this.personalZipcode,
-      AddressType: this.addressType
+      AddressType: this.addressType,
+      ReferredBy_external:this.referredByExternal
   };
   
     console.log(Req);
@@ -742,9 +743,9 @@ export class ReviewTresumeComponent implements OnChanges {
       this.firstName = x.result[0].FirstName || '';
       this.middleName = x.result[0].MiddleName || '';
       this.lastName = x.result[0].LastName || '';
-      this.SelectedRefered = x.result[0].refered || '';
+      this.SelectedRefered = x.result[0].ReferredBy || '';
       this.DealOffered = x.result[0].DealOffered || '';
-      this.ReferredBy = x.result[0].ReferredBy_external || '';
+      this.referredByExternal = x.result[0].ReferredBy_external || '';
       this.ssn = x.result[0].SSn || '';
       this.statusDate = x.result[0].statusdate || '';
       this.duiFelonyInfo = x.result[0].DuiFelonyInfo || '';
@@ -1004,9 +1005,9 @@ cancelDeletesubmission() {
   educations:any[] = [];
 
   addRow() {
-
+this.loading = true;
     let req = {
-     
+      TraineeID:this.TraineeID,
       TresumeID:this.TresumeID,
       username:this.userName,
       type:1
@@ -1022,9 +1023,11 @@ cancelDeletesubmission() {
           TresumeNodeID:x.TresumeNodeID,
           TresumeID:x.TresumeID
         });
+        this.loading = false;
       },
       (error: any) => {
         this.messageService.add({ severity: 'danger', summary: 'Error adding Education. Please try again' });
+        this.loading = false;
       }
     );
 
@@ -1032,6 +1035,7 @@ cancelDeletesubmission() {
 
   //Above function will remove all row in education tab
   deleteRow(index: number,TresumeNodeID:any) {
+    this.loading = true;
     let req = {
       TresumeNodeID:TresumeNodeID,  
     };
@@ -1039,9 +1043,11 @@ cancelDeletesubmission() {
       (x: any) => {
         this.messageService.add({ severity: 'Success', summary: 'Education Deleted Successfully' });
         this.educations.splice(index, 1);
+        this.loading=false;
       },
       (error: any) => {
         this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+        this.loading = false;
       }
     );
       
@@ -1053,9 +1059,9 @@ cancelDeletesubmission() {
   experiences:any = [];
 
   addRow1() {
-
+this.loading = true;
     let req = {
-     
+      TraineeID:this.TraineeID,
       TresumeID:this.TresumeID,
       username:this.userName,
       type:2
@@ -1071,9 +1077,11 @@ cancelDeletesubmission() {
           TresumeID:x.TresumeID,
           Skill:''
         });
+        this.loading = false
       },
       (error: any) => {
         this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+        this.loading = false;
       }
     );
    
@@ -1090,11 +1098,13 @@ cancelDeletesubmission() {
       },
       (error: any) => {
         this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+        this.loading = false;
       }
     );
   }
 
   deleteRow1(index: number,TresumeNodeID:any) {
+    this.loading = true;
     let req = {
       TresumeNodeID:TresumeNodeID,  
     };
@@ -1102,9 +1112,11 @@ cancelDeletesubmission() {
       (x: any) => {
         this.messageService.add({ severity: 'Success', summary: 'Experiance Deleted Successfully' });
         this.experiences.splice(index, 1);
+        this.loading = false;
       },
       (error: any) => {
         this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+        this.loading = false;
       }
     );
       

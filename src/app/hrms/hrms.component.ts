@@ -90,14 +90,14 @@ export class HrmsComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.minLength(3)]],
       recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
-      degree: [''],
+      // degree: [''],
       groups: [''],
       LegalStatus: [''],
       locationConstraint: ['yes'],
       marketerName: [''],
       notes: [''],
       referralType: [''],
-      university: [''],
+      // university: [''],
       middleName: [''],
       gender: ['male'],
       Location: ['']
@@ -341,7 +341,7 @@ export class HrmsComponent implements OnInit {
     if (this.selectedFollowUpOption == 'SpecifiedDate') {
       followupon = this.specifiedDate;
     }
-
+    const referralType = this.formData.referralType === 'Others' ? this.formData.otherReferralType : this.formData.referralType;
     let Req = {
       firstName: this.addCandidate.value.firstName,
       middleName: this.formData.middleName,
@@ -350,9 +350,9 @@ export class HrmsComponent implements OnInit {
       phone: this.addCandidate.value.phone,
       gender: this.addCandidate.value.gender,
       recruiterName: this.recruiterName,
-      degree: this.addCandidate.value.degree,
-      university: this.addCandidate.value.university,
-      referralType: this.formData.referralType,
+      // degree: this.addCandidate.value.degree,
+      // university: this.addCandidate.value.university,
+      referralType: referralType,
       notes: this.addCandidate.value.notes,
       candidateStatus: this.selectedcurrentstatus,
       LegalStatus: this.LegalStatus,

@@ -316,7 +316,7 @@ router.post("/insertTraineeCandidate", async function (req, res) {
       req.body.orgID +
       "') " +
       "BEGIN " +
-      "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation ) " +
+      "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, gender, notes, recruiterName, ReferredBy_external, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation ) " +
       "VALUES (" +
       `'${TraineeID}',` +
       ` ${formatValue(req.body.email || "")},` +
@@ -324,9 +324,8 @@ router.post("/insertTraineeCandidate", async function (req, res) {
       ` ${formatValue(req.body.phone || "")},` +
       ` ${formatValue(req.body.middleName || "")},` +
       ` ${formatValue(req.body.lastName || "")},` +
-      ` ${formatValue(req.body.legalStatus || "")},` +
+      ` ${formatValue(req.body.LegalStatus || "")},` +
       ` ${formatValue(req.body.candidateStatus || "")},` +
-      ` ${formatValue(req.body.degree || "")},` +
       ` ${formatValue(req.body.gender || "")},` +
       ` ${formatValue(req.body.notes || "")},` +
       ` ${formatValue(req.body.recruiterName || "")},` +
@@ -1111,7 +1110,7 @@ router.post("/updateGeneral", async function (req, res) {
       ", Notes = " + formatValue(req.body.otherNotes) +
       ", PhoneNumber = " + formatValue(req.body.phoneNumberG) +
       ", RecruiterName = " + formatValue(req.body.recruiterName) +
-      ", ReferredBy_external = " + formatValue(req.body.refered) +
+      ", ReferredBy_external = " + formatValue(req.body.ReferredBy_external) +
       ", LegalStatus = " + formatValue(req.body.selectedLegalStatus) +
       ", statusdate = " + formatValue(req.body.statusDate) +
       ", EmergConName = " + formatValue(req.body.EmergencyCname) +
@@ -1125,7 +1124,7 @@ router.post("/updateGeneral", async function (req, res) {
       ", City = " + formatValue(req.body.City) +
       ", Zipcode = " + formatValue(req.body.Zipcode) +
       ", AddressType = " + formatValue(req.body.AddressType) +
-
+      ", Candidatestatus = " + formatValue(req.body.selectedcurrentstatus) +
       " WHERE " +
       "  TraineeID = " +
       formatValue(req.body.TraineeID);
@@ -1634,21 +1633,32 @@ router.post("/MoveToTalentBench", async (req, res) => {
   }
 });
 
+
+
 router.post("/addTresumeNode", async (req, res) => {
   try {
-    var TresumeID = req.body.TresumeID;
-    var TresumeNodeID = await generateTresumeNodeID(); // Await here
-    console.log(TresumeID);
+    // Establish a SQL connection
     await sql.connect(config);
+
+    var TresumeID = req.body.TresumeID;
+    var TresumeNodeID = await generateTresumeNodeID();
+    console.log(TresumeID);
+    
+    // Perform the SQL operation
     if (!TresumeID) {
-      TresumeID = await generateTresumeID(); // Await here
+      TresumeID =await generateTresumeID();
       var Tresumeinsertquery = `INSERT INTO [dbo].[Tresume]([TresumeID] ,[TraineeID] ,[Summary] ,[URL] ,[Active] ,[CreateTime] ,[CreateBy] ,[LastUpdateTime] ,[LastUpdateBy] ,[Certified] ,[IsRChilliUsed] ,[IsJsonResume])
-VALUES ('${TresumeID}' ,'${req.body.TraineeID}' ,'' ,'' ,1 ,GETDATE() ,'req.body.username' ,GETDATE() ,'req.body.username' ,'' ,'' ,'')`;
+VALUES ('${TresumeID}' ,'${req.body.TraineeID}' ,'' ,'' ,1 ,GETDATE() ,'${req.body.username}' ,GETDATE() ,'${req.body.username}' ,'' ,'' ,'')`;
+      console.log(TresumeID);
+      console.log(Tresumeinsertquery);
       await sql.query(Tresumeinsertquery);
     }
+
     var query = `INSERT INTO [dbo].[TresumeNode] ([TresumeNodeID] ,[TresumeID] ,[ParentTresumeNodeID] ,[NodeDate] ,[Title] ,[Description] ,[TresumeNodeTypeID] ,[SortOrder] ,[Active] ,[CreateTime] ,[CreateBy] ,[LastUpdateTime] ,[LastUpdateBy] ,[NodeDateTo] ,[Org] ,[Location] ,[Tools] ,[Skill])
          VALUES ('${TresumeNodeID}' ,'${TresumeID}' ,'' ,GETDATE() ,'' ,'' ,'${req.body.type}' ,'' ,1 ,GETDATE() ,'${req.body.username}' ,GETDATE() ,'${req.body.username}' ,GETDATE() ,'' ,'' ,'' ,'')`;
+    console.log(query);
     await sql.query(query);
+
     await sql.close();
     const result = {
       TresumeID: TresumeID,
@@ -1664,7 +1674,9 @@ VALUES ('${TresumeID}' ,'${req.body.TraineeID}' ,'' ,'' ,1 ,GETDATE() ,'req.body
 
 async function generateTresumeID() {
   try {
+    // Establish a SQL connection
     await sql.connect(config);
+
     var request = new sql.Request();
 
     var query = "SELECT TOP 1 TresumeID FROM Tresume ORDER BY TresumeID DESC";
@@ -1679,15 +1691,14 @@ async function generateTresumeID() {
   } catch (error) {
     console.error("Error generating TresumeID:", error);
     throw error;
-  } finally {
-    // Close the SQL connection after execution
-    await sql.close();
   }
 }
 
 async function generateTresumeNodeID() {
   try {
+    // Establish a SQL connection
     await sql.connect(config);
+
     var request = new sql.Request();
 
     var query =
@@ -1703,11 +1714,9 @@ async function generateTresumeNodeID() {
   } catch (error) {
     console.error("Error generating TresumeNodeID:", error);
     throw error;
-  } finally {
-    // Close the SQL connection after execution
-    await sql.close();
   }
 }
+
 
 router.post("/UpdateTresumeNode", async (req, res) => {
   try {

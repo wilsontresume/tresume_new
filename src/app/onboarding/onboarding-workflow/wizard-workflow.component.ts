@@ -349,7 +349,7 @@ export class WizardWorkflowComponent implements OnInit {
                 } else {
                     clientlogo = `<img src='${this.orgLogo}' alt = '${this.orgName}' class='logo'>`;
                 }
-                const url = `https://tresume.us/TresumeNG/onboard/employee/${sessionID}`;
+                const url = `https://tresume.us/onboard/employee/${sessionID}`;
 
                 const emailSubject = 'Onboarding Documents Request';
                 const emailText = `
@@ -543,7 +543,7 @@ export class WizardWorkflowComponent implements OnInit {
         this.service.generateOnboardingsession(requestItem).subscribe((x: any) => {
             if (x) {
                 console.log('x', x)
-                let url = "https://tresume.us/TresumeNG/onboard/employee/" + x[0].SessionID
+                let url = "https://tresume.us/onboard/employee/" + x[0].SessionID
                 let requestItem: any = {
                     //to: 'rohit@tresume.us',
                     to: this.candidateDetails.UserName,
@@ -634,7 +634,7 @@ export class WizardWorkflowComponent implements OnInit {
         this.service.generateOnboardingsession(requestItem).subscribe((x: any) => {
             if (x) {
                 console.log('x', x)
-                let url = "https://tresume.us/TresumeNG/onboard/employee/" + x[0].SessionID
+                let url = "https://tresume.us/onboard/employee/" + x[0].SessionID
                 let requestItem: any = {
                     //to: 'rohit@tresume.us',
                     to: this.candidateDetails.UserName,
@@ -680,7 +680,7 @@ export class WizardWorkflowComponent implements OnInit {
             this.service.generateOnboardingsession(requestItem).subscribe((x: any) => {
                 if (x) {
                     console.log('x', x)
-                    let url = "https://tresume.us/TresumeNG/onboard/employee/" + x[0].SessionID
+                    let url = "https://tresume.us/onboard/employee/" + x[0].SessionID
                     let requestItem: any = {
                         //to: 'rohit@tresume.us',
                         to: this.candidateDetails.UserName,

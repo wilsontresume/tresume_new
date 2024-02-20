@@ -108,7 +108,7 @@
                   (optional)</label>
                 <input type="text" class="form-control" id="ReferredBy"
                   name="typeOfAssistance"
-                  placeholder="Type of Assistance" [(ngModel)]="ReferredBy"
+                  placeholder="Type of Assistance" [(ngModel)]="referredByExternal"
                   [ngModelOptions]="{standalone: true}">
               </div>
             </div>
@@ -206,7 +206,7 @@
               <div class="col-md-6">
                 <label for="ftcNotes">FTC Notes</label>
                 <textarea type class="form-control" id="ftcNotes"
-                  name="ftcNotes" placeholder="FTC Notes" [(ngModel)]="ftcNotes"
+                  name="ftcNotes" placeholder="FTC Notes" [(ngModel)]="otherNotes"
                   [ngModelOptions]="{standalone: true}" cols="30"
                   rows="3"></textarea>
               </div>
@@ -214,7 +214,7 @@
                 <label for="otherNotes">Other Notes</label>
                 <textarea type="text" class="form-control" id="typeOfAssistance"
                   name="otherNotes"
-                  placeholder="Other Notes" [(ngModel)]="otherNotes"
+                  placeholder="Other Notes" [(ngModel)]="ftcNotes"
                   [ngModelOptions]="{standalone: true}" cols="30"
                   rows="3"></textarea>
               </div>
