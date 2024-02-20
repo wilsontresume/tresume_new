@@ -163,3 +163,8 @@ th span.date {
   font-family: 'Arial', sans-serif;
   color: #007bff;
 }
+
+.dropdown-menu-scrollable {
+  max-height: 225px;
+  overflow-y: auto;
+}
