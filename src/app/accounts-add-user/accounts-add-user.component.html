@@ -1,5 +1,5 @@
-<div class="header pt-4">
-    <div class="container">
+<div class="header p-3">
+    <div class="container-fluid">
         <div class="row main">
             <div class="col-md-12">
                 <h2 class="text-left head mt-3 ml-2 text-dark">ADD USERS</h2>
@@ -24,18 +24,16 @@
         </div>
         <div class="row mt-5">
             <div class="col-md-6 text-right">
-                <button class="btn btn-wdth text-white btn-sm" (click)="addUser()">Add user</button>
+                <button class="btn btn-wdth text-white" (click)="addUser()">Add user</button>
             </div>
             <div class="col-md-6 text-left">
-                <button class="btn btn-wdth text-white btn-sm" [routerLink]="['/accountsaddrole']">Add Role</button>
+                <button class="btn btn-wdth text-white" [routerLink]="['/accountsaddrole']">Add Role</button>
             </div>
         </div>
 
         <div class="row pt-4">
-
             <div class="col md-4 text-right">
                 <div class="form-group">
-
                     <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
                 </div>
             </div>
@@ -78,53 +76,44 @@
 
 
 
-    <div *ngIf="showAddUser" id="adduser" class="modal2 align-center">
-        <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-            <div class="modal-content2">
+<div *ngIf="showAddUser" id="adduser" class="modal2 container-fluid">
+    <div class="container-fluid modal-content2 ml-2 mt-2">
+            <div>
+                <button type="button" class="close close-modal" (click)="cancelAddUser()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <div>
-                    <button type="button" class="close close-modal" (click)="cancelAddUser()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h2 class="text-center">Add User</h2>
+                </div>  
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="text-center p">First Name*</label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="firstname" placeholder="First Name" required="">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="text-center p">Last Name*</label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="lastname" placeholder="Last Name" required="">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="text-center p">Email ID*</label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="emailID" placeholder="Email ID" required="">
+                    </div>
                 </div>
-
-                <div class="form">
-                    <div>
-                        <h2 class="text-center">Add User</h2>
+                <div class="row mt-2">
+                    <div class="col-md-4 form-group text-center">
+                            <label class="text-center p">Role</label>
+                            <p-dropdown styleClass="customSelect" [options]="rolelist" [(ngModel)]="selectedrolelist"
+                            display="chip"  defaultLabel="Role" optionLabel="Role">
+                          </p-dropdown>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="text-center p">First Name*</label>
-                            <input type="text" class="form-control" id="name" [(ngModel)]="firstname" placeholder="First Name" required="">
+                    <div class="col-md-6">
+                        <label class="text-center p">Team Lead</label>
+                        <div class=" flex text-center">
+                            <p-multiSelect [options]="User_Accounts" [(ngModel)]="selectedTeamlead"
+                                defaultLabel="Teamlead" optionLabel="MemberFirstName" (onSearch)="onTeamleadSearch($event)"
+                                [filter]="true" display="chip">
+                            </p-multiSelect>
                         </div>
-                        <div class="col-md-4">
-                            <label class="text-center p">Last Name*</label>
-                            <input type="text" class="form-control" id="name" [(ngModel)]="lastname" placeholder="Last Name" required="">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="text-center p">Email ID*</label>
-                            <input type="text" class="form-control" id="name" [(ngModel)]="emailID" placeholder="Email ID" required="">
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-4">
-                            <div class="form-group text-center">
-                                <label class="text-center p">Role</label>
-                                <p-dropdown styleClass="customSelect" [options]="rolelist" [(ngModel)]="selectedrolelist"
-                                display="chip"  defaultLabel="Role" optionLabel="Role">
-                              </p-dropdown>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="text-center p">Team Lead</label>
-                            <div class=" flex text-center">
-                                <p-multiSelect [options]="User_Accounts" [(ngModel)]="selectedTeamlead"
-                                    defaultLabel="Teamlead" optionLabel="MemberFirstName" (onSearch)="onTeamleadSearch($event)"
-                                    [filter]="true" display="chip">
-                                </p-multiSelect>
-                            </div>
-                        </div>
-                     
                     </div>
                 </div>
                 <div class="row justify-content-center mt-4">
@@ -134,10 +123,10 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
+</div>
 
-    
+
 <div *ngIf="showConfirmationDialog" id="confirmationdialog" class="modal align-center">
     <div class="modal-content justify-content-center ">
         <div>
@@ -154,3 +143,8 @@
     </div>
 </div>
 <p-toast></p-toast>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+
+
+

@@ -1,0 +1,157 @@
+<!-- payment.component.html -->
+
+<div class="container-fluid p-3">
+  <div class="head d-flex justify-content-between p-3">
+  <h2>RECEIVE PAYMENT </h2>
+</div>  
+
+
+<body>
+  
+
+<div class="container mt-4" style="font-size: 14px">
+  <div class="row">
+    <!-- First div - Client and Additional Input -->
+    <div class="col-md-2">
+      <label for="client">Client</label>
+      <div class="input-group">
+        <input type="text" id="client" class="form-control" placeholder="Select a client">
+        <div class="input-group-append">
+          <button class="btn  dropdown-toggle" type="button" id="clientDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Option 1</a>
+            <a class="dropdown-item" href="#">Option 2</a>
+            <a class="dropdown-item" href="#">Option 3</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" style="margin-left: 2rem;">
+      <label for="search">Search</label>
+      <div class="input-group">
+        <input type="text" id="search" class="form-control" placeholder="Find by invoice no.">
+      </div>
+    </div>
+
+    <!-- Third div - "Don't have an account?" link -->
+    <div class="col-md-6 search">
+      <p class="mt-2" style="font-size: small;">Don't have an account? <a href="#">Create a new sale</a></p>
+    </div>
+
+
+    <div class="col-md-3 text-right" style="margin-left: -3rem;">
+      <p class="mb-1 mr-6 ">Amount received</p>
+      <p class="font-weight-bold mb-0" style="font-size: 24px; margin-top: 13px;">$ 1,800.00</p>
+    </div>
+
+    <div class="col-md-2" style="margin-top: 1rem;">
+      <label for="saleDate">Payment date</label>
+      <input type="date" id="saleDate" name="saleDate" class="form-control">
+    </div>
+    </div>
+
+  
+    <div class="row" style="margin-top: 2rem;">
+                <div class="col-md-2">
+                  <label for="client">Client</label>
+                  <div class="input-group">
+                    <input type="text" id="client" class="form-control" placeholder="Select a client">
+                    <div class="input-group-append">
+                      <button class="btn  dropdown-toggle" type="button" id="clientDropdown" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Option 1</a>
+                        <a class="dropdown-item" href="#">Option 2</a>
+                        <a class="dropdown-item" href="#">Option 3</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2" style="margin-left: 2rem;">
+                  <label for="newInput">Reference no.</label>
+                  <input type="text" id="newInput" class="form-control">
+                </div>
+
+                <div class="col-md-2" style="margin-left: 2rem;">
+                  <label for="client">Client</label>
+                  <div class="input-group">
+                    <input type="text" id="client" class="form-control" placeholder="Select a client">
+                    <div class="input-group-append">
+                      <button class="btn  dropdown-toggle" type="button" id="clientDropdown" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Option 1</a>
+                        <a class="dropdown-item" href="#">Option 2</a>
+                        <a class="dropdown-item" href="#">Option 3</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2" style="margin-left: 316px;">
+                  <label for="newInput">Amount received</label>
+                  <input type="text" id="newInput" class="form-control"> 
+              </div>
+
+              <div class="col-md-12" style="padding-top: 1rem; margin-top: 7rem;" >
+                <h2>Outstanding Transactions</h2>
+                <div class="input-group" style="width: 12rem;">
+                  <input type="text" id="search" class="form-control" placeholder="Find invoice no.">
+                  <div class="dropdown" style="margin-left: 14rem;margin-top: -2rem;  width: 74px;   height: 34px;">
+                    <button class="btn   dropdown-toggle" type="button" id="filterDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Filter
+                    </button>
+                    <i class="fas fa-cog" onclick="openSettings()" style="margin-left: 52rem; cursor: pointer;"></i>
+                    <div class="dropdown-menu" aria-labelledby="filterDropdownButton" >
+                      <!-- Your filter options go here -->
+                      <a class="dropdown-item" href="#">All</a>
+                      <a class="dropdown-item" href="#">Option 2</a>
+                      <a class="dropdown-item" href="#">Option 3</a>
+                      <!-- Add more options as needed -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="table-responsive" style="margin-top: 2rem;">
+                    <table class="table table-bordered table-striped">
+                        <!--Table head-->
+                        <thead class="purple lighten-4 ">
+                            <tr>
+                              <td><input type="checkbox"></td>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th>Original Amount</th>
+                                <th>Open Balance</th>
+                                <th>Payment</th>
+                            </tr>
+                        </thead>
+                        <!--Table head-->
+                        <!--Table body-->
+                        <tbody>
+                            <tr *ngFor="let item of invoiceData; let i = index">
+                                <th scope="row">
+                                    <input type="checkbox" name="invoiceCheckbox{{i}}" [(ngModel)]="item.selected">
+                                </th>
+                                <td>{{ item.description }}</td>
+                                <td>{{ item.dueDate | date:'MM/dd/yyyy' }}</td>
+                                <td>{{ item.originalAmount | currency:'USD':'symbol':'1.2-2' }}</td>
+                                <td>{{ item.openBalance | currency:'USD':'symbol':'1.2-2' }}</td>
+                                <td>
+                                    <input type="text" name="paymentAmount{{i}}" [(ngModel)]="item.paymentAmount" />
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                    <!--Table-->
+                </div>
+         
+            </div>
+        
+</div>
+</div>

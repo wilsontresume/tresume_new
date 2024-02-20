@@ -1,10 +1,18 @@
 <div *ngIf="loaded">
     <form [formGroup]="myForm">
         <div class="p-bodycard">
-            <legend>Placement Details</legend>
+            <div style="display: grid; grid-template-columns: 1fr auto;">
+                <div>
+                    <legend>Placement Details</legend>
+                </div>
+                <button type="submit" class="btn btn-secondary" style="margin: 10px;" (click)="backToList()">
+                    Back
+                </button>
+            </div>
+            
             <div class="p-grid p-fluid flex-row">
                 <div class="col-md-3" style="padding: 10px;">
-                    <div>
+                    <div class="">
                         <label for="notes">Placement Notes</label>
                         <input id="notes" type="text" formControlName="Notes" class="p-inputtext" />
                     </div>
@@ -14,7 +22,8 @@
                     <div class="p-inputgroup">
                         <span class="p-inputgroup-addon">$</span>
                         <input id="BillRate" type="text" formControlName="BillRate" class="p-inputtext" />
-                        <div class="p-inputgroup-addon">
+                        <div class="p-inputgroup-addon" style="background-color: #F2F2F2; width: 30%;border: 1px solid #883cae;
+                        border-radius: 3px;">
                             <select formControlName="BillType" class="p-inputgroup-select" style="width: 100%;">
                                 <option value="true">Hourly</option>
                                 <option value="false">Annual</option>
@@ -28,7 +37,7 @@
                         <p-autoComplete formControlName="MarketerName" [suggestions]="marketersAuto" [minLength]="2"
                             (completeMethod)="search($event)" (onSelect)="setMarketer($event)" field="Name"
                             required="true" forceSelection="true"></p-autoComplete>
-                        </div>
+                    </div>
                 </div>
                 <div class="col-md-3" style="padding: 10px;">
                     <div class="">
@@ -91,7 +100,7 @@
                 </div>
                 <div class="col-md-3" style="padding: 10px;">
                     <div class="">
-                        <label for="POStartDate">PO Start Date</label>
+                        <label for="POStartDate">PO Start Date<span class="required">*</span></label>
                         <input type="text" class="p-inputtext" style="background: #F2F2F2;border: none;" bsDatepicker
                             #dp="bsDatepicker" class="form-control" formControlName="POStartDate" [bsConfig]="bsConfig">
                     </div>
@@ -233,3 +242,4 @@
     </div>
 </div>
 
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

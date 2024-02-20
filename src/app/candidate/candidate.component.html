@@ -2,9 +2,9 @@
     <div class="container-fluid">
         <accordion [isAnimated]="true">
             <accordion-group heading="Upload Documents" [isOpen]=true>
-                <div>
+                <!-- <div>
                     <i class="fa fa-arrow-left clickable" (click)="goBack()"> Back to profile</i>
-                </div>
+                </div> -->
                 <div style="padding: 15px 8px;">
                     <alert *ngIf="toggleSuccess" type="success" dismissOnTimeout="5000" dismissible=true
                         (onClosed)="onClosed()">File uploaded successfully
@@ -26,8 +26,8 @@
         [columnDefs]="columnDefs" [gridOptions]="gridOptions" (gridReady)="onGridReady($event)">
     </ag-grid-angular>
 </div>
-
-<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
+<p-toast position="bottom-right"></p-toast>
+<div bsModal #childModal="bs-modal" class="modal fade" style="z-index: 99999 !important;" data-backdrop="false" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-body text-center">
@@ -38,3 +38,4 @@
         </div>
     </div>
 </div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

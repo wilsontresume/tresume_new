@@ -1,20 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,Input } from '@angular/core';
 import { HttpClient, HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CandidateService } from './candidate.service';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-sitevisit',
     templateUrl: './site-visit.component.html',
     styleUrls: ['../app.component.scss'],
     providers: [CandidateService, DashboardService]
-    
 })
 
 
 export class SiteVisitComponent implements OnInit {
+    loading:boolean = false;
 
     public traineeId: any;
     public details: any;
@@ -22,15 +23,15 @@ export class SiteVisitComponent implements OnInit {
     public H1BStatus: any;
     public newJDDetails: any;
     public toggleView: boolean = false;
+    @Input() candidateId: string;
 
     @ViewChild('lgModal', { static: false }) lgModal?: ModalDirective;
 
-    constructor(private route: ActivatedRoute, private service: CandidateService, private dashservice: DashboardService) {
-        this.traineeId = this.route.snapshot.params["traineeId"];
-
+    constructor(private route: ActivatedRoute, private service: CandidateService, private dashservice: DashboardService) { 
     }
 
     ngOnInit(): void {
+        this.traineeId=this.candidateId;
         this.service.getSiteVisitDetails(this.traineeId).subscribe(x => {
             let response = x.result;
             if (response) {
