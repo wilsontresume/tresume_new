@@ -22,19 +22,20 @@ import { DatePipe } from '@angular/common';
 export class CreateAllTimeListComponent implements OnInit {
   OrgID: string;
   rows: any[] = [];
-  // minDate: string;
-  // maxDate: string;
-  // maxSelectableDays = 7;
-  // maxAllowedDays: number = 7;
-  // selectedSunday: string = '';
-  // isSundaySelected: boolean = false;
+  minDate: string;
+  maxDate: string;
+  maxSelectableDays = 7;
+  selectedDateRange: Date[] = [];
+  maxAllowedDays: number = 7;
+  selectedSunday: string = '';
+  isSundaySelected: boolean = false;
   CAselectedFile: File | null = null;
   SRselectedFile: File | null = null;
   [key: string]: any;
   file1: File | null = null;
   file2: File | null = null;
 
-
+  
   timesheetRows: any[] = [];
   totalAmountForAllRows: number = 0;
   totalAmount: number = 0;
@@ -66,22 +67,40 @@ export class CreateAllTimeListComponent implements OnInit {
     return datesWithDaysArray;
   }
 
-  onDateRangeChange(dates: Date[]) {
+  // onDateRangeChange(dates: Date[]): void {
+  //   if (dates.length === 2) {
+  //     const startDate = new Date(dates[0]);
+  //     const endDate = new Date(dates[1]);
+  //     const startDayOfWeek = startDate.getDay();
+  //     const endDayOfWeek = endDate.getDay();  
+  //     if (startDayOfWeek !== 1 || endDayOfWeek !== 0) {
+  //       this.selectedDateRange = [];
+  //       console.log('Please select a date range that begins on a Monday and ends on a Sunday.');
+  //     } else {
+  //       this.selectedDateRange = [startDate, endDate];
+  //     }
+  //   }
+  // }
+  
+  onDateRangeChange(dates: Date[]): void {
     if (dates.length === 2) {
       const startDate = new Date(dates[0]);
       const endDate = new Date(dates[1]);
-
-      const dayDifference = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-
-      if (dayDifference >= this.maxSelectableDays) {
+      const startDayOfWeek = startDate.getDay();
+      const endDayOfWeek = endDate.getDay();  
+      if (startDayOfWeek !== 1 || endDayOfWeek !== 0) {
         this.selectedDateRange = [];
-        console.log('Please select a date range within 7 days.');
+        console.log('Please select a date range of 7 days that begins on a Monday!');
+        this.showMessage('Please select a date range of 7 days that begins on a Monday!');
       } else {
         this.selectedDateRange = [startDate, endDate];
       }
     }
   }
-
+  showMessage(message: string): void {
+    alert(message);
+  }
+  
   addRow() {
     this.timesheetRows.push({
       selectedOption: null,
@@ -145,19 +164,19 @@ export class CreateAllTimeListComponent implements OnInit {
     const sat = row.sat || 0;
     const sun = row.sun || 0;
     const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
-
+   
     row.totalHours = totalHours;
-
+   
     return isNaN(totalHours) ? 'N/A' : totalHours;
-
+    
   }
 
   addDefaultRows() {
     this.timesheetRows.push({
-      projectName: '',
+      projectName:'',
       payItem: '',
-      service: '',
-      location: '',
+      service:'',
+      location:'',
       description: '',
       hourlyRate: '',
       billable: false,
@@ -191,12 +210,19 @@ export class CreateAllTimeListComponent implements OnInit {
 
   ngOnInit(): void {
     this.OrgID = this.cookieService.get('OrgID');
+
+    this.addDefaultRows();
     this.addDefaultRows();
     this.getProjectName();
-    this.getCandidateName();
+    this.getCandidateList();
     this.getLocation();
-    // this.selectedWeek = '2024-02-05 to 2024-02-11';
+    this.getpayItem();
+
+    this.selectedWeek = '2024-02-05 to 2024-02-11';
     this.updateDynamicDays(this.selectedWeek);
+
+    this.minMonday = this.getRecentMonday();
+    this.maxSunday = this.getUpcomingSunday();
   }
   updateDynamicDays(selectedWeek: string): void {
     this.dynamicDays = this.getWeekData(selectedWeek).days;
@@ -208,8 +234,8 @@ export class CreateAllTimeListComponent implements OnInit {
   //   this.updateSerialNumbers();
   // }
 
-  selectedItem: string;
-  dropdownOption: string[] = [];
+selectedItem: string;
+dropdownOptions: any[] = [];
 
   selectOption(option: string): void {
     this.selectedItem = option;
@@ -218,38 +244,35 @@ export class CreateAllTimeListComponent implements OnInit {
     let Req = {
       OrgID: this.OrgID
     };
-    
+
     this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
       this.dropdownOptions = x.result;
     });
   }
 
-  // getCandidateName() {
-  //   this.Service.getTimesheetCandidatetList(this.OrgID).subscribe(
-  //     (response: any) => {
-  //       this.dropdownOptions = response.result;
-  //     },
-  //     (error) => {
-  //       console.error("Error fetching candidate names:", error);
-  //     }
-  //   );
-  // }
+getCandidateList() {
+  let Req = {
+    OrgID: this.OrgID
+  };
+  this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => { 
+    this.dropdownOptions = x.result;
+  });
+}
 
-  // dropdownOptions() {
-  //   return this.dropdownOptions;
-  // }
-  onChangesDropdown(selectedOption: any, row: any) {
-    this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
-  }
+getDropdownOption1() { 
+  return this.dropdownOptions;
+}
 
-
+onChangesDropdown(selectedOption: any, row: any) {
+  this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
+}
+ 
   selectedItem1: string;
   dropdownOptions1: string[] = [];
 
   selectOption1(option: string): void {
     this.selectedItem1 = option;
   }
-
   getProjectName() {
     let Req = {
       OrgID: this.OrgID
@@ -258,15 +281,15 @@ export class CreateAllTimeListComponent implements OnInit {
       this.ProjectName = x.result;
     });
   }
-
   getDropdownOptions() {
     return this.ProjectName;
   }
-
   onDropdownChange(selectedOption: any, row: any) {
     row.projectName = selectedOption.ProjectName;
 
   }
+
+
   selectedItem4: string;
   dropdownOptions4: string[] = [];
 
@@ -279,67 +302,65 @@ export class CreateAllTimeListComponent implements OnInit {
       OrgID: this.OrgID
     };
     this.Service.getLocationList(Req).subscribe((x: any) => {
-      this.city = x.result;
+      this.state = x.result;
     });
   }
   getDropdownOption() {
-    return this.city;
+    return this.state;
   }
   onDropdownChanges(selectedOption: any, row: any) {
-    row.location = selectedOption.city;
+    row.location = selectedOption.state;
   }
 
-  option1 = ['Regular Type']
-  onDropdownItemClick(selectedOption: string, row: any): void {
-    row.payItem = selectedOption;
+
+  // option1 = ['Regular Type']
+  // onDropdownItemClick(selectedOption: string, row: any): void {
+  //   row.payItem = selectedOption;
+  // }
+
+  selectedItem2: string;
+  dropdownOptions2: string[] = [];
+
+  selectOption3(option: string): void {
+    this.selectedItem2 = option;
   }
 
-  option2 = ['Service']
+  getpayItem() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getPayItemList(Req).subscribe((x: any) => {
+      this.Text = x.result;
+    });
+  }
+  getDropdownOptionn() {
+    return this.Text;
+  }
+  onDropdownChangess(selectedOption: any, row: any) {
+    row.payItem = selectedOption.Text;
+  }
+
+    option2 = ['Service']
   onDropdownItemClicks(selectedOption: string, row: any): void {
     row.service = selectedOption;
   }
 
-  // SaveRow() {
-  //   let Req = {
-  //     data: this.timesheetRows,
-  //   };
-  //   console.log(Req);
-  //   this.Service.createTimesheet(Req).subscribe(
-  //     (x: any) => {
-  //       this.handleSuccess(x);
-  //     },
-  //     (error: any) => {
-  //       this.handleError(error);
-  //     }
-  //   );
-  // }
-
-  // Individual row value 
-  // SaveRow(): void {
-  //   console.log("Timesheet Rows:");
-  //   this.timesheetRows.forEach((row, index) => {
-  //     console.log(`Row ${index + 1}:`);
-  //     Object.keys(row).forEach(key => {
-  //       console.log(`${key}: ${row[key]}`);
-  //     });
-  //   });
-  // }
-
-  SaveRow(): void {
-    if (this.timesheetRows.length > 1) {
-      console.log("Timesheet Rows:");
-      this.timesheetRows.forEach((row, index) => {
-        console.log(`Row ${index + 1}:`, row);
-      });
-    } else {
-      console.log("Only one row value is present in the table.");
-      console.log("Value:", this.timesheetRows[0]);
-    }
+  SaveRow() {
+    let Req = {
+      data: this.timesheetRows,
+    };
+    console.log(Req);
+    // this.Service.createTimesheet(Req).subscribe(
+    //   (x: any) => {
+    //         this.handleSuccess(x);
+    //       },
+    //       (error: any) => {
+    //         this.handleError(error);
+    //       }
+    // );
   }
 
   selectedWeek: string = '';
-
-
   onWeekSelect(week: string): void {
     this.selectedWeek = week;
   }
