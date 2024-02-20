@@ -195,7 +195,7 @@ export class CreateAllTimeListComponent implements OnInit {
     this.getProjectName();
     this.getCandidateName();
     this.getLocation();
-    this.selectedWeek = '2024-02-05 to 2024-02-11';
+    // this.selectedWeek = '2024-02-05 to 2024-02-11';
     this.updateDynamicDays(this.selectedWeek);
   }
   updateDynamicDays(selectedWeek: string): void {
