@@ -841,16 +841,119 @@ app.post("/getResumeDetails", function (req, res) {
   });
 });
 
+// app.post("/getOnboardingList", function (req, res) {
+//   sql.connect(config, function (err) {
+//     if (err) console.log(err);
+//     var request = new sql.Request();
+//     request.input("OrgID", sql.VarChar, req.body.OrgID);
+//     request.input("startDate", sql.VarChar, req.body.startDate);
+//     request.input("endDate", sql.VarChar, req.body.endDate);
+//     request.execute("getCurrentOnboardingList", function (err, recordset) {
+//       // request.query("select ISNULL(CONVERT(NVARCHAR(10),createdate,101), '1900-01-01T00:00:00') as Date, FirstName + ' ' + LastName as 'Employee Name', ISNULL(CONVERT(NVARCHAR(10), startdate,101), '1900-01-01T00:00:00') as 'Start Date', status, PercentComplete as Completed, ID from CurrentOnboardings where OrgID = '" + req.body.OrgID + "' and Active = 1 Order by createdate desc", function (err, recordset) {
+//       if (err) console.log(err);
+//       var result = {
+//         flag: 1,
+//         result: recordset.recordsets[0],
+//       };
+//       res.send(recordset.recordsets[0]);
+//     });
+//   });
+// });
+
 app.post("/getOnboardingList", function (req, res) {
   sql.connect(config, function (err) {
-    if (err) console.log(err);
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error connecting to database");
+      return;
+    }
+
+    var useremail = req.body.useremail;
+
+    var query = `SELECT ISNULL(CONVERT(NVARCHAR(10), CO.createdate, 101), '1900-01-01T00:00:00') AS Date,
+                        CO.FirstName + ' ' + CO.LastName AS 'EmployeeName', 
+                        ISNULL(CONVERT(NVARCHAR(10), CO.startdate, 101), '1900-01-01T00:00:00') AS 'StartDate',
+                        CO.status,
+                        CO.PercentComplete AS Completed,
+                        CO.ID
+                 FROM CurrentOnboardings CO
+                 INNER JOIN Memberdetails M ON CHARINDEX(',' + CAST(CO.OrgID AS VARCHAR) + ',', ',' + M.accessorg + ',') > 0
+                 INNER JOIN Organization O ON CO.OrgID = O.organizationid
+                 WHERE M.useremail = '${useremail}' 
+                   AND CO.Active = 1 
+                   AND CO.CreateDate BETWEEN '2020-01-01' AND '2023-03-01'
+                 ORDER BY CO.createdate DESC;`;
+
+    console.log("Query:", query);
+
     var request = new sql.Request();
-    request.input("OrgID", sql.VarChar, req.body.OrgID);
-    request.input("startDate", sql.VarChar, req.body.startDate);
-    request.input("endDate", sql.VarChar, req.body.endDate);
-    request.execute("getCurrentOnboardingList", function (err, recordset) {
-      // request.query("select ISNULL(CONVERT(NVARCHAR(10),createdate,101), '1900-01-01T00:00:00') as Date, FirstName + ' ' + LastName as 'Employee Name', ISNULL(CONVERT(NVARCHAR(10), startdate,101), '1900-01-01T00:00:00') as 'Start Date', status, PercentComplete as Completed, ID from CurrentOnboardings where OrgID = '" + req.body.OrgID + "' and Active = 1 Order by createdate desc", function (err, recordset) {
-      if (err) console.log(err);
+    request.query(query, function (err, recordset) {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error executing query");
+        return;
+      }
+      var result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    });
+  });
+});
+
+
+// app.post("/getCandidatesbyStatus", function (req, res) {
+//   sql.connect(config, function (err) {
+//     if (err) console.log(err);
+//     var request = new sql.Request();
+//     request.query(
+//       "select FirstName, LastName, (FirstName + ' ' + LastName) as CandidateName, TraineeID from Trainee where (CandidateStatus=7 or CandidateStatus=6) and UserOrganizationID=" +
+//       req.body.OrgID +
+//       " and TraineeID NOT IN (Select TraineeID from CurrentOnboardings)",
+//       function (err, recordset) {
+//         if (err) console.log(err);
+//         var result = {
+//           flag: 1,
+//           result: recordset.recordsets[0],
+//         };
+//         res.send(recordset.recordsets[0]);
+//       }
+//     );
+//   });
+// });
+
+app.post("/getCandidatesbyStatus", function (req, res) {
+  sql.connect(config, function (err) {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error connecting to database");
+      return;
+    }
+
+    var useremail = req.body.useremail;
+
+    var query = `SELECT T.FirstName, 
+                        T.LastName, 
+                        (T.FirstName + ' ' + T.LastName) as CandidateName, 
+                        T.TraineeID,
+                        O.Organizationname
+                 FROM Trainee T
+                 INNER JOIN Memberdetails M ON CHARINDEX(',' + CAST(T.userorganizationid AS VARCHAR) + ',', ',' + M.accessorg + ',') > 0
+                 INNER JOIN Organization O ON T.userorganizationid = O.organizationid
+                 WHERE M.useremail = '${useremail}'
+                 AND (T.CandidateStatus = 7 OR T.CandidateStatus = 6) 
+                 AND T.TraineeID NOT IN (SELECT TraineeID FROM CurrentOnboardings);`;
+
+    console.log("Query:", query); 
+
+    var request = new sql.Request();
+    request.query(query, function (err, recordset) {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error executing query");
+        return;
+      }
       var result = {
         flag: 1,
         result: recordset.recordsets[0],
@@ -860,25 +963,7 @@ app.post("/getOnboardingList", function (req, res) {
   });
 });
 
-app.post("/getCandidatesbyStatus", function (req, res) {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    request.query(
-      "select FirstName, LastName, (FirstName + ' ' + LastName) as CandidateName, TraineeID from Trainee where (CandidateStatus=7 or CandidateStatus=6) and UserOrganizationID=" +
-      req.body.OrgID +
-      " and TraineeID NOT IN (Select TraineeID from CurrentOnboardings)",
-      function (err, recordset) {
-        if (err) console.log(err);
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0],
-        };
-        res.send(recordset.recordsets[0]);
-      }
-    );
-  });
-});
+
 
 app.post("/getChecklists", function (req, res) {
   sql.connect(config, function (err) {

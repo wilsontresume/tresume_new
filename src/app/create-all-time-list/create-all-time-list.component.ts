@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -193,16 +194,16 @@ export class CreateAllTimeListComponent implements OnInit {
     this.OrgID = this.cookieService.get('OrgID');
 
     this.addDefaultRows();
+    this.addDefaultRows();
     this.getProjectName();
-    this.getCandidateName();
+    this.getCandidateList();
     this.getLocation();
+    this.getpayItem();
 
     this.selectedWeek = '2024-02-05 to 2024-02-11';
     this.updateDynamicDays(this.selectedWeek);
+    }
 
-
-
-  }
   updateDynamicDays(selectedWeek: string): void {
     this.dynamicDays = this.getWeekData(selectedWeek).days;
   }
@@ -213,38 +214,36 @@ export class CreateAllTimeListComponent implements OnInit {
   //   this.updateSerialNumbers();
   // }
 
-  selectedItem: string;
-  dropdownOption: string[] = [];
+selectedItem: string;
+dropdownOptions: any[] = [];
 
-  selectOption(option: string): void {
-    this.selectedItem = option;
-  }
-  getCandidateName() {
-    let Req = {
-      OrgID: this.OrgID
-    };
-    this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
-      this.dropdownOptions = x.result;
-    });
-  }
+selectOption(option: string): void {
+  this.selectedItem = option;
+}
 
-  dropdownOptions() {
-    return this.dropdownOptions;
-  }
-  onChangesDropdown(selectedOption: any, row: any) {
-    this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
+getCandidateList() {
+  let Req = {
+    OrgID: this.OrgID
+  };
+  this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => { 
+    this.dropdownOptions = x.result;
+  });
+}
 
+getDropdownOption1() { 
+  return this.dropdownOptions;
+}
 
-  }
-
-
+onChangesDropdown(selectedOption: any, row: any) {
+  this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
+}
+ 
   selectedItem1: string;
   dropdownOptions1: string[] = [];
 
   selectOption1(option: string): void {
     this.selectedItem1 = option;
   }
-
   getProjectName() {
     let Req = {
       OrgID: this.OrgID
@@ -253,15 +252,15 @@ export class CreateAllTimeListComponent implements OnInit {
       this.ProjectName = x.result;
     });
   }
-
   getDropdownOptions() {
     return this.ProjectName;
   }
-
   onDropdownChange(selectedOption: any, row: any) {
     row.projectName = selectedOption.ProjectName;
 
   }
+
+
   selectedItem4: string;
   dropdownOptions4: string[] = [];
 
@@ -274,22 +273,45 @@ export class CreateAllTimeListComponent implements OnInit {
       OrgID: this.OrgID
     };
     this.Service.getLocationList(Req).subscribe((x: any) => {
-      this.city = x.result;
+      this.state = x.result;
     });
   }
   getDropdownOption() {
-    return this.city;
+    return this.state;
   }
   onDropdownChanges(selectedOption: any, row: any) {
-    row.location = selectedOption.city;
+    row.location = selectedOption.state;
   }
 
-  option1 = ['Regular Type']
-  onDropdownItemClick(selectedOption: string, row: any): void {
-    row.payItem = selectedOption;
+
+  // option1 = ['Regular Type']
+  // onDropdownItemClick(selectedOption: string, row: any): void {
+  //   row.payItem = selectedOption;
+  // }
+
+  selectedItem2: string;
+  dropdownOptions2: string[] = [];
+
+  selectOption3(option: string): void {
+    this.selectedItem2 = option;
   }
 
-  option2 = ['Service']
+  getpayItem() {
+    let Req = {
+      OrgID: this.OrgID
+    };
+    this.Service.getPayItemList(Req).subscribe((x: any) => {
+      this.Text = x.result;
+    });
+  }
+  getDropdownOptionn() {
+    return this.Text;
+  }
+  onDropdownChangess(selectedOption: any, row: any) {
+    row.payItem = selectedOption.Text;
+  }
+
+    option2 = ['Service']
   onDropdownItemClicks(selectedOption: string, row: any): void {
     row.service = selectedOption;
   }
@@ -310,8 +332,6 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
   selectedWeek: string = '';
-
-
   onWeekSelect(week: string): void {
     this.selectedWeek = week;
   }
@@ -441,4 +461,3 @@ export class CreateAllTimeListComponent implements OnInit {
 
 //   return weeks;
 // }
-

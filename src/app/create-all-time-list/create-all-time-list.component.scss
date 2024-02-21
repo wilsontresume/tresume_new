@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   padding: 0;
@@ -162,4 +163,9 @@ textarea:focus{
 th span.date {
   font-family: 'Arial', sans-serif;
   color: #007bff;
+}
+
+.dropdown-menu-scrollable {
+  max-height: 225px;
+  overflow-y: auto;
 }
