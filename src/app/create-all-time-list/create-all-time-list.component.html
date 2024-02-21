@@ -26,15 +26,16 @@
         <input type="text" class="form-control" placeholder="Select Date Range" bsDaterangepicker
           [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)" style="width: 16rem;">
       </div> -->
+      <!-- Display the selected week -->
+          <!-- <div *ngIf="selectedWeek" class="selected-week">
+            You selected: {{ selectedWeek }}
+          </div> -->
+
       <div class="col-md-3 gray-theme">
         <div class="weekly-datepicker">
           <select id="weekPicker" [(ngModel)]="selectedWeek" (change)="onWeekSelect($event.target.value)">
             <option *ngFor="let week of generateWeeks()" [value]="week" value="">{{ week }}</option>
           </select>
-          <!-- Display the selected week -->
-          <!-- <div *ngIf="selectedWeek" class="selected-week">
-            You selected: {{ selectedWeek }}
-          </div> -->
         </div>
       </div>
     </div>
@@ -157,7 +158,7 @@
             </div>
           </div>
         </td>
-        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.mon" id="mon"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.dates" id="mon"></td>
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.tues" id="tues"></td>
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.wed" id="wed"></td>
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.thu" id="thu"></td>
@@ -179,15 +180,17 @@
   </table>
 
   <!-- <button (click)="deleteAllRows()">Minus</button> -->
-  <div class="row mt-3">
-    <div class="col-md-4">
-      <button (click)="addRow()" class="btn-block fbtn">Add Lines</button>
-    </div>
-    <div class="col-md-4 text-center">
-      <button class=" btn-block fbtn">Copy last timesheet</button>
-    </div>
-    <div class="col-md-4 text-right">
-      <button class=" btn-block fbtn" (click)="SaveRow()">Save</button>
+  <div class="fixed-tab">
+    <div class="row mt-3">
+      <div class="col-md-4">
+        <button (click)="addRow()" class="btn-block fbtn">Add Lines</button>
+      </div>
+      <div class="col-md-4 text-center">
+        <button class=" btn-block fbtn">Copy last timesheet</button>
+      </div>
+      <div class="col-md-4 text-right">
+        <button class=" btn-block fbtn" (click)="SaveRow()">Save</button>
+      </div>
     </div>
   </div>
 </div>
