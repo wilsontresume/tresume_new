@@ -613,8 +613,7 @@ router.post('/getTimesheetCandidateList', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = pool.request();
-
-    const query = `SELECT traineeid, CONCAT(firstname, ' ', lastname) AS name FROM trainee WHERE userorganizationid = '${req.body.organizationid}' AND timesheet_role = 3`;
+    const query = `SELECT traineeid, CONCAT(firstname,' ',middlename,' ', lastname) AS name FROM trainee WHERE userorganizationid = '${req.body.organizationid}' AND timesheet_role = 3`;
 
     console.log(query);
 
