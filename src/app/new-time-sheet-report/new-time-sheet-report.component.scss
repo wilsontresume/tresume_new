@@ -241,3 +241,34 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 //   content: '\e818';
 //   font-family: 'Glyphicons Halflings';  
 // }
+
+.container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.header {
+  position: relative;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.input {
+  /* Your CSS styles here */
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+}
+.input2{
+  width: 70%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  margin-top: 5px;
+}

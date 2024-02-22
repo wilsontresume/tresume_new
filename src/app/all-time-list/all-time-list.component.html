@@ -41,7 +41,6 @@
                             <thead>
                                 <tr>
                                     <th>Candidate</th>
-                                    <th>Month</th>
                                     <th>From Date</th>
                                     <th>To Date</th>
                                     <th>Total Hours</th>
@@ -54,7 +53,6 @@
                             <tbody>
                                 <tr *ngFor="let row of PendingData">
                                     <td>{{ row.Candidate }}</td>
-                                    <td>{{ row.Month }}</td>
                                     <td>{{ row.fromdate }}</td>
                                     <td>{{ row.todate }}</td>
                                     <td>{{ row.totalhrs }}</td>
@@ -85,7 +83,6 @@
                             <thead>
                                 <tr>
                                     <th>Candidate</th>
-                                    <th>Month</th>
                                     <th>From Date</th>
                                     <th>To Date</th>
                                     <th>Total Hours</th>
@@ -98,7 +95,6 @@
                             <tbody>
                                 <tr *ngFor="let row of rejectedData">
                                     <td>{{ row.Candidate }}</td>
-                                    <td>{{ row.Month }}</td>
                                     <td>{{ row.fromdate }}</td>
                                     <td>{{ row.todate }}</td>
                                     <td>{{ row.totalhrs }}</td>
@@ -129,7 +125,6 @@
                             <thead>
                                 <tr>
                                     <th>Candidate</th>
-                                    <th>Month</th>
                                     <th>From Date</th>
                                     <th>To Date</th>
                                     <th>Total Hours</th>
@@ -142,7 +137,6 @@
                             <tbody>
                                 <tr *ngFor="let row of completedData">
                                     <td>{{ row.Candidate }}</td>
-                                    <td>{{ row.Month }}</td>
                                     <td>{{ row.fromdate }}</td>
                                     <td>{{ row.todate }}</td>
                                     <td>{{ row.totalhrs }}</td>
@@ -173,7 +167,6 @@
                             <thead>
                                 <tr>
                                     <th>Candidate</th>
-                                    <th>Month</th>
                                     <th>From Date</th>
                                     <th>To Date</th>
                                     <th>Total Hours</th>
@@ -186,7 +179,6 @@
                             <tbody>
                                 <tr *ngFor="let row of nonBillableData">
                                     <td>{{ row.Candidate }}</td>
-                                    <td>{{ row.Month }}</td>
                                     <td>{{ row.fromdate }}</td>
                                     <td>{{ row.todate }}</td>
                                     <td>{{ row.totalhrs }}</td>
