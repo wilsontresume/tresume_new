@@ -64,7 +64,7 @@
             <div class="col-6 form-group">
               <label class="label" for="project">Client Name:</label>
               <select id="userselect" class="form-control" formControlName="ClientName">
-                <option disabled selected value="">Select Client </option>
+                <option disabled selected value="0">Select Client </option>
                 <option *ngFor="let option of clients" [value]="option.ClientID">{{ option.ClientName }}</option>
               </select>
             </div>
@@ -103,7 +103,7 @@
           </div>
 
           <div class="text-center justify-content-center modal-footer">
-            <button class="btn button btn-outline-btn mr-4" (click)="addproject()">Add Project</button>
+            <button class="btn button btn-outline-btn mr-4" (click)="addproject()"  [disabled]="!isFormValid">Add Project</button>
             <button class="btn button btn-outline-btn" (click)="cancelProject()">Cancel</button>
           </div>
         </form>
@@ -125,4 +125,7 @@
       </div>
   </div>
 </div>
+
+<p-toast position="bottom-right"></p-toast>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
 
