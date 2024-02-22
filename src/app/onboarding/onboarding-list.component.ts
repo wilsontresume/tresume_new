@@ -200,6 +200,10 @@ export class OnboardingListComponent implements OnInit {
         console.log('params', params.data.ID)
 
     }
+    public navigateToOnboardStep(id: any) {
+        this.router.navigate(['/onboard/step/' + id]);
+    }
+    
 
     public delete(params: any) {
         console.log('params', params)
@@ -250,5 +254,10 @@ export class OnboardingListComponent implements OnInit {
             return "#a4e73466"; // light green
         }
     }
-    
+
+    navigateToDetailsPage(employee: any) {
+        if (employee && employee.ID) {
+          this.router.navigate(['/onboard/step/' + employee.ID]); 
+        }
+      }
 }
