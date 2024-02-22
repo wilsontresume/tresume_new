@@ -60,7 +60,7 @@ export class CreateProjectComponent implements OnInit {
       TraineeID: this.TraineeID,
       OrgID: this.OrgID,
     };
-    this.service.getTimesheetClientList(Req).subscribe((x: any) => {
+    this.service.getTraineeClientList(Req).subscribe((x: any) => {
       this.clients = x.result;
       console.log(this.clients);
     });
@@ -116,7 +116,9 @@ export class CreateProjectComponent implements OnInit {
       }
     );
     this.addnewproject.reset();
+    this.Candidates = [];
     this.fetchgetProjectList();
+    this.cancelProject();
   }
 
   createproject() {
