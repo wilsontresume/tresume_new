@@ -212,9 +212,9 @@
   list-style: none;
 }
 
-li {
-  margin-bottom: 10px;
-}
+// li {
+//   margin-bottom: 10px;
+// }
 
 .container-fluid {
   .row {
@@ -621,9 +621,13 @@ ul.navbar-nav.mr-auto {
       text-align: center;
       // font-family: 'Arvo', serif;
 
+
       a {
         color: black;
         text-decoration: none;
+        font-family: -webkit-body;
+        font-size: 23px;
+        font-weight: lighter;
 
         &:hover {
           color:purple;

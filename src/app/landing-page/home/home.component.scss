@@ -664,7 +664,7 @@ a:not([href]):not([tabindex]) {
 
 li.nav-item {
   padding: 0px 10px;
-  text-decoration: none;
+  Text-Decoration: none;
 }
 
 .nav-item {
@@ -1700,6 +1700,9 @@ ul.navbar-nav.mr-auto {
       a {
         color: black;
         text-decoration: none;
+        font-family: -webkit-body;
+        font-size: 23px;
+        font-weight: lighter;
 
         &:hover {
           color:purple;
