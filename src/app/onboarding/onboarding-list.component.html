@@ -105,8 +105,10 @@
                         <td style="padding: 8px; border: 1px solid #ddd;">{{ employee.StartDate }}</td>
                         <td style="padding: 8px; border: 1px solid #ddd;">{{ employee.status }}</td>
                         <td style="padding: 8px; border: 1px solid #ddd; position: relative;" [style.background-color]="getBackgroundColor(employee.Completed)">
+                            <span (click)="navigateToDetailsPage(employee)" class="fa fa-info-circle" style="cursor: pointer;"></span>
                             {{ employee.Completed }} 
                         </td>
+                        
                     </tr>
                 </tbody>
             </table>

@@ -881,7 +881,7 @@ app.post("/getOnboardingList", function (req, res) {
                  INNER JOIN Organization O ON CO.OrgID = O.organizationid
                  WHERE M.useremail = '${useremail}' 
                    AND CO.Active = 1 
-                   AND CO.CreateDate BETWEEN '2020-01-01' AND '2023-03-01'
+                   AND CO.CreateDate BETWEEN '2020-01-01' AND '2024-03-01'
                  ORDER BY CO.createdate DESC;`;
 
     console.log("Query:", query);
