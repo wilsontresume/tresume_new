@@ -1,60 +1,82 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { formatDate } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
+import { NewTimeSheetReportService} from './new-time-sheet-report.service';
 
 @Component({
   selector: 'app-new-time-sheet-report',
   templateUrl: './new-time-sheet-report.component.html',
-  styleUrls: ['./new-time-sheet-report.component.scss']
+  styleUrls: ['./new-time-sheet-report.component.scss'],
+  providers: [ NewTimeSheetReportService, CookieService,MessageService],
 })
 export class NewTimeSheetReportComponent implements OnInit {
 
-  startDate: Date;
-  endDate: Date;
   showNotes: boolean = false;
   notes: string = '';
   sort_mode: any;
   sortOptionsList: any;
   sort_by: any;
   showSortingOptions = false;
-  editMode: boolean = false;
-  showIcon = false;
+  OrgID:string = '';
+  TraineeID:string = '';
+
   maxSelectableDays: number;
   showExportOptions: boolean = false;
   selectedDateRange: Date[] = [];
-  companyName: string = "ASTA CRS INC";
-  timeActivity: string = "Time Activities by Employee Detail";
-  Activity: string = "January 1-24, 2024";
+  loading:boolean = false;
+  noResultsFound:boolean = true;
+  timesheetrole: any;
   sortbyoptions = ['Activity Date', 'Client', 'product', 'Description', 'Rate', 'Duration', 'Billable'];
 
+
+
+  
+  
   tableData = [
     { activeDate: '', client: '', product: '', description: '', rates: '', duration: '', billable: '' },
-    { activeDate: '01/01/2024', client: 'I TechSolutions inc,-Abishek....', product: 'Service', description: 'Abhishek Bhimiraj', rates: '74.80', duration: '08:00', billable: 'Yes' },
-    { activeDate: '01/01/2024', client: 'I TechSolutions inc,-Abishek....', product: 'Service', description: 'Abhishek Bhimiraj', rates: '74.80', duration: '08:00', billable: 'Yes' },
-    { activeDate: '01/01/2024', client: 'I TechSolutions inc,-Abishek....', product: 'Service', description: 'Abhishek Bhimiraj', rates: '74.80', duration: '08:00', billable: 'Yes' },
-    { activeDate: '01/01/2024', client: 'I TechSolutions inc,-Abishek....', product: 'Service', description: 'Abhishek Bhimiraj', rates: '74.80', duration: '08:00', billable: 'Yes' },
-    { activeDate: '01/01/2024', client: 'I TechSolutions inc,-Abishek....', product: 'Service', description: 'Abhishek Bhimiraj', rates: '74.80', duration: '00:00', billable: 'Yes' },
-  ];
-
-  //showReportPanel = false;
-  // dateRangeOptions = ["All Dates", "Custom", "Today", "This Week", "This Week-To-Date", "This Month", "This-month-to-date", "This Quarter", "This-Quarter-to-Date", "This Year", "This-Year-to-date", "This-Year-to-last-month", "Last Month", "Last Month-to-date", "Last Quarter", "Last Quarter-to-date", "Last Year", "Last Year-to-date", "Since 30 Days Ago", "Since 60 Days Ago", "Since 90 Days Ago", "Since 365 Days Ago", "Next Week", "Next 4 Week", "Next Month", "Next Quarter", "Next Year"];
-  // employeeGroupByOptions = ["None", "Client", "Employe", "Product/service", "location", "Day", "Week", "Work Week", "Month", "Quarter", "Year"];
+    ];
 
 
-  ngOnInit(): void { }
 
-  constructor() { }
+  ngOnInit(): void { 
+    this.fromDate = this.getFirstDayOfMonth();
+    this.toDate = this.getLastDayOfMonth();
+    this.fetchtimesheetreport();
 
-  // toggleStageOpen() {
-  //   this.showReportPanel = !this.showReportPanel;
-  // }
+    
+  this.OrgID = this.cookieService.get('OrgID');
+  // this.JobID = this.cookieService.get('userName1');
+  this.TraineeID = this.cookieService.get('TraineeID');  
+  this.timesheetrole = this.cookieService.get('timesheet_role');
+  }
+
+  constructor(private cookieService: CookieService, private service:NewTimeSheetReportService,private messageService: MessageService) {
+
+
+   }
+
+
+   
+fetchtimesheetreport(){
+  let Req = {
+    traineeID: this.TraineeID,
+    timesheetrole:this.timesheetrole
+  };
+  this.service.getTimesheetReport(Req).subscribe((x: any) => {
+    this.tableData = x.result;
+    // this.noResultsFound = this.jobs.length === 0;
+  this.loading = false;
+  
+  });
+}
+
+
 
   toggleSortingOptions(event: Event) {
     event.preventDefault();
     this.showSortingOptions = !this.showSortingOptions;
-  }
-
-  toggleEditMode() {
-    this.editMode = !this.editMode;
   }
 
   toggleNotes(event: Event) {
@@ -64,20 +86,6 @@ export class NewTimeSheetReportComponent implements OnInit {
 
   closeNotes() {
     this.showNotes = false;
-  }
-
-  onDateRangeChange(dates: Date[]) {
-    if (dates.length === 2) {
-      const startDate = new Date(dates[0]);
-      const endDate = new Date(dates[1]);
-      const dayDifference = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-      if (dayDifference >= this.maxSelectableDays) {
-        this.selectedDateRange = [];
-        console.log('Please select a date range within 7 days.');
-      } else {
-        this.selectedDateRange = [startDate, endDate];
-      }
-    }
   }
 
   getTotalDuration(): string {
@@ -108,15 +116,30 @@ export class NewTimeSheetReportComponent implements OnInit {
     this.showExportOptions = false;
   }
 
-  // sendEmail() {
-  //   console.log('Sending email...');
-  // }
+  fromDate: Date;
+  toDate: Date;
+  title: string = "Title";
+  subTitle: string = "Subtitle";
+  isEditMode: boolean = false;
 
-  // shareContent() {
-  //   console.log('Sharing content...');
-  // }
+  formatDate(date: Date): string {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+    return `${monthNames[date.getMonth()]} ${date.getDate()}-${this.toDate.getDate()}, ${date.getFullYear()}`;
+  }
 
-  // openSettings() {
-  //   console.log('Opening settings...');
-  // }
+  getFirstDayOfMonth(): Date {
+    const today = new Date();
+    return new Date(today.getFullYear(), today.getMonth(), 1);
+  }
+
+  getLastDayOfMonth(): Date {
+    const today = new Date();
+    return new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  }
+
+  toggleEditMode() {
+    this.isEditMode = !this.isEditMode;
+  }
+
 }
