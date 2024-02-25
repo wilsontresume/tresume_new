@@ -3,18 +3,26 @@
 
   <div class="row ml-1">
     <div class="col-md-2">
-      <input type="text" class="form-control" id="fromDate" placeholder="From Date" [(ngModel)]="fromDate"
-        bsDatepicker>
+      <select class="form-control" [(ngModel)]="selection">
+        <option *ngFor="let option of options">{{ option }}</option>
+      </select>
     </div>
-    <span class="mt-2 text-lg">to</span>
-    <div class="col-md-2">
-      <input type="text" class="form-control" id="toDate" placeholder="To Date" [(ngModel)]="toDate"
-        bsDatepicker>
+    <div *ngIf="isCustomizeSelected()" class="row">
+      <div class="col">
+        <input type="text" class="form-control" id="fromDate" placeholder="From Date" [(ngModel)]="fromDate"
+          bsDatepicker>
+      </div>
+      <span class="mt-2 text-lg">to</span>
+      <div class="col">
+        <input type="text" class="form-control" id="toDate" placeholder="To Date" [(ngModel)]="toDate"
+          bsDatepicker>
+      </div>
     </div>
     <div class="col-md-4 ml-2">
-      <button class="btn btncolor run">Run Report</button>
+      <button class="btn btncolor run" (click)="runReport()">Run Report</button>
     </div>
   </div>
+  
 
   <div class="container-fluid mt-3">
     <div class="scroll-container">
@@ -61,12 +69,9 @@
             
               <tr class="text-center">
                 <th colspan="7" class="text-center">
-                  <div class="header col-md-4 mx-auto">
-                    <span *ngIf="!isEditMode">{{ title }}</span> <i class="fa fa-pen" (click)="toggleEditMode()"></i>  
-                    <input type="text" class="input" *ngIf="isEditMode" [(ngModel)]="title">
-                    <h3 *ngIf="!isEditMode">{{ subTitle }}</h3>
-                    <input type="text" class="input2" *ngIf="isEditMode" [(ngModel)]="subTitle">
-                    <p>Activity Date: {{ formatDate(fromDate) }}</p>
+                  <div class="header col-md-4 mx-auto mt-3">
+                    <span>{{ title }}</span>
+                    <h3>{{ subTitle }}</h3>
                   </div> 
                 </th>
               </tr>
@@ -111,7 +116,7 @@
           </div>
         </div>
         <br>
-        <div class="container justify-content-center">Tuesday, January 30, 2024 02:39 AM GMT+05:30</div>
+        <!-- <div class="container justify-content-center">Tuesday, January 30, 2024 02:39 AM GMT+05:30</div> -->
       </div>
     </div>
   </div>
