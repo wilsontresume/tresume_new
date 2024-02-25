@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-adobesign1',
@@ -8,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./adobesign.component.scss']
 })
 export class AdobesignComponent1 {
+  loading:boolean = false;
+
   file: File | null = null;
   accesstoken:string;
   transientDocumentId: string;

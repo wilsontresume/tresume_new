@@ -11,6 +11,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { dateComparator } from '../common/dateComparator';
 import * as FileSaver from 'file-saver';
 import { CookieService } from 'ngx-cookie-service';
+import { MatLabel } from '@angular/material/form-field';
 
 @Component({
     selector: 'app-placement-view',
@@ -21,6 +22,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 
 export class PlacementViewComponent implements OnInit {
+    loading:boolean = false;
 
     myForm: FormGroup;
     isEditView: boolean = false;
@@ -35,7 +37,6 @@ export class PlacementViewComponent implements OnInit {
     public traineeId: any;
     public saved: boolean = false;
 
- 
 
     states: { name: string, code: string }[] = [
         { name: 'Alabama', code: 'AL' },
@@ -95,10 +96,12 @@ export class PlacementViewComponent implements OnInit {
     loaded?: boolean = false;
     marketersAuto: string[];
     OrgID: any;
+    placementAdd: any;
 
-    constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private service: CandidateService, private datePipe: DatePipe, private cd: ChangeDetectorRef, private cookieService: CookieService,) {
+    constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private service: CandidateService, private datePipe: DatePipe, private cd: ChangeDetectorRef, private cookieService: CookieService,private router: Router) {
         this.placementItem.placementID = this.route.snapshot.params["placementID"];
         this.placementItem.TraineeID = this.traineeId = this.route.snapshot.params["traineeId"];
+        this.placementItem.routetype = this.traineeId = this.route.snapshot.params["routetype"];
         this.OrgID = this.cookieService.get('OrgID');
         this.myForm = this.formBuilder.group({
         });
@@ -115,7 +118,7 @@ export class PlacementViewComponent implements OnInit {
             { fieldName: 'Title', required: true },
             { fieldName: 'CandidateEmailId', required: false },
             { fieldName: 'ClientName', required: true },
-            { fieldName: 'POStartDate', required: false },
+            { fieldName: 'POStartDate', required: true },
             { fieldName: 'POEndDate', required: false },
             { fieldName: 'ClientManagerName', required: false },
             { fieldName: 'ClientEmail', required: false },
@@ -172,6 +175,11 @@ export class PlacementViewComponent implements OnInit {
             this.myForm.controls['PrimaryPlacement'].setValue(false);
             this.loaded = true;
         }
+
+        this.placementAdd = this.formBuilder.group({
+            notes: ['', [Validators.required, Validators.minLength(3)]],
+            BillRate: ['', [Validators.required]],
+          });
 
     }
 
@@ -294,17 +302,22 @@ export class PlacementViewComponent implements OnInit {
         this.placementItem.MarketerID = params.TraineeID;
 
     }
-   
+
     onSubmit() {
         const requestItem = Object.assign({}, this.placementItem, this.myForm.value);
         requestItem.MarketerName = this.placementItem.MarketerID;
         this.service.addUpdatePlacementDetails(requestItem).subscribe(x => {
             this.saved = true;
+            var url = '/reviewtresume/1/'+this.placementItem.TraineeID+'/2';
+        console.log(url);
+          this.router.navigateByUrl(url);
         });
     }
 
     backToList() {
-        window.history.back();
+        var url = '/reviewtresume/'+this.placementItem.routetype+'/'+this.placementItem.TraineeID+'/2';
+        console.log(url);
+          this.router.navigateByUrl(url);
     }
 }
 
@@ -354,6 +367,4 @@ class CountryCellRenderer implements ICellRendererComp {
     refresh(params: ICellRendererParams): boolean {
         return false;
     }
-  
-    
 }

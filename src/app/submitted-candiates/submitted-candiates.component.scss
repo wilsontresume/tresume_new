@@ -1,28 +1,41 @@
+$brand-primary:#49274a;
+
 .container {
     border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
-    border-top: 3px solid #49274a;
+    border-top: 3px solid $brand-primary;
+    background-color: white;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin:10px 5px;
   }
   
-  .text-left {
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
     text-align: left;
   }
   
-  .text-center {
-    text-align: center;
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
   }
-  hr {
-    border: none;
-    height: 2px; 
-    background-color: #ccc; 
-    margin: 10px 0;
+  .btn{
+    background-color: #49274A;
+    color: #fff;
   }
-  .admin{
-    font-size: 25px;
-    color: #5f0f62;
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
   }
   
+  tr:hover {
+    background-color: #e0e0e0;
+  }
   
-  
+tbody{
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
   

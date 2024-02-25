@@ -1,3 +1,5 @@
+$brand-primary:#49274a;
+
 .login-container {
     display: flex;
     align-items: stretch;
@@ -39,6 +41,13 @@
   }
 
   .action-button {
-    background-color: #49274a;
+    background-color: $brand-primary;
 }
   
+#toggleBtn:hover {
+    cursor: pointer;
+}
+
+#toggleBtn:active {
+    cursor: pointer; 
+}
