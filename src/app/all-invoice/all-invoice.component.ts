@@ -1,11 +1,14 @@
 import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
+import { AllInvoiceService } from './all-invoice.service';
+import { MessageService } from 'primeng/api';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-all-invoice',
   templateUrl: './all-invoice.component.html',
-  styleUrls: ['./all-invoice.component.scss']
+  styleUrls: ['./all-invoice.component.scss'],
+  providers: [CookieService, MessageService , AllInvoiceService],
   
 })
 export class AllInvoiceComponent implements OnInit {
@@ -25,7 +28,31 @@ throw new Error('Method not implemented.');
   isModalOpen = false;
   shareLink = '';
   row: any;
+  noResultsFound:boolean = true;
+  invoices: any[] = [];
+  unpaidInvoices: any[] = [];
+  allInvoices: any[] = [];
+  loading:boolean = false;
 
+  OrgID:string = '';
+  TraineeID:string = '';
+
+  activeTab = 'allinvoices';
+  showCustomDateModel = false;
+  startDate: string;
+  endDate: string;
+  
+  
+  batchActionsOptions = ['Batch Actions'
+  ];
+
+  typeOptions = ['All transaction','All plus deposits'];
+
+  statusOptions = ['All', 'Open'
+  ];
+
+  dateOptions = ['All', 'This Week','This Month','Last Week','Last Week','Custom dates'
+  ];
 
 openModal1() {
   // Show the modal and overlay
@@ -168,38 +195,80 @@ throw new Error('Method not implemented.');
     this.showTable = true;
    
   }   
-  constructor(
-    private dialog: MatDialog,
-    
-    
-    
-    ) {}
+
+    constructor(
+    private dialog: MatDialog, private cookieService: CookieService, private messageService: MessageService, private service: AllInvoiceService,
+         
+    ) {
+
+      this.OrgID = this.cookieService.get('OrgID');
+      this.TraineeID = this.cookieService.get('TraineeID');
+    }
     
   ngOnInit(): void {
+    // this.loading = true;
+    this.fetchPaidInvoiceList();
+    this.fetchunPaidInvoiceList();
+    this.fetchAllInvoiceList();
     throw new Error('Method not implemented.');
+
   }
 
 
-  activeTab: string = 'allinvoices';
-  showCustomDateModel: boolean = false;
-  startDate: string = '';
-  endDate: string = '';
+  fetchPaidInvoiceList(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.getPaidInvoiceList(Req).subscribe((x: any) => {
+      this.invoices = x.result;
+      this.noResultsFound = this.invoices.length === 0;
+    this.loading = false;
+    });
+  }
+  fetchunPaidInvoiceList(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.getunPaidInvoiceList(Req).subscribe((x: any) => {
+      this.unpaidInvoices = x.result;
+      this.noResultsFound = this.unpaidInvoices.length === 0;
+    this.loading = false;
+    });
+  }
 
-  toggleCustomDateModel() {
-    this.showCustomDateModel = !this.showCustomDateModel;
+  fetchAllInvoiceList(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.getAllInvoiceList(Req).subscribe((x: any) => {
+      this.allInvoices = x.result;
+      this.noResultsFound = this.allInvoices.length === 0;
+    this.loading = false;
+    });
+  }
+
+
+
+  toggleCustomDateModel(option: string): void {
+    this.showCustomDateModel = option === 'Custom dates';
+
   }
   
   
-
+  applyAndClose(): void {
+    this.applyDates(); // Apply dates
+    this.showCustomDateModel = false; // Close custom date model
+  }
+  
   resetDates() {  
-    this.startDate = '';  
+    console.log('Resetting dates');
+    this.startDate = '';
     this.endDate = '';
   }
 
   applyDates() {
 
-    console.log('Start Date:', this.startDate);
-    console.log('End Date:', this.endDate);
+    console.log(`Applying dates: Start - ${this.startDate}, End - ${this.endDate}`);
 
   }
 
