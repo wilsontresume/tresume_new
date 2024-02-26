@@ -31,7 +31,17 @@ export class NewTimeSheetReportComponent implements OnInit {
   sortbyoptions = ['Activity Date', 'Client', 'product', 'Description', 'Rate', 'Duration', 'Billable'];
 
 
+  options = ['All','This week','This Month','Customize'];
 
+
+
+  // The current selection from the dropdown
+  selection: string = 'All';
+
+  // Method to check if 'Customize' is selected
+  isCustomizeSelected(): boolean {
+    return this.selection === 'Customize';
+  }
   
   
   tableData = [
@@ -57,7 +67,7 @@ export class NewTimeSheetReportComponent implements OnInit {
 
    }
 
-
+ 
    
 fetchtimesheetreport(){
   let Req = {
@@ -118,8 +128,8 @@ fetchtimesheetreport(){
 
   fromDate: Date;
   toDate: Date;
-  title: string = "Title";
-  subTitle: string = "Subtitle";
+  title: string = "ASTA CRS INC";
+  subTitle: string = "Time Activities By Employees";
   isEditMode: boolean = false;
 
   formatDate(date: Date): string {
@@ -138,8 +148,16 @@ fetchtimesheetreport(){
     return new Date(today.getFullYear(), today.getMonth() + 1, 0);
   }
 
-  toggleEditMode() {
-    this.isEditMode = !this.isEditMode;
-  }
 
+  runReport(): void {
+    if (this.isCustomizeSelected() && this.fromDate && this.toDate) {
+     
+      // this.fetchData(this.fromDate, this.toDate);
+      console.log('Running report from', this.fromDate, 'to', this.toDate);
+    } else {
+      
+      // this.fetchAllData();
+      console.log('Running report for all data');
+    }
+  }
 }

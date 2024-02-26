@@ -149,13 +149,6 @@
               <input type="file" id="file1" class="form-control-file visually-hidden"
                 (change)="onFileChange($event, 'file1', row)">
             </div>
-            <div class="col-md-5">
-              <label for="file2" class="file-label">
-                <i class="fa fa-upload"></i> Status Report
-              </label>
-              <input type="file" id="file2" class="form-control-file visually-hidden"
-                (change)="onFileChange($event, 'file2', row)">
-            </div>
           </div>
         </td>
         <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.mon" id="mon"></td>
