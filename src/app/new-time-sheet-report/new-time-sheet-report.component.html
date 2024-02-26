@@ -1,6 +1,5 @@
 <div class="container-fluid pt-3 pl-5 pr-5 pb-5">
   <h2 style="margin-top: 10px;">Time Activities by Employee Detail Report </h2>
-
   <div class="row ml-1">
     <div class="col-md-2">
       <select class="form-control" [(ngModel)]="selection">
@@ -14,16 +13,13 @@
       </div>
       <span class="mt-2 text-lg">to</span>
       <div class="col">
-        <input type="text" class="form-control" id="toDate" placeholder="To Date" [(ngModel)]="toDate"
-          bsDatepicker>
+        <input type="text" class="form-control" id="toDate" placeholder="To Date" [(ngModel)]="toDate" bsDatepicker>
       </div>
     </div>
     <div class="col-md-4 ml-2">
       <button class="btn btncolor run" (click)="runReport()">Run Report</button>
     </div>
   </div>
-  
-
   <div class="container-fluid mt-3">
     <div class="scroll-container">
       <div class="table-responsive">
@@ -65,17 +61,16 @@
                   </div>
                 </div>
               </th>
-            </tr>      
-            
-              <tr class="text-center">
-                <th colspan="7" class="text-center">
-                  <div class="header col-md-4 mx-auto mt-3">
-                    <span>{{ title }}</span>
-                    <h3>{{ subTitle }}</h3>
-                  </div> 
-                </th>
-              </tr>
-              
+            </tr>
+            <tr class="text-center">
+              <th colspan="7" class="text-center">
+                <div class="header col-md-4 mx-auto mt-3">
+                  <span>{{ title }}</span>
+                  <h3>{{ subTitle }}</h3>
+                </div>
+              </th>
+            </tr>
+
             <tr class="thead-light">
               <th><span>Active Date</span></th>
               <th><span>Client</span></th>
