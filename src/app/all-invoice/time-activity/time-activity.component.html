@@ -61,10 +61,10 @@
         <div class="col-md-4" style="margin-left: -78px;">
           <input type="number" class="form-control" id="time" placeholder="Enter Time" [(ngModel)]="time" (input)="calculateBillableAmount()" style="width: 7rem;">
         </div> -->
-        <div class="form-check" style="margin-left: 32px;">
+        <!-- <div class="form-check" style="margin-left: 32px;">
           <input class="form-check-input" type="checkbox" id="startDateCheckbox">
           <label class="form-check-label" for="startDateCheckbox">Start and End Times</label>
-        </div>
+        </div> -->
       </div>
 
     <div class="form-group row">
@@ -85,24 +85,19 @@
       </div>
   </div>
 
-
   <div class="form-group row">
     <label for="payItem" class="col-md-2 col-form-label">Select Pay Item</label>
     <div class="col-md-4">
-        <div class="input-group" style="width: 14rem;">
-            <input type="text" class="form-control" id="payItem" placeholder="Select Pay Item">
-            <div class="input-group-append">
-                <button class="btn  dropdown-toggle" type="button" id="payItemDropdown" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" style="width: 41px;">
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Option 1</a>
-                    <a class="dropdown-item" href="#">Option 2</a>
-                    <a class="dropdown-item" href="#">Option 3</a>
-                </div>
-            </div>
-        </div>
+        <select class="form-control" id="batchActions" name="batchActions" style="width: 10rem;">
+            <option value="" disabled selected>Select Pay Item</option>
+            <option value="action1">Regular pay</option>
+            <!-- Add more options as needed -->
+        </select>
     </div>
+</div>  
+
+
+    
     <!-- <label for="description" class="col-md-2 col-form-label">Description</label>
     <div class="col-md-4" style="margin-left: -75px;">
         <textarea class="form-control" id="description" placeholder="Enter Description" rows="1"
@@ -114,7 +109,6 @@
             <p>Calculated Billable Amount: {{ billableAmount }} USD</p>
         </div>
     </div> -->
-</div>
 
 
 
@@ -154,7 +148,43 @@
             </div>
           </div>
         </div>
-      </div>
+
+          <!-- First Card -->
+          <div class="col-md-6" style="margin-top: -7rem;">
+            <div class="card border-primary glow-purple" style="width: 25rem; height: 300px;">
+              <div class="card-body" style="width: 23rem;">
+                <h2 class="card-title small-font">Calculate Here the Total Billable Amount</h2>
+        
+                <form>
+                  <div class="form-group">
+                    <label for="price">Billable (/hr)</label>
+                    <input type="text" name="price" [(ngModel)]="price" class="form-control small-font" (input)="updateTotal()">
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="time">Time in hr
+                      <span class="label label time-label small-font">{{ quantity }}</span>
+                    </label>
+                    <input type="range"
+                      name="quantity"
+                      [(ngModel)]="quantity"
+                      min="1"
+                      max="100"
+                      step="1"
+                      class="form-control custom-range"
+                      (input)="updateTotal()">
+                  </div>
+                </form>
+        
+                <div class="text-right text-giant total small-font">
+                  Total: ${{ total.toFixed(2) }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  
 
 
       <div class="form-group row">
@@ -170,28 +200,28 @@
       
 
       <!-- Display the calculated billable amount -->
-<div *ngIf="isBillable && billableAmount !== undefined">
-  <p style="margin-top: -173px;
-  margin-left: 46rem;">Calculated Billable Amount: {{ billableAmount }}</p>
-</div>
+  <!-- <div *ngIf="isBillable && billableAmount !== undefined">
+    <p style="margin-top: -173px;
+    margin-left: 46rem;">Calculated Billable Amount: {{ billableAmount }}</p>
+  </div> -->
 
-
-
-
-<div class="jumbotron col-md-6 col-md-push-3 bg-white"> 
-        <h2>Calculate Here the Total Billable Amount</h2>
-        
-        <form>
-          <div class="form-group">
-            <label for="price">Billable (/hr)</label>
-            <input type="text" name="price" [(ngModel)]="price" class="form-control" (input)="updateTotal()">
-          </div>
-        
-          <div class="form-group">
-            <label for="time">Time
-              <span class="label label time-label">{{ quantity }}</span>
-            </label>
-            <input type="range"
+<!-- 
+  <div class="card border-primary" style="width: 25rem; height: 300px;">
+    <div class="card-body" style="width: 23rem;
+    ">
+      <h2 class="card-title small-font">Calculate Here the Total Billable Amount</h2>
+  
+      <form>
+        <div class="form-group">
+          <label for="price">Billable (/hr)</label>
+          <input type="text" name="price" [(ngModel)]="price" class="form-control small-font" (input)="updateTotal()">
+        </div>
+  
+        <div class="form-group">
+          <label for="time">Time
+            <span class="label label time-label small-font">{{ quantity }}</span>
+          </label>
+          <input type="range"
             name="quantity"
             [(ngModel)]="quantity"
             min="1"
@@ -199,15 +229,16 @@
             step="1"
             class="form-control custom-range"
             (input)="updateTotal()">
-     
-          </div>
-        </form>
-        
-        <div class="text-right text-giant total">
-          Total: ${{ total.toFixed(2) }}
         </div>
+      </form>
+  
+      <div class="text-right text-giant total small-font">
+        Total: ${{ total.toFixed(2) }}
       </div>
-      
+    </div>
+  </div> -->
+  
+
 
 
     </div>

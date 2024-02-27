@@ -164,6 +164,7 @@ import { DatePipe } from '@angular/common';
 import { TruncatePipe } from './truncate.pipe';
 import { TimeActivityComponent } from './all-invoice/time-activity/time-activity.component';
 import { CreateStatementsComponent } from './all-invoice/create-statements/create-statements.component';
+import { MultipleInvoicesComponent } from './all-invoice/multiple-invoices/multiple-invoices.component';
 
 @NgModule({
   declarations: [
@@ -261,6 +262,7 @@ import { CreateStatementsComponent } from './all-invoice/create-statements/creat
       TruncatePipe,
       TimeActivityComponent,
       CreateStatementsComponent,
+      MultipleInvoicesComponent,
     // TimesheetViewdetailsComponent
 
   ],

@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ReviewService {
+export class CreateInvoiceService {
   // deleteplacementdata(Req: { TraineeInterviewID: number; }) {
   //   throw new Error('Method not implemented.');
   // }
@@ -28,9 +28,9 @@ export class ReviewService {
   getTraineeClientList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeClientList', request);
   }
-  
-  getLocation(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'getLocation', request);
+
+  getLocationList(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getLocationList', request);
   }
 
 }

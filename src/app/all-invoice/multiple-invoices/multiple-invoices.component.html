@@ -1,0 +1,114 @@
+<div class="container-fluid p-3">
+    <div class="head d-flex justify-content-between p-3">
+      <h2>Multiple Invoices</h2>
+  
+    </div>
+  
+    <body>
+          
+        <div class="row mt-4">
+            <div class="col-md-6 d-flex" style="margin-top: 21px;">
+              <div class="dropdown-container" style="margin-left: 16px;">
+                <label for="transactionType">Select Transaction Type</label>
+                <select class="form-control" id="transactionType" style="width: 13rem;">
+                    <option value="invoices">Invoices</option>
+                    <option value="bankDeposits">Bank Deposits</option>
+                    <option value="salesReceipts">Sales Receipts </option>
+                    <option value="bills">Bills </option>
+                    <option value="expenses">Expenses </option>
+                    <option value="checks">Checks </option>
+                </select>
+              </div>
+
+
+              <div class="clientemail mt-0 ml-3">
+                 <label for="action">Action</label>
+                <select class="form-control" id="action" style="width: 13rem;">
+                    <option value="create">Create</option>
+                    <option value="update">Update</option>
+                    <option value="delete">Delete</option>
+                </select>
+              </div>
+      
+             
+              </div>
+              <div class="col-md-6 mt-3">
+                <div class="d-flex justify-content-start" style="margin-left: -140px;margin-top: 5px;
+                ">
+                    <div class="total-amount ml-3">
+                        <label>Total Amount</label><br>
+                        <input type="text" class="form-control ml-2" value="$100.00" readonly style="width: 6rem;">
+                        <!-- Replace with the actual total amount -->
+                                </div>
+                </div>
+            </div>
+
+
+
+            <div style="overflow-x: auto; margin-top: 2rem;">
+                <table class="table table-bordered table-striped" style="margin-top: 5rem;">
+                  <!-- Table head -->
+                  <thead class="purple lighten-4">
+                    <tr>
+                      <th>S/NO</th>
+                      <th>InvoiceNo.</th>
+                      <th>Client</th>
+                      <th>Email</th>
+                      <th>OpenBalance</th>
+                      <th>Terms</th>
+                      <!-- Add more columns as needed -->
+                      <th>InvoiceDate</th>
+                      <th>DueDate</th>
+                      <th>Location</th>
+                      <th>Product/Service</th>
+                      <th>ServiceDate</th>
+                      <th>Description</th>
+                      <th>Qty</th>
+                      <!-- Add more columns as needed -->
+                      <th>Amount</th>
+                      <th>Sendlater</th>
+                      <th>Description</th>
+                      <!-- Add more columns as needed -->
+                      <th>Total</th>
+                      <th>Attachments</th>  
+                      <!-- Add more columns as needed -->
+                    </tr>
+                  </thead>
+                  <!-- Table head -->
+                  <!-- Table body -->
+                  <tbody>
+                    <tr *ngFor="let sno of snoArray; let i = index">
+                      <th scope="row">{{ sno }}</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <!-- Add more columns as needed -->
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <!-- Add more columns as needed -->
+                    </tr>
+                  </tbody>
+                  <!-- Table body -->
+                </table>
+                <!-- Table -->
+              </div>
+            </div>
+              
+
+     
+
+
+        </body>

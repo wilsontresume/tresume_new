@@ -267,14 +267,14 @@
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                     <a class="dropdown-item" href="#">Invoice</a>
-                    <a class="dropdown-item" href="#">Multiple Invoice</a>
+                    <!-- <a class="dropdown-item" href="multiple-invoices">Multiple Invoice</a> -->
                     <a class="dropdown-item" href="#">Payment</a>
-                    <a class="dropdown-item" href="#">Estimate</a>
-                    <a class="dropdown-item" href="#">Sales Receipt</a>
-                    <a class="dropdown-item" href="#">Credit Memo</a>
-                    <a class="dropdown-item" href="#">Delayed Charge</a>
+                    <!-- <a class="dropdown-item" href="#">Estimate</a> -->
+                    <!-- <a class="dropdown-item" href="#">Sales Receipt</a> -->
+                    <!-- <a class="dropdown-item" href="#">Credit Memo</a> -->
+                    <!-- <a class="dropdown-item" href="#">Delayed Charge</a> -->
                     <a class="dropdown-item" href="time-activity">Time activity</a>
-                    <a class="dropdown-item" href="create-statements">Statement</a>
+                    <!-- <a class="dropdown-item" href="create-statements">Statement</a> -->
 
                   </div>
 
@@ -332,7 +332,7 @@
                 </div>
               </div>
               <div class="row" style="margin-top: 5rem;">
-                <div class="col-md-2">
+                <div class="col-md-2">   
                   <label for="batchActions">Batch Actions</label>
                   <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="batchActions"
                     name="batchActions">
@@ -345,13 +345,13 @@
                   <label for="type">Type</label>
                   <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="type" name="type">
                     <option value="allTransaction">All transaction</option>
-                    <option value="allPlusDeposits">All plus deposits</option>
-                    <option value="estimate">Estimate</option>
-                    <option value="creditMemos">Credit memos</option>
-                    <option value="salesReceipt">Sales Receipts</option>
+                    <!-- <option value="allPlusDeposits">All plus deposits</option> -->
+                    <!-- <option value="estimate">Estimate</option> -->
+                    <!-- <option value="creditMemos">Credit memos</option> -->
+                    <!-- <option value="salesReceipt">Sales Receipts</option> -->
                     <option value="unbilledIncome">Unbilled Income</option>
                     <option value="moneyReceived">Money received</option>
-                    <option value="recentlyPaid">Recently paid</option>
+                    <!-- <option value="recentlyPaid">Recently paid</option> -->
                   </select>
                 </div>
 
@@ -589,7 +589,7 @@
                             style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
 
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="creat*-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>

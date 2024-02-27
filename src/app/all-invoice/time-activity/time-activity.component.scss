@@ -59,7 +59,7 @@ body {
     cursor: pointer;
   }
   .passed-paths-link {
-    color: purple;
+    color: 580c58;
     text-decoration: none; /* Optional: Remove underline if desired */
   }
   
@@ -74,4 +74,17 @@ body {
     margin-left: 34rem;
     margin-top: -16rem;
 }
-  
+.small-font {
+  font-size: 14px; /* Adjust the font size as needed */
+}
+.text-giant.total {
+  font-size: 22px;
+}
+// .highlighted {
+//   background-color: #580c58;
+//   border: 2px solid orange;
+//   height: 22rem;
+// }
+.glow-purple {
+  box-shadow: 0 0 10px #580c58;
+}
