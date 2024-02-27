@@ -164,7 +164,8 @@
           <i> amount </i>
           <span [(ngModel)]="row.totalAmount">{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}</span>
         </td>
-        <td><i class="fa fa-trash pl-3" type="button" data-toggle="modal" data-target="#exampleModalCenter"></i></td>
+        <!-- <td><i class="fa fa-trash pl-3" type="button" data-toggle="modal" data-target="#exampleModalCenter"></i></td> -->
+        <td><i class="fa fa-trash pl-3" (click)="removeRow(i)"></i></td>
       </tr>
       <td colspan="1"></td>
       <td colspan="1" style="text-align: right;">Total</td>
@@ -202,3 +203,5 @@
     </div>
   </div>
 </div>
+
+
