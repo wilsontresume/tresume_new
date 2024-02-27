@@ -56,7 +56,7 @@
             <input placeholder="Posted within days" [(ngModel)]="daysWithin" class="form-control" />
           </div>
           <div class="col-md-3" style="padding: 20px">
-            <label for="recruiter">Min Experiance</label>
+            <label for="recruiter">Min Experience</label>
             <input [(ngModel)]="yearsOfExpmin" class="form-control" />
           </div>
           <div class="col-md-3" style="padding: 20px">
@@ -180,7 +180,7 @@
               <i *ngIf="jobDetail.workPermitDocuments" class="label fa fa-briefcase">
                 Work Permit Documents: {{ jobDetail.workPermitDocuments }}
               </i>
-
+              
             </div>
             <div class="card-job-skills flex align-items-left">
               <i *ngIf="jobDetail.securityAllowance" class="label fa fa-briefcase">
@@ -225,8 +225,8 @@
             <td>{{cjobtitle}}</td>
           </tr>
           <tr>
-            <td><b>Experiance</b></td>
-            <td>{{cyearsofexperiance}} Years</td>
+            <td><b>Experience</b></td>
+            <td>{{cyearsofExperience}} Years</td>
           </tr>
           <tr>
             <td><b>Email</b></td>
@@ -265,8 +265,8 @@
               </div>
             </td>
           </tr>
-
-
+          
+         
           <tr>
             <td><b>Skills</b></td>
             <td>
@@ -281,7 +281,7 @@
               <b>Current Company</b>
             </td>
             <td>
-              <div *ngFor="let cexp of ccurrentexperiance; index as i" class="" style="padding: 5px">
+              <div *ngFor="let cexp of ccurrentExperience; index as i" class="" style="padding: 5px">
                 Title : {{cexp.title}}<br>
                 Organization : {{edu.org}}
                 Year : {{edu.periodEnd.year}}
@@ -290,10 +290,10 @@
           </tr>
           <tr>
             <td>
-              <b>Previous Experiance</b>
+              <b>Previous Experience</b>
             </td>
             <td>
-              <div *ngFor="let cexp of coldexperiance; index as i" class="" style="padding: 5px">
+              <div *ngFor="let cexp of coldExperience; index as i" class="" style="padding: 5px">
                 Title : {{cexp.title}}<br>
                 Organization : {{edu.org}}
                 Year : {{edu.periodEnd.year}}
@@ -319,6 +319,5 @@
 <div *ngIf="loading" class="loader-container">
   <app-loader class="loader"></app-loader>
 </div>
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
 
 <!-- <p-toast></p-toast> -->

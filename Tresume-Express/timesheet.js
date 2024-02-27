@@ -32,29 +32,202 @@ const transporter = nodemailer.createTransport({
 
 module.exports = router;
 
-router.post("/getAllTimeList", async (req, res) => {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
+// router.post("/getAllTimeList", async (req, res) => {
+//   sql.connect(config, function (err) {
+//     if (err) console.log(err);
+//     var request = new sql.Request();
 
-    var query =
-      "SELECT t.firstname,t.lastname,TM.fromdate, TM.todate, TM.totalhrs, TM.approvalstatus, TM.comments FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" +
-      req.body.traineeID +
-      "' ";
+//     var query =
+//       "SELECT t.firstname,t.lastname,TM.fromdate, TM.todate, TM.totalhrs, TM.approvalstatus, TM.comments FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "' ";
 
-    console.log(query);
-    request.query(query, function (err, recordset) {
-      if (err) console.log(err);
+//     console.log(query);
+//     request.query(query, function (err, recordset) {
+//       if (err) console.log(err);
 
-      var result = {
-        flag: 1,
-        result: recordset.recordsets[0],
-      };
+//       var result = {
+//         flag: 1,
+//         result: recordset.recordsets[0],
+//       };
 
-      res.send(result);
+//       res.send(result);
+//     });
+//   });
+// });
+
+
+router.post("/getTimesheetReport", async (req, res) => {
+  try {
+    sql.connect(config, function (err) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      var request = new sql.Request();
+
+      var query =
+        "SELECT CONCAT(t.firstname, ' ', t.lastname) as Candidate, TM.fromdate, TM.todate, TM.totalhrs, TM.created_at, TM.status, TM.comments, TM.details FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "' AND TM.status=1";
+
+      console.log(query);
+      request.query(query, function (err, recordset) {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      });
     });
-  });
+  } catch (error) {
+    console.error("Error occurred: ", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
 });
+
+
+router.post("/getPendingTimesheetResult", async (req, res) => {
+  try {
+    sql.connect(config, function (err) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      var request = new sql.Request();
+
+      var query =
+        "SELECT CONCAT(t.firstname, ' ', t.lastname) as Candidate, TM.fromdate, TM.todate, TM.totalhrs, TM.created_at, TM.status, TM.comments, TM.details FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "' AND TM.status=1";
+
+      console.log(query);
+      request.query(query, function (err, recordset) {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      });
+    });
+  } catch (error) {
+    console.error("Error occurred: ", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
+
+
+router.post("/getRejectedTimesheetResult", async (req, res) => {
+  try {
+    sql.connect(config, function (err) {
+      if (err) {
+        console.log(err);
+        throw err; 
+      }
+      var request = new sql.Request();
+
+      var query =
+        "SELECT CONCAT(t.firstname, ' ', t.lastname) as Candidate, TM.fromdate, TM.todate, TM.totalhrs, TM.created_at, TM.status, TM.comments, TM.details FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "' AND TM.status = 2";
+
+      console.log(query);
+      request.query(query, function (err, recordset) {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      });
+    });
+  } catch (error) {
+    console.error("Error occurred: ", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
+router.post("/getCompletedTimesheetResult", async (req, res) => {
+  try {
+    sql.connect(config, function (err) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      var request = new sql.Request();
+
+      var query =
+        "SELECT CONCAT(t.firstname, ' ', t.lastname) as Candidate, TM.fromdate, TM.todate, TM.totalhrs, TM.created_at, TM.status, TM.comments, TM.details FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "' AND TM.status = 3";
+
+      console.log(query);
+      request.query(query, function (err, recordset) {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      });
+    });
+  } catch (error) {
+    console.error("Error occurred: ", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
+
+router.post("/getNonBillableTimesheetResult", async (req, res) => {
+  try {
+    sql.connect(config, async function (err) {
+      if (err) {
+        console.log(err);
+        throw err; 
+      }
+      var request = new sql.Request();
+
+      // var query =
+      //   "SELECT CONCAT(t.firstname, ' ', t.lastname) as Candidate, TM.fromdate, TM.todate, TM.totalhrs, TM.created_at, TM.status, TM.comments, TM.details FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "'";
+
+//Its the correct query
+        var query =
+        "SELECT CONCAT(t.firstname, ' ', t.lastname) as Candidate, TM.fromdate, TM.todate, TM.totalhrs, TM.created_at, TM.status, TM.comments, TM.details FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "' and isBillable = 0";
+
+      console.log(query);
+      request.query(query, async function (err, recordset) {
+        if (err) {
+          console.log(err);
+          throw err; 
+        }
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      });
+    });
+  } catch (error) {
+    console.error("Error occurred: ", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
 
 router.post("/createTimesheet", async (req, res) => {
   const timesheetData = req.body.timesheetData;
@@ -639,17 +812,54 @@ router.post("/deleteProject", async (req, res) => {
 });
 
 
+// router.post('/getTimesheetCandidatetList', async (req, res) => {
+//   try {
+//     const pool = await sql.connect(config);
+//     const request = pool.request();
+  
+//     const query =  "select * from Trainee where Active = 1 and isTimeSheet = 1 AND userorganizationid = '" + req.body.OrgID + "' and Role = 'TRESUMEUSER'";
+   
+    
+//     console.log("Query Results:", recordset);
+
+//     const recordset = await request.query(query);
+
+//     if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+//       const result = {
+//         flag: 1,
+//         result: recordset.recordsets[0],
+//       };
+//       res.send(result);
+//     } else {
+//       const result = {
+//         flag: 0,
+//         error: "No active results found!",
+//       };
+//       res.send(result);
+//     }
+//   } 
+//   catch (error) {
+//     console.error("Error fetching candidate data:", error);
+//     const result = {
+//       flag: 0,
+//       error: "An error occurred while fetching candidate data!",
+//     };
+//     res.status(500).send(result);
+//   }
+  
+// });
 router.post('/getTimesheetCandidatetList', async (req, res) => {
+  let recordset; // Declare recordset outside the try block
+
   try {
     const pool = await sql.connect(config);
     const request = pool.request();
   
-    const query =  "select * from Trainee where Active = 1 and isTimeSheet = 1 AND userorganizationid = '" + req.body.OrgID + "'";
-   
-    
+    const query = "select * from trainee where istimesheet =1 and Role = 'TRESUMEUSER' and userorganizationid = 82 and active = 1";
+
     console.log(query);
 
-    const recordset = await request.query(query);
+    recordset = await request.query(query);
 
     if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
       const result = {
@@ -673,8 +883,8 @@ router.post('/getTimesheetCandidatetList', async (req, res) => {
     };
     res.status(500).send(result);
   }
-  
 });
+
 
 
 router.post('/getCreateProjectList', async (req, res) => {
@@ -713,39 +923,39 @@ router.post('/getCreateProjectList', async (req, res) => {
 });
 
 
-// router.post('/getPayItemList', async (req, res) => {
-//   try {
-//     const pool = await sql.connect(config);
-//     const request = pool.request();
+router.post('/getPayItemList', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
     
-//     const query =  "Select Text from PayType";
+    const query =  "Select Text from PayType";
 
-//     console.log(query);
+    console.log(query);
 
-//     const recordset = await request.query(query);
+    const recordset = await request.query(query);
 
-//     if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
-//       const result = {
-//         flag: 1,
-//         result: recordset.recordsets[0],
-//       };
-//       res.send(result);
-//     } else {
-//       const result = {
-//         flag: 0,
-//         error: "No active projects found!",
-//       };
-//       res.send(result);
-//     }
-//   } catch (error) {
-//     console.error("Error fetching project data:", error);
-//     const result = {
-//       flag: 0,
-//       error: "An error occurred while fetching project data!",
-//     };
-//     res.status(500).send(result);
-//   }
-// });
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active projects found!",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching project data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching project data!",
+    };
+    res.status(500).send(result);
+  }
+});
 
 
 router.post('/getLocationList', async (req, res) => {
@@ -754,7 +964,8 @@ router.post('/getLocationList', async (req, res) => {
     const request = pool.request();
     
     // const query =  "select LocationName from Location";
-    const query =  " select distinct city from UsazipcodeNew";
+    // const query =  " select distinct city from UsazipcodeNew";
+    const query = "select distinct CONCAT(state,' - ',stateAbbr) as state from usazipcodenew ORDER BY state ASC";
 
     console.log(query);
 
@@ -805,7 +1016,6 @@ router.post('/deletetimesheetdata', async (req, res) => {
     };
     res.status(500).send(result);
   }  
-
 })
 
 // router.post('/createTimesheet', async (req, res) => {

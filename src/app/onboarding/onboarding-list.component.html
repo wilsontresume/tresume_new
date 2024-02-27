@@ -80,12 +80,41 @@
                 </accordion>
             </div>
         </section>
-        <section class="content m-2">
+        <!-- <section class="content m-2">
             <ag-grid-angular style="width: 100%; height: 622px;" class="ag-theme-alpine" [rowData]="rowData"
                 [columnDefs]="columnDefs" [gridOptions]="gridOptions" [frameworkComponents]="frameworkComponents"
                 (gridReady)="onGridReady($event)">
             </ag-grid-angular>
+        </section> -->
+        <section style="font-family: Arial, sans-serif;">
+
+            <table style="width: 97%; border-collapse: collapse;margin: 10px;">
+                <thead>
+                    <tr style="background-color: #f2f2f2;">
+                        <th style="padding: 8px; border: 1px solid #ddd;">Date</th>
+                        <th style="padding: 8px; border: 1px solid #ddd;">Employee Name</th>
+                        <th style="padding: 8px; border: 1px solid #ddd;">Employment Start Date</th>
+                        <th style="padding: 8px; border: 1px solid #ddd;">Status</th>
+                        <th style="padding: 8px; border: 1px solid #ddd;">% Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employees" style="border: 1px solid #ddd;">
+                        <td style="padding: 8px; border: 1px solid #ddd;">{{ employee.Date }}</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">{{ employee.EmployeeName }}</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">{{ employee.StartDate }}</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">{{ employee.status }}</td>
+                        <td style="padding: 8px; border: 1px solid #ddd; position: relative;" [style.background-color]="getBackgroundColor(employee.Completed)">
+                            <span (click)="navigateToDetailsPage(employee)" class="fa fa-info-circle" style="cursor: pointer;"></span>
+                            {{ employee.Completed }} 
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        
         </section>
+        
     </div>
     </div>
 

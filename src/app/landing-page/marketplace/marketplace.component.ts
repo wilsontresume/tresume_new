@@ -8,6 +8,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class MarketplaceComponent implements OnInit {
 
 isScrolled = false;
+isNavbarCollapsed = false;
 
 
   constructor() { }
@@ -17,7 +18,7 @@ isScrolled = false;
     { title: 'Dice', text: 'Premium Job Board', imageSrc: 'assets/img/dice.png', link: 'dice' },
     { title: 'Career BUilder', text: 'Premium Job Board', imageSrc: 'assets/img/cb.png', link: 'career' },
     { title: 'OPT Nation', text: 'Premium Job Board', imageSrc: 'assets/img/opt.png', link: 'opt-nation' },
-    { title: 'Joblee', text: 'Free Job Board', imageSrc: 'https://in.jooble.org/job-description/wp-content/uploads/2020/03/logo2.svg', link: 'joble' }
+    { title: 'Jooblee', text: 'Free Job Board', imageSrc: 'https://in.jooble.org/job-description/wp-content/uploads/2020/03/logo2.svg', link: 'joble' }
   ];
   others = [
     { title: 'Yahoo', text: 'Email Integration', imageSrc: 'assets/img/yahoo.png', link: 'yahoo' },
@@ -27,5 +28,7 @@ isScrolled = false;
   ngOnInit(): void {
     window.scrollTo(0,0);
   }
-
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
 }

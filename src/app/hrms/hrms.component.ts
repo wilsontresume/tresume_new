@@ -15,15 +15,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class HrmsComponent implements OnInit {
-  candidateID:any;
+  candidateID: any;
   interviewData: any[];
   candidates1: string[] = ['Candidate 1', 'Candidate 2', 'Candidate 3'];
-  recruiterNames: any ='';
-  recruiterName:any;
+  recruiterNames: any = '';
+  recruiterName: any;
   candidateStatuses: string[] = ['', '', ''];
   marketerNames: string[] = ['Marketer 1', 'Marketer 2', 'Marketer 3'];
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
-  legalStatus: string[] = [];
+  LegalStatus: any;
   formData: any = {};
   datecreated: Date[];
   followupon: Date[];
@@ -36,16 +36,19 @@ export class HrmsComponent implements OnInit {
   emailvalidation: boolean = false;
   emailvalidationmessage: string = '';
   routeType: any;
-  currentStatusOptions:any = [];
-  legalStatusOptions:any;
+  currentStatusOptions: any = [];
+  legalStatusOptions: any;
   selectedcurrentstatus: any;
   currentLocation: any;
   filteredCandidates: any[];
-  specifiedDate: string = ''; 
+  specifiedDate: string = '';
   modalService: any;
+  useremail: any;
+  isAdmin: string;
+  searchterm: string = '';
 
-    onFollowUpOptionChange() {
-    }
+  onFollowUpOptionChange() {
+  }
 
   selectedFollowUpOption: any;
   Locations: any;
@@ -67,7 +70,10 @@ export class HrmsComponent implements OnInit {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.routeType = this.route.snapshot.params["routeType"];
     this.candidateID = this.route.snapshot.params["traineeID"];
-    
+
+    this.useremail = this.cookieService.get('userName1');
+    this.isAdmin = this.cookieService.get('IsAdmin');
+    console.log(this.isAdmin);
   }
 
   ngOnInit(): void {
@@ -84,26 +90,26 @@ export class HrmsComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.minLength(3)]],
       recruiterName: ['', [Validators.required, this.atLeastOneSelectedValidator()]],
-      degree: [''],
+      // degree: [''],
       groups: [''],
-      legalStatus: [''],
+      LegalStatus: [''],
       locationConstraint: ['yes'],
       marketerName: [''],
       notes: [''],
       referralType: [''],
-      university: [''],
+      // university: [''],
       middleName: [''],
       gender: ['male'],
-      Location:['']
+      Location: ['']
     });
 
     // TimeSheet Module /////////////////////////////////////////////////////////////////////////////////////////
     // for Admin Dropdown
     // document.addEventListener('DOMContentLoaded', function () {
     //   const dummyNames: string[] = ['', 'Name 1', 'Name 2', 'Name 3', 'Name 4', 'Name 5'];
-    
+
     //   const adminSelect: HTMLSelectElement = document.getElementById('adminSelect') as HTMLSelectElement;
-    
+
     //   dummyNames.forEach((name: string, index: number) => {
     //     const option: HTMLOptionElement = document.createElement('option');
     //     option.value = `value_${index + 1}`;
@@ -111,32 +117,40 @@ export class HrmsComponent implements OnInit {
     //     adminSelect.add(option);
     //   });
     // });
-    
+
 
     //Client Select
     // const clients: string[] = ["", "Client 1", "Client 2", "Client 3", "Client 4", "Client 5", "Client 6"];
 
     // const clientSelect: HTMLSelectElement = document.getElementById("clientselect") as HTMLSelectElement;
-    
+
     // clients.forEach((client: string, index: number) => {
     //   const option: HTMLOptionElement = document.createElement("option");
     //   option.value = index.toString();
     //   option.text = client;
     //   clientSelect.add(option);
     // });
-    
+
   }
 
-  
-  fetchinterviewlist() {
-    let Req = {
-      TraineeID: this.candidateID,
-    };
-    this.service.getInterviewList(Req).subscribe((x: any) => {
-    // this.interview = x.result;
-    });
+
+  // fetchinterviewlist() {
+  //   let Req = {
+  //     TraineeID: this.candidateID,
+  //   };
+  //   this.service.getInterviewList(Req).subscribe((x: any) => {
+  //   // this.interview = x.result;
+  //   });
+  // }
+
+
+  onReferralTypeChange() {
+    if (this.addCandidate.value.referralType === 'Others') {
+      console.log('Referral type changed to Others');
+    } else {
+      console.log('Referral type changed to:', this.addCandidate.value.referralType);
+    }
   }
-  
 
   onEmailInput() {
     this.checkEmail();
@@ -155,8 +169,8 @@ export class HrmsComponent implements OnInit {
         if (flag === 2) {
           this.emailvalidation = true;
           this.emailvalidationmessage = x.message;
-        } 
-        else if (flag === 1){
+        }
+        else if (flag === 1) {
           this.emailvalidation = false;
           this.emailvalidationmessage = '';
 
@@ -182,37 +196,131 @@ export class HrmsComponent implements OnInit {
 
 
 
-  getcandidaterstatus(){
+  getcandidaterstatus() {
     const Req = {
-         };
+    };
     this.service.candidatestatus(Req).subscribe((x: any) => {
       this.currentStatusOptions = x;
-      console.log(this.currentStatusOptions);
     });
   }
 
   getLegalStatusOptions() {
     const request = {};
-  
+
     this.service.getLegalStatus(request).subscribe((response: any) => {
       this.legalStatusOptions = response;
       console.log(this.legalStatusOptions);
     });
   }
-  
-  
+
+
+  // fetchhrmscandidatelist() {
+
+  //   this.loading = true;
+  //   let Req = {
+  //     TraineeID: this.TraineeID,
+  //   };
+  //   this.service.gethrmscandidateList(Req).subscribe((x: any) => {
+  //     this.candidates = x.result;
+  //     this.noResultsFound = this.candidates.length === 0;
+  //     this.loading = false;
+  //   });
+  // }
+
+  currentPage: number = 0;
+  pageSize: number = 3;
+  totalRecords: number;
+  totalPages: number;
+  pagesToShow: number = 10;
 
   fetchhrmscandidatelist() {
-
     this.loading = true;
     let Req = {
       TraineeID: this.TraineeID,
+      Page: this.currentPage,
+      PageSize: this.pageSize,
+      useremail:this.useremail,
+      admin:this.isAdmin,
+      searchterm:this.searchInput
     };
-    this.service.gethrmscandidateList(Req).subscribe((x: any) => {
-      this.candidates = x.result;
+
+    this.service.gethrmscandidateList(Req).subscribe((response: any) => {
+      this.candidates = response.result;
+      this.totalRecords = response.result[0].TotalCount[0];
+      this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
       this.noResultsFound = this.candidates.length === 0;
       this.loading = false;
     });
+  }
+
+  searchhrmscandidatelist(searchterm:string) {
+    this.loading = true;
+    let Req = {
+      TraineeID: this.TraineeID,
+      Page: this.currentPage,
+      PageSize: this.pageSize,
+      useremail:this.useremail,
+      admin:this.isAdmin,
+      searchterm:this.searchInput
+    };
+
+    this.service.gethrmscandidateList(Req).subscribe((response: any) => {
+      this.candidates = response.result;
+      console.log(this.candidates);
+      if(this.candidates.length === 0){
+        this.messageService.add({ severity: 'danger', summary: 'No Records Found Please Try Again'});
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.totalRecords = response.result[0].TotalCount[0];
+        this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
+        this.noResultsFound = this.candidates.length === 0;
+       
+      }
+      
+      
+    });
+  }
+
+  onPageChange(pageNumber: number) {
+    this.currentPage = pageNumber;
+    this.fetchhrmscandidatelist();
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.fetchhrmscandidatelist();
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.fetchhrmscandidatelist();
+    }
+  }
+
+  calculatePageRange(): number[] {
+    const currentPageIndex = this.currentPage - 1;
+    const halfPagesToShow = Math.floor(this.pagesToShow / 2);
+    let startPage: number, endPage: number;
+
+    if (this.totalPages <= this.pagesToShow) {
+      startPage = 1;
+      endPage = this.totalPages;
+    } else if (currentPageIndex - halfPagesToShow <= 0) {
+      startPage = 1;
+      endPage = this.pagesToShow;
+    } else if (currentPageIndex + halfPagesToShow >= this.totalPages) {
+      startPage = this.totalPages - this.pagesToShow + 1;
+      endPage = this.totalPages;
+    } else {
+      startPage = currentPageIndex - halfPagesToShow + 1;
+      endPage = startPage + this.pagesToShow - 1;
+    }
+
+    return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
   }
 
   getOrgUserList() {
@@ -225,15 +333,15 @@ export class HrmsComponent implements OnInit {
       this.marketerNames = x;
     });
   }
-  loading:boolean = false;
+  loading: boolean = false;
 
   savehrmsdata() {
     this.loading = true;
     var followupon = '';
-    if(this.selectedFollowUpOption == 'SpecifiedDate'){
+    if (this.selectedFollowUpOption == 'SpecifiedDate') {
       followupon = this.specifiedDate;
     }
-
+    const referralType = this.formData.referralType === 'Others' ? this.formData.otherReferralType : this.formData.referralType;
     let Req = {
       firstName: this.addCandidate.value.firstName,
       middleName: this.formData.middleName,
@@ -242,18 +350,18 @@ export class HrmsComponent implements OnInit {
       phone: this.addCandidate.value.phone,
       gender: this.addCandidate.value.gender,
       recruiterName: this.recruiterName,
-      degree: this.addCandidate.value.degree,
-      university: this.addCandidate.value.university,
-      referralType: this.formData.referralType,
+      // degree: this.addCandidate.value.degree,
+      // university: this.addCandidate.value.university,
+      referralType: referralType,
       notes: this.addCandidate.value.notes,
       candidateStatus: this.selectedcurrentstatus,
-      legalStatus: this.formData.legalStatus,
+      LegalStatus: this.LegalStatus,
       recruiteremail: this.userName,
-      orgID:this.OrgID,
-      creeateby:this.userName,
-      followupon:followupon,
-      currentLocation:this.currentLocation
-      
+      orgID: this.OrgID,
+      creeateby: this.userName,
+      followupon: followupon,
+      currentLocation: this.currentLocation
+
 
       // marketerName: this.formData.marketerName,
       // groups: this.addCandidate.value.groups,
@@ -279,13 +387,13 @@ export class HrmsComponent implements OnInit {
         this.handleError(error);
       }
     );
-    
+
   }
 
   onSubmit() {
     console.log('Form Data:', this.formData);
   }
-  
+
   sortBy: string = 'DateCreated';
   sortOrder: string = 'asc';
 
@@ -323,26 +431,28 @@ export class HrmsComponent implements OnInit {
       // If sorting by a different field, set the new field and default to ascending order
       this.sortBy = sortByField;
       this.sortOrder = 'asc';
-    }} 
+    }
+  }
 
 
   searchInput: string = '';
 
   isCandidateVisible(candidate: any): boolean {
-    const searchValue = this.searchInput.toLowerCase();
 
-     const followUpDate = new Date(candidate.FollowUpDate);
-     const followUpStartDate = this.followUpStartDate ? new Date(this.followUpStartDate) : null;
-     const followUpEndDate = this.followUpEndDate ? new Date(this.followUpEndDate) : null;
-     const followUpInRange = (!followUpStartDate || followUpDate >= followUpStartDate) &&
-       (!followUpEndDate || followUpDate <= followUpEndDate);
- 
-     const dateCreated = new Date(candidate.DateCreated);
-     const dateCreatedStartDate = this.dateCreatedStartDate ? new Date(this.dateCreatedStartDate) : null;
-     const dateCreatedEndDate = this.dateCreatedEndDate ? new Date(this.dateCreatedEndDate) : null;
-     const dateCreatedInRange = (!dateCreatedStartDate || dateCreated >= dateCreatedStartDate) &&
-       (!dateCreatedEndDate || dateCreated <= dateCreatedEndDate);
- 
+    console.log(candidate);
+    const searchValue = this.searchInput.toLowerCase();
+    const followUpDate = new Date(candidate.FollowUpDate);
+    const followUpStartDate = this.followUpStartDate ? new Date(this.followUpStartDate) : null;
+    const followUpEndDate = this.followUpEndDate ? new Date(this.followUpEndDate) : null;
+    const followUpInRange = (!followUpStartDate || followUpDate >= followUpStartDate) &&
+      (!followUpEndDate || followUpDate <= followUpEndDate);
+
+    const dateCreated = new Date(candidate.DateCreated);
+    const dateCreatedStartDate = this.dateCreatedStartDate ? new Date(this.dateCreatedStartDate) : null;
+    const dateCreatedEndDate = this.dateCreatedEndDate ? new Date(this.dateCreatedEndDate) : null;
+    const dateCreatedInRange = (!dateCreatedStartDate || dateCreated >= dateCreatedStartDate) &&
+      (!dateCreatedEndDate || dateCreated <= dateCreatedEndDate);
+
 
     return (
       candidate.Email.toLowerCase().includes(searchValue) ||
@@ -395,7 +505,7 @@ export class HrmsComponent implements OnInit {
 
   followstartdate: boolean = false;
   followenddate: boolean = false;
-  
+
   clearAndReload() {
     this.followUpStartDate = '';
     this.followUpEndDate = '';
@@ -404,8 +514,8 @@ export class HrmsComponent implements OnInit {
     this.fetchhrmscandidatelist();
   }
 
-  followuponbutton(): boolean{
-    return  !this.followstartdate || !this.followenddate || this.followUpStartDate > this.followUpEndDate;
+  followuponbutton(): boolean {
+    return !this.followstartdate || !this.followenddate || this.followUpStartDate > this.followUpEndDate;
   }
 
   filterCandidates(): void {
@@ -413,7 +523,7 @@ export class HrmsComponent implements OnInit {
     const Req = {
       TraineeID: this.TraineeID,
     };
-  
+
     this.service.gethrmscandidateList(Req).subscribe((response: any) => {
       this.candidates = response.result;
       this.candidates = this.candidates.filter(candidate => {
@@ -429,7 +539,7 @@ export class HrmsComponent implements OnInit {
   interviewFormData: any = {};
   submissionFormData: any = {};
   interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
-  interviewDate: Date; 
+  interviewDate: Date;
   interviewTime: string;
   interviewInfo: string;
   client: string;
@@ -438,11 +548,11 @@ export class HrmsComponent implements OnInit {
   assistedBy: string;
   typeOfAssistance: string;
   interviewMode: string;
-  submissionList: any[] = []; 
+  submissionList: any[] = [];
 
   saveInterviewData() {
     console.log('Saving data for the Interview tab:', this.interviewFormData);
-  
+
     let Req = {
       interviewDate: this.interviewDate,
       interviewTime: this.interviewTime,
@@ -484,18 +594,18 @@ export class HrmsComponent implements OnInit {
       vendorName: this.vendorName,
       rate: this.rate,
       clientName: this.clientName,
-      recruiteremail:this.userName,
-      MarketerID:this.TraineeID,
-      CandidateID:this.candidateID
+      recruiteremail: this.userName,
+      MarketerID: this.TraineeID,
+      CandidateID: this.candidateID
     };
     console.log(Req);
     this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
       this.handleSuccess(x);
     },
-    (error: any) => {
-      this.handleError(error);
-    }
-  );
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
   }
 
   openSubmissionModal(candidateID: string) {
@@ -506,39 +616,39 @@ export class HrmsComponent implements OnInit {
     this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
     this.loading = false;
-    this.fetchinterviewlist();
+    // this.fetchinterviewlist();
   }
-  
+
   private handleError(response: any): void {
-    this.messageService.add({ severity: 'error', summary:  response.message });
+    this.messageService.add({ severity: 'error', summary: response.message });
     this.loading = false;
   }
 
-  updateSelected(selectedId: any, traineeID: number,type:any) {
+  updateSelected(selectedId: any, traineeID: number, type: any) {
     this.loading = true;
     var req = {}
-   if(type == 1){
-    req = {
-      traineeid : traineeID,
-      followupon : selectedId
+    if (type == 1) {
+      req = {
+        traineeid: traineeID,
+        followupon: selectedId
+      }
+    } else {
+      req = {
+        traineeid: traineeID,
+        followupon: selectedId
+      }
     }
-   }else{
-    req = {
-      traineeid : traineeID,
-      followupon : selectedId
-    }
-  }
     this.service.hrmsupdateSelected(req).subscribe((x: any) => {
-      if(x.flag == 1){
+      if (x.flag == 1) {
         this.messageService.add({ severity: 'success', summary: x.message });
         this.loading = false;
-      }else{
+      } else {
         this.messageService.add({ severity: 'error', summary: x.message });
         this.loading = false;
       }
     });
-  
-   }
+
+  }
 }
 
 

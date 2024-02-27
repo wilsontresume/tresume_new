@@ -42,6 +42,7 @@ export class CreateProjectService {
     deleteProject(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'deleteProject', request);
     }
+    
    
 }
 export interface ResponseDetails {

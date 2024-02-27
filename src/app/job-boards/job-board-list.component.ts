@@ -19,7 +19,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 
 export class JobBoardListComponent implements OnInit {
-  loading: boolean = false;
+
     ngOnInit(): void {
 
     }

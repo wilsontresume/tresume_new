@@ -45,8 +45,10 @@ const timesheet = require('./timesheet');
 const hrms = require('./hrms-routes');
 const assignrole = require('./assignrole');
 const projects = require('./project');
-const jobBoardAccount = require('./jobBoardAccount')
-const leadenquiry = require('./enquiry')
+const jobBoardAccount = require('./jobBoardAccount');
+const leadenquiry = require('./enquiry');
+const jobapplication = require('./jobapplication');
+const submittedcandidates = require('./submittedcandidates');
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -65,6 +67,8 @@ app.use('/', assignrole);
 app.use('/', projects);
 app.use('/', jobBoardAccount);
 app.use('/', leadenquiry);
+app.use('/', jobapplication);
+app.use('/', submittedcandidates);
 
 
 app.use(session({
@@ -837,16 +841,119 @@ app.post("/getResumeDetails", function (req, res) {
   });
 });
 
+// app.post("/getOnboardingList", function (req, res) {
+//   sql.connect(config, function (err) {
+//     if (err) console.log(err);
+//     var request = new sql.Request();
+//     request.input("OrgID", sql.VarChar, req.body.OrgID);
+//     request.input("startDate", sql.VarChar, req.body.startDate);
+//     request.input("endDate", sql.VarChar, req.body.endDate);
+//     request.execute("getCurrentOnboardingList", function (err, recordset) {
+//       // request.query("select ISNULL(CONVERT(NVARCHAR(10),createdate,101), '1900-01-01T00:00:00') as Date, FirstName + ' ' + LastName as 'Employee Name', ISNULL(CONVERT(NVARCHAR(10), startdate,101), '1900-01-01T00:00:00') as 'Start Date', status, PercentComplete as Completed, ID from CurrentOnboardings where OrgID = '" + req.body.OrgID + "' and Active = 1 Order by createdate desc", function (err, recordset) {
+//       if (err) console.log(err);
+//       var result = {
+//         flag: 1,
+//         result: recordset.recordsets[0],
+//       };
+//       res.send(recordset.recordsets[0]);
+//     });
+//   });
+// });
+
 app.post("/getOnboardingList", function (req, res) {
   sql.connect(config, function (err) {
-    if (err) console.log(err);
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error connecting to database");
+      return;
+    }
+
+    var useremail = req.body.useremail;
+
+    var query = `SELECT ISNULL(CONVERT(NVARCHAR(10), CO.createdate, 101), '1900-01-01T00:00:00') AS Date,
+                        CO.FirstName + ' ' + CO.LastName AS 'EmployeeName', 
+                        ISNULL(CONVERT(NVARCHAR(10), CO.startdate, 101), '1900-01-01T00:00:00') AS 'StartDate',
+                        CO.status,
+                        CO.PercentComplete AS Completed,
+                        CO.ID
+                 FROM CurrentOnboardings CO
+                 INNER JOIN Memberdetails M ON CHARINDEX(',' + CAST(CO.OrgID AS VARCHAR) + ',', ',' + M.accessorg + ',') > 0
+                 INNER JOIN Organization O ON CO.OrgID = O.organizationid
+                 WHERE M.useremail = '${useremail}' 
+                   AND CO.Active = 1 
+                   AND CO.CreateDate BETWEEN '2020-01-01' AND '2024-03-01'
+                 ORDER BY CO.createdate DESC;`;
+
+    console.log("Query:", query);
+
     var request = new sql.Request();
-    request.input("OrgID", sql.VarChar, req.body.OrgID);
-    request.input("startDate", sql.VarChar, req.body.startDate);
-    request.input("endDate", sql.VarChar, req.body.endDate);
-    request.execute("getCurrentOnboardingList", function (err, recordset) {
-      // request.query("select ISNULL(CONVERT(NVARCHAR(10),createdate,101), '1900-01-01T00:00:00') as Date, FirstName + ' ' + LastName as 'Employee Name', ISNULL(CONVERT(NVARCHAR(10), startdate,101), '1900-01-01T00:00:00') as 'Start Date', status, PercentComplete as Completed, ID from CurrentOnboardings where OrgID = '" + req.body.OrgID + "' and Active = 1 Order by createdate desc", function (err, recordset) {
-      if (err) console.log(err);
+    request.query(query, function (err, recordset) {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error executing query");
+        return;
+      }
+      var result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    });
+  });
+});
+
+
+// app.post("/getCandidatesbyStatus", function (req, res) {
+//   sql.connect(config, function (err) {
+//     if (err) console.log(err);
+//     var request = new sql.Request();
+//     request.query(
+//       "select FirstName, LastName, (FirstName + ' ' + LastName) as CandidateName, TraineeID from Trainee where (CandidateStatus=7 or CandidateStatus=6) and UserOrganizationID=" +
+//       req.body.OrgID +
+//       " and TraineeID NOT IN (Select TraineeID from CurrentOnboardings)",
+//       function (err, recordset) {
+//         if (err) console.log(err);
+//         var result = {
+//           flag: 1,
+//           result: recordset.recordsets[0],
+//         };
+//         res.send(recordset.recordsets[0]);
+//       }
+//     );
+//   });
+// });
+
+app.post("/getCandidatesbyStatus", function (req, res) {
+  sql.connect(config, function (err) {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error connecting to database");
+      return;
+    }
+
+    var useremail = req.body.useremail;
+
+    var query = `SELECT T.FirstName, 
+                        T.LastName, 
+                        (T.FirstName + ' ' + T.LastName) as CandidateName, 
+                        T.TraineeID,
+                        O.Organizationname
+                 FROM Trainee T
+                 INNER JOIN Memberdetails M ON CHARINDEX(',' + CAST(T.userorganizationid AS VARCHAR) + ',', ',' + M.accessorg + ',') > 0
+                 INNER JOIN Organization O ON T.userorganizationid = O.organizationid
+                 WHERE M.useremail = '${useremail}'
+                 AND (T.CandidateStatus = 7 OR T.CandidateStatus = 6) 
+                 AND T.TraineeID NOT IN (SELECT TraineeID FROM CurrentOnboardings);`;
+
+    console.log("Query:", query); 
+
+    var request = new sql.Request();
+    request.query(query, function (err, recordset) {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error executing query");
+        return;
+      }
       var result = {
         flag: 1,
         result: recordset.recordsets[0],
@@ -856,25 +963,7 @@ app.post("/getOnboardingList", function (req, res) {
   });
 });
 
-app.post("/getCandidatesbyStatus", function (req, res) {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    request.query(
-      "select FirstName, LastName, (FirstName + ' ' + LastName) as CandidateName, TraineeID from Trainee where (CandidateStatus=7 or CandidateStatus=6) and UserOrganizationID=" +
-      req.body.OrgID +
-      " and TraineeID NOT IN (Select TraineeID from CurrentOnboardings)",
-      function (err, recordset) {
-        if (err) console.log(err);
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0],
-        };
-        res.send(recordset.recordsets[0]);
-      }
-    );
-  });
-});
+
 
 app.post("/getChecklists", function (req, res) {
   sql.connect(config, function (err) {
@@ -1875,7 +1964,7 @@ app.post("/getCBAuthToken", function (req, res) {
     grant_type: "refresh_token",
     client_id: "Cd2543bf6",
     client_secret: "mmYQ7+pkLk1VQq+to5Pc1t+4agJ8f/WhyhSccR5yHdhfZhdFgYdI6mLyZhmNmWZCxg6D7PAWXuS5VaJENtlVvw==",
-    refresh_token: "puseyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkExMjhHQ00ifQ.P6CIgTiHUv03hGXLV8hwh4iEXWJ6qOtbKPAaczPhaDrlIuSr-aqBTY6O61c-cv47Nywk-eo2iBu3ICt84jfvdGk6DeiX0g54Vf2Vook_htxPCFp6OF4f9mMOFJQajBPapVOq5tWpT24IdFlnLP-t1MEuE8a1ZtYxGBii303QBIVL0KoQFc7CbhHWGXgK2CRqMHjtBUasyiFcH1KmT7v1EIWw0u9xfa6zMdThF3i0t19ZIa4beeXzfAO-g6eikm-5rDKQ8VCSj-cIJguJKwFmabb5LBCcAFlHGGqWw_e85PiT180OOW1QMZxKrlKV-C0gocr3WBNKYBQIJ9awid8KJQ.S6lfcmhmy6zhF02i.Hbfbsuv0RA0ZOUHy3Bc3RLrVje_8fj2RSdOuWgSY5HYLGxIjpjSXHJx_imuRLsK7QH3s0zaMCzijksa1-51cGGmJhYubVL7yYr-sYwqmP46rWXiRiMXYRNeBkTvfSvG4YxYHl--2D5X1VaLDlQBx0KQoBNJQcTsrwqYSq3bgeNhec-LldKf2I_ajbrm_3KQRj_d1Lr-T1cAx8BH7_-3F0do6bDQyAfnAdiSJnLgt-SPYvSEAUfbHK_fpn_jViVp10VX_LMigJs1bGfhKgI2GxHUppOSxD3CP7BcPVGuYNQY3bM0e8KpOrkV6rErJC_plHVrk_U1NxXeLHIGMTRl3Ow.eHXdT-H9LaLC0Sg4oIu9HA",
+    refresh_token: "puseyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkExMjhHQ00ifQ.Xb8EU7DMn_4M0ygsU4pGvvHqxpC5ykXZV2fizJbajC3erFuzR5waTmJ6hDD9XQgBJOl78rPj2JYkjDtVXP0ScgKUo3PiCpMGfyFislpDNzs8-3SeGMW1-rFwRRdY0HSm0W8jwRaxSnI4pUV04MyILiP2zGvCtnQwp0JHiUNaoyVzC1-1ksop44EcYTV5whx5UdGVrdg7dM_2LCyX4QGuUIo7WFeaQ_xwwieIWV2H-BszX94NJkX8OntK2k9MpWxCQn2WVQC8v1ix3MNrCh4hPA_CT_RbOYryAnn5kqHWCfrWs2u5AEU_KMCb8GNJogvwqOcDFjTWofNCTzcN9qHcKg.vRMRoQKU5lnpyJRF.XBMvHL1l_RDPsHmfrpY_rsYBh-0jQrTyprbhSPJ7CHhzWi5iYjGF5tOF30-l2MFP_cMFqy1Ra2s2ewZzUT7jw_fxs2ALc_ApCios9WV2K63uyhXOR5WzSzJKOV352qn5z6w9alzdVmeuqXZjgvGOO6Sukptxaj5xGjls4H1A7SpZ0S31wJ0rLE2YICJrLAZxySmpZLjP1fdCVKPXUl3pHmGL7efnRUKrjPeTkH-YA4d61nENv7MiUwJ6QUw5nKZoT4WCU8LK_O_qDfz7sqk6n-F8DTMQS_lCuJf_sSh18MvD92hJSDxBcrEB8cScvzpLLBPWKlb6HLC1E7zY3eZpPH4.5HD_XVfaiR9x--fEZpaLRA",
     scope: "offline_access"
   };
 

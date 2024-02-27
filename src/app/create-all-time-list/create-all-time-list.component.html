@@ -6,32 +6,36 @@
   <div class="content pl-3 pt-1 pb-1 dropdown">
     <div class="row mt-3">
       <div class="input-group col-md-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem"
+        <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem" id="selectedItem" 
           placeholder="Who's time are you tracking?" aria-describedby="searchIcon">
         <div class="input-group-append">
           <div class="input-group-text ">
             <i class="fas fa-caret-down"></i>
-            <div class="dropdown-menu">
-              <a class="dropdown-item text-left" *ngFor="let option of dropdownOptions"
-                (click)="onChangesDropdown(option)">{{ option.FirstName }} {{ option.LastName }}</a>
+            <div class="dropdown-menu dropdown-menu-scrollable">
+              <ng-container *ngFor="let option of getDropdownOption1()">
+                <a class="dropdown-item text-left" (click)="onChangesDropdown(option)">
+                  {{ option.FirstName }} {{ option.LastName }}
+                </a>
+              </ng-container>
             </div>
           </div>
         </div>
       </div>
+      
       <!-- <div class="col-md-4">
         <input type="text" class="form-control" placeholder="Select Date Range" bsDaterangepicker
           [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)" style="width: 16rem;">
       </div> -->
-      <div class="col-md-3 gray-theme">
-        <div class="weekly-datepicker">
-          <select id="weekPicker" [(ngModel)]="selectedWeek" (change)="onWeekSelect($event.target.value)">
-            <!-- <option value="" disabled>Select a week</option> -->
-            <option *ngFor="let week of generateWeeks()" [value]="week" value="">{{ week }}</option>
-          </select>
-          <!-- Display the selected week -->
+      <!-- Display the selected week -->
           <!-- <div *ngIf="selectedWeek" class="selected-week">
             You selected: {{ selectedWeek }}
           </div> -->
+
+      <div class="col-md-3 gray-theme">
+        <div class="weekly-datepicker">
+          <select id="weekPicker" [(ngModel)]="selectedWeek" (change)="onWeekSelect($event.target.value)">
+            <option *ngFor="let week of generateWeeks()" [value]="week" value="">{{ week }}</option>
+          </select>
         </div>
       </div>
     </div>
@@ -47,7 +51,7 @@
             <span class="date">{{ date.getDate() }}</span>
           </th>
         </ng-container>
-        <th>TOTAL</th>
+        <th style="width: 70px">TOTAL</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -55,14 +59,15 @@
       <tr *ngFor="let row of timesheetRows; let i = index">
         <td>{{ i + 1 }}</td>
         <td>
-          <div class="row dropdown">
-            <div class="input-group col-md-5 mr-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="row">
+            <div class="col-md-5 mr-5 dropdown">
+            <div class="input-group " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="row.projectName"
-                placeholder="Choose a Project" aria-describedby="searchIcon1">
+                placeholder="Choose the Project" aria-describedby="searchIcon1">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <i class="fas fa-caret-down"></i>
-                  <div class="dropdown-menu">
+                  <div class="dropdown-menu dropdown-menu-scrollable">
                     <a class="dropdown-item" *ngFor="let option of getDropdownOptions(1)"
                       (click)="onDropdownChange(option, row)">
                       {{ option.ProjectName }}
@@ -71,29 +76,32 @@
                 </div>
               </div>
             </div>
-            <div class="input-group col-md-5">
+            </div>
+            <div class="dropdown col-md-5">
+            <div class="input-group"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <input type="text" class="form-control custom-input" id="selectedItem2" [(ngModel)]="row.payItem"
-                placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+                placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2" >
               <div class="input-group-append">
                 <div class="input-group-text">
                   <i class="fas fa-caret-down"></i>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" *ngFor="let option of option1"
-                      (click)="onDropdownItemClick(option, row)">{{ option }}</a>
+                  <div class="dropdown-menu dropdown-menu-scrollable">
+                    <a class="dropdown-item" *ngFor="let option of getDropdownOptionn(2)"
+                    (click)="onDropdownChangess(option, row)">{{ option.Text }}</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row dropdown">
-            <div class="input-group col-md-5 mr-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          </div>
+          <div class="row">
+            <div class="col-md-5 mr-5 dropdown">
+            <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <input type="text" class="form-control custom-input" id="selectedItem3" [(ngModel)]="row.service"
                 placeholder="Choose the service worked on" aria-label="Search" aria-describedby="searchIcon3">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <i class="fas fa-caret-down"></i>
-                  <div class="dropdown-menu">
+                  <div class="dropdown-menu dropdown-menu-scrollable">
                     <a class="dropdown-item" *ngFor="let option of option2"
                       (click)="onDropdownItemClicks(option, row)">{{
                       option }}</a>
@@ -101,21 +109,23 @@
                 </div>
               </div>
             </div>
-            <div class="input-group col-md-5 dropdown">
+          </div>
+          <div class="col-md-5 dropdown">
+            <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <input type="text" class="form-control custom-input" id="selectedItem4" [(ngModel)]="row.location"
-                placeholder="Choose a location" aria-describedby="searchIcon4" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+                placeholder="Choose the location" aria-describedby="searchIcon4">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <i class="fas fa-caret-down"></i>
-                  <div class="dropdown-menu">
+                  <div class="dropdown-menu dropdown-menu-scrollable">
                     <a class="dropdown-item" *ngFor="let option of getDropdownOption(4)"
                       (click)="onDropdownChanges(option, row)">{{
-                      option.city }}</a>
+                      option.state }}</a>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
           </div>
           <div class="row">
             <div class="col-md-5 mr-5">
@@ -138,13 +148,6 @@
               </label>
               <input type="file" id="file1" class="form-control-file visually-hidden"
                 (change)="onFileChange($event, 'file1', row)">
-            </div>
-            <div class="col-md-5">
-              <label for="file2" class="file-label">
-                <i class="fa fa-upload"></i> Status Report
-              </label>
-              <input type="file" id="file2" class="form-control-file visually-hidden"
-                (change)="onFileChange($event, 'file2', row)">
             </div>
           </div>
         </td>
@@ -170,15 +173,17 @@
   </table>
 
   <!-- <button (click)="deleteAllRows()">Minus</button> -->
-  <div class="row mt-3">
-    <div class="col-md-4">
-      <button (click)="addRow()" class="btn-block fbtn">Add Lines</button>
-    </div>
-    <div class="col-md-4 text-center">
-      <button class=" btn-block fbtn">Copy last timesheet</button>
-    </div>
-    <div class="col-md-4 text-right">
-      <button class=" btn-block fbtn" (click)="SaveRow()">Save</button>
+  <div class="fixed-tab">
+    <div class="row mt-3">
+      <div class="col-md-4">
+        <button (click)="addRow()" class="btn-block fbtn">Add Lines</button>
+      </div>
+      <div class="col-md-4 text-center">
+        <button class=" btn-block fbtn">Copy last timesheet</button>
+      </div>
+      <div class="col-md-4 text-right">
+        <button class=" btn-block fbtn" (click)="SaveRow()">Save</button>
+      </div>
     </div>
   </div>
 </div>

@@ -80,7 +80,7 @@
             <input placeholder="Posted within days" [(ngModel)]="daysWithin" class="form-control" />
           </div>
           <div class="col-md-3" style="padding: 20px">
-            <label for="recruiter">Min Experiance</label>
+            <label for="recruiter">Min Experience</label>
             <input [(ngModel)]="yearsOfExpmin" class="form-control" />
           </div>
           <div class="col-md-3" style="padding: 20px">
@@ -269,3 +269,5 @@
 <div *ngIf="loading" class="loader-container">
   <app-loader class="loader"></app-loader>
 </div>
+
+<!-- <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading> -->

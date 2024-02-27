@@ -16,7 +16,7 @@ export class JobApplicationComponent implements OnInit {
   loading:boolean = false;
 jobs: any;
 editmode: boolean = false;
-selectedDate: string = ''; // You may initialize it with the current date
+selectedDate: string = '';
 selectedOption: string = '';
 showDateOptions: boolean = false;
 OrgID:string = '';
@@ -38,10 +38,10 @@ ngOnInit(): void {
       OrgID: this.OrgID,
     };
     this.loading = false;
-    // this.service.getJobApplicationList(Req).subscribe((x: any) => {
-    //   this.jobs = x.result;
-    //   this.noResultsFound = this.jobs.length === 0;
-    // });
+    this.service.getJobApplicationList(Req).subscribe((x: any) => {
+      this.jobs = x.result;
+      this.noResultsFound = this.jobs.length === 0;
+    });
   }
 
   container: any;
@@ -50,9 +50,7 @@ ngOnInit(): void {
 
 
   saveAs(format: string): void {
-    // Handle the logic for saving as Excel or PDF
     console.log(`Save as ${format}`);
-    // You can implement the logic to generate and download Excel or PDF here
   }
   scrollLeft() {
     this.container.nativeElement.scrollLeft -= 50;
@@ -65,12 +63,10 @@ ngOnInit(): void {
   saveDate() {
     console.log('Selected Date:', this.selectedDate);
     console.log('Selected Option:', this.selectedOption);
-    // Add your save logic here
   }
 
   cancelDate() {
     this.showDateOptions = false;
-    // Add your cancel logic here
   }
   }
 

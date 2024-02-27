@@ -38,6 +38,13 @@ export class TalentBenchComponent implements OnInit {
   candidateID:any;
   routeType: any;
 
+  currentPage: number = 0;
+  pageSize: number = 3;
+  totalRecords: number;
+  totalPages: number;
+  pagesToShow: number = 10;
+  searchInput:string = '';
+
   constructor(private dialog: MatDialog, private cookieService: CookieService, private service: TalentBenchService, private messageService: MessageService, private formBuilder: FormBuilder,private route: ActivatedRoute, private renderer: Renderer2, private el: ElementRef,private datePipe: DatePipe) {
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
@@ -52,6 +59,7 @@ export class TalentBenchComponent implements OnInit {
   marketerName: string[] = [''];
   referralTypes: string[] = ['Phone', 'Email', 'Others'];
   referralType: string[] = [''];
+  formData: any = {};
 
   dataArray: any[] = [
     { groupname: 'Group A', candidateCount: 10 },
@@ -72,7 +80,6 @@ export class TalentBenchComponent implements OnInit {
     const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
     this.startDate = this.datePipe.transform(firstDayOfMonth, 'yyyy-MM-dd')!;
 
-    // Set end date as today
     this.endDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd')!;
     this.fetchtalentbenchlist();
     this.getcandidaterstatus();
@@ -80,12 +87,14 @@ export class TalentBenchComponent implements OnInit {
     this.getOrgUserList();
     this.getGroupList();
     this.fetchgrouplist();
+    this.startDate = '';
+    this.endDate = '';
 
     this.addCandidate = this.formBuilder.group({
       FirstName: ['', [Validators.required, Validators.minLength(3)]],
       MiddleName: [''],
       LastName: ['', [Validators.required]],
-      Email: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.minLength(3)]],
       Phone: ['', [Validators.required, Validators.minLength(3)]],
       Gender: ['male'],
       RecruiterName: [''],
@@ -104,7 +113,6 @@ export class TalentBenchComponent implements OnInit {
   search: string = '';
 
 isCandidateVisible(candidate: any): boolean {
-  // console.log(candidate);
   const searchValue = this.search.toLowerCase();
   return (
     candidate.FirstName.toLowerCase().includes(searchValue) ||
@@ -158,7 +166,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     };
     this.service.candidatestatus(Req).subscribe((x: any) => {
       this.currentStatusOptions = x;
-      // console.log(this.currentStatusOptions);
     });
 
   }
@@ -175,8 +182,8 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         this.loading = false; 
       },
       (error: any) => {
-        this.loading = false;
-        this.handleError(error);
+        this.loading = false;   
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No Record Found' });
       }
     );
   }
@@ -194,7 +201,10 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       },
       (error: any) => {
         this.loading = false;
-        this.handleError(error);
+        // this.handleError(error);
+        // this.messageService.add({ severity: 'error',  });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No Record Found' });
+
       }
     );
   }
@@ -211,8 +221,8 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         this.loading = false; 
       },
       (error: any) => {
-        this.loading = false;
-        this.handleError(error);
+        this.loading = false;      
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No Record Found' });
       }
     );
   }
@@ -372,7 +382,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
 
     this.service.getLegalStatus(request).subscribe((response: any) => {
       this.legalStatusOptions = response;
-      // console.log(this.legalStatusOptions);
     });
   }
 
@@ -426,25 +435,65 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   }
 
   fetchtalentbenchlist() {
-
+    this.loading = true;
     let Req = {
       traineeID: this.TraineeID,
-      OrganizationID: this.OrgID
+      OrganizationID: this.OrgID,
+      username:this.userName,
+      Page: this.currentPage,
+      searchterm: this.searchInput,
+      startdate:'',
+      enddate:''
     };
     this.service.getTalentBenchList(Req).subscribe((x: any) => {
       this.tableData = x.result;
       this.noResultsFound = this.tableData.length === 0;
-      this.loading = false;
-      this.tableData.forEach(item => {
-        const age = item.age;
-      });
+      if(this.tableData.length === 0){
+        this.messageService.add({ severity: 'danger', summary: 'No Records Found Please Try Again'});
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.tableData.forEach(item => {
+          const age = item.age;
+        });
+      }
     });
 
   }
+
+  searchhtalentbenchlist(searchterm:string) {
+this.loading = true;
+    let Req = {
+      traineeID: this.TraineeID,
+      OrganizationID: this.OrgID,
+      username:this.userName,
+      Page: 0,
+      searchterm:this.searchInput,
+      startdate:'',
+      enddate:''
+    };
+    this.service.getTalentBenchList(Req).subscribe((x: any) => {
+      this.tableData = x.result;
+      this.noResultsFound = this.tableData.length === 0;
+      if(this.tableData.length === 0){
+        this.messageService.add({ severity: 'danger', summary: 'No Records Found Please Try Again'});
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.tableData.forEach(item => {
+          const age = item.age;
+        });
+      }
+     
+    });
+
+  }
+
+
   getBackgroundColor(age: number | null): string {
     if (age === null) {
       return 'transparent'; 
-    } else if (age >= 1 && age <= 30) {
+    } else if (age >= 0 && age <= 30) {
       return '#a4e73466';
     } else if (age >= 31 && age <= 90) {
       return '#f4963980';
@@ -453,7 +502,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     }
   }  
 
-  //Date filter Tablet bench fetch list
   startDate: string = '';  
   endDate: string = '';
   filteredTableData: any[];  
@@ -465,17 +513,35 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   filterTableData() {
     const startDateTime = this.startDate ? new Date(this.startDate) : null;
     const endDateTime = this.endDate ? new Date(this.endDate) : null;
-
-    this.filteredTableData = this.tableData.filter(item => {
-      const itemCreateTime = new Date(item.CreateTime); 
-
-      return (
-        (!startDateTime || itemCreateTime >= startDateTime) &&
-        (!endDateTime || itemCreateTime <= endDateTime)
-      );
+    this.searchInput = '';
+    let Req = {
+      traineeID: this.TraineeID,
+      OrganizationID: this.OrgID,
+      username:this.userName,
+      Page: 0,
+      searchterm:'',
+      startdate:startDateTime,
+      enddate:endDateTime
+    };
+    this.service.getTalentBenchList(Req).subscribe((x: any) => {
+      this.tableData = x.result;
+      this.noResultsFound = this.tableData.length === 0;
+      if(this.tableData.length === 0){
+        this.messageService.add({ severity: 'danger', summary: 'No Records Found Please Try Again'});
+        this.loading = false;
+      }else{
+        this.loading = false;
+        this.tableData.forEach(item => {
+          const age = item.age;
+        });
+      }
+     
     });
+
+    
     this.loading = false;
   }
+
   initializeData() {
     this.filterTableData();
     this.loading = true;
@@ -506,17 +572,21 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         if (flag === 2) {
           this.emailvalidation = true;
           this.emailvalidationmessage = x.message;
+        } 
+        else if (flag === 1){
+          this.emailvalidation = false;
+          this.emailvalidationmessage = '';
+
         }
       });
     }
   }
-
     // Add interview 
     myForm: any;
     interviewFormData: any = {};
     submissionFormData: any = {};
     interviewModes: string[] = ['Face to face', 'Zoom', 'Phone', 'Hangouts', 'WebEx', 'Skype', 'Others'];
-    interviewDate: Date; 
+    interviewDate: any; 
     interviewTime: string;
     interviewInfo: string;
     client: string;
@@ -526,17 +596,14 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
     typeOfAssistance: string;
     interviewMode: string;
     submissionList: any[] = []; 
-
     title: string;
-    submissionDate: Date;
+    submissionDate: any;
     notes: string;
     vendorName: string;
-    rate: number;
+    rate: any;
     clientName: string;
   
     saveInterviewData() {
-      // console.log('Saving data for the Interview tab:', this.interviewFormData);
-    
       let Req = {
         interviewDate: this.interviewDate,
         interviewTime: this.interviewTime,
@@ -553,24 +620,37 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         recruiteremail: this.userName,
         InterviewStatus: 'SCHEDULED',
       };
-      // console.log(Req);
       this.service.insertTraineeInterview(Req).subscribe(
         (x: any) => {
           this.handleSuccess(x);
+          this.clearFields();
         },
         (error: any) => {
           this.handleError(error);
+          this.clearFields();
         }
       );
     }
   
+    clearFields() {
+      this.interviewDate = null;
+      this.interviewTime = '';
+      this.interviewInfo = '';
+      this.client = '';
+      this.vendor = '';
+      this.subVendor = '';
+      this.assistedBy = '';
+      this.typeOfAssistance = '';
+      this.interviewMode = '';
+      this.candidateID = '';
+      this.TraineeID = '';
+      this.userName = '';
+    }
     openInterviewModal(candidateID: string) {
       this.candidateID = candidateID;
     }
   
     getSubmissionList() {
-      // console.log('Saving data for the Submission tab:', this.submissionFormData);
-  
       let Req = {
         title: this.title,
         submissionDate: this.submissionDate,
@@ -582,14 +662,22 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
         MarketerID:this.TraineeID,
         CandidateID:this.candidateID
       };
-      // console.log(Req);
       this.service.insertSubmissionInfo(Req).subscribe((x: any) => {
         this.handleSuccess(x);
+        this.clearFieldsSubmission();
       },
       (error: any) => {
         this.handleError(error);
       }
     );
+    }
+    clearFieldsSubmission() {
+      this.title = '';
+      this.submissionDate = '';
+      this.notes = '';
+      this.vendorName = '';
+      this.rate = '';
+      this.clientName = '';
     }
   
     openSubmissionModal(candidateID: string) {
@@ -598,7 +686,6 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
   
     private handleSuccess(response: any): void {
       this.messageService.add({ severity: 'success', summary: response.message });
-      // console.log(response);
       this.loading = false;
     }
     
@@ -606,8 +693,46 @@ updateSelected(selectedId: string, traineeID: number,type:any) {
       this.messageService.add({ severity: 'error', summary:  response.message });
       this.loading = false;
     }
-    
 
-    // Interview Download 
+    onPageChange(pageNumber: number) {
+      this.currentPage = pageNumber;
+      this.fetchtalentbenchlist();
+    }
 
+  
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.fetchtalentbenchlist();
+      }
+    }
+  
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.fetchtalentbenchlist();
+      }
+    }
+  
+    calculatePageRange(): number[] {
+      const currentPageIndex = this.currentPage - 1;
+      const halfPagesToShow = Math.floor(this.pagesToShow / 2);
+      let startPage: number, endPage: number;
+  
+      if (this.totalPages <= this.pagesToShow) {
+        startPage = 1;
+        endPage = this.totalPages;
+      } else if (currentPageIndex - halfPagesToShow <= 0) {
+        startPage = 1;
+        endPage = this.pagesToShow;
+      } else if (currentPageIndex + halfPagesToShow >= this.totalPages) {
+        startPage = this.totalPages - this.pagesToShow + 1;
+        endPage = this.totalPages;
+      } else {
+        startPage = currentPageIndex - halfPagesToShow + 1;
+        endPage = startPage + this.pagesToShow - 1;
+      }
+  
+      return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+    }
 }

@@ -101,6 +101,7 @@ export class PlacementViewComponent implements OnInit {
     constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private service: CandidateService, private datePipe: DatePipe, private cd: ChangeDetectorRef, private cookieService: CookieService,private router: Router) {
         this.placementItem.placementID = this.route.snapshot.params["placementID"];
         this.placementItem.TraineeID = this.traineeId = this.route.snapshot.params["traineeId"];
+        this.placementItem.routetype = this.traineeId = this.route.snapshot.params["routetype"];
         this.OrgID = this.cookieService.get('OrgID');
         this.myForm = this.formBuilder.group({
         });
@@ -314,7 +315,7 @@ export class PlacementViewComponent implements OnInit {
     }
 
     backToList() {
-        var url = '/reviewtresume/1/'+this.placementItem.TraineeID+'/2';
+        var url = '/reviewtresume/'+this.placementItem.routetype+'/'+this.placementItem.TraineeID+'/2';
         console.log(url);
           this.router.navigateByUrl(url);
     }

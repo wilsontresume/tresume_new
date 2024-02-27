@@ -17,7 +17,10 @@ export class ReviewTresumeComponent implements OnChanges {
 
   showConfirmationDialog2: boolean;
   showConfirmationDialog3: boolean;
+  showmovetotalentbench: boolean = false;
   myForm: any;
+  LegalStatus: any;
+
   interviewForm: any;
   myFormSubmission: any;
   myFormFinancial: any;
@@ -71,6 +74,7 @@ export class ReviewTresumeComponent implements OnChanges {
   jobs: any[];
   SelectedRefered: string = '';
   firstName: string = '';
+  test: string = '';
   middleName: string = '';
   lastName: string = '';
   phoneNumber: number;
@@ -146,12 +150,13 @@ export class ReviewTresumeComponent implements OnChanges {
   reviewService: any;
   placementList: any;
   candidateID:any;
-
+  selectedcurrentstatus:string='';
   selectedStatus: string = '-PLACED/WORKING AT CLIENT LOCATION-';
   statuss: string[] = ['ON TRAINING', 'DIRECT MARKETTING', 'ON BENCH', 'MARKETTING ON HOLD', 'HAS OFFER', 'FIRST TIME CALLER', 'DROPPED TRAINING'];
 
 
   selectedLegalStatus: string = '-eligible to work in US-';
+
   legalstatuss: string[] = ['eligible to work in US', 'US CITIZEN', 'GC', 'F-1', 'F1-CPT', 'TSP-EAD', 'GC-EAD', 'L2-EAD'];
 
   //General - SSN
@@ -162,7 +167,20 @@ export class ReviewTresumeComponent implements OnChanges {
   phoneNumberG:any 
   generalEmail:any 
   DealOffered:any 
-
+  selectedrecruiterName: any;
+  state: any;
+  ReferredBy2: any;
+  Currency: string = '1';
+  BillRate: any;
+  PayType: string = 'hour';
+  TaxTerm: string = '0';
+  ConsultantType: any;
+  selectedstate: string = '0';
+  selectedstate1: any;
+  Availability: any = '0';
+  txtComments: any;
+  MarketerName: any;
+  TresumeID:any = '';
 
   startShowingSSN() {
     this.showSSN = true;
@@ -207,16 +225,16 @@ export class ReviewTresumeComponent implements OnChanges {
       firstName: this.firstName,
       middleName: this.middleName,
       lastName: this.lastName,
-      recruiterName: this.recruiterName,
+      recruiterName: this.selectedrecruiterName,
       phoneNumberG: this.phoneNumberG,
       generalEmail: this.generalEmail,
       refered: this.SelectedRefered,
       DealOffered: this.DealOffered,
-      ReferredBy: this.ReferredBy,
+      ReferredBy: this.SelectedRefered,
       ssn: this.ssn,
       statusDate: this.statusDate,
       duiFelonyInfo: this.duiFelonyInfo,
-      currentStatus: this.selectedStatus,
+      selectedcurrentstatus: this.selectedcurrentstatus,
       legalStatusVal: this.legalStatusVal,
       legalStatusValend: this.legalStatusValend,
       selectedLegalStatus: this.selectedLegalStatus,
@@ -241,7 +259,8 @@ export class ReviewTresumeComponent implements OnChanges {
       State: this.personalState,
       City: this.personalCity,
       Zipcode: this.personalZipcode,
-      AddressType: this.addressType
+      AddressType: this.addressType,
+      ReferredBy_external:this.referredByExternal
   };
   
     console.log(Req);
@@ -386,7 +405,7 @@ export class ReviewTresumeComponent implements OnChanges {
       GCWages: this.myFormFinancial.value.gcWages,
       Lcadate: this.myFormFinancial.value.lcaDate,
       LCARate: this.myFormFinancial.value.lcaRate,
-      state: this.myFormFinancial.value.State,
+      state: this.selectedstate1,
       healthInsurance: this.myFormFinancial.value.healthInsurance,
       lifeInsurance: this.myFormFinancial.value.lifeInsurance,
 
@@ -474,6 +493,12 @@ export class ReviewTresumeComponent implements OnChanges {
     // this.fetchCandidateInfo();
     // this.getSubmissionList() ;
     // this.getOrgUserList();
+    this.getmarketername();
+    this.getcandidaterstatus();
+    this.getLegalStatusOptions();
+    this.getState();
+    
+
     this.currentTabIndex = this.tabIndex;
     
     this.FormGeneral = this.formBuilder.group({
@@ -497,6 +522,7 @@ export class ReviewTresumeComponent implements OnChanges {
       otherNotes: [''],
       division: [''],
       dob: [''],
+      selectedcurrentstatus:[''],
     });
     
     this.myForm = this.formBuilder.group({
@@ -563,6 +589,7 @@ export class ReviewTresumeComponent implements OnChanges {
     }
     
   }
+  
 
   disableGeneralFields() {
     Object.keys(this.FormGeneral.controls).forEach(controlName => {
@@ -649,7 +676,45 @@ export class ReviewTresumeComponent implements OnChanges {
       this.interview = x.result;
     });
   }
+  recruiterNames: string[] = [];
+  marketerNames: string[] = [''];
+  currentStatusOptions: any = [];
 
+  getmarketername() {
+    let Req = {
+      TraineeID: this.TraineeID,
+      orgID: this.OrgID
+    };
+    this.service.fetchrecruiter(Req).subscribe((x: any) => {
+      this.recruiterNames = x;
+      this.marketerNames = x;
+    });
+  }
+  getcandidaterstatus() {
+    const Req = {
+    };
+    this.service.candidatestatus(Req).subscribe((x: any) => {
+      this.currentStatusOptions = x;
+    });
+  }
+  getLegalStatusOptions() {
+    const request = {};
+
+    this.service.getLegalStatus(request).subscribe((response: any) => {
+      this.legalStatusOptions = response;
+    });
+  }
+
+  getState() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.service.getLocation(Req).subscribe((x: any) => {
+      this.state = x.result;
+    });
+    console.log(this.selectedstate1);
+  }
+  
   getOrgUserList() {
     let Req = {
       TraineeID: this.candidateID,
@@ -667,29 +732,71 @@ export class ReviewTresumeComponent implements OnChanges {
       TraineeID: this.candidateID,
     };
     this.service.getCandidateInfo(Req).subscribe((x: any) => {
-      this.FormGeneral.patchValue({
-    phoneNumberG: x.result[0].PhoneNumber || '', // Patching respective values to form controls
-    generalEmail: x.result[0].UserName || '',
-    recruiterName: x.result[0].RecruiterName || '',
-    legalStatusVal: x.result[0].LegalStatusValidFrom || '', 
-    firstname: x.result[0].FirstName || '',
-    middleName: x.result[0].MiddleName || '',
-    lastName: x.result[0].LastName || '',
-    refered: x.result[0].refered || '',
-    DealOffered: x.result[0].DealOffered || '',
-    ReferredBy: x.result[0].ReferredBy_external || '',
-    ssnInput: x.result[0].SSn || '',
-    statusDate: x.result[0].statusdate || '',
-    duiFelonyInfo: x.result[0].DuiFelonyInfo || '',
-    status: x.result[0].Candidatestatus || '',
-    legalStatusValend: x.result[0].Legalenddate || '',
-    selectedLegalStatus: x.result[0].LegalStatus || '',  
-    ftcNotes: x.result[0].FTCNotes || '',
-    otherNotes: x.result[0].Notes || '',
-    division: x.result[0].division || '',
-    dob: x.result[0].DOB || '',
+      console.log(x.result[0].Candidatestatus);
+      this.test = x.result[0].Candidatestatus;  
+      this.selectedcurrentstatus = x.result[0].Candidatestatus;
+      this.middleName = x.result[0].MiddleName || '';
+      this.phoneNumberG = x.result[0].PhoneNumber || ''; 
+      this.generalEmail = x.result[0].UserName || '';
+      this.selectedrecruiterName = x.result[0].RecruiterName || '';
+      this.legalStatusVal = x.result[0].LegalStatusValidFrom || ''; 
+      this.firstName = x.result[0].FirstName || '';
+      this.middleName = x.result[0].MiddleName || '';
+      this.lastName = x.result[0].LastName || '';
+      this.SelectedRefered = x.result[0].ReferredBy || '';
+      this.DealOffered = x.result[0].DealOffered || '';
+      this.referredByExternal = x.result[0].ReferredBy_external || '';
+      this.ssn = x.result[0].SSn || '';
+      this.statusDate = x.result[0].statusdate || '';
+      this.duiFelonyInfo = x.result[0].DuiFelonyInfo || '';
+      this.MarketerName = x.result[0].marketername || '';
+      this.legalStatusValend = x.result[0].Legalenddate || '';
+      this.selectedLegalStatus = x.result[0].LegalStatus || '';  
+      this.ftcNotes = x.result[0].FTCNotes || '';
+      this.otherNotes = x.result[0].Notes || '';
+      this.division = x.result[0].division || '';
+      this.dob = x.result[0].DOB || '';
+      this.contactName = x.result[0].EmergConName || '';
+      this.contactPhone = x.result[0].EmergConPhone || '';
+      this.contactEmail = x.result[0].EmergConemail || '';
+      this.passportNumber = x.result[0].PassportNumber || '';
+      this.personalInfoAddress = x.result[0].Address || '';
+      this.personalInfoAddress1 = x.result[0].addressline2 || '';
+      this.personalInfoCountry = x.result[0].Country || '';
+      this.personalState = x.result[0].state || '';
+      this.personalCity = x.result[0].City || '';
+      this.personalZipcode = x.result[0].Zipcode || '';
+      this.addressType = x.result[0].AddressType || '';
+      this.passportvalStartdate = x.result[0].PassvalidateStartdate || '';
+      this.passportvalenddate = x.result[0].Passvalidateenddate || '';
+      if(x.tresumeInfo.length ===0){
+        // this.addRow();
+        // this.addRow1();
+      }else{
+        var tinfo = x.tresumeInfo
+        tinfo.forEach((item: { TresumeNodeTypeID?: any; Title?: string; Org?: string; NodeDate?: string; NodeDateTo?: string; 
+          Location?: string; TresumeNodeID?: string; TresumeID?: string; Skill?: string; }) => {
+          // Check the value of TresumeNodeTypeID
+          if (item.TresumeNodeTypeID === 1) {
+            this.educations.push(item);
+            this.TresumeID = item.TresumeID;
+          } else if (item.TresumeNodeTypeID === 2) {
+            this.experiences.push(item);
+            this.TresumeID = item.TresumeID;
+          }
+        });
+        if(this.educations.length ===0){
+          // this.addRow();
+        }
+        if(this.experiences.length ===0){
+          // this.addRow1();
+        }
+      }
+
+      // this.FormGeneral.patchValue({
+        
   
-      });
+      // });
       this.myFormFinancial.patchValue({
         accountnum1: x.result[0].Bank1AccountNumber || '',
         accountnum2: x.result[0].Bank2AccountNumber || '',
@@ -801,7 +908,7 @@ export class ReviewTresumeComponent implements OnChanges {
 
   //placement tab
 
-  currentStatusOptions: string[] = ['ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING', 'ON BENCH', 'MARKETING ON HOLD', 'HAS OFFER', 'PLACED/WORKING AT THE CLIENT LOCATION', 'FIRST TIME CALLER', 'DROPPED-TRAINING', 'DROPPED-MARKETING', 'DROPED-OTHER', 'TERMINATE', 'REPLACED AS CLIENT SITE'];
+  // currentStatusOptions: string[] = ['ON TRAINING', 'DIRECT MARKETING', 'REQUIREMENT BASED MARKETING/SOURCING', 'ON BENCH', 'MARKETING ON HOLD', 'HAS OFFER', 'PLACED/WORKING AT THE CLIENT LOCATION', 'FIRST TIME CALLER', 'DROPPED-TRAINING', 'DROPPED-MARKETING', 'DROPED-OTHER', 'TERMINATE', 'REPLACED AS CLIENT SITE'];
   selectOptions: string = '';
   workStartDate: string = '';
   workEndDate: string = '';
@@ -895,53 +1002,124 @@ cancelDeletesubmission() {
   }
 
   // Education
-  educations = [{
-    degree: '',
-    university: '',
-    attendFrom: '',
-    attendTo: '',
-    universityAddress: ''
-  }];
+  educations:any[] = [];
 
   addRow() {
-    this.educations.push({
-      degree: '',
-      university: '',
-      attendFrom: '',
-      attendTo: '',
-      universityAddress: ''
-    });
+this.loading = true;
+    let req = {
+      TraineeID:this.TraineeID,
+      TresumeID:this.TresumeID,
+      username:this.userName,
+      type:1
+    };
+    this.service.addTresumeNode(req).subscribe(
+      (x: any) => {
+        this.educations.push({
+          Title: '',
+          Org: '',
+          NodeDate: '',
+          NodeDateTo: '',
+          Location: '',
+          TresumeNodeID:x.TresumeNodeID,
+          TresumeID:x.TresumeID
+        });
+        this.loading = false;
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'danger', summary: 'Error adding Education. Please try again' });
+        this.loading = false;
+      }
+    );
+
   }
 
   //Above function will remove all row in education tab
-  deleteRow(index: number) {
-    if (this.educations.length > 1) {
-      this.educations.splice(index, 1);
-    }
+  deleteRow(index: number,TresumeNodeID:any) {
+    this.loading = true;
+    let req = {
+      TresumeNodeID:TresumeNodeID,  
+    };
+    this.service.DeleteTresumeNode(req).subscribe(
+      (x: any) => {
+        this.messageService.add({ severity: 'Success', summary: 'Education Deleted Successfully' });
+        this.educations.splice(index, 1);
+        this.loading=false;
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+        this.loading = false;
+      }
+    );
+      
+    
   }
 
   // Experience
   experienceForm: FormGroup;
-  experiences = [{
-    title: '',
-    startDate: '',
-    endDate: '',
-    skills: ''
-  }];
+  experiences:any = [];
 
   addRow1() {
-    this.experiences.push({
-      title: '',
-      startDate: '',
-      endDate: '',
-      skills: ''
-    });
+this.loading = true;
+    let req = {
+      TraineeID:this.TraineeID,
+      TresumeID:this.TresumeID,
+      username:this.userName,
+      type:2
+    };
+    this.service.addTresumeNode(req).subscribe(
+      (x: any) => {
+        this.experiences.push({
+          Title: '',
+          Org: '',
+          NodeDate: '',
+          NodeDateTo: '',
+          TresumeNodeID:x.TresumeNodeID,
+          TresumeID:x.TresumeID,
+          Skill:''
+        });
+        this.loading = false
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+        this.loading = false;
+      }
+    );
+   
   }
 
-  deleteRow1(index: number) {
-    if (this.experiences.length > 1) {
-      this.experiences.splice(index, 1);
-    }
+  UpdateTresumeNode(type:any,data:any){
+    console.log(data);
+    let req = {
+      data:data,  
+    };
+    this.service.UpdateTresumeNode(req).subscribe(
+      (x: any) => {
+        
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+        this.loading = false;
+      }
+    );
+  }
+
+  deleteRow1(index: number,TresumeNodeID:any) {
+    this.loading = true;
+    let req = {
+      TresumeNodeID:TresumeNodeID,  
+    };
+    this.service.DeleteTresumeNode(req).subscribe(
+      (x: any) => {
+        this.messageService.add({ severity: 'Success', summary: 'Experiance Deleted Successfully' });
+        this.experiences.splice(index, 1);
+        this.loading = false;
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'danger', summary: 'Error adding Experience. Please try again' });
+        this.loading = false;
+      }
+    );
+      
   }
 
   // download DSR Submission tab 
@@ -970,6 +1148,56 @@ cancelDeletesubmission() {
     link.setAttribute("download", "submission_data.csv");
     document.body.appendChild(link);
     link.click();
+  }
+
+  movetoTB() {
+
+    this.showmovetotalentbench = true;
+  }
+  cancelMoveTB(){
+    this.showmovetotalentbench = false;
+  }
+
+  movetotalentbench(){
+
+    let Req = {
+      TraineeID: this.candidateID,
+      Name:this.firstName +' '+this.lastName,
+      ReferredBy:this.ReferredBy2,
+      Currency:this.Currency,
+      BillRate:this.BillRate,
+      PayType:this.PayType,
+      TaxTerm:this.TaxTerm,
+      ConsultantType:this.ConsultantType,
+      JobTitle:this.title,
+      LocationPreference:this.selectedstate,
+      BenchStatus:'ACTIVEBENCH',
+      Availability:this.Availability,
+      txtComments:this.txtComments,
+      CreateBy:this.userName
+      
+    };
+
+ this.service.MoveToTalentBench(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+        this.cancelMoveTB()
+      },
+      (error: any) => {
+        this.handleError(error);
+        this.cancelMoveTB()
+      }
+    );
+
+
+  }
+
+  movetoBack(){
+    if(this.routeType == 1){
+      this.router.navigate(['/candidates/1']);
+    }else if(this.routeType ==3){
+      this.router.navigate(['/talentBench']);
+    }
   }
 
 }

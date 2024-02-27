@@ -21,17 +21,17 @@ import * as FileSaver from 'file-saver';
 
 
 export class SearchComponent implements OnInit {
-  loading:boolean = false;
+
     private cookieValue: any;
     UserOrganizationID: any;
     showats:boolean = true;
     showopt:boolean = false;
     constructor(private route: ActivatedRoute, private cookieService: CookieService) {
-
+       
     }
 
     ngOnInit(): void {
-
+        
         this.UserOrganizationID = this.cookieService.get('OrgID')
         console.log(this.UserOrganizationID);
         if(this.UserOrganizationID === '127'){

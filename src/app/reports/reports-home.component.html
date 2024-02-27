@@ -104,12 +104,21 @@
               <!-- Additional Card: Placement Report -->
               <div class="col-md-4 mb-3">
                 <div style="background-color: #f0f0f0; border-radius: 8px; padding: 10px; text-align: center;">
-                  <i class="fas fa-briefcase" style="font-size: 4rem; color: #49274a; margin-bottom: 10px;"></i>
+                  <i class="fas fa-envelope-open" style="font-size: 4rem; color: #49274a; margin-bottom: 10px;"></i>
                   <a class="clickable" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-bottom: 10px;" >Placements Report</a>
                   <p style="margin-bottom: 10px;">This Report generates a list of Placements completed during the time period</p>
                   <button class="btn btn-primary" style="background-color: #49274a; width: 100%; border: none;" (click)="routeLinks('placements')">View Report</button>
                 </div>
               </div>
+                 <!-- Additional Card: Job board Report -->
+                 <div class="col-md-4 mb-3">
+                  <div style="background-color: #f0f0f0; border-radius: 8px; padding: 10px; text-align: center;">
+                    <i class="fas fa-briefcase" style="font-size: 4rem; color: #49274a; margin-bottom: 10px;"></i>
+                    <a class="clickable" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-bottom: 10px;" > Job board Report</a>
+                    <p style="margin-bottom: 10px;">This Report generates a list of Job Postings completed during the time period</p>
+                    <button class="btn btn-primary" style="background-color: #49274a; width: 100%; border: none;" (click)="routeLinks('jobboardaudit')">View Report</button>
+                  </div>
+                </div>
               <!-- Add more cards as needed -->
             </div>
           </div>
@@ -207,7 +216,7 @@
             <div class="row">
               <div class="col-md-4 mb-3">
                 <div style="background-color: #f0f0f0; border-radius: 8px; padding: 10px; text-align: center;">
-                  <i class="fas fa-clipboard-check" style="font-size: 4rem; color: #49274a; margin-bottom: 10px;"></i>
+                  <i class="fas fa-calendar-alt" style="font-size: 4rem; color: #49274a; margin-bottom: 10px;"></i>
                   <a class="clickable" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-bottom: 10px;" >Timesheet Report</a>
                   <p style="margin-bottom: 10px;">This Report generates the timesheet status of the Candidate</p>
                   <button class="btn btn-primary" style="background-color: #49274a; width: 100%; border: none;" (click)="timesheetrouteLinks('tsreport')">View Report</button>

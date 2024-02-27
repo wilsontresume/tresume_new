@@ -1,41 +1,48 @@
 <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
-
-  <a routerLink="/homelanding"><img src="../assets/img/logo.png" style="height: 90px;" alt=""></a>
+  <a routerLink="/homelanding" class="navbar-brand">
+      <img src="../assets/img/logo.png" style="height: 90px;" alt="">
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-          Products
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
-          <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
-          <a class="dropdown-item" routerLink="/workforce">Workforce</a>
-          <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
-        </div>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/market">Marketplace</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/features">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/contact">Contact Us</a>
-      </li>
-    </ul>
-    <div class="content" style="margin-right: 62px;">
-      <a href="login" class="bn5">Login</a>
-    </div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'show': isNavbarCollapsed}">
+      <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Products
+              </a>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+                  <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+                  <a class="dropdown-item" routerLink="/workforce">Workforce</a>
+                  <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
+              </div>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" routerLink="/market">Marketplace</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/features">Features</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/about">About</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/contact">Contact Us</a>
+          </li>
+          <li class="nav-item ">
+            <a href="login" class="nav-link login-btn-mobile">Login</a>
+          </li>
+
+          <li class="nav-item ">
+            <a class=" login-btn-web bn5" style="margin: 0;" routerLink="/login">Login</a>
+
+          </li>
+      </ul>
   </div>
 </nav>
+
   <div class="background-video video-container">
     <video autoplay muted loop class="blur-video video-background" style="width: 100%; height: fit-content;">
       <source src="../../../assets/videos/consult.mp4" type="video/mp4">
@@ -78,7 +85,7 @@ text-align: justify;line-height: 29px;">
 <br>
           <li style="margin-bottom: 10px;"><i class="fas fa-check-circle text-success" style="font-size: 20px; margin-right: 10px;"></i> Real-time notifications for timely timesheet submissions with TimeNinja. Hassle-free tracking and prompt accounting of all time records using TimeSage.</li>
 <br>
-          <li style="margin-bottom: 10px;"><i class="fas fa-check-circle text-success" style="font-size: 20px; margin-right: 10px;"></i>Detailed audit trails and transparent reporting with TimeSync. Analytics insights into labor costs and resource utilization with TimeSift. Optimize operations, meet deadlines, and simplify tracking with TimeGenius, TimeSprint, and TimePlus. Drive efficiency and success into the future with TimeOptimize.</li>
+          <li style="margin-bottom: 10px;"><i class="fas fa-check-circle text-success" style="font-size: 20px; margin-right: 10px;"></i>Detailed audit trails and transparent reporting with TimeSync. Analytics insights into labor costs and resource utilization with TimeSheet. Optimize operations, meet deadlines, and simplify tracking with TimeGenius, TimeSprint, and TimePlus. Drive efficiency and success into the future with TimeOptimize.</li>
           <br>
         </ul>
 <br>
@@ -159,7 +166,7 @@ text-align: justify;line-height: 29px;">
               <i class="fas fa-map-marker-alt"></i>
               <div class="cta-text">
                 <h4>Find us</h4>
-                <span>44121 Leesburg Pike., STE 230 Ashburn , VA 20147,Uinted States Of America
+                <span>44121 Leesburg Pike., STE 230 Ashburn , VA 20147,United States Of America
                 </span>
               </div>
             </div>
@@ -178,7 +185,7 @@ text-align: justify;line-height: 29px;">
               <i class="fa fa-envelope-o" aria-hidden="true"></i>
               <div class="cta-text">
                 <h4>Mail us</h4>
-                <span>contact</span>
+                <span>nithya@tresume.us</span>
               </div>
             </div>
           </div>
@@ -200,10 +207,10 @@ text-align: justify;line-height: 29px;">
               <div class="footer-social-icon">
                 <span>Follow us</span>
                 <ul class="social_icon">
-                  <li><a href="https://www.facebook.com/p/Tresume-100057032697312/"> <i class="fa fa-facebook"></i></a></li>
-                  <li><a href="https://twitter.com/Tresume2"><i class="fa fa-twitter"></i></a></li>
-                  <li><a href="https://www.linkedin.com/company/tresume/"><i class="fa fa-linkedin-square"></i></a></li>
-                  <li><a href="https://www.youtube.com/@tresumeus3304/featured"><i class="fa fa-youtube"></i></a></li>
+                  <li><a href="https://www.facebook.com/p/Tresume-100057032697312/" target="_blank"> <i class="fa fa-facebook"></i></a></li>
+                  <li><a href="https://twitter.com/Tresume2"  target="_blank"><i class="fa fa-twitter"></i></a></li>
+                  <li><a href="https://www.linkedin.com/company/tresume/"  target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
+                  <li><a href="https://www.youtube.com/@tresumeus3304/featured"  target="_blank"><i class="fa fa-youtube"></i></a></li>
                 </ul>
               </div>
             </div>
@@ -214,15 +221,14 @@ text-align: justify;line-height: 29px;">
                 <h3>Useful Links</h3>
               </div>
               <ul>
-                <li><a href="#">Our Team</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Our Gallery</a></li>
-                <li><a href="#">Selection Process</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Sponsorship</a></li>
-                <li><a href="#">Our Policies</a></li>
-                <li><a href="#">Our Team</a></li>
-                <li><a href="#">Contact us</a></li>
+                <li><a routerLink="/about"  href="#">About Us</a></li>
+                <li><a routerLink="/market" href="#">MarketPlace</a></li>
+                <li><a routerLink="/features" href="#">Features</a></li>
+                <li><a routerLink="/contact" href="#">Contact us</a></li>
+                <li><a  routerLink="/workforce" href="#">WorkForce</a></li>
+                <li><a routerLink="/timesheet">TimeSheet</a></li>
+                <li><a  routerLink="/ats">ATS</a></li>
+                <li><a routerLink="/talent-suite">Talent Suite</a></li>
               </ul>
             </div>
           </div>
@@ -235,9 +241,8 @@ text-align: justify;line-height: 29px;">
                 <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
               </div>
               <div class="subscribe-form">
-                <form action="#">
-                  <input type="text" placeholder="Email Address">
-                  <button><i class="fa fa-telegram" aria-hidden="true"></i></button>
+                <form action="#" >
+                  <li style="text-align: center;font-size: 22px;"><a routerLink="/contact" style="color: white; font-weight: bold;">Contact us</a></li>
                 </form>
               </div>
             </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { CreateProjectService } from './create-project.service';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-project',
@@ -18,6 +18,7 @@ export class CreateProjectComponent implements OnInit {
   showConfirmationDialog: any;
   showConfirmationDialog1: any;
   addnewproject: FormGroup;
+  isFormValid: boolean = false;
   ClientName: any;
   ProjectName: any;
   TraineeID: string = '';
@@ -30,6 +31,7 @@ export class CreateProjectComponent implements OnInit {
   username: string;
   Projectname: any;
   deleteIndex: number;
+  loading:boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -39,20 +41,22 @@ export class CreateProjectComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.addnewproject = this.fb.group({
-      Projectname: ['', [Validators.required, Validators.minLength(3)]],
-      ClientName: ['', [Validators.required]],
-      Billable: [''],
-      StartDate: [''],
-      EndDate: [''],
-      selectedCandidate: [''],
-    });
     this.TraineeID = this.cookieService.get('TraineeID');
     this.OrgID= this.cookieService.get('OrgID');
     this.username = this.cookieService.get('userName1');
-    this.fetchclientlist();
     this.fetchgetProjectList();
-    this.fetchcandidatelist();
+
+    this.addnewproject = this.fb.group({
+      Projectname: ['', Validators.required],
+      ClientName: ['', Validators.required],
+      Billable: ['', Validators.required],
+      StartDate: ['', Validators.required],
+      EndDate: ['', Validators.required]
+    });
+
+    this.addnewproject.valueChanges.subscribe(() => {
+      this.isFormValid = this.addnewproject.valid;
+    });
   }
 
   fetchclientlist() {
@@ -60,7 +64,7 @@ export class CreateProjectComponent implements OnInit {
       TraineeID: this.TraineeID,
       OrgID: this.OrgID,
     };
-    this.service.getTimesheetClientList(Req).subscribe((x: any) => {
+    this.service.getTraineeClientList(Req).subscribe((x: any) => {
       this.clients = x.result;
       console.log(this.clients);
     });
@@ -87,6 +91,7 @@ export class CreateProjectComponent implements OnInit {
   }
 
   addproject() {
+    this.loading = true;
     const candidate = this.selectedCandidate.map(item => item.traineeid); 
 
     let Req = {
@@ -105,21 +110,25 @@ export class CreateProjectComponent implements OnInit {
       (res: any) => {
         this.project = res.result;
         console.log(this.project);
+        this.fetchgetProjectList();
+        this.handleSuccess(res);
+        this.addnewproject.reset();
+        this.selectedCandidate = [];
+        (this.addnewproject.get('ClientName') as AbstractControl).setValue(null);
       },
       (error: any) => {
         console.error('Error creating project:', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Failed to create the project. Please try again.',
-        });
+        this.handleError(error);
       }
     );
-    this.addnewproject.reset();
-    this.fetchgetProjectList();
+    this.cancelProject();
   }
 
   createproject() {
+    this.addnewproject.reset();
+    this.Candidates = [];
+    this.fetchclientlist();
+    this.fetchcandidatelist();
     this.showConfirmationDialog = true;
   }
 
@@ -135,32 +144,38 @@ export class CreateProjectComponent implements OnInit {
 
   confirmDelete() {
     console.log(this.deleteIndex);
+    this.loading = true;
     let Req = {
       projectid: this.deleteIndex,
     };
     this.service.deleteProject(Req).subscribe((x: any) => {
       var flag = x.flag;
-      this.fetchgetProjectList();
       if (flag === 1) {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Project Deleted Sucessfully',
-        });
+        this.messageService.add({ severity: 'error',summary:  'Error', detail: 'Delete Error' });
+        this.loading = false;
       } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Please try again later',
-        });
+        this.messageService.add({ severity: 'success', summary:  'Success', detail: 'Deleted successfully'  });
+        this.fetchgetProjectList();
+        this.loading = false;
       }
-
     });
     this.showConfirmationDialog1 = false;
-    this.fetchgetProjectList();
   }
 
   cancelDelete() {
     console.log(this.showConfirmationDialog1);
     this.showConfirmationDialog1 = false;
+  }
+
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary:  'Success', detail: 'Project created successfully'  });
+    console.log(response);
+    this.loading = false;
+  }
+  
+  private handleError(response: any): void {
+    this.messageService.add({ severity: 'error',summary:  'Error', detail: 'Project cannot be created' });
+    this.loading = false;
   }
 
 }

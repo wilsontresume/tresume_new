@@ -129,7 +129,7 @@ h2.tittle {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #191919;
+    background: #fff;
     left: 0;
     top: 0;
     border-radius: 10px;
@@ -192,119 +192,133 @@ ul {
     font-style: italic;
 }
 
-  // navbar
+ul.navbar-nav.mr-auto {
+  margin: auto;
+}
+// .navbar {
+//   padding: 10px;
+//   height: 40px;
+//   font-size: 20px;
+// }
+.navbar.scrolled .navbar-nav .nav-link {
+  color: white !important;
+}
 
-  ul.navbar-nav.mr-auto {
-    margin: auto;
-  }
-  .navbar {
-    padding: 10px;
-    height: 80px;
-    font-size: 20px;
-  }
-  .navbar.scrolled .navbar-nav .nav-link {
-    color: white !important;
-  }
+//   .navbar.scrolled .navbar-nav .nav-link:hover {
+//     color: #f0f0f0 !important;
+//   }
 
-  .navbar.scrolled .navbar-nav .nav-link:hover {
-    color: #f0f0f0 !important;
-  }
-  .navbar {
-    &.navbar-light {
-      .nav-item {
-        list-style: none;
-        // border-left: 2px solid purple;
-        display: inline-block;
-        padding: 0 15px;
-        position: relative;
+.navbar {
+  &.navbar-light {
+    .nav-item {
+      list-style: none;
+      // border-left: 2px solid purple;
+      display: inline-block;
+      padding: 0 15px;
+      position: relative;
+      text-decoration: none;
+      text-align: center;
+      // font-family: 'Arvo', serif;
+
+
+      a {
+        color: black;
         text-decoration: none;
-        text-align: center;
-        // font-family: 'Arvo', serif;
-
-        a {
-          color: black;
-          text-decoration: none;
-
-          &:hover {
-            color:purple;
-          }
-        }
+        font-family: -webkit-body;
+        font-size: 23px;
+        font-weight: lighter;
 
         &:hover {
-          cursor: pointer;
+          color:purple;
         }
+      }
 
-        .dropdown-menu {
-          background: white;
-          box-shadow: 0px 3px 5px -1px #ccc;
-          min-width: 250px;
-          padding-top: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .dropdown-menu {
+        background: white;
+        box-shadow: 0px 3px 5px -1px #ccc;
+        min-width: 250px;
+        padding-top: 20px;
+        text-align: left;
+        display: none;
+
+        li {
+          clear: both;
+          width: 100%;
           text-align: left;
-          display: none;
+          margin-bottom: 20px;
+          border-style: none;
 
-          li {
-            clear: both;
-            width: 100%;
-            text-align: left;
-            margin-bottom: 20px;
-            border-style: none;
-
-            a:hover {
-              padding-left: 10px;
-              border-left: 2px solid purple;
-              transition: all 0.3s ease;
-            }
+          a:hover {
+            padding-left: 10px;
+            border-left: 2px solid purple;
+            transition: all 0.3s ease;
           }
         }
+      }
 
-        &:hover > .dropdown-menu,
-        .dropdown-menu:hover {
-          display: block;
-          visibility: visible;
-          opacity: 1;
-        }
+      &:hover > .dropdown-menu,
+      .dropdown-menu:hover {
+        display: block;
+        visibility: visible;
+        opacity: 1;
       }
     }
   }
+}
 
-  .navbar-nav .nav-link:hover {
+.navbar-nav .nav-link:hover {
 
-    color: purple;
+  color: purple;
+}
+
+/* Custom CSS for nav-link hover underline animation */
+.navbar-nav .nav-link {
+  position: relative;
+  color: black;
+  /* Set the default text color */
+  transition: color 0.3s;
+  /* Add a smooth color transition */
+}
+
+.navbar-nav .nav-link::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0.2rem;
+  /* Adjust the thickness of the underline as needed */
+  background-color: purple;
+  transition: width 0.3s ease-out;
+  /* Animation duration and easing */
+}
+
+.navbar-nav .nav-link:hover {
+  color: purple;
+  /* Change the text color on hover */
+  border-bottom: 2px solid purple;
+}
+
+.navbar-nav .nav-link:hover::before {
+  width: 100%;
+}
+@media (min-width: 992px) {
+  .navbar {
+    height: 79px;
   }
-
-  /* Custom CSS for nav-link hover underline animation */
-  .navbar-nav .nav-link {
-    position: relative;
-    color: black;
-    /* Set the default text color */
-    transition: color 0.3s;
-    /* Add a smooth color transition */
+}
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+      display: flex !important;
+      flex-basis: auto !important;
+      justify-content: space-around !important;
   }
-
-  .navbar-nav .nav-link::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 0.2rem;
-    /* Adjust the thickness of the underline as needed */
-    background-color: purple;
-    transition: width 0.3s ease-out;
-    /* Animation duration and easing */
-  }
-
-  .navbar-nav .nav-link:hover {
-    color: purple;
-    /* Change the text color on hover */
-    border-bottom: 2px solid purple;
-  }
-
-  .navbar-nav .nav-link:hover::before {
-    width: 100%;
-  }
-
-
+}
 
 
 

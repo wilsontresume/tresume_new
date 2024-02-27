@@ -1,52 +1,26 @@
 <div class="container-fluid pt-3 pl-5 pr-5 pb-5">
-  <!-- <a href="#" class="back-button"> <i class="fas fa-arrow-left"></i> Back to Report List </a> -->
   <h2 style="margin-top: 10px;">Time Activities by Employee Detail Report </h2>
-
-  <!-- <div class="col">
-        <label for="dateRangeDropdown">Time Activity Date</label>
-        <select id="dateRangeDropdown" class="form-control">
-          <option *ngFor="let option of dateRangeOptions" [value]="option">{{ option }}</option>
-        </select>
-      </div> -->
-
-  <div class="row mb-3">
-    <div class="col-md-3">
-      <input type="text" class="form-control mt-4 ml-2" placeholder="Select Date Range" bsDaterangepicker
-        [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)">
+  <div class="row ml-1">
+    <div class="col-md-2">
+      <select class="form-control" [(ngModel)]="selection">
+        <option *ngFor="let option of options">{{ option }}</option>
+      </select>
+    </div>
+    <div *ngIf="isCustomizeSelected()" class="row">
+      <div class="col">
+        <input type="text" class="form-control" id="fromDate" placeholder="From Date" [(ngModel)]="fromDate"
+          bsDatepicker>
+      </div>
+      <span class="mt-2 text-lg">to</span>
+      <div class="col">
+        <input type="text" class="form-control" id="toDate" placeholder="To Date" [(ngModel)]="toDate" bsDatepicker>
+      </div>
     </div>
     <div class="col-md-4 ml-2">
-      <button class="btn btncolor run mt-4">Run Report</button>
+      <button class="btn btncolor run" (click)="runReport()">Run Report</button>
     </div>
   </div>
-
-  <!-- <div class="vertical-line mr-2"></div> -->
-  <!-- <div class="col" style="display: flex;">
-      <button class="btn btncolor customize">Customize</button>
-      <button class="btn btncolor save">Save Customization</button>
-    </div> -->
-  <!-- <div class="content-container" [ngClass]="{'hidden-content': !showReportPanel}">
-    <div class="row">
-        <div class="col">
-          <label for="rowColumns">Row/Columns:</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col d-flex">
-          <label for="dateRangeDropdown" class="mr-2 mt-2">Group by </label>
-          <select id="dateRangeDropdown" class="form-control1 mr-2">
-            <option *ngFor="let option of employeeGroupByOptions" [value]="option">{{ option }}</option>
-          </select>
-        </div>
-      </div>
-  </div> -->
-  <!-- <div class="col-md-12 text-right">
-    <button class="large-down-arrow-btn" (click)="toggleStageOpen()"
-      [attr.aria-expanded]="showReportPanel ? 'true' : 'false'" aria-label="Report Customization panel">
-      <i class="fas" [ngClass]="{'fa-chevron-down': !showReportPanel, 'fa-chevron-up': showReportPanel}"></i>
-    </button>
-  </div> -->
-
-  <div class="container-fluid mt-1">
+  <div class="container-fluid mt-3">
     <div class="scroll-container">
       <div class="table-responsive">
         <table class="table table-bordered table-hover" id="keywords">
@@ -83,34 +57,20 @@
                           <p (click)="exportAsExcel()">Export as Excel</p>
                         </div>
                       </div>
-
-                      <!-- <i style="font-size: 25px;" class="fas fa-envelope mr-3" (click)="sendEmail()" title="Send Email"></i> -->
-                      <!-- <i style="font-size: 25px;" class="fas fa-share mr-3" (click)="shareContent()" title="Share Content"></i>
-                      <i style="font-size: 25px;" class="fas fa-cog" (click)="openSettings()" title="Open Settings"></i> -->
                     </div>
                   </div>
                 </div>
               </th>
             </tr>
-
-            <tr>
-              <th colspan="7">
-                <div class="text-center">
-                  <h1 *ngIf="!editMode" (click)="toggleEditMode()">ASTA CRS INC <i class="fas fa-edit"></i></h1>
-                  <div *ngIf="editMode">
-                    <input type="text" [(ngModel)]="companyName" class="form-control" (blur)="toggleEditMode()" />
-                  </div>
-                  <h2 *ngIf="!editMode">Time Activities by Employee Detail</h2>
-                  <div *ngIf="editMode">
-                    <input type="text" [(ngModel)]="timeActivity" class="form-control" (blur)="toggleEditMode()" />
-                  </div>
-                  <h3 *ngIf="!editMode">Activity: January 1-24, 2024</h3>
-                  <div *ngIf="editMode">
-                    <input type="text" [(ngModel)]="Activity" class="form-control" (blur)="toggleEditMode()" />
-                  </div>
+            <tr class="text-center">
+              <th colspan="7" class="text-center">
+                <div class="header col-md-4 mx-auto mt-3">
+                  <span>{{ title }}</span>
+                  <h3>{{ subTitle }}</h3>
                 </div>
               </th>
             </tr>
+
             <tr class="thead-light">
               <th><span>Active Date</span></th>
               <th><span>Client</span></th>
@@ -151,7 +111,7 @@
           </div>
         </div>
         <br>
-        <div class="container justify-content-center">Tuesday, January 30, 2024 02:39 AM GMT+05:30</div>
+        <!-- <div class="container justify-content-center">Tuesday, January 30, 2024 02:39 AM GMT+05:30</div> -->
       </div>
     </div>
   </div>

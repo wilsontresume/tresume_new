@@ -212,9 +212,9 @@
   list-style: none;
 }
 
-li {
-  margin-bottom: 10px;
-}
+// li {
+//   margin-bottom: 10px;
+// }
 
 .container-fluid {
   .row {
@@ -261,29 +261,30 @@ li {
 }
 
 
-.col_white_amrc {
-  color: #FFF;
-}
+// .col_white_amrc {
+//   color: #FFF;
+// }
 
 .space{
   margin-left: 20px;
 }
-#keyFeatures {
-  font-size: 54px;
-}
 
-#keyFeatures span {
-  opacity: 0;
-  transform: translateY(20px);
-  display: inline-block;
-  animation: fadeInUp 1s forwards ease-out;
+#keyFeatures {
+    font-size: 54px;
+
+    span {
+        opacity: 0;
+        transform: translateY(20px);
+        display: inline-block;
+        animation: fadeInUp 1s forwards ease-out;
+    }
 }
 
 @keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 #keyFeatures span:nth-child(1) { animation-delay: 0.1s; }
@@ -436,6 +437,7 @@ li {
   font-size: 15px;
   letter-spacing: 1px;
   margin: 0;
+  font-family: ui mono;
 }
 
 .main-timeline .timeline:nth-child(even) {
@@ -589,23 +591,24 @@ h2.tittle {
   color: #93628d;
   font-weight: 600;
 }
- // navbar
+//   // navbar
 
- ul.navbar-nav.mr-auto {
+ul.navbar-nav.mr-auto {
   margin: auto;
 }
-.navbar {
-  padding: 10px;
-  height: 80px;
-  font-size: 20px;
-}
+// .navbar {
+//   padding: 10px;
+//   height: 40px;
+//   font-size: 20px;
+// }
 .navbar.scrolled .navbar-nav .nav-link {
   color: white !important;
 }
 
-.navbar.scrolled .navbar-nav .nav-link:hover {
-  color: #f0f0f0 !important;
-}
+//   .navbar.scrolled .navbar-nav .nav-link:hover {
+//     color: #f0f0f0 !important;
+//   }
+
 .navbar {
   &.navbar-light {
     .nav-item {
@@ -618,9 +621,13 @@ h2.tittle {
       text-align: center;
       // font-family: 'Arvo', serif;
 
+
       a {
         color: black;
         text-decoration: none;
+        font-family: -webkit-body;
+        font-size: 23px;
+        font-weight: lighter;
 
         &:hover {
           color:purple;
@@ -700,10 +707,20 @@ h2.tittle {
 .navbar-nav .nav-link:hover::before {
   width: 100%;
 }
+@media (min-width: 992px) {
+  .navbar {
+    height: 79px;
+  }
+}
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+      display: flex !important;
+      flex-basis: auto !important;
+      justify-content: space-around !important;
+  }
+}
 
-
-
-
+//footer
 
 footer {
   width: 100%;

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'https://api.astacrs.com/',
+  //apiUrl: 'https://api.astacrs.com/',
   // apiUrl: 'https://tresume.us/TresumeAPI/',
    apiUrl: 'http://localhost:3000/',
   // routeUrl: 'http://localhost:59983/'

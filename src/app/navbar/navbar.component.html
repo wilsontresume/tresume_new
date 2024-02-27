@@ -11,8 +11,8 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <div class="image" style="display: inline; padding: 10px">
-                        <img src="https://tresume.us/Images/Profile_icon.PNG" class="img-circle elevation-2"
-                            style="height: auto; width: 2rem" alt="User Image" />
+                        <!-- <img src="https://tresume.us/Images/Profile_icon.PNG" class="img-circle elevation-2"
+                            style="height: auto; width: 2rem" alt="User Image" /> -->
                     </div>
                     <span style="color: #c2c7d0">{{ traineeDetails.FirstName }} &nbsp;
                         <i class="fa fa-caret-down"></i>
@@ -22,8 +22,8 @@
                     <div class="dropdown-divider"></div>
                     <a href="https://tresume.us/Profile.aspx" class="dropdown-item dropdown-footer">Profile</a>
                     <div class="dropdown-divider"></div>
-                    <a href="https://tresume.us/SelectWF.aspx" class="dropdown-item dropdown-footer">Switch WF</a>
-                    <div class="dropdown-divider"></div>
+                    <!-- <a href="https://tresume.us/SelectWF.aspx" class="dropdown-item dropdown-footer">Switch WF</a> -->
+                    <!-- <div class="dropdown-divider"></div> -->
                     <a class="dropdown-item dropdown-footer" (click)="logout()">Sign out</a>
                 </div>
             </li>
@@ -37,8 +37,8 @@
         <div class="sidebar">
             <div *ngIf="!onboardView" class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="https://tresume.us/Images/Profile_icon.PNG" class="img-circle elevation-2"
-                        alt="User Image" />
+                    <!-- <img src="https://tresume.us/Images/Profile_icon.PNG" class="img-circle elevation-2"
+                        alt="User Image" /> -->
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{ traineeDetails.FirstName }}</a>
@@ -46,8 +46,8 @@
             </div>
             <div *ngIf="onboardView" class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="https://tresume.us/Images/Profile_icon.PNG" class="img-circle elevation-2"
-                        alt="User Image" />
+                    <!-- <img src="https://tresume.us/Images/Profile_icon.PNG" class="img-circle elevation-2"
+                        alt="User Image" /> -->
                 </div>
                 <div class="info">
                     <a class="d-block">{{ name }}</a>
@@ -130,18 +130,14 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item" *ngIf="checkFullAccess(11)">
-                        <a class="nav-link" routerLink="/reports" routerLinkActive="active">
-                            <i class="nav-icon fas fa-list-alt"></i>
+                    
+                   
+                    <li class="nav-item" *ngIf="checkFullAccess(6)">
+                        <a routerLink="/talentBench" class="nav-link">
+                            <i class="nav-icon fas fa-user-circle"></i>
                             <p>
-                                Reports
+                                Talent Bench
                             </p>
-                        </a>
-                    </li>
-                    <li class="nav-item" *ngIf="checkFullAccess(4)">
-                        <a routerLink="/harvest" class=" nav-link">
-                            <i class="nav-icon fas fa-leaf"></i>
-                            <p>Harvest</p>
                         </a>
                     </li>
                     <!-- <li class="nav-item" *ngIf="checkFullAccess(10)">
@@ -246,34 +242,27 @@
                         </a>
                     </li>
                     <li class="nav-item" *ngIf="checkFullAccess(8)">
-                        <a routerLink="/vendor" class=" nav-link">
+                        <a routerLink="/vendor/0" class=" nav-link">
                             <i class="nav-icon fas fa-store"></i>
                             <p> Vendors</p>
                         </a>
                     </li>
-                    <li class="nav-item" *ngIf="checkFullAccess(6)">
-                        <a routerLink="/talentBench" class="nav-link">
-                            <i class="nav-icon fas fa-user-circle"></i>
-                            <p>
-                                Talent Bench
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item" *ngIf="checkFullAccess(9)">
+                    
+                    <!-- <li class="nav-item" *ngIf="checkFullAccess(9)">
                         <a routerLink="/batch" class="nav-link">
                             <i class="nav-icon fas fa-id-card"></i>
                             <p>
                                 Batch
                             </p>
                         </a>
-                    </li>
+                    </li> -->
                     <!-- <li class="nav-item" *ngIf="checkFullAccess(3)">
                         <a routerLink="/jobboardaccount" class=" nav-link">
                             <i class="nav-icon fas fa-tasks"></i>
                             <p>Job Boards</p>
                         </a>
                     </li> -->
-                    <li class="nav-item" *ngIf="checkFullAccess(12)">
+                    <!-- <li class="nav-item" *ngIf="checkFullAccess(12)">
                         <a class="nav-link" (click)="toggleDropdown('myAccountSubMenu')">
                           <i class="nav-icon fas fa-user-tie"></i>
                           <p>
@@ -289,13 +278,27 @@
                             </a>
                           </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <!-- <li class="nav-item" *ngIf="checkFullAccess(3)">
                         <a routerLink="/division" class=" nav-link">
                             <i class="nav-icon fas fa-sitemap"></i>
                             <p>Division</p>
                         </a>
                     </li> -->
+                    <li class="nav-item" *ngIf="checkFullAccess(4)">
+                        <a routerLink="/harvest" class=" nav-link">
+                            <i class="nav-icon fas fa-leaf"></i>
+                            <p>Harvest</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" *ngIf="checkFullAccess(11)">
+                        <a class="nav-link" routerLink="/reports" routerLinkActive="active">
+                            <i class="nav-icon fas fa-list-alt"></i>
+                            <p>
+                                Reports
+                            </p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a routerLink="/profile" class="nav-link">
                             <i class="nav-icon fas fa-user"></i>

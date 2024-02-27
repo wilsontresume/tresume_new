@@ -16,7 +16,7 @@ const config = {
   user: "sa",
   password: "Tresume@123",
   server: "92.204.128.44",
-  database: "Tresume_Beta",
+  database: "Tresume",
   trustServerCertificate: true,
 };
 
@@ -169,8 +169,6 @@ router.post('/deleteUserAccount', async (req, res) => {
 
 })
 
-
-
 async function deactivatetrainee(email) {
   const pool = await sql.connect(config);
   const request = pool.request();
@@ -193,7 +191,7 @@ router.post('/getUserProfile', async (req, res) => {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
-    var query = "SELECT * FROM trainee where traineeid ="+req.body.traineeID;
+    var query = "SELECT * FROM trainee where traineeid =" + req.body.traineeID;
     console.log(query);
     request.query(query,
       function (err, recordset) {
@@ -211,67 +209,141 @@ router.post('/getUserProfile', async (req, res) => {
 
 })
 
-  
 router.post('/updateMyProfile', async (req, res) => {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    var query = `UPDATE Trainee SET FirstName = '${req.body.FirstName}', MiddleName = '${req.body.MiddleName}', LastName = '${req.body.LastName}', YearsOfExpInMonths = '${req.body.YearsOfExpInMonths}', Title = '${req.body.Title}', DOB = '${req.body.DOB}', PhoneNumber = '${req.body.PhoneNumber}', state = '${req.body.state}', city = '${req.body.city}', zipcode = '${req.body.zipcode}', WHERE traineeID = ${req.body.traineeID}`;
+  try {
+    await sql.connect(config);
+
+    const request = new sql.Request();
+    const query = `UPDATE Trainee SET FirstName = '${req.body.FirstName}', MiddleName = '${req.body.MiddleName}', LastName = '${req.body.LastName}', YearsOfExpInMonths = '${req.body.YearsOfExpInMonths}', Title = '${req.body.Title}', DOB = '${req.body.DOB}', PhoneNumber = '${req.body.PhoneNumber}', state = '${req.body.state}', city = '${req.body.city}', zipcode = '${req.body.zipcode}' WHERE traineeID = ${req.body.traineeID}`;
+
     console.log(query);
-    request.query(query, function (err, recordset) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ error: 'Database query error' });
-      }
 
-      var result = {
-        flag: 1,
-        result: recordset && recordset.recordsets && recordset.recordsets[0],
-      };
+    const recordset = await request.query(query);
 
-      res.json(result);
+    const result = {
+      flag: 1,
+      result: recordset || recordset.recordsets || recordset.recordsets[0],
+    };
+
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database query error' });
+  }
+});
+
+router.post('/validatepassword', async (req, res) => {
+  console.log(req);
+  var oldPassword = req.body.oldPassword;
+  var traineeid = req.body.traineeid;
+  try {
+    sql.connect(config, function (err) {
+      if (err) console.log(err);
+      var request = new sql.Request();
+
+      var query = "SELECT password FROM trainee where Active = 1 and traineeid = '" + traineeid + "'";
+
+      console.log(query);
+      request.query(query,
+        function (err, recordset) {
+          if (err) {
+            console.log(err);
+            res.status(500).json({ message: 'An error occurred' });
+            return; 
+          }
+          if (!recordset || !recordset.recordsets || recordset.recordsets.length === 0) {
+            var result = {
+              flag: 2,
+              message: 'Not Valid Key',
+            };
+            res.send(result);
+            return;
+          }
+          var trainee = recordset.recordsets[0];
+          var currentpassword = decrypter(trainee[0].password);
+          
+          console.log(currentpassword);
+          if (currentpassword == oldPassword) {
+            var result = {
+              flag: 1,
+              message: 'Valid key',
+            };
+            res.send(result);
+          } else {
+            var result = {
+              flag: 2,
+              message: 'Not Valid Key',
+            };
+            res.send(result);
+          }
+        }
+      );
     });
-  });
-})
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
 
+router.post('/newpassword', async (req, res) => {
+  console.log(req);
+  var password = req.body.password;
+  var traineeid =req.body.traineeid;
 
-router.post('/fetchProfileStateList', async (req, res) => {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    var query = "SELECT DISTINCT state FROM Usazipcodenew";
-    console.log(query);
-    request.query(query,
-      function (err, recordset) {
-        if (err) console.log(err);
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0],
-        };
-        res.send(result);
-      }
-    );
-  });
-})
+  var encryptpassword = encrypter(password);
+  try {
+    sql.connect(config, function (err) {
+      if (err) console.log(err);
+      var request = new sql.Request();
 
-router.post('/fetchProfileCityList', async (req, res) => {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    var query = "SELECT DISTINCT city FROM Usazipcodenew";
-    console.log(query);
-    request.query(query,
-      function (err, recordset) {
-        if (err) console.log(err);
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0],
-        };
-        res.send(result);
-      }
-    );
-  });
-})
+      var query = "UPDATE trainee set resetkey = '0', password = '" + encryptpassword + "' where traineeid ='" + traineeid + "'";
 
+      request.query(query,
+        function (err, recordset) {
+          if (err) console.log(err);
+
+          var result = {
+            flag: 1,
+            message: 'Password Updated Succesfully',
+          };
+          res.send(result);
+        }
+      );
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
+
+function encrypter(text) {
+  var key = 'NesaMani&Co';
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv('aes-256-cbc', generateKey(key), iv);
+  let encrypted = cipher.update(text, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return iv.toString('hex') + encrypted;
+}
+
+function decrypter(encryptedText) {
+  var key = 'NesaMani&Co';
+  const iv = Buffer.from(encryptedText.slice(0, 32), 'hex'); 
+  const encryptedData = encryptedText.slice(32); 
+
+  const decipher = crypto.createDecipheriv('aes-256-cbc', generateKey(key), iv);
+  let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
+function randomString(length, chars) {
+  var result = '';
+  for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+  return result;
+}
+function generateKey(key) {
+  const hash = crypto.createHash('sha256').update(key).digest();
+  return hash;
+}
 module.exports = router;
+
 

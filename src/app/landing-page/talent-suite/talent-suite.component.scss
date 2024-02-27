@@ -668,23 +668,26 @@ ul {
 
   color: purple;
 }
- // navbar
+//   // navbar
 
- ul.navbar-nav.mr-auto {
+//   // navbar
+
+ul.navbar-nav.mr-auto {
   margin: auto;
 }
-.navbar {
-  padding: 10px;
-  height: 80px;
-  font-size: 20px;
-}
+// .navbar {
+//   padding: 10px;
+//   height: 40px;
+//   font-size: 20px;
+// }
 .navbar.scrolled .navbar-nav .nav-link {
   color: white !important;
 }
 
-.navbar.scrolled .navbar-nav .nav-link:hover {
-  color: #f0f0f0 !important;
-}
+//   .navbar.scrolled .navbar-nav .nav-link:hover {
+//     color: #f0f0f0 !important;
+//   }
+
 .navbar {
   &.navbar-light {
     .nav-item {
@@ -697,9 +700,13 @@ ul {
       text-align: center;
       // font-family: 'Arvo', serif;
 
+
       a {
         color: black;
         text-decoration: none;
+        font-family: -webkit-body;
+        font-size: 23px;
+        font-weight: lighter;
 
         &:hover {
           color:purple;
@@ -748,13 +755,10 @@ ul {
   color: purple;
 }
 
-/* Custom CSS for nav-link hover underline animation */
 .navbar-nav .nav-link {
   position: relative;
   color: black;
-  /* Set the default text color */
   transition: color 0.3s;
-  /* Add a smooth color transition */
 }
 
 .navbar-nav .nav-link::before {
@@ -779,11 +783,20 @@ ul {
 .navbar-nav .nav-link:hover::before {
   width: 100%;
 }
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+      display: flex !important;
+      flex-basis: auto !important;
+      justify-content: space-around !important;
+  }
+}
+@media (min-width: 992px) {
+  .navbar {
+    height: 79px;
+  }
+}
 
-
-
-
-
+//footer
 footer {
   width: 100%;
   background-color: #263238;

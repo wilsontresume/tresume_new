@@ -43,19 +43,27 @@
         <td>{{ job.PayRate }}</td>
         <td>{{ job.NewApplicants }}</td>
         <td>
-          {{ job.totalApplicants }}
+          {{ job.TotalApplicants }}
           <a [routerLink]="['/applicantdetails']">
             <i class="fas fa-external-link-alt"></i></a>
         </td>
         <td>{{ job.PostedOn | date:'MM/dd/yy' }}</td>
         <td>{{ job.PostedBy }}</td>
         <td>{{ job.JobType }}</td>
-        <td><select id="role" [(ngModel)]="selectedRole">
-          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-        </select></td>
+        <td>
+          <!-- <select [(ngModel)]="selectedRole">
+            <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+          </select> -->
+          <select name="Assignee" id="assignee">
+            <option value="" selected disabled>Select Assignee</option>
+            <option value="User">Recruiter</option>
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>  
+          </select>
+        </td>
         <td>
           <a [routerLink]="['/Myjobs/createnewjob']"><i class="fas fa-pencil-alt"></i></a>
-          <a [routerLink]="['/submittedcandidates']"><i class="fas fa-id-badge"></i></a>
+          <a [routerLink]="['/submitted-candidates']"><i class="fas fa-id-badge"></i></a>
           <i class="fas fa-trash-alt" data-toggle="modal" data-target="#exampleModal"></i>
         </td>
       </tr>

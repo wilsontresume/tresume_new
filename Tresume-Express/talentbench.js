@@ -20,7 +20,7 @@ const config = {
   user: "sa",
   password: "Tresume@123",
   server: "92.204.128.44",
-  database: "Tresume_Beta",
+  database: "Tresume",
   trustServerCertificate: true,
 };
 
@@ -34,6 +34,16 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
+function generateSearchCondition(searchterm) {
+  if (searchterm.includes(' ')) {
+    const words = searchterm.split(' ');
+    return `tr.FirstName LIKE '%${words[0]}%' AND tr.LastName LIKE '%${words[1]}%'`;
+  } else if (searchterm.includes('@')) {
+    return `tr.UserName LIKE '%${searchterm}%'`;
+  } else {
+    return `(tr.FirstName LIKE '%${searchterm}%' OR tr.LastName LIKE '%${searchterm}%' OR tr.UserName LIKE '%${searchterm}%')`;
+  }
+}
 
 router.post('/getTalentBenchList', async (req, res) => {
   try {
@@ -43,49 +53,79 @@ router.post('/getTalentBenchList', async (req, res) => {
 
     const traineeID = req.body.traineeID;
     const OrganizationID = req.body.OrganizationID;
-
+    const username = req.body.username;
+    const searchterm = req.body.searchterm;
+    const Page = req.body.Page * 25;
+    const startdate = req.body.startdate;
+    const enddate = req.body.enddate;
     const request = new sql.Request(pool);
 
     const query = `
-    SELECT
-    trn.TraineeID, trn.FirstName, trn.LastName, trn.YearsOfExpInMonths, trn.Organization, org.organizationname, trn.CandidateStatus, trn.PhoneNumber,
-    TB.GroupID, trn.CurrentLocation, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus, trn.Notes,
-    trn.Title AS [TraineeTitle], COUNT(trn.TraineeID) OVER() AS overall_count, ISNULL(tr.Rating, 0) AS QuickRate, TB.TBID, trn.Source,
-    TB.BenchStatus, (SELECT PhoneNumber FROM Phone WHERE PhoneID = (SELECT TOP(1) PhoneID FROM TraineePhone WHERE TraineeID = trn.TraineeID)) AS phone,
-    trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, DATEDIFF(DAY, TB.CreateTime, GETUTCDATE()) AS age,
-    CONCAT(T1.FirstName, ' ', T1.MiddleName, ' ', T1.LastName) AS Recruiter, ISNULL(TB.IsNew, '0') AS IsNew,
-    (SELECT traineeid FROM JBDetail WHERE jobid = '') AS JBTraineeID, trn.groupid
-FROM
-    Trainee trn (NOLOCK)
-    LEFT JOIN TraineeRating tr (NOLOCK) ON tr.Active = 1 AND trn.TraineeID = tr.TraineeID AND tr.Recruiterid = '${traineeID}'
-    LEFT JOIN Trainee T1 ON T1.TraineeID = trn.RecruiterName AND T1.Active = 1
-    JOIN TalentBench TB (NOLOCK) ON TB.Active = 1 AND trn.TraineeID = TB.TraineeID
-    JOIN organization org ON trn.UserOrganizationID = org.organizationid -- Added join to fetch organizationname
-WHERE
-    trn.Talentpool = 1
-    AND (trn.UserOrganizationID = '${OrganizationID}' OR trn.TraineeID IN (
-      SELECT ja.TraineeID
-      FROM JobApplication ja
-      WHERE ja.Active = 1 AND ja.JobID IN (
-        SELECT j.JobID
-        FROM Job j
-        WHERE j.Active = 1 AND j.RecruiterID IN (
-          SELECT TraineeID
-          FROM Trainee
-          WHERE OrganizationID = '${OrganizationID}' AND Active = 1 AND Role = 'RECRUITER'
-        )
-      )
-    ))
-    AND trn.active = 1 AND trn.Role = 'TRESUMEUSER'
-GROUP BY
-    trn.TraineeID, T1.FirstName, T1.MiddleName, T1.LastName, trn.FirstName, trn.PhoneNumber, trn.LastName, trn.YearsOfExpInMonths,
-    trn.CandidateStatus, TB.TBID, TB.GroupID, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus,
-    trn.Notes, trn.Organization, org.organizationname, trn.CurrentLocation, trn.Title, trn.LastUpdateTime, trn.CreateTime, tr.Rating, trn.Source,
-    TB.BenchStatus, trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, TB.IsNew, trn.groupid
-ORDER BY
-    trn.CreateTime DESC
+    WITH CountCTE AS (
+      SELECT COUNT(*) AS TotalCount
+      FROM Trainee tr
+      INNER JOIN memberdetails md ON tr.userorganizationid IN (SELECT Value FROM dbo.SplitString(md.accessorg, ','))
+      INNER JOIN talentbench tb ON tr.TraineeID = tb.TraineeID
+      WHERE md.useremail = '${username}'
+          AND tr.active = 1
+          AND tb.active = 1
+          AND ${generateSearchCondition(searchterm)}
+          ${startdate && enddate ? `AND tb.CreateTime BETWEEN '${startdate}' AND '${enddate}'` : ''}
+  ),
+  Results AS (
+      SELECT 
+          tr.TraineeID,
+          tb.TBID,
+          tr.firstname AS FirstName,
+          tr.lastname AS LastName,
+          tr.RecruiterName,
+          tr.Title,
+          tr.username AS UserName,
+          org.organizationname,
+          tr.LegalStatus,
+          tb.GroupID,
+      tb.CreateTime,
+          DATEDIFF(day, tb.CreateTime, GETDATE()) AS Age,
+          tb.IsNew
+      FROM 
+          Trainee tr
+      INNER JOIN 
+          memberdetails md ON tr.userorganizationid IN (SELECT Value FROM dbo.SplitString(md.accessorg, ','))
+      INNER JOIN 
+          organization org ON tr.userorganizationid = org.organizationid
+      INNER JOIN 
+          talentbench tb ON tr.TraineeID = tb.TraineeID
+      WHERE 
+          md.useremail = '${username}'
+          AND tr.active = 1
+          AND tb.active = 1
+          AND ${generateSearchCondition(searchterm)}
+          ${startdate && enddate ? `AND tb.CreateTime BETWEEN '${startdate}' AND '${enddate}'` : ''}
+          ORDER BY 
+          tb.CreateTime DESC
+          OFFSET ${Page} ROWS FETCH NEXT 25 ROWS ONLY
+  )
+  SELECT 
+      TotalCount,
+      TraineeID,
+      TBID,
+      FirstName,
+      LastName,
+      RecruiterName,
+      Title,
+      UserName,
+      organizationname,
+      LegalStatus,
+      GroupID,
+      Age,
+      IsNew
+  FROM 
+      CountCTE
+  CROSS JOIN 
+      Results;
     `;
 
+    console.log(query);
 
     const recordset = await request.query(query);
 
@@ -112,57 +152,305 @@ ORDER BY
   }
 });
 
+
+// router.post('/getTalentBenchList', async (req, res) => {
+//   try {
+//     const pool = new sql.ConnectionPool(config);
+//     const poolConnect = pool.connect();
+//     await poolConnect;
+
+//     const traineeID = req.body.traineeID;
+//     const OrganizationID = req.body.OrganizationID;
+
+//     const request = new sql.Request(pool);
+
+//     const query = `
+//     SELECT
+//     trn.TraineeID, trn.FirstName, trn.LastName, trn.YearsOfExpInMonths, trn.Organization, org.organizationname, trn.CandidateStatus, trn.PhoneNumber,
+//     TB.GroupID, trn.CurrentLocation, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus, trn.Notes,
+//     trn.Title AS [TraineeTitle], COUNT(trn.TraineeID) OVER() AS overall_count, ISNULL(tr.Rating, 0) AS QuickRate, TB.TBID, trn.Source,
+//     TB.BenchStatus, (SELECT PhoneNumber FROM Phone WHERE PhoneID = (SELECT TOP(1) PhoneID FROM TraineePhone WHERE TraineeID = trn.TraineeID)) AS phone,
+//     trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, DATEDIFF(DAY, TB.CreateTime, GETUTCDATE()) AS age,
+//     CONCAT(T1.FirstName, ' ', T1.MiddleName, ' ', T1.LastName) AS Recruiter, ISNULL(TB.IsNew, '0') AS IsNew,
+//     (SELECT traineeid FROM JBDetail WHERE jobid = '') AS JBTraineeID, trn.groupid
+// FROM
+//     Trainee trn (NOLOCK)
+//     LEFT JOIN TraineeRating tr (NOLOCK) ON tr.Active = 1 AND trn.TraineeID = tr.TraineeID AND tr.Recruiterid = '${traineeID}'
+//     LEFT JOIN Trainee T1 ON T1.TraineeID = trn.RecruiterName AND T1.Active = 1
+//     JOIN TalentBench TB (NOLOCK) ON TB.Active = 1 AND trn.TraineeID = TB.TraineeID
+//     JOIN organization org ON trn.UserOrganizationID = org.organizationid -- Added join to fetch organizationname
+// WHERE
+//     trn.Talentpool = 1
+//     AND (trn.UserOrganizationID = '${OrganizationID}' OR trn.TraineeID IN (
+//       SELECT ja.TraineeID
+//       FROM JobApplication ja
+//       WHERE ja.Active = 1 AND ja.JobID IN (
+//         SELECT j.JobID
+//         FROM Job j
+//         WHERE j.Active = 1 AND j.RecruiterID IN (
+//           SELECT TraineeID
+//           FROM Trainee
+//           WHERE OrganizationID = '${OrganizationID}' AND Active = 1 AND Role = 'RECRUITER'
+//         )
+//       )
+//     ))
+//     AND trn.active = 1 AND trn.Role = 'TRESUMEUSER'
+// GROUP BY
+//     trn.TraineeID, T1.FirstName, T1.MiddleName, T1.LastName, trn.FirstName, trn.PhoneNumber, trn.LastName, trn.YearsOfExpInMonths,
+//     trn.CandidateStatus, TB.TBID, TB.GroupID, trn.MiddleName, trn.Gender, trn.Degree, trn.ReferralType, trn.RecruiterName, trn.LegalStatus,
+//     trn.Notes, trn.Organization, org.organizationname, trn.CurrentLocation, trn.Title, trn.LastUpdateTime, trn.CreateTime, tr.Rating, trn.Source,
+//     TB.BenchStatus, trn.UserName, TB.BillRate, TB.PayType, TB.ReferredBy, TB.CreateTime, TB.IsNew, trn.groupid
+// ORDER BY
+//     trn.CreateTime DESC
+//     `;
+
+
+//     const recordset = await request.query(query);
+
+//     if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+//       const result = {
+//         flag: 1,
+//         result: recordset.recordsets[0],
+//       };
+//       res.send(result);
+//     } else {
+//       const result = {
+//         flag: 0,
+//         error: "No active clients found!",
+//       };
+//       res.send(result);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching talent bench data:", error);
+//     const result = {
+//       flag: 0,
+//       error: "An error occurred while fetching talent bench data!",
+//     };
+//     res.status(500).send(result);
+//   }
+// });
+
+// router.post('/AddTalentBenchList', async function (req, res) {
+//   try {
+//     var TraineeID = await generateTraineeID();
+//     console.log(TraineeID);
+//     var query =
+//       "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
+//       req.body.email +
+//       "' AND UserOrganizationID = '" + req.body.orgID + "') " +
+//       "BEGIN " +
+//       "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation,talentpool ) " +
+//       "VALUES (" +
+//       `'${TraineeID}',` +
+//       ` ${formatValue(req.body.email || '')},` +
+//       ` ${formatValue(req.body.firstName || '')},` +
+//       ` ${formatValue(req.body.phone || '')},` +
+//       ` ${formatValue(req.body.middleName || '')},` +
+//       ` ${formatValue(req.body.lastName || '')},` +
+//       ` ${formatValue(req.body.legalStatus || '')},` +
+//       ` ${formatValue(req.body.candidateStatus || '')},` +
+//       ` ${formatValue(req.body.degree || '')},` +
+//       ` ${formatValue(req.body.gender || '')},` +
+//       ` ${formatValue(req.body.notes || '')},` +
+//       ` ${formatValue(req.body.recruiterName || '')},` +
+//       ` ${formatValue(req.body.referralType || '')},` +
+//       ` ${formatValue(req.body.locationConstraint || '')},` +
+//       ` ${formatValue(req.body.marketerName || '')},` +
+//       ' 1,' +
+//       " 'ACTIVE'," +
+//       " 'READY'," +
+//       " 'TRESUMEUSER', " +
+//       " GETDATE(), " +
+//       ` ${formatValue(req.body.orgID || '')},` +
+//       ` ${formatValue(req.body.createby || '')},` +
+//       ` ${formatValue(req.body.followupon || '')},` +
+//       ` ${formatValue(req.body.currentLocation || '')}` +
+//       ",1) END";
+
+//     console.log(query);
+
+//     await sql.connect(config);
+//     var request = new sql.Request();
+//     var result = await request.query(query);
+
+
+
+//     const data = {
+//       flag: 1,
+//       message: "Trainee Candidate Data Fetched",
+//     };
+
+//     res.send(data);
+//   }
+//   catch (error) {
+//     const data = {
+//       flag: 1,
+//       message: "Internal Server Error",
+//     };
+//     res.status(500).send(data);
+//   }
+// });
+
+// router.post('/AddTalentBenchList', async function (req, res) {
+//   try {
+//     var TraineeID = await generateTraineeID();
+//     console.log(TraineeID);
+
+//     // Insert into Trainee table
+//     var traineeQuery =
+//     "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
+//     req.body.email +
+//     "' AND UserOrganizationID = '" + req.body.orgID + "') " +
+//     "BEGIN " +
+//     "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation,talentpool ) " +
+//     "VALUES (" +
+//     `'${TraineeID}',` +
+//     ` ${formatValue(req.body.email || '')},` +
+//     ` ${formatValue(req.body.firstName || '')},` +
+//     ` ${formatValue(req.body.phone || '')},` +
+//     ` ${formatValue(req.body.middleName || '')},` +
+//     ` ${formatValue(req.body.lastName || '')},` +
+//     ` ${formatValue(req.body.legalStatus || '')},` +
+//     ` ${formatValue(req.body.candidateStatus || '')},` +
+//     ` ${formatValue(req.body.degree || '')},` +
+//     ` ${formatValue(req.body.gender || '')},` +
+//     ` ${formatValue(req.body.notes || '')},` +
+//     ` ${formatValue(req.body.recruiterName || '')},` +
+//     ` ${formatValue(req.body.referralType || '')},` +
+//     ` ${formatValue(req.body.locationConstraint || '')},` +
+//     ` ${formatValue(req.body.marketerName || '')},` +
+//     ' 1,' +
+//     " 'ACTIVE'," +
+//     " 'READY'," +
+//     " 'TRESUMEUSER', " +
+//     " GETDATE(), " +
+//     ` ${formatValue(req.body.orgID || '')},` +
+//     ` ${formatValue(req.body.createby || '')},` +
+//     ` ${formatValue(req.body.followupon || '')},` +
+//     ` ${formatValue(req.body.currentLocation || '')}` +
+//     ",1) END";
+
+//     console.log(traineeQuery);
+
+//     await sql.connect(config);
+//     var traineeRequest = new sql.Request();
+//     var traineeResult = await traineeRequest.query(traineeQuery);
+
+//     // Insert into TalentBench table
+//     var talentBenchQuery =
+//     "INSERT INTO TalentBench " +
+//     "([TraineeID], [Name], [ReferredBy], [Currency], [BillRate], [PayType], [TaxTerm], [ConsultantType], [JobTitle], [LocationPreference], [BenchStatus], [Availability], [txtComments], [Active], [CreateBy], [CreateTime], [GroupID], [IsNew]) " +
+//     "VALUES (" +
+//     `'${TraineeID}',` + 
+//     ` ${formatValue(req.body.firstName + ' ' + req.body.lastName || '')},` +
+//     ` ${formatValue(req.body.recruiterName || '')},` +
+//     " NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'TRESUMEUSER', GETDATE(), NULL, 1)";
+  
+
+//     console.log(talentBenchQuery);
+//     await sql.connect(config);
+//     var talentBenchRequest = new sql.Request();
+//     var talentBenchResult = await talentBenchRequest.query(talentBenchQuery);
+
+//     const data = {
+//       flag: 1,
+//       message: "Trainee Candidate Data Fetched",
+//     };
+//     res.send(data);
+//   }
+//   catch (error) {
+//     const data = {
+//       flag: 1,
+//       message: "Internal Server Error",
+//     };
+//     res.status(500).send(data);
+//   }
+// });
+
 router.post('/AddTalentBenchList', async function (req, res) {
   try {
+    // Generate TraineeID
     var TraineeID = await generateTraineeID();
     console.log(TraineeID);
-    var query =
-      "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
-      req.body.email +
-      "' AND UserOrganizationID = '" + req.body.orgID + "') " +
-      "BEGIN " +
-      "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation,talentpool ) " +
-      "VALUES (" +
-      `'${TraineeID}',` +
-      ` ${formatValue(req.body.email || '')},` +
-      ` ${formatValue(req.body.firstName || '')},` +
-      ` ${formatValue(req.body.phone || '')},` +
-      ` ${formatValue(req.body.middleName || '')},` +
-      ` ${formatValue(req.body.lastName || '')},` +
-      ` ${formatValue(req.body.legalStatus || '')},` +
-      ` ${formatValue(req.body.candidateStatus || '')},` +
-      ` ${formatValue(req.body.degree || '')},` +
-      ` ${formatValue(req.body.gender || '')},` +
-      ` ${formatValue(req.body.notes || '')},` +
-      ` ${formatValue(req.body.recruiterName || '')},` +
-      ` ${formatValue(req.body.referralType || '')},` +
-      ` ${formatValue(req.body.locationConstraint || '')},` +
-      ` ${formatValue(req.body.marketerName || '')},` +
-      ' 1,' +
-      " 'ACTIVE'," +
-      " 'READY'," +
-      " 'TRESUMEUSER', " +
-      " GETDATE(), " +
-      ` ${formatValue(req.body.orgID || '')},` +
-      ` ${formatValue(req.body.createby || '')},` +
-      ` ${formatValue(req.body.followupon || '')},` +
-      ` ${formatValue(req.body.currentLocation || '')}` +
-      ",1) END";
 
-    console.log(query);
+    // Connect to SQL Server
+    await sql.connect(config);
 
-    // await sql.connect(config);
-    // var request = new sql.Request();
-    // var result = await request.query(query);
+    // Insert into Trainee table
+    var traineeQuery =
+    "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
+    req.body.email +
+    "' AND UserOrganizationID = '" + req.body.orgID + "') " +
+    "BEGIN " +
+    "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, degree, gender, notes, recruiterName, referralType, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation,talentpool ) " +
+    "VALUES (" +
+    `'${TraineeID}',` +
+    ` ${formatValue(req.body.email || '')},` +
+    ` ${formatValue(req.body.firstName || '')},` +
+    ` ${formatValue(req.body.phone || '')},` +
+    ` ${formatValue(req.body.middleName || '')},` +
+    ` ${formatValue(req.body.lastName || '')},` +
+    ` ${formatValue(req.body.legalStatus || '')},` +
+    ` ${formatValue(req.body.candidateStatus || '')},` +
+    ` ${formatValue(req.body.degree || '')},` +
+    ` ${formatValue(req.body.gender || '')},` +
+    ` ${formatValue(req.body.notes || '')},` +
+    ` ${formatValue(req.body.recruiterName || '')},` +
+    ` ${formatValue(req.body.referralType || '')},` +
+    ` ${formatValue(req.body.locationConstraint || '')},` +
+    ` ${formatValue(req.body.marketerName || '')},` +
+    ' 1,' +
+    " 'ACTIVE'," +
+    " 'READY'," +
+    " 'TRESUMEUSER', " +
+    " GETDATE(), " +
+    ` ${formatValue(req.body.orgID || '')},` +
+    ` ${formatValue(req.body.createby || '')},` +
+    ` ${formatValue(req.body.followupon || '')},` +
+    ` ${formatValue(req.body.currentLocation || '')}` +
+    ",1) END";
+
+    console.log(traineeQuery);
+
+    var traineeRequest = new sql.Request();
+    var traineeResult = await traineeRequest.query(traineeQuery);
+
+    // Insert into TalentBench table
+    var talentBenchQuery =
+    "INSERT INTO TalentBench " +
+    "([TraineeID], [Name], [ReferredBy], [Currency], [BillRate], [PayType], [TaxTerm], [ConsultantType], [JobTitle], [LocationPreference], [BenchStatus], [Availability], [txtComments], [Active], [CreateBy], [CreateTime], [GroupID], [IsNew]) " +
+    "VALUES (" +
+    `'${TraineeID}',` +
+    ` ${formatValue(req.body.firstName + ' ' + req.body.lastName || '')},` +
+    " NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'TRESUMEUSER', GETDATE(), NULL, 1)";
+
+
+
+  // If recruiterName is not provided, set it to an empty string in the query
+  if (!req.body.recruiterName) {
+    talentBenchQuery = talentBenchQuery.replace(` ${formatValue(req.body.recruiterName || '')}`, " ''");
+  }
+
+  console.log(talentBenchQuery);
+
+
+    var talentBenchRequest = new sql.Request();
+    var talentBenchResult = await talentBenchRequest.query(talentBenchQuery);
+
+    // Close the SQL connection
+    await sql.close();
 
     const data = {
       flag: 1,
       message: "Trainee Candidate Data Fetched",
     };
-
     res.send(data);
-  }
-  catch (error) {
+  } catch (error) {
+    console.error("Error:", error.message);
+
+    // Close the SQL connection in case of an error
+    await sql.close();
+
     const data = {
       flag: 1,
       message: "Internal Server Error",
@@ -170,6 +458,8 @@ router.post('/AddTalentBenchList', async function (req, res) {
     res.status(500).send(data);
   }
 });
+
+
 
 async function generateTraineeID() {
   try {

@@ -10,6 +10,8 @@ import { JobBoardsService } from './job-boards.service';
 import { CookieService } from 'ngx-cookie-service';
 import * as FileSaver from 'file-saver';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
     selector: 'app-search-resumes',
@@ -142,6 +144,7 @@ export class SearchResumesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.loading = true;
         this.cookieValue = this.cookieService.get('userName1')
         this.OrgID = this.cookieService.get('OrgID');
         this.userName1 = this.cookieService.get('userName1');
@@ -172,8 +175,9 @@ export class SearchResumesComponent implements OnInit {
                 this.totalResults = this.responseData.length;
                 this.sizeToFit();
                 console.log(this.rowData)
-
+                this.loading = false;
             });
+            
 
             
         }

@@ -58,7 +58,7 @@ export class VendorComponent implements OnInit {
   confirmDelete() {
     console.log(this.deleteIndex);
     let Req = {
-      vendorid: this.deleteIndex,
+      VendorID: this.deleteIndex,
     };
     this.service.deleteVendorAccount(Req).subscribe((x: any) => {
       var flag = x.flag;

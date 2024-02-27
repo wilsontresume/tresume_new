@@ -249,7 +249,6 @@ export class IntegratedSearchComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loading = true;
         this.cookieValue = this.cookieService.get('userName1')
         this.OrgID = this.cookieService.get('OrgID');
         this.userName1 = this.cookieService.get('userName1');
@@ -803,7 +802,7 @@ export class IntegratedSearchComponent implements OnInit {
                         this.messageService.add({ severity: 'warning', summary: 'Error', detail: 'You dont have enough Career Builder credit to View Resume' });
                     }
                 }
-                this.loading = false;
+
 
             });
         }

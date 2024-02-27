@@ -104,25 +104,7 @@ body {
   text-align: center;
 }
 
-// .solution-container {
-//   text-align: center;
-// }
 
-// .header {
-//   font-size: 24px;
-//   font-weight: bold;
-//   margin-bottom: 20px;
-// }
-
-// .content {
-//   font-size: 20px;
-
-// }
-
-// .solution-image {
-//   max-width: 100%;
-//   height: auto;
-// }
 
 .animate-border {
   position: relative;
@@ -204,7 +186,7 @@ body {
   padding: 0.6em 2em;
   border: 1px solid black;
   outline: none;
-  color: black;
+  // color: black;
   background: white;
   cursor: pointer;
   position: relative;
@@ -270,10 +252,31 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #191919;
+  background: #fff;
   left: 0;
   top: 0;
   border-radius: 10px;
+}
+
+/* Common styles for both mobile and system views */
+@media (max-width: 560px) {
+  .nav-item > .login-btn-web {
+    display: none !important;
+  }
+
+}
+
+/* Styles specific to system view (non-mobile) */
+@media (min-width: 992px) {
+  .nav-item > .login-btn-mobile {
+    display: none !important;
+  }
+
+  .bn5 {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+  }
 }
 
 // home
@@ -286,5 +289,13 @@ body {
 // .navbar.scrolled {
 //   background: linear-gradient(#990a6b, #D24F9A);
 //   transition: background-color 200ms linear;
- 
+
 // }
+// .navbar-expand-lg .navbar-collapse {
+//   display: flex!important;
+//   flex-basis: auto;
+//   justify-content: center;
+// }
+.modal-backdrop {
+  display: none; /* Completely hide the backdrop */
+}

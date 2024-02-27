@@ -1,41 +1,50 @@
 <section id="team" class="pb-5">
-    <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
-      <a routerLink="/homelanding"><img src="../assets/img/logo.png" style="height: 90px;" alt=""></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
+    <a routerLink="/homelanding" class="navbar-brand">
+        <img src="../assets/img/logo.png" style="height: 90px;" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-              Products
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
-              <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
-              <a class="dropdown-item" routerLink="/workforce">Workforce</a>
-              <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
-            </div>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" routerLink="/market">Marketplace</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/features">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/contact">Contact Us</a>
-          </li>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'show': isNavbarCollapsed}">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Products
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+                    <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+                    <a class="dropdown-item" routerLink="/workforce">Workforce</a>
+                    <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/market">Marketplace</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/features">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/contact">Contact Us</a>
+            </li>
+            <li class="nav-item ">
+              <a href="login" class="nav-link login-btn-mobile">Login</a>
+            </li>
+
+            <li class="nav-item ">
+              <a class=" login-btn-web bn5" style=" margin: 0;" routerLink="/login">Login</a>
+
+            </li>
         </ul>
-        <div class="content" style="margin-right: 62px;">
-          <a href="login" class="bn5">Login</a>
-        </div>
-      </div>
-    </nav>
+    </div>
+  </nav>
+
+
   <div class="background-video video-container">
     <video autoplay muted loop class="blur-video video-background" style="width: 100%; height: fit-content;">
       <source src="../../../assets/videos/home.mp4" type="video/mp4">
@@ -46,17 +55,20 @@
     padding-top: 33px;font-size: 54px;color: white;font-weight: 500; ">
     <span class="space">APPLICANT</span>  <span class="space">TRACKING</span>  <span class="space">SYSTEM</span></h1>
   </div>
-
   </div>
   <br><br>
   <br><br>
-  <div class="container">
+  <div class="" style="padding: 20px;">
     <!-- Section 1: Left side text, right side image -->
     <div class="row">
       <div class="col-md-6">
         <h2 class="text-center tittle"> Manual to Tresume Magical ATS:</h2>
         <span class="animate-border mr-auto ml-auto mb-4"></span>
-        <p style="font-size: 20px; font-style: italic; font-weight: 500; padding: 7px; letter-spacing: 2px; text-align: justify;">
+        <p style="font-size: 20px;
+        /* font-style: italic; */
+        font-weight: 500;
+        padding: 7px;
+        text-align: justify;">
           Introducing Tresume, the epitome of recruitment innovation, designed to propel your hiring process
           into a realm of unparalleled excellence. Our state-of-the-art TalentPro Applicant Tracking System
           harnesses the power of cutting-edge AI technology, elevating efficiency and optimization to
@@ -65,15 +77,15 @@
           this HireSmart tool redefines how you attract and engage top-notch talent.
         </p>
         <ul class="list-unstyled">
-          <li style="font-size: 18px;">
+          <li style="font-size: 18px; margin-bottom: 30px;font-family: monospace;">
             <i class="fas fa-check-circle text-success" style="font-size: 20px; vertical-align: middle;"></i>
             Say goodbye to manual job posting and tedious candidate selection, as our SkillTrack ATS effortlessly streamlines every aspect of the hiring process.
           </li>
-          <li style="font-size: 18px;">
+          <li style="font-size: 18px;margin-bottom: 30px;font-family: monospace;">
             <i class="fas fa-check-circle text-success" style="font-size: 20px; vertical-align: middle;"></i>
             Harness the might of our meticulously crafted TalentTrac AI algorithms, finely tuned to intelligently match candidates with precise job requirements.
           </li>
-          <li style="font-size: 18px;">
+          <li style="font-size: 18px;margin-bottom: 30px;font-family: monospace;">
             <i class="fas fa-check-circle text-success" style="font-size: 20px; vertical-align: middle;"></i>
             SwiftHire liberates your valuable time and energy, ensuring that you focus on what truly matters – finding the perfect fit for your organization.
           </li>
@@ -96,9 +108,7 @@
           <div class="timeline">
             <a href="#" class="timeline-content">
               <div class="timeline-icon">
-                <!--                             <i class="fa fa-globe"></i> -->
               </div>
-              <!--                         <span class="timeline-year">2020</span> -->
               <h3 class="title">The Quantum Leap in Tresume ATS:</h3>
               <p class="description">
                 Tresume excels in ATS innovation, featuring cutting-edge technology like Intelligent Resume Parsing. Its
@@ -115,6 +125,8 @@
               </div>
               <!-- <span class="timeline-year">2019</span> -->
               <!-- <h3 class="title">The Transcendent Arsenal of Tresume Timesheets</h3> -->
+              <h3 class="title"> Talent Acquisition Excellence: The Tresume Advantag</h3>
+
               <p class="description">
                 Taking recruitment to the next level, Tresume goes beyond the ordinary by providing a captivating
                 platform for creating and distributing job postings across a myriad of channels, expanding your reach
@@ -133,6 +145,8 @@
               </div>
               <!-- <span class="timeline-year">2019</span> -->
               <!-- <h3 class="title">The Transcendent Arsenal of Tresume Timesheets</h3> -->
+              <h3 class="title"> Tresume's Dynamic Tracking System</h3>
+
               <p class="description">
                 Efficiency reigns supreme with Tresume's comprehensive tracking system, meticulously monitoring every
                 stage of the hiring process. Recruiters gain unprecedented control, effortlessly managing candidate
@@ -151,6 +165,8 @@
               </div>
               <!-- <span class="timeline-year">2019</span> -->
               <!-- <h3 class="title">The Transcendent Arsenal of Tresume Timesheets</h3> -->
+              <h3 class="title"> Tresume's Tailored Interview Symphony</h3>
+
               <p class="description">
                 Gone are the days of cumbersome interview scheduling, thanks to Tresume's streamlined integration with
                 calendars, automated reminders, and seamless feedback collection. The interview process becomes a
@@ -179,7 +195,7 @@
               <i class="fas fa-map-marker-alt"></i>
               <div class="cta-text">
                 <h4>Find us</h4>
-                <span>44121 Leesburg Pike., STE 230 Ashburn , VA 20147,Uinted States Of America
+                <span>44121 Leesburg Pike., STE 230 Ashburn , VA 20147,United States Of America
                 </span>
               </div>
             </div>
@@ -198,7 +214,7 @@
               <i class="fa fa-envelope-o" aria-hidden="true"></i>
               <div class="cta-text">
                 <h4>Mail us</h4>
-                <span>contact</span>
+                <span>nithya@tresume.us</span>
               </div>
             </div>
           </div>
@@ -235,15 +251,14 @@
                 <h3>Useful Links</h3>
               </div>
               <ul>
-                <li><a href="#">Our Team</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Our Gallery</a></li>
-                <li><a href="#">Selection Process</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Sponsorship</a></li>
-                <li><a href="#">Our Policies</a></li>
-                <li><a href="#">Our Team</a></li>
-                <li><a href="#">Contact us</a></li>
+                <li><a routerLink="/about"  href="#">About Us</a></li>
+                <li><a routerLink="/market" href="#">MarketPlace</a></li>
+                <li><a routerLink="/features" href="#">Features</a></li>
+                <li><a routerLink="/contact" href="#">Contact us</a></li>
+                <li><a  routerLink="/workforce" href="#">WorkForce</a></li>
+                <li><a routerLink="/timesheet">TimeSheet</a></li>
+                <li><a  routerLink="/ats">ATS</a></li>
+                <li><a routerLink="/talent-suite">Talent Suite</a></li>
               </ul>
             </div>
           </div>
@@ -256,9 +271,8 @@
                 <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
               </div>
               <div class="subscribe-form">
-                <form action="#">
-                  <input type="text" placeholder="Email Address">
-                  <button><i class="fa fa-telegram" aria-hidden="true"></i></button>
+                <form action="#" >
+                  <li style="text-align: center;font-size: 22px;"><a routerLink="/contact" style="color: white; font-weight: bold;">Contact us</a></li>
                 </form>
               </div>
             </div>
@@ -277,11 +291,11 @@
           <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
             <div class="footer-menu">
               <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Terms</a></li>
-                <li><a href="#">Privacy</a></li>
-                <li><a href="#">Policy</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a>Home</a></li>
+                <li><a>Terms</a></li>
+                <li><a>Privacy</a></li>
+                <li><a>Policy</a></li>
+                <li><a >Contact</a></li>
               </ul>
             </div>
           </div>

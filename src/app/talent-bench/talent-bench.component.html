@@ -17,8 +17,8 @@
         </div>
 
         <div class="form-group text-right d-flex" style="margin-top: 30px;">
-          <input [(ngModel)]="search" type="text"  class="form-control ml-6 mr-2 " id="search" 
-            placeholder=" Search candidates...">
+          <input [(ngModel)]="searchInput" type="text"  class="form-control ml-6 mr-2 " id="search" 
+            placeholder=" Search candidates..." (ngModelChange)="searchhtalentbenchlist(searchInput)">
         </div>
       </div>
       <div class="col-6">
@@ -35,8 +35,7 @@
           <div class="d-flex justify-content-between">
             <div class="col">
               <label>Start date:</label>
-              <input type="date" class="form-control" id="dateCreatedStartDate" placeholder="Start date"
-                [(ngModel)]="startDate">
+              <input type="date" class="form-control" id="dateCreatedStartDate" placeholder="Start date" [(ngModel)]="startDate">
             </div>
             <div class="col">
               <label>End date:</label>
@@ -76,8 +75,8 @@
                 <div class="col-md-3">
                   <table class="table table-borderless no-border">
                     <tr>
-                      <th [ngStyle]="{ 'background-color': getBackgroundColor(item.age) }">Time On Bench:</th>
-                      <td [ngStyle]="{ 'background-color': getBackgroundColor(item.age) }">{{ item.age }}</td>
+                      <th [ngStyle]="{ 'background-color': getBackgroundColor(item.Age) }">Time On Bench:</th>
+                      <td [ngStyle]="{ 'background-color': getBackgroundColor(item.Age) }">{{ item.Age }}</td>
                     </tr>
                     <tr>
                       <th>Location:</th>
@@ -93,7 +92,7 @@
                   <table class="table table-borderless no-border">
                     <tr>
                       <th>Title:</th>
-                      <td>{{ item.TraineeTitle }}</td>
+                      <td>{{ item.Title }}</td>
                     </tr>
                     <tr>
                       <th>Phone:</th>
@@ -111,7 +110,7 @@
                       <td>{{ item.LegalStatus }}</td>
                     </tr>
                     <tr>
-                      <th>Bill Date:</th>
+                      <th>Bill Rate:</th>
                       <td>{{ item.BillRate }}</td>
                     </tr>
                   </table>
@@ -156,7 +155,15 @@
           </div>
           <hr>
         </div>
+         
       </div>
+    </div>
+    <div class="pagination-container">
+      <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <ng-container *ngFor="let pageNumber of calculatePageRange()">
+        <button class="pagination-button" (click)="onPageChange(pageNumber)" [disabled]="currentPage === pageNumber">{{ pageNumber }}</button>
+      </ng-container>
+      <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
     </div>
   </div>
 </div>
@@ -207,15 +214,24 @@
           <div class="row row2">
             <div class="col-md-4">
               <label class="label">Email</label>
-              <input type="Email" class="form-control" name="Email" placeholder="Email" formControlName="Email"
-                [ngClass]="{ 'invalid-input': addCandidate.get('Email').invalid && addCandidate.get('Email').touched }">
-              <div *ngIf="addCandidate.get('Email').invalid && addCandidate.get('Email').touched"
-                class="validation-message" style="color: red;">
-                * Please enter valid Email.
+              <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email"
+                [ngClass]="{
+                        'invalid-input':
+                            addCandidate.get('email').invalid &&
+                            addCandidate.get('email').touched
+                    }" (blur)="onEmailInput()" />
+              <div *ngIf="
+                        addCandidate.get('email').invalid &&
+                        addCandidate.get('email').touched
+                    " class="validation-message" style="color: red;">
+                * Please enter a valid Email.
+              </div>
+              <div *ngIf="emailvalidation" class="validation-message" style="color: red;">
+                {{emailvalidationmessage}}
               </div>
             </div>
             <div class="col-md-4">
-              <label class="label">Phone</label>
+              <label class="label">Phone *</label>
               <input type="tel" class="form-control" name="Phone" placeholder="Phone" formControlName="Phone"
                 [ngClass]="{ 'invalid-input': addCandidate.get('Phone').invalid && addCandidate.get('Phone').touched }">
               <div *ngIf="addCandidate.get('Phone').invalid && addCandidate.get('Phone').touched"
@@ -254,7 +270,7 @@
 
           <div class="row row2">
             <div class="col-md-4">
-              <label class="label">Candidate Status</label>
+              <label class="label">Candidate Status *</label>
               <select class="form-control" id="currentStatus" [(ngModel)]="selectedcurrentstatus"
                 [ngModelOptions]="{standalone: true}">
                 <option *ngFor="let option of  currentStatusOptions" [value]="option.CandidateStatusID">{{ option.Value
@@ -266,7 +282,7 @@
               <input type="text" class="form-control" name="Groups" formControlName="Groups">
             </div>
             <div class="col-md-4">
-              <label class="label">Legal Status</label>
+              <label class="label">Legal Status *</label>
               <select class="form-control" name="legalStatus" [(ngModel)]="legalStatus"
                 [ngModelOptions]="{standalone: true}">
                 <option value>-- Select Legal Status --</option>
@@ -278,7 +294,7 @@
 
           <div class="row row2">
             <div class="col-md-4">
-              <label class="label">Marketer Name</label>
+              <label class="label">Marketer Name *</label>
               <select class="form-control" name="marketerName" [(ngModel)]="marketerName"
                 [ngModelOptions]="{standalone: true}">
                 <option *ngFor="let name of marketerNames" [value]="name.traineeid">{{name.firstname }} {{name.lastname

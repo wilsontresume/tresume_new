@@ -18,7 +18,7 @@ const config = {
     user: "sa",
     password: "Tresume@123",
     server: "92.204.128.44",
-    database: "Tresume_Beta",
+    database: "Tresume",
     trustServerCertificate: true,
   };
   
@@ -157,7 +157,7 @@ router.post('/getuseraccess', async (req, res) => {
     if (err) console.log(err);
     var request = new sql.Request();
 
-    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID,MD.IsAdmin FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
 
     console.log(query);
     request.query(query,
@@ -233,7 +233,7 @@ router.post('/validateemail', async (req, res) => {
       
       await request.query(query2);
 
-      const resetUrl = `https://homehealth.tresume.us/resetpassword/${resetKey}`;
+      const resetUrl = `https://tresume.us/resetpassword/${resetKey}`;
 
       var subject = "Tresume Password Reset Request";
       var text = `<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;"><div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"><p style="color: #333;">Hello,<br><br>You have requested to reset your password. Click on the following link to reset your password:<br><br><a href="${resetUrl}" style="color: #007bff; text-decoration: none;">Reset Password</a><br><br>If you did not request this, please ignore this email.</p><p style="margin-top: 20px; font-style: italic; color: #666;">Regards,<br>Tresume</p></div></div>
@@ -247,12 +247,12 @@ router.post('/validateemail', async (req, res) => {
         html: text,
       };
     
-      // transporter.sendMail(mailData, (error, info) => {
-      //   if (error) {
-      //    console.log(error);
-      //   }
-      //   console.log('Mail Send');
-      // });
+      transporter.sendMail(mailData, (error, info) => {
+        if (error) {
+         console.log(error);
+        }
+        console.log('Mail Send');
+      });
       
       const data = {
         flag: 1,
@@ -284,7 +284,8 @@ router.post('/login', async (req, res) => {
         if (err) console.log(err);
         var request = new sql.Request();
         var querypassword;
-        var query1 = "select * from trainee where active = 1 and username like '%"+UserName+"%'";
+        var query1 = "select * from trainee where active = 1 and username = '"+UserName+"'";
+        console.log(query1);
         var responseData;
         request.query(query1,
               function (err, recordset) {
@@ -295,7 +296,7 @@ router.post('/login', async (req, res) => {
                   console.log(responseData[0].Password);
                   console.log(querypassword);
                   if(PWD === querypassword){
-                    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
+                    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID, MD.IsAdmin FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
           
                     console.log(query);
                     request.query(query,

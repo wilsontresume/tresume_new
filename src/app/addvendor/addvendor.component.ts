@@ -13,7 +13,7 @@ import { MessageService } from 'primeng/api';
   providers: [CookieService, addVendorService, MessageService],
 })
 export class AddvendorComponent implements OnInit {
-  
+
   loading: boolean = false;
   addVendor: any;
   formData: any;
@@ -35,8 +35,8 @@ export class AddvendorComponent implements OnInit {
 
   //dropdowns
   state: string[] = [];
-  selectedstate:any=0;
-  selectedcity:any=0;
+  selectedstate: any = 0;
+  selectedcity: any = 0;
   city: string[] = [];
   VendorStatusID: string[] = [];
   VendorCategoryID: string[] = [];
@@ -118,9 +118,9 @@ export class AddvendorComponent implements OnInit {
     "Wireless"
   ];
   OrgID: string;
-selectedVendorStatusID: any=0;
-selectedVendorCategoryID: any=0;
-selectedPrimaryOwner: any=0;
+  selectedVendorStatusID: any = 0;
+  selectedVendorCategoryID: any = 0;
+  selectedPrimaryOwner: any = 0;
   routeType: any;
 
   constructor(
@@ -137,7 +137,7 @@ selectedPrimaryOwner: any=0;
   }
 
   ngOnInit(): void {
-    
+
     this.addVendor = this.fb.group({
       VendorName: ['', [Validators.required, Validators.minLength(3)]],
       ContactNumber: ['', [Validators.required, Validators.maxLength(10)]],
@@ -176,62 +176,65 @@ selectedPrimaryOwner: any=0;
   }
 
   addVendorbutton() {
-    if(this.selectedVendorStatusID && this.selectedVendorCategoryID && this.selectedPrimaryOwner){
+    if (this.selectedVendorStatusID && this.selectedVendorCategoryID && this.selectedPrimaryOwner) {
+      this.loading = true;
+      const documents = this.selectedRequiredDocuments.map(doc => doc.name).join(', ');
+      console.log(documents);
+      let Req = {
+        VendorName: this.addVendor.value.VendorName,
+        ContactNumber: this.addVendor.value.ContactNumber,
+        EmailID: this.addVendor.value.EmailID,
+        Website: this.addVendor.value.Website,
+        Address: this.addVendor.value.Address,
+        VMSVendorName: this.addVendor.value.VMSVendorName,
+        FederalID: this.addVendor.value.FederalID,
+        ZipCode: this.addVendor.value.ZipCode,
+        VendorWebsite: this.addVendor.value.VendorWebsite,
+        Fax: this.addVendor.value.Fax,
+        Industry: this.addVendor.value.Industry,
+        Country: this.addVendor.value.Country,
+        State: this.selectedstate,
+        City: this.selectedcity,
+        VendorStatusID: this.selectedVendorStatusID,
+        VendorCategoryID: this.selectedVendorCategoryID,
+        PrimaryOwner: this.selectedPrimaryOwner,
+        PaymentTerms: this.addVendor.value.PaymentTerms,
+        AboutCompany: this.addVendor.value.AboutCompany,
+        posting: this.addVendor.value.posting,
+        sendingEmail: this.addVendor.value.sendingEmail,
+        Access: this.addVendor.value.Access,
+        RequiredDocuments: documents,
+        Notes: this.Notes,
+      };
+      console.log(Req);
+      this.service.addVendor(Req).subscribe(
+        (x: any) => {
+          this.handleSuccess(x);
+          this.loading = false;
+        },
+        (error: any) => {
+          this.handleError(error);
+          this.loading = false;
+        }
+      );
+      this.addVendor.reset();
+      this.selectedRequiredDocuments = [];
+      this.Notes = '';
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Enter the required fields' });
+    }
 
-    
-    this.loading = true;
-    const documents = this.selectedRequiredDocuments.map(doc => doc.name).join(', ');
-    console.log(documents);
-    let Req = {
-      VendorName: this.addVendor.value.VendorName,
-      ContactNumber: this.addVendor.value.ContactNumber,
-      EmailID:this.addVendor.value.EmailID,
-      Website: this.addVendor.value.Website,
-      Address: this.addVendor.value.Address,
-      VMSVendorName: this.addVendor.value.VMSVendorName,
-      FederalID: this.addVendor.value.FederalID,
-      ZipCode: this.addVendor.value.ZipCode,
-      VendorWebsite: this.addVendor.value.VendorWebsite,
-      Fax: this.addVendor.value.Fax,
-      Industry: this.addVendor.value.Industry,
-      Country: this.addVendor.value.Country,
-      State: this.selectedstate,
-      City: this.selectedcity,
-      VendorStatusID: this.selectedVendorStatusID,
-      VendorCategoryID: this.selectedVendorCategoryID,
-      PrimaryOwner: this.selectedPrimaryOwner,
-      PaymentTerms: this.addVendor.value.PaymentTerms,
-      AboutCompany: this.addVendor.value.AboutCompany,
-      posting: this.addVendor.value.posting,
-      sendingEmail: this.addVendor.value.sendingEmail,
-      Access: this.addVendor.value.Access,
-      RequiredDocuments: documents,
-      Notes: this.Notes,
-    };
-    console.log(Req);
-    this.service.addVendor(Req).subscribe(
-      (x: any) => {
-        this.handleSuccess(x);
-        this.loading = false;
-      },
-      (error: any) => {
-        this.handleError(error);
-        this.loading = false;
-      }
-    );
-  }else{
-    this.messageService.add({ severity: 'error', summary:  'Enter the required fields' });
   }
-    
-  }
+
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
     this.loading = false;
+    this.router.navigate(['/vendor/' + this.routeType]);
   }
-  
+
   private handleError(response: any): void {
-    this.messageService.add({ severity: 'error', summary:  response.message });
+    this.messageService.add({ severity: 'error', summary: response.message });
     this.loading = false;
   }
 
@@ -262,7 +265,7 @@ selectedPrimaryOwner: any=0;
   getPrimaryOwnerName() {
     let Req = {
       TraineeID: this.TraineeID,
-      orgID:this.OrgID
+      orgID: this.OrgID
     };
     this.service.getPrimaryOwner(Req).subscribe((x: any) => {
       this.PrimaryOwner = x;
@@ -291,7 +294,7 @@ selectedPrimaryOwner: any=0;
 
   isAddButtonEnabled(): boolean {
     return this.addVendor.get('VendorStatusID').value !== null &&
-           this.addVendor.get('VendorCategoryID').value !== null;
+      this.addVendor.get('VendorCategoryID').value !== null;
   }
 }
 

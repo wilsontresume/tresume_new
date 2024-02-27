@@ -1,40 +1,48 @@
 <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-white fixed-top" [ngClass]="{'scrolled': isScrolled}">
-  <a routerLink="/homelanding"><img src="../assets/img/logo.png" style="height: 90px;" alt=""></a>
+  <a routerLink="/homelanding" class="navbar-brand">
+      <img src="../assets/img/logo.png" style="height: 90px;" alt="">
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-          Products
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
-          <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
-          <a class="dropdown-item" routerLink="/workforce">Workforce</a>
-          <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
-        </div>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/market">Marketplace</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/features">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/contact">Contact Us</a>
-      </li>
-    </ul>
-    <div class="content" style="margin-right: 62px;">
-      <a href="login" class="bn5">Login</a>
-    </div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'show': isNavbarCollapsed}">
+      <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Products
+              </a>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" routerLink="/ats">Applicant Tracking System</a>
+                  <a class="dropdown-item" routerLink="/talent-suite">Talent Suite</a>
+                  <a class="dropdown-item" routerLink="/workforce">Workforce</a>
+                  <a class="dropdown-item" routerLink="/timesheet">TimeSheet</a>
+              </div>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" routerLink="/market">Marketplace</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/features">Features</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/about">About</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/contact">Contact Us</a>
+          </li>
+          <li class="nav-item ">
+            <a href="login" class="nav-link login-btn-mobile">Login</a>
+          </li>
+
+          <li class="nav-item ">
+            <a class=" login-btn-web bn5" style=" margin: 0;" routerLink="/login">Login</a>
+
+          </li>
+      </ul>
   </div>
 </nav>
+
 <div class="background-video video-container">
     <video autoplay muted loop class="blur-video video-background" style="width: 100%; height: fit-content;">
         <source src="../../../assets/videos/consult.mp4" type="video/mp4">
@@ -42,7 +50,7 @@
     <div style="width: 100%;" class="content-over-video overlay">
       <h1  id="welcomeText" style="background-color: #a24f9a91;
       height: 111px;
-      padding-top: 33px;font-size: 54px;color: white;font-weight: 500; "><!-- HTML -->
+      padding-top: 33px;font-size: 54px;color: white;font-weight: 500; ">
     <span class="space">CONTACT</span>
     <span class="space">OUR</span>
     <span class="space">TEAM</span>
@@ -56,11 +64,31 @@
   <div class="contact">
     <div class="container">
       <div class="row">
-        <!-- Left side -->
         <div class="col-lg-5">
           <div class="contact-info">
-            <h1 class="text-primary mb-3">Tresume..</h1>
-            <h3 class="text-info mb-4">USA</h3>
+            <h1 class="text-primary">Tresume..</h1>
+            <h3 class="text-info">INDIA</h3>
+            <br>
+            <div class="contact-detail d-flex align-items-center mb-3" style=" font-size: 20px;">
+              <i class="fas fa-map-marker-alt fa-lg mr-2"></i>
+            50, 1st Cross St, Parameshwari Nagar, Adyar, Chennai, Tamil Nadu 600020
+            <p class="mb-0">50, 1st Cross St<br> </p>
+            </div>
+            <br>
+            <div class="contact-detail d-flex align-items-center mb-2" style=" font-size: 20px;">
+              <i class="fas fa-phone fa-lg mr-2"></i>
+              <p class="mb-0">(703) 9863350</p>
+            </div>
+            <br>
+            <div class="contact-detail d-flex align-items-center" style=" font-size: 17px;">
+              <i class="fas fa-envelope fa-lg mr-2"></i>
+              <p class="mb-0">nithya@tresume.us</p>
+            </div>
+          </div>
+          <br>
+          <div class="contact-info">
+            <h1 class="text-primary">Tresume..</h1>
+            <h3 class="text-info ">USA</h3>
             <br>
             <div class="contact-detail d-flex align-items-center mb-3" style=" font-size: 20px;">
               <i class="fas fa-map-marker-alt fa-lg mr-2"></i>
@@ -79,9 +107,11 @@
           </div>
         </div>
 
+
         <!-- Right side with Google Maps iframe -->
-        <div class="col-lg-7">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22431.25699627821!2d-74.0065!3d40.7144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjDCsDE1JzA5LjYiTiA3NMKwMzAnMTkuOSJX!5e0!3m2!1sen!2sus!4v1642138859673!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div class="col-lg-7" style="padding: 64px;">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d485.94179671008476!2d80.25793413062551!3d13.001606176446025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267f270ffb89d%3A0xdaa9a751467dceaa!2s50%2C%201st%20Cross%20St%2C%20Parameshwari%20Nagar%2C%20Adyar%2C%20Chennai%2C%20Tamil%20Nadu%20600020!5e0!3m2!1sen!2sin!4v1706902123714!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <!-- <iframe src="https://www.google.co.in/maps/dir/12.9794502,80.2655838/2742%2BRVJ+No,+3rd+Cross+St,+Gandhi+Nagar,+Adyar,+Chennai,+Tamil+Nadu+600020/@12.9945902,80.2333265,14z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x3a52679381e87e9d:0x5d32121c7245abb1!2m2!1d80.2521265!2d13.0070964?entry=ttu" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
         </div>
       </div>
     </div>
@@ -90,13 +120,12 @@
 
     <br><br><br>
 <!-- contact-form.component.html -->
-<div class="row">
-  <div class="col-lg-6 p-5">
-    <img src="../../../assets/img/contactus.jpg" alt="Tresume Image"  class="img-fluid">
-</div>
-  <div class="col-lg-5 " style="margin-left: 75px;">
-    <div class="card mt-2 mx-auto p-4 bg-light">
-      <div class="card-body bg-light">
+  <div class="row align-items-center p-5">
+    <div class="col-lg-6">
+      <img src="../../../assets/img/contactus.jpg" alt="Tresume Image" class="img-fluid">
+    </div>
+    <div class="col-lg-6 mt-4 mt-lg-0">
+      <div class="card mx-auto p-4 bg-light">
         <div class="container">
           <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
             <div class="controls">
@@ -221,7 +250,7 @@
             <i class="fas fa-map-marker-alt"></i>
             <div class="cta-text">
               <h4>Find us</h4>
-              <span>44121 Leesburg Pike., STE 230 Ashburn , VA 20147,Uinted States Of America
+              <span>44121 Leesburg Pike., STE 230 Ashburn , VA 20147,United States Of America
               </span>
             </div>
           </div>
@@ -263,10 +292,10 @@
             <div class="footer-social-icon">
               <span>Follow us</span>
               <ul class="social_icon">
-                <li><a href="https://www.facebook.com/p/Tresume-100057032697312/"> <i class="fa fa-facebook"></i></a></li>
-                <li><a href="https://twitter.com/Tresume2"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="https://www.linkedin.com/company/tresume/"><i class="fa fa-linkedin-square"></i></a></li>
-                <li><a href="https://www.youtube.com/@tresumeus3304/featured"><i class="fa fa-youtube"></i></a></li>
+                <li><a href="https://www.facebook.com/p/Tresume-100057032697312/" target="_blank"> <i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/Tresume2"  target="_blank"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="https://www.linkedin.com/company/tresume/"  target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
+                <li><a href="https://www.youtube.com/@tresumeus3304/featured"  target="_blank"><i class="fa fa-youtube"></i></a></li>
               </ul>
             </div>
           </div>
@@ -277,15 +306,14 @@
               <h3>Useful Links</h3>
             </div>
             <ul>
-              <li><a href="#">Our Team</a></li>
-              <li><a routerLink="/about">About Us</a></li>
-              <li><a href="#">Our Gallery</a></li>
-              <li><a href="#">Selection Process</a></li>
-              <li><a href="#">FAQ</a></li>
-              <li><a href="#">Sponsorship</a></li>
-              <li><a href="#">Our Policies</a></li>
-              <li><a href="#">Our Team</a></li>
-              <li><a routerLink="/contact">Contact us</a></li>
+              <li><a routerLink="/about"  href="#">About Us</a></li>
+              <li><a routerLink="/market" href="#">MarketPlace</a></li>
+              <li><a routerLink="/features" href="#">Features</a></li>
+              <li><a routerLink="/contact" href="#">Contact us</a></li>
+              <li><a  routerLink="/workforce" href="#">WorkForce</a></li>
+              <li><a routerLink="/timesheet">TimeSheet</a></li>
+              <li><a  routerLink="/ats">ATS</a></li>
+              <li><a routerLink="/talent-suite">Talent Suite</a></li>
             </ul>
           </div>
         </div>
@@ -319,11 +347,11 @@
         <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
           <div class="footer-menu">
             <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Terms</a></li>
-              <li><a href="#">Privacy</a></li>
-              <li><a href="#">Policy</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a >Home</a></li>
+              <li><a >Terms</a></li>
+              <li><a >Privacy</a></li>
+              <li><a >Policy</a></li>
+              <li><a>Contact</a></li>
             </ul>
           </div>
         </div>
