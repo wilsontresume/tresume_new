@@ -51,31 +51,29 @@
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" (click)="openModal($event)">Make inactive</a>
-                    <a class="dropdown-item" href="#">Merge contacts</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#makeInactiveModal">Make inactive</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mergeContactsModal">Merge contacts</a>
                   </div>
                 </div>
 
+              
+                <div class="modal fade" id="makeInactiveModal" tabindex="-1" role="dialog" aria-labelledby="makeInactiveModal" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" id="modal-3">
 
-
-
-
-                <div id="overlay bg" [ngClass]="{'show': isModalOpen}" (click)="closeModal4()">
-                  <div class="modal open" id="myModal" tabindex="-1" role="dialog" [ngClass]="{'show': isModalOpen}">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title">Make Inactive</h4>
-                          <button type="button" class="close" (click)="closeModal4()">
-                            <span>&times;</span>
-                          </button>
+                      <div class="modal-body  modal-body-with-space" >
+                        <div class="exclamation-icon">
+                          <i class="fas fa-exclamation-circle"></i>
                         </div>
-                        <div class="modal-body">
-                          <!-- Your modal content goes here -->
-                          <p>This is a sample modal content.</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" (click)="closeModal4()">Close</button>
+                        <p>Either Tek System Inc or its sub-clients have an open balance. If Tek Systems Inc has sub-clients, making this client inactive and will create one or more adjusting transaction.</p> <br>
+                        <p>If this clients has active projects, it will not be made inactive.</p> <br>
+                        <p>Is this OK?</p>
+                        <hr class="grey-line">
+                        <div class="button-container">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <span class="button-space"></span> <!-- Add this line for spacing -->
+                          <button class="save-button" (click)="save()">Yes, make inactive</button>
+                          
                         </div>
                       </div>
                     </div>
@@ -85,7 +83,81 @@
 
 
 
-                
+
+
+
+                <div class="modal fade" id="mergeContactsModal" tabindex="-1" role="dialog" aria-labelledby="mergeContactsModal" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" id="modal-4">  
+                      <div class="modal-body">
+                        
+                        <div class="row">
+                          <div class="col-md-10">
+                            <!-- Heading "Merge contacts" in the center of the popup -->
+                            <h2 class="text-center darker-heading">Merge Contacts</h2>
+                          </div>
+                          <div class="col-md-2 text-right">
+                            <!-- Close button -->
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        </div> 
+                        <!-- 2. Input text or dropdown for "Merge transactions from" -->
+                        <div class="form-group" style="margin-top: 5rem;">
+                          <label for="mergeFrom">Merge transactions from:</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="mergeFrom" placeholder="Select a value" readonly>
+                            <div class="input-group-append">
+                              <button class="btn dropdown-toggle" type="button" id="mergeFromDropdown" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false" style="width: 43px;"></button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Option 1</a>
+                                <a class="dropdown-item" href="#">Option 2</a>
+                                <a class="dropdown-item" href="#">Option 3</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <!-- 3. Paragraph below the input -->
+                        <p> <i class="fas fa-exclamation-circle" style="color: orangered;"></i> Make sure to save any address, phone numbers, or other details from this contact. After you merge transactions, all info from this contact will be deleted. </p>
+                    
+                        <!-- 4. Input for "Into" -->
+                        <div class="form-group">
+                          <label for="mergeInto" class="light-label">Into:</label>
+
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="mergeInto" placeholder="Select a value" readonly>
+                            <div class="input-group-append">
+                              <button class="btn dropdown-toggle" type="button" id="mergeIntoDropdown" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"style="width: 43px;"></button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Option A</a>
+                                <a class="dropdown-item" href="#">Option B</a>
+                                <a class="dropdown-item" href="#">Option C</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <hr class="grey-line">
+                        
+                        <div class="button-container" style="margin-top: 4rem;">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <span class="button-space"></span>
+                          <button class="save-button" (click)="save()">Merge</button>
+                        </div>
+                      </div>
+                    
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                   aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -195,14 +267,14 @@
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                     <a class="dropdown-item" href="#">Invoice</a>
-                    <a class="dropdown-item" href="#">Multiple Invoice</a>
+                    <!-- <a class="dropdown-item" href="multiple-invoices">Multiple Invoice</a> -->
                     <a class="dropdown-item" href="#">Payment</a>
-                    <a class="dropdown-item" href="#">Estimate</a>
-                    <a class="dropdown-item" href="#">Sales Receipt</a>
-                    <a class="dropdown-item" href="#">Credit Memo</a>
-                    <a class="dropdown-item" href="#">Delayed Charge</a>
-                    <a class="dropdown-item" href="#">Time Activity</a>
-                    <a class="dropdown-item" href="#">Statement</a>
+                    <!-- <a class="dropdown-item" href="#">Estimate</a> -->
+                    <!-- <a class="dropdown-item" href="#">Sales Receipt</a> -->
+                    <!-- <a class="dropdown-item" href="#">Credit Memo</a> -->
+                    <!-- <a class="dropdown-item" href="#">Delayed Charge</a> -->
+                    <a class="dropdown-item" href="time-activity">Time activity</a>
+                    <!-- <a class="dropdown-item" href="create-statements">Statement</a> -->
 
                   </div>
 
@@ -260,78 +332,63 @@
                 </div>
               </div>
               <div class="row" style="margin-top: 5rem;">
-                <div class="col-md-2">
+                <div class="col-md-2">   
                   <label for="batchActions">Batch Actions</label>
-                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="batchActions"
-                    name="batchActions">
-                    <option value="action1">Action 1</option>
-                    <option value="action2">Action 2</option>
+                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="batchActions" name="batchActions">
+                    <option *ngFor="let option of batchActionsOptions" [value]="option" disabled selected>{{ option }}</option>
                   </select>
                 </div>
-
-                <div class="col-md-2">
+              
+                <!-- <div class="col-md-2">
                   <label for="type">Type</label>
                   <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="type" name="type">
-                    <option value="allTransaction">All transaction</option>
-                    <option value="allPlusDeposits">All plus deposits</option>
-                    <option value="estimate">Estimate</option>
-                    <option value="creditMemos">Credit memos</option>
-                    <option value="salesReceipt">Sales Receipts</option>
-                    <option value="unbilledIncome">Unbilled Income</option>
-                    <option value="moneyReceived">Money received</option>
-                    <option value="recentlyPaid">Recently paid</option>
+                    <option *ngFor="let option of typeOptions" [value]="option">{{ option }}</option>
                   </select>
-                </div>
-
+                </div> -->
+              
                 <div class="col-md-2">
                   <label for="status">Status</label>
                   <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="status" name="status">
-                    <option value="all">All</option>
-                    <option value="open">Open</option>
-                    <option value="overDue">Overdue</option>
-                    <option value="paid">Paid</option>
-                    <option value="voided">Voided</option>
+                    <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
                   </select>
                 </div>
-
+              
                 <div class="col-md-2">
                   <label for="date">Date</label>
-                  <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="date" name="date">
-                    <option value="all">All</option>
-                    <option value="customDate" (click)="toggleCustomDateModel()">Custom dates</option>
-                    <option value="today">Today</option>
-                    <option value="yesterday">Yesterday</option>
-                    <option value="thisWeek">This week</option>
-                    <option value="lastWeek">Last week</option>
-                    <option value="thisMonth">This month</option>
-                    <option value="lastMonth">Last month</option>
-                    <option value="thisQuarter">This quarter</option>
-                    <option value="lastQuarter">Last quarter</option>
+                  <select class="form-control" id="date" name="date" (change)="toggleCustomDateModel($event.target.value)">
+                    <option *ngFor="let option of dateOptions" [value]="option">{{ option }}</option>
                   </select>
-
+                  
                   <div *ngIf="showCustomDateModel" class="custom-date-model">
                     <label for="startDate">Start Date:</label>
-                    <input type="date" id="startDate" [(ngModel)]="startDate">
-
+                    <input type="date" id="startDate" [(ngModel)]="startDate" name="startDate">
+                  
                     <label for="endDate">End Date:</label>
-                    <input type="date" id="endDate" [(ngModel)]="endDate">
-
+                    <input type="date" id="endDate" [(ngModel)]="endDate" name="endDate">
+                  
                     <button (click)="resetDates()">Reset</button>
-                    <button (click)="applyDates()">Apply</button>
+                    <button (click)="applyAndClose()" class="m-1">Apply</button>
                   </div>
                 </div>
-                <div class="col-md-2 mt-4 ">
-                  <a href="#" (click)="viewRecurringTemplates()" style="margin-left: 8px;"> Recurring templates</a>
-                </div>
-
-
+                
+              
+              
                 <div class="col-md-2 mt-4">
-                  <a href="#" (click)="feedbackWithIcon()">Feedback </a>
+                  <a href="#" (click)="viewRecurringTemplates()" style="margin-left: 8px;">Recurring templates</a>
+                </div>
+              
+                <div class="col-md-2 mt-4">
+                  <a href="#" (click)="feedbackWithIcon()">Feedback</a>
                 </div>
               </div>
-
+              
+              <div class="action-icons icons-container float-right">
+                <i class="material-icons" onclick="handlePrint()">print</i>
+                <i class="fas fa-upload" onclick="handleFileUpload()"></i>
+                <i class="fas fa-cog" onclick="openSettings()"></i>
+              </div>
               <div style="font-size: 12px;">
-                <table class="table no-border" style="margin-top: 6rem;">
+                <table class="table no-border mt-4">
                   <thead class="underline">
                     <tr>
                       <td><input type="checkbox"></td>
@@ -344,15 +401,11 @@
                       <th> STATUS <i class="fas fa-angle-down" style="margin-left: 5px;"></i></th>
 
                       <th>ACTION</th>
-                      <td class="action-icons">
-                        <i class="material-icons" onclick="handlePrint()">print</i>
-                        <i class="fas fa-upload" onclick="handleFileUpload()"></i>
-                        <i class="fas fa-cog" onclick="openSettings()"></i>
-                      </td>
-
-                    </tr>
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)" 
-                      [class.selected-row]="isRowSelected">
+                    
+                    </tr>                    
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let invoice of allInvoices">
                       <td><input type="checkbox"></td>
                       <td><p data-toggle="modal" data-target="#myModal2">11/17/23</p></td>
                       <td><p data-toggle="modal" data-target="#myModal2">Invoice</p></td>
@@ -507,355 +560,34 @@
 
 
                         <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
+                          <a class="btn btn float-left" style=" height: 30px;" href="payment">Receive Payment</a>
                           <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
                             <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
+                          </button>
+                          <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="creat*-invoice" (click)="duplicateAction()">View/Edit</a>
+                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
                             <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
                             <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
                             <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                           <a class="dropdown-item" href="#" (click)="duplicateActions()">Print</a>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            
-                     </div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create
+                              task</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shareLinkModal">Share
+                              invoice link</a>
+                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal"
+                              data-target="#deleteConfirmationModal">Delete</a>
+                          </div>
                         </div>
-
-                      </td> 
-                    </tr>
-
-
-
-                    
-             
-
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                      </td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>                            </div>
-
-                        </div>
-
                       </td>
                     </tr>
-
-
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                      </td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
+                    <tr *ngIf="noResultsFound">
+                      <td colspan="9" class="text-center">
+                        No results found.
                       </td>
                     </tr>
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Partially
-                        paid
-                        $413.12 due</td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                      </td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Sent
-                        03/04/22
-                      </td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Partially
-                        paid
-                        $413.12 due</td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Sent
-                        03/04/22
-                      </td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-                  </thead>
+                  </tbody>
                 </table>
               </div>
 
@@ -867,373 +599,71 @@
                 <div class="row col-md-2 mt-4 containers">
                   <input type="search" placeholder="Search...">
                 </div>
-
               </div>
-
+              <div class="action-icons icons-container float-right">
+                <i class="material-icons" onclick="handlePrint()">print</i>
+                <i class="fas fa-upload" onclick="handleFileUpload()"></i>
+                <i class="fas fa-cog" onclick="openSettings()"></i>
+              </div>
               <table class="table no-border" style="margin-top: 50px;">
                 <thead class="underline">
                   <tr>
-                    <td><input type="checkbox"></td>
+                    <!-- Header cells -->
+                    <th><input type="checkbox"></th>
                     <th>DATE</th>
                     <th>TYPE</th>
-                    <th>NO.</th>
+                    <th>NUMBER</th>
                     <th>CLIENT/PROJECT</th>
                     <th>MEMO</th>
-                    <th colspan="2">AMOUNT </th>
-                    <th> STATUS</th>
+                    <th>AMOUNT</th>
+                    <th>STATUS</th>
                     <th>ACTION</th>
-                    <td class="action-icons">
-                      <i class="material-icons" onclick="handlePrint()">print</i>
-                      <i class="fas fa-upload" onclick="handleFileUpload()"></i>
-                      <i class="fas fa-cog" onclick="openSettings()"></i>
-                    </td>
+
                   </tr>
-                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                    [class.selected-row]="isRowSelected">
-                    <td><input type="checkbox"></td>
-                    <td>11/17/23</td>
-                    <td>Invoice</td>
-                    <td>90801</td>
-                    <td>TEK system Inc: Shushant Bathini </td>
-                    <td>11/17/2023 to 08/04/2023</td>
-                    <td> $2,440.00
-                    <td>
-                    <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                    </td>
-
-
-                    <td colspan="2">
-                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received" style="margin-left: 5px;">
-                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                          Receive Payment
-                        </a>
-                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button> <i class="fas fa-download"
-                          style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                          </div>
-
-                      </div>
-
-                    </td>
-                  </tr>
-
-                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                    [class.selected-row]="isRowSelected">
-                    <td><input type="checkbox"></td>
-                    <td>11/17/23</td>
-                    <td>Invoice</td>
-                    <td>90801</td>
-                    <td>TEK system Inc: Shushant Bathini </td>
-                    <td>11/17/2023 to 08/04/2023</td>
-                    <td> $2,440.00
-                    <td>
-                    <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                    </td>
-
-
-                    <td colspan="2">
-                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received" style="margin-left: 5px;">
-                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                          Receive Payment
-                        </a>
-                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button> <i class="fas fa-download"
-                          style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                          </div>
-
-                      </div>
-
-                    </td>
-                  </tr>
-
-                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                    [class.selected-row]="isRowSelected">
-                    <td><input type="checkbox"></td>
-                    <td>11/17/23</td>
-                    <td>Invoice</td>
-                    <td>90801</td>
-                    <td>TEK system Inc: Shushant Bathini </td>
-                    <td>11/17/2023 to 08/04/2023</td>
-                    <td> $2,440.00
-                    <td>
-                    <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                    </td>
-
-
-                    <td colspan="2">
-                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received" style="margin-left: 5px;">
-                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                          Receive Payment
-                        </a>
-                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button> <i class="fas fa-download"
-                          style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                          </div>
-
-                      </div>
-
-                    </td>
-                  </tr>
-
-                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                    [class.selected-row]="isRowSelected">
-                    <td><input type="checkbox"></td>
-                    <td>11/17/23</td>
-                    <td>Invoice</td>
-                    <td>90801</td>
-                    <td>TEK system Inc: Shushant Bathini </td>
-                    <td>11/17/2023 to 08/04/2023</td>
-                    <td> $2,440.00
-                    <td>
-                    <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                    </td>
-
-
-                    <td colspan="2">
-                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received" style="margin-left: 5px;">
-                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                          Receive Payment
-                        </a>
-                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button> <i class="fas fa-download"
-                          style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                          </div>
-
-                      </div>
-
-                    </td>
-                  </tr>
-
-                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                    [class.selected-row]="isRowSelected">
-                    <td><input type="checkbox"></td>
-                    <td>11/17/23</td>
-                    <td>Invoice</td>
-                    <td>90801</td>
-                    <td>TEK system Inc: Shushant Bathini </td>
-                    <td>11/17/2023 to 08/04/2023</td>
-                    <td> $2,440.00
-                    <td>
-                    <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                    </td>
-
-
-                    <td colspan="2">
-                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received" style="margin-left: 5px;">
-                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                          Receive Payment
-                        </a>
-                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button> <i class="fas fa-download"
-                          style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                          </div>
-
-                      </div>
-
-                    </td>
-                  </tr>
-
-                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                    [class.selected-row]="isRowSelected">
-                    <td><input type="checkbox"></td>
-                    <td>11/17/23</td>
-                    <td>Invoice</td>
-                    <td>90801</td>
-                    <td>TEK system Inc: Shushant Bathini </td>
-                    <td>11/17/2023 to 08/04/2023</td>
-                    <td> $2,440.00
-                    <td>
-                    <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                    </td>
-
-
-                    <td colspan="2">
-                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received" style="margin-left: 5px;">
-                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                          Receive Payment
-                        </a>
-                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button> <i class="fas fa-download"
-                          style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                          </div>
-
-                      </div>
-
-                    </td>
-                  </tr>
-
-                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                    [class.selected-row]="isRowSelected">
-                    <td><input type="checkbox"></td>
-                    <td>11/17/23</td>
-                    <td>Invoice</td>
-                    <td>90801</td>
-                    <td>TEK system Inc: Shushant Bathini </td>
-                    <td>11/17/2023 to 08/04/2023</td>
-                    <td> $2,440.00
-                    <td>
-                    <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                    </td>
-
-
-                    <td colspan="2">
-                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received" style="margin-left: 5px;">
-                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                          Receive Payment
-                        </a>
-                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button> <i class="fas fa-download"
-                          style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                          </div>
-
-                      </div>
-
-                    </td>
-                  </tr>
-
-                  <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                    [class.selected-row]="isRowSelected">
-
-                    <td><input type="checkbox"></td>
-                    <td>11/17/23</td>
-                    <td>Invoice</td>
-                    <td>90801</td>
-                    <td>TEK system Inc: Shushant Bathini </td>
-                    <td>11/17/2023 to 08/04/2023</td>
-                    <td> $2,440.00
-                    <td>
-                    <td><span style="color: green; margin-left: 5px;"><i class="fas fa-check-circle"></i>Paid</span>
-                    </td>
-
-
-                    <td colspan="2">
-                      <button class="btn btn-" onclick="editAction()">Edit</button>
-                      <div class="btn-group received" style="margin-left: 5px;">
-                        <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                          Receive Payment
-                        </a>
-                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button> <i class="fas fa-download"
-                          style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                           <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                          </div>
-
-                      </div>
-
-                    </td>
-                  </tr>
-
                 </thead>
+                <tbody>
+                  <tr *ngFor="let invoice of invoices">
+                    <td><input type="checkbox"></td>
+                    <td>{{ invoice.date }}</td>
+                    <td>{{ invoice.type }}</td>
+                    <td>{{ invoice.number }}</td>
+                    <td>{{ invoice.clientProject }}</td>
+                    <td>{{ invoice.memo }}</td>
+                    <td>{{ invoice.amount }}</td>
+                    <td>{{ invoice.status }}</td>
+                    <td>
+                      <button class="btn btn-" (click)="editAction()">Edit</button>
+                      <div class="btn-group received" style="margin-left: 5px;">
+                        <a class="btn btn float-left" style=" height: 30px;" href="payment">Receive Payment</a>
+                        <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                          <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                          <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
+                          <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create
+                            task</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shareLinkModal">Share
+                            invoice link</a>
+                          <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#deleteConfirmationModal">Delete</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr *ngIf="noResultsFound">
+                    <td colspan="9" class="text-center">
+                      No results found.
+                    </td>
+                  </tr>
+
+                </tbody>
+
               </table>
             </div>
 
@@ -1244,6 +674,11 @@
                   <input type="search" placeholder="Search...">
                 </div>
               </div>
+              <td class="action-icons icons-container float-right">
+                <i class="material-icons" onclick="handlePrint()">print</i>
+                <i class="fas fa-upload" onclick="handleFileUpload()"></i>
+                <i class="fas fa-cog" onclick="openSettings()"></i>
+              </td>
               <div style="font-size: 12px;">
                 <table class="table no-border" style="margin-top: 50px;">
                   <thead class="underline">
@@ -1254,505 +689,192 @@
                       <th>NO.</th>
                       <th>CLIENT/PROJECT</th>
                       <th>MEMO</th>
-                      <th colspan="2">AMOUNT </th>
-                      <th> STATUS</th>
+                      <th>AMOUNT </th>
+                      <th>STATUS</th>
                       <th>ACTION</th>
-                      <td class="action-icons">
-                        <i class="material-icons" onclick="handlePrint()">print</i>
-                        <i class="fas fa-upload" onclick="handleFileUpload()"></i>
-                        <i class="fas fa-cog" onclick="openSettings()"></i>
-                      </td>
-                    </tr>
 
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Sent
-                        03/04/22
-                      </td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-                        </div>
-
-                      </td>
-                    </tr>
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Partially
-                        paid
-                        $413.12 due</td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Sent
-                        03/04/22
-                      </td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Sent
-                        03/04/22
-                      </td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Partially
-                        paid
-                        $413.12 due</td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Sent
-                        03/04/22
-                      </td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Sent
-                        03/04/22
-                      </td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-                        </div>
-
-                      </td>
-                    </tr>
-
-                    <tr class="highlight-row" (mouseover)="onRowHover($event)" (mouseout)="onRowOut($event)"
-                      [class.selected-row]="isRowSelected">
-
-                      <td><input type="checkbox"></td>
-                      <td>11/17/23</td>
-                      <td>Invoice</td>
-                      <td>90801</td>
-                      <td>TEK system Inc: Shushant Bathini </td>
-                      <td>11/17/2023 to 08/04/2023</td>
-                      <td> $2,440.00
-                      <td>
-                      <td><span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Partially
-                        paid
-                        $413.12 due</td>
-
-
-                      <td colspan="2">
-                        <button class="btn btn-" onclick="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">
-                            Receive Payment
-                          </a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button> <i class="fas fa-download"
-                            style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>                      
-                             <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
-                            </div>
-
-                        </div>
-
-                      </td>
                     </tr>
                   </thead>
+                  <tbody>
+                    <tbody>
+                      <tr *ngFor="let invoice of unpaidInvoices">
+                        <td><input type="checkbox"></td>
+                        <td>{{ invoice.date }}</td>
+                        <td>{{ invoice.type }}</td>
+                        <td>{{ invoice.number }}</td>
+                        <td>{{ invoice.clientProject }}</td>
+                        <td>{{ invoice.memo }}</td>
+                        <td>{{ invoice.amount }}</td>
+                        <td>{{ invoice.status }}</td>
+                        <td>
+                          <button class="btn btn-" (click)="editAction()">Edit</button>
+                          <div class="btn-group received" style="margin-left: 5px;">
+                            <a class="btn btn float-left" style=" height: 30px;" href="payment">Receive Payment</a>
+                            <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
+                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create
+                                task</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shareLinkModal">Share
+                                invoice link</a>
+                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal"
+                                data-target="#deleteConfirmationModal">Delete</a>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr *ngIf="noResultsFound">
+                        <td colspan="9" class="text-center">
+                          No results found.
+                        </td>
+                      </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
           </div>
-          <div class="modal fade" id="shareLinkModal" tabindex="-1" role="dialog" aria-labelledby="shareLinkModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="shareLinkModalLabel">Send your customer a link to their invoice</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <p>Skip the cluttered inbox and share an invoice link instead. Your customer can download, print, or pay it in an instant.</p>
-                            <p class="link-content">http://localhost:4200/homelanding</p>
-                            <hr class="grey-line">
-                            <div class="button-container">
-                              <button class="copy-link-button" (click)="copyLink()">Copy Link</button>
-                              <button class="save-button" (click)="save()">Save</button>
-                            </div>
-                          </div>
+          <div class="modal fade" id="shareLinkModal" tabindex="-1" role="dialog" aria-labelledby="shareLinkModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="shareLinkModalLabel">Send your customer a link to their invoice</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Skip the cluttered inbox and share an invoice link instead. Your customer can download, print, or
+                    pay it in an instant.</p>
+                  <p class="link-content">http://localhost:4200/homelanding</p>
+                  <hr class="grey-line">
+                  <div class="button-container">
+                    <button class="copy-link-button" (click)="copyLink()">Copy Link</button>
+                    <button class="save-button" (click)="save()">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade big-modal" id="createTaskModal" tabindex="-1" role="dialog"
+            aria-labelledby="createTaskModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content" style="height: 41rem;">
+                <div class="modal-header">
+                  <h2 style="margin-left: auto;">Add task</h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+
+                <div class="modal-body">
+
+                  <div class="container mt-3">
+                    <div class="row">
+                      <div class="col">
+                        <div class="taskname mt-0 ml-3">
+                          <label for="taskname" class="ml-0">Task Name </label>
+                          <input type="text" id="taskname" placeholder="Enter task name" class="form-control ml-0"
+                            style="width: 28rem; height: 40px;">
                         </div>
                       </div>
                     </div>
 
-                    <div class="modal fade big-modal" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="createTaskModal" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                          <div class="modal-content" style="height: 41rem;">
-                            <div class="modal-header">
-                              <h2 style="margin-left: auto;">Add task</h2>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            
-                            
-                              <div class="modal-body">
-
-                                <div class="container mt-3">
-                                  <div class="row">
-                                    <div class="col">
-                                      <div class="taskname mt-0 ml-3">
-                                        <label for="taskname" class="ml-0">Task Name </label>
-                                        <input type="text" id="taskname" placeholder="Enter task name" class="form-control ml-0" style="width: 28rem; height: 40px;">
-                                      </div>
-                                    </div>
-                                  </div>
-                              
-                                  <div class="row mt-3">
-                                    <div class="col-md-6">
-                                      <div class="form-group ml-3">
-                                        <label for="assignedTo">Assigned To</label>
-                                        <select class="form-control" id="assignedTo">
-                                          <!-- Add options for assigned to here -->
-                                          <option value="user1">User 1</option>
-                                          <option value="user2">User 2</option>
-                                          <option value="user3">User 3</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                              
-                                    <div class="col-md-6">
-                                      <div class="form-group ml-3">
-                                        <label for="dueDate">Due Date</label>
-                                        <input type="date" id="dueDate" class="form-control">
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row mt-3">
-                                  <div class="col">
-                                    <div class="form-group ml-3">
-                                      <label for="notes">Notes</label>
-                                      <textarea id="notes" class="form-control" rows="3" placeholder="Enter notes"></textarea>
-                                      <p>Invoice no: 92093| Amount: $750.55| Client: Swoon Group, LLC:Ketul Shailesh Patel </p>
-                                    </div>
-                                  </div>
-                                </div>  
-                                <div class="row mt-3">
-                                  <div class="col">
-                                    <h5 class="ml-3">Attach Documents</h5>
-                                    <div class="ml-3">
-                                      <label for="uploadInput" class="btn">
-                                        <i class="fa fa-upload"></i> Upload Document
-                                      </label>
-                                      <input type="file" id="uploadInput" style="display: none" (change)="uploadFile($event)">
-                                    
-                                      &nbsp; <!-- Non-breaking space for spacing -->
-                                    
-                                      <label for="uploadInput" class="btn" (click)="selectDocument($event)">
-                                        <i class="fa fa-file"></i> Select Document
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
-                            
-                                  
-                                <div class="modal-footer" style="margin-top: 2rem;">
-                                  <div class="button-container">
-                                    <button class="save-button btn" (click)="save()">Save</button>
-                                  </div>
-                                </div>
-                                  <!-- Increase the height by adding more content or adjusting the height property -->
-                                  <div></div>
-                              </div>
-                          </div>
+                    <div class="row mt-3">
+                      <div class="col-md-6">
+                        <div class="form-group ml-3">
+                          <label for="assignedTo">Assigned To</label>
+                          <select class="form-control" id="assignedTo">
+                            <!-- Add options for assigned to here -->
+                            <option value="user1">User 1</option>
+                            <option value="user2">User 2</option>
+                            <option value="user3">User 3</option>
+                          </select>
+                        </div>
                       </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group ml-3">
+                          <label for="dueDate">Due Date</label>
+                          <input type="date" id="dueDate" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col">
+                      <div class="form-group ml-3">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" class="form-control" rows="3" placeholder="Enter notes"></textarea>
+                        <p>Invoice no: 92093| Amount: $750.55| Client: Swoon Group, LLC:Ketul Shailesh Patel </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col">
+                      <h5 class="ml-3">Attach Documents</h5>
+                      <div class="ml-3">
+                        <label for="uploadInput" class="btn">
+                          <i class="fa fa-upload"></i> Upload Document
+                        </label>
+                        <input type="file" id="uploadInput" style="display: none" (change)="uploadFile($event)">
+
+                        &nbsp; <!-- Non-breaking space for spacing -->
+
+                        <label for="uploadInput" class="btn" (click)="selectDocument($event)">
+                          <i class="fa fa-file"></i> Select Document
+                        </label>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-body">
-                          <div class="modal-body d-flex flex-column align-items-center">
-                            <i class="fas fa-exclamation-circle fa-3x mb-3 red-icon"></i>
-                            <h2>Delete invoice?</h2>
-                            <p style="font-size: 16px;">This erases the invoice forever, and your customer won't be able to pay it. You can't undo this.</p>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-primary" (click)="confirmDelete()">Yes</button>
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancelDelete()">No</button>
-                        </div>
-                      </div>
+
+                  <div class="modal-footer" style="margin-top: 2rem;">
+                    <div class="button-container">
+                      <button class="save-button btn" (click)="save()">Save</button>
                     </div>
-                  </div>  
+                  </div>
+                  <!-- Increase the height by adding more content or adjusting the height property -->
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
+            aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="modal-body d-flex flex-column align-items-center">
+                    <i class="fas fa-exclamation-circle fa-3x mb-3 red-icon"></i>
+                    <h2>Delete invoice?</h2>
+                    <p style="font-size: 16px;">This erases the invoice forever, and your customer won't be able to pay
+                      it. You can't undo this.</p>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" (click)="confirmDelete()">Yes</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    (click)="cancelDelete()">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
 
-                    
+
         </div>
       </div>
     </div>
