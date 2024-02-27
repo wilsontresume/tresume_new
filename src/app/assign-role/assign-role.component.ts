@@ -29,6 +29,7 @@ export class AssignRoleComponent implements OnInit {
   constructor(private cookieService: CookieService, private service: AssignRoleService, private messageService: MessageService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.userName = this.cookieService.get('userName1');
     this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
@@ -81,6 +82,7 @@ export class AssignRoleComponent implements OnInit {
     this.service.fetchtimesheetallcandidate(Req).subscribe((x: any) => {
       this.allusers = x.result;
       console.log(this.userlist);
+       this.loading = false;
     });
   }
 
