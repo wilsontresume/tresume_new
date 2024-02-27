@@ -854,7 +854,7 @@ router.post('/getTimesheetCandidatetList', async (req, res) => {
     const pool = await sql.connect(config);
     const request = pool.request();
   
-    const query = "select * from trainee where istimesheet =1 and Role = 'TRESUMEUSER' and userorganizationid = 82 and active = 1";
+    const query = "select * from trainee where istimesheet = 1 and Role = 'TRESUMEUSER' and userorganizationid =  '" + req.body.OrgID + "' and active = 1";
 
     console.log(query);
 
