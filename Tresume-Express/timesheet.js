@@ -16,7 +16,7 @@ const config = {
   user: "sa",
   password: "Tresume@123",
   server: "92.204.128.44",
-  database: "Tresume_Beta",
+  database: "Tresume",
   trustServerCertificate: true,
 };
 
@@ -291,7 +291,7 @@ router.post("/fetchtimesheetusers", async (req, res) => {
         return res.status(500).json({ error: "Database connection error" });
       }
       const query =
-        "SELECT traineeid, firstname, lastname from trainee where active = 1 and organizationid =" +
+        "SELECT traineeid, firstname, lastname from trainee where active = 1 and role='RECRUITER'and organizationid =" +
         organizationid;
       console.log(query);
       const request = new sql.Request();
