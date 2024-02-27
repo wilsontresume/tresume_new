@@ -64,7 +64,7 @@ export class OnboardingListComponent implements OnInit {
     ngOnInit(): void {
         //this.showCcpaPopup();
        
-        this.fetchEmployeeList();
+        // this.fetchEmployeeList();
         this.OrgID = this.cookieService.get('OrgID') || "9";
         let cellRendererFn = function (params: any): any { return null; };
         this.columnDefs = [
@@ -132,6 +132,7 @@ export class OnboardingListComponent implements OnInit {
             let response = x;
             if (response) {
                 this.rowData = response;
+                this.employees = x.result; 
                 this.sizeToFit();
             }
         });
