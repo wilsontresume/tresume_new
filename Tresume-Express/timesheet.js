@@ -489,8 +489,7 @@ router.post("/fetchtimesheetallcandidate", async (req, res) => {
       }
 
       const query =
-        "SELECT t.traineeid, t.firstname AS TraineeFirstName, t.lastname AS TraineeLastName,ta.firstname AS AdminFirstName,ta.lastname AS AdminLastName,tp.projectname FROM  trainee t JOIN  timesheet_project tp ON t.timesheetproject = tp.projectid LEFT JOIN trainee ta ON t.timesheet_admin = ta.traineeid WHERE t.userorganizationid = " +
-        organizationid;
+        "SELECT t.traineeid, t.firstname AS TraineeFirstName, t.lastname AS TraineeLastName,ta.firstname AS AdminFirstName,ta.lastname AS AdminLastName,tp.projectname FROM  trainee t JOIN  timesheet_project tp ON t.timesheetproject = tp.projectid LEFT JOIN trainee ta ON t.timesheet_admin = ta.traineeid WHERE t.userorganizationid = " +organizationid;
 
       console.log(query);
       const request = new sql.Request();
@@ -855,7 +854,7 @@ router.post('/getTimesheetCandidatetList', async (req, res) => {
     const pool = await sql.connect(config);
     const request = pool.request();
   
-    const query = "select * from trainee where istimesheet =1 and Role = 'TRESUMEUSER' and userorganizationid = 82 and active = 1";
+    const query = "select * from trainee where istimesheet = 1 and Role = 'TRESUMEUSER' and userorganizationid =  '" + req.body.OrgID + "' and active = 1";
 
     console.log(query);
 

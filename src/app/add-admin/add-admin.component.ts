@@ -31,6 +31,7 @@ export class AddAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.fetchtimesheetusers();
     this.fetchadmin();
     // this.getOrgUserList();
@@ -46,6 +47,7 @@ export class AddAdminComponent implements OnInit {
       this.recruiterNames = x.result;
       
     });
+    this.loading=false;
   }
 
   addtimesheetadmin() {

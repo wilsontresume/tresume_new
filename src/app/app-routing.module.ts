@@ -194,7 +194,7 @@ const routes: Routes = [
   {path:'joble',component:JobleeComponent},
   {path:'yahoo',component:YahooComponent},
   {path:'adobe',component:AdobeComponent},
-  { path: '', component: CreateAllTimeListComponent },
+  { path: 'createalltimelist', component: CreateAllTimeListComponent },
   { path: 'reports', component: ReportsHomeComponent },
   { path: 'reports/ftc', component: ReportsComponent },
   { path: 'reports/interviews', component: InterviewsReportComponent },
