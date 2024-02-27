@@ -164,6 +164,9 @@ import { DatePipe } from '@angular/common';
 import { MonsterComponent } from './landing-page/monster/monster.component';
 import { AdobeComponent } from './landing-page/adobe/adobe.component';
 import { TruncatePipe } from './truncate.pipe';
+import { TimeActivityComponent } from './all-invoice/time-activity/time-activity.component';
+import { CreateStatementsComponent } from './all-invoice/create-statements/create-statements.component';
+import { MultipleInvoicesComponent } from './all-invoice/multiple-invoices/multiple-invoices.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
@@ -263,6 +266,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
       AdobeComponent,
       SendInvoiceComponent,
       TruncatePipe,
+      TimeActivityComponent,
+      CreateStatementsComponent,
+      MultipleInvoicesComponent,
     // TimesheetViewdetailsComponent
 
   ],

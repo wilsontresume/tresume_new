@@ -54,32 +54,6 @@ throw new Error('Method not implemented.');
   dateOptions = ['All', 'This Week','This Month','Last Week','Last Week','Custom dates'
   ];
 
-openModal1() {
-  // Show the modal and overlay
-  this.isModalOpen = true;
-}
-
-openModal(event: Event) {
-  // Prevent the default behavior of the anchor link
-  event.preventDefault();
-
-  // Show the modal by manipulating the DOM directly
-  const modalElement = document.getElementById('myModal');
-  if (modalElement) {
-    modalElement.classList.add('show');
-    modalElement.style.display = 'block';
-  }
-}
-
-closeModal4() {
-  // Close the modal by manipulating the DOM directly
-  const modalElement = document.getElementById('myModal');
-  if (modalElement) {
-    modalElement.classList.remove('show');
-    modalElement.style.display = 'none';
-  }
-}
-
 
 confirmDelete() {
   this.confirmed.emit(true);

@@ -197,51 +197,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transform: translateX(-50%);
 }
 
-
-// .vertical-line {
-//   border-left: 1px solid #000;
-//   height: 100px;
-//   margin-left: 10px;
-// }
-
-// .vertical-line {
-//   border-left: 1px solid grey;
-//   height: 2.5rem; 
-//   margin-right: 5px; 
-// }
-
-// .hidden-content {
-//   display: none;
-// }
-
-// .large-down-arrow-btn {
-//   cursor: pointer;
-//   bottom: -24px;
-//   right: 0;
-//   margin-right: 15px;
-//   height: 24px;
-//   width: 27px;
-//   border: none;
-//   border: 1px solid #e3eaf3;
-//   border-radius: 0 0 2px 2px;
-//   background-color: #f3f5f8;
-//   outline: none;
-// }
-
-// .large-down-arrow-btn i {
-//   font-size: 16px; 
-// }
-
-// .bi-chevron-down::before {
-//   content: '\e817';
-//   font-family: 'Glyphicons Halflings';  
-// }
-
-// .bi-chevron-up::before {
-//   content: '\e818';
-//   font-family: 'Glyphicons Halflings';  
-// }
-
 .container {
   border: 1px solid #ccc;
   padding: 20px;
@@ -271,4 +226,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border: 1px solid #ccc;
   border-radius: 1px;
   margin-top: 5px;
+}
+
+.form-control1{
+  width: 100%;
 }
