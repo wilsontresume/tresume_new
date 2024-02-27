@@ -103,6 +103,9 @@ import { PaymentComponent } from './all-invoice/payment/payment.component';
 import { ArAgingReportComponent } from './ar-aging-report/ar-aging-report.component';
 import { NewTimeSheetReportComponent } from './new-time-sheet-report/new-time-sheet-report.component';
 import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.component';
+import { TimeActivityComponent } from './all-invoice/time-activity/time-activity.component';
+import { CreateStatementsComponent } from './all-invoice/create-statements/create-statements.component';
+import { MultipleInvoicesComponent } from './all-invoice/multiple-invoices/multiple-invoices.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -191,7 +194,7 @@ const routes: Routes = [
   {path:'joble',component:JobleeComponent},
   {path:'yahoo',component:YahooComponent},
   {path:'adobe',component:AdobeComponent},
-  { path: 'createalltimelist', component: CreateAllTimeListComponent },
+  { path: '', component: CreateAllTimeListComponent },
   { path: 'reports', component: ReportsHomeComponent },
   { path: 'reports/ftc', component: ReportsComponent },
   { path: 'reports/interviews', component: InterviewsReportComponent },
@@ -218,7 +221,10 @@ const routes: Routes = [
   { path: 'reports/ar-aging-report', component: ArAgingReportComponent },
 
   { path: 'send-invoice', component: SendInvoiceComponent },
- 
+  { path: 'time-activity', component: TimeActivityComponent },
+  { path: 'create-statements', component: CreateStatementsComponent },
+  { path: 'multiple-invoices', component: MultipleInvoicesComponent },
+
   // { path: '', redirectTo: 'homelanding', pathMatch: 'full' },
   { path: '**', redirectTo: '', pathMatch: 'full' }, 
  

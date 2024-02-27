@@ -503,3 +503,35 @@ input[type="search"]:focus {
   transform: translate(-50%, -50%);
   z-index: 1001; 
 }
+.modal-content {
+  position: relative;
+}
+
+.exclamation-icon {
+  position: absolute;
+  top: 10px; /* Adjust the top position as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+  font-size: 2em;
+}
+.exclamation-icon {
+  position: absolute;
+  top: 10px; /* Adjust the top position as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+  font-size: 7rem; /* Adjust the font size for a larger icon */
+  margin-top: -21px;
+}
+.modal-body-with-space {
+  padding-top: 160px; /* Adjust this value to create space below the icon */
+}
+.button-space {
+  margin-right: 10px; /* Adjust the value as needed */
+}
+.light-label {
+  color: #4f4e4e; /* Replace with your desired light color */
+}
+
+
