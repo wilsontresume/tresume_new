@@ -63,9 +63,20 @@ router.post("/getTimesheetReport", async (req, res) => {
         throw err;
       }
       var request = new sql.Request();
+      var query = `SELECT 
+                      t1.*, 
+                      CONCAT(t2.FirstName, ' ', t2.LastName) AS TraineeName
+                  FROM 
+                      timesheet_master AS t1
+                  JOIN 
+                      Trainee AS t2 ON t1.TraineeID = t2.TraineeID
+                  WHERE 
+                      t1.orgid = '${req.body.OrgID}'`;
 
-      var query =
-        "SELECT CONCAT(t.firstname, ' ', t.lastname) as Candidate, TM.fromdate, TM.todate, TM.totalhrs, TM.created_at, TM.status, TM.comments, TM.details FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "' AND TM.status=1";
+      // Check if startdate and enddate are provided
+      if (req.body.startdate && req.body.enddate) {
+        query += ` AND fromdate BETWEEN '${req.body.startdate}' AND '${req.body.enddate}'`;
+      }
 
       console.log(query);
       request.query(query, function (err, recordset) {
@@ -87,6 +98,7 @@ router.post("/getTimesheetReport", async (req, res) => {
     res.status(500).send("An error occurred while processing your request.");
   }
 });
+
 
 
 router.post("/getPendingTimesheetResult", async (req, res) => {
