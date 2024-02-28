@@ -6,7 +6,7 @@
   <div class="content pl-3 pt-1 pb-1 dropdown">
     <div class="row mt-3">
       <div class="input-group col-md-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem" id="selectedItem" 
+        <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem" id="selectedItem"
           placeholder="Who's time are you tracking?" aria-describedby="searchIcon">
         <div class="input-group-append">
           <div class="input-group-text ">
@@ -21,13 +21,13 @@
           </div>
         </div>
       </div>
-      
+
       <!-- <div class="col-md-4">
         <input type="text" class="form-control" placeholder="Select Date Range" bsDaterangepicker
           [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)" style="width: 16rem;">
       </div> -->
       <!-- Display the selected week -->
-          <!-- <div *ngIf="selectedWeek" class="selected-week">
+      <!-- <div *ngIf="selectedWeek" class="selected-week">
             You selected: {{ selectedWeek }}
           </div> -->
 
@@ -61,71 +61,71 @@
         <td>
           <div class="row">
             <div class="col-md-5 mr-5 dropdown">
-            <div class="input-group " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="row.projectName"
-                placeholder="Choose the Project" aria-describedby="searchIcon1">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <i class="fas fa-caret-down"></i>
-                  <div class="dropdown-menu dropdown-menu-scrollable">
-                    <a class="dropdown-item" *ngFor="let option of getDropdownOptions(1)"
-                      (click)="onDropdownChange(option, row)">
-                      {{ option.ProjectName }}
-                    </a>
+              <div class="input-group " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="row.projectName"
+                  placeholder="Choose the Project" aria-describedby="searchIcon1">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-caret-down"></i>
+                    <div class="dropdown-menu dropdown-menu-scrollable">
+                      <a class="dropdown-item" *ngFor="let option of getDropdownOptions(1)"
+                        (click)="onDropdownChange(option, row)">
+                        {{ option.ProjectName }}
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             </div>
             <div class="dropdown col-md-5">
-            <div class="input-group"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <input type="text" class="form-control custom-input" id="selectedItem2" [(ngModel)]="row.payItem"
-                placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2" >
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <i class="fas fa-caret-down"></i>
-                  <div class="dropdown-menu dropdown-menu-scrollable">
-                    <a class="dropdown-item" *ngFor="let option of getDropdownOptionn(2)"
-                    (click)="onDropdownChangess(option, row)">{{ option.Text }}</a>
+              <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <input type="text" class="form-control custom-input" id="selectedItem2" [(ngModel)]="row.payItem"
+                  placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-caret-down"></i>
+                    <div class="dropdown-menu dropdown-menu-scrollable">
+                      <a class="dropdown-item" *ngFor="let option of getDropdownOptionn(2)"
+                        (click)="onDropdownChangess(option, row)">{{ option.Text }}</a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           </div>
           <div class="row">
             <div class="col-md-5 mr-5 dropdown">
-            <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <input type="text" class="form-control custom-input" id="selectedItem3" [(ngModel)]="row.service"
-                placeholder="Choose the service worked on" aria-label="Search" aria-describedby="searchIcon3">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <i class="fas fa-caret-down"></i>
-                  <div class="dropdown-menu dropdown-menu-scrollable">
-                    <a class="dropdown-item" *ngFor="let option of option2"
-                      (click)="onDropdownItemClicks(option, row)">{{
-                      option }}</a>
+              <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <input type="text" class="form-control custom-input" id="selectedItem3" [(ngModel)]="row.service"
+                  placeholder="Choose the service worked on" aria-label="Search" aria-describedby="searchIcon3">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-caret-down"></i>
+                    <div class="dropdown-menu dropdown-menu-scrollable">
+                      <a class="dropdown-item" *ngFor="let option of option2"
+                        (click)="onDropdownItemClicks(option, row)">{{
+                        option }}</a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-5 dropdown">
-            <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <input type="text" class="form-control custom-input" id="selectedItem4" [(ngModel)]="row.location"
-                placeholder="Choose the location" aria-describedby="searchIcon4">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <i class="fas fa-caret-down"></i>
-                  <div class="dropdown-menu dropdown-menu-scrollable">
-                    <a class="dropdown-item" *ngFor="let option of getDropdownOption(4)"
-                      (click)="onDropdownChanges(option, row)">{{
-                      option.state }}</a>
+            <div class="col-md-5 dropdown">
+              <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <input type="text" class="form-control custom-input" id="selectedItem4" [(ngModel)]="row.location"
+                  placeholder="Choose the location" aria-describedby="searchIcon4">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-caret-down"></i>
+                    <div class="dropdown-menu dropdown-menu-scrollable">
+                      <a class="dropdown-item" *ngFor="let option of getDropdownOption(4)"
+                        (click)="onDropdownChanges(option, row)">{{
+                        option.state }}</a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           </div>
           <div class="row">
             <div class="col-md-5 mr-5">
@@ -143,11 +143,14 @@
           </div>
           <div class="row">
             <div class="col-md-5 mr-5">
-              <label for="file1" class="file-label">
+              <label for="file{{i}}" class="file-label">
                 <i class="fa fa-upload"></i> Client Approved
               </label>
-              <input type="file" id="file1" class="form-control-file visually-hidden"
+              <input type="file" id="file{{i}}" class="form-control-file visually-hidden"
                 (change)="onFileChange($event, 'file1', row)">
+            </div>
+            <div class="col-md-5 mt-2">
+              <div *ngIf="row.file1" class="file-name">{{ row.file1.name }}</div>
             </div>
           </div>
         </td>
@@ -174,20 +177,20 @@
   </table>
 
   <!-- <button (click)="deleteAllRows()">Minus</button> -->
-  <div class="fixed-tab">
-    <div class="row mt-3">
-      <div class="col-md-4">
-        <button (click)="addRow()" class="btn-block fbtn">Add Lines</button>
-      </div>
-      <div class="col-md-4 text-center">
-        <button class=" btn-block fbtn">Copy last timesheet</button>
-      </div>
-      <div class="col-md-4 text-right">
-        <button class=" btn-block fbtn" (click)="SaveRow()">Save</button>
-      </div>
+
+  <div class="row mt-3">
+    <div class="col-md-4">
+      <button (click)="addRow()" class="btn-block fbtn">Add Lines</button>
+    </div>
+    <div class="col-md-4 text-center">
+      <button class=" btn-block fbtn">Copy last timesheet</button>
+    </div>
+    <div class="col-md-4 text-right">
+      <button class=" btn-block fbtn" (click)="SaveRow()">Save</button>
     </div>
   </div>
 </div>
+
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
@@ -203,5 +206,3 @@
     </div>
   </div>
 </div>
-
-
