@@ -1,11 +1,14 @@
 import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
+import { AllInvoiceService } from './all-invoice.service';
+import { MessageService } from 'primeng/api';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-all-invoice',
   templateUrl: './all-invoice.component.html',
-  styleUrls: ['./all-invoice.component.scss']
+  styleUrls: ['./all-invoice.component.scss'],
+  providers: [CookieService, MessageService , AllInvoiceService],
   
 })
 export class AllInvoiceComponent implements OnInit {
@@ -25,46 +28,31 @@ throw new Error('Method not implemented.');
   isModalOpen = false;
   shareLink = '';
   row: any;
- 
-  tableData = [
-    {
-      date: '11/17/23',
-      type: 'Invoice',
-      number: '90801',
-      clientProject: 'TEK system Inc: Shushant Bathini',
-      memo: '11/17/2023 to 08/04/2023',
-      amount: '$2,440.00',
-      status: '<span style="color: red; margin-left: -18px;">&#9888;Overdue on</span>12/28/21 <br> Sent 03/04/22'
-    },
-    // Add more data objects as needed
+  noResultsFound:boolean = true;
+  invoices: any[] = [];
+  unpaidInvoices: any[] = [];
+  allInvoices: any[] = [];
+  loading:boolean = false;
+
+  OrgID:string = '';
+  TraineeID:string = '';
+
+  activeTab = 'allinvoices';
+  showCustomDateModel = false;
+  startDate: string;
+  endDate: string;
+  searchTerm: string;
+  
+  batchActionsOptions = ['Batch Actions'
   ];
 
-// openModal1() {
-//   // Show the modal and overlay
-//   this.isModalOpen = true;
-// }
+  typeOptions = ['All transaction','Money received','Unbilled',];
 
-// openModal(event: Event) {
-//   // Prevent the default behavior of the anchor link
-//   event.preventDefault();
+  statusOptions = ['All', 'Open'
+  ];
 
-//   // Show the modal by manipulating the DOM directly
-//   const modalElement = document.getElementById('myModal');
-//   if (modalElement) {
-//     modalElement.classList.add('show');
-//     modalElement.style.display = 'block';
-//   }
-// }
-
-// closeModal4() {
-//   // Close the modal by manipulating the DOM directly
-//   const modalElement = document.getElementById('myModal');
-//   if (modalElement) {
-//     modalElement.classList.remove('show');
-//     modalElement.style.display = 'none';
-//   }
-// }
-
+  dateOptions = ['All', 'This Week','This Month','Last Week','Last Week','Custom dates'
+  ];
 
 
 confirmDelete() {
@@ -181,38 +169,80 @@ throw new Error('Method not implemented.');
     this.showTable = true;
    
   }   
-  constructor(
-    private dialog: MatDialog,
-    
-    
-    
-    ) {}
+
+    constructor(
+    private dialog: MatDialog, private cookieService: CookieService, private messageService: MessageService, private service: AllInvoiceService,
+         
+    ) {
+
+      this.OrgID = this.cookieService.get('OrgID');
+      this.TraineeID = this.cookieService.get('TraineeID');
+    }
     
   ngOnInit(): void {
+    // this.loading = true;
+    this.fetchPaidInvoiceList();
+    this.fetchunPaidInvoiceList();
+    this.fetchAllInvoiceList();
     throw new Error('Method not implemented.');
+
   }
 
 
-  activeTab: string = 'allinvoices';
-  showCustomDateModel: boolean = false;
-  startDate: string = '';
-  endDate: string = '';
+  fetchPaidInvoiceList(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.getPaidInvoiceList(Req).subscribe((x: any) => {
+      this.invoices = x.result;
+      this.noResultsFound = this.invoices.length === 0;
+    this.loading = false;
+    });
+  }
+  fetchunPaidInvoiceList(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.getunPaidInvoiceList(Req).subscribe((x: any) => {
+      this.unpaidInvoices = x.result;
+      this.noResultsFound = this.unpaidInvoices.length === 0;
+    this.loading = false;
+    });
+  }
 
-  toggleCustomDateModel() {
-    this.showCustomDateModel = !this.showCustomDateModel;
+  fetchAllInvoiceList(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.service.getAllInvoiceList(Req).subscribe((x: any) => {
+      this.allInvoices = x.result;
+      this.noResultsFound = this.allInvoices.length === 0;
+    this.loading = false;
+    });
+  }
+
+
+
+  toggleCustomDateModel(option: string): void {
+    this.showCustomDateModel = option === 'Custom dates';
+
   }
   
   
-
+  applyAndClose(): void {
+    this.applyDates(); // Apply dates
+    this.showCustomDateModel = false; // Close custom date model
+  }
+  
   resetDates() {  
-    this.startDate = '';  
+    console.log('Resetting dates');
+    this.startDate = '';
     this.endDate = '';
   }
 
   applyDates() {
 
-    console.log('Start Date:', this.startDate);
-    console.log('End Date:', this.endDate);
+    console.log(`Applying dates: Start - ${this.startDate}, End - ${this.endDate}`);
 
   }
 
