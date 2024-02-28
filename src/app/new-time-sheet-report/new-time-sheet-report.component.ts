@@ -4,6 +4,8 @@ import { formatDate } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { NewTimeSheetReportService} from './new-time-sheet-report.service';
+import * as html2pdf from 'html2pdf.js';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-new-time-sheet-report',
@@ -21,7 +23,8 @@ export class NewTimeSheetReportComponent implements OnInit {
   showSortingOptions = false;
   OrgID:string = '';
   TraineeID:string = '';
-
+  startdate:Date;
+  enddate:Date;
   maxSelectableDays: number;
   showExportOptions: boolean = false;
   selectedDateRange: Date[] = [];
@@ -42,6 +45,8 @@ export class NewTimeSheetReportComponent implements OnInit {
   isCustomizeSelected(): boolean {
     return this.selection === 'Customize';
   }
+
+  
   
   
   tableData = [
@@ -51,34 +56,31 @@ export class NewTimeSheetReportComponent implements OnInit {
 
 
   ngOnInit(): void { 
-    this.fromDate = this.getFirstDayOfMonth();
-    this.toDate = this.getLastDayOfMonth();
+    this.fromDate = this.getFirstDayOfMonthUTC();
+    this.toDate = this.getLastDayOfMonthUTC();
     this.fetchtimesheetreport();
 
     
-  this.OrgID = this.cookieService.get('OrgID');
-  // this.JobID = this.cookieService.get('userName1');
-  this.TraineeID = this.cookieService.get('TraineeID');  
-  this.timesheetrole = this.cookieService.get('timesheet_role');
+    this.OrgID = this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
+    this.timesheetrole = this.cookieService.get('timesheet_role');
   }
 
   constructor(private cookieService: CookieService, private service:NewTimeSheetReportService,private messageService: MessageService) {
-
-
+    this.OrgID = this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
+    this.timesheetrole = this.cookieService.get('timesheet_role');
    }
 
  
    
 fetchtimesheetreport(){
   let Req = {
-    traineeID: this.TraineeID,
-    timesheetrole:this.timesheetrole
+    OrgID: this.OrgID,
   };
   this.service.getTimesheetReport(Req).subscribe((x: any) => {
     this.tableData = x.result;
-    // this.noResultsFound = this.jobs.length === 0;
-  this.loading = false;
-  
+    this.loading = false;
   });
 }
 
@@ -116,15 +118,49 @@ fetchtimesheetreport(){
     return `${totalHours}:${remainingMinutes}`;
   }
 
-  exportAsPDF() {
-    console.log('Exporting as PDF');
+  toggleExportOptions() {
+    this.showExportOptions = !this.showExportOptions;
+  }
+  exportAsPDF(): void {
+    const element = document.getElementById('export-content');
+    const notesContent = this.notes ? `Notes: ${this.notes}` : ''; // Add notes content if available
+    const htmlContent = element ? element.innerHTML + notesContent : ''; // Concatenate element HTML with notes content
+    html2pdf().from(htmlContent).save();
     this.showExportOptions = false;
   }
-
-  exportAsExcel() {
-    console.log('Exporting as Excel');
+  
+  
+  exportAsExcel(): void {
+    const element = document.getElementById('export-content');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+  
+    // Get notes content
+    const notesContent = this.notes ? `Notes: ${this.notes}` : '';
+  
+    // Decode range if !ref is defined, otherwise set a default range
+    let range = ws['!ref'] ? XLSX.utils.decode_range(ws['!ref']) : { s: { r: 0, c: 0 }, e: { r: 0, c: 0 } };
+  
+    // Calculate the next row for the notes
+    const nextRow = range.e.r + 2;
+  
+    // Add notes content to the Excel sheet
+    ws[`A${nextRow}`] = { t: 's', v: notesContent };
+  
+    // Update range to include the new notes row
+    range.e.r++;
+  
+    // Update !ref property with the new range
+    ws['!ref'] = XLSX.utils.encode_range(range);
+  
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, 'export.xlsx');
     this.showExportOptions = false;
+    
   }
+  
+  
+  
 
   fromDate: Date;
   toDate: Date;
@@ -138,26 +174,47 @@ fetchtimesheetreport(){
     return `${monthNames[date.getMonth()]} ${date.getDate()}-${this.toDate.getDate()}, ${date.getFullYear()}`;
   }
 
-  getFirstDayOfMonth(): Date {
-    const today = new Date();
-    return new Date(today.getFullYear(), today.getMonth(), 1);
+  getFirstDayOfMonthUTC(): Date {
+    let today = new Date();
+    return new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1));
   }
-
-  getLastDayOfMonth(): Date {
-    const today = new Date();
-    return new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  
+  // Function to get the last day of the month in UTC
+  getLastDayOfMonthUTC(): Date {
+    let today = new Date();
+    return new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth() + 1, 0));
   }
 
 
   runReport(): void {
+    let Req: any = {
+      OrgID: this.OrgID,
+      startdate: '',
+      enddate: ''
+    };
+  
     if (this.isCustomizeSelected() && this.fromDate && this.toDate) {
-     
-      // this.fetchData(this.fromDate, this.toDate);
-      console.log('Running report from', this.fromDate, 'to', this.toDate);
-    } else {
-      
-      // this.fetchAllData();
-      console.log('Running report for all data');
+      Req.startdate = this.fromDate.toISOString(); // Convert to ISO string to ensure UTC format
+      Req.enddate = this.toDate.toISOString();
+    } else if (this.selection === 'This week') {
+      let today = new Date();
+      let startOfWeek = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - today.getUTCDay()));
+      let endOfWeek = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + (6 - today.getUTCDay())));
+      Req.startdate = startOfWeek.toISOString();
+      Req.enddate = endOfWeek.toISOString();
+    } else if (this.selection === 'This Month') {
+      let today = new Date();
+      let startOfMonth = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1));
+      let endOfMonth = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth() + 1, 0));
+      Req.startdate = startOfMonth.toISOString();
+      Req.enddate = endOfMonth.toISOString();
     }
+  
+    this.service.getTimesheetReport(Req).subscribe((x: any) => {
+      this.tableData = x.result;
+      this.loading = false;
+    });
   }
+  
+  
 }

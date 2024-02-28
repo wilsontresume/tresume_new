@@ -152,7 +152,7 @@ textarea {
 }
 
 .scroll-container {
-  height: 300px;
+  height: 600px;
   overflow-y: scroll;
 }
 
@@ -230,4 +230,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .form-control1{
   width: 100%;
+}
+
+.export-options {
+  position: absolute;
+  top: 50px; 
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 9999;
 }
