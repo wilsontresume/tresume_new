@@ -49,6 +49,8 @@ const jobBoardAccount = require('./jobBoardAccount');
 const leadenquiry = require('./enquiry');
 const jobapplication = require('./jobapplication');
 const submittedcandidates = require('./submittedcandidates');
+const Invoice = require('./Invoice');
+
 
 app.use('/', onboardRoutes);
 app.use('/', candidateRoutes);
@@ -68,7 +70,9 @@ app.use('/', projects);
 app.use('/', jobBoardAccount);
 app.use('/', leadenquiry);
 app.use('/', jobapplication);
+app.use('/', Invoice);
 app.use('/', submittedcandidates);
+
 
 
 app.use(session({
@@ -869,7 +873,8 @@ app.post("/getOnboardingList", function (req, res) {
     }
 
     var useremail = req.body.useremail;
-
+    var startDate = req.body.startDate;
+    var endDate = req.body.endDate;
     var query = `SELECT ISNULL(CONVERT(NVARCHAR(10), CO.createdate, 101), '1900-01-01T00:00:00') AS Date,
                         CO.FirstName + ' ' + CO.LastName AS 'EmployeeName', 
                         ISNULL(CONVERT(NVARCHAR(10), CO.startdate, 101), '1900-01-01T00:00:00') AS 'StartDate',
@@ -881,7 +886,7 @@ app.post("/getOnboardingList", function (req, res) {
                  INNER JOIN Organization O ON CO.OrgID = O.organizationid
                  WHERE M.useremail = '${useremail}' 
                    AND CO.Active = 1 
-                   AND CO.CreateDate BETWEEN '2020-01-01' AND '2024-03-01'
+                   AND CO.CreateDate BETWEEN '${startDate}' AND '${endDate}'
                  ORDER BY CO.createdate DESC;`;
 
     console.log("Query:", query);

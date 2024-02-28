@@ -110,9 +110,9 @@ export class CreateAllTimeListComponent implements OnInit {
       endDate:'',
     });
   }
-  removeRow(index: number) {
-    this.timesheetRows.splice(index, 1);
-  }
+  // removeRow(index: number) {
+  //   this.timesheetRows.splice(index, 1);
+  // }
 
   onFileChange(event: any, fieldName: string, row: any) {
     const fileList: FileList | null = event.target.files;
@@ -451,6 +451,30 @@ onChangesDropdown(selectedOption: any, row: any) {
 
     return dates;
   }
+
+
+  removeRow(index: number) {
+    const row = this.timesheetRows[index];
+    
+    if (this.rowHasData(row)) {
+      
+      this.clearRow(row);
+    } else {
+      
+      this.timesheetRows.splice(index, 1);
+    }
+  }
+
+  rowHasData(row: any): boolean {
+    return Object.values(row).some(value => !!value);
+  }
+
+  clearRow(row: any) {
+    Object.keys(row).forEach(key => {
+      row[key] = '';
+    });
+  }
+  
 }
 
 // calculateTotalAmount(row: any): number | string {
