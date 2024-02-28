@@ -45,27 +45,31 @@
                                     <th>To Date</th>
                                     <th>Total Hours</th>
                                     <th>CreatedOn</th>
-                                    <th>Status</th>
                                     <th>Comments</th>
                                     <th>Details</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let row of PendingData">
                                     <td>{{ row.Candidate }}</td>
-                                    <td>{{ row.fromdate }}</td>
-                                    <td>{{ row.todate }}</td>
+                                    <td>{{ row.fromdate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.todate | date : "MM/dd/y" : "UTC" }}</td>
                                     <td>{{ row.totalhrs }}</td>
-                                    <td>{{ row.created_at }}</td>
-                                    <td>{{ row.status }}</td>
+                                    <td>{{ row.created_at | date : "MM/dd/y" : "UTC" }}</td>
                                     <td>{{ row.comments }}</td>
-                                    <td>{{ row.details }}</td>
-                                    <!-- <td>
+                                    <td>
                                         <div>
                                             <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
-                                                [routerLink]="['/timesheetviewdetails']"></i>
+                                                [routerLink]="['/timesheet/viewdetails']"></i>
                                         </div>
-                                    </td> -->
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-trash fa-fw fa-lg ml-4 text-center"
+                                              ></i>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr *ngIf="noResultsFound" >
                                     <td colspan="9" class="text-center">
@@ -87,27 +91,31 @@
                                     <th>To Date</th>
                                     <th>Total Hours</th>
                                     <th>CreatedOn</th>
-                                    <th>Status</th>
                                     <th>Comments</th>
                                     <th>Details</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let row of rejectedData">
                                     <td>{{ row.Candidate }}</td>
-                                    <td>{{ row.fromdate }}</td>
-                                    <td>{{ row.todate }}</td>
+                                    <td>{{ row.fromdate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.todate | date : "MM/dd/y" : "UTC" }}</td>
                                     <td>{{ row.totalhrs }}</td>
-                                    <td>{{ row.created_at }}</td>
-                                    <td>{{ row.status }}</td>
+                                    <td>{{ row.created_at | date : "MM/dd/y" : "UTC" }}</td>
                                     <td>{{ row.comments }}</td>
-                                    <td>{{ row.details }}</td>
-                                    <!-- <td>
+                                    <td>
                                         <div>
                                             <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
-                                                [routerLink]="['/timesheetviewdetails']"></i>
+                                            [routerLink]="['/timesheet/viewdetails']"></i>
                                         </div>
-                                    </td> -->
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-trash fa-fw fa-lg ml-4 text-center"
+                                                ></i>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr *ngIf="noResultsFound" >
                                     <td colspan="9" class="text-center">
@@ -129,25 +137,29 @@
                                     <th>To Date</th>
                                     <th>Total Hours</th>
                                     <th>CreatedOn</th>
-                                    <th>Status</th>
                                     <th>Comments</th>
                                     <th>Details</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let row of completedData">
                                     <td>{{ row.Candidate }}</td>
-                                    <td>{{ row.fromdate }}</td>
-                                    <td>{{ row.todate }}</td>
+                                    <td>{{ row.fromdate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.todate | date : "MM/dd/y" : "UTC" }}</td>
                                     <td>{{ row.totalhrs }}</td>
-                                    <td>{{ row.created_at }}</td>
-                                    <td>{{ row.status }}</td>
+                                    <td>{{ row.created_at | date : "MM/dd/y" : "UTC" }}</td>
                                     <td>{{ row.comments }}</td>
-                                    <td>{{ row.details }}</td>
                                     <td>
                                         <div>
                                             <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
-                                                [routerLink]="['/timesheetviewdetails']"></i>
+                                            [routerLink]="['/timesheet/viewdetails']" ></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-trash fa-fw fa-lg ml-4 text-center"
+                                                ></i>
                                         </div>
                                     </td>
                                 </tr>
@@ -174,24 +186,30 @@
                                     <th>Status</th>
                                     <th>Comments</th>
                                     <th>Details</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let row of nonBillableData">
                                     <td>{{ row.Candidate }}</td>
-                                    <td>{{ row.fromdate }}</td>
-                                    <td>{{ row.todate }}</td>
+                                    <td>{{ row.fromdate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.todate | date : "MM/dd/y" : "UTC" }}</td>
                                     <td>{{ row.totalhrs }}</td>
-                                    <td>{{ row.created_at }}</td>
+                                    <td>{{ row.created_at | date : "MM/dd/y" : "UTC" }}</td>
                                     <td>{{ row.status }}</td>
                                     <td>{{ row.comments }}</td>
-                                    <td>{{ row.details }}</td>
-                                    <!-- <td>
+                                    <td>
                                         <div>
                                             <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
-                                                [routerLink]="['/timesheetviewdetails']"></i>
+                                            [routerLink]="['/timesheet/viewdetails']"></i>
                                         </div>
-                                    </td> -->
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-trash fa-fw fa-lg ml-4 text-center"
+                                                ></i>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr *ngIf="noResultsFound" >
                                     <td colspan="9" class="text-center">

@@ -30,10 +30,10 @@ export class CreateAllTimeListComponent implements OnInit {
   selectedSunday: string = '';
   isSundaySelected: boolean = false;
   CAselectedFile: File | null = null;
-  SRselectedFile: File | null = null;
+  // SRselectedFile: File | null = null;
   [key: string]: any;
   file1: File | null = null;
-  file2: File | null = null;
+  // file2: File | null = null;
 
   
   timesheetRows: any[] = [];
@@ -96,7 +96,7 @@ export class CreateAllTimeListComponent implements OnInit {
       hourlyRate: 0,
       billable: false,
       file1: null,
-      file2: null,
+      // file2: null,
       mon: '',
       tues: '',
       wed: '',
@@ -118,7 +118,15 @@ export class CreateAllTimeListComponent implements OnInit {
     const fileList: FileList | null = event.target.files;
     if (fileList && fileList.length > 0) {
       row[fieldName] = fileList[0];
+      this.updateFileName(fileList[0], fieldName);
     }
+  }
+
+  updateFileName(file: File, fieldName: string) {
+    if (fieldName === 'file1') {
+      this.file1 = file;
+    }
+    // You can extend this method to handle other file inputs similarly if needed
   }
 
 
@@ -169,7 +177,7 @@ export class CreateAllTimeListComponent implements OnInit {
       hourlyRate: '',
       billable: false,
       clientAproved: null,
-      statusReport: null,
+      // statusReport: null,
       mon: '',
       tues: '',
       wed: '',
@@ -383,29 +391,66 @@ onChangesDropdown(selectedOption: any, row: any) {
   //   });
   // }
 
-  SaveRow(): void {
-    const currentWeek = this.getCurrentWeekDates();
-    const startDate = this.formatDate(currentWeek.start);
-    const endDate = this.formatDate(currentWeek.end);
-    console.log('Start Date of Current Week:', startDate);
-    console.log('End Date of Current Week:', endDate);
+  // SaveRow(): void {
+  //   const currentWeek = this.getCurrentWeekDates();
+  //   const startDate = this.formatDate(currentWeek.start);
+  //   const endDate = this.formatDate(currentWeek.end);
+  //   console.log('Start Date of Current Week:', startDate);
+  //   console.log('End Date of Current Week:', endDate);
 
+  //   if (this.timesheetRows.length > 1) {
+  //     console.log("Timesheet Rows:");
+  //     this.timesheetRows.forEach((row, index) => {
+  //       console.log(`Row ${index + 1}:`, row);
+  //     });
+  //   } else {
+  //     console.log("Only one row value is present in the table.");
+  //     console.log("Value:", this.timesheetRows[0]);
+  //   }
+  // }
+
+  SaveRow(): void {
+    const selectedWeek = this.selectedWeek.split(' to ');
+    const startDateSelectedWeek = new Date(selectedWeek[0]);
+    const endDateSelectedWeek = new Date(selectedWeek[1]);
+  
+    const startDateFormatted = startDateSelectedWeek.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' });
+    const endDateFormatted = endDateSelectedWeek.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' });
+  
+    // console.log('Start Date of Selected Week:', startDateFormatted);
+    // console.log('End Date of Selected Week:', endDateFormatted);
+  
     if (this.timesheetRows.length > 1) {
       console.log("Timesheet Rows:");
       this.timesheetRows.forEach((row, index) => {
-        console.log(`Row ${index + 1}:`, row);
+        console.log(`Candidate Name: ${this.selectedItem}, Start Date: ${startDateFormatted}, End Date: ${endDateFormatted}, Row ${index + 1}:`, row);
       });
     } else {
-      console.log("Only one row value is present in the table.");
-      console.log("Value:", this.timesheetRows[0]);
+      console.log(`Candidate Name: ${this.selectedItem}, Start Date: ${startDateFormatted}, End Date: ${endDateFormatted}, Only one row value is present in the table. Value:`, this.timesheetRows[0]);
     }
-  }
+}
+
+  
+  
+  
   
   selectedWeek: string = '';
+  // selectedWeekStartDate: Date;
+// selectedWeekEndDate: Date;
+
   onWeekSelect(week: string): void {
     this.selectedWeek = week;
   }
+  // onWeekSelect(selectedWeek: string): void {
+  //   const [startDateString, endDateString] = selectedWeek.split(' to ');
+  //   const startDate = new Date(startDateString);
+  //   const endDate = new Date(endDateString);
+  //   console.log('Start Date:', startDate);
+  //   console.log('End Date:', endDate);
+  // }
 
+  
+  
   generateWeeks(): string[] {
     const today = new Date();
     const currentYear = today.getFullYear();
