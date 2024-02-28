@@ -40,12 +40,12 @@ loading: boolean = false;
   showCustomDateModel = false;
   startDate: string;
   endDate: string;
-  searchTerm: string;
+  
   
   batchActionsOptions = ['Batch Actions'
   ];
 
-  typeOptions = ['All transaction','Money received','Unbilled',];
+  typeOptions = ['All transaction','All plus deposits'];
 
   statusOptions = ['All', 'Open'
   ];
@@ -221,10 +221,12 @@ throw new Error('Method not implemented.');
   }
 
 
+
   toggleCustomDateModel(option: string): void {
     this.showCustomDateModel = option === 'Custom dates';
 
   }
+  
   
   applyAndClose(): void {
     this.applyDates(); // Apply dates
@@ -243,4 +245,11 @@ throw new Error('Method not implemented.');
 
   }
 
+ 
   }
+
+
+
+
+
+
