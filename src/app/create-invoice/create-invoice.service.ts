@@ -18,9 +18,9 @@ export class CreateInvoiceService {
   constructor(private http: HttpClient) { }
 
 
-  getTimesheetClientList(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetClientList', request);
-  }
+  // getTimesheetClientList(request: any): Observable<ResponseDetails> {
+  //   return this.http.post<ResponseDetails>(this.endpoint + 'getTimesheetClientList', request);
+  // }
   // saveSubmissionFormData(request: any): Observable<ResponseDetails> {
   //   return this.http.post<ResponseDetails>(this.endpoint + 'saveSubmissionFormData', request);
   // }
@@ -31,6 +31,10 @@ export class CreateInvoiceService {
 
   getLocationList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getLocationList', request);
+  }
+
+  createInvoice(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'createInvoice', request);
   }
 
 }
