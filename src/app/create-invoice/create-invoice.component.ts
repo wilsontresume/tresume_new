@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { CreateInvoiceService } from './create-invoice.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-invoice',
@@ -12,6 +13,7 @@ import { CreateInvoiceService } from './create-invoice.service';
 })
 export class CreateInvoiceComponent implements OnInit {
 
+  loading: boolean = false;
   TraineeID: any;
   OrgID: string = '';
   showPopup: boolean = false;
@@ -28,16 +30,27 @@ export class CreateInvoiceComponent implements OnInit {
   selectedRowIndex: number | null = null;
   subtotal: number = 0;
   total: number = 0;
+  clientEmail: any;
+  billingAddress: any;
+  invoiceDate: any;
+  dueDate: any;
+  selectedTerm: any;
+  invoiceNo: any;
+  routeType: any;
 
+  ngOnInit(): void {
+    this.OrgID = this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
+    this.getState();
+    this.fetchclientlist();
+  }
 
+  constructor(private messageService: MessageService, private cookieService: CookieService, private Service: CreateInvoiceService, private router: Router, private route: ActivatedRoute) {
 
-  lines = [
-    { qty: 1, rate: 10, editable: false, amount: 0 },
-    { qty: 2, rate: 15, editable: false, amount: 0 },
-    // Add more lines as needed
-  ];
-
-  
+    this.OrgID = this.cookieService.get('OrgID');    
+    this.routeType = this.route.snapshot.params["routeType"];
+    this.addDefaultRows(2);
+  }
 
   toggleEditable(index: number) {
     if (this.selectedRowIndex !== null) {
@@ -73,7 +86,7 @@ export class CreateInvoiceComponent implements OnInit {
     this.invoiceLines = [];
     // Add 2 default rows after clearing
     this.addDefaultRows(2);
-  } 
+  }
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
   maxSize: number = 20; // Maximum file size in MB
 
@@ -103,17 +116,7 @@ export class CreateInvoiceComponent implements OnInit {
     console.log('Uploading files:', this.files);
     // You can implement file upload logic using services or APIs here
   }
-  ngOnInit(): void {
-    this.OrgID = this.cookieService.get('OrgID');
-    this.fetchclientlist();
-    this.getClientName();
-    this.getState();
-  }
 
-  constructor(private messageService: MessageService, private cookieService: CookieService,private Service: CreateInvoiceService ) {    
-    this.OrgID = this.cookieService.get('OrgID');
-    
-    this.addDefaultRows(2);}
 
   onOptionChanges(event: any) {
     this.previousOption = this.selectedOption;
@@ -142,18 +145,15 @@ export class CreateInvoiceComponent implements OnInit {
   addAll() {
   }
 
-
   onDropdownChange(event: any) {
     if (event.target.value === 'addNew') {
       this.showModal = true;
     }
   }
 
-
   closeModal2() {
     this.showModal = false;
   }
-
 
   confirmDelete() {
     this.showConfirmationModal = true;
@@ -189,18 +189,6 @@ export class CreateInvoiceComponent implements OnInit {
     console.log('showAdditionalInputs:', this.showAdditionalInputs);
   }
 
-  fetchclientlist() {
-    let Req = {
-      TraineeID: this.TraineeID,
-      OrgID: this.OrgID,
-    };
-    this.Service.getTimesheetClientList(Req).subscribe((x: any) => {
-      this.clients = x.result;
-      console.log(this.clients);
-    });
-  }
-
-
   items = [
     { id: 1, name: 'Item 1' },
     { id: 2, name: 'Item 2' },
@@ -221,15 +209,6 @@ export class CreateInvoiceComponent implements OnInit {
     this.selectedItem = null;
   }
 
-  getClientName() {
-    let Req = {
-      TraineeID: this.TraineeID,
-    };
-    this.Service.getTraineeClientList(Req).subscribe((x: any) => {
-      this.ClientName = x.result;
-    });
-  }
-
   getState() {
     let req = {
       OrgID: this.OrgID,
@@ -238,12 +217,64 @@ export class CreateInvoiceComponent implements OnInit {
       this.state = x.result;
     });
   }
-  
+
   getDropdownOption() {
     return this.state; // Use this.state instead of this.city
   }
-  
+
   onDropdownChanges(selectedOption: any, row: any) {
     row.location = selectedOption.city;
   }
+
+  fetchclientlist() {
+    let Req = {
+      TraineeID: this.TraineeID,
+    };
+    this.Service.getTraineeClientList(Req).subscribe((x: any) => {
+      this.clients = x.result;
+      this.loading = false;
+    });
+  }
+  
+  addinvoice() {
+    this.loading = true;
+    let Req = {
+      client: this.ClientName,
+      clientEmail: this.clientEmail,
+      billingAddress: this.billingAddress,
+      invoiceDate: this.invoiceDate,
+      dueDate: this.dueDate,
+      terms: this.selectedTerm,
+      invoiceNo: this.invoiceNo,
+      state: this.state,
+    };
+    console.log(Req);
+    this.Service.createInvoice(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+        this.loading = false;
+      },
+      (error: any) => {
+        this.handleError(error);
+        this.loading = false;
+      }
+    );
+  }
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary: response.message });
+    console.log(response);
+    this.loading = false;
+    this.router.navigate(['/all-invoice/'+this.routeType]);
+  }
+  
+  private handleError(error: any): void {
+    let errorMessage = 'An error occurred';
+    if (error.error && error.error.message) {
+      errorMessage = error.error.message; 
+    }
+    this.messageService.add({ severity: 'error', summary: errorMessage });
+    console.error('Error occurred:', error);
+    this.loading = false;
+  }
+  
 }
