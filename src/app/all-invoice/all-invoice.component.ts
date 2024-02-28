@@ -20,7 +20,7 @@ isModal3Open: any;
 deleteAction() {
 throw new Error('Method not implemented.');
 }
-
+loading: boolean = false;
   isRowSelected = false;
   isContentVisible = false;
   showContent1 = false;
@@ -32,7 +32,6 @@ throw new Error('Method not implemented.');
   invoices: any[] = [];
   unpaidInvoices: any[] = [];
   allInvoices: any[] = [];
-  loading:boolean = false;
 
   OrgID:string = '';
   TraineeID:string = '';
@@ -51,7 +50,7 @@ throw new Error('Method not implemented.');
   statusOptions = ['All', 'Open'
   ];
 
-  dateOptions = ['All', 'This Week','This Month','Last Week','Last Week','Custom dates'
+  dateOptions = ['All', 'This Week','This Month','Last Week','Last Month','Custom dates'
   ];
 
 
