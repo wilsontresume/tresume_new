@@ -1,43 +1,41 @@
+
 .input-field {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 250px;
+  width: 250px; 
   height: 40px;
 }
-
-.form-check {
+.form-check{
   display: block;
   padding-bottom: 1px;
 }
-
-.button {
-
-  background-color: #380838;
-  color: white;
-  font-size: 12px;
-
+body {
+  overflow-x: hidden;
 }
-
-.table {
+.btn{
+  
+      background-color: #380838;
+      color: white;
+      font-size: 12px; 
+  
+}
+.table{
   width: 100px;
   height: max-content;
-
+ 
 }
-
-.col-md-6 {
+.col-md-6{
   max-width: 100%;
-
+  
 }
-
-.scrollable-msg-box {
-  height: 100px;
+.scrollable-msg-box{
+  height: 100px; 
   width: 500px;
-  overflow-y: scroll;
+  overflow-y: scroll; 
   border: 1px solid #ccc;
   padding: 5px;
 }
-
 .manage-tags-link {
   position: absolute;
   top: 0;
@@ -52,21 +50,18 @@
 .custom-control-input:checked+.custom-control-label::after {
   background-color: rgb(101, 177, 101);
 }
-
-.dis {
+.dis{
   width: 75px;
-
+  
 }
 
 .align-top {
-  vertical-align: top;
+vertical-align: top;
 }
-
 body {
-  background-color: #ffffff;
+  background-color: #ffffff; 
   color: #000;
 }
-
 .table-container {
   width: 100%;
   max-width: 1000px;
@@ -87,15 +82,12 @@ body {
 .text-right {
   text-align: right;
 }
-
-.col-md-4 {
+.col-md-4{
   margin-left: 13rem;
 }
-
-.balance {
+.balance{
   margin-left: 39rem;
 }
-
 .modal-dialog {
   position: fixed;
   margin: auto;
@@ -103,59 +95,50 @@ body {
   height: 100%;
   right: 0px;
 }
-
 .modal-content {
   height: 100%;
 }
-
 .fixed-width-wrapper {
-  width: 40px;
+width: 40px; 
 }
-
-.arrow {
-  margin-left: 46rem;
+.arrow{
+margin-left: 46rem;
 }
-
-.marg {
-  margin-left: 15px;
+.marg{
+margin-left: 15px;
 }
-
-.fbtn {
-  margin: 10px;
-  padding: 5px;
-  width: 150px;
-  border-radius: 15px;
+.fbtn{
+margin: 10px;
+padding: 5px;
+width: 150px;
+border-radius: 15px;
 }
-
 .popup {
-  position: relative;
-  display: inline-block;
-  margin-top: 10px;
+position: relative;
+display: inline-block;
+margin-top: 10px; 
 }
 
 .popup .popover {
 
   display: block;
   position: absolute;
-  bottom: -130%;
-  /* Adjust to position the popover */
+  bottom: -130%; /* Adjust to position the popover */
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
-  width: 200px;
-  /* Adjust width as needed */
+  width: 200px; /* Adjust width as needed */
   /* Other styles specific to this popup */
-  display: block;
-  position: absolute;
-  bottom: -130%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  width: 200px;
-  /* Adjust width as needed */
-  /* Other styles specific to this popup */
+display: block;
+position: absolute;
+bottom: -130%;
+left: 50%;
+transform: translateX(-50%);
+z-index: 9999;
+width: 200px; /* Adjust width as needed */
+/* Other styles specific to this popup */
 
-  width: 200px;
+width: 200px;
 }
 
 .modal1 {
@@ -180,8 +163,7 @@ body {
   border-radius: 6px;
   text-align: center;
   width: max-content;
-  margin: auto;
-  /* This centers the modal horizontally */
+  margin: auto; /* This centers the modal horizontally */
 }
 
 .close-modal1 {
@@ -192,30 +174,23 @@ body {
   z-index: 10;
   cursor: pointer;
   top: 5%;
-  right: 5%;
-  /* Adjusted to right align */
+  right: 5%; /* Adjusted to right align */
 }
 
 .modal1-footerbtn {
-  margin-top: 20px;
-  /* Adjust the top margin as needed */
-  text-align: center;
-  /* Center the buttons horizontally */
+  margin-top: 20px; /* Adjust the top margin as needed */
+  text-align: center; /* Center the buttons horizontally */
 }
 
 .modal1-footerbtn button {
-  margin-right: 10px;
-  /* Add space between the buttons */
+  margin-right: 10px; /* Add space between the buttons */
 }
 
 .delete-icon {
-  color: #380838;
-  /* Replace 'blue' with the color of your choice */
+  color: #380838; /* Replace 'blue' with the color of your choice */
 }
-
 .attachment-symbol {
-  font-size: 21px;
-  /* Adjust the size as needed */
+  font-size: 21px; /* Adjust the size as needed */
   margin-left: 34px;
   color: #380838;
 }
@@ -228,7 +203,7 @@ body {
   border-radius: 6px;
   text-align: center;
   width: max-content;
-  margin: auto;
+  margin: auto; 
 }
 
 .close-modal1 {
@@ -242,8 +217,8 @@ body {
 }
 
 .modal1-footerbtn {
-  margin-top: 20px;
-  text-align: center;
+  margin-top: 20px; 
+  text-align: center; 
 }
 
 .modal1-footerbtn button {
@@ -253,53 +228,50 @@ body {
 .delete-icon {
   color: #380838;
 }
-
 .attachment-symbol {
-  font-size: 21px;
+  font-size: 21px; 
   margin-left: 34px;
   color: #380838;
 }
 
 
 .modal1-content {
-  position: relative;
-  background: white;
-  padding: 50px;
-  border-radius: 6px;
-  text-align: center;
-  width: max-content;
-  margin: auto;
+position: relative;
+background: white;
+padding: 50px;
+border-radius: 6px;
+text-align: center;
+width: max-content;
+margin: auto; 
 }
 
 .close-modal1 {
-  margin: 0;
-  position: absolute;
-  opacity: 1;
-  z-index: 10;
-  cursor: pointer;
-  top: 5%;
-  right: 5%;
+margin: 0;
+position: absolute;
+opacity: 1;
+z-index: 10;
+cursor: pointer;
+top: 5%;
+right: 5%; 
 }
 
 .modal1-footerbtn {
-  margin-top: 20px;
-  text-align: center;
+margin-top: 20px; 
+text-align: center;
 }
 
 .modal1-footerbtn button {
-  margin-right: 10px;
+margin-right: 10px;
 }
 
 .delete-icon {
-  color: #380838;
+color: #380838; 
 }
-
 .attachment-symbol {
-  font-size: 21px;
-  margin-left: 34px;
-  color: #380838;
+font-size: 21px;
+margin-left: 34px;
+color: #380838;
 }
-
 .form {
   width: 500px;
   margin: 5% auto;
@@ -315,7 +287,7 @@ body {
     font-size: 18px;
     color: silver;
     margin-bottom: 5px;
-
+    
     &.active {
       background-color: rgba($color: silver, $alpha: 0.2);
     }
@@ -330,7 +302,7 @@ body {
     cursor: pointer;
     opacity: 0;
   }
-
+  
   &__files-container {
     display: flex;
     width: 100%;
@@ -338,15 +310,16 @@ body {
     justify-content: space-between;
     align-items: center;
   }
-
+  
   &__text {
     font-size: 18px;
     color: #333;
     max-width: 450px;
+    whitespace: no-wrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
+  
   &__icon {
     font-size: 22px;
     color: #1871b5;
