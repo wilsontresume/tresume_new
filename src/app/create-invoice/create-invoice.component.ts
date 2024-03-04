@@ -28,9 +28,9 @@ export class CreateInvoiceComponent implements OnInit {
   files: File[] = [];
   selectedRowIndex: number | null = null;
   clientEmail: any;
-  Billingaddress: any;
-  InvoiceDate: any;
-  DueDate: any;
+  selectedBillingaddress: any;
+  selectedInvoiceDate: any;
+  selectedDueDate: any;
   selectedTerm: any;
   InvoiceNo: any;
   routeType: any;
@@ -45,6 +45,20 @@ export class CreateInvoiceComponent implements OnInit {
   balanceDue: number = 0;
   selectedState: any;
   states: any;
+  messageOnInvoice: string[] = [
+    `Remit Payment To: Asta CRS, Inc.
+    Please mail checks to: Asta Crs Inc 44121 Leesburg Pike,
+    STE 230, Ashburn VA 20147 
+    Attn: Prabhakar Thangarajah
+    Ph: 703-889-8511 Fax: 703-889-8585`
+  ];
+  termsOptions = [
+    { value: '10 days', label: '10 days' },
+    { value: '20 days', label: '20 days' },
+    { value: 'Net 15', label: 'Net 15' },
+    // { value: 'addNew', label: 'Add New' }
+  ];
+  messageOnStatement: any;
 
   ngOnInit(): void {
     this.OrgID = this.cookieService.get('OrgID');
@@ -133,10 +147,7 @@ updateDiscount(event: any): void {
         return;
       }
     }
-
-    // Handle file upload logic here
     console.log('Uploading files:', this.files);
-    // You can implement file upload logic using services or APIs here
   }
 
 
@@ -162,9 +173,6 @@ updateDiscount(event: any): void {
     if (this.selectedOption === 'example2') {
     } else {
     }
-  }
-
-  addAll() {
   }
 
   onDropdownChange(event: any) {
@@ -211,11 +219,6 @@ updateDiscount(event: any): void {
     console.log('showAdditionalInputs:', this.showAdditionalInputs);
   }
 
-  items = [
-    { id: 1, name: 'Item 1' },
-    { id: 2, name: 'Item 2' },
-  ];
-
   selectedItem: any;
 
   openDeleteModal(item: any) {
@@ -236,16 +239,16 @@ updateDiscount(event: any): void {
       OrgID: this.OrgID,
     };
     this.Service.getLocationList(req).subscribe((x: any) => {
-      this.states = x.result;
+      this.state = x.result;
     });
   }
 
   getDropdownOption() {
-    return this.states; // Use this.state instead of this.city
+    return this.states;
   }
 
   onDropdownChanges(selectedOption: any, row: any) {
-    row.location = selectedOption.city;
+    row.location = selectedOption.state;
   }
 
   fetchclientlist() {
@@ -261,6 +264,7 @@ updateDiscount(event: any): void {
     
   addinvoice() {
     this.loading = true;
+
     let invoiceLinesData: { serviceDate: any, description: any, qty: any, rate: any }[] = [];
     this.invoiceLines.forEach((line, index) => {
       invoiceLinesData.push({
@@ -270,34 +274,39 @@ updateDiscount(event: any): void {
         rate: line.rate
       });
     });
-
-    let Req = {
+  
+    let req = {
       client: this.ClientName,
       clientEmail: this.clientEmail,
       ccEmails: this.ccEmails,
       bccEmails: this.bccEmails,
-      Billingaddress: this.Billingaddress,
-      InvoiceDate: this.InvoiceDate,
-      DueDate: this.DueDate,
+      Billingaddress: this.selectedBillingaddress,
+      InvoiceDate: this.selectedInvoiceDate,
+      DueDate: this.selectedDueDate,
       Terms: this.selectedTerm,
       InvoiceNo: this.InvoiceNo,
-      state: this.selectedState.state,
-      invoiceLines: invoiceLinesData
+      state: this.selectedState,
+      invoiceLines: invoiceLinesData,
+      subtotal: this.subtotal,
+      discountPercentage: this.discountPercentage,
+      discountAmount: this.discountAmount,
+      total: this.total,
+      balanceDue: this.balanceDue,
+      messageOnInvoice: this.messageOnInvoice,
+      messageOnStatement: this.messageOnStatement,
+      attachments: this.files 
     };
-
-    console.log(Req);
-  
-    // this.Service.createInvoice(Req).subscribe(
-    //   (x: any) => {
-    //     this.handleSuccess(x);
-    //     this.loading = false;
+console.log(req);
+    // this.Service.createInvoice(req).subscribe(
+    //   (response: any) => {
+    //     this.handleSuccess(response);
     //   },
     //   (error: any) => {
     //     this.handleError(error);
-    //     this.loading = false;
     //   }
     // );
   }
+  
 
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
