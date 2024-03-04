@@ -34,12 +34,13 @@ export class CreateAllTimeListComponent implements OnInit {
   [key: string]: any;
   file1: File | null = null;
   // file2: File | null = null;
-
-  
+  username:any = '';
+  traineeID:any = '';
+  candidateid:any = ''; 
   timesheetRows: any[] = [];
   totalAmountForAllRows: number = 0;
   totalAmount: number = 0;
-
+  loading:boolean = false;
   updateTotalAmount() {
     setTimeout(() => {
       let totalAmount = 0;
@@ -115,6 +116,7 @@ export class CreateAllTimeListComponent implements OnInit {
   // }
 
   onFileChange(event: any, fieldName: string, row: any) {
+    this.loading = true;
     const fileList: FileList | null = event.target.files;
     if (fileList && fileList.length > 0) {
       row[fieldName] = fileList[0];
@@ -125,6 +127,7 @@ export class CreateAllTimeListComponent implements OnInit {
   updateFileName(file: File, fieldName: string) {
     if (fieldName === 'file1') {
       this.file1 = file;
+      this.loading = false;
     }
     // You can extend this method to handle other file inputs similarly if needed
   }
@@ -206,7 +209,10 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.OrgID = this.cookieService.get('OrgID');
+    this.traineeID = this.cookieService.get('TraineeID');
+    this.username = this.cookieService.get('userName1');
 
     this.addDefaultRows();
     this.addDefaultRows();
@@ -285,6 +291,7 @@ getDropdownOption1() {
 
 onChangesDropdown(selectedOption: any, row: any) {
   this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
+  this.candidateid = `${selectedOption.TraineeID}`;
 }
  
   selectedItem1: string;
@@ -305,7 +312,8 @@ onChangesDropdown(selectedOption: any, row: any) {
     return this.ProjectName;
   }
   onDropdownChange(selectedOption: any, row: any) {
-    row.projectName = selectedOption.ProjectName;
+    row.projectName = selectedOption.projectname;
+    row.projectid = selectedOption.projectid;
 
   }
 
@@ -323,6 +331,7 @@ onChangesDropdown(selectedOption: any, row: any) {
     };
     this.Service.getLocationList(Req).subscribe((x: any) => {
       this.state = x.result;
+      this.loading = false;
     });
   }
   getDropdownOption() {
@@ -330,6 +339,7 @@ onChangesDropdown(selectedOption: any, row: any) {
   }
   onDropdownChanges(selectedOption: any, row: any) {
     row.location = selectedOption.state;
+    row.locationid = selectedOption.zipcode;
   }
 
 
@@ -417,20 +427,65 @@ onChangesDropdown(selectedOption: any, row: any) {
     const startDateFormatted = startDateSelectedWeek.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' });
     const endDateFormatted = endDateSelectedWeek.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' });
   
-    // console.log('Start Date of Selected Week:', startDateFormatted);
-    // console.log('End Date of Selected Week:', endDateFormatted);
-  
-    if (this.timesheetRows.length > 1) {
-      console.log("Timesheet Rows:");
       this.timesheetRows.forEach((row, index) => {
-        console.log(`Candidate Name: ${this.selectedItem}, Start Date: ${startDateFormatted}, End Date: ${endDateFormatted}, Row ${index + 1}:`, row);
+        this.loading = true;
+        if(row.projectName !=''){
+          const formData = new FormData();
+          if (!row.file1) {
+            
+            alert('Please upload client-approved timesheet.');
+            this.loading = false;
+            return; 
+          }
+          formData.append('file1', row.file1);
+          formData.append('traineeid', this.candidateid);
+          formData.append('projectid', row.projectid);
+          formData.append('totalhrs', row.totalHours);
+          formData.append('details', row.description);
+          formData.append('fromdate',startDateFormatted);
+          formData.append('todate', endDateFormatted);
+          formData.append('isBillable', row.billable);
+          formData.append('payterm', '1');
+          formData.append('service', '1');
+          formData.append('location', row.locationid);
+          formData.append('billableamt', row.hourlyRate);
+          formData.append('day1', row.mon);
+          formData.append('day2', row.tues);
+          formData.append('day3', row.wed);
+          formData.append('day4', row.thu);
+          formData.append('day5', row.fri);
+          formData.append('day6', row.sat);
+          formData.append('day7', row.sun);
+          formData.append('totalamt', row.totalAmount);
+          formData.append('admin', this.traineeID);
+          formData.append('orgid', this.OrgID);
+          formData.append('create_by', this.username);
+
+          this.Service.createTimesheet(formData).subscribe(
+                (x: any) => {
+                      this.handleSuccess(x);
+                      this.loading = false;
+                    },
+                    (error: any) => {
+                      this.handleError(error);
+                      this.loading = false;
+                    }
+              );
+        }       
       });
-    } else {
-      console.log(`Candidate Name: ${this.selectedItem}, Start Date: ${startDateFormatted}, End Date: ${endDateFormatted}, Only one row value is present in the table. Value:`, this.timesheetRows[0]);
-    }
 }
 
-  
+private handleSuccess(response: any): void {
+  this.messageService.add({ severity: 'success', summary: response.message });
+  console.log(response);
+  this.loading = false;
+  // this.fetchinterviewlist();
+}
+
+private handleError(response: any): void {
+  this.messageService.add({ severity: 'error', summary: response.message });
+  this.loading = false;
+}
   
   
   

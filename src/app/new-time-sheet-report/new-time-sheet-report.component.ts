@@ -84,8 +84,6 @@ fetchtimesheetreport(){
   });
 }
 
-
-
   toggleSortingOptions(event: Event) {
     event.preventDefault();
     this.showSortingOptions = !this.showSortingOptions;
@@ -215,6 +213,7 @@ fetchtimesheetreport(){
       this.loading = false;
     });
   }
+  
   
   
 }

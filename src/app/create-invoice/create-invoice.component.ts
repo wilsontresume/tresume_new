@@ -26,28 +26,37 @@ export class CreateInvoiceComponent implements OnInit {
   ClientName: any;
   state: any;
   files: File[] = [];
-  invoiceLines: any[] = [];
   selectedRowIndex: number | null = null;
-  subtotal: number = 0;
-  total: number = 0;
   clientEmail: any;
-  billingAddress: any;
-  invoiceDate: any;
-  dueDate: any;
+  Billingaddress: any;
+  InvoiceDate: any;
+  DueDate: any;
   selectedTerm: any;
-  invoiceNo: any;
+  InvoiceNo: any;
   routeType: any;
+  productService: string[] = ["Service"];
+  ccEmails: any;
+  bccEmails: any;
+  invoiceLines: any[] = []; 
+  subtotal: number = 0;
+  discountPercentage: number = 0;
+  discountAmount: number = 0;
+  total: number = 0;
+  balanceDue: number = 0;
+  selectedState: any;
+  states: any;
 
   ngOnInit(): void {
     this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
     this.getState();
     this.fetchclientlist();
+    this.calculateSubtotal(); 
   }
 
   constructor(private messageService: MessageService, private cookieService: CookieService, private Service: CreateInvoiceService, private router: Router, private route: ActivatedRoute) {
 
-    this.OrgID = this.cookieService.get('OrgID');    
+    this.OrgID = this.cookieService.get('OrgID');
     this.routeType = this.route.snapshot.params["routeType"];
     this.addDefaultRows(2);
   }
@@ -74,21 +83,34 @@ export class CreateInvoiceComponent implements OnInit {
       description: '',
       qty: 0,
       rate: 0,
-      // attachment: '' // Uncomment if needed
+      attachment: ''
     });
   }
 
-  removeLine(index: number) {
+  removeLine(index: number): void {
     this.invoiceLines.splice(index, 1);
+    this.calculateSubtotal();
   }
 
   clearLines() {
     this.invoiceLines = [];
-    // Add 2 default rows after clearing
     this.addDefaultRows(2);
+    this.calculateSubtotal();
   }
+
+  updateAmount(line: any): void {
+    line.amount = line.qty * line.rate;
+    this.calculateSubtotal();
+}
+
+updateDiscount(event: any): void {
+  const selectedDiscount = parseInt(event.target.value); 
+  this.discountPercentage = selectedDiscount; 
+  this.calculateTotal(); 
+}
+
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
-  maxSize: number = 20; // Maximum file size in MB
+  maxSize: number = 20;
 
   onFilesSelected(event: any) {
     const fileList: FileList | null = event.target.files;
@@ -214,12 +236,12 @@ export class CreateInvoiceComponent implements OnInit {
       OrgID: this.OrgID,
     };
     this.Service.getLocationList(req).subscribe((x: any) => {
-      this.state = x.result;
+      this.states = x.result;
     });
   }
 
   getDropdownOption() {
-    return this.state; // Use this.state instead of this.city
+    return this.states; // Use this.state instead of this.city
   }
 
   onDropdownChanges(selectedOption: any, row: any) {
@@ -235,46 +257,88 @@ export class CreateInvoiceComponent implements OnInit {
       this.loading = false;
     });
   }
-  
+    
+    
   addinvoice() {
     this.loading = true;
+    let invoiceLinesData: { serviceDate: any, description: any, qty: any, rate: any }[] = [];
+    this.invoiceLines.forEach((line, index) => {
+      invoiceLinesData.push({
+        serviceDate: line.serviceDate,
+        description: line.description,
+        qty: line.qty,
+        rate: line.rate
+      });
+    });
+
     let Req = {
       client: this.ClientName,
       clientEmail: this.clientEmail,
-      billingAddress: this.billingAddress,
-      invoiceDate: this.invoiceDate,
-      dueDate: this.dueDate,
-      terms: this.selectedTerm,
-      invoiceNo: this.invoiceNo,
-      state: this.state,
+      ccEmails: this.ccEmails,
+      bccEmails: this.bccEmails,
+      Billingaddress: this.Billingaddress,
+      InvoiceDate: this.InvoiceDate,
+      DueDate: this.DueDate,
+      Terms: this.selectedTerm,
+      InvoiceNo: this.InvoiceNo,
+      state: this.selectedState.state,
+      invoiceLines: invoiceLinesData
     };
+
     console.log(Req);
-    this.Service.createInvoice(Req).subscribe(
-      (x: any) => {
-        this.handleSuccess(x);
-        this.loading = false;
-      },
-      (error: any) => {
-        this.handleError(error);
-        this.loading = false;
-      }
-    );
+  
+    // this.Service.createInvoice(Req).subscribe(
+    //   (x: any) => {
+    //     this.handleSuccess(x);
+    //     this.loading = false;
+    //   },
+    //   (error: any) => {
+    //     this.handleError(error);
+    //     this.loading = false;
+    //   }
+    // );
   }
+
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
     this.loading = false;
-    this.router.navigate(['/all-invoice/'+this.routeType]);
+    this.router.navigate(['/all-invoice/' + this.routeType]);
   }
-  
+
   private handleError(error: any): void {
     let errorMessage = 'An error occurred';
     if (error.error && error.error.message) {
-      errorMessage = error.error.message; 
+      errorMessage = error.error.message;
     }
     this.messageService.add({ severity: 'error', summary: errorMessage });
     console.error('Error occurred:', error);
     this.loading = false;
   }
-  
+
+  calculateSubtotal(): void {
+    this.subtotal = this.invoiceLines.reduce((acc, line) => acc + (line.qty * line.rate), 0);
+    this.calculateTotal();
+  }
+
+  calculateTotal(): void {
+    this.discountAmount = (this.subtotal * this.discountPercentage) / 100;
+    this.total = this.subtotal - this.discountAmount;
+    this.balanceDue = this.total;
+  }
+
+  tableData = [
+    { activeDate: '', client: '', product: '', description: '', rates: '', duration: '', billable: '' },
+    ];
+    
+  fetchtimesheetreport(){
+    let Req = {
+      OrgID: this.OrgID,
+    };
+    this.Service.getTimesheetReport(Req).subscribe((x: any) => {
+      this.tableData = x.result;
+      this.loading = false;
+    });
+    console.log(Req);
+  }
 }

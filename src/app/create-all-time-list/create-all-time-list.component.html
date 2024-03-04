@@ -70,7 +70,7 @@
                     <div class="dropdown-menu dropdown-menu-scrollable">
                       <a class="dropdown-item" *ngFor="let option of getDropdownOptions(1)"
                         (click)="onDropdownChange(option, row)">
-                        {{ option.ProjectName }}
+                        {{ option.projectname }}
                       </a>
                     </div>
                   </div>
@@ -206,3 +206,6 @@
     </div>
   </div>
 </div>
+
+<p-toast position="bottom-right"></p-toast>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
