@@ -395,8 +395,9 @@
                       <th>NO.</th>
                       <th>CLIENT/PROJECT</th>
                       <th>MEMO</th>
-                      <th colspan="2">AMOUNT </th>
-                      <th> STATUS <i class="fas fa-angle-down" style="margin-left: 5px;"></i></th>
+                      <th>AMOUNT </th>
+                      <th>STATUS</th>
+                      <!-- <i class="fas fa-angle-down" style="margin-left: 5px;"></i> -->
                       <!-- <th>ACTION</th> -->
                     </tr>
                   </thead>
@@ -404,11 +405,11 @@
 
                     <tr *ngFor="let invoice of allInvoices">
                       <td><input type="checkbox"></td>
-                      <td>{{ invoice.date }}</td>
+                      <td>{{ invoice.date| date : "MM/dd/y" : "UTC" }}</td>
                       <td>Invoice</td>
                       <td>{{ invoice.invoiceNo }}</td>
                       <td>{{ invoice.projectname }}</td>
-                      <td>{{ invoice.memo }}</td>
+                      <td>{{ invoice.memo| date : "MM/dd/y" : "UTC" }}</td>
                       <td>{{ invoice.total }}</td>
                       <td>{{ invoice.status }}</td>
                       <!-- <td>
@@ -478,11 +479,11 @@
                 <tbody>
                   <tr *ngFor="let invoice of paidInvoices">
                     <td><input type="checkbox"></td>
-                    <td>{{ invoice.date }}</td>
+                    <td>{{ invoice.date| date : "MM/dd/y" : "UTC" }}</td>
                     <td>Invoice</td>
                     <td>{{ invoice.invoiceNo }}</td>
                     <td>{{ invoice.projectname }}</td>
-                    <td>{{ invoice.memo }}</td>
+                    <td>{{ invoice.memo | date : "MM/dd/y" : "UTC" }}</td>
                     <td>{{ invoice.total }}</td>
                     <td>{{ invoice.status }}</td>
                     <!-- <td>
@@ -553,11 +554,11 @@
                   <tbody>
                     <tr *ngFor="let invoice of unpaidInvoices">
                       <td><input type="checkbox"></td>
-                      <td>{{ invoice.date }}</td>
+                      <td>{{ invoice.date| date : "MM/dd/y" : "UTC" }}</td>
                       <td>Invoice</td>
                       <td>{{ invoice.invoiceNo }}</td>
                       <td>{{ invoice.projectname }}</td>
-                      <td>{{ invoice.memo }}</td>
+                      <td>{{ invoice.memo | date : "MM/dd/y" : "UTC" }}</td>
                       <td>{{ invoice.total }}</td>
                       <td>{{ invoice.status }}</td>
                       <!-- <td>
