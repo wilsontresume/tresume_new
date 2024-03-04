@@ -354,6 +354,14 @@ body {
 
   .primary {
     color: blue;
-  }  
+  } 
+  
+  .message-box {
+    height: 100px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+  
   
 }
