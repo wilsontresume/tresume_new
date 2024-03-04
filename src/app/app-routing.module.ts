@@ -106,6 +106,7 @@ import { SendInvoiceComponent } from './all-invoice/send-invoice/send-invoice.co
 import { TimeActivityComponent } from './all-invoice/time-activity/time-activity.component';
 import { CreateStatementsComponent } from './all-invoice/create-statements/create-statements.component';
 import { MultipleInvoicesComponent } from './all-invoice/multiple-invoices/multiple-invoices.component';
+import { InvoiceReportComponent } from './invoice-report/invoice-report.component';
 
 const routes: Routes = [
   { path: 'dashboard/:traineeId', component: DashboardComponent, canActivate: [AuthGuard]  },
@@ -216,6 +217,7 @@ const routes: Routes = [
   { path: 'homehealth/login', component: LoginHomeHealthComponent },
   { path: 'create-invoice', component: CreateInvoiceComponent },
   { path: 'all-invoice', component: AllInvoiceComponent },
+  { path: 'invoice-report', component: InvoiceReportComponent },
   { path: 'payment', component: PaymentComponent },
   { path: 'tsreport', component: NewTimeSheetReportComponent },
   { path: 'reports/ar-aging-report', component: ArAgingReportComponent },

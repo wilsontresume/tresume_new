@@ -169,6 +169,7 @@ import { CreateStatementsComponent } from './all-invoice/create-statements/creat
 import { MultipleInvoicesComponent } from './all-invoice/multiple-invoices/multiple-invoices.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { InvoiceReportComponent } from './invoice-report/invoice-report.component';
 
 @NgModule({
   declarations: [
@@ -269,6 +270,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
       TimeActivityComponent,
       CreateStatementsComponent,
       MultipleInvoicesComponent,
+      InvoiceReportComponent,
     // TimesheetViewdetailsComponent
 
   ],
