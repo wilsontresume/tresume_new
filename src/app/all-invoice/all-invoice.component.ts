@@ -180,11 +180,9 @@ throw new Error('Method not implemented.');
     
   ngOnInit(): void {
     // this.loading = true;
-    this.fetchPaidInvoiceList();
-    this.fetchunPaidInvoiceList();
-    this.fetchAllInvoiceList();
-    throw new Error('Method not implemented.');
-
+    // this.fetchPaidInvoiceList();
+    // this.fetchunPaidInvoiceList();
+    // this.fetchAllInvoiceList();
   }
 
 
