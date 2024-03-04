@@ -214,6 +214,13 @@
                                     <p>Invoice</p>
                                   </a>
                               </li>
+
+                              <li class="nav-item" *ngIf="timesheetrole == 1">
+                                <a class="nav-link" routerLink="invoice-report">
+                                    <i class="nav-icon fas fa-chart-bar"></i>
+                                    <p>Invoice Report</p>
+                                  </a>
+                              </li>
                               
                           <li class="nav-item" *ngIf="timesheetrole == 1">
                             <a class="nav-link" routerLink="/assignrole">
