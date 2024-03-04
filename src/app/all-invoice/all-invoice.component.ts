@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
   
 })
 export class AllInvoiceComponent implements OnInit {
+
   @Output() confirmed = new EventEmitter<boolean>();
    @Output() modalClosed = new EventEmitter<void>();
   makeInactiveModal: any;
@@ -20,6 +21,7 @@ isModal3Open: any;
 deleteAction() {
 throw new Error('Method not implemented.');
 }
+
 loading: boolean = false;
   isRowSelected = false;
   isContentVisible = false;
@@ -29,7 +31,7 @@ loading: boolean = false;
   shareLink = '';
   row: any;
   noResultsFound:boolean = true;
-  invoices: any[] = [];
+  paidInvoices: any[] = [];
   unpaidInvoices: any[] = [];
   allInvoices: any[] = [];
 
@@ -109,11 +111,11 @@ selectDocument(event: Event): void {
   toggleContentVisibility() {
     this.isContentVisible = !this.isContentVisible;
   }
-  onRowHover(event: MouseEvent): void {
+  onRowHover(): void {
     this.isRowSelected = true;
   }
 
-  onRowOut(event: MouseEvent): void {
+  onRowOut(): void {
     this.isRowSelected = false;
   }
 
@@ -170,19 +172,19 @@ throw new Error('Method not implemented.');
   }   
 
     constructor(
-    private dialog: MatDialog, private cookieService: CookieService, private messageService: MessageService, private service: AllInvoiceService,
+    private cookieService: CookieService, private service: AllInvoiceService,
          
     ) {
-
       this.OrgID = this.cookieService.get('OrgID');
-      this.TraineeID = this.cookieService.get('TraineeID');
+      // this.TraineeID = this.cookieService.get('TraineeID');
     }
     
   ngOnInit(): void {
-    // this.loading = true;
-    // this.fetchPaidInvoiceList();
-    // this.fetchunPaidInvoiceList();
-    // this.fetchAllInvoiceList();
+    this.OrgID = this.cookieService.get('OrgID');
+    this.loading = true;
+    this.fetchPaidInvoiceList();
+    this.fetchunPaidInvoiceList();
+    this.fetchAllInvoiceList();
   }
 
 
@@ -191,11 +193,12 @@ throw new Error('Method not implemented.');
       OrgID: this.OrgID,
     };
     this.service.getPaidInvoiceList(Req).subscribe((x: any) => {
-      this.invoices = x.result;
-      this.noResultsFound = this.invoices.length === 0;
-    this.loading = false;
+      this.paidInvoices = x.result;
+      this.noResultsFound = this.paidInvoices.length === 0;
+    // this.loading = false;
     });
   }
+
   fetchunPaidInvoiceList(){
     let Req = {
       OrgID: this.OrgID,
@@ -203,7 +206,7 @@ throw new Error('Method not implemented.');
     this.service.getunPaidInvoiceList(Req).subscribe((x: any) => {
       this.unpaidInvoices = x.result;
       this.noResultsFound = this.unpaidInvoices.length === 0;
-    this.loading = false;
+    // this.loading = false;
     });
   }
 
