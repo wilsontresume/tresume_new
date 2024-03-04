@@ -18,11 +18,9 @@ export class AllInvoiceService {
   getPaidInvoiceList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getPaidInvoiceList', request);
 }
-getunPaidInvoiceList(request: any): Observable<ResponseDetails> {
+  getunPaidInvoiceList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getunPaidInvoiceList', request);
 }
-
-
 }
 export interface ResponseDetails {
   flag?: any;
