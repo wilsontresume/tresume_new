@@ -33,11 +33,11 @@
           <div class="tab-content">
             <div id="allinvoices" class="tab-pane fade show active">
               <div class="row">
-                <div class="col-md-2 mt-4 containers">
+                <!-- <div class="col-md-2 mt-4 containers">
                   <input type="search" placeholder="Search...">
-                </div>
+                </div> -->
                 <div class="col-md-10 mt-4 opt d-flex text-right">
-                  <div class="btn-group mr-2">
+                  <!-- <div class="btn-group mr-2">
                     <button type="button" class="btn btn-" data-toggle="modal" data-target="#exampleModal"
                       data-whatever="@fat">
                       Edit
@@ -52,7 +52,7 @@
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mergeContactsModal">Merge
                         contacts</a>
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="modal fade" id="makeInactiveModal" tabindex="-1" role="dialog"
                     aria-labelledby="makeInactiveModal" aria-hidden="true">
@@ -254,10 +254,10 @@
                   </div>
 
                   <div class="dropdown">
-                    <button class="btn btn dropdown-toggle" type="button" id="dropdownMenuButton2"
+                    <!-- <button class="btn btn dropdown-toggle" type="button" id="dropdownMenuButton2"
                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       New transaction
-                    </button>
+                    </button> -->
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                       <a class="dropdown-item" href="#">Invoice</a>
                       <!-- <a class="dropdown-item" href="multiple-invoices">Multiple Invoice</a> -->
@@ -327,14 +327,14 @@
                 </div>
               </div> -->
               <div class="row" style="margin-top: 5rem;">
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                   <label for="batchActions">Batch Actions</label>
                   <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="batchActions"
                     name="batchActions">
                     <option *ngFor="let option of batchActionsOptions" [value]="option" disabled selected>{{ option }}
                     </option>
                   </select>
-                </div>
+                </div> -->
 
                 <!-- <div class="col-md-2">
                   <label for="type">Type</label>
@@ -343,14 +343,14 @@
                   </select>
                 </div> -->
 
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                   <label for="status">Status</label>
                   <select *ngIf="activeTab === 'allinvoices'" class="form-control" id="status" name="status">
                     <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
                   </select>
-                </div>
+                </div> -->
 
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                   <label for="date">Date</label>
                   <select class="form-control" id="date" name="date"
                     (change)="toggleCustomDateModel($event.target.value)">
@@ -367,23 +367,23 @@
                     <button (click)="resetDates()">Reset</button>
                     <button (click)="applyAndClose()" class="m-1">Apply</button>
                   </div>
-                </div>
+                </div> -->
 
 
 
-                <div class="col-md-2 mt-4">
+                <!-- <div class="col-md-2 mt-4">
                   <a href="#" (click)="viewRecurringTemplates()" style="margin-left: 8px;">Recurring templates</a>
                 </div>
 
                 <div class="col-md-2 mt-4">
                   <a href="#" (click)="feedbackWithIcon()">Feedback</a>
-                </div>
+                </div> -->
               </div>
 
               <div class="action-icons icons-container float-right">
                 <i class="material-icons" onclick="handlePrint()">print</i>
                 <i class="fas fa-upload" onclick="handleFileUpload()"></i>
-                <i class="fas fa-cog" onclick="openSettings()"></i>
+                <!-- <i class="fas fa-cog" onclick="openSettings()"></i> -->
               </div>
               <div style="font-size: 12px;">
                 <table class="table no-border mt-4">
@@ -398,7 +398,7 @@
                       <th colspan="2">AMOUNT </th>
                       <th> STATUS <i class="fas fa-angle-down" style="margin-left: 5px;"></i></th>
 
-                      <th>ACTION</th>
+                      <!-- <th>ACTION</th> -->
 
                     </tr>
                   </thead>
@@ -642,14 +642,14 @@
 
             <div id="paidinvoices" class="tab-pane fade">
               <div class="row">
-                <div class="row col-md-2 mt-4 containers">
+                <!-- <div class="row col-md-2 mt-4 containers">
                   <input type="search" placeholder="Search...">
-                </div>
+                </div> -->
               </div>
-              <div class="action-icons icons-container float-right">
+              <div class="action-icons icons-container float-right mt-3">
                 <i class="material-icons" onclick="handlePrint()">print</i>
                 <i class="fas fa-upload" onclick="handleFileUpload()"></i>
-                <i class="fas fa-cog" onclick="openSettings()"></i>
+                <!-- <i class="fas fa-cog" onclick="openSettings()"></i> -->
               </div>
               <table class="table no-border" style="margin-top: 50px;">
                 <thead class="underline">
@@ -716,14 +716,14 @@
 
             <div id="unpaidinvoices" class="tab-pane fade">
               <div class="row">
-                <div class="row col-md-2 mt-4 containers">
+                <!-- <div class="row col-md-2 mt-4 containers">
                   <input type="search" placeholder="Search...">
-                </div>
+                </div> -->
               </div>
-              <td class="action-icons icons-container float-right">
+              <td class="action-icons icons-container float-right mt-3">
                 <i class="material-icons" onclick="handlePrint()">print</i>
                 <i class="fas fa-upload" onclick="handleFileUpload()"></i>
-                <i class="fas fa-cog" onclick="openSettings()"></i>
+                <!-- <i class="fas fa-cog" onclick="openSettings()"></i> -->
               </td>
               <div style="font-size: 12px;">
                 <table class="table no-border" style="margin-top: 50px;">
