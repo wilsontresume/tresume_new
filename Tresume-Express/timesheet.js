@@ -11,6 +11,10 @@ const environment = process.env.NODE_ENV || "prod";
 const envconfig = require(`./config.${environment}.js`);
 const apiUrl = envconfig.apiUrl;
 router.use(bodyparser.json());
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+const { v4: uuidv4 } = require('uuid');
 
 const config = {
   user: "sa",
@@ -54,6 +58,18 @@ module.exports = router;
 //   });
 // });
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'C:/inetpub/vhosts/tresume.us/httpdocs/Content/Timesheet/');
+  },
+  filename: function (req, file, cb) {
+    const uniqueFilename = uuidv4();
+    const fileExtension = path.extname(file.originalname);
+    cb(null, uniqueFilename + fileExtension);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 router.post("/getTimesheetReport", async (req, res) => {
   try {
@@ -241,55 +257,55 @@ router.post("/getNonBillableTimesheetResult", async (req, res) => {
 });
 
 
-router.post("/createTimesheet", async (req, res) => {
-  const timesheetData = req.body.timesheetData;
-  sql.connect(config, async function (err) {
-    if (err) {
-      console.log(err);
-      return res
-        .status(500)
-        .send({ flag: 0, error: "Database connection error" });
-    }
+// router.post("/createTimesheet", async (req, res) => {
+//   const timesheetData = req.body.timesheetData;
+//   sql.connect(config, async function (err) {
+//     if (err) {
+//       console.log(err);
+//       return res
+//         .status(500)
+//         .send({ flag: 0, error: "Database connection error" });
+//     }
 
-    try {
-      const pool = await sql.connect(config);
-      const transaction = new sql.Transaction(pool);
-      await transaction.begin();
+//     try {
+//       const pool = await sql.connect(config);
+//       const transaction = new sql.Transaction(pool);
+//       await transaction.begin();
 
-      try {
-        const request = new sql.Request(transaction);
+//       try {
+//         const request = new sql.Request(transaction);
 
-        for (const data of timesheetData) {
-          request.input("traineeID", sql.VarChar, req.body.traineeID);
-          request.input("project", sql.VarChar, data.project);
-          request.input("fromdate", sql.Date, data.fromdate);
-          request.input("todate", sql.Date, data.todate);
-          request.input("totalhrs", sql.Decimal(18, 2), data.totalhrs);
-          request.input("approvalstatus", sql.VarChar, data.approvalstatus);
-          request.input("comments", sql.VarChar, data.comments);
+//         for (const data of timesheetData) {
+//           request.input("traineeID", sql.VarChar, req.body.traineeID);
+//           request.input("project", sql.VarChar, data.project);
+//           request.input("fromdate", sql.Date, data.fromdate);
+//           request.input("todate", sql.Date, data.todate);
+//           request.input("totalhrs", sql.Decimal(18, 2), data.totalhrs);
+//           request.input("approvalstatus", sql.VarChar, data.approvalstatus);
+//           request.input("comments", sql.VarChar, data.comments);
 
-          const query = `INSERT INTO Timesheet_Master (traineeid, projectid, fromdate, todate, totalhrs, approvalstatus, comments) VALUES (@traineeID, @project, @fromdate, @todate, @totalhrs, @approvalstatus, @comments)`;
+//           const query = `INSERT INTO Timesheet_Master (traineeid, projectid, fromdate, todate, totalhrs, approvalstatus, comments) VALUES (@traineeID, @project, @fromdate, @todate, @totalhrs, @approvalstatus, @comments)`;
 
-          await request.query(query);
-        }
+//           await request.query(query);
+//         }
 
-        await transaction.commit();
-        res
-          .status(200)
-          .send({ flag: 1, message: "Timesheet data inserted successfully" });
-      } catch (err) {
-        console.log(err);
-        await transaction.rollback();
-        res
-          .status(500)
-          .send({ flag: 0, error: "Error inserting timesheet data" });
-      }
-    } catch (err) {
-      console.log(err);
-      res.status(500).send({ flag: 0, error: "Database connection error" });
-    }
-  });
-});
+//         await transaction.commit();
+//         res
+//           .status(200)
+//           .send({ flag: 1, message: "Timesheet data inserted successfully" });
+//       } catch (err) {
+//         console.log(err);
+//         await transaction.rollback();
+//         res
+//           .status(500)
+//           .send({ flag: 0, error: "Error inserting timesheet data" });
+//       }
+//     } catch (err) {
+//       console.log(err);
+//       res.status(500).send({ flag: 0, error: "Database connection error" });
+//     }
+//   });
+// });
 
 router.post("/fetchtimesheetusers", async (req, res) => {
   try {
@@ -904,7 +920,7 @@ router.post('/getCreateProjectList', async (req, res) => {
     const request = pool.request();
     
     // const query =  "select * from timesheet_project where projectname like '%value%' and orgID = this.orgID and active = 1";
-    const query =  "SELECT DISTINCT ProjectName FROM ProjectMaster";
+    const query =  "select projectname,projectid from timesheet_project where orgid='"+req.body.OrgID+"' and status = 1";
 
     console.log(query);
 
@@ -976,7 +992,7 @@ router.post('/getLocationList', async (req, res) => {
     
     // const query =  "select LocationName from Location";
     // const query =  " select distinct city from UsazipcodeNew";
-    const query = "select distinct CONCAT(state,' - ',stateAbbr) as state from usazipcodenew ORDER BY state ASC";
+    const query = "select distinct CONCAT(state,' - ',stateAbbr) as state,zipcode from usazipcodenew ORDER BY state ASC";
 
     console.log(query);
 
@@ -1028,6 +1044,57 @@ router.post('/deletetimesheetdata', async (req, res) => {
     res.status(500).send(result);
   }  
 })
+
+router.post('/createTimesheet', upload.single('file1'), async (req, res) => {
+  try {
+    // Extracting data from FormData and request body
+    const { traineeid, totalhrs, comments, projectid, details, approvalstatus, statusreport, clientapproved, approvedby, processdate, admincomment, fromdate, todate, isBillable, payterm, service, location, billableamt, day1, day2, day3, day4, day5, day6, day7, totalamt, admin, orgid, create_by } = req.body;
+    const filename = req.file.filename;
+
+    // Create a new SQL connection pool
+    const pool = await sql.connect(config);
+
+    // Execute the INSERT query
+    await pool.request()
+      .input('traineeid', sql.Int, traineeid)
+      .input('totalhrs', sql.Int, totalhrs)
+      .input('comments', sql.Text, '')
+      .input('projectid', sql.Int, projectid)
+      .input('details', sql.Text, details)
+      .input('approvalstatus', sql.Int, '1')
+      .input('statusreport', sql.VarChar(sql.MAX), '')
+      .input('clientapproved', sql.VarChar(sql.MAX), filename)
+      .input('approvedby', sql.Int, '')
+      .input('admincomment', sql.Text, '')
+      .input('created_at', sql.DateTime, new Date()) // Current datetime
+      .input('status', sql.Int, 1) // Assuming default status
+      .input('fromdate', sql.DateTime, fromdate)
+      .input('todate', sql.DateTime, todate)
+      .input('isBillable', sql.Bit, isBillable)
+      .input('payterm', sql.Int, payterm)
+      .input('service', sql.Int, service)
+      .input('location', sql.Int, location)
+      .input('billableamt', sql.VarChar(50), billableamt)
+      .input('day1', sql.VarChar(10), day1)
+      .input('day2', sql.VarChar(10), day2)
+      .input('day3', sql.VarChar(10), day3)
+      .input('day4', sql.VarChar(10), day4)
+      .input('day5', sql.VarChar(10), day5)
+      .input('day6', sql.VarChar(10), day6)
+      .input('day7', sql.VarChar(10), day7)
+      .input('totalamt', sql.VarChar(50), totalamt)
+      .input('admin', sql.Int, admin)
+      .input('orgid', sql.Int, orgid)
+      .input('create_by', sql.VarChar(50), create_by)
+      .query(`INSERT INTO [dbo].[timesheet_Master] (traineeid, totalhrs, projectid, details, clientapproved,created_at,status, fromdate, todate, isBillable, payterm, service, location, billableamt, day1, day2, day3, day4, day5, day6, day7, totalamt, admin, orgid, create_by) VALUES (@traineeid, @totalhrs, @projectid, @details, @clientapproved, @created_at, @status, @fromdate, @todate, @isBillable, @payterm, @service, @location, @billableamt, @day1, @day2, @day3, @day4, @day5, @day6, @day7, @totalamt, @admin, @orgid, @create_by)`);
+
+    // Respond with success message
+    res.status(200).json({ message: 'Timesheet Created successfully', filename });
+  } catch (error) {
+    console.error('Error creating timesheet:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // router.post('/createTimesheet', async (req, res) => {
 //   sql.connect(config, function (err) {

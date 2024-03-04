@@ -13,8 +13,11 @@ export class CreateAllTimeListService {
 
 
   constructor(private http: HttpClient) { }
-  createTimesheet(data: any) {
-    return this.http.post(this.endpoint, data);
+  // createTimesheet(data: any) {
+  //   return this.http.post(this.endpoint, data);
+  // }
+  createTimesheet(formData: FormData): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'createTimesheet', formData);
   }
 
   getTimesheetCandidatetList(request: any): Observable<ResponseDetails> {
