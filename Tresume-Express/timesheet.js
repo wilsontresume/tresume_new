@@ -80,14 +80,31 @@ router.post("/getTimesheetReport", async (req, res) => {
       }
       var request = new sql.Request();
       var query = `SELECT 
-                      t1.*, 
-                      CONCAT(t2.FirstName, ' ', t2.LastName) AS TraineeName
-                  FROM 
-                      timesheet_master AS t1
-                  JOIN 
-                      Trainee AS t2 ON t1.TraineeID = t2.TraineeID
-                  WHERE 
-                      t1.orgid = '${req.body.OrgID}'`;
+      CONCAT(t.FirstName, ' ', t.LastName) AS TraineeName,
+      tm.*, -- Selecting all columns from timesheet_master
+      o.organizationname
+  FROM 
+      Memberdetails md
+  JOIN 
+      timesheet_master tm ON md.traineeid = tm.traineeid
+  JOIN 
+      organization o ON tm.orgid IN (SELECT value FROM STRING_SPLIT(md.accessorg, ','))
+  JOIN 
+      Trainee t ON tm.traineeid = t.traineeid
+  WHERE 
+      md.useremail = 'karthik@tresume.us'`;
+      
+      
+      
+      // `SELECT 
+      //                 t1.*, 
+      //                 CONCAT(t2.FirstName, ' ', t2.LastName) AS TraineeName
+      //             FROM 
+      //                 timesheet_master AS t1
+      //             JOIN 
+      //                 Trainee AS t2 ON t1.TraineeID = t2.TraineeID
+      //             WHERE 
+      //                 t1.orgid = '${req.body.OrgID}'`;
 
       // Check if startdate and enddate are provided
       if (req.body.startdate && req.body.enddate) {
