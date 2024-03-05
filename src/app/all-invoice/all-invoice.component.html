@@ -401,41 +401,40 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let invoice of filteredInvoices">
-                          <td><input type="checkbox"></td>
-                          <td>{{ invoice.date| date : "MM/dd/y" : "UTC" }}</td>
-                          <td>Invoice</td>
-                          <td>{{ invoice.invoiceNo }}</td>
-                          <td>{{ invoice.projectname }}</td>
-                          <td>{{ invoice.memo| date : "MM/dd/y" : "UTC" }}</td>
-                          <td>{{ invoice.total }}</td>
-                          <td>{{ invoice.status }}</td>
-                          <td>
-                              <button class="btn btn-" (click)="editAction()">Edit</button>
-                              <div class="btn-group received" style="margin-left: 5px;">
-                                  <a class="btn btn float-left" style=" height: 30px;" href="payment">Receive Payment</a>
-                                  <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
+                    <tr *ngFor="let invoice of filteredInvoices">
+                      <td><input type="checkbox"></td>
+                      <td>{{ invoice.date | date: "MM/dd/y" : "UTC" }}</td>
+                      <td>Invoice</td>
+                      <td>{{ invoice.invoiceNo }}</td>
+                      <td>{{ invoice.projectname }}</td>
+                      <td>{{ invoice.memo | date: "MM/dd/y" : "UTC" }}</td>
+                      <td>{{ invoice.total }}</td>
+                      <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
+                      <td>
+                          <button class="btn btn-" (click)="editAction()">Edit</button>
+                          <div class="btn-group received" style="margin-left: 5px;">
+                              <a class="btn btn float-left" style=" height: 30px;" href="payment">Receive Payment</a>
+                              <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                       style="margin-left: 1px;">
-                                      <span class="sr-only">Toggle Dropdown</span>
-                                  </button>
-                                  <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-                                  <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                                      <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                                      <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                                      <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create
-                                          task</a>
-                                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shareLinkModal">Share
-                                          invoice link</a>
-                                      <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                                      <a class="dropdown-item" href="#" data-toggle="modal"
-                                          data-target="#deleteConfirmationModal">Delete</a>
-                                  </div>
+                                  <span class="sr-only">Toggle Dropdown</span>
+                              </button>
+                              <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                              <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                                  <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                                  <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
+                                  <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
+                                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
+                                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
+                                  <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                                  <a class="dropdown-item" href="#" data-toggle="modal"
+                                      data-target="#deleteConfirmationModal">Delete</a>
                               </div>
-                          </td>
-                      </tr>
+                          </div>
+                      </td>
+                  </tr>
+                  
                       <tr *ngIf="noResultsFound">
                           <td colspan="9" class="text-center">
                               No results found.
@@ -484,7 +483,7 @@
                         <td>{{ invoice.projectname }}</td>
                         <td>{{ invoice.memo | date : "MM/dd/y" : "UTC" }}</td>
                         <td>{{ invoice.total }}</td>
-                        <td>{{ invoice.status }}</td>
+                        <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                         <td>
                             <button class="btn btn-" (click)="editAction()">Edit</button>
                             <div class="btn-group received" style="margin-left: 5px;">
@@ -550,7 +549,7 @@
 
                     </tr>
                   </thead>
-                  <tbody>
+                  
                   <tbody>
                       <tr *ngFor="let invoice of filteredUnpaidInvoices">
                           <td><input type="checkbox"></td>
@@ -560,7 +559,7 @@
                           <td>{{ invoice.projectname }}</td>
                           <td>{{ invoice.memo | date : "MM/dd/y" : "UTC" }}</td>
                           <td>{{ invoice.total }}</td>
-                          <td>{{ invoice.status }}</td>
+                          <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                           <td>
                               <button class="btn btn-" (click)="editAction()">Edit</button>
                               <div class="btn-group received" style="margin-left: 5px;">
