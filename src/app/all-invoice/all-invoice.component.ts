@@ -35,7 +35,8 @@ export class AllInvoiceComponent implements OnInit {
   paidInvoices: any[] = [];
   unpaidInvoices: any[] = [];
   allInvoices: any[] = [];
-
+  filteredInvoices: any[] = [];
+  searchQuery: string = '';
   OrgID: string = '';
   TraineeID: string = '';
 
@@ -210,9 +211,16 @@ export class AllInvoiceComponent implements OnInit {
     };
     this.service.getAllInvoiceList(Req).subscribe((x: any) => {
       this.allInvoices = x.result;
-      this.noResultsFound = this.allInvoices.length === 0;
+      this.applyFilter();
       this.loading = false;
     });
+  }
+
+  applyFilter() {
+    this.filteredInvoices = this.allInvoices.filter(invoice =>
+      invoice.projectname.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+    this.noResultsFound = this.filteredInvoices.length === 0 && this.searchQuery !== '';
   }
 
 
