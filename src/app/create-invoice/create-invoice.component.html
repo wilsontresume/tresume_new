@@ -58,23 +58,24 @@
 
         <div class="billingaddress mt-0 ml-3">
           <label for="Billingaddress" class="ml-0">Billing address</label>
-          <textarea class="form-control" id="Billingaddress" placeholder="Enter Address" rows="1" [(ngModel)]="selectedBillingaddress"></textarea>
+          <textarea class="form-control" id="Billingaddress" placeholder="Enter Address" rows="1"
+            [(ngModel)]="selectedBillingaddress"></textarea>
         </div>
-        
+
         <div class="invoiceDate mt-0 ml-3">
           <div class="form-group">
             <label for="InvoiceDate" class="ml-0">Invoice Date</label>
             <input type="date" id="InvoiceDate" class="form-control ml-0" [(ngModel)]="selectedInvoiceDate">
           </div>
         </div>
-        
+
         <div class="dueDate mt-0 ml-3">
           <div class="form-group">
             <label for="DueDate" class="ml-0">Due Date</label>
             <input type="date" id="DueDate" class="form-control ml-0" [(ngModel)]="selectedDueDate">
           </div>
         </div>
-        
+
         <!-- <div class="ml-3">
           <h4>Online Payments <button type="button" class="btn btn-sm btn-outline-secondary ml-2">Edit</button></h4>
         </div> -->
@@ -115,50 +116,23 @@
             </div>
             <div class="modal-body" style="height: 300px; overflow-y: auto;">
               <label for="nameInput">*Name:</label><br>
-              <input type="text" id="name" name="name"><br><br>
+              <input type="text" id="name" name="name" [(ngModel)]="newTermName"><br><br>
 
-              <input type="radio" id="dueFixed" name="dueType" value="fixed">
+              <input type="radio" id="dueFixed" name="dueType" value="fixed" [(ngModel)]="dueType">
               <label for="dueFixed">Due in fixed number of days</label><br><br>
 
-              <input type="checkbox" id="checkBox" name="checkBox" class="larger-checkbox" style="margin-left: 34px;">
-              <label for="checkBox" style="margin-left: 4px ;">Days</label><br><br>
+              <input type="number" id="dueDays" name="dueDays" class="larger-checkbox" style="margin-left: 34px;"
+                [(ngModel)]="dueDays" *ngIf="dueType === 'fixed'">
+              <label for="dueDays" style="margin-left: 4px;">Days</label><br><br>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                (click)="closeModal2()">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clearSelection()">Close</button>
+              <button type="button" class="btn btn-primary" (click)="closeModal2()">Save changes</button>
+            </div>            
           </div>
         </div>
       </div>
 
-      <div class="modal5" tabindex="-1" role="dialog" [ngClass]="{'d-block': showModal}" style="display: none;">
-        <div class="modal5-dialog" role="document">
-          <div class="modal-content" style="height: 27rem; width: 18rem;  position: absolute; z-index: 999;">
-            <div class="modal-header">
-              <h5 class="modal-title">New Term</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal2()">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body" style="height: 300px; overflow-y: auto;">
-              <label for="nameInput">*Name:</label><br>
-              <input type="text" id="name" name="name"><br><br>
-
-              <input type="radio" id="dueFixed" name="dueType" value="fixed">
-              <label for="dueFixed">Due in fixed number of days</label><br><br>
-
-              <input type="checkbox" id="checkBox" name="checkBox" class="larger-checkbox" style="margin-left: 34px;">
-              <label for="checkBox" style="margin-left: 4px ;">Days</label><br><br>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                (click)="closeModal2()">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div class="ml-3">
         <div class="form-group">
