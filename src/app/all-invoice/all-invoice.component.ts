@@ -13,6 +13,7 @@ import * as XLSX from 'xlsx';
 
 })
 export class AllInvoiceComponent implements OnInit {
+
   @Output() confirmed = new EventEmitter<boolean>();
   @Output() modalClosed = new EventEmitter<void>();
   makeInactiveModal: any;
@@ -31,6 +32,7 @@ export class AllInvoiceComponent implements OnInit {
   row: any;
   noResultsFound: boolean = true;
   invoices: any[] = [];
+  paidInvoices: any[] = [];
   unpaidInvoices: any[] = [];
   allInvoices: any[] = [];
 
@@ -110,11 +112,11 @@ export class AllInvoiceComponent implements OnInit {
   toggleContentVisibility() {
     this.isContentVisible = !this.isContentVisible;
   }
-  onRowHover(event: MouseEvent): void {
+  onRowHover(): void {
     this.isRowSelected = true;
   }
 
-  onRowOut(event: MouseEvent): void {
+  onRowOut(): void {
     this.isRowSelected = false;
   }
 
@@ -173,10 +175,11 @@ export class AllInvoiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.loading = true;
-    // this.fetchPaidInvoiceList();
-    // this.fetchunPaidInvoiceList();
-    // this.fetchAllInvoiceList();
+    this.OrgID = this.cookieService.get('OrgID');
+    this.loading = true;
+    this.fetchPaidInvoiceList();
+    this.fetchunPaidInvoiceList();
+    this.fetchAllInvoiceList();
   }
 
 
