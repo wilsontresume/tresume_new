@@ -119,4 +119,56 @@ router.post("/getAllInvoiceList", async (req, res) => {
 
 
 
+router.post("/UpdateRejectStatus", async function (req, res) {
+  try {
+    var query ="Update "
+
+    console.log(query);
+
+    await sql.connect(config);
+    var request = new sql.Request();
+    var result = await request.query(query);
+
+    const data = {
+      flag: 1,
+      message: "Data Updated",
+    };
+
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    const data = {
+      flag: 0,
+      message: "Internal Server Error",
+    };
+    res.status(500).send(data);
+  }
+});
+
+
+router.post("/UpdateAcceptStatus", async function (req, res) {
+  try {
+    var query ="Update "
+
+    console.log(query);
+
+    await sql.connect(config);
+    var request = new sql.Request();
+    var result = await request.query(query);
+
+    const data = {
+      flag: 1,
+      message: "Data Updated",
+    };
+
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    const data = {
+      flag: 0,
+      message: "Internal Server Error",
+    };
+    res.status(500).send(data);
+  }
+});
 module.exports = router;

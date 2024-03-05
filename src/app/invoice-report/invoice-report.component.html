@@ -104,7 +104,7 @@
             <tbody>
               <tr *ngFor="let row of">
                 <!-- <tr *ngFor="let row of tableData"> -->
-                <td>{{ row.TraineeName }}</td>
+                <td>{{ row.TraineeName }}<i class="fas fa-filter" style="vertical-align: middle;"></i></td>
                 <td>{{ row.fromdate | date : "MM/dd/y"}}</td>
                 <td>{{ row.todate| date : "MM/dd/y" }}</td>
                 <td>{{ row.comments }}</td>

@@ -20,6 +20,7 @@ export class AllTimeListComponent implements OnChanges {
   TraineeID:string = '';
   noResultsFound: boolean = false;
   timesheetrole: any;
+  id:string = '';
 
   constructor(private cookieService: CookieService, private service: TimesheetListService, private messageService: MessageService)
   {}
@@ -27,7 +28,9 @@ export class AllTimeListComponent implements OnChanges {
   ngOnInit(): void {
     this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
+    this.id = this.cookieService.get('id');
     this.timesheetrole = this.cookieService.get('timesheet_role');
+
     // this.fetchtimesheet();
     this.fetchPendingResult();
     this.fetchRejectedData();
@@ -54,7 +57,8 @@ export class AllTimeListComponent implements OnChanges {
     fetchPendingResult(){
     let Req = {
       traineeID: this.TraineeID,
-      timesheetrole:this.timesheetrole
+      timesheetrole:this.timesheetrole,
+      id: this.id
     };
     this.service.getPendingTimesheetResult(Req).subscribe((x: any) => {
       this.PendingData = x.result;

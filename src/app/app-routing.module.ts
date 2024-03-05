@@ -162,6 +162,8 @@ const routes: Routes = [
   { path: 'adobesign', component: AdobesignComponent1   , canActivate: [AuthGuard]},
   { path: 'adobesign/token/:token', component: AdobesignComponent1  , canActivate: [AuthGuard] },
   { path: 'timesheet/viewdetails', component: ViewDetailsComponent},
+  { path: 'timesheet/viewdetails/:id', component: ViewDetailsComponent },
+  { path: 'timesheet/viewdetails/:traineeID/:row', component: ViewDetailsComponent },
   { path: 'candidates/:routeType' , component:HrmsComponent, canActivate: [AuthGuard]},
   { path: 'accountsadduser', component:AccountsAddUserComponent, canActivate: [AuthGuard]  },
   { path: 'accountsaddrole',component:AccountsAddRoleComponent, canActivate: [AuthGuard]  },
