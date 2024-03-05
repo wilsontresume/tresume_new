@@ -2930,7 +2930,7 @@ app.post('/atsmigrateprofile', function (req, res) {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
-    request.query("update Trainee set Collab = 1 where TraineeID = " + req.body.traineeId, function (err, recordset) {
+    request.query("update Trainee set Collab = 1 , CandidateStatus = 8 where TraineeID = " + req.body.traineeId, function (err, recordset) {
       if (err) console.log(err)
       var result = {
         flag: 1,
