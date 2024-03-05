@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-password-form',
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./password-form.component.scss']
 })
 export class PasswordFormComponent implements OnInit {
+  loading:boolean = false;
 
   constructor(private router: Router) { }
 
@@ -14,12 +16,12 @@ export class PasswordFormComponent implements OnInit {
   }
 
   cancel(): void {
-   
+
     this.router.navigate(['searchtresume/reviewtresume/general']);
   }
 
   showSSN(): void {
-    alert('SSN: *********'); 
+    alert('SSN: *********');
   }
 
 }

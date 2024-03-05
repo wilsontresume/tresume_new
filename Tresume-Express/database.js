@@ -21,10 +21,10 @@ const pool = new sql.ConnectionPool(config);
 
 pool.connect((err) => {
     if (err) {
-      console.error('Error connecting to Tresume_Beta database:', err);
+      console.error('Error connecting to Tresume database:', err);
       return;
     }
-    console.log('Connected to Tresume_Beta database!');
+    console.log('Connected to Tresume database!');
   });
   
   module.exports = pool;

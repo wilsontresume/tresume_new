@@ -97,7 +97,7 @@ router.get("/getAdobeAccessToken", async (req, res) => {
         }
 
       });
-      var reurl = "https://tresume.us/TresumeNG/onboardingList?token=" + accessToken
+      var reurl = "https://tresume.us/onboardingList?token=" + accessToken
       res.redirect(reurl);
     } catch (error) {
       console.error("Error retrieving access token:", error);

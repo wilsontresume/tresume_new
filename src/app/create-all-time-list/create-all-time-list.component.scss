@@ -1,0 +1,185 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+.container-fluid {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: white;
+}
+table{
+  margin-top: 10px;
+}
+.head {
+  background-color: #f0f0f0;
+}
+.input-group-text{
+  background-color: #380838;
+ cursor: pointer;
+}
+.fa-caret-down{
+color: white;
+}
+td{
+  padding: 5px;
+  border-left: 1px solid #d9d3d3;
+  
+}
+textarea{
+  padding: 5px;
+  border:  1px solid #d9d3d3;
+  width: 290px;
+  height: 50px;
+}
+th{
+  padding-left: 10px;
+  padding-bottom: 5px;
+  border-left: 1px solid #d9d3d3;
+}
+tr{
+  border-bottom: 1px solid #d9d3d3;
+  padding: 0;
+}
+i{
+  cursor: pointer;
+  color: #b3adad;
+  border-radius: 0;
+  // border: none;
+}
+
+input{
+  border-radius: 0;
+  border:  1px solid #d9d3d3;
+}
+a{
+  cursor: pointer;
+}
+.btn{
+  border: 1px solid black;
+}
+.fbtn{
+  margin: 10px;
+  padding: 5px;
+  width: 150px;
+  border-radius: 15px;
+  background-color: #380838;
+  border: 1px solid #380838;
+  color: #f0f0f0;
+  }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.fbtn:hover{
+  background-color: white;
+  color: #380838;
+  border: 1px solid #380838;
+}
+.fbtn:active{
+  background-color: #380838;
+  border: 1px solid #380838;
+  color: #f0f0f0;
+}
+.file-label i {
+  margin-right: 5px;
+}
+
+.file-label{
+  margin-right: 6px;
+  width: 290px;
+  border: none;
+  outline: none;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+input[type="checkbox"]{
+  cursor: pointer;
+}
+.checkbox {
+  margin-right: 5px;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #d9d3d3;
+  outline: none;
+}
+.file-label {
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid #d9d3d3;
+}
+.row{
+  margin-bottom: 10px;
+}
+.custom-input::placeholder {
+  color: #999; 
+  font-style: italic;
+  font-family: "Gill Sans", sans-serif;
+  font-size: 15px;
+}
+select {
+  padding: 8px;
+  font-size: 14px;
+}
+.gray-theme select {
+  width: 100%;
+  padding: 8px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
+  border-color: #ccc;
+}
+
+.gray-theme select:focus {
+  border-color: #007bff;
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+input:focus{
+  border-color: #007bff;
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+textarea:focus{
+  border-color: #007bff;
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+th span.date {
+  font-family: 'Arial', sans-serif;
+  color: #007bff;
+}
+
+.dropdown-menu-scrollable {
+  max-height: 225px;
+  overflow-y: auto;
+}
+
+.fixed-tab {
+  position: fixed;
+  bottom: 0;
+  width: 85%;
+  background-color: #fff; 
+  border-top: 1px solid #ccc; 
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1); 
+}
+.file-name {
+  font-size: 15px;
+  color: #333; /* You can adjust the color as needed */
+  // margin-top: 5px;
+}

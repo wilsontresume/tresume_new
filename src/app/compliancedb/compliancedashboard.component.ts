@@ -24,6 +24,7 @@ interface IRange {
 })
 export class ComplianceDashboardComponent implements OnInit {
 
+  loading:boolean = false;
 
   public title = 'Tresume-NG';
   public traineeID: number = 5;
@@ -288,6 +289,7 @@ export class ComplianceDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.loading = true;
     //this.getTimeSheetReport();
     this.getI9Comp();
     this.getDocComp();
