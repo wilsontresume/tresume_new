@@ -144,7 +144,7 @@ router.post("/getPendingTimesheetResult", async (req, res) => {
       var request = new sql.Request();
 
       var query =
-        "SELECT TM.id,CONCAT(t.firstname, ' ', t.lastname) as Candidate, TM.fromdate, TM.todate, TM.totalhrs, TM.created_at, TM.status, TM.comments, TM.details FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "' AND TM.status=1";
+        "SELECT CONCAT(t.firstname, ' ', t.lastname) as Candidate, TM.fromdate, TM.todate, TM.totalhrs, TM.created_at, TM.status, TM.comments, TM.details FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "' AND TM.status=1";
 
       console.log(query);
       request.query(query, function (err, recordset) {
@@ -1007,9 +1007,7 @@ router.post('/getLocationList', async (req, res) => {
     const pool = await sql.connect(config);
     const request = pool.request();
     
-    // const query =  "select LocationName from Location";
-    // const query =  " select distinct city from UsazipcodeNew";
-    const query = "select distinct CONCAT(state,' - ',stateAbbr) as state,zipcode from usazipcodenew ORDER BY state ASC";
+       const query = "select distinct CONCAT(state,' - ',stateAbbr) as state,zipcode from usazipcodenew ORDER BY state ASC";
 
     console.log(query);
 
