@@ -34,7 +34,7 @@
             <div id="allinvoices" class="tab-pane fade show active">
               <div class="row">
                 <div class="col mt-4 containers">
-                  <input type="search" style="width: 20%;" placeholder="Search by Project/Client Name" [(ngModel)]="searchPaidQuery" (input)="applyPaidFilter()">
+                  <input type="search" style="width: 20%;" placeholder="Search by Project/Client Name" [(ngModel)]="searchQuery" (input)="applyFilter()">
                 </div>
                 <div class="col-md-10 mt-4 opt d-flex text-right">
                   <!-- <div class="btn-group mr-2">
@@ -526,7 +526,7 @@
             <div id="unpaidinvoices" class="tab-pane fade">
               <div class="row">
                 <div class="col mt-4 containers">
-                  <input type="search" style="width: 20%;" placeholder="Search by Project/Client Name" [(ngModel)]="searchPaidQuery" (input)="applyPaidFilter()">
+                  <input type="search" style="width: 20%;" placeholder="Search by Project/Client Name" [(ngModel)]="searchUnpaidQuery" (input)="applyUnpaidFilter()">
                 </div>
               </div>
               <td class="action-icons icons-container float-right mt-3">
