@@ -30,7 +30,7 @@ export class CreateInvoiceComponent implements OnInit {
   clientEmail: any;
   selectedBillingaddress: string = '';
   selectedInvoiceDate: string = '';
-  selectedDueDate: string = '';  
+  selectedDueDate: string = '';
   selectedTerm: any;
   InvoiceNo: any;
   routeType: any;
@@ -59,6 +59,10 @@ export class CreateInvoiceComponent implements OnInit {
     { value: 'addNew', label: 'Add New' }
   ];
   messageOnStatement: any;
+  newTermName: string = '';
+  dueType: string = '';
+  dueDays: number = 0;
+
 
   ngOnInit(): void {
     this.OrgID = this.cookieService.get('OrgID');
@@ -185,6 +189,13 @@ export class CreateInvoiceComponent implements OnInit {
     this.showModal = false;
   }
 
+  clearSelection() {
+    this.newTermName = '';
+    this.dueType = '';
+    this.dueDays = 0;
+    this.closeModal2();
+  }
+  
   confirmDelete() {
     this.showConfirmationModal = true;
   }
@@ -265,7 +276,6 @@ export class CreateInvoiceComponent implements OnInit {
 
   addinvoice() {
     this.loading = true;
-
     let invoiceLinesData: { serviceDate: any, description: any, qty: any, rate: any }[] = [];
     this.invoiceLines.forEach((line, index) => {
       invoiceLinesData.push({
@@ -295,10 +305,14 @@ export class CreateInvoiceComponent implements OnInit {
       balanceDue: this.balanceDue,
       messageOnInvoice: this.messageOnInvoice,
       messageOnStatement: this.messageOnStatement,
-      attachments: this.files
+      attachments: this.files,
+      newTermName: this.newTermName,
+      dueType: this.dueType,
+      dueDays: this.dueDays
     };
     console.log(req);
     this.loading = false;
+
     // this.Service.createInvoice(req).subscribe(
     //   (response: any) => {
     //     this.handleSuccess(response);
@@ -342,7 +356,7 @@ export class CreateInvoiceComponent implements OnInit {
     { activeDate: '', client: '', product: '', description: '', rates: '', duration: '', billable: '' },
   ];
 
-  fetchtimesheetreport(){
+  fetchtimesheetreport() {
     let Req = {
       OrgID: this.OrgID,
     };
