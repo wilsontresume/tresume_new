@@ -1,3 +1,4 @@
+
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AllInvoiceService } from './all-invoice.service';
@@ -279,9 +280,3 @@ applyUnpaidFilter() {
   }
 
 }
-
-
-
-
-
-
