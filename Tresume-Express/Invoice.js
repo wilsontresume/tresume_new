@@ -49,7 +49,41 @@ router.post("/getPaidInvoiceList", async (req, res) => {
   }
 });
 
+router.post('/getLocationinvoice', async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = pool.request();
+    
+    // const query =  "select LocationName from Location";
+    // const query =  " select distinct city from UsazipcodeNew";
+    const query = "select distinct CONCAT(state,' - ',stateAbbr) as state from usazipcodenew ORDER BY state ASC";
 
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No active projects found!",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching project data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching project data!",
+    };
+    res.status(500).send(result);
+  }
+});
 
 router.post("/getunPaidInvoiceList", async (req, res) => {
   try {
