@@ -381,8 +381,8 @@
               </div>
 
               <div class="action-icons icons-container float-right">
-                <i class="material-icons" onclick="handlePrint()">print</i>
-                <i class="fas fa-upload" onclick="handleFileUpload()"></i>
+                <i class="material-icons" onclick="exportAsPDF()">print</i>
+                <i class="fas fa-upload" onclick="downloadExcel()"></i>
                 <!-- <i class="fas fa-cog" onclick="openSettings()"></i> -->
               </div>
               <div style="font-size: 12px;">
@@ -402,8 +402,9 @@
 
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr *ngFor="let invoice of allInvoices">
+                  
+                  <!-- <tbody>
+                    <tr *ngFor="let invoice of allInvoices" >
                       <td><input type="checkbox"></td>
                       <td>
                         <p data-toggle="modal" data-target="#myModal2">11/17/23</p>
@@ -429,7 +430,7 @@
 
 
                       <td colspan="2">
-                        <!-- <button class="btn btn-" onclick="editAction()">Edit</button> -->
+                        <button class="btn btn-" onclick="editAction()">Edit</button>
                         <button type="button" class="btn btn-demo" data-toggle="modal" data-target="#myModal2">
                           Edit
                         </button>
@@ -633,7 +634,7 @@
                         No results found.
                       </td>
                     </tr>
-                  </tbody>
+                  </tbody> -->
                 </table>
               </div>
 

@@ -1,26 +1,27 @@
-import { Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AllInvoiceService } from './all-invoice.service';
 import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-all-invoice',
   templateUrl: './all-invoice.component.html',
   styleUrls: ['./all-invoice.component.scss'],
-  providers: [CookieService, MessageService , AllInvoiceService],
-  
+  providers: [CookieService, MessageService, AllInvoiceService],
+
 })
 export class AllInvoiceComponent implements OnInit {
   @Output() confirmed = new EventEmitter<boolean>();
-   @Output() modalClosed = new EventEmitter<void>();
+  @Output() modalClosed = new EventEmitter<void>();
   makeInactiveModal: any;
-isModal3Open: any;
-// openMakeInactiveModal: any;
-deleteAction() {
-throw new Error('Method not implemented.');
-}
-loading: boolean = false;
+  isModal3Open: any;
+  // openMakeInactiveModal: any;
+  deleteAction() {
+    throw new Error('Method not implemented.');
+  }
+  loading: boolean = false;
   isRowSelected = false;
   isContentVisible = false;
   showContent1 = false;
@@ -28,57 +29,57 @@ loading: boolean = false;
   isModalOpen = false;
   shareLink = '';
   row: any;
-  noResultsFound:boolean = true;
+  noResultsFound: boolean = true;
   invoices: any[] = [];
   unpaidInvoices: any[] = [];
   allInvoices: any[] = [];
 
-  OrgID:string = '';
-  TraineeID:string = '';
+  OrgID: string = '';
+  TraineeID: string = '';
 
   activeTab = 'allinvoices';
   showCustomDateModel = false;
   startDate: string;
   endDate: string;
-  
-  
+
+
   batchActionsOptions = ['Batch Actions'
   ];
 
-  typeOptions = ['All transaction','All plus deposits'];
+  typeOptions = ['All transaction', 'All plus deposits'];
 
   statusOptions = ['All', 'Open'
   ];
 
-  dateOptions = ['All', 'This Week','This Month','Last Week','Last Month','Custom dates'
+  dateOptions = ['All', 'This Week', 'This Month', 'Last Week', 'Last Month', 'Custom dates'
   ];
 
 
-confirmDelete() {
-  this.confirmed.emit(true);
-}
-
-cancelDelete() {
-  this.confirmed.emit(false);
-}
-
-duplicateActions(): void {
-  // Your delete logic here
-  console.log('Deleting...');
-}
-
-uploadFile(event: any): void {
-  const fileList: FileList = event.target.files;
-  if (fileList.length > 0) {
-    const file: File = fileList[0];
-    // You can perform further actions with the uploaded file
-    console.log('File uploaded:', file);
+  confirmDelete() {
+    this.confirmed.emit(true);
   }
-}
-selectDocument(event: Event): void {
-  event.preventDefault();
-  document.getElementById('uploadInput')?.click();
-}
+
+  cancelDelete() {
+    this.confirmed.emit(false);
+  }
+
+  duplicateActions(): void {
+    // Your delete logic here
+    console.log('Deleting...');
+  }
+
+  uploadFile(event: any): void {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      // You can perform further actions with the uploaded file
+      console.log('File uploaded:', file);
+    }
+  }
+  selectDocument(event: Event): void {
+    event.preventDefault();
+    document.getElementById('uploadInput')?.click();
+  }
 
   openShareLinkModal(event: Event): void {
     event.preventDefault();
@@ -105,7 +106,7 @@ selectDocument(event: Event): void {
     }
   }
 
-  
+
   toggleContentVisibility() {
     this.isContentVisible = !this.isContentVisible;
   }
@@ -118,14 +119,14 @@ selectDocument(event: Event): void {
   }
 
 
-  
-showModal: any;
 
-closeModal2() {
-  this.showModal = false;
-} 
+  showModal: any;
 
-  
+  closeModal2() {
+    this.showModal = false;
+  }
+
+
 
   paymentReceivedAction() {
     console.log('Payment Received');
@@ -139,45 +140,38 @@ closeModal2() {
     console.log('Send');
   }
 
-  handlePrint() {
-    console.log("Print icon clicked");
-  }
-
-  handleFileUpload() {
-    console.log("File upload icon clicked");
-  }
 
   openSettings() {
     console.log("Settings icon clicked");
   }
 
 
-feedbackWithIcon() {
-throw new Error('Method not implemented.');
-}
+  feedbackWithIcon() {
+    throw new Error('Method not implemented.');
+  }
 
-provideFeedback: any;
-closeModal() {
-throw new Error('Method not implemented.');
-}
+  provideFeedback: any;
+  closeModal() {
+    throw new Error('Method not implemented.');
+  }
 
- selectedType: string;
+  selectedType: string;
   showTable: boolean = false;
 
   viewRecurringTemplates() {
     this.showTable = true;
-   
-  }   
 
-    constructor(
+  }
+
+  constructor(
     private dialog: MatDialog, private cookieService: CookieService, private messageService: MessageService, private service: AllInvoiceService,
-         
-    ) {
 
-      this.OrgID = this.cookieService.get('OrgID');
-      this.TraineeID = this.cookieService.get('TraineeID');
-    }
-    
+  ) {
+
+    this.OrgID = this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
+  }
+
   ngOnInit(): void {
     // this.loading = true;
     // this.fetchPaidInvoiceList();
@@ -186,35 +180,35 @@ throw new Error('Method not implemented.');
   }
 
 
-  fetchPaidInvoiceList(){
+  fetchPaidInvoiceList() {
     let Req = {
       OrgID: this.OrgID,
     };
     this.service.getPaidInvoiceList(Req).subscribe((x: any) => {
       this.invoices = x.result;
       this.noResultsFound = this.invoices.length === 0;
-    this.loading = false;
+      this.loading = false;
     });
   }
-  fetchunPaidInvoiceList(){
+  fetchunPaidInvoiceList() {
     let Req = {
       OrgID: this.OrgID,
     };
     this.service.getunPaidInvoiceList(Req).subscribe((x: any) => {
       this.unpaidInvoices = x.result;
       this.noResultsFound = this.unpaidInvoices.length === 0;
-    this.loading = false;
+      this.loading = false;
     });
   }
 
-  fetchAllInvoiceList(){
+  fetchAllInvoiceList() {
     let Req = {
       OrgID: this.OrgID,
     };
     this.service.getAllInvoiceList(Req).subscribe((x: any) => {
       this.allInvoices = x.result;
       this.noResultsFound = this.allInvoices.length === 0;
-    this.loading = false;
+      this.loading = false;
     });
   }
 
@@ -224,14 +218,14 @@ throw new Error('Method not implemented.');
     this.showCustomDateModel = option === 'Custom dates';
 
   }
-  
-  
+
+
   applyAndClose(): void {
     this.applyDates(); // Apply dates
     this.showCustomDateModel = false; // Close custom date model
   }
-  
-  resetDates() {  
+
+  resetDates() {
     console.log('Resetting dates');
     this.startDate = '';
     this.endDate = '';
@@ -243,8 +237,11 @@ throw new Error('Method not implemented.');
 
   }
 
- 
+  downloadExcel() {
+    
   }
+
+}
 
 
 
