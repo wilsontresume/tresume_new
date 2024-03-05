@@ -203,37 +203,6 @@ router.post("/UpdateAcceptStatus", async function (req, res) {
   }
 });
 
-router.post("/Candidateviewdetails", async (req, res) => {
-  try {
-    sql.connect(config, function (err) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      var request = new sql.Request();
 
-      var query = "SELECT TM.id,TM.admincomment, CONCAT(T.firstname, ' ', T.lastname) as Candidate, TM.projectid, TM.day1, TM.day2, TM.day3, TM.day4, TM.day5, TM.day6, TM.day7, TM.totalamt, TM.comments FROM Timesheet_Master TM INNER JOIN Trainee T ON TM.traineeid = T.traineeid WHERE T.timesheet_admin ='" + req.body.traineeID + "' AND TM.status=1";
-
-
-      console.log(query);
-      request.query(query, function (err, recordset) {
-        if (err) {
-          console.log(err);
-          throw err;
-        }
-
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0],
-        };
-
-        res.send(result);
-      });
-    });
-  } catch (error) {
-    console.error("Error occurred: ", error);
-    res.status(500).send("An error occurred while processing your request.");
-  }
-});
 
 module.exports = router;
