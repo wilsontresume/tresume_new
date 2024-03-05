@@ -395,11 +395,10 @@
                       <th>NO.</th>
                       <th>CLIENT/PROJECT</th>
                       <th>MEMO</th>
-                      <th colspan="2">AMOUNT </th>
-                      <th> STATUS <i class="fas fa-angle-down" style="margin-left: 5px;"></i></th>
-
+                      <th>AMOUNT </th>
+                      <th>STATUS</th>
+                      <!-- <i class="fas fa-angle-down" style="margin-left: 5px;"></i> -->
                       <!-- <th>ACTION</th> -->
-
                     </tr>
                   </thead>
                   
@@ -628,6 +627,41 @@
                           </div>
                         </div>
                       </td>
+                  <tbody>
+
+                    <tr *ngFor="let invoice of allInvoices">
+                      <td><input type="checkbox"></td>
+                      <td>{{ invoice.date| date : "MM/dd/y" : "UTC" }}</td>
+                      <td>Invoice</td>
+                      <td>{{ invoice.invoiceNo }}</td>
+                      <td>{{ invoice.projectname }}</td>
+                      <td>{{ invoice.memo| date : "MM/dd/y" : "UTC" }}</td>
+                      <td>{{ invoice.total }}</td>
+                      <td>{{ invoice.status }}</td>
+                      <!-- <td>
+    <button class="btn btn-" (click)="editAction()">Edit</button>
+    <div class="btn-group received" style="margin-left: 5px;">
+      <a class="btn btn float-left" style=" height: 30px;" href="payment">Receive Payment</a>
+      <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+        <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+        <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
+        <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create
+          task</a>
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shareLinkModal">Share
+          invoice link</a>
+        <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+        <a class="dropdown-item" href="#" data-toggle="modal"
+          data-target="#deleteConfirmationModal">Delete</a>
+      </div>
+    </div>
+  </td> -->
                     </tr>
                     <tr *ngIf="noResultsFound">
                       <td colspan="9" class="text-center">
@@ -664,21 +698,21 @@
                     <th>MEMO</th>
                     <th>AMOUNT</th>
                     <th>STATUS</th>
-                    <th>ACTION</th>
+                    <!-- <th>ACTION</th> -->
 
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let invoice of invoices">
+                  <tr *ngFor="let invoice of paidInvoices">
                     <td><input type="checkbox"></td>
-                    <td>{{ invoice.date }}</td>
-                    <td>{{ invoice.type }}</td>
-                    <td>{{ invoice.number }}</td>
-                    <td>{{ invoice.clientProject }}</td>
-                    <td>{{ invoice.memo }}</td>
-                    <td>{{ invoice.amount }}</td>
+                    <td>{{ invoice.date| date : "MM/dd/y" : "UTC" }}</td>
+                    <td>Invoice</td>
+                    <td>{{ invoice.invoiceNo }}</td>
+                    <td>{{ invoice.projectname }}</td>
+                    <td>{{ invoice.memo | date : "MM/dd/y" : "UTC" }}</td>
+                    <td>{{ invoice.total }}</td>
                     <td>{{ invoice.status }}</td>
-                    <td>
+                    <!-- <td>
                       <button class="btn btn-" (click)="editAction()">Edit</button>
                       <div class="btn-group received" style="margin-left: 5px;">
                         <a class="btn btn float-left" style=" height: 30px;" href="payment">Receive Payment</a>
@@ -701,7 +735,7 @@
                             data-target="#deleteConfirmationModal">Delete</a>
                         </div>
                       </div>
-                    </td>
+                    </td> -->
                   </tr>
                   <tr *ngIf="noResultsFound">
                     <td colspan="9" class="text-center">
@@ -738,7 +772,7 @@
                       <th>MEMO</th>
                       <th>AMOUNT </th>
                       <th>STATUS</th>
-                      <th>ACTION</th>
+                      <!-- <th>ACTION</th> -->
 
                     </tr>
                   </thead>
@@ -746,37 +780,37 @@
                   <tbody>
                     <tr *ngFor="let invoice of unpaidInvoices">
                       <td><input type="checkbox"></td>
-                      <td>{{ invoice.date }}</td>
-                      <td>{{ invoice.type }}</td>
-                      <td>{{ invoice.number }}</td>
-                      <td>{{ invoice.clientProject }}</td>
-                      <td>{{ invoice.memo }}</td>
-                      <td>{{ invoice.amount }}</td>
+                      <td>{{ invoice.date| date : "MM/dd/y" : "UTC" }}</td>
+                      <td>Invoice</td>
+                      <td>{{ invoice.invoiceNo }}</td>
+                      <td>{{ invoice.projectname }}</td>
+                      <td>{{ invoice.memo | date : "MM/dd/y" : "UTC" }}</td>
+                      <td>{{ invoice.total }}</td>
                       <td>{{ invoice.status }}</td>
-                      <td>
-                        <button class="btn btn-" (click)="editAction()">Edit</button>
-                        <div class="btn-group received" style="margin-left: 5px;">
-                          <a class="btn btn float-left" style=" height: 30px;" href="payment">Receive Payment</a>
-                          <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                            <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                            <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create
-                              task</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shareLinkModal">Share
-                              invoice link</a>
-                            <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal"
-                              data-target="#deleteConfirmationModal">Delete</a>
+                      <!-- <td>
+                          <button class="btn btn-" (click)="editAction()">Edit</button>
+                          <div class="btn-group received" style="margin-left: 5px;">
+                            <a class="btn btn float-left" style=" height: 30px;" href="payment">Receive Payment</a>
+                            <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 1px;">
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
+                              <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
+                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
+                              <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create
+                                task</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shareLinkModal">Share
+                                invoice link</a>
+                              <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal"
+                                data-target="#deleteConfirmationModal">Delete</a>
+                            </div>
                           </div>
-                        </div>
-                      </td>
+                        </td> -->
                     </tr>
                     <tr *ngIf="noResultsFound">
                       <td colspan="9" class="text-center">
@@ -784,6 +818,7 @@
                       </td>
                     </tr>
                   </tbody>
+
                 </table>
               </div>
             </div>
