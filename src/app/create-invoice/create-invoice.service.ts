@@ -29,8 +29,8 @@ export class CreateInvoiceService {
     return this.http.post<ResponseDetails>(this.endpoint + 'getTraineeClientList', request);
   }
 
-  getLocationList(request: any): Observable<ResponseDetails> {
-    return this.http.post<ResponseDetails>(this.endpoint + 'getLocationList', request);
+  getLocationinvoice(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'getLocationinvoice', request);
   }
 
   createInvoice(request: any): Observable<ResponseDetails> {

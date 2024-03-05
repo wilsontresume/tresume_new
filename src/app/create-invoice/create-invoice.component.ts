@@ -28,23 +28,23 @@ export class CreateInvoiceComponent implements OnInit {
   files: File[] = [];
   selectedRowIndex: number | null = null;
   clientEmail: any;
-  selectedBillingaddress: any;
-  selectedInvoiceDate: any;
-  selectedDueDate: any;
+  selectedBillingaddress: string = '';
+  selectedInvoiceDate: string = '';
+  selectedDueDate: string = '';  
   selectedTerm: any;
   InvoiceNo: any;
   routeType: any;
   productService: string[] = ["Service"];
   ccEmails: any;
   bccEmails: any;
-  invoiceLines: any[] = []; 
+  invoiceLines: any[] = [];
   subtotal: number = 0;
   discountPercentage: number = 0;
   discountAmount: number = 0;
   total: number = 0;
   balanceDue: number = 0;
   selectedState: any;
-  states: any;
+  states: any[] = [];
   messageOnInvoice: string[] = [
     `Remit Payment To: Asta CRS, Inc.
     Please mail checks to: Asta Crs Inc 44121 Leesburg Pike,
@@ -56,7 +56,7 @@ export class CreateInvoiceComponent implements OnInit {
     { value: '10 days', label: '10 days' },
     { value: '20 days', label: '20 days' },
     { value: 'Net 15', label: 'Net 15' },
-    // { value: 'addNew', label: 'Add New' }
+    { value: 'addNew', label: 'Add New' }
   ];
   messageOnStatement: any;
 
@@ -65,7 +65,7 @@ export class CreateInvoiceComponent implements OnInit {
     this.TraineeID = this.cookieService.get('TraineeID');
     this.getState();
     this.fetchclientlist();
-    this.calculateSubtotal(); 
+    this.calculateSubtotal();
   }
 
   constructor(private messageService: MessageService, private cookieService: CookieService, private Service: CreateInvoiceService, private router: Router, private route: ActivatedRoute) {
@@ -115,13 +115,13 @@ export class CreateInvoiceComponent implements OnInit {
   updateAmount(line: any): void {
     line.amount = line.qty * line.rate;
     this.calculateSubtotal();
-}
+  }
 
-updateDiscount(event: any): void {
-  const selectedDiscount = parseInt(event.target.value); 
-  this.discountPercentage = selectedDiscount; 
-  this.calculateTotal(); 
-}
+  updateDiscount(event: any): void {
+    const selectedDiscount = parseInt(event.target.value);
+    this.discountPercentage = selectedDiscount;
+    this.calculateTotal();
+  }
 
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
   maxSize: number = 20;
@@ -238,18 +238,19 @@ updateDiscount(event: any): void {
     let req = {
       OrgID: this.OrgID,
     };
-    this.Service.getLocationList(req).subscribe((x: any) => {
-      this.state = x.result;
+    this.Service.getLocationinvoice(req).subscribe((x: any) => {
+      this.states = x.result;
+      this.loading = false;
     });
   }
 
-  getDropdownOption() {
-    return this.states;
-  }
+  // getDropdownOption() {
+  //   return this.states;
+  // }
 
-  onDropdownChanges(selectedOption: any, row: any) {
-    row.location = selectedOption.state;
-  }
+  // onDropdownChanges(selectedOption: any, row: any) {
+  //   row.location = selectedOption.state;
+  // }
 
   fetchclientlist() {
     let Req = {
@@ -260,8 +261,8 @@ updateDiscount(event: any): void {
       this.loading = false;
     });
   }
-    
-    
+
+
   addinvoice() {
     this.loading = true;
 
@@ -274,7 +275,7 @@ updateDiscount(event: any): void {
         rate: line.rate
       });
     });
-  
+
     let req = {
       client: this.ClientName,
       clientEmail: this.clientEmail,
@@ -294,9 +295,10 @@ updateDiscount(event: any): void {
       balanceDue: this.balanceDue,
       messageOnInvoice: this.messageOnInvoice,
       messageOnStatement: this.messageOnStatement,
-      attachments: this.files 
+      attachments: this.files
     };
-console.log(req);
+    console.log(req);
+    this.loading = false;
     // this.Service.createInvoice(req).subscribe(
     //   (response: any) => {
     //     this.handleSuccess(response);
@@ -306,7 +308,7 @@ console.log(req);
     //   }
     // );
   }
-  
+
 
   private handleSuccess(response: any): void {
     this.messageService.add({ severity: 'success', summary: response.message });
@@ -338,8 +340,8 @@ console.log(req);
 
   tableData = [
     { activeDate: '', client: '', product: '', description: '', rates: '', duration: '', billable: '' },
-    ];
-    
+  ];
+
   fetchtimesheetreport(){
     let Req = {
       OrgID: this.OrgID,
