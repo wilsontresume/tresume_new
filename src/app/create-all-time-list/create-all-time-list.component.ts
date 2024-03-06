@@ -221,6 +221,11 @@ export class CreateAllTimeListComponent implements OnInit {
     this.getLocation();
     this.getpayItem();
 
+    if(this.timesheetrole === '3'){
+      this.candidateid = this.traineeID
+      this.traineeID = this.cookieService.get('timesheet_admin');
+    }
+
     const currentWeek = this.getCurrentWeekDates();
     this.selectedWeek = `${this.formatDate(currentWeek.start)} to ${this.formatDate(currentWeek.end)}`;
     this.updateDynamicDays(this.selectedWeek);
