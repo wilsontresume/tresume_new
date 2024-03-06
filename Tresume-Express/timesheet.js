@@ -689,12 +689,12 @@ router.post("/assignproject", async (req, res) => {
   }
 });
 
-router.post('/getTraineeClientList', async (req, res) => {
+router.post('/getInvoiceClientList', async (req, res) => {
   try {
     // const request = new sql.Request();
     const pool = await sql.connect(config);
     const request = pool.request();
-    const query = "select * from Clients where PrimaryOwner = '" + req.body.TraineeID + "' and active = 1";
+    const query = "SELECT tp.projectid AS projectid, tp.projectname AS ProjectName, c.clientid AS ClientID, c.clientname AS ClientName, c.emailid AS EmailID, c.Address AS Address FROM timesheet_project AS tp JOIN clients AS c ON tp.clientid = c.clientid WHERE tp.orgid = '"+req.body.orgID+"' AND tp.status = 1";
 
     console.log(query);
 

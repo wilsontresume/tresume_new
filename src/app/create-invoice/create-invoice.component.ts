@@ -45,13 +45,7 @@ export class CreateInvoiceComponent implements OnInit {
   balanceDue: number = 0;
   selectedState: any;
   states: any[] = [];
-  messageOnInvoice: string[] = [
-    `Remit Payment To: Asta CRS, Inc.
-    Please mail checks to: Asta Crs Inc 44121 Leesburg Pike,
-    STE 230, Ashburn VA 20147 
-    Attn: Prabhakar Thangarajah
-    Ph: 703-889-8511 Fax: 703-889-8585`
-  ];
+  messageOnInvoice: string = "`Remit Payment To: Asta CRS, Inc.Please mail checks to: Asta Crs Inc 44121 Leesburg Pike,STE 230, Ashburn VA 20147  Attn: Prabhakar Thangarajah  Ph: 703-889-8511 Fax: 703-889-8585`"
   termsOptions = [
     { value: '10 days', label: '10 days' },
     { value: '20 days', label: '20 days' },
@@ -62,11 +56,16 @@ export class CreateInvoiceComponent implements OnInit {
   newTermName: string = '';
   dueType: string = '';
   dueDays: number = 0;
-
+  timesheetlist: any;
+  clientid: any;
+  selectedclient:any;
+  username: any;
 
   ngOnInit(): void {
+    this.loading = true;
     this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
+    this.username = this.cookieService.get('userName1');
     this.getState();
     this.fetchclientlist();
     this.calculateSubtotal();
@@ -76,7 +75,7 @@ export class CreateInvoiceComponent implements OnInit {
 
     this.OrgID = this.cookieService.get('OrgID');
     this.routeType = this.route.snapshot.params["routeType"];
-    this.addDefaultRows(2);
+    // this.addDefaultRows(2);
   }
 
   toggleEditable(index: number) {
@@ -112,7 +111,7 @@ export class CreateInvoiceComponent implements OnInit {
 
   clearLines() {
     this.invoiceLines = [];
-    this.addDefaultRows(2);
+    // this.addDefaultRows(2);
     this.calculateSubtotal();
   }
 
@@ -170,6 +169,23 @@ export class CreateInvoiceComponent implements OnInit {
 
   onFilterChanges(value: string) {
     this.selectedFilter = value;
+    if(value === 'option1'){
+      this.getalltimesheetlist();
+    } else if(value === 'option2'){
+      this.getcurrenttimesheetlist();
+    }else if(value === 'option3'){
+      this.getlasttimesheetlist();
+    }
+    
+  }
+
+  onclientChanges(){
+    this.clientid = this.selectedclient.ClientID
+   this.clientEmail = this.selectedclient.EmailID
+   this.selectedBillingaddress = this.selectedclient.Address
+   this.ClientName = this.selectedclient.ClientName
+   console.log(this.selectedclient);
+   this.getalltimesheetlist();
   }
 
   onOptionChange(event: any) {
@@ -265,62 +281,139 @@ export class CreateInvoiceComponent implements OnInit {
 
   fetchclientlist() {
     let Req = {
-      TraineeID: this.TraineeID,
+      orgID: this.OrgID,
     };
-    this.Service.getTraineeClientList(Req).subscribe((x: any) => {
+    this.Service.getInvoiceClientList(Req).subscribe((x: any) => {
       this.clients = x.result;
       this.loading = false;
     });
   }
 
+  getalltimesheetlist() {
+    let Req = {
+      orgID: this.clientid,
+    };
+    this.Service.gettimesheetlist(Req).subscribe((x: any) => {
+      this.timesheetlist = x.result;
+    });
+  }
+
+  getlasttimesheetlist() {
+    let today = new Date();
+    let lastMonthLastDate = new Date(today.getFullYear(), today.getMonth(), 0);
+    let lastMonthFirstDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+
+    // Convert last month's first and last date to YYYY-MM-DD format
+    let formattedStartDate = lastMonthFirstDate.toISOString().split('T')[0];
+    let formattedEndDate = lastMonthLastDate.toISOString().split('T')[0];
+
+    let Req = {
+        orgID: this.clientid,
+        startdate: formattedStartDate,
+        enddate: formattedEndDate
+    };
+
+    this.Service.gettimesheetlist(Req).subscribe((x: any) => {
+        this.timesheetlist = x.result;
+    });
+}
+
+
+getcurrenttimesheetlist() {
+  let today = new Date();
+  let currentMonthFirstDate = new Date(today.getFullYear(), today.getMonth(), 1);
+  let nextMonthFirstDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+  let currentMonthLastDate = new Date(nextMonthFirstDate.getTime() - 1);
+
+  // Convert current month's first and last date to YYYY-MM-DD format
+  let formattedStartDate = currentMonthFirstDate.toISOString().split('T')[0];
+  let formattedEndDate = currentMonthLastDate.toISOString().split('T')[0];
+
+  let Req = {
+      orgID: this.clientid,
+      startdate: formattedStartDate,
+      enddate: formattedEndDate
+  };
+
+  this.Service.gettimesheetlist(Req).subscribe((x: any) => {
+      this.timesheetlist = x.result;
+  });
+}
+
+
+addservice(timesheet:any){
+  var data = {
+    sno: '',
+    serviceDate: timesheet.fromdate,
+    productService: 'SERVICE',
+    description: timesheet.details,
+    qty: timesheet.totalhrs,
+    rate: timesheet.billableamt,
+    attachment: '',
+    timesheetid:timesheet.id
+  }
+  this.invoiceLines.push(data);
+  this.updateAmount(data);
+}
 
   addinvoice() {
     this.loading = true;
-    let invoiceLinesData: { serviceDate: any, description: any, qty: any, rate: any }[] = [];
+    let invoiceLinesData: { serviceDate: any, description: any, qty: any, rate: any,timesheetid:any }[] = [];
     this.invoiceLines.forEach((line, index) => {
       invoiceLinesData.push({
         serviceDate: line.serviceDate,
         description: line.description,
         qty: line.qty,
-        rate: line.rate
+        rate: line.rate,
+        timesheetid:line.timesheetid
       });
     });
 
-    let req = {
-      client: this.ClientName,
-      clientEmail: this.clientEmail,
-      ccEmails: this.ccEmails,
-      bccEmails: this.bccEmails,
-      Billingaddress: this.selectedBillingaddress,
-      InvoiceDate: this.selectedInvoiceDate,
-      DueDate: this.selectedDueDate,
-      Terms: this.selectedTerm,
-      InvoiceNo: this.InvoiceNo,
-      state: this.selectedState,
-      invoiceLines: invoiceLinesData,
-      subtotal: this.subtotal,
-      discountPercentage: this.discountPercentage,
-      discountAmount: this.discountAmount,
-      total: this.total,
-      balanceDue: this.balanceDue,
-      messageOnInvoice: this.messageOnInvoice,
-      messageOnStatement: this.messageOnStatement,
-      attachments: this.files,
-      newTermName: this.newTermName,
-      dueType: this.dueType,
-      dueDays: this.dueDays
-    };
-    console.log(req);
+  const formData = new FormData();
+  formData.append('clientid', this.clientid.toString());
+  formData.append('client', this.ClientName);
+  formData.append('clientemail', this.clientEmail);
+  formData.append('ccEmails', this.ccEmails);
+  formData.append('bccEmails', this.bccEmails);
+  formData.append('billing_address', this.selectedBillingaddress);
+  formData.append('InvoiceDate', this.selectedInvoiceDate); // Convert date to ISO string
+  formData.append('DueDate', this.selectedDueDate); // Convert date to ISO string
+  formData.append('Terms', this.selectedTerm);
+  formData.append('invoiceNo', this.InvoiceNo);
+  formData.append('location', this.selectedState.toString());
+  formData.append('subtotal', this.subtotal.toString());
+  formData.append('discount', this.discountPercentage.toString());
+  formData.append('discountAmount', this.discountAmount.toString());
+  formData.append('total', this.total.toString());
+  formData.append('balanceDue', this.balanceDue.toString());
+  formData.append('invoice_message', this.messageOnInvoice);
+  formData.append('statement', this.messageOnStatement);
+  formData.append('newTermName', this.newTermName);
+  formData.append('dueType', this.dueType.toString());
+  formData.append('duedate', this.dueDays.toString());
+  formData.append('status', '1');
+  formData.append('created_by', this.username);
+
+  // Append invoice lines data
+  this.invoiceLines.forEach(line => {
+    formData.append('invoicedetails[]', JSON.stringify(line));
+  });
+
+  // Append attachments
+  this.files.forEach(file => {
+    formData.append('attachments[]', file);
+  });
+
     this.loading = false;
 
-    // this.Service.createInvoice(req).subscribe(
-    //   (response: any) => {
-    //     this.handleSuccess(response);
-    //   },
-    //   (error: any) => {
-    //     this.handleError(error);
-    //   }
-    // );
+    this.Service.createInvoice(formData).subscribe(
+      (response: any) => {
+        this.handleSuccess(response);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
   }
 
 
