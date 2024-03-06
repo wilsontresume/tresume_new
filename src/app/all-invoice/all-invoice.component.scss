@@ -1,3 +1,5 @@
+
+
 .nav-tabs {
   justify-content: space-around;
   position: relative;
@@ -539,4 +541,39 @@ margin-right: 10px; /* Adjust the value as needed */
 color: #4f4e4e; /* Replace with your desired light color */
 }
 
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.popup input {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.popup button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup button:hover {
+  background-color: #0056b3;
+}
