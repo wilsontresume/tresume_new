@@ -26,6 +26,7 @@ export class AllTimeListComponent implements OnChanges {
   {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.OrgID = this.cookieService.get('OrgID');
     this.TraineeID = this.cookieService.get('TraineeID');
     this.id = this.cookieService.get('id');
@@ -64,6 +65,7 @@ export class AllTimeListComponent implements OnChanges {
       this.PendingData = x.result;
       this.noResultsFound = this.PendingData.length === 0;
     });
+    this.loading = false;
   }
 
   fetchRejectedData(){
@@ -75,6 +77,7 @@ export class AllTimeListComponent implements OnChanges {
       this.rejectedData = x.result;
       this.noResultsFound = this.PendingData.length === 0;
     });
+    this.loading = false;
   }
 
   fetchCompletedData(){
@@ -86,6 +89,7 @@ export class AllTimeListComponent implements OnChanges {
       this.completedData = x.result;
       this.noResultsFound = this.completedData.length === 0;
     });
+    this.loading = false;
   }
 
   fetchNonBillableData(){
@@ -97,6 +101,7 @@ export class AllTimeListComponent implements OnChanges {
       this.nonBillableData = x.result;
       this.noResultsFound = this.PendingData.length === 0;
     });
+    this.loading = false;
   }
   
 }

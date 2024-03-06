@@ -41,6 +41,7 @@ export class CreateProjectComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.TraineeID = this.cookieService.get('TraineeID');
     this.OrgID= this.cookieService.get('OrgID');
     this.username = this.cookieService.get('userName1');
@@ -88,6 +89,7 @@ export class CreateProjectComponent implements OnInit {
       this.project = x.result;
       console.log(this.Projectname);
     });
+    this.loading = false;
   }
 
   addproject() {
