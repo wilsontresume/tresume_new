@@ -20,7 +20,7 @@ export class AllTimeListComponent implements OnChanges {
   TraineeID:string = '';
   noResultsFound: boolean = false;
   timesheetrole: any;
-  id:string = '';
+  id:any = '';
 
   constructor(private cookieService: CookieService, private service: TimesheetListService, private messageService: MessageService)
   {}

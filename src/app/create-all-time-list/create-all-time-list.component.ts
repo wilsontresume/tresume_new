@@ -55,6 +55,7 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
 
+
   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
     const datesWithDaysArray: { date: Date; day: string }[] = [];
     let currentDate = new Date(start);
@@ -152,9 +153,15 @@ export class CreateAllTimeListComponent implements OnInit {
     return row.totalAmount;
 
   }
-
-
-  calculateTotalHours(row: any): number | string {
+  
+  formatTotalHours(totalHours: number): string {
+    const hours = Math.floor(totalHours);
+    const minutes = Math.round((totalHours - hours) * 60);
+    return `${hours} hr ${minutes} mins`;
+  }
+  
+  // Update the calculateTotalHours function to handle decimal values
+  calculateTotalHours(row: any): number {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
     const wed = row.wed || 0;
@@ -162,13 +169,28 @@ export class CreateAllTimeListComponent implements OnInit {
     const fri = row.fri || 0;
     const sat = row.sat || 0;
     const sun = row.sun || 0;
-    const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
-   
-    row.totalHours = totalHours;
-   
-    return isNaN(totalHours) ? 'N/A' : totalHours;
-    
+  
+    // Calculate total hours
+    const totalHours = mon + tues + wed + thu + fri + sat + sun;
+  
+    return totalHours;
   }
+
+  // calculateTotalHours(row: any): number | string {
+  //   const mon = row.mon || 0;
+  //   const tues = row.tues || 0;
+  //   const wed = row.wed || 0;
+  //   const thu = row.thu || 0;
+  //   const fri = row.fri || 0;
+  //   const sat = row.sat || 0;
+  //   const sun = row.sun || 0;
+  //   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
+   
+  //   row.totalHours = totalHours;
+   
+  //   return isNaN(totalHours) ? 'N/A' : totalHours;
+    
+  // }
 
   addDefaultRows() {
     this.timesheetRows.push({

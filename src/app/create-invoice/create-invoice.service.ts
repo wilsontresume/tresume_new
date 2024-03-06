@@ -10,6 +10,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class CreateInvoiceService {
+  getLocationList(req: { OrgID: string; }) {
+    throw new Error('Method not implemented.');
+  }
   // deleteplacementdata(Req: { TraineeInterviewID: number; }) {
   //   throw new Error('Method not implemented.');
   // }

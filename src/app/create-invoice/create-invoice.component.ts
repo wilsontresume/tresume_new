@@ -45,6 +45,7 @@ export class CreateInvoiceComponent implements OnInit {
   balanceDue: number = 0;
   selectedState: any;
   states: any[] = [];
+  
   messageOnInvoice: string[] = [
     `Remit Payment To: Asta CRS, Inc.
     Please mail checks to: Asta Crs Inc 44121 Leesburg Pike,

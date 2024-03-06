@@ -209,8 +209,8 @@
                 <label for="filterBy">Filter by:</label>
                 <select class="form-control" id="filterBy" (change)="onFilterChanges($event.target.value)">
                   <option value="option1">All dates</option>
-                  <option value="option2">This month (January)</option>
-                  <option value="option3">Last month (December)</option>
+                  <option value="option2">This month (March)</option>
+                  <option value="option3">Last month (February)</option>
                   <!-- <option value="option1">Custom</option> -->
                 </select>
               </div>
@@ -224,8 +224,8 @@
               <!-- <p style="color: #999; font-style: italic;"
                 *ngIf="selectedFilter == 'option1' || selectedFilter == 'option2' || selectedFilter == 'option3'">There
                 aren't any billable items for that date range.</p> -->
-              <!-- <div *ngIf="selectedFilter === 'option3'">
-                <div class="form-group mb-3">
+               <!-- <div *ngIf="selectedFilter === 'option3'">
+                     <div class="form-group mb-3">
                   <select class="form-control" (change)="onOptionChanges($event)" [(ngModel)]="selectedOption">
                     <option value="" disabled selected>--Select--</option>
                     <ng-container *ngIf="selectedFilter === 'option3'">
@@ -241,8 +241,10 @@
                   <button class="btn " (click)="addAll()">Add all</button>
                   <div *ngIf="showAdditionalInputs" class="mb-3">
 
-                  </div>
+                  </div> -->
+
                   <div class="card-display mt-3">
+                    
                     <div class="card mb-3">
                       <div class="card-body">
                         <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
@@ -271,7 +273,7 @@
                       </div>
                     </div>
 
-                    <div class="card mb-3">
+                    <!--  <div class="card mb-3">
                       <div class="card-body">
                         <h3 class="card-title" style="text-decoration: underline;">Billable time</h3> <br>
                         <div class="row">
@@ -357,10 +359,12 @@
                   </div>
                   <button class="btn mt-3" (click)="goToPreviousOption()">Back</button>
                 </div>
-              </div> -->
-            </div>
-          </div>
-        </div>
+              </div> 
+            </div> -->
+          </div> 
+        </div> 
+      </div> 
+  </div>
       </div>
     </div>
 
