@@ -38,19 +38,10 @@
     </tbody>
 </table>
 <div class="pl-4">
-  <div class="card mt-3" style="width: 600px;">
+
+  <div class="card mt-3" *ngIf="this.document">
     <div class="card-body">
-      <label for="fileInput" class="card-title" style="cursor: pointer;">Document 1</label>
-      <input type="file" id="fileInput" style="display: none;" onchange="handleFileUpload(event)">
-      <i class="fa fa-upload" id="uploadIcon"></i>
-  </div>
-  
-  </div>
-  <div class="card mt-3">
-    <div class="card-body">
-      <label for="fileInput" class="card-title" style="cursor: pointer;">Document 2</label>
-      <input type="file" id="fileInput" style="display: none;" onchange="handleFileUpload(event)">
-      <i class="fa fa-upload" id="uploadIcon"></i>
+      <a href="https://tresume.us/Content/Timesheet/{{this.document}}"></a><label for="fileInput" class="card-title" style="cursor: pointer;">Client Approved Timesheet</label> &nbsp;&nbsp;<i class="fas fa-download" id="uploadIcon"></i>
     </div>
   </div>
   <div *ngFor="let row of rowdata">

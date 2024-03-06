@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { AllInvoiceService } from './all-invoice.service';
 import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
-import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-all-invoice',
@@ -12,6 +11,8 @@ import * as XLSX from 'xlsx';
   providers: [CookieService, MessageService, AllInvoiceService],
 
 })
+
+
 export class AllInvoiceComponent implements OnInit {
 
   @Output() confirmed = new EventEmitter<boolean>();
@@ -49,6 +50,11 @@ export class AllInvoiceComponent implements OnInit {
   startDate: string;
   endDate: string;
 
+  receivedAmount: any; 
+
+  updateReceivedPayment() {
+    console.log(this.receivedAmount); 
+  }
 
   batchActionsOptions = ['Batch Actions'
   ];
@@ -279,9 +285,3 @@ applyUnpaidFilter() {
   }
 
 }
-
-
-
-
-
-

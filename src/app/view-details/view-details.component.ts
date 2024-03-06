@@ -24,6 +24,7 @@ export class ViewDetailsComponent {
   comments: any;
   idFromUrl: any;
   idFromCookie: any;
+  document: any;
 
   constructor(private router: Router,private cookieService: CookieService,private service: ViewDetailsService,private messageService: MessageService, private route: ActivatedRoute,private renderer: Renderer2) { }
 
@@ -43,9 +44,11 @@ export class ViewDetailsComponent {
     let Req = {
       traineeID: this.TraineeID,
       timesheetrole:this.timesheetrole,
+      tid : this.idFromUrl
     };
     this.service.Candidateviewdetails(Req).subscribe((x: any) => {
       this.rowdata = x.result;
+      this.document = this.rowdata[0].clientapproved;
       // this.noResultsFound = this.rowdata.length === 0;
     });
     this.loading = false;
