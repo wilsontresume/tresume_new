@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group text-center">
-                    <label for="basicinfo">Job Title</label>
+                    <label for="basicinfo">Job Title *</label>
                     <input type="text" class="form-control" id="basicinfo" [(ngModel)]="jobtitle"
                       [ngModelOptions]="{ standalone: true }" placeholder="Ex. QA Lead *">
                   </div>
@@ -78,12 +78,13 @@
                 <div class="col-md-4">
                   <div class="form-group text-center">
                     <label for="basicinfo">State *</label>
-                    <select [(ngModel)]="selectedState" name="state" id="state" class="form-control">
-                      <option *ngFor="let state of states" [value]="state">{{ state }}</option>
-                    </select>
+                    <select class="form-control" name="State" [(ngModel)]="selectedstate"
+                                [ngModelOptions]="{standalone: true}" (change)="getCity()">
+                                <option value="0" selected>Select State</option>
+                                <option *ngFor="let state of state" [value]="state.state">{{ state.state }}</option>
+                            </select>
                   </div>
                 </div>
-
 
                 <div class="col-md-4">
                   <div class="form-group text-center">
@@ -106,7 +107,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group text-center">
-                    <label for="basicinfo">City code</label>
+                    <label for="basicinfo">Area code</label>
                     <input type="text" class="form-control" id="basicinfo" [(ngModel)]="citycode"
                       [ngModelOptions]="{ standalone: true }" placeholder="Ex. 980">
                   </div>
@@ -144,7 +145,6 @@
                         </select>
                       </div>
                     </div>
-
 
                     <div class="col-md-6 ">
                       <div class="form-group text-center">
@@ -213,9 +213,7 @@
                     </div>
                   </div>
                 </div>
-                <!-- <div class="form-group text-center">                                        
-                          </div> -->
-
+              
                 <div class="col-md-4 text-center">
                   <div class="col-md-6 ">
                     <label for="RespondBy">Respond By *</label>
@@ -227,7 +225,6 @@
                     <div class="respondDate" style="display: none;">
                       <input name="RespondBy" type="text" maxlength="500" id="RespondBy"
                         class="form-control frm-control respondDate respondDate1 respontxt" placeholder="Respond Date">
-
                     </div>
                   </div>
                 </div>
@@ -329,10 +326,7 @@
                       <p-multiSelect [options]="statusOptions" [(ngModel)]="selectedLegalstatus" optionLabel="name"
                         (onSearch)="onLegalstatusSearch($event)">
                       </p-multiSelect>
-
-
-
-
+                      
                     </div>
                   </div>
                 </div>
@@ -478,7 +472,6 @@
                   <div class="col-md-8">
                     <p-editor [style]="{'height':'320px', 'width':'100%'}"
                       placeholder="Enter the email content to be sent"></p-editor>
-
                   </div>
                   <div class="col">
                     <div class="col post-job-boards">

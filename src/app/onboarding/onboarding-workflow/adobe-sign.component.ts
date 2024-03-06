@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OnboardingService } from '../onboarding.service';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
+
 
 
 @Component({
@@ -12,6 +14,7 @@ import { environment } from '../../../environments/environment';
     styleUrls: ['../onboarding.component.scss']
 })
 export class AdobesignComponent implements OnInit {
+  loading:boolean = false;
 
     @Input() docItems: any[] = [];
 

@@ -1,32 +1,91 @@
-import { Component} from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { ViewDetailsService } from './view-details.service';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-view-details',
   templateUrl: './view-details.component.html',
-  styleUrls: ['./view-details.component.scss']
+  styleUrls: ['./view-details.component.scss'],
+  providers: [CookieService,ViewDetailsService,MessageService],
 })
 export class ViewDetailsComponent {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  isAdmin: boolean = true; 
-  projects: any[] = [ 
-    {
-      projectName: 'Project 1',
-      sunday: 'Sun Data 1',
-      status: 'Approved'
-    },
-    {
-      projectName: 'Project 2',
-      sunday: 'Sun Data 2',
-      status: 'Rejected'
-    }
-  ];
+  loading:boolean = false;
+  isAdmin: boolean = true;
+  OrgID:string = '';
+  TraineeID:string = '';
+  timesheetrole: any;
+  rowdata: any [] = [];
+  noResultsFound: boolean = false;
+  comments: any;
+  idFromUrl: any;
+  idFromCookie: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private cookieService: CookieService,private service: ViewDetailsService,private messageService: MessageService, private route: ActivatedRoute,private renderer: Renderer2) { }
 
- 
+  ngOnInit(): void {
+    this.loading = true;
+    this.OrgID = this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
 
+    this.route.paramMap.subscribe(params => {
+      this.idFromUrl = params.get('id');
+    });
+
+    this.fetchResult();
+  }
+
+  fetchResult(){
+    let Req = {
+      traineeID: this.TraineeID,
+      timesheetrole:this.timesheetrole,
+    };
+    this.service.Candidateviewdetails(Req).subscribe((x: any) => {
+      this.rowdata = x.result;
+      // this.noResultsFound = this.rowdata.length === 0;
+    });
+    this.loading = false;
+
+  }
+  reject(){
+    let Req = {
+      traineeID: this.TraineeID,
+      id:this.idFromUrl,
+    };
+    this.service.UpdateRejectStatus(Req).subscribe((x: any) => {
+      this.rowdata = x.result;
+    });
+    this.messageService.add({ severity: 'success', summary: 'Rejected'});
+  }
+
+  Accept() {
+    let Req = {
+      traineeID: this.TraineeID,
+      comments: this.comments,
+      id: this.idFromUrl,
+    };
+    this.service.UpdateAcceptStatus(Req).subscribe((x: any) => {
+      this.rowdata = x.result;
+      this.messageService.add({ severity: 'success', summary: 'Approved' });
   
+      setTimeout(() => {
+        this.router.navigate(['/alltimelist']);
+      }, 3000); 
+    }, error => {
+    });
+  }
+
+  uploadFile() {
+    this.renderer.selectRootElement('#fileInput').click();
+  }
+
+  handleFileUpload(event: Event) {
+    const file = (event.target as HTMLInputElement).files![0];
+  }
 }
 
 
