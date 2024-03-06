@@ -141,7 +141,7 @@ router.post("/getAllInvoiceList", async (req, res) => {
       var request = new sql.Request();
 
       var query =
-        "SELECT im.created_at as date, im.invoiceNo, tp.projectname, im.mail_sent_on as memo, im.total,im.status FROM invoice_Master AS im JOIN timesheet_project AS tp ON im.clientid = tp.clientid  WHERE im.orgid = '" + req.body.OrgID + "' AND tp.status = 1";
+        "SELECT DISTINCT im.created_at as date, im.invoiceNo, tp.projectname, im.mail_sent_on as memo, im.total,im.status FROM invoice_Master AS im JOIN timesheet_project AS tp ON im.clientid = tp.clientid  WHERE im.orgid = '" + req.body.OrgID + "' AND tp.status = 1";
 
       console.log(query);
       request.query(query, function (err, recordset) {
