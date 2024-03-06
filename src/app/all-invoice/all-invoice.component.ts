@@ -1,8 +1,12 @@
+
+
+
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AllInvoiceService } from './all-invoice.service';
 import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-all-invoice',
@@ -50,10 +54,71 @@ export class AllInvoiceComponent implements OnInit {
   startDate: string;
   endDate: string;
 
-  receivedAmount: any; 
+  // receivedamt: any; 
+  // invoiceid:any;
+  // updateReceivedPayment() {
+  //   let req = {
+  //     // receivedamt: this.receivedamt,
+  //     // invoiceid:this.invoiceid,
+  //   };
+  //   // console.log(this.receivedAmount); 
 
-  updateReceivedPayment() {
-    console.log(this.receivedAmount); 
+  //   console.log(req);
+  //   // this.service.updateReceivedPayment(req).subscribe(
+  //   //   (response: any) => {
+  //   //     this.handleSuccess(response);
+  //   //   },
+  //   //   (error: any) => {
+  //   //     this.handleError(error);
+  //   //   }
+  //   // );
+  // }
+
+
+  showPopup = false;
+  receivedamt: number;
+  invoiceid: number;
+
+  openPopup(invoiceId: number) {
+    this.showPopup = true;
+    this.invoiceid = invoiceId;
+  }
+
+  saveAmount() {
+    // console.log('Invoice ID:', this.invoiceid);
+    // console.log('Received payment amount:', this.receivedamt);
+    const req = {
+      id: this.invoiceid,
+      receivedamt: this.receivedamt
+    };
+
+    console.log(req);
+    this.service.updateReceivedPayment(req).subscribe(
+          (response: any) => {
+            this.handleSuccess(response);
+          },
+          (error: any) => {
+            this.handleError(error);
+          }
+        );
+    this.showPopup = false;
+  }
+
+  private handleSuccess(response: any): void {
+    this.messageService.add({ severity: 'success', summary: response.message });
+    console.log(response);
+    this.loading = false;
+    // this.router.navigate(['/all-invoice/' + this.routeType]);
+  }
+
+  private handleError(error: any): void {
+    let errorMessage = 'An error occurred';
+    if (error.error && error.error.message) {
+      errorMessage = error.error.message;
+    }
+    this.messageService.add({ severity: 'error', summary: errorMessage });
+    console.error('Error occurred:', error);
+    this.loading = false;
   }
 
   batchActionsOptions = ['Batch Actions'
