@@ -367,6 +367,7 @@ addservice(timesheet:any){
         rate: line.rate,
         timesheetid:line.timesheetid
       });
+      this.messageService.add({ severity: 'success', summary:  'Data Updated' });
     });
 
   const formData = new FormData();
