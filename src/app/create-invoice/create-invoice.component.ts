@@ -273,6 +273,7 @@ updateDiscount(event: any): void {
         qty: line.qty,
         rate: line.rate
       });
+      this.messageService.add({ severity: 'success', summary:  'Data Updated' });
     });
   
     let req = {
