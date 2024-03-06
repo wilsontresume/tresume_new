@@ -4,7 +4,8 @@ const sql = require("mssql");
 const bodyparser = require('body-parser');
 const environment = process.env.NODE_ENV || "prod";
 const envconfig = require(`./config.${environment}.js`);
-
+const multer = require('multer');
+const fs = require('fs');
 router.use(bodyparser.json());
 
 const config = {
@@ -15,6 +16,18 @@ const config = {
   trustServerCertificate: true,
 };
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'C:/inetpub/vhosts/tresume.us/httpdocs/Content/Invoice/attachements');
+  },
+  filename: function (req, file, cb) {
+    const uniqueFilename = uuidv4();
+    const fileExtension = path.extname(file.originalname);
+    cb(null, uniqueFilename + fileExtension);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 router.post("/getPaidInvoiceList", async (req, res) => {
   try {
@@ -203,6 +216,93 @@ router.post("/UpdateAcceptStatus", async function (req, res) {
   }
 });
 
+router.post("/gettimesheetlist", async (req, res) => {
+  try {
+    sql.connect(config, function (err) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      var request = new sql.Request();
 
+      var query = "SELECT tm.id, tm.traineeid, CONCAT(t.firstname, ' ', t.lastname) AS candidatename, tm.totalhrs, tm.details, tm.totalamt, tm.billableamt, tm.projectid, tm.fromdate FROM timesheet_master AS tm JOIN timesheet_project AS tp ON tm.projectid = tp.projectid JOIN trainee AS t ON tm.traineeid = t.traineeid WHERE tp.clientid = '" + req.body.orgID + "' AND tm.status = 1 AND tm.isbillable = 1";
+
+      if (req.body.startdate) {
+          query += " AND tm.fromdate >= '" + req.body.startdate + "'";
+      }
+
+      if (req.body.enddate) {
+          query += " AND tm.fromdate <= '" + req.body.enddate + "'";
+      }
+
+
+      console.log(query);
+      request.query(query, function (err, recordset) {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+
+        res.send(result);
+      });
+    });
+  } catch (error) {
+    console.error("Error occurred: ", error);
+    res.status(500).send("An error occurred while processing your request.");
+  }
+});
+
+router.post('/createInvoice', upload.array('attachments', 10), async (req, res) => {
+  const invoiceData = req.body;
+ 
+  try {
+    await sql.connect(config);
+    const request = new sql.Request();
+    const query = `
+    INSERT INTO [dbo].[invoice_master]
+    ([clientid], [clientemail], [billing_address], [timesheetid], [invoiceNo], [location], [subtotal], [discount], [total],
+     [invoice_message], [statement], [status], [mail_sent_on], [isviewed], [ispaid], [isdeposited] [created_at], [created_by], [last_updated_at], [last_updated_by], [traineeid], [orgid], [pterms], [receivedamt], [invoicedetails])
+    VALUES
+    (${req.body.clientid}, '${req.body.clientemail}', '${req.body.billing_address}', '',
+     '${req.body.invoiceNo}', '', '${req.body.subtotal}', '${req.body.discount}', '${req.body.total}',
+     '${req.body.invoice_message}', '${req.body.statement}', ${req.body.status}, '${req.body.mail_sent_on}',
+     '0', '0', '0',  GETDATE(), '${req.body.created_by}', GETDATE(),
+     '${req.body.created_by}', ${req.body.traineeid}, ${req.body.orgid}, '', '0', '${req.body.invoicedetails}');
+
+      SELECT SCOPE_IDENTITY() AS insertedId;
+    `;
+
+    for (const key in req.body) {
+      request.input(key, req.body[key]);
+    }
+    const result = await request.query(query);
+    const insertedId = result.recordset[0].insertedId;
+    const attachmentQuery = `
+    INSERT INTO [dbo].[invoiceattachements] ([invoiceid], [filename], [status])
+    VALUES (@invoiceid, @filename, @status);
+  `;
+
+  for (const file of req.files) {
+    const attachmentRequest = new sql.Request();
+    attachmentRequest.input('invoiceid', sql.Int, insertedId);
+    attachmentRequest.input('filename', sql.VarChar(255), file.filename);
+    attachmentRequest.input('status', sql.Int, 1); // Adjust status as needed
+
+    await attachmentRequest.query(attachmentQuery);
+  }
+
+    res.json({ success: true, message: 'Invoice inserted successfully', insertedId });
+  } catch (err) {
+    console.error('SQL error:', err);
+    res.status(500).json({ success: false, message: 'Error inserting invoice' });
+  } finally {
+    sql.close();
+  }
+});
 
 module.exports = router;
