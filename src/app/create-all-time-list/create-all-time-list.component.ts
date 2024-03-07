@@ -454,7 +454,7 @@ onChangesDropdown(selectedOption: any, row: any) {
   //   }
   // }
 
-  SaveRow(): void {
+  SaveRow() {
     const selectedWeek = this.selectedWeek.split(' to ');
     const startDateSelectedWeek = new Date(selectedWeek[0]);
     const endDateSelectedWeek = new Date(selectedWeek[1]);
@@ -463,13 +463,13 @@ onChangesDropdown(selectedOption: any, row: any) {
     const endDateFormatted = endDateSelectedWeek.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' });
   
       this.timesheetRows.forEach((row, index) => {
-        this.loading = true;
+        // this.loading = true;
         if(row.projectName !=''){
           const formData = new FormData();
           if (!row.file1) {
             
             alert('Please upload client-approved timesheet.');
-            this.loading = false;
+            // this.loading = false;
             return; 
           }
           formData.append('file1', row.file1);
