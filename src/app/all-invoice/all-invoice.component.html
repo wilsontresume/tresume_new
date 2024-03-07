@@ -1,5 +1,3 @@
-
-
 <div class="container-fluid p-3">
   <div class="head d-flex justify-content-between p-3">
     <h2> ALL INVOICE</h2>
@@ -55,7 +53,6 @@
                         contacts</a>
                     </div>
                   </div> -->
-
                   <div class="modal fade" id="makeInactiveModal" tabindex="-1" role="dialog"
                     aria-labelledby="makeInactiveModal" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -390,23 +387,23 @@
               <div style="font-size: 12px;">
                 <table class="table no-border mt-4">
                   <thead class="underline">
-                      <tr>
-                          <td><input type="checkbox"></td>
-                          <th>Invoiceid</th>
-                          <th>DATE</th>
-                          <th>TYPE</th>
-                          <th>NO.</th>
-                          <th>CLIENT/PROJECT</th>
-                          <th>MEMO</th>
-                          <th>AMOUNT</th>
-                          <th>STATUS</th>
-                          <th>ACTION</th>
-                      </tr>
+                    <tr>
+                      <td><input type="checkbox" (change)="selectAll($event.target.checked)"></td>
+                      <th>Invoice ID</th>
+                      <th>DATE</th>
+                      <th>TYPE</th>
+                      <th>NO.</th>
+                      <th>CLIENT/PROJECT</th>
+                      <th>MEMO</th>
+                      <th>AMOUNT</th>
+                      <th>STATUS</th>
+                      <th>ACTION</th>
+                    </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let invoice of filteredInvoices">
-                      <td><input type="checkbox"></td>
-                      <td >{{ invoice.id}}</td>
+                    <tr *ngFor="let invoice of filteredInvoices" (click)="selectRow(invoice)" [class.selected]="invoice.selected">
+                      <td><input type="checkbox" [(ngModel)]="invoice.selected" (click)="$event.stopPropagation()"></td>
+                      <td>{{ invoice.id}}</td>
                       <td>{{ invoice.date | date: "MM/dd/y" : "UTC" }}</td>
                       <td>Invoice</td>
                       <td>{{ invoice.invoiceNo }}</td>
@@ -415,41 +412,20 @@
                       <td>{{ invoice.total }}</td>
                       <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                       <td>
-                        <button  (click)="openPopup(invoice.id)">Received Payment</button>
+                        <button class="btn" (click)="openPopup(invoice.id)">Received Payment</button>
                       </td>
-                      <!-- <td>
-                          <button class="btn btn-" (click)="editAction()">Edit</button>
-                          <div class="btn-group received" style="margin-left: 5px;">
-                              <a class="btn btn float-left" style=" height: 30px;" href="payment">Receive Payment</a>
-                              <button type="button" class="btn btn- dropdown-toggle dropdown-toggle-split"
-                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                      style="margin-left: 1px;">
-                                  <span class="sr-only">Toggle Dropdown</span>
-                              </button>
-                              <i class="fas fa-download" style="margin-top: 4px;margin-left: 10px;font-size: 22px; "></i>
-                              <div class="dropdown-menu">
-                                  <a class="dropdown-item" href="create-invoice" (click)="duplicateAction()">View/Edit</a>
-                                  <a class="dropdown-item" href="create-invoice" (click)="sendAction()">Duplicate</a>
-                                  <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send</a>
-                                  <a class="dropdown-item" href="send-invoice" (click)="sendAction()">Send reminder</a>
-                                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTaskModal">Create task</a>
-                                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shareLinkModal">Share invoice link</a>
-                                  <a class="dropdown-item" href="#" (click)="duplicateAction()">Print</a>
-                                  <a class="dropdown-item" href="#" data-toggle="modal"
-                                      data-target="#deleteConfirmationModal">Delete</a>
-                              </div>
-                          </div>
-                      </td> -->
-                  </tr>
-                  
-                      <tr *ngIf="noResultsFound">
-                          <td colspan="9" class="text-center">
-                              No results found.
-                          </td>
-                      </tr>
+                    </tr>
+                    
+                    <tr *ngIf="noResultsFound">
+                      <td colspan="10" class="text-center" style="font-size: 16px;">
+                        No results found.
+                      </td>
+                    </tr>
                   </tbody>
-              </table>
+                </table>
               </div>
+              
+              
 
             </div>
 
@@ -469,8 +445,8 @@
                 <thead class="underline">
                   <tr>
                     <!-- Header cells -->
-                    <th><input type="checkbox"></th>
-                    <th>Invoiceid</th>
+                    <th><input type="checkbox" (change)="selectAll1($event.target.checked)"></th>
+                    <th>Invoice ID</th>
                     <th>DATE</th>
                     <th>TYPE</th>
                     <th>NUMBER</th>
@@ -483,8 +459,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let invoice of filteredPaidInvoices">
-                        <td><input type="checkbox"></td>
+                    <tr *ngFor="let invoice of filteredPaidInvoices" (click)="selectRow(invoice)" [class.selected]="invoice.selected">
+                        <td><input type="checkbox" [(ngModel)]="invoice.selected" (click)="$event.stopPropagation()"></td>
                         <td>{{ invoice.id}}</td>
                         <td>{{ invoice.date | date : "MM/dd/y" : "UTC" }}</td>
                         <td>Invoice</td>
@@ -494,7 +470,7 @@
                         <td>{{ invoice.total }}</td>
                         <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                         <td>
-                          <button  (click)="openPopup(invoice.id)">Received Payment</button>
+                          <button class="btn" (click)="openPopup(invoice.id)">Received Payment</button>
                         </td>
                         <!-- <td>
                             <button class="btn btn-" (click)="editAction()">Edit</button>
@@ -523,7 +499,7 @@
                         </td> -->
                     </tr>
                   <tr *ngIf="noResultsFound">
-                    <td colspan="9" class="text-center">
+                    <td colspan="10" class="text-center" style="font-size: 16px;">
                       No results found.
                     </td>
                   </tr>
@@ -549,8 +525,8 @@
                 <table class="table no-border" style="margin-top: 50px;">
                   <thead class="underline">
                     <tr>
-                      <td><input type="checkbox"></td>
-                      <th>Invoiceid</th>
+                      <td><input type="checkbox" (change)="selectAll2($event.target.checked)"></td>
+                      <th>Invoice ID</th>
                       <th>DATE</th>
                       <th>TYPE</th>
                       <th>NO.</th>
@@ -559,13 +535,12 @@
                       <th>AMOUNT </th>
                       <th>STATUS</th>
                       <th>ACTION</th>
-
                     </tr>
                   </thead>
                   
                   <tbody>
-                      <tr *ngFor="let invoice of filteredUnpaidInvoices">
-                          <td><input type="checkbox"></td>
+                      <tr *ngFor="let invoice of filteredUnpaidInvoices" (click)="selectRow(invoice)" [class.selected]="invoice.selected">
+                          <td><input type="checkbox" [(ngModel)]="invoice.selected" (click)="$event.stopPropagation()"></td>
                           <td>{{ invoice.id}}</td>
                           <td>{{ invoice.date | date : "MM/dd/y" : "UTC" }}</td>
                           <td>Invoice</td>
@@ -575,7 +550,7 @@
                           <td>{{ invoice.total }}</td>
                           <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                           <td>
-                            <button  (click)="openPopup(invoice.id)">Received Payment</button>
+                            <button class="btn" (click)="openPopup(invoice.id)">Received Payment</button>
                           </td>
                           <!-- <td>
                               <button class="btn btn-" (click)="editAction()">Edit</button>
@@ -604,7 +579,7 @@
                           </td> -->
                       </tr>
                     <tr *ngIf="noResultsFound">
-                      <td colspan="9" class="text-center">
+                      <td colspan="10" class="text-center" style="font-size: 16px;">
                         No results found.
                       </td>
                     </tr>

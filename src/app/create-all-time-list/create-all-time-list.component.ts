@@ -325,7 +325,6 @@ onChangesDropdown(selectedOption: any, row: any) {
   onDropdownChange(selectedOption: any, row: any) {
     row.projectName = selectedOption.projectname;
     row.projectid = selectedOption.projectid;
-
   }
 
 
