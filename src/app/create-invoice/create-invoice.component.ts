@@ -69,6 +69,7 @@ export class CreateInvoiceComponent implements OnInit {
     this.getState();
     this.fetchclientlist();
     this.calculateSubtotal();
+    this.addDefaultRows(2);
   }
 
   constructor(private messageService: MessageService, private cookieService: CookieService, private Service: CreateInvoiceService, private router: Router, private route: ActivatedRoute) {
