@@ -55,7 +55,6 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
 
-
   getDatesWithDaysArray(start: Date, end: Date): { date: Date; day: string }[] {
     const datesWithDaysArray: { date: Date; day: string }[] = [];
     let currentDate = new Date(start);
@@ -153,7 +152,24 @@ export class CreateAllTimeListComponent implements OnInit {
     return row.totalAmount;
 
   }
-  
+
+
+  // calculateTotalHours(row: any): number | string {
+  //   const mon = row.mon || 0;
+  //   const tues = row.tues || 0;
+  //   const wed = row.wed || 0;
+  //   const thu = row.thu || 0;
+  //   const fri = row.fri || 0;
+  //   const sat = row.sat || 0;
+  //   const sun = row.sun || 0;
+  //   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
+   
+  //   row.totalHours = totalHours;
+   
+  //   return isNaN(totalHours) ? 'N/A' : totalHours;
+    
+  // }
+
   formatTotalHours(totalHours: number): string {
     const hours = Math.floor(totalHours);
     const minutes = Math.round((totalHours - hours) * 60);
@@ -175,22 +191,6 @@ export class CreateAllTimeListComponent implements OnInit {
   
     return totalHours;
   }
-
-  // calculateTotalHours(row: any): number | string {
-  //   const mon = row.mon || 0;
-  //   const tues = row.tues || 0;
-  //   const wed = row.wed || 0;
-  //   const thu = row.thu || 0;
-  //   const fri = row.fri || 0;
-  //   const sat = row.sat || 0;
-  //   const sun = row.sun || 0;
-  //   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
-   
-  //   row.totalHours = totalHours;
-   
-  //   return isNaN(totalHours) ? 'N/A' : totalHours;
-    
-  // }
 
   addDefaultRows() {
     this.timesheetRows.push({
@@ -243,6 +243,11 @@ export class CreateAllTimeListComponent implements OnInit {
     this.getLocation();
     this.getpayItem();
 
+    if(this.timesheetrole === '3'){
+      this.candidateid = this.traineeID
+      this.traineeID = this.cookieService.get('timesheet_admin');
+    }
+
     const currentWeek = this.getCurrentWeekDates();
     this.selectedWeek = `${this.formatDate(currentWeek.start)} to ${this.formatDate(currentWeek.end)}`;
     this.updateDynamicDays(this.selectedWeek);
@@ -290,7 +295,7 @@ dropdownOptions: any[] = [];
   }
   getCandidateName() {
     let Req = {
-      OrgID: this.OrgID
+      username: this.username
     };
 
     this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => {
@@ -300,7 +305,7 @@ dropdownOptions: any[] = [];
 
 getCandidateList() {
   let Req = {
-    OrgID: this.OrgID
+    username: this.username
   };
   this.Service.getTimesheetCandidatetList(Req).subscribe((x: any) => { 
     this.dropdownOptions = x.result;
