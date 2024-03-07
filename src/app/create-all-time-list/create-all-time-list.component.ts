@@ -226,9 +226,15 @@ export class CreateAllTimeListComponent implements OnInit {
       this.traineeID = this.cookieService.get('timesheet_admin');
     }
 
-    const currentWeek = this.getCurrentWeekDates();
-    this.selectedWeek = `${this.formatDate(currentWeek.start)} to ${this.formatDate(currentWeek.end)}`;
-    this.updateDynamicDays(this.selectedWeek);
+    const today = new Date();
+    const currentWeekStart = new Date(today);
+    currentWeekStart.setDate(currentWeekStart.getDate() - currentWeekStart.getDay() + 1); // Start of the current week
+    const currentWeekEnd = new Date(currentWeekStart);
+    currentWeekEnd.setDate(currentWeekEnd.getDate() + 6); // End of the current week
+    this.selectedWeek = `${this.formatDate(currentWeekStart)} to ${this.formatDate(currentWeekEnd)}`;
+
+    // Generate weeks
+    this.dynamicDays = this.generateWeeks();
   }
 
   getCurrentWeekDates(): { start: Date; end: Date } {
@@ -514,25 +520,25 @@ private handleError(response: any): void {
   generateWeeks(): string[] {
     const today = new Date();
     const currentYear = today.getFullYear();
+    const startDate = new Date(today);
+    startDate.setDate(startDate.getDate() - startDate.getDay() + 1); // Start from the beginning of the current week
+
     const weeks: string[] = [];
 
-    this.zone.runOutsideAngular(() => {
-      for (let monthOffset = 0; monthOffset < 12; monthOffset++) {
-        const targetMonth = (today.getMonth() + monthOffset) % 12;
-        const targetYear = currentYear + Math.floor((today.getMonth() + monthOffset) / 12);
+    for (let i = -52; i <= 52; i++) { // Display 52 weeks before and after the current week
+        const startWeek = new Date(startDate);
+        startWeek.setDate(startWeek.getDate() + i * 7); // Move to the next or previous week
 
-        const startDate = this.getFirstMonday(new Date(targetYear, targetMonth, 1));
+        const endDate = new Date(startWeek);
+        endDate.setDate(endDate.getDate() + 6);
 
-        for (let i = 0; i < 5; i++) {
-          const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
-          const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
-          weeks.push(weekString);
-          startDate.setDate(startDate.getDate() + 7);
-        }
-      }
-    });
+        const weekString = `${this.formatDate(startWeek)} to ${this.formatDate(endDate)}`;
+        weeks.push(weekString);
+    }
+
     return weeks;
-  }
+}
+
 
   getFirstMonday(date: Date): Date {
     while (date.getDay() !== 1) {
