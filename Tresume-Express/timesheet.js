@@ -1039,7 +1039,7 @@ router.post('/getLocationList', async (req, res) => {
     const pool = await sql.connect(config);
     const request = pool.request();
     
-       const query = "select distinct CONCAT(state,' - ',stateAbbr) as state,zipcode from usazipcodenew ORDER BY state ASC";
+       const query = "select distinct CONCAT(state,' - ',stateAbbr) as state from usazipcodenew ORDER BY state ASC";
 
     console.log(query);
 
