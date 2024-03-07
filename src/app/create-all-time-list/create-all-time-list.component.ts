@@ -170,29 +170,27 @@ export class CreateAllTimeListComponent implements OnInit {
     
   // }
 
+  formatTotalHours(totalHours: number): string {
+    const hours = Math.floor(totalHours);
+    const minutes = Math.round((totalHours - hours) * 60);
+    return `${hours} hr ${minutes} mins`;
+  }
   
- formatTotalHours(totalHours: number): string {
-  const hours = Math.floor(totalHours);
-  const minutes = Math.round((totalHours - hours) * 60);
-  return `${hours} hr ${minutes} mins`;
-}
-
-// Update the calculateTotalHours function to handle decimal values
-calculateTotalHours(row: any): number {
-  const mon = row.mon || 0;
-  const tues = row.tues || 0;
-  const wed = row.wed || 0;
-  const thu = row.thu || 0;
-  const fri = row.fri || 0;
-  const sat = row.sat || 0;
-  const sun = row.sun || 0;
-
-  // Calculate total hours
-  const totalHours = mon + tues + wed + thu + fri + sat + sun;
-
-  return totalHours;
-}
-
+  // Update the calculateTotalHours function to handle decimal values
+  calculateTotalHours(row: any): number {
+    const mon = row.mon || 0;
+    const tues = row.tues || 0;
+    const wed = row.wed || 0;
+    const thu = row.thu || 0;
+    const fri = row.fri || 0;
+    const sat = row.sat || 0;
+    const sun = row.sun || 0;
+  
+    // Calculate total hours
+    const totalHours = mon + tues + wed + thu + fri + sat + sun;
+  
+    return totalHours;
+  }
 
   addDefaultRows() {
     this.timesheetRows.push({
