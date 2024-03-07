@@ -187,6 +187,9 @@
                   <!-- <option value="option1">Custom</option> -->
                 </select>
               </div>
+              <div *ngIf="timesheetlist.length === 0" class="alert alert-info">
+                No result found.
+              </div>
               <hr>
               <div *ngIf="selectedFilter === 'option1'">
               </div>
