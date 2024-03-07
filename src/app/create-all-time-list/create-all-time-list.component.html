@@ -164,7 +164,6 @@
         <td class="text-right">
           <i> hrs </i><br>
           <span [(ngModel)]="row.totalHours">{{ formatTotalHours(calculateTotalHours(row)) }}</span><br>
-
           <i> amount </i>
           <span [(ngModel)]="row.totalAmount">{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}</span>
         </td>
