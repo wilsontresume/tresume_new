@@ -12,6 +12,8 @@ import { MessageService } from 'primeng/api';
 })
 export class AccountsAddUserComponent implements OnChanges {
 
+  loading:boolean = false;
+
   userForm: FormGroup;
   CreatedDate: Date = new Date();
   RemainingDate: Number = 52;
@@ -56,6 +58,7 @@ export class AccountsAddUserComponent implements OnChanges {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
@@ -73,6 +76,8 @@ export class AccountsAddUserComponent implements OnChanges {
     };
     this.service.getOrgUserList(Req).subscribe((x: any) => {
       this.User_Accounts = x.result;
+      this.loading = false;
+
     });
   }
 

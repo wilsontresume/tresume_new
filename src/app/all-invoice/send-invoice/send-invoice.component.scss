@@ -1,0 +1,37 @@
+
+body {
+  background-color: #ffffff; 
+  color: #000;
+  margin: 0;
+  font-size: 14px;
+}
+.bill{
+  border-bottom: 2px solid #ccc;
+   margin-bottom: 10px;
+}
+.side{
+  font-weight: bold; 
+  color: #333;
+   margin-top: 26px; 
+   margin-left: 34px;
+}
+.net{
+  margin-left: -48px; 
+  margin-top: 10px; 
+  margin-top: 26px;
+}
+.btn{
+  background-color: #380838;
+  color: white;
+font-size: 12px; 
+padding: 5px 10px;
+}
+
+.d-flex.align-items-center:hover {
+  cursor: pointer;
+}
+
+.border{
+height: 20rem;
+margin-top: 3rem;
+}

@@ -56,7 +56,7 @@
             <input placeholder="Posted within days" [(ngModel)]="daysWithin" class="form-control" />
           </div>
           <div class="col-md-3" style="padding: 20px">
-            <label for="recruiter">Min Experiance</label>
+            <label for="recruiter">Min Experience</label>
             <input [(ngModel)]="yearsOfExpmin" class="form-control" />
           </div>
           <div class="col-md-3" style="padding: 20px">
@@ -70,11 +70,11 @@
 
         </div>
         <div class="row">
-          <div class="col-md-2" style="padding: 5px 20px">
+          <div class="col-md-12" style="padding: 5px 20px">
             <h4 style="font-weight: bold; font-size: 14px; margin: 8px">
               Work Status
             </h4>
-            <p-multiSelect styleClass="customSelect" [options]="workStatus" [(ngModel)]="selectedWorkstatus"
+            <p-multiSelect styleClass="customSelect" [options]="workPermit" [(ngModel)]="selectedWorkstatus"
               display="chip" optionLabel="name">
             </p-multiSelect>
           </div>
@@ -85,23 +85,26 @@
             <p-dropdown name="tester" placeholder="Select a Degree" [options]="educationDegree"
               [(ngModel)]="selectedEducationDegree" [showClear]="true" optionLabel="name"></p-dropdown>
           </div>
-          <div class="col-md-2" style="padding: 5px 20px">
+          <!-- <div class="col-md-2" style="padding: 5px 20px">
             <h4 style="font-weight: bold; font-size: 14px; margin: 8px">
               Work Permit
             </h4>
             <p-multiSelect styleClass="customSelect" [options]="workPermit" [(ngModel)]="selectedWorkPermit"
               display="chip" optionLabel="name">
             </p-multiSelect>
-          </div>
-          <div class="col-md-2" style="padding: 40px 20px; margin-top: 20px">
+          </div> -->
+          <div class="col-md-3" style="padding: 40px 20px; margin-top: 20px">
             <mat-checkbox class="example-margin" [(ngModel)]="willingToRelocate">Willing To Relocate
             </mat-checkbox>
           </div>
-          <div class="col-md-2" style="padding: 40px 20px; margin-top: 20px">
+          <div class="col-md-3" style="padding: 40px 20px; margin-top: 20px">
             <mat-checkbox class="example-margin" [(ngModel)]="onlyWithSecurityClearance">Security Clearance
             </mat-checkbox>
           </div>
-          
+          <div class="col-md-3" style="padding: 40px 20px; margin-top: 20px">
+            <mat-checkbox class="example-margin" [(ngModel)]="isscocialprofiles">Social Profiles
+            </mat-checkbox>
+          </div>
         </div>
         <div class="row">
           <div class="col-md-6" style="padding: 40px 20px; margin-top: 20px; color:red;"
@@ -146,6 +149,7 @@
             {{ jobDetail.fullName }}
           </div>
           <div>
+            <i class="fa fa-file" *ngIf="jobDetail.dateResumeLastUpdated"></i> &nbsp;
             <p-message *ngIf="jobDetail.migrated" severity="info" text="Profile Migrated" styleClass="mr-2"></p-message>
             <i class="fa fa-eye clickable" *ngIf="jobDetail.showmigrated" (click)="download(jobDetail.id)"></i>
             <i class="fa fa-eye clickable" *ngIf="!showcrediterror" (click)="download(jobDetail.id)"></i>
@@ -173,8 +177,15 @@
               <i *ngIf="jobDetail.yearsOfExperience" class="label fa fa-briefcase">
                 Years of Experience: {{ jobDetail.yearsOfExperience }}
               </i>
+              <i *ngIf="jobDetail.workPermitDocuments" class="label fa fa-briefcase">
+                Work Permit Documents: {{ jobDetail.workPermitDocuments }}
+              </i>
+              
             </div>
             <div class="card-job-skills flex align-items-left">
+              <i *ngIf="jobDetail.securityAllowance" class="label fa fa-briefcase">
+                Security Allowance: {{ jobDetail.securityAllowance.status }}
+              </i>
               <i class="label fa fa-graduation-cap">Skills</i>
               <div class="card-job-skilllist">
                 <div *ngFor="let skill of jobDetail.diceSkills; index as i" class="" style="padding: 5px">
@@ -194,7 +205,7 @@
 </div>
 <p-toast position="bottom-right"></p-toast>
 <p-sidebar #pTemplate [(visible)]="visibleSidebar2" position="right" [baseZIndex]="1000000" [appendTo]="'body'"
-  [style]="{ width: '60rem' }" [blockScroll]="true" (onHide)="close()">
+  [style]="{ width: '100%' }" [fullScreen]="true" [blockScroll]="true" (onHide)="close()">
   <div class="card-footer-actions">
     <h1 id="dialog-sizes-name1" class="modal-title" style="text-align: center">
       Quick Resume View
@@ -202,14 +213,106 @@
     <i *ngIf="fileReady && !isPDFSrc" class="fa fa-download clickable" (click)="downloadDoc()"></i>
   </div>
   <div>
-    <div *ngIf="fileReady && isPDFSrc">
-      <ngx-extended-pdf-viewer [base64Src]="currentResumeResp.resumeData" [height]="'90vh'"
-        (pdfLoadingStarts)="onReady()" [showPagingButtons]="false" [showOpenFileButton]="false"
-        [showRotateButton]="false" [showFindButton]="true" [textLayer]="true">
-      </ngx-extended-pdf-viewer>
-    </div>
-    <div *ngIf="fileReady && !isPDFSrc" style="padding: 30px 0px">
-      <div [innerHTML]="objUrl"></div>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table">
+          <tr>
+            <td><b>Name</b></td>
+            <td>{{cfullname}}</td>
+          </tr>
+          <tr>
+            <td><b>Job Title</b></td>
+            <td>{{cjobtitle}}</td>
+          </tr>
+          <tr>
+            <td><b>Experience</b></td>
+            <td>{{cyearsofExperience}} Years</td>
+          </tr>
+          <tr>
+            <td><b>Email</b></td>
+            <td>{{cemail}}</td>
+          </tr>
+          <tr>
+            <td><b>Phone</b></td>
+            <td>{{cphone}}</td>
+          </tr>
+          <tr>
+            <td><b>Location</b></td>
+            <td>{{clocation}}</td>
+          </tr>
+          <tr>
+            <td>
+              <b>Education</b>
+            </td>
+            <td>
+              <div *ngFor="let edu of ceducation; index as i" class="" style="padding: 5px">
+                Degree : {{edu.degree}}<br>
+                University/College : {{edu.org}}
+                Location : {{edu.location}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><b>Work Permit</b></td>
+            <td>{{cworkpermit}}</td>
+          </tr>
+          <tr>
+            <td><b>Social Profiles</b></td>
+            <td>
+              <div *ngFor="let Social of csocialsource; index as i" class="" style="padding: 5px">
+                Source : {{Social.source}}<br>
+                Url : <a href='{{Social.url}}' target="_blank">{{Social.url}}</a><br>
+              </div>
+            </td>
+          </tr>
+          
+         
+          <tr>
+            <td><b>Skills</b></td>
+            <td>
+              <div *ngFor="let skills of cskill; index as i" class="" style="padding: 5px">
+                <p-chip label="{{ skills.skill }}"></p-chip>
+              </div>
+
+            </td>
+          </tr>
+          <!-- <tr>
+            <td>
+              <b>Current Company</b>
+            </td>
+            <td>
+              <div *ngFor="let cexp of ccurrentExperience; index as i" class="" style="padding: 5px">
+                Title : {{cexp.title}}<br>
+                Organization : {{edu.org}}
+                Year : {{edu.periodEnd.year}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Previous Experience</b>
+            </td>
+            <td>
+              <div *ngFor="let cexp of coldExperience; index as i" class="" style="padding: 5px">
+                Title : {{cexp.title}}<br>
+                Organization : {{edu.org}}
+                Year : {{edu.periodEnd.year}}
+              </div>
+            </td>
+          </tr> -->
+        </table>
+      </div>
+      <div class="col-md-6">
+        <div *ngIf="fileReady && isPDFSrc">
+          <ngx-extended-pdf-viewer [base64Src]="currentResumeResp.resumeData" [height]="'90vh'"
+            (pdfLoadingStarts)="onReady()" [showPagingButtons]="false" [showOpenFileButton]="false"
+            [showRotateButton]="false" [showFindButton]="true" [textLayer]="true">
+          </ngx-extended-pdf-viewer>
+        </div>
+        <div *ngIf="fileReady && !isPDFSrc" style="padding: 30px 0px" >
+          <div [innerHTML]="objUrl" id="pdfdoc" #pdfdoc></div>
+        </div>
+      </div>
     </div>
   </div>
 </p-sidebar>

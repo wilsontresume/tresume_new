@@ -67,6 +67,12 @@ export class CandidateService {
     changeDocStatus(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'changeDocStatus', request);
     }
+    getplacementsBytID(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getplacementsBytID', request);
+    }
+    UpdateplacementsBytID(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'UpdateplacementsBytID', request);
+    }
 
 }
 

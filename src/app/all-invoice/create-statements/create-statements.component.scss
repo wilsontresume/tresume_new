@@ -1,0 +1,25 @@
+body {
+    background-color: #ffffff;
+    color: #000;
+    margin: 0;
+    font-size: 14px;
+    min-height: 100vh; /* Set to the desired minimum height, 100vh means 100% of the viewport height */
+  }
+  
+.btn{
+    background-color: #580c58;
+   color: white;
+ font-size: 12px; 
+ padding: 5px 10px;
+}
+.square-card {
+    width: 200px; /* Set your desired width */
+    height: 147px; /* Set your desired height */
+    border-radius: 0; /* Make it square by removing border-radius */
+    margin-top: -15rem;
+    width: 23rem;
+    margin-left: 46rem;
+}
+.square-card:hover {
+    box-shadow: 1px 4px 8px  #380838; /* Change the shadow color as needed */
+  }

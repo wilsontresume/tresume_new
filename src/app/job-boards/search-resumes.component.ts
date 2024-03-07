@@ -10,6 +10,8 @@ import { JobBoardsService } from './job-boards.service';
 import { CookieService } from 'ngx-cookie-service';
 import * as FileSaver from 'file-saver';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
     selector: 'app-search-resumes',
@@ -124,24 +126,35 @@ export class SearchResumesComponent implements OnInit {
     jobTitle: string = '';
 
     loading: boolean = false;
+    recruiterList:any;
+    selectedRecruiter:any;
 
     @ViewChild('lgModal', { static: false }) lgModal?: ModalDirective;
     @ViewChild('pdfTable', { static: false }) pdfTable: ElementRef;
     visibleSidebar2: boolean = false;
+    OrgID: string;
+    userName1: string;
 
+    searchType:number = 1;
+    startdate:Date;
+    enddate:Date;
     constructor(private route: ActivatedRoute, private service: JobBoardsService, private cookieService: CookieService, private modalService: BsModalService) {
         this.traineeId = this.cookieService.get('TraineeID');
         // this.traineeId = '36960';
     }
 
     ngOnInit(): void {
+        this.loading = true;
         this.cookieValue = this.cookieService.get('userName1')
+        this.OrgID = this.cookieService.get('OrgID');
+        this.userName1 = this.cookieService.get('userName1');
         let req1 = {}
         this.service.getcandidatelocation(req1).subscribe(x => {
             let response = x.result;
             this.states = response;
             console.log(this.states)
         });
+        this.FetchRecruiterbyOrg();
         this.initGrid();
         if (this.traineeId) {
             let req = {
@@ -150,14 +163,21 @@ export class SearchResumesComponent implements OnInit {
             }
 
             this.service.getResumes(req).subscribe(x => {
+                
                 let response = x.result;
                 this.resultsFound = true;
                 this.responseData = response;
+
                 this.rowData = this.responseData.slice(0, 10);
+                this.rowData.map((items: any) => {
+                   items.editMode = false;
+                });
                 this.totalResults = this.responseData.length;
                 this.sizeToFit();
-
+                console.log(this.rowData)
+                this.loading = false;
             });
+            
 
             
         }
@@ -236,6 +256,23 @@ export class SearchResumesComponent implements OnInit {
         }
     }
 
+    public async FetchRecruiterbyOrg(){
+        
+        let req = {
+            OrgID: this.OrgID
+        }
+       await this.service.FetchRecruiterList(req).subscribe((x: any) => {
+            console.log(x);
+            this.recruiterList = x.result;
+            this.recruiterList.unshift({
+                "value": 0,
+                "name": "All"
+            });
+            
+        });
+        console.log(this.recruiterList);
+    }
+
     public downloadAsPdf() {
         let req = {
             userName: this.currentResumeID
@@ -287,6 +324,7 @@ export class SearchResumesComponent implements OnInit {
     public onSearch() {
         this.loading = true;
         this.resultsFound = false;
+        console.log(this.selectedRecruiter.value);
         let req = {
             "traineeId": this.traineeId,
             'keyword': this.model.keyword,
@@ -295,7 +333,9 @@ export class SearchResumesComponent implements OnInit {
             'yearsOfExpmin':this.yearsOfExpmin,
             'yearsOfExp':this.yearsOfExp,
             'jobTitle':this.jobTitle,
-            'Jobboard':this.selectedJobboard
+            'Jobboard':this.selectedJobboard,
+            'recruiter':this.selectedRecruiter.value,
+            'OrgID':this.OrgID
         }
         console.log(req);
         this.service.getResumes2(req).subscribe(x => {
@@ -309,6 +349,33 @@ export class SearchResumesComponent implements OnInit {
 
         });
     }
+
+    public onSearch2() {
+        this.loading = true;
+        this.resultsFound = false;
+        console.log(this.selectedRecruiter.value);
+        let req = {
+            "traineeId": this.traineeId,
+            'keyword': this.model.keyword,
+            'location': this.selectedState,
+            'startdate':this.startdate,
+            'enddate':this.enddate,
+            'recruiter':this.selectedRecruiter.value,
+            'OrgID':this.OrgID
+        }
+        console.log(req);
+        this.service.getResumes3(req).subscribe(x => {
+            this.loading = false;
+            this.resultsFound = true;
+            let response = x.result;
+            this.responseData = response;
+            this.rowData = this.responseData.slice(0, 10);
+            this.totalResults = this.responseData.length;
+            this.sizeToFit();
+
+        });
+    }
+    
 
     pageChanged(event: PageChangedEvent): void {
         const startItem = (event.page - 1) * event.itemsPerPage;
@@ -363,6 +430,34 @@ export class SearchResumesComponent implements OnInit {
               }          
           });
           
+      }
+
+      enableEditMode(index: number): void {
+        console.log(index);
+        this.rowData[index].editMode = true;
+        let req = {
+            Notes: this.rowData[index].Notes,
+            traineeID:this.rowData[index].TraineeID
+        }
+        this.service.updateCandidateNotes(req).subscribe((x: any) => {
+          console.log(x); 
+        });
+      }
+    
+      saveChanges(index: number): void {
+        this.rowData[index].editMode = false;
+        let req = {
+            Notes: this.rowData[index].Notes,
+            traineeID:this.rowData[index].TraineeID
+        }
+        this.service.updateCandidateNotes(req).subscribe((x: any) => {
+          console.log(x); 
+        });
+      }
+    
+      cancelEdit(index: number): void {
+        // Cancel edit mode
+        this.rowData[index].editMode = false;
       }
 
 }

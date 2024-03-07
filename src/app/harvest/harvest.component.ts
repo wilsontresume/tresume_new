@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 
 })
 export class HarvestComponent implements OnInit {
+  loading:boolean = false;
   public OrgID: any;
   public userName: any;
   public TraineeID: any;
@@ -57,7 +58,7 @@ export class HarvestComponent implements OnInit {
   totalResults: any;
   rowData: any;
   showcrediterror: boolean = false;
-  //division 
+  //division
   creditcount: number = 0;
   usedcount: number = 0;
   clientip: any;
@@ -76,6 +77,7 @@ export class HarvestComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.OrgID = this.cookieService.get('OrgID');
     this.userName = this.cookieService.get('userName1');
     this.TraineeID = this.cookieService.get('TraineeID');
@@ -104,6 +106,8 @@ export class HarvestComponent implements OnInit {
       job_description: this.mJobdescription,
       recemail: this.userName
     };
+    this.loading = true;
+
     this.service.addharvest(Req).subscribe((x) => {
       console.log('Inserted');
       for (let i = 0; i < this.mdownlodlimit; i++) {
@@ -112,6 +116,8 @@ export class HarvestComponent implements OnInit {
 
       this.fetchharvest();
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Harvest sheduled successfully.' });
+    this.loading = false;
+
       setTimeout(() => {
         window.location.reload();
       }, 5000);
@@ -125,6 +131,8 @@ export class HarvestComponent implements OnInit {
     console.log(this.OrgID);
     this.service.fetchharvest(Req).subscribe((x: any) => {
       this.harvestlist = x.result;
+    this.loading = false;
+
     });
   }
 
