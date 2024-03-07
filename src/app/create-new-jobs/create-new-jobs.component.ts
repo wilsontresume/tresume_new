@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
-import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CreateNewJobsService } from './create-new-jobs.service';
+import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-create-new-jobs',
   templateUrl: './create-new-jobs.component.html',
-  styleUrls: ['./create-new-jobs.component.scss']
+  styleUrls: ['./create-new-jobs.component.scss'],
+  providers: [CookieService, MessageService , CreateNewJobsService],
 })
 export class CreateNewJobsComponent{
   
@@ -55,9 +60,6 @@ export class CreateNewJobsComponent{
   console.log(this.selectedLegalstatus);
   }
 
-
-
-
   filteredOwnership: any[] = [];
   selectedStatus: any[] = [];
   statusOptions: any[]=[{name:'Eligible to work in the US'},{name:'US Citizen'}, {name:'GC'}, {name:'F1'}, {name:'F1-CPT'},{name:'F1-OPT EAD'},{name:'GC-EAD'},{name:'H4-EAD'},{name:'L2-EAD'},{name:'Other EAD'},{name:'L1-Visa'},];
@@ -67,13 +69,11 @@ export class CreateNewJobsComponent{
     );
   }
  
-
-  
   selectedCountry: string = 'United States'; 
   countries: string[] = ['United States,'];
 
   selectedState: string = 'Georgia'; 
-  states: string[] = ['Georgia', 'District of Columbia', 'Florida', 'Hawaii', 'Idaho', 'Other'];
+  state: string[] = ['Georgia', 'District of Columbia', 'Florida', 'Hawaii', 'Idaho', 'Other'];
 
   selectedCity: string;
   cities: string[] = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'Other'];
@@ -223,7 +223,19 @@ selectedCurrency: string = 'USD';
     { value: '6', label: 'TEST V2' }
   ];
 
-constructor(private formBuilder: FormBuilder){}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private cookieService: CookieService,
+    private messageService: MessageService,
+    private route: ActivatedRoute,
+    private service: CreateNewJobsService,
+  ) {
+    
+    this.OrgID = this.cookieService.get('OrgID');
+    this.TraineeID = this.cookieService.get('TraineeID');
+    this.routeType = this.route.snapshot.params["routeType"];
+  }
 
 ngOnInit(): void{
 
@@ -240,13 +252,24 @@ ngOnInit(): void{
       numberOfPositions: ['', [Validators.required]],
     });
   }
+//////////////////////////////////////////////////////////////////////////
+////Vkt code starts
 
-  // saveData(){
-  //   if (this.myForm.valid){
-  //     console.log(this.myForm.value);
-  //   }else{
-  //     console.log("Form Is Invalid");
-  //   }
-  //   }
+selectedstate:any=0;
+OrgID: string;
+routeType: any;
+TraineeID: any;
+city: string[] = [];
+
+getCity() {
+  console.log(this.selectedstate);
+  let Req = {
+    TraineeID: this.TraineeID,
+    State: this.selectedstate
+  };
+  this.service.getCity(Req).subscribe((x: any) => {
+    this.city = x.result;
+  });
+}
   }
 

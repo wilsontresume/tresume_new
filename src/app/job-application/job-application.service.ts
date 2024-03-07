@@ -11,6 +11,7 @@ export class JobApplicationService {
   // public endpoint = 'https://alpha.tresume.us/TresumeAPI/';
   // public endpoint = 'http://localhost:3000/';
   constructor(private http: HttpClient) { }
+  
   getJobApplicationList(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'getJobApplicationList', request);
 }

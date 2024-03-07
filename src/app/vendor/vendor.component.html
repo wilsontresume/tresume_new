@@ -1,17 +1,18 @@
-<div class="header pt-4">
-    <div class="container pb-1">
+<div class="header p-3">
+    <div class="container-fluid pb-1">
         <div class="row main">
             <div class="col">
                 <h2 class="ml-3 mt-4 text-dark">ALL VENDORS</h2>
             </div>
-            <div><button class="btn text-white btn-bgcolor mt-3 mr-5" [routerLink]="['/addvendor']">Add vendor</button>
+            <div><button class="btn text-white btn-bgcolor mt-3 mr-5" [routerLink]="['/addvendor']">Add Vendor</button>
             </div>
         </div>
         <div class="row mt-4">
             <div class="col text-right">
                 <div class="form-group">
                     <label for="search">Search:</label>
-                    <input type="text" class="form-control1 ml-2 mr-2" id="search" placeholder="Search...">
+                    <input [(ngModel)]="searchInput" type="text" class="form-control1 ml-6 mr-2" id="search"
+                    placeholder=" Search Vendors...">
                 </div>
             </div>
         </div>
@@ -26,20 +27,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <tr *ngFor="let vendor of vendors">
-                    <td>{{ vendor.VendorName }}</td>
-                    <td>{{ vendor.EmailID }}</td>
-                    <td>{{ vendor.Website }}</td>
-                    <td>{{ vendor.PrimaryOwner}}</td>
-                    <td>
-                        <div>
-                            <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewvendor']"></i>
-                            <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deletevendor(vendor.VendorID)"></i>
-                        </div>
+                <ng-container *ngFor="let vendor of vendors">
+                    <tr *ngIf="isVendorVisible(vendor)">
+                        <td>{{ vendor.vendorname }}</td>
+                        <td>{{ vendor.emailid }}</td>
+                        <td>{{ vendor.website }}</td>
+                        <td>{{ vendor.PrimaryOwner}}</td>
+                        <td>
+                            <div>
+                                <!-- <i class="fa fa-eye fa-lg  mr-2" [routerLink]="['/viewvendor']"></i> -->
+                                <i class="fa fa-trash fa-lg ml-3 mr-2" (click)="deletevendor(vendor.vendorid)"></i>
+                            </div>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                    <tr *ngIf="noResultsFound">
+                        <td colspan="11" class="text-center">
+                            No results found.
+                        </td>
+                    </tr>
+                </ng-container>
             </tbody>
         </table>
     </div>
@@ -58,3 +65,7 @@
         </div>
     </div>
 </div>
+
+<p-toast position="bottom-right"></p-toast>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

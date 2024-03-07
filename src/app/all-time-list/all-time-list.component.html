@@ -1,48 +1,227 @@
 <div class="header p-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row main pt-3 pl-3 pr-3">
             <h2 class="col-md-6">ALL TIME SHEET</h2>
             <div class="col-md-6 text-end">
-                <button class="btn float-right" [routerLink]="['/timesheetcreate']">Create</button>
-                <!-- <button class="btn mr-3 float-right" routerLink="/addadmin">Add Admin</button> -->
+                <!-- <div class="col-md-6 text-end" *ngIf="timesheetrole == 3"></div> -->
+                <button class="btn float-right" [routerLink]="['/createalltimelist']">Create</button>
             </div>
         </div>
-        <div class="container pt-3 bottomborder">
-            <div class="row mt-5">
-                <table class="table m-3">
-                    <thead>
-                        <tr>
-                            <th>Candidate</th>
-                            <th>Month</th>
-                            <th>From Date</th>
-                            <th>To Date</th>
-                            <th>Total Hours</th>
-                            <th>CreatedOn</th>
-                            <th>Status</th>
-                            <th>Comments</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let row of tableData">
-                            <td>{{ row.Candidate }}</td>
-                            <td>{{ row.Month }}</td>
-                            <td>{{ row.FromDate }}</td>
-                            <td>{{ row.ToDate }}</td>
-                            <td>{{ row.TotalHours }}</td>
-                            <td>{{ row.CreatedOn }}</td>
-                            <td>{{ row.TimeSheetStatus }}</td>
-                            <td>{{ row.Comment }}</td>
-                            <td>
-                                <div>
-                                    <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
-                                        [routerLink]="['/timesheet/viewdetails']"></i>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="container" style="padding: 0 0.5rem;">
+    
+            <div class="container mt-3">
+                <ul class="nav nav-tabs" style="justify-content: space-around; position: relative;">
+                    <li class="nav-item" style="position: relative;">
+                        <a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending">
+                            Pending
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="rejected-tab" data-toggle="tab" href="#rejected">
+                            Rejected
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="completed-tab" data-toggle="tab" href="#completed">
+                            Completed
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="non-billable-tab" data-toggle="tab" href="#non-billable">
+                            Non-Billable
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!-- Pending Tab Content -->
+                    <div id="pending" class="tab-pane fade show active">
+            
+                        <table class="table">
+                            <!-- Table structure (headers, rows) -->
+                            <thead>
+                                <tr>
+                                    <th>Candidate</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Total Hours</th>
+                                    <th>CreatedOn</th>
+                                    <th>Comments</th>
+                                    <th>Details</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of PendingData">
+                                    <td>{{ row.Candidate }}</td>
+                                    <td>{{ row.fromdate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.todate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.totalhrs }}</td>
+                                    <td>{{ row.created_at | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.comments }}</td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
+                                                [routerLink]="['/viewtimesheet',row.id ]"></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-trash fa-fw fa-lg ml-4 text-center"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="noResultsFound" >
+                                    <td colspan="9" class="text-center">
+                                      No results found.
+                                    </td>
+                                  </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Rejected Tab Content -->
+                    <div id="rejected" class="tab-pane fade">
+                     
+                        <table class="table">
+                       
+                            <thead>
+                                <tr>
+                                    <th>Candidate</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Total Hours</th>
+                                    <th>CreatedOn</th>
+                                    <th>Comments</th>
+                                    <th>Details</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of rejectedData">
+                                    <td>{{ row.Candidate }}</td>
+                                    <td>{{ row.fromdate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.todate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.totalhrs }}</td>
+                                    <td>{{ row.created_at | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.comments }}</td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
+                                            [routerLink]="['/viewtimesheet',row.id ]"></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-trash fa-fw fa-lg ml-4 text-center"
+                                                ></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="noResultsFound" >
+                                    <td colspan="9" class="text-center">
+                                      No results found.
+                                    </td>
+                                  </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                   
+                    <div id="completed" class="tab-pane fade">
+                       
+                        <table class="table">
+                         
+                            <thead>
+                                <tr>
+                                    <th>Candidate</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Total Hours</th>
+                                    <th>CreatedOn</th>
+                                    <th>Comments</th>
+                                    <th>Details</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of completedData">
+                                    <td>{{ row.Candidate }}</td>
+                                    <td>{{ row.fromdate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.todate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.totalhrs }}</td>
+                                    <td>{{ row.created_at | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.comments }}</td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
+                                            [routerLink]="['/viewtimesheet/',row.id]" ></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-trash fa-fw fa-lg ml-4 text-center"
+                                                ></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="noResultsFound" >
+                                    <td colspan="9" class="text-center">
+                                      No results found.
+                                    </td>
+                                  </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Non-billable Tab Content -->
+                    <div id="non-billable" class="tab-pane fade">
+                  
+                        <table class="table">
+                       
+                            <thead>
+                                <tr>
+                                    <th>Candidate</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Total Hours</th>
+                                    <th>CreatedOn</th>
+                                    <th>Status</th>
+                                    <th>Comments</th>
+                                    <th>Details</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of nonBillableData">
+                                    <td>{{ row.Candidate }}</td>
+                                    <td>{{ row.fromdate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.todate | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.totalhrs }}</td>
+                                    <td>{{ row.created_at | date : "MM/dd/y" : "UTC" }}</td>
+                                    <td>{{ row.status }}</td>
+                                    <td>{{ row.comments }}</td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-eye fa-fw fa-lg ml-4 text-center"
+                                            [routerLink]="['/viewtimesheet',row.id ]"></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <i class="fa fa-trash fa-fw fa-lg ml-4 text-center"
+                                                ></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="noResultsFound" >
+                                    <td colspan="9" class="text-center">
+                                      No results found.
+                                    </td>
+                                  </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
