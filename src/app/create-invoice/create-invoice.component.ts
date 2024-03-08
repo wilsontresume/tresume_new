@@ -56,7 +56,7 @@ export class CreateInvoiceComponent implements OnInit {
   newTermName: string = '';
   dueType: string = '';
   dueDays: number = 0;
-  timesheetlist: any;
+  timesheetlist: any = [];
   clientid: any;
   selectedclient:any;
   username: any;

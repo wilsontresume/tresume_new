@@ -1120,7 +1120,7 @@ router.post('/createTimesheet', upload.single('file1'), async (req, res) => {
       .input('isBillable', sql.Bit, isBillable)
       .input('payterm', sql.Int, payterm)
       .input('service', sql.Int, service)
-      .input('location', sql.Int, location)
+      .input('location', sql.Int, '1')
       .input('billableamt', sql.VarChar(50), billableamt)
       .input('day1', sql.VarChar(10), day1)
       .input('day2', sql.VarChar(10), day2)
