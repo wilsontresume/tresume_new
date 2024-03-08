@@ -488,7 +488,6 @@ ORDER BY
     `;
 
     const result = await pool.request().query(query);
-
     res.json({
       flag: 1,
       result: result.recordset,
@@ -1123,6 +1122,7 @@ router.post("/updateGeneral", async function (req, res) {
       ", state = " + formatValue(req.body.State) +
       ", City = " + formatValue(req.body.City) +
       ", Zipcode = " + formatValue(req.body.Zipcode) +
+      ", SSn = " + formatValue(req.body.ssn) +
       ", AddressType = " + formatValue(req.body.AddressType) +
       ", Candidatestatus = " + formatValue(req.body.selectedcurrentstatus) +
       " WHERE " +
