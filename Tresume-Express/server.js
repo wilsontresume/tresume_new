@@ -559,7 +559,12 @@ app.post("/getFTCReport", function (req, res) {
 
 app.post("/getCandidateDocuments", function (req, res) {
   sql.connect(config, function (err) {
-    if (err) console.log(err);
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error connecting to the database');
+      return;
+    }
+    
     var request = new sql.Request();
     let query = `SELECT CD.CandidateDocumentID,CD.TraineeID,CONVERT(NVARCHAR(10),CD.CreateTime,101) AS CreateTime,Cd.DocumentName,
         CD.DocumentPath,CD.Active,DT.DocTypeName,CONVERT(NVARCHAR(10),CD.DocStartDate,101) AS StartDate,CONVERT(NVARCHAR(10),CD.DocExpiryDate,101) AS ExpiryDate,
@@ -569,17 +574,27 @@ app.post("/getCandidateDocuments", function (req, res) {
       query += ` AND CD.DocumentTypeID = ${req.body.docTypeID}`;
     }
     console.log(query);
-    request.query(query, function (err, recordset) {
-      if (err) console.log(err);
-      var result = {
-        flag: 1,
-        result: recordset.recordsets[0],
-      };
-
-      res.send(result);
-    });
+    
+    try {
+      request.query(query, function (err, recordset) {
+        if (err) {
+          console.log(err);
+          res.status(500).send('Error executing query');
+          return;
+        }
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+        res.send(result);
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Error executing query');
+    }
   });
 });
+
 
 app.post("/getLoggedUser", function (req, res) {
   sql.connect(config, function (err) {
