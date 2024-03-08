@@ -4,27 +4,27 @@ const pool = require('./database');
 var request = require('request');
 
 router.post('/getPlacementDetails', async (req, res) => {
+    try {
+        const result = await pool.request().query(`SELECT p.PID as PlacementID, p.TraineeID, p.RecuiterID, p.Notes, p.BillRate, p.BillType, 
+            p.startdate as StartDate, p.Enddate AS EndDate, p.positiontitle as Title, 
+            CONCAT(t.FirstName, ' ', t.LastName) AS MarketerName, p.MarketerName AS MarketerID, p.PlacedDate AS PlacedDate, 
+            p.ClientState, p.CandidateEmailId, p.ClientName, p.ClientAddress, 
+            p.ClientManagerName, p.ClientEmail, p.ClientPhoneNumber AS ClientPhone, 
+            p.POStartDate AS POStartDate, p.POEndDate AS POEndDate, p.VendorName, 
+            p.VendorContactName AS VendorContact, p.VendorEmail, p.VendorPhone, p.VendorAddress, 
+            p.SubVendorName, p.SubVendorContactName AS SubVendorContact, p.SubVendorEmail, p.SubVendorPhone, 
+            p.SubVendorAddress, p.PrimaryPlacement 
+            FROM placements p
+            LEFT JOIN Trainee t ON p.MarketerName = t.TraineeID
+            WHERE p.PID=` + req.body.placementID);
 
-    pool.request().query(`SELECT p.PID as PlacementID, p.TraineeID, p.RecuiterID, p.Notes, p.BillRate, p.BillType, 
-    p.startdate as StartDate, p.Enddate AS EndDate, p.positiontitle as Title, 
-    CONCAT(t.FirstName, ' ', t.LastName) AS MarketerName, p.MarketerName AS MarketerID, p.PlacedDate AS PlacedDate, 
-    p.ClientState, p.CandidateEmailId, p.ClientName, p.ClientAddress, 
-    p.ClientManagerName, p.ClientEmail, p.ClientPhoneNumber AS ClientPhone, 
-    p.POStartDate AS POStartDate, p.POEndDate AS POEndDate, p.VendorName, 
-    p.VendorContactName AS VendorContact, p.VendorEmail, p.VendorPhone, p.VendorAddress, 
-    p.SubVendorName, p.SubVendorContactName AS SubVendorContact, p.SubVendorEmail, p.SubVendorPhone, 
-    p.SubVendorAddress, p.PrimaryPlacement 
-    FROM placements p
-    LEFT JOIN Trainee t ON p.MarketerName = t.TraineeID
-    WHERE p.PID=` + req.body.placementID, (err, result) => {
-        if (err) {
-            console.error('Error executing query:', err);
-            res.status(500).send('Error executing query');
-            return;
-        }
         res.send(result.recordset);
-    });
+    } catch (err) {
+        console.error('Error executing query:', err);
+        res.status(500).send('Error executing query');
+    }
 });
+
 
 /* router.post('/addPlacement1', async (req, res) => {
     try {
