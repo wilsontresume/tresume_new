@@ -325,7 +325,7 @@ getDropdownOption1() {
 onChangesDropdown(selectedOption: any, row: any) {
   this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
   this.candidateid = `${selectedOption.TraineeID}`;
-  alert(this.candidateid);
+  
 }
  
   selectedItem1: string;
