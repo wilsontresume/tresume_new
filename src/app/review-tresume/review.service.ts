@@ -118,6 +118,10 @@ export class ReviewService {
     return this.http.post<ResponseDetails>(this.endpoint + 'DeleteTresumeNode', request);
   }
 
+  placementTrackerReport(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'placementTrackerReport', request);
+  }
+
   insertRecruitmentTracker(request: any): Observable<ResponseDetails> {
     return this.http.post<ResponseDetails>(this.endpoint + 'insertRecruitmentTracker', request);
   }
