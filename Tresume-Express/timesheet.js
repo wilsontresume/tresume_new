@@ -273,6 +273,105 @@ router.post("/getNonBillableTimesheetResult", async (req, res) => {
   }
 });
 
+router.post("/getLocation", async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = new sql.Request();
+    // const query = "SELECT DISTINCT state FROM usazipcodenew";
+    const query =
+      "select distinct state from usazipcodenew order by state asc;";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No Location found! ",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching Location:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching Location!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+router.post("/insertTimesheetTraineeCandidate", async function (req, res) {
+  try {
+    var TraineeID = await generateTraineeID();
+
+    var query =
+      "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
+      req.body.email +
+      "' AND UserOrganizationID = '" +
+      req.body.orgID +
+      "') " +
+      "BEGIN " +
+      "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, gender, notes, recruiterName, ReferredBy_external, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation ) " +
+      "VALUES (" +
+      `'${TraineeID}',` +
+      ` ${formatValue(req.body.email || "")},` +
+      ` ${formatValue(req.body.firstName || "")},` +
+      ` ${formatValue(req.body.phone || "")},` +
+      ` ${formatValue(req.body.middleName || "")},` +
+      ` ${formatValue(req.body.lastName || "")},` +
+      ` ${formatValue(req.body.LegalStatus || "")},` +
+      ` ${formatValue(req.body.candidateStatus || "")},` +
+      ` ${formatValue(req.body.gender || "")},` +
+      ` ${formatValue(req.body.notes || "")},` +
+      ` ${formatValue(req.body.recruiterName || "")},` +
+      ` ${formatValue(req.body.referralType || "")},` +
+      ` ${formatValue(req.body.locationConstraint || "")},` +
+      ` ${formatValue(req.body.marketerName || "")},` +
+      " 1," +
+      " 'ACTIVE'," +
+      " 'READY'," +
+      " 'TRESUMEUSER', " +
+      " GETDATE(), " +
+      ` ${formatValue(req.body.orgID || "")},` +
+      ` ${formatValue(req.body.creeateby || "")},` +
+      ` ${formatValue(req.body.followupon || "")},` +
+      ` ${formatValue(req.body.currentLocation || "")}` +
+      ") END";
+
+    console.log(query);
+
+    await sql.connect(config);
+    var request = new sql.Request();
+    var result = await request.query(query);
+
+    //   res.status(200).send("Data Fetched");
+    // } catch (error) {
+    //   console.error("Error:", error);
+    //   res.status(500).send("Internal Server Error");
+    // }
+    const data = {
+      flag: 1,
+      message: "Trainee Candidate Data Fetched",
+    };
+
+    res.send(data);
+  } catch (error) {
+    const data = {
+      flag: 1,
+      message: "Internal Server Error",
+    };
+    res.status(500).send(data);
+  }
+});
+
 router.post("/Candidateviewdetails", async (req, res) => {
   try {
     sql.connect(config, function (err) {
@@ -1039,7 +1138,7 @@ router.post('/getLocationList', async (req, res) => {
     const pool = await sql.connect(config);
     const request = pool.request();
     
-       const query = "select distinct CONCAT(state,' - ',stateAbbr) as state,zipcode from usazipcodenew ORDER BY state ASC";
+       const query = "select distinct CONCAT(state,' - ',stateAbbr) as state from usazipcodenew ORDER BY state ASC";
 
     console.log(query);
 
@@ -1120,7 +1219,7 @@ router.post('/createTimesheet', upload.single('file1'), async (req, res) => {
       .input('isBillable', sql.Bit, isBillable)
       .input('payterm', sql.Int, payterm)
       .input('service', sql.Int, service)
-      .input('location', sql.Int, location)
+      .input('location', sql.Int, '1')
       .input('billableamt', sql.VarChar(50), billableamt)
       .input('day1', sql.VarChar(10), day1)
       .input('day2', sql.VarChar(10), day2)

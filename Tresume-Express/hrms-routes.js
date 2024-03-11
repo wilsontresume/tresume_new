@@ -488,7 +488,6 @@ ORDER BY
     `;
 
     const result = await pool.request().query(query);
-
     res.json({
       flag: 1,
       result: result.recordset,
@@ -1123,6 +1122,7 @@ router.post("/updateGeneral", async function (req, res) {
       ", state = " + formatValue(req.body.State) +
       ", City = " + formatValue(req.body.City) +
       ", Zipcode = " + formatValue(req.body.Zipcode) +
+      ", SSn = " + formatValue(req.body.ssn) +
       ", AddressType = " + formatValue(req.body.AddressType) +
       ", Candidatestatus = " + formatValue(req.body.selectedcurrentstatus) +
       " WHERE " +
@@ -1765,6 +1765,64 @@ router.post("/DeleteTresumeNode", async (req, res) => {
   }
 });
 
+router.post("/placementTrackerReport", async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const request = new sql.Request();
+    // const query =
+    //   "select distinct state from usazipcodenew order by state asc;";
+
+    console.log(query);
+
+    const recordset = await request.query(query);
+
+    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    } else {
+      const result = {
+        flag: 0,
+        error: "No Placements found! ",
+      };
+      res.send(result);
+    }
+  } catch (error) {
+    console.error("Error fetching placement Details", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching Placements!",
+    };
+    res.status(500).send(result);
+  }
+});
+
+router.post('/insertRecruitmentTracker', async (req, res) => {
+  try {   
+    var query = ``;
+   
+    console.log(query);
+    const pool = await sql.connect(config);
+    const request = new sql.Request(pool);
+    const recordset = await request.query(query);
+
+    const result = {
+      flag: 1,
+      message: "data inserted successfully!",
+    };
+    res.status(200).json(result);
+
+  } catch (error) {
+    console.error("Error inserting data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while inserting data!",
+    };
+    res.status(500).json(result);
+  }
+});
 
 
 

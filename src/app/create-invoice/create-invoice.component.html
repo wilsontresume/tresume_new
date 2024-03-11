@@ -218,6 +218,9 @@
                   <!-- <option value="option1">Custom</option> -->
                 </select>
               </div>
+              <div *ngIf="timesheetlist.length === 0" class="alert alert-info">
+                No result found.
+              </div>
               <hr>
               <div *ngIf="selectedFilter === 'option1'">
               </div>
@@ -631,7 +634,7 @@
         <button class="btn btn btn-block fbtn" routerLink="/all-invoice">Cancel</button>
       </div>
       <div class="col-md-4 d-flex ml-2">
-        <button class="btn btn btn-block fbtn">Print or Preview</button>
+        <!-- <button class="btn btn btn-block fbtn">Print or Preview</button> -->
       </div>
       <div class="col-md-4 d-flex ml-2">
         <div class="d-flex dropdown">
@@ -640,6 +643,10 @@
           <div class="dropdown-menu" aria-labelledby="saveAndNewDropdown">
             <button class="save-close-btn" [ngClass]="{'disabled-style': invoiceForm.invalid}" (click)="addinvoice()" [disabled]="!invoiceForm.valid">Save and close</button><br>
             <a class="save-close-btn" href="#">Save and send</a>
+
+            <a class="dropdown-item" (click)="addinvoice()">Save and close</a>
+            <!-- <a class="dropdown-item" href="#">Save and send</a> -->
+
           </div>
         </div>
       </div>

@@ -154,7 +154,30 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
 
-  calculateTotalHours(row: any): number | string {
+  // calculateTotalHours(row: any): number | string {
+  //   const mon = row.mon || 0;
+  //   const tues = row.tues || 0;
+  //   const wed = row.wed || 0;
+  //   const thu = row.thu || 0;
+  //   const fri = row.fri || 0;
+  //   const sat = row.sat || 0;
+  //   const sun = row.sun || 0;
+  //   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
+   
+  //   row.totalHours = totalHours;
+   
+  //   return isNaN(totalHours) ? 'N/A' : totalHours;
+    
+  // }
+
+  formatTotalHours(totalHours: number): string {
+    const hours = Math.floor(totalHours);
+    const minutes = Math.round((totalHours - hours) * 60);
+    return `${hours} hr ${minutes} mins`;
+  }
+  
+  // Update the calculateTotalHours function to handle decimal values
+  calculateTotalHours(row: any): number {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
     const wed = row.wed || 0;
@@ -162,12 +185,11 @@ export class CreateAllTimeListComponent implements OnInit {
     const fri = row.fri || 0;
     const sat = row.sat || 0;
     const sun = row.sun || 0;
-    const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
-   
-    row.totalHours = totalHours;
-   
-    return isNaN(totalHours) ? 'N/A' : totalHours;
-    
+  
+    // Calculate total hours
+    const totalHours = mon + tues + wed + thu + fri + sat + sun;
+  
+    return totalHours;
   }
 
   addDefaultRows() {
@@ -303,6 +325,7 @@ getDropdownOption1() {
 onChangesDropdown(selectedOption: any, row: any) {
   this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
   this.candidateid = `${selectedOption.TraineeID}`;
+  
 }
  
   selectedItem1: string;
@@ -429,7 +452,7 @@ onChangesDropdown(selectedOption: any, row: any) {
   //   }
   // }
 
-  SaveRow(): void {
+  SaveRow() {
     const selectedWeek = this.selectedWeek.split(' to ');
     const startDateSelectedWeek = new Date(selectedWeek[0]);
     const endDateSelectedWeek = new Date(selectedWeek[1]);
@@ -438,13 +461,13 @@ onChangesDropdown(selectedOption: any, row: any) {
     const endDateFormatted = endDateSelectedWeek.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' });
   
       this.timesheetRows.forEach((row, index) => {
-        this.loading = true;
+        // this.loading = true;
         if(row.projectName !=''){
           const formData = new FormData();
           if (!row.file1) {
             
             alert('Please upload client-approved timesheet.');
-            this.loading = false;
+            // this.loading = false;
             return; 
           }
           formData.append('file1', row.file1);
