@@ -66,7 +66,7 @@ router.post('/getLocationinvoice', async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = pool.request();
-    
+
     // const query =  "select LocationName from Location";
     // const query =  " select distinct city from UsazipcodeNew";
     const query = "select distinct CONCAT(state,' - ',stateAbbr) as state from usazipcodenew ORDER BY state ASC";
@@ -169,9 +169,9 @@ router.post("/getAllInvoiceList", async (req, res) => {
 
 router.post("/updateReceivedPayment", async function (req, res) {
   try {
-      var query ="UPDATE invoice_master SET receivedamt = COALESCE(receivedamt, 0) + '"+req.body.receivedamt+ "' WHERE id = '"+ req.body.id+"';";
-      console.log(query);
-   
+    var query = "UPDATE invoice_master SET receivedamt = COALESCE(receivedamt, 0) + '" + req.body.receivedamt + "' WHERE id = '" + req.body.id + "';";
+    console.log(query);
+
     await sql.connect(config);
     var request = new sql.Request();
     var result = await request.query(query);
@@ -256,11 +256,11 @@ router.post("/gettimesheetlist", async (req, res) => {
       var query = "SELECT tm.id, tm.traineeid, CONCAT(t.firstname, ' ', t.lastname) AS candidatename, tm.totalhrs, tm.details, tm.totalamt, tm.billableamt, tm.projectid, tm.fromdate FROM timesheet_master AS tm JOIN timesheet_project AS tp ON tm.projectid = tp.projectid JOIN trainee AS t ON tm.traineeid = t.traineeid WHERE tp.clientid = '" + req.body.orgID + "' AND tm.status = 1 AND tm.isbillable = 1";
 
       if (req.body.startdate) {
-          query += " AND tm.fromdate >= '" + req.body.startdate + "'";
+        query += " AND tm.fromdate >= '" + req.body.startdate + "'";
       }
 
       if (req.body.enddate) {
-          query += " AND tm.fromdate <= '" + req.body.enddate + "'";
+        query += " AND tm.fromdate <= '" + req.body.enddate + "'";
       }
 
 
@@ -287,7 +287,7 @@ router.post("/gettimesheetlist", async (req, res) => {
 
 router.post('/createInvoice', upload.array('attachments', 10), async (req, res) => {
   const invoiceData = req.body;
- 
+
   try {
     await sql.connect(config);
     const request = new sql.Request();
@@ -315,14 +315,14 @@ router.post('/createInvoice', upload.array('attachments', 10), async (req, res) 
     VALUES (@invoiceid, @filename, @status);
   `;
 
-  for (const file of req.files) {
-    const attachmentRequest = new sql.Request();
-    attachmentRequest.input('invoiceid', sql.Int, insertedId);
-    attachmentRequest.input('filename', sql.VarChar(255), file.filename);
-    attachmentRequest.input('status', sql.Int, 1); // Adjust status as needed
+    for (const file of req.files) {
+      const attachmentRequest = new sql.Request();
+      attachmentRequest.input('invoiceid', sql.Int, insertedId);
+      attachmentRequest.input('filename', sql.VarChar(255), file.filename);
+      attachmentRequest.input('status', sql.Int, 1); // Adjust status as needed
 
-    await attachmentRequest.query(attachmentQuery);
-  }
+      await attachmentRequest.query(attachmentQuery);
+    }
 
     res.json({ success: true, message: 'Invoice inserted successfully', insertedId });
   } catch (err) {

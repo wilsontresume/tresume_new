@@ -1765,6 +1765,30 @@ router.post("/DeleteTresumeNode", async (req, res) => {
   }
 });
 
+router.post('/insertRecruitmentTracker', async (req, res) => {
+  try {   
+    var query = ``;
+   
+    console.log(query);
+    const pool = await sql.connect(config);
+    const request = new sql.Request(pool);
+    const recordset = await request.query(query);
+
+    const result = {
+      flag: 1,
+      message: "data inserted successfully!",
+    };
+    res.status(200).json(result);
+
+  } catch (error) {
+    console.error("Error inserting data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while inserting data!",
+    };
+    res.status(500).json(result);
+  }
+});
 
 
 
