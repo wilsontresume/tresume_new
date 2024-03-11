@@ -1002,6 +1002,27 @@ cancelDeletesubmission() {
     this.router.navigate(['/candidateView/:id/sitevisit']);
   }
 
+  addRecruitmentTracker() {
+     
+    this.loading = true;
+      let Req = {
+        TraineeID: this.candidateID,
+        OrgID:this.OrgID
+    };
+    console.log(Req);
+    this.service.insertRecruitmentTracker(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+        this.loading = false;
+      },
+      (error: any) => {
+        this.handleError(error);
+        this.loading = false;
+      }
+    );
+    
+  }
+
   // Education
   educations:any[] = [];
 
