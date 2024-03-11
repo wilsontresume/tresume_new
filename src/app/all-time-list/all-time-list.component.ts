@@ -38,6 +38,7 @@ export class AllTimeListComponent implements OnChanges {
     this.fetchRejectedData();
     this.fetchCompletedData();
     this.fetchNonBillableData();
+    this.gethrmsLocation();
   }
 
   ngOnChanges(): void{
@@ -108,5 +109,43 @@ export class AllTimeListComponent implements OnChanges {
     });
     this.loading = false;
   }
-  
+
+  firstname:any;
+  lastname:any;
+  candiateEmail:any;
+  phonenumber:any;
+  selectedGender:any;
+  Locations: any;
+  currentLocation: any;
+
+  CandidateSave(){
+    let req= {
+      firstname: this.firstname,
+      lastname:this.lastname,
+      candiateEmail:this.candiateEmail,
+      phonenumber:this.phonenumber,
+      // selectedGender:this.selectedGender,
+      currentLocation: this.currentLocation
+    }
+    console.log(req);
+
+    this.service.insertTimesheetTraineeCandidate(req).subscribe(
+      (x: any) => {
+        this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Candidate Added' });
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'error', summary: 'Error Message', detail: 'Failed to Add Candidate' });
+      }
+    )
+  }
+ 
+  gethrmsLocation() {
+    let Req = {
+      TraineeID: this.TraineeID,
+      orgID: this.OrgID
+    };
+    this.service.getLocation(Req).subscribe((x: any) => {
+      this.Locations = x;
+    });
+  }
 }

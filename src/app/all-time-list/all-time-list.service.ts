@@ -33,6 +33,13 @@ export class TimesheetListService {
     getNonBillableTimesheetResult(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getNonBillableTimesheetResult', request);
     }
+    insertTimesheetTraineeCandidate(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'insertTimesheetTraineeCandidate', request);
+    }
+    getLocation(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getLocation', request);
+    }
+    
 
     
     
