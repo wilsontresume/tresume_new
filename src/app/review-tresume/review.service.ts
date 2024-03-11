@@ -118,6 +118,10 @@ export class ReviewService {
     return this.http.post<ResponseDetails>(this.endpoint + 'DeleteTresumeNode', request);
   }
 
+  placementTrackerReport(request: any): Observable<ResponseDetails> {
+    return this.http.post<ResponseDetails>(this.endpoint + 'placementTrackerReport', request);
+  }
+
   // This is for email tracker in the placement tab // HRMS
   // getTableData(): Observable<any[]> {
   //   return this.http.get<any[]>(`${this.endpoint}/table-data`);

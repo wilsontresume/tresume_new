@@ -658,6 +658,21 @@ export class ReviewTresumeComponent implements OnChanges {
     });
   }
 
+  emailPlacementTracker() {
+    
+    const req = {
+      TraineeID: this.candidateID,
+      OrgID: this.OrgID
+    };
+   
+    this.service.placementTrackerReport(req).subscribe((x: any) => {
+      this.TraineeID = x.result;
+      this.OrgID = x.result;
+    });
+
+    console.log(req);
+  }
+  
   getSubmissionList() {
     const req = {
       TraineeID: this.candidateID,
