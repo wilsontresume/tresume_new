@@ -378,8 +378,8 @@ addservice(timesheet:any){
   formData.append('ccEmails', this.ccEmails);
   formData.append('bccEmails', this.bccEmails);
   formData.append('billing_address', this.selectedBillingaddress);
-  formData.append('InvoiceDate', this.selectedInvoiceDate); // Convert date to ISO string
-  formData.append('DueDate', this.selectedDueDate); // Convert date to ISO string
+  formData.append('InvoiceDate', this.selectedInvoiceDate); 
+  formData.append('DueDate', this.selectedDueDate); 
   formData.append('Terms', this.selectedTerm);
   formData.append('invoiceNo', this.InvoiceNo);
   formData.append('location', this.selectedState.toString());
@@ -392,18 +392,21 @@ addservice(timesheet:any){
   formData.append('statement', this.messageOnStatement);
   formData.append('newTermName', this.newTermName);
   formData.append('dueType', this.dueType.toString());
-  formData.append('duedate', this.dueDays.toString());
+  // formData.append('duedate', this.dueDays.toString());
   formData.append('status', '1');
   formData.append('created_by', this.username);
 
+  formData.append('traineeid', this.TraineeID);
+  formData.append('orgid', this.OrgID);
+
   // Append invoice lines data
   this.invoiceLines.forEach(line => {
-    formData.append('invoicedetails[]', JSON.stringify(line));
+    formData.append('invoicedetails', JSON.stringify(line));
   });
 
   // Append attachments
   this.files.forEach(file => {
-    formData.append('attachments[]', file);
+    formData.append('attachments', file);
   });
 
     this.loading = false;
@@ -423,7 +426,7 @@ addservice(timesheet:any){
     this.messageService.add({ severity: 'success', summary: response.message });
     console.log(response);
     this.loading = false;
-    this.router.navigate(['/all-invoice/' + this.routeType]);
+    this.router.navigate(['/all-invoice/']);
   }
 
   private handleError(error: any): void {

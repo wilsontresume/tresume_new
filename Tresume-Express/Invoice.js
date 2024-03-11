@@ -7,6 +7,8 @@ const envconfig = require(`./config.${environment}.js`);
 const multer = require('multer');
 const fs = require('fs');
 router.use(bodyparser.json());
+const { v4: uuidv4 } = require('uuid');
+const path = require('path');
 
 const config = {
   user: "sa",
@@ -18,7 +20,7 @@ const config = {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'C:/inetpub/vhosts/tresume.us/httpdocs/Content/Invoice/attachements');
+    cb(null, 'C:/inetpub/vhosts/tresume.us/httpdocs/Content/Invoice/attachments');
   },
   filename: function (req, file, cb) {
     const uniqueFilename = uuidv4();
@@ -294,17 +296,17 @@ router.post('/createInvoice', upload.array('attachments', 10), async (req, res) 
     const query = `
     INSERT INTO [dbo].[invoice_master]
     ([clientid], [clientemail], [billing_address], [timesheetid], [invoiceNo], [location], [subtotal], [discount], [total],
-     [invoice_message], [statement], [status], [mail_sent_on], [isviewed], [ispaid], [isdeposited] [created_at], [created_by], [last_updated_at], [last_updated_by], [traineeid], [orgid], [pterms], [receivedamt], [invoicedetails])
+     [invoice_message], [statement], [status], [isviewed], [ispaid], [isdeposited], [created_at], [created_by], [last_updated_at], [last_updated_by], [traineeid], [orgid], [pterms], [receivedamt], [invoicedetails])
     VALUES
     (${req.body.clientid}, '${req.body.clientemail}', '${req.body.billing_address}', '',
      '${req.body.invoiceNo}', '', '${req.body.subtotal}', '${req.body.discount}', '${req.body.total}',
-     '${req.body.invoice_message}', '${req.body.statement}', ${req.body.status}, '${req.body.mail_sent_on}',
+     '${req.body.invoice_message}', '${req.body.statement}', ${req.body.status},
      '0', '0', '0',  GETDATE(), '${req.body.created_by}', GETDATE(),
      '${req.body.created_by}', ${req.body.traineeid}, ${req.body.orgid}, '', '0', '${req.body.invoicedetails}');
 
       SELECT SCOPE_IDENTITY() AS insertedId;
     `;
-
+console.log(query);
     for (const key in req.body) {
       request.input(key, req.body[key]);
     }
@@ -314,6 +316,7 @@ router.post('/createInvoice', upload.array('attachments', 10), async (req, res) 
     INSERT INTO [dbo].[invoiceattachements] ([invoiceid], [filename], [status])
     VALUES (@invoiceid, @filename, @status);
   `;
+    
 
     for (const file of req.files) {
       const attachmentRequest = new sql.Request();
