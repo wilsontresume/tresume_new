@@ -599,15 +599,16 @@
           <textarea class="form-control" rows="4" [(ngModel)]="messageOnStatement" name="messageOnStatement"></textarea>
         </div>
 
+
+
         <!-- File Upload -->
         <div class="mt-4 mb-2 ml-3">
           <label for="attachments">Attachments</label>
           <form class="form" (ngSubmit)="uploadFiles()">
             <label class="form__container" id="upload-container" style="height: 6rem;">Choose or Drag & Drop Files
               <input type="file" class="form__file" multiple (change)="onFilesSelected($event)" #fileInput />
-            </label>
+            </label>           
             <div id="files-list-container">
-              <!-- Display the list of selected files -->
               <ul>
                 <li *ngFor="let file of files; let i = index">
                   {{ file.name }} | {{ (file.size / 1024).toFixed(2) }} KB
@@ -637,9 +638,8 @@
           <button class="btn btn dropdown-toggle fbtn" type="button" id="saveAndNewDropdown" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">Save and New</button>
           <div class="dropdown-menu" aria-labelledby="saveAndNewDropdown">
-            <button class="dropdown-item" [ngClass]="{'disabled-style': invoiceForm.invalid}" (click)="addinvoice()"
-                [disabled]="invoiceForm.invalid">Save and close</button>
-            <a class="dropdown-item" href="#">Save and send</a>
+            <button class="save-close-btn" [ngClass]="{'disabled-style': invoiceForm.invalid}" (click)="addinvoice()" [disabled]="!invoiceForm.valid">Save and close</button><br>
+            <a class="save-close-btn" href="#">Save and send</a>
           </div>
         </div>
       </div>

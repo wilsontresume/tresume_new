@@ -365,3 +365,14 @@ body {
   
   
 }
+
+.save-close-btn:disabled:hover {
+  cursor: not-allowed;
+  color: red;
+}
+.save-close-btn{
+  cursor: pointer;
+  color: #380838;
+  margin-left: 20px;
+  border: none;
+}
