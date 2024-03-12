@@ -375,4 +375,17 @@ body {
   color: #380838;
   margin-left: 20px;
   border: none;
+  background:none ;
+}
+.mandatory-field{
+  color: red;
+  font-size: 16px;
+}
+
+.remove-btn{
+  border-radius: 10px;
+  padding: 1px 5px;
+  border: 1px solid red;
+  background-color: white;
+  color: black;
 }
