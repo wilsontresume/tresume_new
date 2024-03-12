@@ -577,3 +577,15 @@ color: #4f4e4e; /* Replace with your desired light color */
 .popup button:hover {
   background-color: #0056b3;
 }
+
+.paid {
+  color: green; 
+}
+
+.unpaid {
+  color: red; 
+}
+
+.overdue {
+  color: orange; 
+}
