@@ -48,6 +48,7 @@ export class AllInvoiceComponent implements OnInit {
   searchUnpaidQuery: string = '';
   OrgID: string = '';
   TraineeID: string = '';
+  
 
   activeTab = 'allinvoices';
   showCustomDateModel = false;
@@ -82,6 +83,29 @@ export class AllInvoiceComponent implements OnInit {
   openPopup(invoiceId: number) {
     this.showPopup = true;
     this.invoiceid = invoiceId;
+  }
+ 
+  selectAll(checked: boolean): void {
+    this.filteredInvoices.forEach(invoice => {
+      invoice.selected = checked;
+    });    
+  }
+
+  selectAll1(checked: boolean): void {
+
+    this.filteredPaidInvoices.forEach(invoice => {
+      invoice.selected = checked;
+    });
+
+  }
+  selectAll2(checked: boolean): void {
+    this.filteredUnpaidInvoices.forEach(invoice => {
+      invoice.selected = checked;
+    });
+  }
+
+  selectRow(invoice: any): void {
+    invoice.selected = !invoice.selected;
   }
 
   saveAmount() {
@@ -267,6 +291,10 @@ export class AllInvoiceComponent implements OnInit {
       this.paidInvoices = x.result;
       this.applyPaidFilter();
       this.loading = false;
+        this.paidInvoices = x.result;
+        this.applyPaidFilter();
+        this.loading = false;
+        this.noResultsFound = this.paidInvoices.length === 0;
     });
   }
   applyPaidFilter() {
@@ -286,6 +314,9 @@ export class AllInvoiceComponent implements OnInit {
       this.loading = false;
     });
   }
+      this.noResultsFound = this.unpaidInvoices.length === 0;
+  });
+}
 
   applyUnpaidFilter() {
     this.filteredUnpaidInvoices = this.unpaidInvoices.filter(invoice =>
@@ -302,6 +333,7 @@ export class AllInvoiceComponent implements OnInit {
       this.allInvoices = x.result;
       this.applyFilter();
       this.loading = false;
+      this.noResultsFound = this.allInvoices.length === 0;
     });
   }
 
@@ -324,7 +356,6 @@ export class AllInvoiceComponent implements OnInit {
 
   toggleCustomDateModel(option: string): void {
     this.showCustomDateModel = option === 'Custom dates';
-
   }
 
 
