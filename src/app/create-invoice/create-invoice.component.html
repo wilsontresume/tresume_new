@@ -607,15 +607,16 @@
         <!-- File Upload -->
         <div class="mt-4 mb-2 ml-3">
           <label for="attachments">Attachments</label>
-          <form class="form" (ngSubmit)="uploadFiles()">
+          <form class="form" (ngSubmit)="uploadFiles()" #uploadForm="ngForm">
             <label class="form__container" id="upload-container" style="height: 6rem;">Choose or Drag & Drop Files
-              <input type="file" class="form__file" multiple (change)="onFilesSelected($event)" #fileInput />
+              <input type="file" class="form__file" multiple (change)="onFilesSelected($event)" #fileInput="ngModel" name="files" ngModel required/>
             </label>           
+            <div *ngIf="fileInput.invalid && fileInput.errors.required" class="error-message mandatory-field">This field is mandatory!.</div>
             <div id="files-list-container">
               <ul>
                 <li *ngFor="let file of files; let i = index">
                   {{ file.name }} | {{ (file.size / 1024).toFixed(2) }} KB
-                  <button type="button" (click)="removeFile(i)">Remove</button>
+                  <button type="button" class="remove-btn" (click)="removeFile(i)">Remove</button>
                 </li>
               </ul>
             </div>
@@ -625,6 +626,7 @@
             </div>
           </form>
         </div>
+        
       </div>
     </div>
 
@@ -644,7 +646,7 @@
             <button class="save-close-btn" [ngClass]="{'disabled-style': invoiceForm.invalid}" (click)="addinvoice()" [disabled]="!invoiceForm.valid">Save and close</button><br>
             <a class="save-close-btn" href="#">Save and send</a>
 
-            <a class="dropdown-item" (click)="addinvoice()">Save and close</a>
+            <!-- <a class="dropdown-item" (click)="addinvoice()">Save and close</a> -->
             <!-- <a class="dropdown-item" href="#">Save and send</a> -->
 
           </div>
