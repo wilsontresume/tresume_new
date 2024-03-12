@@ -127,7 +127,7 @@ const routes: Routes = [
   { path: 'onboardingList', component: OnboardingListComponent , canActivate: [AuthGuard]  },
   { path: 'onboard/1', component: ImportDetailsComponent  , canActivate: [AuthGuard] },
   { path: 'onboard/step/:id', component: WizardWorkflowComponent  , canActivate: [AuthGuard] },
-  { path: 'onboard/employee/:id', component: EmployeeViewComponent , canActivate: [AuthGuard]  },
+  { path: 'onboard/employee/:id', component: EmployeeViewComponent },
   { path: 'jobboards', component: JobBoardListComponent   , canActivate: [AuthGuard]},
   { path: 'create-project', component: CreateProjectComponent   , canActivate: [AuthGuard]},
   { path: 'alltimelist', component: AllTimeListComponent   , canActivate: [AuthGuard]},
