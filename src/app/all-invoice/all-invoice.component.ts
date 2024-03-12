@@ -118,13 +118,13 @@ export class AllInvoiceComponent implements OnInit {
 
     console.log(req);
     this.service.updateReceivedPayment(req).subscribe(
-          (response: any) => {
-            this.handleSuccess(response);
-          },
-          (error: any) => {
-            this.handleError(error);
-          }
-        );
+      (response: any) => {
+        this.handleSuccess(response);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
     this.showPopup = false;
   }
 
@@ -285,40 +285,45 @@ export class AllInvoiceComponent implements OnInit {
 
   fetchPaidInvoiceList() {
     let Req = {
-        OrgID: this.OrgID,
+      OrgID: this.OrgID,
     };
     this.service.getPaidInvoiceList(Req).subscribe((x: any) => {
+      this.paidInvoices = x.result;
+      this.applyPaidFilter();
+      this.loading = false;
         this.paidInvoices = x.result;
         this.applyPaidFilter();
         this.loading = false;
         this.noResultsFound = this.paidInvoices.length === 0;
     });
-}
-applyPaidFilter() {
-  this.filteredPaidInvoices = this.paidInvoices.filter(invoice =>
+  }
+  applyPaidFilter() {
+    this.filteredPaidInvoices = this.paidInvoices.filter(invoice =>
       invoice.projectname.toLowerCase().includes(this.searchPaidQuery.toLowerCase())
-  );
-  this.noResultsFound = this.filteredPaidInvoices.length === 0 && this.searchPaidQuery !== '';
-}
+    );
+    this.noResultsFound = this.filteredPaidInvoices.length === 0 && this.searchPaidQuery !== '';
+  }
 
-fetchUnpaidInvoiceList() {
-  let Req = {
+  fetchUnpaidInvoiceList() {
+    let Req = {
       OrgID: this.OrgID,
-  };
-  this.service.getunPaidInvoiceList(Req).subscribe((x: any) => {
+    };
+    this.service.getunPaidInvoiceList(Req).subscribe((x: any) => {
       this.unpaidInvoices = x.result;
       this.applyUnpaidFilter();
       this.loading = false;
+    });
+  }
       this.noResultsFound = this.unpaidInvoices.length === 0;
   });
 }
 
-applyUnpaidFilter() {
-  this.filteredUnpaidInvoices = this.unpaidInvoices.filter(invoice =>
+  applyUnpaidFilter() {
+    this.filteredUnpaidInvoices = this.unpaidInvoices.filter(invoice =>
       invoice.projectname.toLowerCase().includes(this.searchUnpaidQuery.toLowerCase())
-  );
-  this.noResultsFound = this.filteredUnpaidInvoices.length === 0 && this.searchUnpaidQuery !== '';
-}
+    );
+    this.noResultsFound = this.filteredUnpaidInvoices.length === 0 && this.searchUnpaidQuery !== '';
+  }
 
   fetchAllInvoiceList() {
     let Req = {
@@ -337,16 +342,16 @@ applyUnpaidFilter() {
       invoice.projectname.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
     this.noResultsFound = this.filteredInvoices.length === 0 && this.searchQuery !== '';
-}
+  }
 
-//this for amount filter
-// applyFilter() {
-//   this.filteredInvoices = this.allInvoices.filter(invoice =>
-//       (invoice.projectname.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-//       invoice.total.toLowerCase().includes(this.searchQuery.toLowerCase()))
-//   );
-//   this.noResultsFound = this.filteredInvoices.length === 0 && this.searchQuery !== '';
-// }
+  //this for amount filter
+  // applyFilter() {
+  //   this.filteredInvoices = this.allInvoices.filter(invoice =>
+  //       (invoice.projectname.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+  //       invoice.total.toLowerCase().includes(this.searchQuery.toLowerCase()))
+  //   );
+  //   this.noResultsFound = this.filteredInvoices.length === 0 && this.searchQuery !== '';
+  // }
 
 
   toggleCustomDateModel(option: string): void {
@@ -372,7 +377,11 @@ applyUnpaidFilter() {
   }
 
   downloadExcel() {
-    
+
   }
 
+  isOverdue(date: Date): boolean {
+    const currentDate = new Date();
+    return date < currentDate;
+  }
 }

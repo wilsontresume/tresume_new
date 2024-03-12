@@ -408,9 +408,13 @@
                       <td>Invoice</td>
                       <td>{{ invoice.invoiceNo }}</td>
                       <td>{{ invoice.projectname }}</td>
-                      <td>{{ invoice.memo | date: "MM/dd/y" : "UTC" }}</td>
+                      <td>{{ invoice.messageOnStatement | date: "MM/dd/y" : "UTC" }}</td>
                       <td>{{ invoice.total }}</td>
-                      <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
+                      <td [ngClass]="{
+                        'paid': invoice.status,
+                        'unpaid': !invoice.status,
+                        'overdue': isOverdue(invoice.date)
+                      }">{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                       <td>
                         <button class="btn" (click)="openPopup(invoice.id)">Received Payment</button>
                       </td>
@@ -468,7 +472,11 @@
                         <td>{{ invoice.projectname }}</td>
                         <td>{{ invoice.memo | date : "MM/dd/y" : "UTC" }}</td>
                         <td>{{ invoice.total }}</td>
-                        <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
+                        <td [ngClass]="{
+                          'paid': invoice.status,
+                          'unpaid': !invoice.status,
+                          'overdue': isOverdue(invoice.date)
+                        }">{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                         <td>
                           <button class="btn" (click)="openPopup(invoice.id)">Received Payment</button>
                         </td>
@@ -548,7 +556,11 @@
                           <td>{{ invoice.projectname }}</td>
                           <td>{{ invoice.memo | date : "MM/dd/y" : "UTC" }}</td>
                           <td>{{ invoice.total }}</td>
-                          <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
+                          <td [ngClass]="{
+                            'paid': invoice.status,
+                            'unpaid': !invoice.status,
+                            'overdue': isOverdue(invoice.date)
+                          }">{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                           <td>
                             <button class="btn" (click)="openPopup(invoice.id)">Received Payment</button>
                           </td>
