@@ -313,10 +313,10 @@ export class AllInvoiceComponent implements OnInit {
       this.applyUnpaidFilter();
       this.loading = false;
     });
+    this.noResultsFound = this.unpaidInvoices.length === 0;
   }
-      this.noResultsFound = this.unpaidInvoices.length === 0;
-  });
-}
+//   });
+// }
 
   applyUnpaidFilter() {
     this.filteredUnpaidInvoices = this.unpaidInvoices.filter(invoice =>
