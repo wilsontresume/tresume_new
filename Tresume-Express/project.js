@@ -18,6 +18,7 @@ const config = {
   server: "92.204.128.44",
   database: "Tresume",
   trustServerCertificate: true,
+  connectionTimeout: 60000,
 };
 
 const transporter = nodemailer.createTransport({

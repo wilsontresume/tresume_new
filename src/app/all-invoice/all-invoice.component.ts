@@ -292,7 +292,13 @@ export class AllInvoiceComponent implements OnInit {
         this.applyPaidFilter();
         this.loading = false;
         this.noResultsFound = this.paidInvoices.length === 0;
-    });
+    }),
+    (error: any) => {
+      // Error callback
+      console.error('Error occurred:', error);
+      // Handle error here
+      this.loading = false; // Set loading to false on error
+    };
 }
 applyPaidFilter() {
   this.filteredPaidInvoices = this.paidInvoices.filter(invoice =>
@@ -310,7 +316,13 @@ fetchUnpaidInvoiceList() {
       this.applyUnpaidFilter();
       this.loading = false;
       this.noResultsFound = this.unpaidInvoices.length === 0;
-  });
+  }),
+  (error: any) => {
+    // Error callback
+    console.error('Error occurred:', error);
+    // Handle error here
+    this.loading = false; // Set loading to false on error
+  };
 }
 
 applyUnpaidFilter() {
@@ -329,7 +341,13 @@ applyUnpaidFilter() {
       this.applyFilter();
       this.loading = false;
       this.noResultsFound = this.allInvoices.length === 0;
-    });
+    }),
+    (error: any) => {
+      // Error callback
+      console.error('Error occurred:', error);
+      // Handle error here
+      this.loading = false; // Set loading to false on error
+    };
   }
 
   applyFilter() {

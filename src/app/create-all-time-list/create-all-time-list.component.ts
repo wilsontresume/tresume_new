@@ -365,7 +365,13 @@ onChangesDropdown(selectedOption: any, row: any) {
     this.Service.getLocationList(Req).subscribe((x: any) => {
       this.state = x.result;
       this.loading = false;
-    });
+    }),
+    (error: any) => {
+      // Error callback
+      console.error('Error occurred:', error);
+      // Handle error here
+      this.loading = false; // Set loading to false on error
+    };
   }
   getDropdownOption() {
     return this.state;

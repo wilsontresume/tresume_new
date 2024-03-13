@@ -78,7 +78,13 @@ export class AccountsAddUserComponent implements OnChanges {
       this.User_Accounts = x.result;
       this.loading = false;
 
-    });
+    }),
+    (error: any) => {
+      // Error callback
+      console.error('Error occurred:', error);
+      // Handle error here
+      this.loading = false; // Set loading to false on error
+    };
   }
 
 

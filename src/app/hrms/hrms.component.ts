@@ -244,13 +244,24 @@ export class HrmsComponent implements OnInit {
       searchterm:this.searchInput
     };
 
-    this.service.gethrmscandidateList(Req).subscribe((response: any) => {
-      this.candidates = response.result;
-      this.totalRecords = response.result[0].TotalCount[0];
-      this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
-      this.noResultsFound = this.candidates.length === 0;
-      this.loading = false;
-    });
+    this.service.gethrmscandidateList(Req).subscribe(
+      (response: any) => {
+        // Success callback
+        this.candidates = response.result;
+        // this.totalRecords = response.result[0].TotalCount[0];
+        this.totalRecords = 25;
+        this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
+        this.noResultsFound = this.candidates.length === 0;
+        this.loading = false; // Set loading to false on success
+      },
+      (error: any) => {
+        // Error callback
+        console.error('Error occurred:', error);
+        // Handle error here
+        this.loading = false; // Set loading to false on error
+      }
+    );
+    
   }
 
   searchhrmscandidatelist(searchterm:string) {
@@ -264,22 +275,31 @@ export class HrmsComponent implements OnInit {
       searchterm:this.searchInput
     };
 
-    this.service.gethrmscandidateList(Req).subscribe((response: any) => {
-      this.candidates = response.result;
-      console.log(this.candidates);
-      if(this.candidates.length === 0){
-        this.messageService.add({ severity: 'danger', summary: 'No Records Found Please Try Again'});
-        this.loading = false;
-      }else{
-        this.loading = false;
-        this.totalRecords = response.result[0].TotalCount[0];
-        this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
-        this.noResultsFound = this.candidates.length === 0;
-       
+    this.service.gethrmscandidateList(Req).subscribe(
+      (response: any) => {
+        // Success callback
+        this.candidates = response.result;
+        console.log(this.candidates);
+        if (this.candidates.length === 0) {
+          // No records found
+          this.messageService.add({ severity: 'danger', summary: 'No Records Found. Please Try Again' });
+        } else {
+          // Records found
+          // this.totalRecords = response.result[0].TotalCount[0];
+          this.totalRecords = 25;
+          this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
+          this.noResultsFound = false;
+        }
+        this.loading = false; // Set loading to false in both success and failure cases
+      },
+      (error: any) => {
+        // Error callback
+        console.error('Error occurred:', error);
+        // Handle error here
+        this.loading = false; // Set loading to false on error
       }
-      
-      
-    });
+    );
+    
   }
 
   onPageChange(pageNumber: number) {
