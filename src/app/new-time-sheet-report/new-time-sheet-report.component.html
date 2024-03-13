@@ -1,0 +1,140 @@
+<div class="container-fluid pt-3 pl-5 pr-5 pb-5">
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <h2 style="margin-top: 10px;">Time Activities by Employee Detail Report </h2>
+    </div>
+    <div class="col-md-6 float-right">
+      <div class="icon-p" style="display: flex; justify-content: flex-end; align-items: center;">
+        <span style="font-size: 34px; margin-right: 20px;" class="fas fa-print" (click)="toggleExportOptions()"></span>
+        <div *ngIf="showExportOptions" class="export-options">
+          <p (click)="exportAsPDF()">Export as PDF</p>
+          <p (click)="exportAsExcel()">Export as Excel</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="row ml-1">
+    <div class="col-md-2">
+      <select class="form-control" [(ngModel)]="selection">
+        <option *ngFor="let option of options">{{ option }}</option>
+      </select>
+    </div>
+    <div *ngIf="isCustomizeSelected()" class="row">
+      <div class="col">
+        <input type="text" class="form-control" id="fromDate" placeholder="From Date" [(ngModel)]="fromDate"
+          bsDatepicker>
+      </div>
+      <span class="mt-2 text-lg">to</span>
+      <div class="col">
+        <input type="text" class="form-control" id="toDate" placeholder="To Date" [(ngModel)]="toDate" bsDatepicker>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btncolor run" (click)="runReport()">Run Report</button>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-3">
+    <div class="scroll-container">
+      <div class="table-responsive" id="export-content">
+
+        <table class="table table-bordered table-hover" id="keywords">
+          <thead>
+            <!-- <tr>
+              <th colspan="7">
+                <div class="top-row">
+                  <div class="top-row-content d-flex justify-content-between">
+                    <div class="dropdown sort">
+                      <a href="#" class="dropdown-toggle" role="button" id="sortButton"
+                        (click)="toggleSortingOptions($event)">Sort </a>
+                      <div *ngIf="showSortingOptions" class="sorting-options-popup">
+                        <br> <label> Sort by </label>
+                        <select id="dateRangeDropdown" class="form-control1" style="width:100px">
+                          <option *ngFor="let option of sortbyoptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <br> <label> Sort in </label><br>
+                        <input type="radio" id="sortinasc" name="sortinasc" value="sortinasc" checked>
+                        <label for="sortinasc"> Ascending order</label><br><br>
+                        <input type="radio" id="sortindesc" name="sortindesc" value="sortindesc">
+                        <label for="sortindesc"> Descending order</label><br>
+                      </div>
+                    </div>
+                    <div class="notes">
+                      <a href="#" (click)="toggleNotes($event)">Add notes</a>
+                    </div>
+                    <div class="ml-auto" style="margin-top: 7px;">
+                      <div>
+                        <i style="font-size: 25px;" class="fas fa-print mr-3"
+                          (click)="showExportOptions = !showExportOptions" title="Print Document"></i>
+
+                        <div *ngIf="showExportOptions" class="export-options mt-2 mr-2">
+                          <p (click)="exportAsPDF()">Export as PDF</p>
+                          <p (click)="exportAsExcel()">Export as Excel</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </th>
+            </tr> -->
+            <tr class="text-center">
+              <th colspan="7" class="text-center">
+                <div class="header col-md-4 mx-auto mt-3">
+                  <span>{{ title }}</span>
+                  <h3>{{ subTitle }}</h3>
+                </div>
+              </th>
+            </tr>
+            <tr class="thead-light" style="text-align: center;">
+              <th><span>Candidate Name</span></th>
+              <th><span>From Date</span> <i class="fas fa-filter" style="vertical-align: middle;"></i></th>
+              <th><span>To Date</span> <i class="fas fa-filter" style="vertical-align: middle;"></i></th>
+              <th><span>Description</span></th>
+              <th><span>Duration</span></th>
+              <th><span>Rate</span> <i class="fas fa-filter" style="vertical-align: middle;"></i></th>
+              <th><span>Billable</span> <i class="fas fa-filter" style="vertical-align: middle;"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of tableData">
+              <td>{{ row.TraineeName }}</td>
+              <td>{{ row.fromdate | date : "MM/dd/y"}}</td>
+              <td>{{ row.todate| date : "MM/dd/y" }}</td>
+              <td>{{ row.comments }}</td>
+              <td>{{ row.totalhrs }}</td>
+              <td>{{ row.totalhrs }}</td>
+              <td>{{ row.isBillable ? "Yes" : "No" }}</td>
+            </tr>
+            <!-- <tr>
+              <td>Total for Bala Rohit Reddy Gurivireddy</td>
+              <td colspan="6"></td>
+            </tr> -->
+            <tr>
+              <td></td>
+              <td colspan="5"></td>
+              <td>{{ getTotalDuration() }}</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+        <br>
+        <!-- <div class="container justify-content-center">Tuesday, January 30, 2024 02:39 AM GMT+05:30</div> -->
+      </div>
+      
+    </div>
+    <div *ngIf="showNotes" class="notes-container col-md-12">
+      <i class="fas fa-times float-right" (click)="closeNotes()"></i>
+      <textarea class="mt-2" [(ngModel)]="notes"
+        placeholder="Add notes or include additional info with your report"></textarea>
+      <div class="notes-actions">
+        <div>4000 characters max</div>
+      </div>
+    </div>
+    <span class="btn btncolor run" (click)="toggleNotes($event)">Add notes</span>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./organinfo.component.scss']
 })
 export class OrganinfoComponent{
+  loading:boolean = false;
+
   public content:any;
   taxTermsOptions = [
     { id: 1, name: 'Option 1' },

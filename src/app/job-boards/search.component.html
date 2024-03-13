@@ -14,7 +14,7 @@
 </p-tabView> -->
 
 <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
-    <mat-tab label="BasicSearch">
+    <mat-tab label="BasicSearch" *ngIf="showats">
         <ng-template mat-tab-label>
             <div>
                 <img src="assets/img/logo_new.png" alt="TresumeLogo" height="50%" width="50%">
@@ -55,7 +55,18 @@
             <app-search-monster-resumes></app-search-monster-resumes>
         </ng-template>
     </mat-tab>
-    <mat-tab label="Jooble">
+    <mat-tab label="OptNation">
+        <ng-template mat-tab-label>
+            <div>
+                <img src="https://www.optnation.com/application/public/images/logo.webp" alt="Optnation" height="40%" width="40%">
+                
+            </div>
+        </ng-template>
+        <ng-template matTabContent>
+            <app-search-opt-resumes></app-search-opt-resumes>
+        </ng-template>
+    </mat-tab>
+    <!-- <mat-tab label="Jooble">
         <ng-template mat-tab-label>
             <div>
                 <img src="https://in.jooble.org/job-description/wp-content/uploads/2020/03/logo2.svg" alt="JoobleLogo" height="40%" width="40%">
@@ -65,8 +76,8 @@
         <ng-template matTabContent>
             <app-search-jooble-resumes></app-search-jooble-resumes>
         </ng-template>
-    </mat-tab>
-    <mat-tab label="Integrated Search">
+    </mat-tab> -->
+    <mat-tab label="Integrated Search" *ngIf="showats">
         <ng-template mat-tab-label>
             <div>
                 <img src="assets/img/integrated_search.png"alt="TresumeLogo" height="100%" width="100%">

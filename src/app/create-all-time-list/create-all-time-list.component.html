@@ -1,0 +1,211 @@
+<div class="container-fluid p-3">
+  <div class="head d-flex justify-content-between p-3">
+    <h2>Weekly Timesheet</h2>
+    <i class="fa fa-close" [routerLink]="['/alltimelist']"></i>
+  </div>
+  <div class="content pl-3 pt-1 pb-1 dropdown">
+    <div class="row mt-3">
+      <div class="input-group col-md-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <input type="text" class="form-control custom-input" [(ngModel)]="selectedItem" id="selectedItem"
+          placeholder="Who's time are you tracking?" aria-describedby="searchIcon">
+        <div class="input-group-append">
+          <div class="input-group-text ">
+            <i class="fas fa-caret-down"></i>
+            <div class="dropdown-menu dropdown-menu-scrollable">
+              <ng-container *ngFor="let option of getDropdownOption1()">
+                <a class="dropdown-item text-left" (click)="onChangesDropdown(option)">
+                  {{ option.FirstName }} {{ option.LastName }}
+                </a>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Select Date Range" bsDaterangepicker
+          [(ngModel)]="selectedDateRange" (ngModelChange)="onDateRangeChange($event)" style="width: 16rem;">
+      </div> -->
+      <!-- Display the selected week -->
+      <!-- <div *ngIf="selectedWeek" class="selected-week">
+            You selected: {{ selectedWeek }}
+          </div> -->
+
+      <div class="col-md-3 gray-theme">
+        <div class="weekly-datepicker">
+          <select id="weekPicker" [(ngModel)]="selectedWeek" (change)="onWeekSelect($event.target.value)">
+            <option *ngFor="let week of generateWeeks()" [value]="week" value="">{{ week }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th style="width: 700px;">DETAILS</th>
+        <ng-container *ngFor="let date of getWeekDates(selectedWeek)">
+          <th>
+            {{ date.toLocaleDateString('en-US', { weekday: 'short' }) }}
+            <span class="date">{{ date.getDate() }}</span>
+          </th>
+        </ng-container>
+        <th style="width: 70px">TOTAL</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of timesheetRows; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <div class="row">
+            <div class="col-md-5 mr-5 dropdown">
+              <div class="input-group " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <input type="text" class="form-control custom-input" id="selectedItem1" [(ngModel)]="row.projectName"
+                  placeholder="Choose the Project" aria-describedby="searchIcon1">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-caret-down"></i>
+                    <div class="dropdown-menu dropdown-menu-scrollable">
+                      <a class="dropdown-item" *ngFor="let option of getDropdownOptions(1)"
+                        (click)="onDropdownChange(option, row)">
+                        {{ option.projectname }}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown col-md-5">
+              <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <input type="text" class="form-control custom-input" id="selectedItem2" [(ngModel)]="row.payItem"
+                  placeholder="Select Pay item" aria-label="Search" aria-describedby="searchIcon2">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-caret-down"></i>
+                    <div class="dropdown-menu dropdown-menu-scrollable">
+                      <a class="dropdown-item" *ngFor="let option of getDropdownOptionn(2)"
+                        (click)="onDropdownChangess(option, row)">{{ option.Text }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 mr-5 dropdown">
+              <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <input type="text" class="form-control custom-input" id="selectedItem3" [(ngModel)]="row.service"
+                  placeholder="Choose the service worked on" aria-label="Search" aria-describedby="searchIcon3">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-caret-down"></i>
+                    <div class="dropdown-menu dropdown-menu-scrollable">
+                      <a class="dropdown-item" *ngFor="let option of option2"
+                        (click)="onDropdownItemClicks(option, row)">{{
+                        option }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 dropdown">
+              <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <input type="text" class="form-control custom-input" id="selectedItem4" [(ngModel)]="row.location"
+                  placeholder="Choose the location" aria-describedby="searchIcon4">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-caret-down"></i>
+                    <div class="dropdown-menu dropdown-menu-scrollable">
+                      <a class="dropdown-item" *ngFor="let option of getDropdownOption(4)"
+                        (click)="onDropdownChanges(option, row)">{{
+                        option.state }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 mr-5">
+              <textarea [(ngModel)]="row.description" class="custom-input p-2" placeholder="Description"
+                id="description"></textarea>
+            </div>
+            <div class="col-md-8">
+              <div class="checkbox-group">
+                <input type="checkbox" class="checkbox" id="myCheckbox" [(ngModel)]="row.billable">
+                <label for="myCheckbox" class="mt-2">Billable(/hr) $</label>
+                <input *ngIf="row.billable" id="billAmount" class="bill-Amt ml-1" type="number"
+                  style="width: 60px; padding: 5px;" [(ngModel)]="row.hourlyRate" (ngModelChange)="updateTotalAmount()">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 mr-5 ml-2">
+              <label for="file{{i}}" class="file-label" style="width: 9rem;" >
+                <i class="fa fa-upload"></i> Client Approved
+              </label >
+              <input type="file" id="file{{i}}" class="form-control-file visually-hidden"
+              (change)="onFileChange($event, 'file1', row)">
+            </div>
+            <div class="col-md-5 mt-2">
+              <div *ngIf="row.file1" class="file-name">{{ row.file1.name }}</div>
+            </div>
+          </div>
+        </td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.mon" id="mon"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.tues" id="tues"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.wed" id="wed"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.thu" id="thu"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.fri" id="fri"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sat" id="sat"></td>
+        <td> <input type="number" style="width: 50px;padding: 5px;" [(ngModel)]="row.sun" id="sun"></td>
+        <td class="text-right">
+          <i> hrs </i><br>
+          <span [(ngModel)]="row.totalHours">{{ formatTotalHours(calculateTotalHours(row)) }}</span><br>
+          <i> amount </i>
+          <span [(ngModel)]="row.totalAmount">{{ calculateTotalAmount(row) | currency:'USD':true:'1.2-2' }}</span>
+        </td>
+        <!-- <td><i class="fa fa-trash pl-3" type="button" data-toggle="modal" data-target="#exampleModalCenter"></i></td> -->
+        <td><i class="fa fa-trash pl-3" (click)="removeRow(i)"></i></td>
+      </tr>
+      <td colspan="1"></td>
+      <td colspan="1" style="text-align: right;">Total</td>
+      <td colspan="8" style="text-align: right;">{{ totalAmountForAllRows | currency:'USD':true:'1.2-2' }}</td>
+    </tbody>
+  </table>
+
+  <!-- <button (click)="deleteAllRows()">Minus</button> -->
+
+  <div class="row mt-3">
+    <div class="col-md-4">
+      <button (click)="addRow()" class="btn-block fbtn">Add Lines</button>
+    </div>
+    <div class="col-md-4 text-center">
+      <!-- <button class=" btn-block fbtn">Copy last timesheet</button> -->
+    </div>
+    <div class="col-md-4 text-right">
+      <button class=" btn-block fbtn" (click)="SaveRow()">Save</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        Are you sure want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">No</button>
+        <button type="button" class="btn text-left" (click)="removeRow(i)" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

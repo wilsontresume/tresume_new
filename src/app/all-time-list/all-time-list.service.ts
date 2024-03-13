@@ -16,11 +16,32 @@ export class TimesheetListService {
     deleteUserAccount(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'deleteUserAccount', request);
     }
-
+   
     getAllTimeList(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getAllTimeList', request);
     }
-   
+    
+    getPendingTimesheetResult(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getPendingTimesheetResult', request);
+    }
+    getRejectedTimesheetResult(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getRejectedTimesheetResult', request);
+    }
+    getCompletedTimesheetResult(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getCompletedTimesheetResult', request);
+    }
+    getNonBillableTimesheetResult(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getNonBillableTimesheetResult', request);
+    }
+    insertTimesheetTraineeCandidate(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'insertTimesheetTraineeCandidate', request);
+    }
+    getLocation(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'getLocation', request);
+    }
+    
+
+    
     
 }
 export interface ResponseDetails {

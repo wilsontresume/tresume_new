@@ -134,7 +134,21 @@ export class SearchResumesMonsterComponent implements OnInit {
         'Washington DC',
         'West Virginia',
         'Wisconsin',
-        'Wyoming'
+        'Wyoming',
+        //canada
+        'Ontario',
+        'Alberta',
+        'British Columbia',
+        'Manitoba',
+        'New Brunswick',
+        'Newfoundland and Labrador',
+        'Nova Scotia',
+        'Prince Edward Island',
+        'Quebec',
+        'Saskatchewan',
+        'Northwest Territories',
+        'Nunavut',
+        'Yukon'
     ];
 
     workStatus: any[] = [
