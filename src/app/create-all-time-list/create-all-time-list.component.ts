@@ -154,7 +154,30 @@ export class CreateAllTimeListComponent implements OnInit {
   }
 
 
-  calculateTotalHours(row: any): number | string {
+  // calculateTotalHours(row: any): number | string {
+  //   const mon = row.mon || 0;
+  //   const tues = row.tues || 0;
+  //   const wed = row.wed || 0;
+  //   const thu = row.thu || 0;
+  //   const fri = row.fri || 0;
+  //   const sat = row.sat || 0;
+  //   const sun = row.sun || 0;
+  //   const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
+   
+  //   row.totalHours = totalHours;
+   
+  //   return isNaN(totalHours) ? 'N/A' : totalHours;
+    
+  // }
+
+  formatTotalHours(totalHours: number): string {
+    const hours = Math.floor(totalHours);
+    const minutes = Math.round((totalHours - hours) * 60);
+    return `${hours} hr ${minutes} mins`;
+  }
+  
+  // Update the calculateTotalHours function to handle decimal values
+  calculateTotalHours(row: any): number {
     const mon = row.mon || 0;
     const tues = row.tues || 0;
     const wed = row.wed || 0;
@@ -162,12 +185,11 @@ export class CreateAllTimeListComponent implements OnInit {
     const fri = row.fri || 0;
     const sat = row.sat || 0;
     const sun = row.sun || 0;
-    const totalHours = +mon + +tues + +wed + +thu + +fri + +sat + +sun;
-   
-    row.totalHours = totalHours;
-   
-    return isNaN(totalHours) ? 'N/A' : totalHours;
-    
+  
+    // Calculate total hours
+    const totalHours = mon + tues + wed + thu + fri + sat + sun;
+  
+    return totalHours;
   }
 
   addDefaultRows() {
@@ -226,9 +248,15 @@ export class CreateAllTimeListComponent implements OnInit {
       this.traineeID = this.cookieService.get('timesheet_admin');
     }
 
-    const currentWeek = this.getCurrentWeekDates();
-    this.selectedWeek = `${this.formatDate(currentWeek.start)} to ${this.formatDate(currentWeek.end)}`;
-    this.updateDynamicDays(this.selectedWeek);
+    const today = new Date();
+    const currentWeekStart = new Date(today);
+    currentWeekStart.setDate(currentWeekStart.getDate() - currentWeekStart.getDay() + 1); // Start of the current week
+    const currentWeekEnd = new Date(currentWeekStart);
+    currentWeekEnd.setDate(currentWeekEnd.getDate() + 6); // End of the current week
+    this.selectedWeek = `${this.formatDate(currentWeekStart)} to ${this.formatDate(currentWeekEnd)}`;
+
+    // Generate weeks
+    this.dynamicDays = this.generateWeeks();
   }
 
   getCurrentWeekDates(): { start: Date; end: Date } {
@@ -297,6 +325,7 @@ getDropdownOption1() {
 onChangesDropdown(selectedOption: any, row: any) {
   this.selectedItem = `${selectedOption.FirstName} ${selectedOption.LastName}`;
   this.candidateid = `${selectedOption.TraineeID}`;
+  
 }
  
   selectedItem1: string;
@@ -319,7 +348,6 @@ onChangesDropdown(selectedOption: any, row: any) {
   onDropdownChange(selectedOption: any, row: any) {
     row.projectName = selectedOption.projectname;
     row.projectid = selectedOption.projectid;
-
   }
 
 
@@ -337,7 +365,13 @@ onChangesDropdown(selectedOption: any, row: any) {
     this.Service.getLocationList(Req).subscribe((x: any) => {
       this.state = x.result;
       this.loading = false;
-    });
+    }),
+    (error: any) => {
+      // Error callback
+      console.error('Error occurred:', error);
+      // Handle error here
+      this.loading = false; // Set loading to false on error
+    };
   }
   getDropdownOption() {
     return this.state;
@@ -424,7 +458,7 @@ onChangesDropdown(selectedOption: any, row: any) {
   //   }
   // }
 
-  SaveRow(): void {
+  SaveRow() {
     const selectedWeek = this.selectedWeek.split(' to ');
     const startDateSelectedWeek = new Date(selectedWeek[0]);
     const endDateSelectedWeek = new Date(selectedWeek[1]);
@@ -433,13 +467,13 @@ onChangesDropdown(selectedOption: any, row: any) {
     const endDateFormatted = endDateSelectedWeek.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' });
   
       this.timesheetRows.forEach((row, index) => {
-        this.loading = true;
+        // this.loading = true;
         if(row.projectName !=''){
           const formData = new FormData();
           if (!row.file1) {
             
             alert('Please upload client-approved timesheet.');
-            this.loading = false;
+            // this.loading = false;
             return; 
           }
           formData.append('file1', row.file1);
@@ -514,25 +548,25 @@ private handleError(response: any): void {
   generateWeeks(): string[] {
     const today = new Date();
     const currentYear = today.getFullYear();
+    const startDate = new Date(today);
+    startDate.setDate(startDate.getDate() - startDate.getDay() + 1); // Start from the beginning of the current week
+
     const weeks: string[] = [];
 
-    this.zone.runOutsideAngular(() => {
-      for (let monthOffset = 0; monthOffset < 12; monthOffset++) {
-        const targetMonth = (today.getMonth() + monthOffset) % 12;
-        const targetYear = currentYear + Math.floor((today.getMonth() + monthOffset) / 12);
+    for (let i = -52; i <= 52; i++) { // Display 52 weeks before and after the current week
+        const startWeek = new Date(startDate);
+        startWeek.setDate(startWeek.getDate() + i * 7); // Move to the next or previous week
 
-        const startDate = this.getFirstMonday(new Date(targetYear, targetMonth, 1));
+        const endDate = new Date(startWeek);
+        endDate.setDate(endDate.getDate() + 6);
 
-        for (let i = 0; i < 5; i++) {
-          const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
-          const weekString = `${this.formatDate(startDate)} to ${this.formatDate(endDate)}`;
-          weeks.push(weekString);
-          startDate.setDate(startDate.getDate() + 7);
-        }
-      }
-    });
+        const weekString = `${this.formatDate(startWeek)} to ${this.formatDate(endDate)}`;
+        weeks.push(weekString);
+    }
+
     return weeks;
-  }
+}
+
 
   getFirstMonday(date: Date): Date {
     while (date.getDay() !== 1) {

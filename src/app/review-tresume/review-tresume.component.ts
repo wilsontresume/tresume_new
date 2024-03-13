@@ -658,6 +658,21 @@ export class ReviewTresumeComponent implements OnChanges {
     });
   }
 
+  emailPlacementTracker() {
+    
+    const req = {
+      TraineeID: this.candidateID,
+      OrgID: this.OrgID
+    };
+   
+    this.service.placementTrackerReport(req).subscribe((x: any) => {
+      this.TraineeID = x.result;
+      this.OrgID = x.result;
+    });
+
+    console.log(req);
+  }
+  
   getSubmissionList() {
     const req = {
       TraineeID: this.candidateID,
@@ -930,17 +945,18 @@ export class ReviewTresumeComponent implements OnChanges {
     };
     this.service.deleteplacementdata(Req).subscribe((x: any) => {
       var flag1 = x.flag;
-      this.placementList();
       if (flag1 === 1) {
         this.messageService.add({
           severity: 'success',
-          summary: 'interviewdata Deleted Sucessfully',
+          summary: 'Placement Deleted Sucessfully',
         });
+        this.getPlacementList();
       } else {
         this.messageService.add({
           severity: 'error',
           summary: 'Please try again later',
         });
+        this.getPlacementList();
       }
     });
     this.showConfirmationDialog2 = false;
@@ -999,6 +1015,27 @@ cancelDeletesubmission() {
   selectedOption: string = '';
   GoTonext() {
     this.router.navigate(['/candidateView/:id/sitevisit']);
+  }
+
+  addRecruitmentTracker() {
+     
+    this.loading = true;
+      let Req = {
+        TraineeID: this.candidateID,
+        OrgID:this.OrgID
+    };
+    console.log(Req);
+    this.service.insertRecruitmentTracker(Req).subscribe(
+      (x: any) => {
+        this.handleSuccess(x);
+        this.loading = false;
+      },
+      (error: any) => {
+        this.handleError(error);
+        this.loading = false;
+      }
+    );
+    
   }
 
   // Education

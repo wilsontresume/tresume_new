@@ -1,85 +1,84 @@
-const express = require('express');
-const bodyparser = require('body-parser');
-const path = require('path');
-var mime = require('mime');
+const express = require("express");
+const bodyparser = require("body-parser");
+const path = require("path");
+var mime = require("mime");
 const app = express();
-const axios = require('axios');
-const qs = require('querystring');
+const axios = require("axios");
+const qs = require("querystring");
 var sql = require("mssql");
 var sql1 = require("mssql");
-const multer = require('multer')
-require('dotenv').config();
-var savePath = './uploads/';
-const fs = require('fs');
-const nodemailer = require('nodemailer');
-const request = require('request');
+const multer = require("multer");
+require("dotenv").config();
+var savePath = "./uploads/";
+const fs = require("fs");
+const nodemailer = require("nodemailer");
+const request = require("request");
 const cookieParser = require("cookie-parser");
-const session = require('express-session')
-app.use(bodyparser.json({ limit: '100mb' }));
-app.use(bodyparser.urlencoded({ limit: '100mb', extended: true }));
+const session = require("express-session");
+app.use(bodyparser.json({ limit: "100mb" }));
+app.use(bodyparser.urlencoded({ limit: "100mb", extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(__dirname));
-const FormData = require('form-data');
-const environment = process.env.NODE_ENV || 'prod';
+const FormData = require("form-data");
+const environment = process.env.NODE_ENV || "prod";
 const envconfig = require(`./config.${environment}.js`);
 const apiUrl = envconfig.apiUrl;
 const port = envconfig.port;
-var cors = require('cors');
-app.use(cors())
+var cors = require("cors");
+app.use(cors());
 
-const cron = require('node-cron');
+const cron = require("node-cron");
 
-const onboardRoutes = require('./onboarding-routes');
-const candidateRoutes = require('./candidate-routes');
-const adobesignRoutes = require('./adobe-sign');
-const harvestRoutes = require('./harvest-routes');
-const ssoRoutes = require('./sso-routes');
-const optRoutes = require('./optnation');
-const userRoles = require('./user-roles');
-const vendors = require('./vendors');
-const clients = require('./clients');
-const jobposting = require('./jobposting');
-const talentbench = require('./talentbench');
-const timesheet = require('./timesheet');
-const hrms = require('./hrms-routes');
-const assignrole = require('./assignrole');
-const projects = require('./project');
-const jobBoardAccount = require('./jobBoardAccount');
-const leadenquiry = require('./enquiry');
-const jobapplication = require('./jobapplication');
-const submittedcandidates = require('./submittedcandidates');
-const Invoice = require('./Invoice');
+const onboardRoutes = require("./onboarding-routes");
+const candidateRoutes = require("./candidate-routes");
+const adobesignRoutes = require("./adobe-sign");
+const harvestRoutes = require("./harvest-routes");
+const ssoRoutes = require("./sso-routes");
+const optRoutes = require("./optnation");
+const userRoles = require("./user-roles");
+const vendors = require("./vendors");
+const clients = require("./clients");
+const jobposting = require("./jobposting");
+const talentbench = require("./talentbench");
+const timesheet = require("./timesheet");
+const hrms = require("./hrms-routes");
+const assignrole = require("./assignrole");
+const projects = require("./project");
+const jobBoardAccount = require("./jobBoardAccount");
+const leadenquiry = require("./enquiry");
+const jobapplication = require("./jobapplication");
+const submittedcandidates = require("./submittedcandidates");
+const Invoice = require("./Invoice");
 
+app.use("/", onboardRoutes);
+app.use("/", candidateRoutes);
+app.use("/", adobesignRoutes);
+app.use("/", harvestRoutes);
+app.use("/", ssoRoutes);
+app.use("/", optRoutes);
+app.use("/", userRoles);
+app.use("/", vendors);
+app.use("/", clients);
+app.use("/", jobposting);
+app.use("/", talentbench);
+app.use("/", timesheet);
+app.use("/", hrms);
+app.use("/", assignrole);
+app.use("/", projects);
+app.use("/", jobBoardAccount);
+app.use("/", leadenquiry);
+app.use("/", jobapplication);
+app.use("/", Invoice);
+app.use("/", submittedcandidates);
 
-app.use('/', onboardRoutes);
-app.use('/', candidateRoutes);
-app.use('/', adobesignRoutes);
-app.use('/', harvestRoutes);
-app.use('/', ssoRoutes);
-app.use('/', optRoutes);
-app.use('/', userRoles);
-app.use('/', vendors);
-app.use('/', clients);
-app.use('/', jobposting);
-app.use('/', talentbench);
-app.use('/', timesheet);
-app.use('/', hrms);
-app.use('/', assignrole);
-app.use('/', projects);
-app.use('/', jobBoardAccount);
-app.use('/', leadenquiry);
-app.use('/', jobapplication);
-app.use('/', Invoice);
-app.use('/', submittedcandidates);
-
-
-
-app.use(session({
-  secret: 'Tresume@123',
-  resave: false,
-  saveUninitialized: false,
-}));
+app.use(
+  session({
+    secret: "Tresume@123",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use("/", onboardRoutes);
 app.use("/", candidateRoutes);
@@ -162,8 +161,9 @@ var config = {
   user: "sa",
   password: "Tresume@123",
   server: "92.204.128.44",
-  database: "Tresume",
+  database: "Tresume_Beta",
   trustServerCertificate: true,
+  connectionTimeout: 60000,
 };
 
 var config1 = {
@@ -172,6 +172,7 @@ var config1 = {
   server: "92.204.128.44",
   database: "TimesheetDB",
   trustServerCertificate: true,
+  connectionTimeout: 60000,
 };
 
 const storage = multer.diskStorage({
@@ -231,7 +232,7 @@ app.get(
 
       request.query(
         "select OrganizationID from Trainee where TraineeID=" +
-        req.params.traineeId,
+          req.params.traineeId,
         function (err, recordset) {
           if (err) console.log(err);
 
@@ -241,14 +242,14 @@ app.get(
 
           request.query(
             "select (t.FirstName + ' ' + t.LastName) as MarketerName, (SELECT COUNT(cs.TBID) FROM TalentBench cs WHERE cs.Active=1 AND cs.CreateBy=t.UserName AND (cs.CreateTime BETWEEN '" +
-            startDate +
-            "' AND '" +
-            endDate +
-            "')) as BenchCount from MemberDetails md JOIN Trainee t ON t.UserName=md.UserEmail  AND t.OrganizationID =  " +
-            OrgID +
-            "WHERE md.OrgId=" +
-            OrgID +
-            " AND md.Active=1 AND t.Active=1 ORDER BY BenchCount desc ",
+              startDate +
+              "' AND '" +
+              endDate +
+              "')) as BenchCount from MemberDetails md JOIN Trainee t ON t.UserName=md.UserEmail  AND t.OrganizationID =  " +
+              OrgID +
+              "WHERE md.OrgId=" +
+              OrgID +
+              " AND md.Active=1 AND t.Active=1 ORDER BY BenchCount desc ",
             function (err, recordset) {
               if (err) console.log(err);
 
@@ -276,7 +277,7 @@ app.get(
 
       request.query(
         "select OrganizationID from Trainee where TraineeID=" +
-        req.params.traineeId,
+          req.params.traineeId,
         function (err, recordset) {
           if (err) console.log(err);
 
@@ -286,14 +287,14 @@ app.get(
 
           request.query(
             "select (t.FirstName + ' ' + t.LastName) as MarkerterName, (SELECT COUNT(cs.PID) FROM Placements cs WHERE cs.Active=1 AND cs.RecuiterID=t.TraineeID AND (cs.CreatedTime BETWEEN '" +
-            startDate +
-            "' AND '" +
-            endDate +
-            "')) as PlacemntCount from MemberDetails md JOIN Trainee t ON t.UserName=md.UserEmail  AND t.OrganizationID =  " +
-            OrgID +
-            "WHERE md.OrgId=" +
-            OrgID +
-            " AND md.Active=1 AND t.Active=1 ORDER BY PlacemntCount desc",
+              startDate +
+              "' AND '" +
+              endDate +
+              "')) as PlacemntCount from MemberDetails md JOIN Trainee t ON t.UserName=md.UserEmail  AND t.OrganizationID =  " +
+              OrgID +
+              "WHERE md.OrgId=" +
+              OrgID +
+              " AND md.Active=1 AND t.Active=1 ORDER BY PlacemntCount desc",
             function (err, recordset) {
               if (err) console.log(err);
 
@@ -321,7 +322,7 @@ app.get(
 
       request.query(
         "select OrganizationID from Trainee where TraineeID=" +
-        req.params.traineeId,
+          req.params.traineeId,
         function (err, recordset) {
           if (err) console.log(err);
 
@@ -331,14 +332,14 @@ app.get(
 
           request.query(
             "select (t.FirstName + ' ' + t.LastName) as MarkerterName, (SELECT COUNT(cs.TraineeInterviewID) FROM TraineeInterview cs WHERE cs.Active=1 AND cs.RecruiterID=t.TraineeID AND (cs.CreateTime BETWEEN '" +
-            startDate +
-            "' AND '" +
-            endDate +
-            "')) as PlacemntCount from MemberDetails md JOIN Trainee t ON t.UserName=md.UserEmail  AND t.OrganizationID =  " +
-            OrgID +
-            "WHERE md.OrgId=" +
-            OrgID +
-            " AND md.Active=1 AND t.Active=1 ORDER BY PlacemntCount desc",
+              startDate +
+              "' AND '" +
+              endDate +
+              "')) as PlacemntCount from MemberDetails md JOIN Trainee t ON t.UserName=md.UserEmail  AND t.OrganizationID =  " +
+              OrgID +
+              "WHERE md.OrgId=" +
+              OrgID +
+              " AND md.Active=1 AND t.Active=1 ORDER BY PlacemntCount desc",
             function (err, recordset) {
               if (err) console.log(err);
 
@@ -366,7 +367,7 @@ app.get(
 
       request.query(
         "select OrganizationID from Trainee where TraineeID=" +
-        req.params.traineeId,
+          req.params.traineeId,
         function (err, recordset) {
           if (err) console.log(err);
 
@@ -376,14 +377,14 @@ app.get(
 
           request.query(
             "select (t.FirstName + ' ' + t.LastName) as MarketerName, (SELECT COUNT(cs.SubmissionID) FROM Submission cs WHERE cs.Active=1 AND cs.CreateBy=t.UserName AND (cs.CreateTime BETWEEN '" +
-            startDate +
-            "' AND '" +
-            endDate +
-            "')) as BenchCount from MemberDetails md JOIN Trainee t ON t.UserName=md.UserEmail  AND t.OrganizationID =  " +
-            OrgID +
-            "WHERE md.OrgId=" +
-            OrgID +
-            " AND md.Active=1 AND t.Active=1 ORDER BY BenchCount desc ",
+              startDate +
+              "' AND '" +
+              endDate +
+              "')) as BenchCount from MemberDetails md JOIN Trainee t ON t.UserName=md.UserEmail  AND t.OrganizationID =  " +
+              OrgID +
+              "WHERE md.OrgId=" +
+              OrgID +
+              " AND md.Active=1 AND t.Active=1 ORDER BY BenchCount desc ",
             function (err, recordset) {
               if (err) console.log(err);
 
@@ -411,7 +412,7 @@ app.get(
 
       request.query(
         "select OrganizationID from Trainee where TraineeID=" +
-        req.params.traineeId,
+          req.params.traineeId,
         function (err, recordset) {
           if (err) console.log(err);
 
@@ -421,14 +422,14 @@ app.get(
 
           request.query(
             "select (t.FirstName + ' ' + t.LastName) as RecruiterName, (SELECT COUNT(cs.TraineeID) FROM Trainee cs WHERE cs.Active=1 AND cs.CreateBy=t.UserName AND cs.Collab=1 AND cs.RecruiterName=t.TraineeID AND cs.UserOrganizationID=t.OrganizationID AND (cs.CreateTime BETWEEN '" +
-            startDate +
-            "' AND '" +
-            endDate +
-            "')) as FTCCount from MemberDetails md JOIN Trainee t ON t.UserName=md.UserEmail  AND t.OrganizationID = " +
-            OrgID +
-            " WHERE md.OrgId=" +
-            OrgID +
-            " AND md.Active=1 AND t.Active=1 ORDER BY FTCCount desc  ",
+              startDate +
+              "' AND '" +
+              endDate +
+              "')) as FTCCount from MemberDetails md JOIN Trainee t ON t.UserName=md.UserEmail  AND t.OrganizationID = " +
+              OrgID +
+              " WHERE md.OrgId=" +
+              OrgID +
+              " AND md.Active=1 AND t.Active=1 ORDER BY FTCCount desc  ",
             function (err, recordset) {
               if (err) console.log(err);
 
@@ -452,8 +453,8 @@ app.get("/getTraineeDetails/:traineeId", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select * from Trainee (nolock) where TraineeID = '" +
-      req.params.traineeId +
-      "' and Active = 1",
+        req.params.traineeId +
+        "' and Active = 1",
       function (err, recordset) {
         if (err) console.log(err);
 
@@ -474,15 +475,15 @@ app.get("/getLegalStatus/:traineeId", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.params.traineeId,
+        req.params.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
 
         var OrgID = recordset.recordsets[0][0].OrganizationID;
         request.query(
           "SELECT b.LegalText AS LegalStatus, COUNT(TraineeID) AS Total, b.LegalStatusID FROM Trainee a JOIN LegalStatus b ON b.LegalValue=a.LegalStatus WHERE a.Active=1 AND a.UserOrganizationID=" +
-          OrgID +
-          "  AND a.CandidateStatus IN (2,4,6,7,13) GROUP BY b.LegalText, b.LegalStatusID",
+            OrgID +
+            "  AND a.CandidateStatus IN (2,4,6,7,13) GROUP BY b.LegalText, b.LegalStatusID",
           function (err, recordset) {
             if (err) console.log(err);
 
@@ -505,14 +506,14 @@ app.get("/getAllRecruiters/:traineeId", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.params.traineeId,
+        req.params.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
 
         var OrgID = recordset.recordsets[0][0].OrganizationID;
         request.query(
           "SELECT distinct r.TraineeID, r.FirstName + ' ' + ISNULL(r.LastName, '') as Name FROM MemberDetails orgR (nolock) JOIN Trainee r (nolock) ON r.UserName=orgR.UserEmail WHERE r.Active=1 AND orgR.Active=1 AND orgR.OrgID=" +
-          OrgID,
+            OrgID,
           function (err, recordset) {
             if (err) console.log(err);
 
@@ -535,7 +536,7 @@ app.post("/getFTCReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -559,7 +560,12 @@ app.post("/getFTCReport", function (req, res) {
 
 app.post("/getCandidateDocuments", function (req, res) {
   sql.connect(config, function (err) {
-    if (err) console.log(err);
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error connecting to the database");
+      return;
+    }
+
     var request = new sql.Request();
     let query = `SELECT CD.CandidateDocumentID,CD.TraineeID,CONVERT(NVARCHAR(10),CD.CreateTime,101) AS CreateTime,Cd.DocumentName,
         CD.DocumentPath,CD.Active,DT.DocTypeName,CONVERT(NVARCHAR(10),CD.DocStartDate,101) AS StartDate,CONVERT(NVARCHAR(10),CD.DocExpiryDate,101) AS ExpiryDate,
@@ -569,15 +575,24 @@ app.post("/getCandidateDocuments", function (req, res) {
       query += ` AND CD.DocumentTypeID = ${req.body.docTypeID}`;
     }
     console.log(query);
-    request.query(query, function (err, recordset) {
-      if (err) console.log(err);
-      var result = {
-        flag: 1,
-        result: recordset.recordsets[0],
-      };
 
-      res.send(result);
-    });
+    try {
+      request.query(query, function (err, recordset) {
+        if (err) {
+          console.log(err);
+          res.status(500).send("Error executing query");
+          return;
+        }
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+        res.send(result);
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Error executing query");
+    }
   });
 });
 
@@ -587,8 +602,8 @@ app.post("/getLoggedUser", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select TraineeID from Trainee (nolock) where Username = '" +
-      req.body.userName +
-      "' and Active = 1",
+        req.body.userName +
+        "' and Active = 1",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -607,7 +622,7 @@ app.get("/deleteDocument/:docId", function (req, res) {
     var request = new sql.Request();
     request.query(
       "UPDATE CandidateDocument_New SET Active = 0 WHERE CandidateDocumentID =" +
-      req.params.docId,
+        req.params.docId,
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -659,22 +674,22 @@ app.post("/uploadinsert", function (req, res) {
     var otherinfo = Object.values(req.body.otherInfo).join(",");
     request.query(
       "INSERT INTO CandidateDocument_New(TraineeID,DocumentName,DocumentPath,Active,CreateTime,CreateBy,LastUpdateTime,LastUpdateBy,DocumentTypeID,DocStartDate,DocExpiryDate,OtherInfo) VALUES (" +
-      req.body.loggedUserId +
-      ",'" +
-      req.body.FileName +
-      "','" +
-      req.body.FilePath +
-      "',1,GETUTCDATE(),'" +
-      req.body.loggedUserEmail +
-      "',NULL,NULL," +
-      req.body.docType +
-      ",'" +
-      req.body.startDate +
-      "','" +
-      req.body.expiryDate +
-      "','" +
-      otherinfo +
-      "' )",
+        req.body.loggedUserId +
+        ",'" +
+        req.body.FileName +
+        "','" +
+        req.body.FilePath +
+        "',1,GETUTCDATE(),'" +
+        req.body.loggedUserEmail +
+        "',NULL,NULL," +
+        req.body.docType +
+        ",'" +
+        req.body.startDate +
+        "','" +
+        req.body.expiryDate +
+        "','" +
+        otherinfo +
+        "' )",
       function (err, recordset) {
         if (err) console.log(err);
       }
@@ -713,9 +728,9 @@ app.post("/updateJobDuties", function (req, res) {
     var request = new sql.Request();
     request.query(
       "UPDATE Placements SET JobDuties='" +
-      req.body.jd +
-      "' WHERE TraineeID=" +
-      req.body.traineeID,
+        req.body.jd +
+        "' WHERE TraineeID=" +
+        req.body.traineeID,
       function (err, recordset) {
         if (err) console.log(err);
       }
@@ -746,7 +761,7 @@ app.post("/getResumes", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
 
@@ -768,33 +783,62 @@ app.post("/getResumes", function (req, res) {
 });
 
 app.post("/getResumes1", function (req, res) {
+  const timeoutDuration = 60000; // Timeout duration in milliseconds (60 seconds)
+
+  // Set a timeout for the request
+  req.setTimeout(timeoutDuration, function () {
+    const result = {
+      flag: 0,
+      error: "Request timed out",
+    };
+    res.status(504).send(result);
+  });
+
   sql.connect(config, function (err) {
-    if (err) console.log(err);
+    if (err) {
+      console.log(err);
+      const result = {
+        flag: 0,
+        error: "An error occurred while connecting to the database",
+      };
+      res.status(500).send(result);
+      return;
+    }
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
-        if (err) console.log(err);
+        if (err) {
+          console.log(err);
+          const result = {
+            flag: 0,
+            error: "An error occurred while querying the database",
+          };
+          res.status(500).send(result);
+          return;
+        }
 
         var OrgID = recordset.recordsets[0][0].OrganizationID;
-        var sql =
+        var sqlQuery =
           `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths,
-            ISNULL(YearsOfExpInMonths,0) [YRSEXP],
-            LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') ,
-            ISNULL(CONVERT(NVARCHAR(10),CreateTime,101), '1900-01-01T00:00:00') as LastUpdateTime,
-            ISNULL(YearsOfExpInMonths,0), Source, Collab, Notes,
-            ( SELECT TOP 1 (R.FirstName + ' ' + R.LastName) FROM Trainee R WHERE R.UserName = T.CreateBy) AS Recruiter
-            FROM Trainee T (NOLOCK)
-            WHERE (T.Talentpool IS NULL OR T.Talentpool = 0) AND T.UserOrganizationID = '`+ OrgID + `' AND T.active =1
-            AND T.Role='TRESUMEUSER' AND T.ProfileStatus = 'READY'
-            AND (T.Skill LIKE '%` +
+                  ISNULL(YearsOfExpInMonths,0) [YRSEXP],
+                  LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') ,
+                  ISNULL(CONVERT(NVARCHAR(10),CreateTime,101), '1900-01-01T00:00:00') as LastUpdateTime,
+                  ISNULL(YearsOfExpInMonths,0), Source, Collab, Notes,
+                  ( SELECT TOP 1 (R.FirstName + ' ' + R.LastName) FROM Trainee R WHERE R.UserName = T.CreateBy) AS Recruiter
+                  FROM Trainee T (NOLOCK)
+                  WHERE (T.Talentpool IS NULL OR T.Talentpool = 0) AND T.UserOrganizationID = '` +
+          OrgID +
+          `' AND T.active =1
+                  AND T.Role='TRESUMEUSER' AND T.ProfileStatus = 'READY'
+                  AND (T.Skill LIKE '%` +
           req.body.keyword +
           `%' OR T.Title LIKE '%` +
           req.body.keyword +
           `%')`;
         if (req.body.location) {
-          sql +=
+          sqlQuery +=
             `AND ((CurrentLocation IN (Select distinct Stateabbr FROM USAZipCodeNew WHERE State ='` +
             req.body.location +
             `' OR City = '` +
@@ -809,21 +853,31 @@ app.post("/getResumes1", function (req, res) {
             req.body.location +
             `')))`;
         }
-        sql += `ORDER BY ISNULL(T.CreateTime, '1900-01-01T00:00:00') DESC`;
+        sqlQuery += `ORDER BY ISNULL(T.CreateTime, '1900-01-01T00:00:00') DESC`;
 
-        console.log(sql)
-        request.query(sql, function (err, recordset) {
-          if (err) console.log(err);
-          var result = {
+        console.log(sqlQuery);
+        request.query(sqlQuery, function (err, recordset) {
+          if (err) {
+            console.log(err);
+            const result = {
+              flag: 0,
+              error: "An error occurred while querying the database",
+            };
+            res.status(500).send(result);
+            return;
+          }
+          var resultData = {
             flag: 1,
             result: recordset.recordsets[0],
           };
-          res.send(result);
+          res.send(resultData);
         });
       }
     );
   });
 });
+
+
 
 app.post("/getResumeDetails", function (req, res) {
   sql.connect(config, function (err) {
@@ -831,8 +885,8 @@ app.post("/getResumeDetails", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select HtmlResume from Trainee (nolock) where TraineeID = '" +
-      req.body.traineeID +
-      "' and Active = 1",
+        req.body.traineeID +
+        "' and Active = 1",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -907,7 +961,6 @@ app.post("/getOnboardingList", function (req, res) {
   });
 });
 
-
 // app.post("/getCandidatesbyStatus", function (req, res) {
 //   sql.connect(config, function (err) {
 //     if (err) console.log(err);
@@ -950,7 +1003,7 @@ app.post("/getCandidatesbyStatus", function (req, res) {
                  AND (T.CandidateStatus = 7 OR T.CandidateStatus = 6) 
                  AND T.TraineeID NOT IN (SELECT TraineeID FROM CurrentOnboardings);`;
 
-    console.log("Query:", query); 
+    console.log("Query:", query);
 
     var request = new sql.Request();
     request.query(query, function (err, recordset) {
@@ -968,16 +1021,14 @@ app.post("/getCandidatesbyStatus", function (req, res) {
   });
 });
 
-
-
 app.post("/getChecklists", function (req, res) {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
     request.query(
       "select CL.ListID, CL.OrgID, CL.ListName, CL.ListType, CL.DocTypeID, CL.Position, DT.DocTypeName from Checklists CL JOIN DocType DT on CL.DocTypeID=DT.DTID where CL.OrgID = '" +
-      req.body.OrgID +
-      "'",
+        req.body.OrgID +
+        "'",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1032,16 +1083,16 @@ app.post("/saveChecklist", function (req, res) {
     var request = new sql.Request();
     request.query(
       "insert into Checklists (ID,ListID,OrgID,ListName,ListType,DocTypeID,Position) values((select isnull(max(ID),0) + 1 from Checklists), " +
-      req.body.ListID +
-      ", " +
-      req.body.OrgID +
-      ", '" +
-      req.body.ListName +
-      "', 'Employee', " +
-      req.body.docTypeID +
-      "," +
-      req.body.Position +
-      ")",
+        req.body.ListID +
+        ", " +
+        req.body.OrgID +
+        ", '" +
+        req.body.ListName +
+        "', 'Employee', " +
+        req.body.docTypeID +
+        "," +
+        req.body.Position +
+        ")",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1078,7 +1129,7 @@ app.get("/getChecklistNames/:OrgID", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select distinct ListID, ListName  from Checklists where OrgID=" +
-      req.params.OrgID,
+        req.params.OrgID,
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1097,10 +1148,10 @@ app.post("/getWizardSteps", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select a.ListID,a.ListName,a.ListType,a.DocTypeID,a.Position,b.DocTypeName from Checklists a inner join DocType b on a.DocTypeID=b.DTID where a.OrgID=" +
-      req.body.OrgID +
-      " and a.ListID=" +
-      req.body.ListID +
-      " order by a.Position",
+        req.body.OrgID +
+        " and a.ListID=" +
+        req.body.ListID +
+        " order by a.Position",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1119,14 +1170,14 @@ app.post("/createOnboarding", function (req, res) {
     var request = new sql.Request();
     request.query(
       "Insert into CurrentOnboardings (ID,OrgID,CreateDate,TraineeID,FirstName,LastName, StartDate, Status,PercentComplete,Active) OUTPUT Inserted.ID Values((select isnull(max(ID),0) + 1 from CurrentOnboardings)," +
-      req.body.OrgID +
-      ",(SELECT CAST(GETDATE() AS DATE))," +
-      req.body.traineeID +
-      ",'" +
-      req.body.FirstName +
-      "','" +
-      req.body.LastName +
-      "',(SELECT CAST(GETDATE() AS DATE)),1,0,1)",
+        req.body.OrgID +
+        ",(SELECT CAST(GETDATE() AS DATE))," +
+        req.body.traineeID +
+        ",'" +
+        req.body.FirstName +
+        "','" +
+        req.body.LastName +
+        "',(SELECT CAST(GETDATE() AS DATE)),1,0,1)",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1218,8 +1269,8 @@ app.get("/getOnboardingRequest/:ID", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select * from OnboardingDocRequest where OnboardID=" +
-      req.params.ID +
-      "and isRequested=1",
+        req.params.ID +
+        "and isRequested=1",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1295,8 +1346,8 @@ app.get("/onboardSession/:ID", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select * from OnboardingSession where SessionID='" +
-      req.params.ID +
-      " ' ",
+        req.params.ID +
+        " ' ",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1322,30 +1373,30 @@ app.post("/approveFiles", function (req, res) {
       var otherinfo = Object.values(req.body.otherInfo).join(",");
       request.query(
         "INSERT INTO CandidateDocument_New(TraineeID, DocumentName, DocumentPath, Active, CreateTime, CreateBy, LastUpdateTime, LastUpdateBy, DocumentTypeID, DocStartDate, DocExpiryDate, OtherInfo) VALUES(" +
-        req.body.traineeID +
-        ", '" +
-        req.body.FileName +
-        "', '" +
-        req.body.FilePath +
-        "', 1, GETUTCDATE(), '" +
-        req.body.loggedUserEmail +
-        "', NULL, NULL, " +
-        req.body.docType +
-        ", '" +
-        req.body.startDate +
-        "', '" +
-        req.body.expiryDate +
-        "', '" +
-        otherinfo +
-        "')",
+          req.body.traineeID +
+          ", '" +
+          req.body.FileName +
+          "', '" +
+          req.body.FilePath +
+          "', 1, GETUTCDATE(), '" +
+          req.body.loggedUserEmail +
+          "', NULL, NULL, " +
+          req.body.docType +
+          ", '" +
+          req.body.startDate +
+          "', '" +
+          req.body.expiryDate +
+          "', '" +
+          otherinfo +
+          "')",
         function (err, recordset) {
           if (err) console.log(err);
           var request = new sql.Request();
           request.query(
             "update OnboardingDocRequest set Status=1 where OnboardID=" +
-            req.body.onboardID +
-            " and DocTypeID=" +
-            req.body.docType,
+              req.body.onboardID +
+              " and DocTypeID=" +
+              req.body.docType,
             function (err, recordset) {
               if (err) console.log(err);
               res.send("Success");
@@ -1381,9 +1432,9 @@ app.post("/getDocPath", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select filepath from OnboardingDocRequest where OnboardID=" +
-      req.body.onboardID +
-      "and DocTypeID=" +
-      req.body.docTypeID,
+        req.body.onboardID +
+        "and DocTypeID=" +
+        req.body.docTypeID,
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1396,22 +1447,38 @@ app.post("/getDocPath", function (req, res) {
   });
 });
 
-app.post('/insertUploadFilepath', function (req, res) {
-
+app.post("/insertUploadFilepath", function (req, res) {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
-    let filepath = req.body.filepath ? req.body.filepath : ''
-    request.query("insert into OnboardingDocRequest (ID,OnboardID,DocTypeName,DocTypeID,isRequested,Status,isViewed,isUpload,filepath,DocNotes,AdditionalChecklistID,AdditionalChecklistName) Values ((select isnull(max(ID),0) + 1 from OnboardingDocRequest)," + req.body.onboardID + ",'" + req.body.docTypeName + "'," + req.body.docTypeID + "," + req.body.requested + ",0,0,0,'" + filepath + "','" + req.body.docNote + "','" + req.body.additionalChecklistID + "','" + req.body.additionalChecklistName + "')",
+    let filepath = req.body.filepath ? req.body.filepath : "";
+    request.query(
+      "insert into OnboardingDocRequest (ID,OnboardID,DocTypeName,DocTypeID,isRequested,Status,isViewed,isUpload,filepath,DocNotes,AdditionalChecklistID,AdditionalChecklistName) Values ((select isnull(max(ID),0) + 1 from OnboardingDocRequest)," +
+        req.body.onboardID +
+        ",'" +
+        req.body.docTypeName +
+        "'," +
+        req.body.docTypeID +
+        "," +
+        req.body.requested +
+        ",0,0,0,'" +
+        filepath +
+        "','" +
+        req.body.docNote +
+        "','" +
+        req.body.additionalChecklistID +
+        "','" +
+        req.body.additionalChecklistName +
+        "')",
       function (err, recordset) {
-        if (err) console.log(err)
+        if (err) console.log(err);
         var result = {
           flag: 1,
-          result: recordset.recordsets[0]
-        }
+          result: recordset.recordsets[0],
+        };
         res.send(recordset.recordsets[0]);
-      });
-
+      }
+    );
   });
 });
 
@@ -1421,9 +1488,9 @@ app.get("/download/:ID/:DocID", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select filepath from OnboardingDocRequest where OnboardID=" +
-      req.params.ID +
-      "and DocTypeID=" +
-      req.params.DocID,
+        req.params.ID +
+        "and DocTypeID=" +
+        req.params.DocID,
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1459,16 +1526,16 @@ app.get("/reviewdownload/:ID/:DocID", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select SignedFilepath from OnboardingDocRequest where OnboardID=" +
-      req.params.ID +
-      "and DocTypeID=" +
-      req.params.DocID,
+        req.params.ID +
+        "and DocTypeID=" +
+        req.params.DocID,
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
           flag: 1,
           result: recordset.recordsets[0],
         };
-        console.log('result', result)
+        console.log("result", result);
         let formattedPath = recordset.recordsets[0][0].SignedFilepath.replace(
           /\\/g,
           "/"
@@ -1496,9 +1563,9 @@ app.get("/reviewFile/:ID/:DocID", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select SignedFilepath from OnboardingDocRequest where OnboardID=" +
-      req.params.ID +
-      "and DocTypeID=" +
-      req.params.DocID,
+        req.params.ID +
+        "and DocTypeID=" +
+        req.params.DocID,
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1534,9 +1601,9 @@ app.post("/updateDocStatus", function (req, res) {
     var request = new sql.Request();
     request.query(
       "update OnboardingDocRequest set isUpload=1 where OnboardID=" +
-      req.body.onboardID +
-      "and DocTypeID=" +
-      req.body.docTypeID,
+        req.body.onboardID +
+        "and DocTypeID=" +
+        req.body.docTypeID,
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1545,7 +1612,7 @@ app.post("/updateDocStatus", function (req, res) {
         };
         var request = new sql.Request();
         request.input("OnBoardID", sql.Int, req.body.onboardID);
-        request.execute("setOnboardingPercent", function (err, recordset) { });
+        request.execute("setOnboardingPercent", function (err, recordset) {});
         res.send(recordset.recordsets[0]);
       }
     );
@@ -1558,11 +1625,11 @@ app.post("/updateSignFilepath", function (req, res) {
     var request = new sql.Request();
     request.query(
       "update OnboardingDocRequest set SignedFilePath='" +
-      req.body.filepath +
-      "' where OnboardID=" +
-      req.body.onboardID +
-      " and DocTypeID=" +
-      req.body.docTypeID,
+        req.body.filepath +
+        "' where OnboardID=" +
+        req.body.onboardID +
+        " and DocTypeID=" +
+        req.body.docTypeID,
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1581,7 +1648,7 @@ app.post("/getInterviewsReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -1607,7 +1674,7 @@ app.post("/getBenchTrackerReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -1633,7 +1700,7 @@ app.post("/getPlacementsReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -1659,7 +1726,7 @@ app.post("/getLegalStatusReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -1685,7 +1752,7 @@ app.post("/getH1BExpiryReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -1711,7 +1778,7 @@ app.post("/getBillableEmployeeReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -1737,7 +1804,7 @@ app.post("/getNonH1BReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -1763,7 +1830,7 @@ app.post("/getDSRReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -1778,29 +1845,32 @@ app.post("/getDSRReport", function (req, res) {
           };
           res.send(result);
         });
-
-      });
-  })
+      }
+    );
+  });
 });
 
-app.post('/getSiteVistReport', function (req, res) {
+app.post("/getSiteVistReport", function (req, res) {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
-    request.query("select OrganizationID from Trainee where TraineeID=" + req.body.traineeId, function (err, recordset) {
-      if (err) console.log(err)
-      var OrgID = recordset.recordsets[0][0].OrganizationID;
-      request.input('OrgID', sql.Int, OrgID);
-      request.execute('GetTraineeDetailsCopy',
-        function (err, recordset) {
-          if (err) console.log(err)
+    request.query(
+      "select OrganizationID from Trainee where TraineeID=" +
+        req.body.traineeId,
+      function (err, recordset) {
+        if (err) console.log(err);
+        var OrgID = recordset.recordsets[0][0].OrganizationID;
+        request.input("OrgID", sql.Int, OrgID);
+        request.execute("GetTraineeDetailsCopy", function (err, recordset) {
+          if (err) console.log(err);
           var result = {
             flag: 1,
-            result: recordset.recordsets[0]
-          }
+            result: recordset.recordsets[0],
+          };
           res.send(result);
         });
-    });
+      }
+    );
   });
 });
 
@@ -1810,7 +1880,7 @@ app.post("/getPFAReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -1834,7 +1904,7 @@ app.post("/getDocumentExpiryReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -1860,8 +1930,8 @@ app.post("/checkIfJobSeekerResumeExists", function (req, res) {
     var request = new sql.Request();
     request.query(
       " select * from Trainee (nolock) where Username = '" +
-      req.body.emailID +
-      "' and Active = 1",
+        req.body.emailID +
+        "' and Active = 1",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1875,53 +1945,108 @@ app.post("/checkIfJobSeekerResumeExists", function (req, res) {
 });
 
 app.post("/createJobSeekerDetails", function (req, res) {
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    console.log("select OrganizationID, UserName from Trainee where TraineeID=" + req.body.traineeId);
-    request.query(
-      "select OrganizationID, UserName from Trainee where TraineeID=" +
-      req.body.traineeId,
-      function (err, recordset) {
-        if (err) console.log(err);
-        console.log(recordset)
-        var OrgID = recordset.recordsets[0][0].OrganizationID;
-        var UserName = recordset.recordsets[0][0].UserName;
-        var skillsString = '';
-        if (req.body.source == 'OptNation') {
-          skillsString = req.body.skills;
-        } else {
-          skillsString = req.body.skills.join(",");
-        }
-        request.input("EmailID", sql.VarChar, req.body.emailID);
-        request.input("FirstName", sql.VarChar, req.body.firstName);
-        request.input("LastName", sql.VarChar, req.body.lastName);
-        request.input("Title", sql.VarChar, req.body.title);
-        request.input("CurrentLocation", sql.VarChar, req.body.currentLocation);
-        request.input(
-          "YearsOfExpInMonths",
-          sql.VarChar,
-          req.body.yearsOfExpInMonths
-        );
-        request.input("Skills", sql.VarChar, skillsString);
-        request.input("HtmlResume", sql.VarChar, req.body.htmlResume);
-        request.input("Source", sql.VarChar, req.body.source);
-        request.input("ATSID", sql.VarChar, req.body.ATSID);
-        request.input("UserOrganizationID", sql.Int, OrgID);
-        request.input("CreateBy", sql.VarChar, UserName);
-        request.input("harvest", sql.VarChar, '');
-        request.input("ats_md5email", sql.VarChar, req.body.ATSID);
-        request.execute("CreateJobSeekerProfile", function (err, recordset) {
-          if (err) console.log(err);
-          var result = {
-            flag: 1,
-            // result: recordset.recordsets[0]
-          };
-          res.send(result);
-        });
+  const timeoutDuration = 60000; // Timeout duration in milliseconds (60 seconds)
+
+  // Set a timeout for the entire request
+  const timeout = setTimeout(() => {
+      const result = {
+          flag: 0,
+          error: "Request timed out",
+      };
+      res.status(504).send(result);
+  }, timeoutDuration);
+
+  try {
+      sql.connect(config, function (err) {
+          clearTimeout(timeout); // Clear the timeout since the database connection has completed or failed
+          if (err) {
+              console.log(err);
+              const result = {
+                  flag: 0,
+                  error: "An error occurred while connecting to the database",
+              };
+              res.status(500).send(result);
+              return;
+          }
+          var request = new sql.Request();
+          console.log(
+              "select OrganizationID, UserName from Trainee where TraineeID=" +
+              req.body.traineeId
+          );
+          request.query(
+              "select OrganizationID, UserName from Trainee where TraineeID=" +
+              req.body.traineeId,
+              function (err, recordset) {
+                  if (err) {
+                      console.log(err);
+                      const result = {
+                          flag: 0,
+                          error: "An error occurred while querying the database",
+                      };
+                      res.status(500).send(result);
+                      return;
+                  }
+                  console.log(recordset);
+                  var OrgID = recordset.recordsets[0][0].OrganizationID;
+                  var UserName = recordset.recordsets[0][0].UserName;
+                  var skillsString = "";
+                  if (req.body.source == "OptNation") {
+                      skillsString = req.body.skills;
+                  } else {
+                      skillsString = req.body.skills.join(",");
+                  }
+                  request.input("EmailID", sql.VarChar, req.body.emailID);
+                  request.input("FirstName", sql.VarChar, req.body.firstName);
+                  request.input("LastName", sql.VarChar, req.body.lastName);
+                  request.input("Title", sql.VarChar, req.body.title);
+                  request.input(
+                      "CurrentLocation",
+                      sql.VarChar,
+                      req.body.currentLocation
+                  );
+                  request.input(
+                      "YearsOfExpInMonths",
+                      sql.VarChar,
+                      req.body.yearsOfExpInMonths
+                  );
+                  request.input("Skills", sql.VarChar, skillsString);
+                  request.input("HtmlResume", sql.VarChar, req.body.htmlResume);
+                  request.input("Source", sql.VarChar, req.body.source);
+                  request.input("ATSID", sql.VarChar, req.body.ATSID);
+                  request.input("UserOrganizationID", sql.Int, OrgID);
+                  request.input("CreateBy", sql.VarChar, UserName);
+                  request.input("harvest", sql.VarChar, "");
+                  request.input("ats_md5email", sql.VarChar, req.body.ATSID);
+                  request.execute("CreateJobSeekerProfile", function (err, recordset) {
+                      if (err) {
+                          console.log(err);
+                          const result = {
+                              flag: 0,
+                              error: "An error occurred while executing the stored procedure",
+                          };
+                          res.status(500).send(result);
+                          return;
+                      }
+                      var result = {
+                          flag: 1,
+                          // result: recordset.recordsets[0]
+                      };
+                      res.send(result);
+                  });
+              }
+          );
       });
-  });
+  } catch (error) {
+      console.error("Error:", error);
+      const result = {
+          flag: 0,
+          error: "An unexpected error occurred",
+      };
+      res.status(500).send(result);
+  }
 });
+
+
 
 app.post("/checkIfProfileMigrated", function (req, res) {
   sql.connect(config, function (err) {
@@ -1929,10 +2054,10 @@ app.post("/checkIfProfileMigrated", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select ATSID,MigrateProfileID,CreateBy,CreateTime from Trainee (nolock) where Role='TRESUMEUSER' AND Source='" +
-      req.body.source +
-      "' AND UserOrganizationID=(Select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId +
-      ") AND Active=1 order by CreateTime desc; ",
+        req.body.source +
+        "' AND UserOrganizationID=(Select OrganizationID from Trainee where TraineeID=" +
+        req.body.traineeId +
+        ") AND Active=1 order by CreateTime desc; ",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -1968,17 +2093,19 @@ app.post("/getCBAuthToken", function (req, res) {
   const requestData = {
     grant_type: "refresh_token",
     client_id: "Cd2543bf6",
-    client_secret: "mmYQ7+pkLk1VQq+to5Pc1t+4agJ8f/WhyhSccR5yHdhfZhdFgYdI6mLyZhmNmWZCxg6D7PAWXuS5VaJENtlVvw==",
-    refresh_token: "puseyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkExMjhHQ00ifQ.MExgFlGGgbM-4qqd-hzIcMzPN0wqevT7VNVeXkgsGetO4Q4qumCBFIFAUr1oRvQhrpT1PP5pw63sp_0aPmJSJzJDvWWrawMNARb_nZjKVOyiayfnNAZDtBPEOU83nRBHCoZG7yWPlj9MNvKReRbtjpfuRz8ZyXJXriPzcVhv5k0GTdJPX4avdue8WMT268RvXmeC8PNrpe0fb3xnaMRgPsKRm7NbgBMhfxCPibxVBwRzr9fTTGSkdK-tzTEUGPt27vTPE_827ZpdaKxuEl5b6h2NWURlq-kpOqyxMLvZrXu0Os_r8zvkJXuwhYlwDk2_ndno9xoU_ZdzV_yOpAfRCw.pZbayGlagByDgozf.CkBkDq-vTVtWsrGx-IhhxycBA9f6HBHHwL5h7FGbosJdkf8azIla_FPy2a3q4GXHstDFA2qKIfr9RYNcj5JyHIhcUA39ZSGrDeKeATt4mh12vbcf92JXD19Og9mAzo-4yWUBxSvlObr2Ow0knTCuNqmJl5v1qt7wEfObrVRwnIdRAR-H2PJtE249C-_b202xVeAqHZK67zuEvRR3pdpToESv2pFp_f4PsPZl4vCTqN7JLvtVbxHqFLVohNo3qP9tjrueJB9fUPLvuRMtjlOekW_g6YMAbH6MnW26CS_DfVJMYk2zv9hnYadZgCdC2FlzPSJKOpm60I8hgyqHW8ZvR-k.BKzfoVuW_EYHqn_5ECMnaQ",
-    scope: "offline_access"
+    client_secret:
+      "mmYQ7+pkLk1VQq+to5Pc1t+4agJ8f/WhyhSccR5yHdhfZhdFgYdI6mLyZhmNmWZCxg6D7PAWXuS5VaJENtlVvw==",
+    refresh_token:
+      "puseyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkExMjhHQ00ifQ.MExgFlGGgbM-4qqd-hzIcMzPN0wqevT7VNVeXkgsGetO4Q4qumCBFIFAUr1oRvQhrpT1PP5pw63sp_0aPmJSJzJDvWWrawMNARb_nZjKVOyiayfnNAZDtBPEOU83nRBHCoZG7yWPlj9MNvKReRbtjpfuRz8ZyXJXriPzcVhv5k0GTdJPX4avdue8WMT268RvXmeC8PNrpe0fb3xnaMRgPsKRm7NbgBMhfxCPibxVBwRzr9fTTGSkdK-tzTEUGPt27vTPE_827ZpdaKxuEl5b6h2NWURlq-kpOqyxMLvZrXu0Os_r8zvkJXuwhYlwDk2_ndno9xoU_ZdzV_yOpAfRCw.pZbayGlagByDgozf.CkBkDq-vTVtWsrGx-IhhxycBA9f6HBHHwL5h7FGbosJdkf8azIla_FPy2a3q4GXHstDFA2qKIfr9RYNcj5JyHIhcUA39ZSGrDeKeATt4mh12vbcf92JXD19Og9mAzo-4yWUBxSvlObr2Ow0knTCuNqmJl5v1qt7wEfObrVRwnIdRAR-H2PJtE249C-_b202xVeAqHZK67zuEvRR3pdpToESv2pFp_f4PsPZl4vCTqN7JLvtVbxHqFLVohNo3qP9tjrueJB9fUPLvuRMtjlOekW_g6YMAbH6MnW26CS_DfVJMYk2zv9hnYadZgCdC2FlzPSJKOpm60I8hgyqHW8ZvR-k.BKzfoVuW_EYHqn_5ECMnaQ",
+    scope: "offline_access",
   };
 
   const formData = qs.stringify(requestData);
 
   const config = {
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
   };
 
   axios
@@ -2159,7 +2286,7 @@ app.post("/downloadCBResume", function (req, res) {
         //fs.writeFile('D:/Code/SV Report/' + response.data.Filename, buffer, (error) => {
         fs.writeFile(
           "C:/inetpub/vhosts/tresume.us/httpdocs/Content/" +
-          response.data.Filename,
+            response.data.Filename,
           buffer,
           (error) => {
             if (error) {
@@ -2217,14 +2344,14 @@ app.post("/jobBoardAuditLog", function (req, res) {
     let filepath = req.body.filepath ? req.body.filepath : "";
     request.query(
       "insert into JobBoardAudit (JobBoardSource,Query,DateLogged,UserName) Values ('" +
-      req.body.jobBoard +
-      "','" +
-      req.body.query +
-      "','" +
-      req.body.dateTime +
-      "','" +
-      req.body.userName +
-      "')",
+        req.body.jobBoard +
+        "','" +
+        req.body.query +
+        "','" +
+        req.body.dateTime +
+        "','" +
+        req.body.userName +
+        "')",
       function (err, recordset) {
         if (err) console.log(err);
         var result = {
@@ -2243,7 +2370,7 @@ app.post("/getJobBoardAuditReport", function (req, res) {
     var request = new sql.Request();
     request.query(
       "select OrganizationID from Trainee where TraineeID=" +
-      req.body.traineeId,
+        req.body.traineeId,
       function (err, recordset) {
         if (err) console.log(err);
         var OrgID = recordset.recordsets[0][0].OrganizationID;
@@ -2307,8 +2434,8 @@ app.post("/getResumePath", function (req, res) {
       `SELECT ResumePath, ResumeName
                         FROM Resumes
                         WHERE EmailID='` +
-      req.body.userName +
-      `'`,
+        req.body.userName +
+        `'`,
       function (err, recordset) {
         if (err) console.log(err);
         var result = recordset.recordsets[0];
@@ -2407,12 +2534,11 @@ app.post("/getMonsterSearch", function (req, res) {
       return console.log(err);
     }
     try {
-      console.log('res1.body', res1.body)
+      console.log("res1.body", res1.body);
       response = JSON.parse(res1.body);
       res.send(response);
-    }
-    catch (error) {
-      console.error('Error parsing JSON:', error);
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
     }
     //res.send(options.body);
   });
@@ -2455,11 +2581,11 @@ app.post("/getNotSubmittedReport", function (req, res) {
     console.log(req.body);
     request.query(
       "select tsm.FromDate,tsm.ToDate,r.Username, tsm.UserID from TimeSheetMaster tsm inner join Registration r on tsm.userID = r.RegistrationID where tsm.FromDate BETWEEN '" +
-      req.body.fromDate +
-      "' AND '" +
-      req.body.endDate +
-      "' and r.OrganizationId=" +
-      req.body.OrganizationId,
+        req.body.fromDate +
+        "' AND '" +
+        req.body.endDate +
+        "' and r.OrganizationId=" +
+        req.body.OrganizationId,
       function (err, recordset) {
         if (err) console.log(err);
         const fromDate = req.body.fromDate;
@@ -2471,10 +2597,10 @@ app.post("/getNotSubmittedReport", function (req, res) {
         );
         request.query(
           "select * from Registration where RegistrationID  NOT IN " +
-          "(" +
-          filteredResult +
-          ") and OrganizationId=" +
-          req.body.OrganizationId,
+            "(" +
+            filteredResult +
+            ") and OrganizationId=" +
+            req.body.OrganizationId,
           function (err, recordSet) {
             if (err) console.log(err);
             var result = {
@@ -2503,17 +2629,17 @@ app.post("/getSubmittedRatio", function (req, res) {
       .slice(0, 10);
     request.query(
       "select tsm.FromDate,tsm.ToDate,tsm.UserID from TimeSheetMaster tsm  where tsm.FromDate='" +
-      previousSunday +
-      "'",
+        previousSunday +
+        "'",
       function (err, recordset) {
         if (err) console.log(err);
         const filteredResult =
           recordset == undefined ? recordset.recordsets[0].length : 0;
         request.query(
           "select Name,LegalStatus,EmailID from Registration where RoleID=1 and CreatedOn <'" +
-          previousSunday +
-          "' and OrganizationId=" +
-          req.body.OrganizationId,
+            previousSunday +
+            "' and OrganizationId=" +
+            req.body.OrganizationId,
           function (err, rex) {
             if (err) console.log(err);
             var result = {
@@ -2690,7 +2816,9 @@ app.post("/fetchdivisionbyorg", function (req, res) {
     if (err) console.log(err);
     var request = new sql1.Request();
     var sql =
-      "SELECT  T.FirstName, T.LastName, T.Traineeid, OD.DivisionName, T.UserName, COALESCE(T.monster, 0) AS monster, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 3 AND createtime >= DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0) AND createtime <= GETDATE()) AS monsterused, COALESCE(T.cb, 0) AS cb, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 4 AND createtime >= DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0) AND createtime <= GETDATE()) AS cbused, COALESCE(T.dice, 0) AS dice, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 2 AND createtime >= DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0) AND createtime <= GETDATE()) AS diceused FROM Trainee AS T INNER JOIN org_division AS OD ON T.Org_Div = OD.id WHERE T.organizationid = " + req.body.OrgID + " ORDER BY OD.DivisionName;";
+      "SELECT  T.FirstName, T.LastName, T.Traineeid, OD.DivisionName, T.UserName, COALESCE(T.monster, 0) AS monster, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 3 AND createtime >= DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0) AND createtime <= GETDATE()) AS monsterused, COALESCE(T.cb, 0) AS cb, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 4 AND createtime >= DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0) AND createtime <= GETDATE()) AS cbused, COALESCE(T.dice, 0) AS dice, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 2 AND createtime >= DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0) AND createtime <= GETDATE()) AS diceused FROM Trainee AS T INNER JOIN org_division AS OD ON T.Org_Div = OD.id WHERE T.organizationid = " +
+      req.body.OrgID +
+      " ORDER BY OD.DivisionName;";
     console.log(sql);
     request.query(sql, function (err, recordset) {
       if (err) throw err;
@@ -2786,17 +2914,23 @@ app.post("/getclientipaddress", function (req, res) {
 app.post("/fetchusage", function (req, res) {
   sql1.connect(config, function (err) {
     const today = new Date();
-    var enddate = '';
+    var enddate = "";
     if (req.body.type == 1) {
       var enddate = "DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)";
-
     } else {
       var enddate = "DATEFROMPARTS(YEAR(GETDATE()), 1, 1)";
     }
     console.log(enddate);
     if (err) console.log(err);
     var request = new sql1.Request();
-    var sql = "SELECT COUNT(*) AS row_count FROM Division_audit WHERE Jobboardid = " + req.body.jobID + " AND CreateTime >= " + enddate + " AND username ='" + req.body.userName + "'";
+    var sql =
+      "SELECT COUNT(*) AS row_count FROM Division_audit WHERE Jobboardid = " +
+      req.body.jobID +
+      " AND CreateTime >= " +
+      enddate +
+      " AND username ='" +
+      req.body.userName +
+      "'";
     console.log("Fetch Ussage:" + sql);
     request.query(sql, function (err, recordset) {
       if (err) throw err;
@@ -2804,145 +2938,173 @@ app.post("/fetchusage", function (req, res) {
         flag: 1,
         result: recordset.recordsets[0],
       };
-      res.send(result)
+      res.send(result);
     });
-  })
+  });
 });
 
-app.post('/addPlacement', function (req, res) {
+app.post("/addPlacement", function (req, res) {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
     const billType = req.body.BillType ? 1 : 0;
     let poEndDate = req.body.POEndDate;
-    if (poEndDate === '') {
+    if (poEndDate === "") {
       poEndDate = null;
     }
     let poStartDate = req.body.POStartDate;
-    if (poStartDate === '') {
+    if (poStartDate === "") {
       poStartDate = null;
     }
     let datePlaced = req.body.DatePlaced;
-    if (datePlaced === '') {
+    if (datePlaced === "") {
       datePlaced = null;
     }
-    request.input('PlacementId', sql.Int, req.body.PlacementID)
-    request.input('TraineeID', sql.Int, req.body.TraineeID)
-    request.input('Notes', sql.NVarChar(sql.MAX), req.body.Notes)
-    request.input('BillRate', sql.Int(50), req.body.BillRate)
-    request.input('BillType', sql.Int, billType)
-    request.input('CreateBy', sql.NVarChar(100), req.body.CreateBy)
-    request.input('MarketerName', sql.Int, req.body.MarketerName)
-    request.input('ClientState', sql.NVarChar(50), req.body.ClientState)
-    request.input('StartDate', sql.Date, req.body.StartDate)
-    request.input('EndDate', sql.Date, req.body.EndDate)
-    request.input('DatePlaced', sql.Date, datePlaced)
-    request.input('Title', sql.NVarChar(50), req.body.Title)
-    request.input('WorkEmailID', sql.NVarChar(100), req.body.CandidateEmailId)
-    request.input('ClientName', sql.NVarChar(100), req.body.ClientName)
-    request.input('POStartDate', sql.Date, poStartDate)
-    request.input('POEndDate', sql.Date, poEndDate)
-    request.input('ClientManagerName', sql.NVarChar(50), req.body.ClientManagerName)
-    request.input('ClientEmail', sql.NVarChar(100), req.body.ClientEmail)
-    request.input('ClientPhone', sql.NVarChar(20), req.body.ClientPhone)
-    request.input('ClientAddress', sql.NVarChar(200), req.body.ClientAddress)
-    request.input('VendorName', sql.NVarChar(100), req.body.VendorName)
-    request.input('VendorContact', sql.NVarChar(50), req.body.VendorContact)
-    request.input('VendorEmail', sql.NVarChar(100), req.body.VendorEmail)
-    request.input('VendorPhone', sql.NVarChar(20), req.body.VendorPhone)
-    request.input('VendorAddress', sql.NVarChar(200), req.body.VendorAddress)
-    request.input('SubVendorName', sql.NVarChar(100), req.body.SubVendorName)
-    request.input('SubVendorContact', sql.NVarChar(50), req.body.SubVendorContact)
-    request.input('SubVendorEmail', sql.NVarChar(100), req.body.SubVendorEmail)
-    request.input('SubVendorPhone', sql.NVarChar(20), req.body.SubVendorPhone)
-    request.input('SubVendorAddress', sql.NVarChar(200), req.body.SubVendorAddress)
-    request.input('PrimaryPlacement', sql.Int, req.body.PrimaryPlacement)
-    request.execute('UpdatePlacement',
-      function (err, recordset) {
-        if (err) console.log(err)
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0]
-        }
-        res.send(result);
-      });
+    request.input("PlacementId", sql.Int, req.body.PlacementID);
+    request.input("TraineeID", sql.Int, req.body.TraineeID);
+    request.input("Notes", sql.NVarChar(sql.MAX), req.body.Notes);
+    request.input("BillRate", sql.Int(50), req.body.BillRate);
+    request.input("BillType", sql.Int, billType);
+    request.input("CreateBy", sql.NVarChar(100), req.body.CreateBy);
+    request.input("MarketerName", sql.Int, req.body.MarketerName);
+    request.input("ClientState", sql.NVarChar(50), req.body.ClientState);
+    request.input("StartDate", sql.Date, req.body.StartDate);
+    request.input("EndDate", sql.Date, req.body.EndDate);
+    request.input("DatePlaced", sql.Date, datePlaced);
+    request.input("Title", sql.NVarChar(50), req.body.Title);
+    request.input("WorkEmailID", sql.NVarChar(100), req.body.CandidateEmailId);
+    request.input("ClientName", sql.NVarChar(100), req.body.ClientName);
+    request.input("POStartDate", sql.Date, poStartDate);
+    request.input("POEndDate", sql.Date, poEndDate);
+    request.input(
+      "ClientManagerName",
+      sql.NVarChar(50),
+      req.body.ClientManagerName
+    );
+    request.input("ClientEmail", sql.NVarChar(100), req.body.ClientEmail);
+    request.input("ClientPhone", sql.NVarChar(20), req.body.ClientPhone);
+    request.input("ClientAddress", sql.NVarChar(200), req.body.ClientAddress);
+    request.input("VendorName", sql.NVarChar(100), req.body.VendorName);
+    request.input("VendorContact", sql.NVarChar(50), req.body.VendorContact);
+    request.input("VendorEmail", sql.NVarChar(100), req.body.VendorEmail);
+    request.input("VendorPhone", sql.NVarChar(20), req.body.VendorPhone);
+    request.input("VendorAddress", sql.NVarChar(200), req.body.VendorAddress);
+    request.input("SubVendorName", sql.NVarChar(100), req.body.SubVendorName);
+    request.input(
+      "SubVendorContact",
+      sql.NVarChar(50),
+      req.body.SubVendorContact
+    );
+    request.input("SubVendorEmail", sql.NVarChar(100), req.body.SubVendorEmail);
+    request.input("SubVendorPhone", sql.NVarChar(20), req.body.SubVendorPhone);
+    request.input(
+      "SubVendorAddress",
+      sql.NVarChar(200),
+      req.body.SubVendorAddress
+    );
+    request.input("PrimaryPlacement", sql.Int, req.body.PrimaryPlacement);
+    request.execute("UpdatePlacement", function (err, recordset) {
+      if (err) console.log(err);
+      var result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    });
   });
 });
 
-app.post('/getMarketerNames', async (req, res) => {
-
+app.post("/getMarketerNames", async (req, res) => {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
-    request.input('orgID', sql.Int, req.body.orgID)
-    request.input('keyword', sql.NVarChar(100), req.body.keyword)
-    request.execute('sp_SearchMarketerNames',
-      function (err, recordset) {
-        if (err) console.log(err)
-        console.log(recordset);
-        if(recordset.recordsets.length == 0){
-          var result = {
-            flag: 2,
-            result: []
-          }
-        } else{
-          var result = {
-            flag: 1,
-            result: recordset.recordsets[0]
-          }
-        }
+    request.input("orgID", sql.Int, req.body.orgID);
+    request.input("keyword", sql.NVarChar(100), req.body.keyword);
+    request.execute("sp_SearchMarketerNames", function (err, recordset) {
+      if (err) console.log(err);
+      console.log(recordset);
+      if (recordset.recordsets.length == 0) {
+        var result = {
+          flag: 2,
+          result: [],
+        };
+      } else {
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+      }
 
-        res.send(result);
-      });
+      res.send(result);
+    });
   });
 });
 
-app.post('/getTresumedata', function (req, res) {
-
+app.post("/getTresumedata", function (req, res) {
   sql1.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql1.Request();
 
-    var sql = `SELECT TOP 100 TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy,YearsOfExpInMonths, skill, LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') as LegalStatus , ISNULL(CONVERT(NVARCHAR(10),CreateTime,101), '1900-01-01T00:00:00') as LastUpdateTime
+    var sql =
+      `SELECT TOP 100 TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy,YearsOfExpInMonths, skill, LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') as LegalStatus , ISNULL(CONVERT(NVARCHAR(10),CreateTime,101), '1900-01-01T00:00:00') as LastUpdateTime
             FROM Trainee (NOLOCK)
             WHERE (Talentpool IS NULL OR Talentpool = 0)  AND active =1
             AND Role='TRESUMEUSER' AND ProfileStatus = 'READY'
-            AND (Skill LIKE '%` + req.body.keyword + `%' OR Title LIKE '%` + req.body.keyword + `%')`
+            AND (Skill LIKE '%` +
+      req.body.keyword +
+      `%' OR Title LIKE '%` +
+      req.body.keyword +
+      `%')`;
     if (req.body.location) {
-      sql += `AND
-                ((CurrentLocation IN (Select distinct Stateabbr FROM USAZipCodeNew WHERE State ='`+ req.body.location + `' OR City = '` + req.body.location + `' OR ZipCode = '` + req.body.location + `')) or
-                (CurrentLocation IN (Select distinct State FROM USAZipCodeNew WHERE State = '`+ req.body.location + `' OR City = '` + req.body.location + `' OR ZipCode = '` + req.body.location + `')))`
+      sql +=
+        `AND
+                ((CurrentLocation IN (Select distinct Stateabbr FROM USAZipCodeNew WHERE State ='` +
+        req.body.location +
+        `' OR City = '` +
+        req.body.location +
+        `' OR ZipCode = '` +
+        req.body.location +
+        `')) or
+                (CurrentLocation IN (Select distinct State FROM USAZipCodeNew WHERE State = '` +
+        req.body.location +
+        `' OR City = '` +
+        req.body.location +
+        `' OR ZipCode = '` +
+        req.body.location +
+        `')))`;
     }
-    sql += `ORDER BY ISNULL(CreateTime, '1900-01-01T00:00:00') DESC`
+    sql += `ORDER BY ISNULL(CreateTime, '1900-01-01T00:00:00') DESC`;
     request.query(sql, function (err, recordset) {
-      if (err) console.log(err)
+      if (err) console.log(err);
       var result = {
         flag: 1,
-        result: recordset.recordsets[0]
-      }
+        result: recordset.recordsets[0],
+      };
       res.send(result);
     });
   });
 });
 
-app.post('/atsmigrateprofile', function (req, res) {
-
+app.post("/atsmigrateprofile", function (req, res) {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
-    request.query("update Trainee set Collab = 1 , CandidateStatus = 8 where TraineeID = " + req.body.traineeId, function (err, recordset) {
-      if (err) console.log(err)
-      var result = {
-        flag: 1,
-        result: recordset.recordsets[0]
+    request.query(
+      "update Trainee set Collab = 1 , CandidateStatus = 8 where TraineeID = " +
+        req.body.traineeId,
+      function (err, recordset) {
+        if (err) console.log(err);
+        var result = {
+          flag: 1,
+          result: recordset.recordsets[0],
+        };
+        res.send(result);
       }
-      res.send(result);
-    });
-
+    );
   });
 });
 
-app.post('/senddivisionerrormail', async (req, res) => {
+app.post("/senddivisionerrormail", async (req, res) => {
   // try {
   //   const pool = await sql.connect(config);
   //   const username = req.body.username;
@@ -2952,18 +3114,15 @@ app.post('/senddivisionerrormail', async (req, res) => {
   //   const percentage = Math.round(req.body.percentage);
   //   var divisionNotificationsQuery = '';
   //   var insertQuery = '';
-
   //   if (percentage >= 100) {
   //     divisionNotificationsQuery = `SELECT COUNT(*) AS row_count FROM division_notification WHERE divid = '${divid}' AND jobboardid = '${jobboardid}' AND type=2 AND createtime >= DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)`;
   //   } else {
   //     divisionNotificationsQuery = `SELECT COUNT(*) AS row_count FROM division_notification WHERE divid = '${divid}' AND jobboardid = '${jobboardid}' AND type=1 AND createtime >= DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)`;
   //   }
-
   //   console.log(divisionNotificationsQuery);
   //   var divisionNotificationsResult = await pool.request().query(divisionNotificationsQuery);
   //   console.log(divisionNotificationsResult);
   //   var divisionNotifications = divisionNotificationsResult.recordset[0].row_count;
-
   //   if (divisionNotifications == "0") {
   //     var subject = "Alert Message for " + JobboardName;
   //     var text = "Dear Team,<br><br>";
@@ -2975,7 +3134,6 @@ app.post('/senddivisionerrormail', async (req, res) => {
   //       "If you wish to increase your credits limit, please contact your Organization Admin. They will be happy to assist you with finding the tailormade best plan for your needs.<br><br>";
   //     text +=
   //       "Thank you for choosing Tresume as your hiring partner. We appreciate your business and look forward to serving you the best again.";
-
   //     const mailData = {
   //       from: "support@tresume.us",
   //       to: username,
@@ -2983,14 +3141,11 @@ app.post('/senddivisionerrormail', async (req, res) => {
   //       html: text,
   //       cc: [],
   //     };
-
   //     const bccQuery = `SELECT username FROM trainee WHERE org_div = '${divid}'`;
-
   //     pool.request().query(bccQuery)
   //       .then((result) => {
   //         const bccRecipients = result.recordset.map((record) => record.username);
   //         mailData.bcc = bccRecipients;
-
   //         // Send the email with BCC recipients
   //         transporter.sendMail(mailData, (error, info) => {
   //           if (error) {
@@ -3011,7 +3166,6 @@ app.post('/senddivisionerrormail', async (req, res) => {
   //                 flag: 1,
   //                 result: "Mail sent Successfully",
   //               };
-
   //               res.json(result);
   //             })
   //             .catch((error) => {
@@ -3030,7 +3184,6 @@ app.post('/senddivisionerrormail', async (req, res) => {
   //       flag: 1,
   //       result: "Mail not sent, division_notification already exists",
   //     };
-
   //     res.json(result);
   //   }
   // } catch (error) {
@@ -3040,12 +3193,12 @@ app.post('/senddivisionerrormail', async (req, res) => {
 });
 
 app.post("/getJoobleSearch", function (req, res) {
-  console.log('req.keywords', req.keywords)
+  console.log("req.keywords", req.keywords);
 
   axios
     .post("https://jooble.org/api/adde971d-e417-460d-bac2-057246c5993f", {
       keywords: req.body.keywords,
-      location: req.body.location
+      location: req.body.location,
     })
     .then((result) => {
       res.send(result.data);
@@ -3056,69 +3209,104 @@ app.post("/getJoobleSearch", function (req, res) {
 });
 
 app.post("/checkmd5resume", function (req, res) {
+  const timeoutDuration = 60000; // Timeout duration in milliseconds (15 seconds)
+
+  // Set a timeout for the database query
+  const timeout = setTimeout(() => {
+      const result = {
+          flag: 0,
+          error: "Request timed out",
+      };
+      res.status(504).send(result);
+  }, timeoutDuration);
+
   sql.connect(config, function (err) {
-    if (err) console.log(err);
-    var request = new sql.Request();
-    request.query(
-      " select * from Trainee (nolock) where ats_md5email = '" +
-      req.body.md5emailID +
-      "' and Active = 1",
-      function (err, recordset) {
-        if (err) console.log(err);
-        var result = {
-          flag: 1,
-          result: recordset.recordsets[0],
-        };
-        res.send(result.result);
+      if (err) {
+          clearTimeout(timeout); // Clear the timeout if an error occurs
+          console.log(err);
+          const result = {
+              flag: 0,
+              error: "An error occurred while connecting to the database",
+          };
+          res.status(500).send(result);
+          return;
       }
-    );
+      var request = new sql.Request();
+      request.query(
+          " select * from Trainee (nolock) where ats_md5email = '" +
+          req.body.md5emailID +
+          "' and Active = 1",
+          function (err, recordset) {
+              clearTimeout(timeout); // Clear the timeout since the query has completed
+              if (err) {
+                  console.log(err);
+                  const result = {
+                      flag: 0,
+                      error: "An error occurred while querying the database",
+                  };
+                  res.status(500).send(result);
+                  return;
+              }
+              var result = {
+                  flag: 1,
+                  result: recordset.recordsets[0],
+              };
+              res.send(result.result);
+          }
+      );
   });
 });
 
-app.post('/getOnboardingCount', function (req, res) {
 
+app.post("/getOnboardingCount", function (req, res) {
   sql.connect(config, function (err) {
     if (err) console.log(err);
     var request = new sql.Request();
-    request.input('OrgID', sql.Int, req.body.OrgID);
-    request.execute('GetOnboardingCounts', function (err, recordset) {
-      if (err) console.log(err)
+    request.input("OrgID", sql.Int, req.body.OrgID);
+    request.execute("GetOnboardingCounts", function (err, recordset) {
+      if (err) console.log(err);
       var result = {
         flag: 1,
-        result: recordset.recordsets[0]
-      }
+        result: recordset.recordsets[0],
+      };
       res.send(recordset.recordsets[0]);
     });
-
   });
 });
 
 function parsePhraseToQuery(phrase) {
-  const words = phrase.split(/(\(|\)|\b(?:and|or)\b)/i).filter(word => word.trim() !== '').map(word => word.replace(/[\'\"]/g, ''));
+  const words = phrase
+    .split(/(\(|\)|\b(?:and|or)\b)/i)
+    .filter((word) => word.trim() !== "")
+    .map((word) => word.replace(/[\'\"]/g, ""));
 
-  let query = '';
+  let query = "";
   let insideParentheses = false;
 
   for (let i = 0; i < words.length; i++) {
-    console.log(i + '=' + words[i]);
-    if (words[i].trim() === '(') {
-      query += '(';
-    } else if (words[i].trim() === ')') {
-      query += ')';
-    } else if (words[i].trim() === 'AND') {
-      query += ' AND ';
-    } else if (words[i].trim() === 'OR') {
-      query += ' OR ';
-    } else if (words[i].trim() === 'and') {
-      query += ' AND ';
-    } else if (words[i].trim() === 'or') {
-      query += ' OR ';
+    console.log(i + "=" + words[i]);
+    if (words[i].trim() === "(") {
+      query += "(";
+    } else if (words[i].trim() === ")") {
+      query += ")";
+    } else if (words[i].trim() === "AND") {
+      query += " AND ";
+    } else if (words[i].trim() === "OR") {
+      query += " OR ";
+    } else if (words[i].trim() === "and") {
+      query += " AND ";
+    } else if (words[i].trim() === "or") {
+      query += " OR ";
     } else {
-      query += `skill like '%${words[i].trim()}%' OR Title like '%${words[i].trim()}%' OR firstname like '%${words[i].trim()}%' OR lastname like '%${words[i].trim()}%'`;
+      query += `skill like '%${words[i].trim()}%' OR Title like '%${words[
+        i
+      ].trim()}%' OR firstname like '%${words[
+        i
+      ].trim()}%' OR lastname like '%${words[i].trim()}%'`;
     }
   }
 
-  return query.replace(/AND\s+OR/g, 'OR');
+  return query.replace(/AND\s+OR/g, "OR");
 }
 
 app.post("/getResumes2", function (req, res) {
@@ -3135,32 +3323,41 @@ app.post("/getResumes2", function (req, res) {
     var recruiter = req.body.recruiter;
     console.log(Jobboard);
 
+    const timeoutDuration = 60000; // Timeout duration in milliseconds (60 seconds)
+
+    // Set a timeout for the database query
+    const timeout = setTimeout(() => {
+      return res.status(504).send({
+        flag: 0,
+        message: "Request timed out",
+      });
+    }, timeoutDuration);
+
     sql.connect(config, function (err) {
+      clearTimeout(timeout); // Clear the timeout since the connection is established or failed
       if (err) {
         console.error(err);
-        return res.send({
+        return res.status(500).send({
           flag: 0,
           message: "Database connection error.",
         });
       }
-      console.log();
+
       var request = new sql.Request();
       request.query(
-        "select OrganizationID from Trainee where TraineeID=" +
-        traineeId,
+        "select OrganizationID from Trainee where TraineeID=" + traineeId,
         function (err, recordset) {
           if (err) {
             console.error(err);
-            return res.send({
+            return res.status(500).send({
               flag: 0,
               message: "Error retrieving OrganizationID.",
             });
           }
 
           try {
-            // var OrgID = recordset.recordsets[0][0].OrganizationID;
-            var sql =
-              `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths,
+            var OrgID = recordset.recordsets[0][0].OrganizationID;
+            var sql = `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths,
                 ISNULL(YearsOfExpInMonths,0) [YRSEXP],
                 LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') ,
                 ISNULL(CONVERT(NVARCHAR(10),CreateTime,101), '1900-01-01T00:00:00') as LastUpdateTime,
@@ -3179,17 +3376,24 @@ app.post("/getResumes2", function (req, res) {
               sql += ` OR Title LIKE '%` + title + `%'`;
             }
             if (daysWithin) {
-              sql += ` AND CreateTime >= DATEADD(day, -` + daysWithin + `, GETDATE())`;
+              sql +=
+                ` AND CreateTime >= DATEADD(day, -` +
+                daysWithin +
+                `, GETDATE())`;
             }
             if (yearsOfExpmin) {
               if (yearsOfExp) {
-                sql += `AND YearsOfExpInMonths BETWEEN ` + yearsOfExpmin * 12 + ` AND ` + yearsOfExp * 12;
+                sql +=
+                  `AND YearsOfExpInMonths BETWEEN ` +
+                  yearsOfExpmin * 12 +
+                  ` AND ` +
+                  yearsOfExp * 12;
               } else {
                 sql += `AND YearsOfExpInMonths >= ` + yearsOfExpmin * 12;
               }
             }
             if (Jobboard) {
-              if (Jobboard != 'all') {
+              if (Jobboard != "all") {
                 sql += ` AND Source LIKE '%` + Jobboard + `%'`;
               }
             }
@@ -3204,7 +3408,7 @@ app.post("/getResumes2", function (req, res) {
             request.query(sql, function (err, recordset) {
               if (err) {
                 console.error(err);
-                return res.send({
+                return res.status(500).send({
                   flag: 0,
                   message: "Error querying the database.",
                 });
@@ -3218,7 +3422,7 @@ app.post("/getResumes2", function (req, res) {
             });
           } catch (err) {
             console.error(err);
-            return res.send({
+            return res.status(500).send({
               flag: 0,
               message: "An unexpected error occurred.",
             });
@@ -3228,12 +3432,13 @@ app.post("/getResumes2", function (req, res) {
     });
   } catch (err) {
     console.error(err);
-    return res.send({
+    return res.status(500).send({
       flag: 0,
       message: "An unexpected error occurred.",
     });
   }
 });
+
 
 app.post("/getResumes3", function (req, res) {
   try {
@@ -3259,8 +3464,7 @@ app.post("/getResumes3", function (req, res) {
       console.log();
       var request = new sql.Request();
       request.query(
-        "select OrganizationID from Trainee where TraineeID=" +
-        traineeId,
+        "select OrganizationID from Trainee where TraineeID=" + traineeId,
         function (err, recordset) {
           if (err) {
             console.error(err);
@@ -3272,8 +3476,7 @@ app.post("/getResumes3", function (req, res) {
 
           try {
             // var OrgID = recordset.recordsets[0][0].OrganizationID;
-            var sql =
-              `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths,
+            var sql = `SELECT TraineeID, (FirstName + ' ' + LastName) AS FullName, FirstName, LastName, UserName, CreateBy, YearsOfExpInMonths,
                 ISNULL(YearsOfExpInMonths,0) [YRSEXP],
                 LegalStatus, UserOrganizationID, CurrentLocation, Title as [TraineeTitle], ISNULL(LegalStatus,'') ,
                 ISNULL(CONVERT(NVARCHAR(10),CreateTime,101), '1900-01-01T00:00:00') as LastUpdateTime,
@@ -3294,7 +3497,12 @@ app.post("/getResumes3", function (req, res) {
 
             if (startdate) {
               if (endate) {
-                sql += `AND createtime BETWEEN '` + startdate + `' AND '` + endate + `'`;
+                sql +=
+                  `AND createtime BETWEEN '` +
+                  startdate +
+                  `' AND '` +
+                  endate +
+                  `'`;
               } else {
                 sql += ` AND createtime >= '` + startdate + `'`;
               }
@@ -3342,7 +3550,6 @@ app.post("/getResumes3", function (req, res) {
   }
 });
 
-
 app.post("/getcandidatelocation", function (req, res) {
   sql.connect(config, function (err) {
     if (err) console.log(err);
@@ -3354,8 +3561,13 @@ app.post("/getcandidatelocation", function (req, res) {
 
         var location = recordset.recordsets[0];
         const transformedArray = location
-          .filter(item => item?.currentlocation && item.currentlocation !== "NULL" && item.currentlocation.trim() !== "")
-          .map(item => item.currentlocation);
+          .filter(
+            (item) =>
+              item?.currentlocation &&
+              item.currentlocation !== "NULL" &&
+              item.currentlocation.trim() !== ""
+          )
+          .map((item) => item.currentlocation);
         var result = {
           flag: 1,
           result: transformedArray,
@@ -3366,7 +3578,6 @@ app.post("/getcandidatelocation", function (req, res) {
   });
 });
 
-
 app.post("/getorganizationLogo", function (req, res) {
   sql.connect(config, function (err) {
     if (err) {
@@ -3375,7 +3586,9 @@ app.post("/getorganizationLogo", function (req, res) {
     }
 
     var request = new sql.Request();
-    var sqlQuery = "SELECT logo,organizationName FROM Organization WHERE OrganizationID =" + req.body.OrgID;
+    var sqlQuery =
+      "SELECT logo,organizationName FROM Organization WHERE OrganizationID =" +
+      req.body.OrgID;
 
     request.query(sqlQuery, function (err, recordset) {
       if (err) {
@@ -3417,7 +3630,7 @@ app.post("changeDocStatus", function (req, res) {
   //     }
   //   );
   // });
-  res.send('ok')
+  res.send("ok");
 });
 
 app.post("/FetchRecruiterList", function (req, res) {
@@ -3428,7 +3641,10 @@ app.post("/FetchRecruiterList", function (req, res) {
     }
 
     var request = new sql.Request();
-    var sqlQuery = "SELECT username as value, CONCAT(Firstname, ' ', LastName) AS name FROM trainee WHERE organizationid = " + req.body.OrgID + " AND Active = 1 AND Role = 'RECRUITER' AND AccountStatus = 'ACTIVE' ORDER BY Firstname ASC";
+    var sqlQuery =
+      "SELECT username as value, CONCAT(Firstname, ' ', LastName) AS name FROM trainee WHERE organizationid = " +
+      req.body.OrgID +
+      " AND Active = 1 AND Role = 'RECRUITER' AND AccountStatus = 'ACTIVE' ORDER BY Firstname ASC";
 
     request.query(sqlQuery, function (err, recordset) {
       if (err) {
@@ -3461,7 +3677,11 @@ app.post("/updateCandidateNotes", function (req, res) {
     }
 
     var request = new sql.Request();
-    var sqlQuery = "Update Trainee Set Notes='" + req.body.Notes + "' where traineeid = " + req.body.traineeID;
+    var sqlQuery =
+      "Update Trainee Set Notes='" +
+      req.body.Notes +
+      "' where traineeid = " +
+      req.body.traineeID;
     console.log(sqlQuery);
     request.query(sqlQuery, function (err, recordset) {
       if (err) {
@@ -3483,7 +3703,6 @@ app.post("/updateCandidateNotes", function (req, res) {
   });
 });
 
-
 app.post("/getRecriterUsage", function (req, res) {
   var startdate = req.body.startDate;
   var enddate = req.body.endDate;
@@ -3491,7 +3710,21 @@ app.post("/getRecriterUsage", function (req, res) {
     if (err) console.log(err);
     var request = new sql1.Request();
     var sql =
-      "SELECT  T.FirstName + ' ' + T.LastName AS recruiterName, COALESCE(T.monster, 0) AS monster, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 3 AND createtime >= '" + startdate + "' AND createtime <= '" + enddate + "') AS monsterused, COALESCE(T.cb, 0) AS cb, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 4 AND createtime >= '" + startdate + "' AND createtime <= '" + enddate + "') AS cbused, COALESCE(T.dice, 0) AS dice, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 2 AND createtime >= '" + startdate + "' AND createtime <= '" + enddate + "') AS diceused FROM Trainee AS T INNER JOIN org_division AS OD ON T.Org_Div = OD.id WHERE T.organizationid = " + req.body.OrgID + " ORDER BY OD.DivisionName";
+      "SELECT  T.FirstName + ' ' + T.LastName AS recruiterName, COALESCE(T.monster, 0) AS monster, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 3 AND createtime >= '" +
+      startdate +
+      "' AND createtime <= '" +
+      enddate +
+      "') AS monsterused, COALESCE(T.cb, 0) AS cb, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 4 AND createtime >= '" +
+      startdate +
+      "' AND createtime <= '" +
+      enddate +
+      "') AS cbused, COALESCE(T.dice, 0) AS dice, (SELECT COUNT(id) FROM division_audit WHERE username = T.Username AND jobboardid = 2 AND createtime >= '" +
+      startdate +
+      "' AND createtime <= '" +
+      enddate +
+      "') AS diceused FROM Trainee AS T INNER JOIN org_division AS OD ON T.Org_Div = OD.id WHERE T.organizationid = " +
+      req.body.OrgID +
+      " ORDER BY OD.DivisionName";
     console.log(sql);
     request.query(sql, function (err, recordset) {
       if (err) throw err;
@@ -3512,7 +3745,10 @@ app.post("/getplacementsBytID", function (req, res) {
     }
     const traineeId = req.body.TraineeID;
     var request = new sql.Request();
-    var sqlQuery ='SELECT * FROM placements WHERE traineeid ='+traineeId+' ORDER BY PlacedDate';
+    var sqlQuery =
+      "SELECT * FROM placements WHERE traineeid =" +
+      traineeId +
+      " ORDER BY PlacedDate";
     console.log(sqlQuery);
     request.query(sqlQuery, function (err, recordset) {
       if (err) {
@@ -3537,10 +3773,14 @@ app.post("/UpdateplacementsBytID", function (req, res) {
       console.log(err);
       return res.status(500).send("Database connection error");
     }
-    const PlacementID = req.body.PID?req.body.PID:"''";
+    const PlacementID = req.body.PID ? req.body.PID : "''";
     const CandidateDocumentID = req.body.CID;
     var request = new sql.Request();
-    var sqlQuery ="update CandidateDocument_New set PlacementID = "+PlacementID+" where CandidateDocumentID = "+CandidateDocumentID;
+    var sqlQuery =
+      "update CandidateDocument_New set PlacementID = " +
+      PlacementID +
+      " where CandidateDocumentID = " +
+      CandidateDocumentID;
     console.log(sqlQuery);
     request.query(sqlQuery, function (err, recordset) {
       if (err) {
@@ -3558,22 +3798,25 @@ app.post("/UpdateplacementsBytID", function (req, res) {
   });
 });
 
-app.post('/getDiceAuthToken', async (req, res) => {
+app.post("/getDiceAuthToken", async (req, res) => {
   try {
     // Set up the HTTP headers for the request
-    const clientId = 'digitalmakerssolution';
-    const clientSecret = '8ea58fcc-8ddb-413c-8130-795d2a455009';
-    const authEndpoint = 'https://secure.dice.com/oauth/token';
+    const clientId = "digitalmakerssolution";
+    const clientSecret = "8ea58fcc-8ddb-413c-8130-795d2a455009";
+    const authEndpoint = "https://secure.dice.com/oauth/token";
     const httpOptions = {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${Buffer.from(
+          `${clientId}:${clientSecret}`
+        ).toString("base64")}`,
       },
       withCredentials: true,
     };
 
     // Define the request body
-    const requestBody = 'grant_type=password&username=nithya@dmsol.in&password=Dicedms23@';
+    const requestBody =
+      "grant_type=password&username=nithya@dmsol.in&password=Dicedms23@";
 
     // Make a POST request to the authentication endpoint
     const response = await axios.post(authEndpoint, requestBody, httpOptions);
@@ -3582,17 +3825,14 @@ app.post('/getDiceAuthToken', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     // Handle errors
-    console.error('Error getting Dice auth token:', error.message);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error getting Dice auth token:", error.message);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-
-
 
 // var task = cron.schedule('*/15 * * * *', async () => {
 //   try {

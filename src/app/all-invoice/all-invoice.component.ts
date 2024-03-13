@@ -48,6 +48,7 @@ export class AllInvoiceComponent implements OnInit {
   searchUnpaidQuery: string = '';
   OrgID: string = '';
   TraineeID: string = '';
+  
 
   activeTab = 'allinvoices';
   showCustomDateModel = false;
@@ -83,6 +84,29 @@ export class AllInvoiceComponent implements OnInit {
     this.showPopup = true;
     this.invoiceid = invoiceId;
   }
+ 
+  selectAll(checked: boolean): void {
+    this.filteredInvoices.forEach(invoice => {
+      invoice.selected = checked;
+    });    
+  }
+
+  selectAll1(checked: boolean): void {
+
+    this.filteredPaidInvoices.forEach(invoice => {
+      invoice.selected = checked;
+    });
+
+  }
+  selectAll2(checked: boolean): void {
+    this.filteredUnpaidInvoices.forEach(invoice => {
+      invoice.selected = checked;
+    });
+  }
+
+  selectRow(invoice: any): void {
+    invoice.selected = !invoice.selected;
+  }
 
   saveAmount() {
     // console.log('Invoice ID:', this.invoiceid);
@@ -94,13 +118,13 @@ export class AllInvoiceComponent implements OnInit {
 
     console.log(req);
     this.service.updateReceivedPayment(req).subscribe(
-          (response: any) => {
-            this.handleSuccess(response);
-          },
-          (error: any) => {
-            this.handleError(error);
-          }
-        );
+      (response: any) => {
+        this.handleSuccess(response);
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
     this.showPopup = false;
   }
 
@@ -261,38 +285,55 @@ export class AllInvoiceComponent implements OnInit {
 
   fetchPaidInvoiceList() {
     let Req = {
-        OrgID: this.OrgID,
+      OrgID: this.OrgID,
     };
     this.service.getPaidInvoiceList(Req).subscribe((x: any) => {
+      this.paidInvoices = x.result;
+      this.applyPaidFilter();
+      this.loading = false;
         this.paidInvoices = x.result;
         this.applyPaidFilter();
         this.loading = false;
-    });
+        this.noResultsFound = this.paidInvoices.length === 0;
+    }),
+    (error: any) => {
+      // Error callback
+      console.error('Error occurred:', error);
+      // Handle error here
+      this.loading = false; // Set loading to false on error
+    };
 }
 applyPaidFilter() {
   this.filteredPaidInvoices = this.paidInvoices.filter(invoice =>
       invoice.projectname.toLowerCase().includes(this.searchPaidQuery.toLowerCase())
-  );
-  this.noResultsFound = this.filteredPaidInvoices.length === 0 && this.searchPaidQuery !== '';
-}
+    );
+    this.noResultsFound = this.filteredPaidInvoices.length === 0 && this.searchPaidQuery !== '';
+  }
 
-fetchUnpaidInvoiceList() {
-  let Req = {
+  fetchUnpaidInvoiceList() {
+    let Req = {
       OrgID: this.OrgID,
-  };
-  this.service.getunPaidInvoiceList(Req).subscribe((x: any) => {
+    };
+    this.service.getunPaidInvoiceList(Req).subscribe((x: any) => {
       this.unpaidInvoices = x.result;
       this.applyUnpaidFilter();
       this.loading = false;
-  });
+      this.noResultsFound = this.unpaidInvoices.length === 0;
+  }),
+  (error: any) => {
+    // Error callback
+    console.error('Error occurred:', error);
+    // Handle error here
+    this.loading = false; // Set loading to false on error
+  };
 }
 
-applyUnpaidFilter() {
-  this.filteredUnpaidInvoices = this.unpaidInvoices.filter(invoice =>
+  applyUnpaidFilter() {
+    this.filteredUnpaidInvoices = this.unpaidInvoices.filter(invoice =>
       invoice.projectname.toLowerCase().includes(this.searchUnpaidQuery.toLowerCase())
-  );
-  this.noResultsFound = this.filteredUnpaidInvoices.length === 0 && this.searchUnpaidQuery !== '';
-}
+    );
+    this.noResultsFound = this.filteredUnpaidInvoices.length === 0 && this.searchUnpaidQuery !== '';
+  }
 
   fetchAllInvoiceList() {
     let Req = {
@@ -302,7 +343,14 @@ applyUnpaidFilter() {
       this.allInvoices = x.result;
       this.applyFilter();
       this.loading = false;
-    });
+      this.noResultsFound = this.allInvoices.length === 0;
+    }),
+    (error: any) => {
+      // Error callback
+      console.error('Error occurred:', error);
+      // Handle error here
+      this.loading = false; // Set loading to false on error
+    };
   }
 
   applyFilter() {
@@ -310,21 +358,20 @@ applyUnpaidFilter() {
       invoice.projectname.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
     this.noResultsFound = this.filteredInvoices.length === 0 && this.searchQuery !== '';
-}
+  }
 
-//this for amount filter
-// applyFilter() {
-//   this.filteredInvoices = this.allInvoices.filter(invoice =>
-//       (invoice.projectname.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-//       invoice.total.toLowerCase().includes(this.searchQuery.toLowerCase()))
-//   );
-//   this.noResultsFound = this.filteredInvoices.length === 0 && this.searchQuery !== '';
-// }
+  //this for amount filter
+  // applyFilter() {
+  //   this.filteredInvoices = this.allInvoices.filter(invoice =>
+  //       (invoice.projectname.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+  //       invoice.total.toLowerCase().includes(this.searchQuery.toLowerCase()))
+  //   );
+  //   this.noResultsFound = this.filteredInvoices.length === 0 && this.searchQuery !== '';
+  // }
 
 
   toggleCustomDateModel(option: string): void {
     this.showCustomDateModel = option === 'Custom dates';
-
   }
 
 
@@ -346,7 +393,11 @@ applyUnpaidFilter() {
   }
 
   downloadExcel() {
-    
+
   }
 
+  isOverdue(date: Date): boolean {
+    const currentDate = new Date();
+    return date < currentDate;
+  }
 }

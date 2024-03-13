@@ -22,9 +22,21 @@ export class AllTimeListComponent implements OnChanges {
   timesheetrole: any;
   id:string = '';
   username: any;
+  firstname:any;
+  lastname:any;
+  candiateEmail:any;
+  phonenumber:any;
+  selectedGender:any;
+  Locations: any;
+  currentLocation: any;
+  userName: any;
 
   constructor(private cookieService: CookieService, private service: TimesheetListService, private messageService: MessageService)
-  {}
+  {
+    this.OrgID = this.cookieService.get('OrgID');
+    this.userName = this.cookieService.get('userName1');
+    this.TraineeID = this.cookieService.get('TraineeID');
+  }
 
   ngOnInit(): void {
     this.loading = true;
@@ -38,23 +50,11 @@ export class AllTimeListComponent implements OnChanges {
     this.fetchRejectedData();
     this.fetchCompletedData();
     this.fetchNonBillableData();
+    this.gethrmsLocation();
   }
 
-  ngOnChanges(): void{
-    // this.fetchtimesheet();
+  ngOnChanges(){
   }
-
-  // fetchtimesheet(){
-  //   let Req = {
-  //     traineeID: this.TraineeID,
-  //     timesheetrole:this.timesheetrole
-  //   };
-  //   this.service.getAllTimeList(Req).subscribe((x: any) => {
-  //     this.tableData = x.result;
-  //     this.noResultsFound = this.tableData.length === 0;
-  //   });
-  // }
-
 
     fetchPendingResult(){
     let Req = {
@@ -65,9 +65,10 @@ export class AllTimeListComponent implements OnChanges {
     };
     this.service.getPendingTimesheetResult(Req).subscribe((x: any) => {
       this.PendingData = x.result;
-      this.noResultsFound = this.PendingData.length === 0;
-    });
+       this.noResultsFound = this.PendingData.length === 0;
     this.loading = false;
+
+    });
   }
 
   fetchRejectedData(){
@@ -78,9 +79,10 @@ export class AllTimeListComponent implements OnChanges {
     };
     this.service.getRejectedTimesheetResult(Req).subscribe((x: any) => {
       this.rejectedData = x.result;
-      this.noResultsFound = this.PendingData.length === 0;
+      this.noResultsFound = this.rejectedData.length === 0;
+    // this.loading = false;
+
     });
-    this.loading = false;
   }
 
   fetchCompletedData(){
@@ -92,8 +94,9 @@ export class AllTimeListComponent implements OnChanges {
     this.service.getCompletedTimesheetResult(Req).subscribe((x: any) => {
       this.completedData = x.result;
       this.noResultsFound = this.completedData.length === 0;
+    // this.loading = false;
+
     });
-    this.loading = false;
   }
 
   fetchNonBillableData(){
@@ -104,9 +107,39 @@ export class AllTimeListComponent implements OnChanges {
     };
     this.service.getNonBillableTimesheetResult(Req).subscribe((x: any) => {
       this.nonBillableData = x.result;
-      this.noResultsFound = this.PendingData.length === 0;
+      this.noResultsFound = this.nonBillableData.length === 0;
     });
-    this.loading = false;
+    // this.loading = false;
   }
-  
+
+  CandidateSave(){
+    let req= {
+      createby: this.userName,
+      firstName: this.firstname,
+      lastName:this.lastname,
+      email:this.candiateEmail,
+      phone:this.phonenumber,
+      currentLocation: this.currentLocation,
+      orgID: this.OrgID,
+    }
+    console.log(req);
+    this.service.insertTimesheetTraineeCandidate(req).subscribe(
+      (x: any) => {
+        this.messageService.add({ severity: 'success', summary: 'Successfully', detail: 'Candidate Added' });
+      },
+      (error: any) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to Add Candidate' });
+      }
+    )
+  }
+ 
+  gethrmsLocation() {
+    let Req = {
+      TraineeID: this.TraineeID,
+      orgID: this.OrgID
+    };
+    this.service.getLocation(Req).subscribe((x: any) => {
+      this.Locations = x;
+    });
+  }
 }
