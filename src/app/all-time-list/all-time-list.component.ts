@@ -18,7 +18,7 @@ export class AllTimeListComponent implements OnChanges {
   router: any;
   OrgID:string = '';
   TraineeID:string = '';
-  noResultsFound: boolean = true;
+  noResultsFound: boolean = false;
   timesheetrole: any;
   id:string = '';
   username: any;
