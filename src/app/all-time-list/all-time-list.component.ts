@@ -22,9 +22,21 @@ export class AllTimeListComponent implements OnChanges {
   timesheetrole: any;
   id:string = '';
   username: any;
+  firstname:any;
+  lastname:any;
+  candiateEmail:any;
+  phonenumber:any;
+  selectedGender:any;
+  Locations: any;
+  currentLocation: any;
+  userName: any;
 
   constructor(private cookieService: CookieService, private service: TimesheetListService, private messageService: MessageService)
-  {}
+  {
+    this.OrgID = this.cookieService.get('OrgID');
+    this.userName = this.cookieService.get('userName1');
+    this.TraineeID = this.cookieService.get('TraineeID');
+  }
 
   ngOnInit(): void {
     this.loading = true;
@@ -41,21 +53,8 @@ export class AllTimeListComponent implements OnChanges {
     this.gethrmsLocation();
   }
 
-  ngOnChanges(): void{
-    // this.fetchtimesheet();
+  ngOnChanges(){
   }
-
-  // fetchtimesheet(){
-  //   let Req = {
-  //     traineeID: this.TraineeID,
-  //     timesheetrole:this.timesheetrole
-  //   };
-  //   this.service.getAllTimeList(Req).subscribe((x: any) => {
-  //     this.tableData = x.result;
-  //     this.noResultsFound = this.tableData.length === 0;
-  //   });
-  // }
-
 
     fetchPendingResult(){
     let Req = {
@@ -110,31 +109,23 @@ export class AllTimeListComponent implements OnChanges {
     this.loading = false;
   }
 
-  firstname:any;
-  lastname:any;
-  candiateEmail:any;
-  phonenumber:any;
-  selectedGender:any;
-  Locations: any;
-  currentLocation: any;
-
   CandidateSave(){
     let req= {
-      firstname: this.firstname,
-      lastname:this.lastname,
-      candiateEmail:this.candiateEmail,
-      phonenumber:this.phonenumber,
-      // selectedGender:this.selectedGender,
-      currentLocation: this.currentLocation
+      createby: this.userName,
+      firstName: this.firstname,
+      lastName:this.lastname,
+      email:this.candiateEmail,
+      phone:this.phonenumber,
+      currentLocation: this.currentLocation,
+      orgID: this.OrgID,
     }
     console.log(req);
-
     this.service.insertTimesheetTraineeCandidate(req).subscribe(
       (x: any) => {
-        this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Candidate Added' });
+        this.messageService.add({ severity: 'success', summary: 'Successfully', detail: 'Candidate Added' });
       },
       (error: any) => {
-        this.messageService.add({ severity: 'error', summary: 'Error Message', detail: 'Failed to Add Candidate' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to Add Candidate' });
       }
     )
   }

@@ -313,64 +313,64 @@ router.post("/insertTimesheetTraineeCandidate", async function (req, res) {
     var TraineeID = await generateTraineeID();
 
     var query =
-      "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = '" +
-      req.body.email +
-      "' AND UserOrganizationID = '" +
-      req.body.orgID +
-      "') " +
+      "IF NOT EXISTS(SELECT * FROM Trainee WHERE UserName = @UserName AND UserOrganizationID = @UserOrganizationID) " +
       "BEGIN " +
-      "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, middleName, lastName, legalStatus, candidateStatus, gender, notes, recruiterName, ReferredBy_external, locationConstraint, marketerName,Active,Accountstatus,profilestatus,role,createtime,userorganizationid,createby,FollowUpon, CurrentLocation ) " +
-      "VALUES (" +
-      `'${TraineeID}',` +
-      ` ${formatValue(req.body.email || "")},` +
-      ` ${formatValue(req.body.firstName || "")},` +
-      ` ${formatValue(req.body.phone || "")},` +
-      ` ${formatValue(req.body.middleName || "")},` +
-      ` ${formatValue(req.body.lastName || "")},` +
-      ` ${formatValue(req.body.LegalStatus || "")},` +
-      ` ${formatValue(req.body.candidateStatus || "")},` +
-      ` ${formatValue(req.body.gender || "")},` +
-      ` ${formatValue(req.body.notes || "")},` +
-      ` ${formatValue(req.body.recruiterName || "")},` +
-      ` ${formatValue(req.body.referralType || "")},` +
-      ` ${formatValue(req.body.locationConstraint || "")},` +
-      ` ${formatValue(req.body.marketerName || "")},` +
-      " 1," +
-      " 'ACTIVE'," +
-      " 'READY'," +
-      " 'TRESUMEUSER', " +
-      " GETDATE(), " +
-      ` ${formatValue(req.body.orgID || "")},` +
-      ` ${formatValue(req.body.creeateby || "")},` +
-      ` ${formatValue(req.body.followupon || "")},` +
-      ` ${formatValue(req.body.currentLocation || "")}` +
-      ") END";
+      "INSERT INTO Trainee (TraineeID, username, firstName, phonenumber, lastName,Active,createtime,userorganizationid,CreateBy, CurrentLocation,timesheet_role,istimesheet ) " +
+      "VALUES (@TraineeID, @username, @firstName, @phonenumber, @lastName, 1, GETDATE(), @userorganizationid, @createby, @currentLocation, 3, 1) " +
+      "END";
 
     console.log(query);
 
-    await sql.connect(config);
+    await sql.connect(config); 
     var request = new sql.Request();
-    var result = await request.query(query);
+    request.input('TraineeID', TraineeID);
+    request.input('username', req.body.email || "");
+    request.input('firstName', req.body.firstName || "");
+    request.input('phonenumber', req.body.phone || "");
+    request.input('lastName', req.body.lastName || "");
+    request.input('userorganizationid', req.body.orgID || "");
+    request.input('createby', req.body.createby || "");
+    request.input('currentLocation', req.body.currentLocation || "");
 
-    //   res.status(200).send("Data Fetched");
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   res.status(500).send("Internal Server Error");
-    // }
+    var result = await request.query(query);
+    
     const data = {
       flag: 1,
-      message: "Trainee Candidate Data Fetched",
+      message: "Trainee Candidate Data Inserted",
     };
 
     res.send(data);
   } catch (error) {
+    console.error(error);
     const data = {
-      flag: 1,
+      flag: 0,
       message: "Internal Server Error",
     };
     res.status(500).send(data);
   }
 });
+
+
+async function generateTraineeID() {
+  try {
+    await sql.connect(config);
+    var request = new sql.Request();
+
+    var query = "SELECT TOP 1 TraineeID FROM Trainee ORDER BY TraineeID DESC";
+
+    var recordset = await request.query(query);
+
+    if (recordset.recordset.length > 0) {
+      return recordset.recordset[0].TraineeID + 1;
+    } else {
+      return 1;
+    }
+  } catch (error) {
+    console.error("Error generating TraineeID:", error);
+    throw error;
+  }
+}
+
 
 router.post("/Candidateviewdetails", async (req, res) => {
   try {
