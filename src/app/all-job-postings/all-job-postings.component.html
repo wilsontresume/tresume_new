@@ -43,7 +43,7 @@
           <td>{{ job.NewApplicants }}</td>
           <td>
             {{ job.TotalApplicants }}
-            <a [routerLink]="['/applicantdetails']">
+            <a [routerLink]="['/applicantdetails/'+job.JobID]">
               <i class="fas fa-external-link-alt"></i></a>
           </td>
           <td>{{ job.PostedOn | date:'MM/dd/yy' }}</td>
