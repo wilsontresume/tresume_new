@@ -15,7 +15,10 @@ export class AllJobPostingsService {
     getJobPostingList(request: any): Observable<ResponseDetails> {
         return this.http.post<ResponseDetails>(this.endpoint + 'getJobPostingList', request);
     }
-
+    
+    fetchassigneeRecruiter(request: any): Observable<ResponseDetails> {
+        return this.http.post<ResponseDetails>(this.endpoint + 'fetchassigneeRecruiter', request);
+    }
      // deleteJobPosting(request: any): Observable<ResponseDetails> {
     //     return this.http.post<ResponseDetails>(this.endpoint + 'deleteJobPosting', request);
     // }
