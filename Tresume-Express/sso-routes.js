@@ -18,8 +18,9 @@ const config = {
     user: "sa",
     password: "Tresume@123",
     server: "92.204.128.44",
-    database: "Tresume",
+    database: "Tresume_Beta",
     trustServerCertificate: true,
+  connectionTimeout: 60000,
   };
   
   const transporter = nodemailer.createTransport({
@@ -275,58 +276,46 @@ router.post('/validateemail', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  console.log(req);
-  var UserName = req.body.username;
-  var PWD = req.body.password;
+  const { username, password } = req.body;
+
   try {
-      
-      sql.connect(config, function (err) {
-        if (err) console.log(err);
-        var request = new sql.Request();
-        var querypassword;
-        var query1 = "select * from trainee where active = 1 and username = '"+UserName+"'";
-        console.log(query1);
-        var responseData;
-        request.query(query1,
-              function (err, recordset) {
-                if (err) console.log(err);
-                responseData =  recordset.recordsets[0];
-                if (responseData[0] && responseData[0].Password && responseData[0].Password.length === 64) {
-                  querypassword = decrypter(responseData[0].Password);
-                  console.log(responseData[0].Password);
-                  console.log(querypassword);
-                  if(PWD === querypassword){
-                    var query = "SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission,RD.RoleID, MD.IsAdmin FROM MemberDetails MD INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID WHERE MD.UserEmail = '"+UserName+"' AND RD.Active = 1";
-          
-                    console.log(query);
-                    request.query(query,
-                      function (err, recordset) {
-                        if (err) console.log(err);
-                
-                        var result = {
-                          flag: 1,
-                          result: recordset.recordsets[0],
-                          data:responseData,
-                        };
-                
-                        res.send(result);
-                      }
-                    );
-                }else{
-                  res.status(401).json({ message: 'Invalid credentials' });
-                }
-              }else{
-                var result = {
-                  flag: 2
-                };
-                res.send(result);
-              }
-              }
-            );
-      });
+    await sql.connect(config);
+    const request = new sql.Request();
+
+    const query1 = `SELECT * FROM trainee WHERE active = 1 AND username = '${username}'`;
+    const { recordset: responseData } = await request.query(query1);
+
+    if (responseData.length > 0) {
+      const storedPassword = responseData[0].Password;
+      if (storedPassword && storedPassword.length === 64) {
+        const decryptedPassword = decrypter(storedPassword);
+        if (password === decryptedPassword) {
+          const query2 = `SELECT RD.RoleName, RD.ViewOnly, RD.FullAccess, RD.DashboardPermission, RD.RoleID, MD.IsAdmin 
+                          FROM MemberDetails MD 
+                          INNER JOIN RolesNew RD ON MD.RoleID = RD.RoleID 
+                          WHERE MD.UserEmail = '${username}' AND RD.Active = 1`;
+
+          const { recordset } = await request.query(query2);
+          const result = {
+            flag: 1,
+            result: recordset,
+            data: responseData,
+          };
+          res.json(result);
+        } else {
+          res.status(401).json({ message: 'Invalid credentials' });
+        }
+      } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+      }
+    } else {
+      res.json({ flag: 2 });
+    }
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ message: 'An error occurred' });
+  } finally {
+    sql.close();
   }
 });
 

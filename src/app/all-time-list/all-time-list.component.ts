@@ -65,9 +65,10 @@ export class AllTimeListComponent implements OnChanges {
     };
     this.service.getPendingTimesheetResult(Req).subscribe((x: any) => {
       this.PendingData = x.result;
-      this.noResultsFound = this.PendingData.length === 0;
-    });
+       this.noResultsFound = this.PendingData.length === 0;
     this.loading = false;
+
+    });
   }
 
   fetchRejectedData(){
@@ -78,9 +79,10 @@ export class AllTimeListComponent implements OnChanges {
     };
     this.service.getRejectedTimesheetResult(Req).subscribe((x: any) => {
       this.rejectedData = x.result;
-      this.noResultsFound = this.PendingData.length === 0;
+      this.noResultsFound = this.rejectedData.length === 0;
+    // this.loading = false;
+
     });
-    this.loading = false;
   }
 
   fetchCompletedData(){
@@ -92,8 +94,9 @@ export class AllTimeListComponent implements OnChanges {
     this.service.getCompletedTimesheetResult(Req).subscribe((x: any) => {
       this.completedData = x.result;
       this.noResultsFound = this.completedData.length === 0;
+    // this.loading = false;
+
     });
-    this.loading = false;
   }
 
   fetchNonBillableData(){
@@ -104,9 +107,9 @@ export class AllTimeListComponent implements OnChanges {
     };
     this.service.getNonBillableTimesheetResult(Req).subscribe((x: any) => {
       this.nonBillableData = x.result;
-      this.noResultsFound = this.PendingData.length === 0;
+      this.noResultsFound = this.nonBillableData.length === 0;
     });
-    this.loading = false;
+    // this.loading = false;
   }
 
   CandidateSave(){

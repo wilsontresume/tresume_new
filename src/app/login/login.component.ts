@@ -28,7 +28,7 @@ export class LoginComponent {
 
   login() {
     const isAuthenticated = true;
-
+    this.loading = true;
     const ssoLoginUrl = environment.apiUrl + 'login';
     const body = JSON.stringify({ username: this.username, password: this.password });
     const headers = new HttpHeaders({
@@ -36,7 +36,7 @@ export class LoginComponent {
     });
     this.http.post(ssoLoginUrl, body, { headers }).subscribe(
       (response: any) => {
-
+        this.loading = false;
         console.log('Login successful:', response);
         const flag = response.flag;
         if (flag === 1) {
@@ -92,7 +92,7 @@ export class LoginComponent {
       },
       (error) => {
         console.error('Login error:', error);
-
+        this.loading = false;
         this.invalidCount++;
 
         if (this.invalidCount >= 3) {
