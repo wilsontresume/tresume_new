@@ -43,7 +43,7 @@ router.post('/getJobPostingList', async (req, res) => {
       if(req.body.admin ==1){
 
       }
-      const query = "SELECT J.JobID AS JobID, J.jobtitle AS JobTitle, J.company AS Company, CONCAT(J.city, ', ', J.state, ', ', J.country) AS Location, J.payrate AS PayRate, SUM(CASE WHEN JA.Status = 'NEW' THEN 1 ELSE 0 END) AS NewApplicants, COUNT(CASE WHEN JA.Status <> 'DELETED' THEN 1 ELSE NULL END) AS TotalApplicants, J.createtime AS PostedOn, CONCAT(T.FirstName, ' ', T.LastName) AS PostedBy, JT.Value AS JobType, T2.FirstName AS Assignee, J.JobStatus FROM Job J INNER JOIN JobApplication JA ON J.JobID = JA.JobID LEFT JOIN Trainee T ON J.Recruiterid = T.TraineeID LEFT JOIN Trainee T2 ON J.PrimaryRecruiterID = T2.TraineeID INNER JOIN JobType JT ON J.JobTypeID = JT.JobTypeID WHERE T.OrganizationID = '" + req.body.OrgID + "' AND assignee='"+req.body.traineeid+"' GROUP BY J.JobID, J.jobtitle, J.company, J.city, J.state, J.country, J.payrate, J.createtime, T.FirstName, T.LastName, JT.Value, T2.FirstName, J.JobStatus ORDER BY J.createtime DESC;";
+      const query = "SELECT J.JobID AS JobID, J.jobtitle AS JobTitle, J.company AS Company, CONCAT(J.city, ', ', J.state, ', ', J.country) AS Location, J.payrate AS PayRate, SUM(CASE WHEN JA.Status = 'NEW' THEN 1 ELSE 0 END) AS NewApplicants, COUNT(CASE WHEN JA.Status <> 'DELETED' THEN 1 ELSE NULL END) AS TotalApplicants, J.createtime AS PostedOn, CONCAT(T.FirstName, ' ', T.LastName) AS PostedBy, JT.Value AS JobType, T2.FirstName AS Assignee, J.JobStatus FROM Job J INNER JOIN JobApplication JA ON J.JobID = JA.JobID LEFT JOIN Trainee T ON J.Recruiterid = T.TraineeID LEFT JOIN Trainee T2 ON J.PrimaryRecruiterID = T2.TraineeID INNER JOIN JobType JT ON J.JobTypeID = JT.JobTypeID WHERE T.OrganizationID = '" + req.body.OrgID + "' GROUP BY J.JobID, J.jobtitle, J.company, J.city, J.state, J.country, J.payrate, J.createtime, T.FirstName, T.LastName, JT.Value, T2.FirstName, J.JobStatus ORDER BY J.createtime DESC;";
 
 
       console.log(query);
@@ -161,43 +161,6 @@ router.post('/getSubmittedCandidateList', async (req, res) => {
   }
 });
 
-
-router.post('/getjobapplicants', async (req, res) => {
-  try {
-    sql.connect(config, async function (err) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ error: 'Database connection error' });
-      }
-      const request = new sql.Request();
-      let query = '';
-      if(req.body.isAdmin == 'true'){
-        query = "SELECT JobApplication.CreateTime AS Date, CONCAT(trainee.FirstName, ' ', trainee.LastName) AS Name, job.JobTitle AS JobTitle, JobApplication.Source, JobApplication.Status FROM JobApplication JOIN trainee ON JobApplication.TraineeID = trainee.TraineeID JOIN job ON JobApplication.JobID = job.JobID WHERE JobApplication.JobID = '" + req.body.JobID + "' AND JobApplication.Status != 'PENDING'";
-
-      }else{
-         query ="SELECT JobApplication.CreateTime AS Date, CONCAT(trainee.FirstName, ' ', trainee.LastName) AS Name, job.JobTitle AS JobTitle, JobApplication.Source, JobApplication.Status FROM JobApplication JOIN trainee ON JobApplication.TraineeID = trainee.TraineeID JOIN job ON JobApplication.JobID = job.JobID WHERE JobApplication.JobID = '" + req.body.JobID + "' "; 
-      }
-      
-
-      console.log(query);
-      const recordset = await request.query(query);
-      const result = {
-        flag: 1,
-        result: recordset.recordsets[0],
-      };
-      res.send(result);
-    });
-  } catch (error) {
-    console.error(error);
-    const result = {
-      flag: 0,
-      message: 'Internal server error',
-    };
-    return res.send(result);
-  }
-});
-
-
 router.post('/getJobPostData', async (req, res) => {
   try {
       const [
@@ -247,6 +210,86 @@ router.post('/getJobPostData', async (req, res) => {
   }
 });
 
+router.post('/getjobapplicants', async (req, res) => {
+  try {
+    sql.connect(config, async function (err) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Database connection error' });
+      }
+      const request = new sql.Request();
+
+      let query ="SELECT JobApplication.CreateTime AS Date, CONCAT(trainee.FirstName, ' ', trainee.LastName) AS Name, job.JobTitle AS JobTitle, JobApplication.Source, JobApplication.Status FROM JobApplication JOIN trainee ON JobApplication.TraineeID = trainee.TraineeID JOIN job ON JobApplication.JobID = job.JobID WHERE JobApplication.JobID = '" + req.body.JobID + "' ";     
+
+      console.log(query);
+      const recordset = await request.query(query);
+      const result = {
+        flag: 1,
+        result: recordset.recordsets[0],
+      };
+      res.send(result);
+    });
+  } catch (error) {
+    console.error(error);
+    const result = {
+      flag: 0,
+      message: 'Internal server error',
+    };
+    return res.send(result);
+  }
+});
+
+router.post("/acceptApplication", async function (req, res) {
+  try {
+    const { TraineeID, JobID } = req.body;
+    const query = `UPDATE JobApplication SET Status = 'ACCEPTED' WHERE TraineeID = @TraineeID AND JobID = @JobID`;
+    console.log(query);
+    await sql.connect(config);
+    const request = new sql.Request();
+    request.input('TraineeID', sql.Int, TraineeID);
+    request.input('JobID', sql.Int, JobID);
+    const result = await request.query(query);
+
+    const data = {
+      flag: 1,
+      message: "Application accepted",
+    };
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    const data = {
+      flag: 0,
+      message: "Internal Server Error",
+    };
+    res.status(500).send(data);
+  }
+});
+
+router.post("/rejectApplication", async function (req, res) {
+  try {
+    const { TraineeID, JobID } = req.body;
+    const query = `UPDATE JobApplication SET Status = 'REJECTED' WHERE TraineeID = @TraineeID AND JobID = @JobID`;
+    console.log(query);
+    await sql.connect(config);
+    const request = new sql.Request();
+    request.input('TraineeID', sql.Int, TraineeID);
+    request.input('JobID', sql.Int, JobID);
+    const result = await request.query(query);
+
+    const data = {
+      flag: 1,
+      message: "Application rejected",
+    };
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    const data = {
+      flag: 0,
+      message: "Internal Server Error",
+    };
+    res.status(500).send(data);
+  }
+});
 
 module.exports = router;
 

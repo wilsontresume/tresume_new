@@ -22,6 +22,8 @@ export class ApplicantDetailsComponent{
   OrgID:string = '';
   JobID:any;
   isAdmin: string;
+  JobApplicationID:string;
+  Status: string;
 
   constructor(
     private cookieService: CookieService,
@@ -38,6 +40,7 @@ export class ApplicantDetailsComponent{
     this.TraineeID = this.cookieService.get('TraineeID');
     this.OrgID = this.cookieService.get('OrgID');
     this.isAdmin = this.cookieService.get('IsAdmin');
+    //this.JobApplicationID = this.cookieService.get('JobApplicationID');
     this.fetchjobapplicants();
   }
 
@@ -54,8 +57,7 @@ export class ApplicantDetailsComponent{
       TraineeID: this.TraineeID,
       OrgID:this.OrgID,
       JobID:this.JobID,
-      isAdmin:this.isAdmin,
-
+      isAdmin:this.isAdmin,   
     };
     this.service.getjobapplicants(Req).subscribe((x: any) => {
       this.loading = false;
@@ -64,4 +66,37 @@ export class ApplicantDetailsComponent{
       // this.noResultsFound = this.applicants.length === 0;
     });
   }
+ 
+  acceptApplication(TraineeID: number) {
+    let Req = {
+      TraineeID: TraineeID,
+      OrgID: this.OrgID,
+      JobID: this.JobID,
+    };
+  
+    this.service.acceptApplication(Req).subscribe((x: any) => {
+      this.Status = x.result;
+      console.log(this.Status);
+      this.fetchjobapplicants();
+    });    
+  }
+  
+  rejectApplication(TraineeID: number) {
+    let Req = {
+      TraineeID: TraineeID,
+      OrgID: this.OrgID,
+      JobID: this.JobID,
+    };
+    this.service.rejectApplication(Req).subscribe((x: any) => {
+      this.Status = x.result;
+      console.log(this.Status);
+      this.fetchjobapplicants();
+    });
+    
+  }
+  
+  downloadDocument(documentUrl: string) {
+    window.open(documentUrl, '_blank');
+  }
+
 }

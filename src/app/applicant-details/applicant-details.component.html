@@ -8,10 +8,6 @@
       </div>
 
       <div class="row mt-2">
-        <!-- <div class="col">
-        <button class="btn btnColor">Mark all as Read</button>
-      </div> -->
-
         <div class="col-md-3">
           <input type="text" class="form-control" placeholder="Search" (input)="performSearch($event.target.value)">
         </div>
@@ -31,7 +27,7 @@
                 <th>Job Title</th>
                 <th>Source</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -41,7 +37,13 @@
                 <td>{{ applicant.JobTitle }}</td>
                 <td>{{ applicant.Source}} </td>
                 <td>{{ applicant.Status }}</td>
-                <td>{{ applicant.Action}}</td>
+                <td>
+                  <i class="fas fa-check mr-4" (click)="acceptApplication(applicant.TraineeID)" style="color: #94618E;" title="Accept"></i>
+                  <i class="fas fa-times mr-4" (click)="rejectApplication(applicant.TraineeID)" style="color: #94618E;" title="Reject"></i>
+                  <a href="#" (click)="downloadDocument(applicant.documentUrl)" title="Download Resume">
+                    <i class="fas fa-download" style="color: #94618E;"></i>
+                  </a>
+                </td>                                             
               </tr>
             </tbody>
           </table>
