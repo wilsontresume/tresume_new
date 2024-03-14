@@ -21,6 +21,7 @@ export class AllJobPostingsComponent implements OnInit{
   TraineeID:string = '';
   jobs:any[];
   noResultsFound:boolean = true;
+  recruiterNames: any;
 
 // roles: string[] = ["Recruiter", "Admin", "User"];
 
@@ -30,6 +31,7 @@ ngOnInit(): void {
   // this.JobID = this.cookieService.get('userName1');
   this.TraineeID = this.cookieService.get('TraineeID');
   this.fetchjobpostinglist();
+  this.getAssigneelist();
 }
   constructor(private dialog: MatDialog,private cookieService: CookieService, private service:AllJobPostingsService,private messageService: MessageService) {}
 
@@ -59,5 +61,14 @@ fetchjobpostinglist(){
 
 jobOptions = ['My Jobs', 'Assigned Jobs', 'All Jobs'];
 
+getAssigneelist() {
+  let Req = {
+    TraineeID: this.TraineeID,
+    orgID: this.OrgID
+  };
+  this.service.fetchassigneeRecruiter(Req).subscribe((x: any) => {
+    this.recruiterNames = x;
+  });
+}
 
 }

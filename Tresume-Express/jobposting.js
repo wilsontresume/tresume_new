@@ -242,6 +242,27 @@ router.post('/getJobPostData', async (req, res) => {
   }
 });
 
+router.post("/fetchassigneeRecruiter", function (req, res) {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();
+    request.query(
+      "SELECT T.TraineeID, T.FirstName, T.LastName, T.Active FROM Trainee T JOIN memberdetails M ON " +
+      "T.Username = M.useremail WHERE M.isAdmin != 1 AND T.Active = 1 AND M.Active = 1 AND M.PrimaryOrgID = " +
+      req.body.orgID +
+      "",
+      function (err, recordset) {
+        if (err) console.log(err);
+        var result = { flag: 1, result: recordset.recordsets[0] };
+        res.send(recordset.recordsets[0]);
+      }
+    );
+  });
+});
+
+
+
+
 
 module.exports = router;
 
