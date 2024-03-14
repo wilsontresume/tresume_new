@@ -193,7 +193,7 @@ getCity() {
       OrgID: this.OrgID
     };
     this.service.getJobPostData(Req).subscribe((x: any) => {
-      this.loading = false
+      this.loading = false;
       this.jobcode = x.NextJobId;
       this.state = x.states
       this.currencies = x.currencyTypes;
@@ -218,66 +218,80 @@ getCity() {
   PostJob(type:any){
     this.loading = true;
     this.Legalstatus = this.selectedLegalstatus.map((item: { value: any; }) => item.value).join(',');
-    let Req = {
-      RecruiterID: this.selectedPrimaryRecruiter,
-      OrgID: this.OrgID,
-      JobTitle:this.jobtitle,
-      Company:this.companyname,
-      City:this.selectedCity,
-      State:this.selectedState,
-      Country:this.selectedCountry,
-      ZipCode:this.zipcode,
-      Address:this.address,
-      AreaCode:this.citycode,
-      JobDescription:this.JobDescription,
-      JobCode:this.jobcode,
-      Skills:this.skills,
-      PayRate:this.payrate,
-      PayRateTypeID:this.selectedPayType,
-      PayRateCurrencyTypeID:this.selectedCurrency,
-      PayRateTaxTermID:this.selectedTaxTerms,
-      BillRate:this.billrate,
-      BillRateTypeID:this.selectedcPayType,
-      BillRateCurrencyTypeID:this.selectedcCurrency,
-      BillRateTaxTermID:this.selectedcTaxTerms,
-      JobTypeID:this.selectedJobType,
-      LegalStatus:this.Legalstatus,
-      JobStausID:this.selectedJobStatus,
-      NoOfPosition:this.numberOfPositions,
-      // RequirementTypeID:this.RecruiterStatusOptionsons,
-      RespondDate:this.selectedRespondBy,
-      ClientID:this.selectedClient,
-      EndClient:this.endclient,
-      ClientJobID:this.clientjobid,
-      PriorityID:this.selectedPriority,
-      Duration:this.duration,
-      InterviewMode:this.selectedInterviewMode,
-      SecruityClearance:this.securityClearance,
-      PrimaryRecruiterID:this.selectedPrimaryRecruiter,
-      RecruitmentManagerID:this.recruitmentmanager,
-      SalesManagerID:this.salesmanager,
-      AccountManagerID:this.accountsmanager,
-      TaxTermID:this.internaltaxterms,
-      Comments:this.comments,
-      Active:type,
-      CreateBy:this.username,
-      LastUpdateBy:this.username,
-      MinYearsOfExpInMonths:this.selectedExperience * 12,
-      JobStatus:this.selectedJobStatus,
-    };
-
-    console.log(Req);
-    this.service.PostJob(Req).subscribe((x: any) => {
- 
-      this.messageService.add({ severity: 'success', summary: 'Job Posted Successfully'});
-      this.router.navigate(['/jobpostings']);
-     }),(error: any) => {
-      // Error callback
-      this.messageService.add({ severity: 'danger', summary: 'Job Not Posted. Please Try Again' });
-      console.error('Error occurred:', error);
-      // Handle error here
-      this.loading = false; // Set loading to false on error
-    }
+    if (
+      this.selectedPrimaryRecruiter &&
+      this.jobtitle &&
+      this.selectedState &&
+      this.selectedCity &&
+      this.selectedRespondBy &&
+      this.numberOfPositions &&
+      this.internaltaxterms
+      ) {
+        let Req = {
+          RecruiterID: this.selectedPrimaryRecruiter,
+          OrgID: this.OrgID,
+          JobTitle: this.jobtitle,
+          Company: this.companyname,
+          City: this.selectedCity,
+          State: this.selectedState,
+          Country: this.selectedCountry,
+          ZipCode: this.zipcode,
+          Address: this.address,
+          AreaCode: this.citycode,
+          JobDescription: this.JobDescription,
+          JobCode: this.jobcode,
+          Skills: this.skills,
+          PayRate: this.payrate,
+          PayRateTypeID: this.selectedPayType,
+          PayRateCurrencyTypeID: this.selectedCurrency,
+          PayRateTaxTermID: this.selectedTaxTerms,
+          BillRate: this.billrate,
+          BillRateTypeID: this.selectedcPayType,
+          BillRateCurrencyTypeID: this.selectedcCurrency,
+          BillRateTaxTermID: this.selectedcTaxTerms,
+          JobTypeID: this.selectedJobType,
+          LegalStatus: this.Legalstatus,
+          JobStausID: this.selectedJobStatus,
+          NoOfPosition: this.numberOfPositions,
+          RespondDate: this.selectedRespondBy,
+          ClientID: this.selectedClient,
+          EndClient: this.endclient,
+          ClientJobID: this.clientjobid,
+          PriorityID: this.selectedPriority,
+          Duration: this.duration,
+          InterviewMode: this.selectedInterviewMode,
+          SecruityClearance: this.securityClearance,
+          PrimaryRecruiterID: this.selectedPrimaryRecruiter,
+          RecruitmentManagerID: this.recruitmentmanager,
+          SalesManagerID: this.salesmanager,
+          AccountManagerID: this.accountsmanager,
+          TaxTermID: this.internaltaxterms,
+          Comments: this.comments,
+          Active: type,
+          CreateBy: this.username,
+          LastUpdateBy: this.username,
+          MinYearsOfExpInMonths: this.selectedExperience * 12,
+          JobStatus: this.selectedJobStatus,
+      };
+  
+      console.log(Req);
+      this.service.PostJob(Req).subscribe(
+          (x: any) => {
+              this.messageService.add({ severity: 'success', summary: 'Job Posted Successfully' });
+              this.router.navigate(['/jobpostings']);
+          },
+          (error: any) => {
+              // Error callback
+              this.messageService.add({ severity: 'danger', summary: 'Job Not Posted. Please Try Again' });
+              console.error('Error occurred:', error);
+              // Handle error here
+              this.loading = false; // Set loading to false on error
+          }
+      );
+  } else {
+      alert('Please Enter all Mandatory Fields');
+  }
+  
   }
 
   }
