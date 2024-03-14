@@ -1,5 +1,3 @@
-
-
 <div class="container-fluid p-3">
   <div class="head d-flex justify-content-between p-3">
     <h2> ALL INVOICE</h2>
@@ -55,7 +53,6 @@
                         contacts</a>
                     </div>
                   </div> -->
-
                   <div class="modal fade" id="makeInactiveModal" tabindex="-1" role="dialog"
                     aria-labelledby="makeInactiveModal" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -382,40 +379,50 @@
                 </div> -->
               <!-- </div> -->
 
-              <div class="action-icons icons-container float-right mt-3">
+              <div class="action-icons icons-container float-right mt-3" style="border: none;">
                 <i class="material-icons" onclick="exportAsPDF()">print</i>
                 <i class="fas fa-upload" onclick="downloadExcel()"></i>
                 <!-- <i class="fas fa-cog" onclick="openSettings()"></i> -->
               </div>
-              <div style="font-size: 12px;">
-                <table class="table no-border mt-4">
-                  <thead class="underline">
-                      <tr>
+              <div>
+                <table class="table ">
+                  <thead>
+                      <tr class="text-center">
                           <td><input type="checkbox"></td>
                           <th>Invoiceid</th>
-                          <th>DATE</th>
-                          <th>TYPE</th>
-                          <th>NO.</th>
-                          <th>CLIENT/PROJECT</th>
-                          <th>MEMO</th>
-                          <th>AMOUNT</th>
-                          <th>STATUS</th>
-                          <th>ACTION</th>
+                          <th>Date</th>
+                          <th>Type</th>
+                          <th>No.</th>
+                          <th>Client/Project</th>
+                          <th>Memo</th>
+                          <th>Amount</th>
+                          <th>Status</th>
+                          <th>Action</th>
                       </tr>
+
+                      <tr >
+                        <td colspan="10" class="text-center">
+                            No results found.
+                        </td>
+                    </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let invoice of filteredInvoices">
-                      <td><input type="checkbox"></td>
-                      <td >{{ invoice.id}}</td>
+                    <tr *ngFor="let invoice of filteredInvoices" (click)="selectRow(invoice)" [class.selected]="invoice.selected">
+                      <td><input type="checkbox" [(ngModel)]="invoice.selected" (click)="$event.stopPropagation()"></td>
+                      <td>{{ invoice.id}}</td>
                       <td>{{ invoice.date | date: "MM/dd/y" : "UTC" }}</td>
                       <td>Invoice</td>
                       <td>{{ invoice.invoiceNo }}</td>
                       <td>{{ invoice.projectname }}</td>
-                      <td>{{ invoice.memo | date: "MM/dd/y" : "UTC" }}</td>
+                      <td>{{ invoice.messageOnStatement | date: "MM/dd/y" : "UTC" }}</td>
                       <td>{{ invoice.total }}</td>
-                      <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
+                      <td [ngClass]="{
+                        'paid': invoice.status,
+                        'unpaid': !invoice.status,
+                        'overdue': isOverdue(invoice.date)
+                      }">{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                       <td>
-                        <button  (click)="openPopup(invoice.id)">Received Payment</button>
+                        <button class="btn" (click)="openPopup(invoice.id)">Received Payment</button>
                       </td>
                       <!-- <td>
                           <button class="btn btn-" (click)="editAction()">Edit</button>
@@ -441,15 +448,12 @@
                           </div>
                       </td> -->
                   </tr>
-                  
-                      <tr *ngIf="noResultsFound">
-                          <td colspan="9" class="text-center">
-                              No results found.
-                          </td>
-                      </tr>
+
                   </tbody>
-              </table>
+                </table>
               </div>
+              
+              
 
             </div>
 
@@ -465,26 +469,31 @@
                 <i class="fas fa-upload" onclick="handleFileUpload()"></i>
                 <!-- <i class="fas fa-cog" onclick="openSettings()"></i> -->
               </div>
-              <table class="table no-border" style="margin-top: 50px;">
-                <thead class="underline">
+              <table class="table">
+                <thead>
                   <tr>
                     <!-- Header cells -->
-                    <th><input type="checkbox"></th>
+                    <td><input type="checkbox"></td>
                     <th>Invoiceid</th>
-                    <th>DATE</th>
-                    <th>TYPE</th>
-                    <th>NUMBER</th>
-                    <th>CLIENT/PROJECT</th>
-                    <th>MEMO</th>
-                    <th>AMOUNT</th>
-                    <th>STATUS</th>
-                    <th>ACTION</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>No</th>
+                    <th>Client/Project</th>
+                    <th>Memo</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
 
+                  </tr>
+                  <tr >
+                    <td colspan="10" class="text-center">
+                      No results found.
+                    </td>
                   </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let invoice of filteredPaidInvoices">
-                        <td><input type="checkbox"></td>
+                    <tr *ngFor="let invoice of filteredPaidInvoices" (click)="selectRow(invoice)" [class.selected]="invoice.selected">
+                        <td><input type="checkbox" [(ngModel)]="invoice.selected" (click)="$event.stopPropagation()"></td>
                         <td>{{ invoice.id}}</td>
                         <td>{{ invoice.date | date : "MM/dd/y" : "UTC" }}</td>
                         <td>Invoice</td>
@@ -492,9 +501,13 @@
                         <td>{{ invoice.projectname }}</td>
                         <td>{{ invoice.memo | date : "MM/dd/y" : "UTC" }}</td>
                         <td>{{ invoice.total }}</td>
-                        <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
+                        <td [ngClass]="{
+                          'paid': invoice.status,
+                          'unpaid': !invoice.status,
+                          'overdue': isOverdue(invoice.date)
+                        }">{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                         <td>
-                          <button  (click)="openPopup(invoice.id)">Received Payment</button>
+                          <button class="btn" (click)="openPopup(invoice.id)">Received Payment</button>
                         </td>
                         <!-- <td>
                             <button class="btn btn-" (click)="editAction()">Edit</button>
@@ -522,12 +535,6 @@
                             </div>
                         </td> -->
                     </tr>
-                  <tr *ngIf="noResultsFound">
-                    <td colspan="9" class="text-center">
-                      No results found.
-                    </td>
-                  </tr>
-
                 </tbody>
 
               </table>
@@ -545,27 +552,32 @@
                 <i class="fas fa-upload" onclick="handleFileUpload()"></i>
                 <!-- <i class="fas fa-cog" onclick="openSettings()"></i> -->
               </td>
-              <div style="font-size: 12px;">
-                <table class="table no-border" style="margin-top: 50px;">
-                  <thead class="underline">
+              <div>
+                <table class="table">
+                  <thead>
                     <tr>
                       <td><input type="checkbox"></td>
                       <th>Invoiceid</th>
-                      <th>DATE</th>
-                      <th>TYPE</th>
-                      <th>NO.</th>
-                      <th>CLIENT/PROJECT</th>
-                      <th>MEMO</th>
-                      <th>AMOUNT </th>
-                      <th>STATUS</th>
-                      <th>ACTION</th>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>No</th>
+                      <th>Client/Project</th>
+                      <th>Memo</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Action</th>
 
                     </tr>
+                    <tr >
+                      <td colspan="10" class="text-center">
+                        No results found.
+                      </td>
+                    </tr>
                   </thead>
-                  
+
                   <tbody>
-                      <tr *ngFor="let invoice of filteredUnpaidInvoices">
-                          <td><input type="checkbox"></td>
+                      <tr *ngFor="let invoice of filteredUnpaidInvoices" (click)="selectRow(invoice)" [class.selected]="invoice.selected">
+                          <td><input type="checkbox" [(ngModel)]="invoice.selected" (click)="$event.stopPropagation()"></td>
                           <td>{{ invoice.id}}</td>
                           <td>{{ invoice.date | date : "MM/dd/y" : "UTC" }}</td>
                           <td>Invoice</td>
@@ -573,9 +585,13 @@
                           <td>{{ invoice.projectname }}</td>
                           <td>{{ invoice.memo | date : "MM/dd/y" : "UTC" }}</td>
                           <td>{{ invoice.total }}</td>
-                          <td>{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
+                          <td [ngClass]="{
+                            'paid': invoice.status,
+                            'unpaid': !invoice.status,
+                            'overdue': isOverdue(invoice.date)
+                          }">{{ invoice.status ? 'Paid' : 'Unpaid' }}</td>
                           <td>
-                            <button  (click)="openPopup(invoice.id)">Received Payment</button>
+                            <button class="btn" (click)="openPopup(invoice.id)">Received Payment</button>
                           </td>
                           <!-- <td>
                               <button class="btn btn-" (click)="editAction()">Edit</button>
@@ -603,11 +619,6 @@
                               </div>
                           </td> -->
                       </tr>
-                    <tr *ngIf="noResultsFound">
-                      <td colspan="9" class="text-center">
-                        No results found.
-                      </td>
-                    </tr>
                   </tbody>
 
                 </table>

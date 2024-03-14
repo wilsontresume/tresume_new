@@ -52,7 +52,13 @@ fetchjobpostinglist(){
     this.noResultsFound = this.jobs.length === 0;
   this.loading = false;
   
-  });
+  }),
+  (error: any) => {
+    // Error callback
+    console.error('Error occurred:', error);
+    // Handle error here
+    this.loading = false; // Set loading to false on error
+  };
 }
 
 jobOptions = ['My Jobs', 'Assigned Jobs', 'All Jobs'];

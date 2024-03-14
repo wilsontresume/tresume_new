@@ -17,8 +17,9 @@ const config = {
   user: "sa",
   password: "Tresume@123",
   server: "92.204.128.44",
-  database: "Tresume",
+  database: "Tresume_Beta",
   trustServerCertificate: true,
+  connectionTimeout: 60000,
 };
 
 const transporter = nodemailer.createTransport({
@@ -30,103 +31,225 @@ const transporter = nodemailer.createTransport({
   },
   secure: true,
 });
+/*
+router.post("/gethrmscandidateList", async (req, res) => {
+  try {
+    const timeoutDuration = 60000; // Timeout duration in milliseconds (15 seconds)
+
+    // Set a timeout for the database query
+    const timeoutPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(new Error("Request timed out"));
+      }, timeoutDuration);
+    });
+
+    // Execute the database query within the timeout
+    const databasePromise = new Promise(async (resolve, reject) => {
+      try {
+        const pool = await sql.connect(config);
+        const request = new sql.Request();
+        var traineeid = req.body.TraineeID;
+        var useremail = req.body.useremail;
+        var admin = req.body.admin;
+        var searchterm = req.body.searchterm;
+        var Page = req.body.Page * 25;
+        var query = "";
+
+        function generateSearchCondition(searchterm) {
+          if (searchterm.includes(" ")) {
+            const words = searchterm.split(" ");
+            return `T.FirstName LIKE '%${words[0]}%' AND T.LastName LIKE '%${words[1]}%'`;
+          } else if (searchterm.includes("@")) {
+            return `T.UserName LIKE '%${searchterm}%'`;
+          } else {
+            return `(T.FirstName LIKE '%${searchterm}%' OR T.LastName LIKE '%${searchterm}%' OR T.UserName LIKE '%${searchterm}%')`;
+          }
+        }
+
+        if (admin) {
+          query = `WITH CountCTE AS (
+      SELECT COUNT(*) AS TotalCount
+      FROM Trainee T
+      INNER JOIN Memberdetails M ON T.userorganizationid IN (SELECT Value FROM dbo.SplitString(M.accessorg, ','))
+      INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
+      LEFT JOIN Trainee CreatedBy ON T.createby = CreatedBy.username
+      INNER JOIN Organization O ON T.userorganizationid = O.organizationid
+      WHERE M.useremail = '${useremail}' AND T.active = 1   AND ${generateSearchCondition(
+            searchterm
+          )}
+  ),
+  PaginatedResults AS (
+    SELECT T.TraineeID, CONCAT(T.firstname, ' ', T.lastname) AS Name, CONCAT(CreatedBy.firstname, ' ', CreatedBy.lastname) AS CreatedBy,      
+    T.username AS Email, O.organizationname, T.LegalStatus AS LegalStatus, T.PhoneNumber AS Phone, CS.CSName AS CandidateStatus,
+    T.followupon, T.notes, T.CreateTime AS DateCreated
+FROM Trainee T
+INNER JOIN Memberdetails M ON T.userorganizationid IN (SELECT Value FROM dbo.SplitString(M.accessorg, ','))
+INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
+LEFT JOIN Trainee CreatedBy ON T.createby = CreatedBy.username
+INNER JOIN Organization O ON T.userorganizationid = O.organizationid
+      WHERE M.useremail = '${useremail}' AND T.active = 1    AND ${generateSearchCondition(
+            searchterm
+          )}
+      ORDER BY T.CreateTime DESC
+      OFFSET ${Page} ROWS FETCH NEXT 25 ROWS ONLY
+  )
+  SELECT TotalCount, *
+  FROM CountCTE
+  CROSS JOIN PaginatedResults;`;
+        } else {
+          query = `WITH CountCTE AS (
+      SELECT COUNT(*) AS TotalCount
+      FROM Trainee T
+      INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
+      LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName
+      LEFT JOIN organization O ON T.userorganizationid = O.organizationid
+      WHERE T.RecruiterName = '${traineeid}'
+  ),
+  PaginatedResults AS (
+      SELECT T.TraineeID, CONCAT(CreatedBy.FirstName, ' ', CreatedBy.LastName) AS CreatedBy, CONCAT(T.FirstName, ' ', T.LastName) AS Name, T.UserName AS Email, T.PhoneNumber AS Phone, T.LegalStatus AS LegalStatus, CS.CSName AS CandidateStatus, T.CreateTime AS DateCreated, T.followupon, T.notes, O.organizationname
+      FROM Trainee T
+      INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
+      LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName
+      LEFT JOIN organization O ON T.userorganizationid = O.organizationid
+      WHERE T.RecruiterName = '${traineeid}' AND ${generateSearchCondition(
+            searchterm
+          )}
+      ORDER BY T.CreateTime DESC
+      OFFSET '${Page}' ROWS FETCH NEXT 25 ROWS ONLY
+  )
+  SELECT TotalCount, *
+  FROM CountCTE
+  CROSS JOIN PaginatedResults;`;
+        }
+
+        console.log(query);
+
+        const recordset = await request.query(query);
+
+        if (
+          recordset &&
+          recordset.recordsets &&
+          recordset.recordsets.length > 0
+        ) {
+          const result = {
+            flag: 1,
+            result: recordset.recordsets[0],
+          };
+          resolve(result);
+        } else {
+          const result = {
+            flag: 0,
+            error: "No active candidates found!",
+          };
+          resolve(result);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    // Wait for either the database query to complete or the timeout to occur
+    const result = await Promise.race([databasePromise, timeoutPromise]);
+
+    res.send(result);
+  } catch (error) {
+    console.error("Error fetching candidates data:", error);
+    const result = {
+      flag: 0,
+      error: "An error occurred while fetching candidates data!",
+    };
+    res.status(500).send(result);
+  }
+});
+*/
 
 router.post("/gethrmscandidateList", async (req, res) => {
   try {
-    const pool = await sql.connect(config);
-    const request = new sql.Request();
-    var traineeid = req.body.TraineeID;
-    var useremail = req.body.useremail;
-    var admin = req.body.admin;
-    var searchterm = req.body.searchterm;
-    var Page = req.body.Page * 25;
-    var query = "";
+    const timeoutDuration = 60000; // Timeout duration in milliseconds (60 seconds)
 
-    // Function to generate dynamic search condition based on search term
-    function generateSearchCondition(searchterm) {
-      if (searchterm.includes(" ")) {
-        const words = searchterm.split(" ");
-        return `T.FirstName LIKE '%${words[0]}%' AND T.LastName LIKE '%${words[1]}%'`;
-      } else if (searchterm.includes("@")) {
-        return `T.UserName LIKE '%${searchterm}%'`;
-      } else {
-        return `(T.FirstName LIKE '%${searchterm}%' OR T.LastName LIKE '%${searchterm}%' OR T.UserName LIKE '%${searchterm}%')`;
+    // Set a timeout for the database query
+    const timeoutPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(new Error("Request timed out"));
+      }, timeoutDuration);
+    });
+
+    // Execute the database query within the timeout
+    const databasePromise = new Promise(async (resolve, reject) => {
+      try {
+        const pool = await sql.connect(config);
+        const request = new sql.Request();
+        var traineeid = req.body.TraineeID;
+        var useremail = req.body.useremail;
+        var admin = req.body.admin;
+        var searchterm = req.body.searchterm;
+        var Page = req.body.Page * 25;
+        var query = "";
+
+        // Function to generate search condition based on search term
+        function generateSearchCondition(searchterm) {
+          if (searchterm.includes(" ")) {
+            const words = searchterm.split(" ");
+            return `T.FirstName LIKE '%${words[0]}%' AND T.LastName LIKE '%${words[1]}%'`;
+          } else if (searchterm.includes("@")) {
+            return `T.UserName LIKE '%${searchterm}%'`;
+          } else {
+            return `(T.FirstName LIKE '%${searchterm}%' OR T.LastName LIKE '%${searchterm}%' OR T.UserName LIKE '%${searchterm}%')`;
+          }
+        }
+
+        // Build the SQL query based on user role (admin or recruiter)
+        if (admin) {
+          query = `
+            SELECT T.TraineeID, CONCAT(T.firstname, ' ', T.lastname) AS Name, CONCAT(CreatedBy.firstname, ' ', CreatedBy.lastname) AS CreatedBy,      
+            T.username AS Email, O.organizationname, T.LegalStatus AS LegalStatus, T.PhoneNumber AS Phone, CS.CSName AS CandidateStatus,
+            T.followupon, T.notes, T.CreateTime AS DateCreated
+            FROM Trainee T
+            INNER JOIN Memberdetails M ON T.userorganizationid IN (SELECT Value FROM dbo.SplitString(M.accessorg, ','))
+            INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
+            LEFT JOIN Trainee CreatedBy ON T.createby = CreatedBy.username
+            INNER JOIN Organization O ON T.userorganizationid = O.organizationid
+            WHERE M.useremail = '${useremail}' AND T.active = 1 AND ${generateSearchCondition(searchterm)}
+            ORDER BY T.CreateTime DESC
+            OFFSET ${Page} ROWS FETCH NEXT 25 ROWS ONLY`;
+        } else {
+          query = `
+            SELECT T.TraineeID, CONCAT(CreatedBy.FirstName, ' ', CreatedBy.LastName) AS CreatedBy, CONCAT(T.FirstName, ' ', T.LastName) AS Name, T.UserName AS Email, T.PhoneNumber AS Phone, T.LegalStatus AS LegalStatus, CS.CSName AS CandidateStatus, T.CreateTime AS DateCreated, T.followupon, T.notes, O.organizationname
+            FROM Trainee T
+            INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
+            LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName
+            LEFT JOIN organization O ON T.userorganizationid = O.organizationid
+            WHERE T.RecruiterName = '${traineeid}' AND ${generateSearchCondition(searchterm)}
+            ORDER BY T.CreateTime DESC
+            OFFSET '${Page}' ROWS FETCH NEXT 25 ROWS ONLY`;
+        }
+
+        console.log(query);
+
+        const recordset = await request.query(query);
+
+        if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
+          const result = {
+            flag: 1,
+            result: recordset.recordsets[0],
+          };
+          resolve(result);
+        } else {
+          const result = {
+            flag: 0,
+            error: "No active candidates found!",
+          };
+          resolve(result);
+        }
+      } catch (error) {
+        reject(error);
       }
-    }
+    });
 
-    if (admin) {
-      query = `WITH CountCTE AS (
-        SELECT COUNT(*) AS TotalCount
-        FROM Trainee T
-        INNER JOIN Memberdetails M ON T.userorganizationid IN (SELECT Value FROM dbo.SplitString(M.accessorg, ','))
-        INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
-        LEFT JOIN Trainee CreatedBy ON T.createby = CreatedBy.username
-        INNER JOIN Organization O ON T.userorganizationid = O.organizationid
-        WHERE M.useremail = '${useremail}' AND T.active = 1   AND ${generateSearchCondition(
-        searchterm
-      )}
-    ),
-    PaginatedResults AS (
-      SELECT T.TraineeID, CONCAT(T.firstname, ' ', T.lastname) AS Name, CONCAT(CreatedBy.firstname, ' ', CreatedBy.lastname) AS CreatedBy,      
-      T.username AS Email, O.organizationname, T.LegalStatus AS LegalStatus, T.PhoneNumber AS Phone, CS.CSName AS CandidateStatus,
-      T.followupon, T.notes, T.CreateTime AS DateCreated
-  FROM Trainee T
-  INNER JOIN Memberdetails M ON T.userorganizationid IN (SELECT Value FROM dbo.SplitString(M.accessorg, ','))
-  INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
-  LEFT JOIN Trainee CreatedBy ON T.createby = CreatedBy.username
-  INNER JOIN Organization O ON T.userorganizationid = O.organizationid
-        WHERE M.useremail = '${useremail}' AND T.active = 1    AND ${generateSearchCondition(
-        searchterm
-      )}
-        ORDER BY T.CreateTime DESC
-        OFFSET ${Page} ROWS FETCH NEXT 25 ROWS ONLY
-    )
-    SELECT TotalCount, *
-    FROM CountCTE
-    CROSS JOIN PaginatedResults;`;
-    } else {
-      query = `WITH CountCTE AS (
-        SELECT COUNT(*) AS TotalCount
-        FROM Trainee T
-        INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
-        LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName
-        LEFT JOIN organization O ON T.userorganizationid = O.organizationid
-        WHERE T.RecruiterName = '${traineeid}'
-    ),
-    PaginatedResults AS (
-        SELECT T.TraineeID, CONCAT(CreatedBy.FirstName, ' ', CreatedBy.LastName) AS CreatedBy, CONCAT(T.FirstName, ' ', T.LastName) AS Name, T.UserName AS Email, T.PhoneNumber AS Phone, T.LegalStatus AS LegalStatus, CS.CSName AS CandidateStatus, T.CreateTime AS DateCreated, T.followupon, T.notes, O.organizationname
-        FROM Trainee T
-        INNER JOIN Currentstatus CS ON T.CandidateStatus = CS.CSID
-        LEFT JOIN Trainee CreatedBy ON T.CreateBy = CreatedBy.UserName
-        LEFT JOIN organization O ON T.userorganizationid = O.organizationid
-        WHERE T.RecruiterName = '${traineeid}' AND ${generateSearchCondition(
-        searchterm
-      )}
-        ORDER BY T.CreateTime DESC
-        OFFSET '${Page}' ROWS FETCH NEXT 25 ROWS ONLY
-    )
-    SELECT TotalCount, *
-    FROM CountCTE
-    CROSS JOIN PaginatedResults;`;
-    }
+    // Wait for either the database query to complete or the timeout to occur
+    const result = await Promise.race([databasePromise, timeoutPromise]);
 
-    console.log(query);
-
-    const recordset = await request.query(query);
-
-    if (recordset && recordset.recordsets && recordset.recordsets.length > 0) {
-      const result = {
-        flag: 1,
-        result: recordset.recordsets[0],
-      };
-      res.send(result);
-    } else {
-      const result = {
-        flag: 0,
-        error: "No active candidates found! ",
-      };
-      res.send(result);
-    }
+    res.send(result);
   } catch (error) {
     console.error("Error fetching candidates data:", error);
     const result = {
@@ -619,7 +742,12 @@ router.post("/getCandidateInfo", async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const request = new sql.Request();
-    const query = "select t.FTCNotes,t.FirstName ,t.LastName ,t.MiddleName,CONVERT(NVARCHAR(10),t.DOB,101) AS DOB,T.PhoneNumber,(t.FirstName + ' '+t.LastName) as Name,t.UserName,Cs.CSName,T.Candidatestatus,d.Value,t.division,t.SSn,T.RecruiterName,t.marketername,T.ReferredBy,T.DealOffered,t.DuiFelonyInfo,T.EmergConName,t.EmergConPhone,t.EmergConemail,t.ReferredBy_external,t.PassportNumber,t.Address,t.addressline2,t.validateNumber, CONVERT(NVARCHAR(10),t.statusdate,101) AS statusdate,CONVERT(NVARCHAR(10),t.LegalStatusValidFrom,101) AS Legalstartdate, CONVERT(NVARCHAR(10),t.LegalStatusValidTo,101) AS Legalenddate,CONVERT(NVARCHAR(10),t.PassValidityEndDate,101) AS Passvalidateenddate,CONVERT(NVARCHAR(10),t.PassvalidityStartDate,101) AS PassvalidateStartdate,CONVERT(NVARCHAR(10),t.validateEnddate,101) AS ValidateEndDate,CONVERT(NVARCHAR(10),t.EmploymentStartDate,101) AS EmploymentStartDate,CONVERT(NVARCHAR(10),t.EmploymentEndDate,101) AS EmploymentEndDate,t.Title,t.Skill,t.Country,t.state,t.City,t.Zipcode,t.AddressType,t.Notes,t.LegalStatus,  t.FinancialNotes,t.Salary,t.State,t.Perdeium,t.MaritalStatus,t.LCARate,t.FState,t.GCWages,t.StateTaxAllowance,t.StateTaxExemptions,t.FederalTaxAllowance,t.HealthInsurance,t.LifeInsurance,t.FederalTaxAdditionalAllowance,t.Bank1Name,t.Bank1AccountType,t.Bank1AccountNumber,t.Bank1RoutingNumber,t.SalaryDepositType,t.HowMuch,t.Bank2Name,t.Bank2AccountType,t.Bank2AccountNumber,t.Bank2RoutingNumber,CONVERT(NVARCHAR(10),t.Lcadate,101) AS Lcadate,CONVERT(NVARCHAR(10),t.Gcdate,101) AS Gcdate from Trainee t LEFT Join Currentstatus cs On cs.CsID=T.Candidatestatus LEFT Join Department d On d.DepartmentID = T.Division   left Join Phone p On p.PhoneID=(select TOP 1 PhoneID from TraineePhone where TraineeID='"+req.body.TraineeID+"'AND Active = 1) AND p.Active = 1  where TraineeID = '"+req.body.TraineeID+"' and t.Active=1";
+    const query =
+      "select t.FTCNotes,t.FirstName ,t.LastName ,t.MiddleName,CONVERT(NVARCHAR(10),t.DOB,101) AS DOB,T.PhoneNumber,(t.FirstName + ' '+t.LastName) as Name,t.UserName,Cs.CSName,T.Candidatestatus,d.Value,t.division,t.SSn,T.RecruiterName,t.marketername,T.ReferredBy,T.DealOffered,t.DuiFelonyInfo,T.EmergConName,t.EmergConPhone,t.EmergConemail,t.ReferredBy_external,t.PassportNumber,t.Address,t.addressline2,t.validateNumber, CONVERT(NVARCHAR(10),t.statusdate,101) AS statusdate,CONVERT(NVARCHAR(10),t.LegalStatusValidFrom,101) AS Legalstartdate, CONVERT(NVARCHAR(10),t.LegalStatusValidTo,101) AS Legalenddate,CONVERT(NVARCHAR(10),t.PassValidityEndDate,101) AS Passvalidateenddate,CONVERT(NVARCHAR(10),t.PassvalidityStartDate,101) AS PassvalidateStartdate,CONVERT(NVARCHAR(10),t.validateEnddate,101) AS ValidateEndDate,CONVERT(NVARCHAR(10),t.EmploymentStartDate,101) AS EmploymentStartDate,CONVERT(NVARCHAR(10),t.EmploymentEndDate,101) AS EmploymentEndDate,t.Title,t.Skill,t.Country,t.state,t.City,t.Zipcode,t.AddressType,t.Notes,t.LegalStatus,  t.FinancialNotes,t.Salary,t.State,t.Perdeium,t.MaritalStatus,t.LCARate,t.FState,t.GCWages,t.StateTaxAllowance,t.StateTaxExemptions,t.FederalTaxAllowance,t.HealthInsurance,t.LifeInsurance,t.FederalTaxAdditionalAllowance,t.Bank1Name,t.Bank1AccountType,t.Bank1AccountNumber,t.Bank1RoutingNumber,t.SalaryDepositType,t.HowMuch,t.Bank2Name,t.Bank2AccountType,t.Bank2AccountNumber,t.Bank2RoutingNumber,CONVERT(NVARCHAR(10),t.Lcadate,101) AS Lcadate,CONVERT(NVARCHAR(10),t.Gcdate,101) AS Gcdate from Trainee t LEFT Join Currentstatus cs On cs.CsID=T.Candidatestatus LEFT Join Department d On d.DepartmentID = T.Division   left Join Phone p On p.PhoneID=(select TOP 1 PhoneID from TraineePhone where TraineeID='" +
+      req.body.TraineeID +
+      "'AND Active = 1) AND p.Active = 1  where TraineeID = '" +
+      req.body.TraineeID +
+      "' and t.Active=1";
 
     console.log(query);
 
@@ -1094,37 +1222,68 @@ router.post("/updateGeneral", async function (req, res) {
   try {
     var query =
       "UPDATE Trainee SET " +
-      "  ReferredBy = " + formatValue(req.body.ReferredBy) +
-      ", DealOffered = " + formatValue(req.body.DealOffered) +
-      ", Division = " + formatValue(req.body.division) +
-      ", DOB = " + formatValue(req.body.dob) +
-      ", DuiFelonyInfo = " + formatValue(req.body.duiFelonyInfo) +
-      ", FirstName = " + formatValue(req.body.firstName) +
-      ", FTCNotes = " + formatValue(req.body.ftcNotes) +
-      ", UserName = " + formatValue(req.body.generalEmail) +
-      ", LastName = " + formatValue(req.body.lastName) +
-      ", LegalStatusValidFrom = " + formatValue(req.body.legalStatusVal) +
-      ", LegalStatusValidTo = " + formatValue(req.body.legalStatusValend) +
-      ", MiddleName = " + formatValue(req.body.middleName) +
-      ", Notes = " + formatValue(req.body.otherNotes) +
-      ", PhoneNumber = " + formatValue(req.body.phoneNumberG) +
-      ", RecruiterName = " + formatValue(req.body.recruiterName) +
-      ", ReferredBy_external = " + formatValue(req.body.ReferredBy_external) +
-      ", LegalStatus = " + formatValue(req.body.selectedLegalStatus) +
-      ", statusdate = " + formatValue(req.body.statusDate) +
-      ", EmergConName = " + formatValue(req.body.EmergencyCname) +
-      ", EmergConPhone = " + formatValue(req.body.EmergencyPhone) +
-      ", EmergConemail = " + formatValue(req.body.EmergencyEmail) +
-      ", PassportNumber = " + formatValue(req.body.PassportNumber) +
-      ", Address = " + formatValue(req.body.AddressLine1) +
-      ", addressline2 = " + formatValue(req.body.AddressLine2) +
-      ", country = " + formatValue(req.body.Country) +
-      ", state = " + formatValue(req.body.State) +
-      ", City = " + formatValue(req.body.City) +
-      ", Zipcode = " + formatValue(req.body.Zipcode) +
-      ", SSn = " + formatValue(req.body.ssn) +
-      ", AddressType = " + formatValue(req.body.AddressType) +
-      ", Candidatestatus = " + formatValue(req.body.selectedcurrentstatus) +
+      "  ReferredBy = " +
+      formatValue(req.body.ReferredBy) +
+      ", DealOffered = " +
+      formatValue(req.body.DealOffered) +
+      ", Division = " +
+      formatValue(req.body.division) +
+      ", DOB = " +
+      formatValue(req.body.dob) +
+      ", DuiFelonyInfo = " +
+      formatValue(req.body.duiFelonyInfo) +
+      ", FirstName = " +
+      formatValue(req.body.firstName) +
+      ", FTCNotes = " +
+      formatValue(req.body.ftcNotes) +
+      ", UserName = " +
+      formatValue(req.body.generalEmail) +
+      ", LastName = " +
+      formatValue(req.body.lastName) +
+      ", LegalStatusValidFrom = " +
+      formatValue(req.body.legalStatusVal) +
+      ", LegalStatusValidTo = " +
+      formatValue(req.body.legalStatusValend) +
+      ", MiddleName = " +
+      formatValue(req.body.middleName) +
+      ", Notes = " +
+      formatValue(req.body.otherNotes) +
+      ", PhoneNumber = " +
+      formatValue(req.body.phoneNumberG) +
+      ", RecruiterName = " +
+      formatValue(req.body.recruiterName) +
+      ", ReferredBy_external = " +
+      formatValue(req.body.ReferredBy_external) +
+      ", LegalStatus = " +
+      formatValue(req.body.selectedLegalStatus) +
+      ", statusdate = " +
+      formatValue(req.body.statusDate) +
+      ", EmergConName = " +
+      formatValue(req.body.EmergencyCname) +
+      ", EmergConPhone = " +
+      formatValue(req.body.EmergencyPhone) +
+      ", EmergConemail = " +
+      formatValue(req.body.EmergencyEmail) +
+      ", PassportNumber = " +
+      formatValue(req.body.PassportNumber) +
+      ", Address = " +
+      formatValue(req.body.AddressLine1) +
+      ", addressline2 = " +
+      formatValue(req.body.AddressLine2) +
+      ", country = " +
+      formatValue(req.body.Country) +
+      ", state = " +
+      formatValue(req.body.State) +
+      ", City = " +
+      formatValue(req.body.City) +
+      ", Zipcode = " +
+      formatValue(req.body.Zipcode) +
+      ", SSn = " +
+      formatValue(req.body.ssn) +
+      ", AddressType = " +
+      formatValue(req.body.AddressType) +
+      ", Candidatestatus = " +
+      formatValue(req.body.selectedcurrentstatus) +
       " WHERE " +
       "  TraineeID = " +
       formatValue(req.body.TraineeID);
@@ -1633,8 +1792,6 @@ router.post("/MoveToTalentBench", async (req, res) => {
   }
 });
 
-
-
 router.post("/addTresumeNode", async (req, res) => {
   try {
     // Establish a SQL connection
@@ -1643,10 +1800,10 @@ router.post("/addTresumeNode", async (req, res) => {
     var TresumeID = req.body.TresumeID;
     var TresumeNodeID = await generateTresumeNodeID();
     console.log(TresumeID);
-    
+
     // Perform the SQL operation
     if (!TresumeID) {
-      TresumeID =await generateTresumeID();
+      TresumeID = await generateTresumeID();
       var Tresumeinsertquery = `INSERT INTO [dbo].[Tresume]([TresumeID] ,[TraineeID] ,[Summary] ,[URL] ,[Active] ,[CreateTime] ,[CreateBy] ,[LastUpdateTime] ,[LastUpdateBy] ,[Certified] ,[IsRChilliUsed] ,[IsJsonResume])
 VALUES ('${TresumeID}' ,'${req.body.TraineeID}' ,'' ,'' ,1 ,GETDATE() ,'${req.body.username}' ,GETDATE() ,'${req.body.username}' ,'' ,'' ,'')`;
       console.log(TresumeID);
@@ -1662,7 +1819,7 @@ VALUES ('${TresumeID}' ,'${req.body.TraineeID}' ,'' ,'' ,1 ,GETDATE() ,'${req.bo
     await sql.close();
     const result = {
       TresumeID: TresumeID,
-      TresumeNodeID:TresumeNodeID,
+      TresumeNodeID: TresumeNodeID,
       flag: 1,
     };
     res.send(result);
@@ -1717,17 +1874,20 @@ async function generateTresumeNodeID() {
   }
 }
 
-
 router.post("/UpdateTresumeNode", async (req, res) => {
   try {
     await sql.connect(config);
 
     // Extract data properties and handle empty strings
-    const title = req.body.data.Title ? `'${req.body.data.Title}'` : 'NULL';
-    const org = req.body.data.Org ? `'${req.body.data.Org}'` : 'NULL';
-    const nodeDate = req.body.data.NodeDate ? `'${req.body.data.NodeDate}'` : 'NULL';
-    const nodeDateTo = req.body.data.NodeDateTo ? `'${req.body.data.NodeDateTo}'` : 'NULL';
-    const skill = req.body.data.Skill ? `'${req.body.data.Skill}'` : 'NULL';
+    const title = req.body.data.Title ? `'${req.body.data.Title}'` : "NULL";
+    const org = req.body.data.Org ? `'${req.body.data.Org}'` : "NULL";
+    const nodeDate = req.body.data.NodeDate
+      ? `'${req.body.data.NodeDate}'`
+      : "NULL";
+    const nodeDateTo = req.body.data.NodeDateTo
+      ? `'${req.body.data.NodeDateTo}'`
+      : "NULL";
+    const skill = req.body.data.Skill ? `'${req.body.data.Skill}'` : "NULL";
 
     var query = `UPDATE TresumeNode 
                  SET Title = ${title}, Org = ${org}, NodeDate = ${nodeDate}, 
@@ -1736,7 +1896,7 @@ router.post("/UpdateTresumeNode", async (req, res) => {
 
     await sql.query(query);
     await sql.close();
-    
+
     const result = {
       TresumeNodeID: req.body.data.TresumeNodeID,
       flag: 1,
@@ -1799,10 +1959,10 @@ router.post("/placementTrackerReport", async (req, res) => {
   }
 });
 
-router.post('/insertRecruitmentTracker', async (req, res) => {
-  try {   
+router.post("/insertRecruitmentTracker", async (req, res) => {
+  try {
     var query = ``;
-   
+
     console.log(query);
     const pool = await sql.connect(config);
     const request = new sql.Request(pool);
@@ -1813,7 +1973,6 @@ router.post('/insertRecruitmentTracker', async (req, res) => {
       message: "data inserted successfully!",
     };
     res.status(200).json(result);
-
   } catch (error) {
     console.error("Error inserting data:", error);
     const result = {
@@ -1823,8 +1982,6 @@ router.post('/insertRecruitmentTracker', async (req, res) => {
     res.status(500).json(result);
   }
 });
-
-
 
 // Helper function to format values
 function formatValue(value) {

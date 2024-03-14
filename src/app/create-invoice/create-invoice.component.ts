@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { CreateInvoiceService } from './create-invoice.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-create-invoice',
   templateUrl: './create-invoice.component.html',
@@ -60,6 +61,8 @@ export class CreateInvoiceComponent implements OnInit {
   clientid: any;
   selectedclient:any;
   username: any;
+
+
 
   ngOnInit(): void {
     this.loading = true;
@@ -139,7 +142,9 @@ export class CreateInvoiceComponent implements OnInit {
     }
   }
 
-  removeFile(index: number) {
+  
+
+  removeFile(index: number): void {
     this.files.splice(index, 1);
   }
 

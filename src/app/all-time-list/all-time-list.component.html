@@ -3,10 +3,14 @@
         <div class="row main pt-3 pl-3 pr-3">
             <h2 class="col-md-6">ALL TIME SHEET</h2>
             <div class="col-md-6 text-end">
-                <!-- <div class="col-md-6 text-end" *ngIf="timesheetrole == 3"></div> -->
-                <button class="btn float-right" [routerLink]="['/createalltimelist']">Create</button>
-                  <button type="button" class="btn btn-wdth text-white" data-toggle="modal"
-                  data-target=".bd-example-modal">Add Candidate</button>
+                <div class="row justify-content-end">
+                    <div class="col-auto">
+                      <button class="btn" [routerLink]="['/createalltimelist']">Create</button>
+                    </div>
+                    <div class="col-auto">
+                      <button type="button" class="btn btn-wdth text-white" data-toggle="modal" data-target=".bd-example-modal">Add Candidate</button>
+                    </div>
+                  </div>
             </div>
         </div>
         <div class="container" style="padding: 0 0.5rem;">
@@ -73,7 +77,7 @@
                                     </td>
                                 </tr>
                                 <tr *ngIf="noResultsFound" >
-                                    <td colspan="9" class="text-center">
+                                    <td colspan="8" class="text-center">
                                       No results found.
                                     </td>
                                   </tr>
@@ -119,7 +123,7 @@
                                     </td>
                                 </tr>
                                 <tr *ngIf="noResultsFound" >
-                                    <td colspan="9" class="text-center">
+                                    <td colspan="8" class="text-center">
                                       No results found.
                                     </td>
                                   </tr>
@@ -165,7 +169,7 @@
                                     </td>
                                 </tr>
                                 <tr *ngIf="noResultsFound" >
-                                    <td colspan="9" class="text-center">
+                                    <td colspan="8" class="text-center">
                                       No results found.
                                     </td>
                                   </tr>
@@ -213,7 +217,7 @@
                                     </td>
                                 </tr>
                                 <tr *ngIf="noResultsFound" >
-                                    <td colspan="9" class="text-center">
+                                    <td colspan="8" class="text-center">
                                       No results found.
                                     </td>
                                   </tr>
@@ -238,65 +242,47 @@
           </button>
         </div>
         <div class="modal-body text-center">
-          <div class="container container2">
-            <div class="row">
-              <div class="col-md-6">
-                <form> 
-                  <div class="form-group row">
-                    <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="firstName" placeholder="First Name" [(ngModel)]="firstname"  [ngModelOptions]="{standalone: true}">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="lastName" class="col-sm-3 col-form-label">Last Name</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="lastName" placeholder="Last Name" [(ngModel)]="lastname"  [ngModelOptions]="{standalone: true}">
-                    </div>
-                  </div>
-                </form>
+            <form>
+              <div class="form-group row">
+                <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="firstName" placeholder="First Name" [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}">
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <form>
-                  <div class="form-group row">
-                    <label for="email" class="col-sm-3 col-form-label">Email</label>
-                    <div class="col-sm-9">
-                      <input type="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="candiateEmail"  [ngModelOptions]="{standalone: true}">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <!-- <label class="col-sm-3 col-form-label">Gender</label>
-                    <div class="col-sm-9">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="male" value="male" ng-model="selectedGender" ng-value="'male'">
-                        <label class="form-check-label" for="male">Male</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="female" value="female" ng-model="selectedGender" ng-value="'female'">
-                        <label class="form-check-label" for="female">Female</label>
-                    </div>
-                    </div> -->
-                    <label>Current Location</label>
-                    <select class="form-control" name="Location" [(ngModel)]="currentLocation"
-                      [ngModelOptions]="{standalone: true}">
-                      <option value="">Select</option>
-                      <option *ngFor="let location of Locations?.result || []" [value]="location.state">{{ location.state }}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="form-group row" style="text-align: center;">
-                    <label for="phoneNumber" class="col-sm-3 col-form-label">Phone Number</label>
-                    <div class="col-sm-9">
-                      <input type="tel" class="form-control" id="phoneNumber" placeholder="Phone Number" [(ngModel)]="phonenumber"  [ngModelOptions]="{standalone: true}">
-                    </div>
-                  </div>
-                </form>
+          
+              <div class="form-group row">
+                <label for="lastName" class="col-sm-3 col-form-label">Last Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="lastName" placeholder="Last Name" [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}">
+                </div>
               </div>
-            </div>
+          
+              <div class="form-group row">
+                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="candiateEmail" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+          
+              <div class="form-group row">
+                <label for="currentLocation" class="col-sm-3 col-form-label">Current Location</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="Location" [(ngModel)]="currentLocation" [ngModelOptions]="{standalone: true}">
+                    <option value="">Select</option>
+                    <option *ngFor="let location of Locations?.result || []" [value]="location.state">{{ location.state }}</option>
+                  </select>
+                </div>
+              </div>
+          
+              <div class="form-group row">
+                <label for="phoneNumber" class="col-sm-3 col-form-label">Phone Number</label>
+                <div class="col-sm-9">
+                  <input type="tel" class="form-control" id="phoneNumber" placeholder="Phone Number" [(ngModel)]="phonenumber" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+            </form>
           </div>
-        </div> <!-- Closing modal-body div -->
+        <!-- Closing modal-body div -->
         <div class="modal-footer">
           <button type="button" class="btn" data-dismiss="modal">Cancel</button>
           <button type="button" class="btn" data-dismiss="modal" (click)="CandidateSave()">Save</button>
@@ -305,5 +291,5 @@
     </div>
   </div>
   
-
+<p-toast position="bottom-right"></p-toast>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

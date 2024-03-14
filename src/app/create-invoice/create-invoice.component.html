@@ -3,20 +3,29 @@
     <h2> CREATE INVOICE</h2>
   </div>
     <body style="font-size: 14px">
+      <form #invoiceForm="ngForm" (ngSubmit)="addinvoice()" novalidate>
     <div class="row mt-4">
       <div class="col-md-12 d-flex">
         <div class="dropdown-container" style="margin-left: 16px;">
           <label for="client" class="dropdown-label ml-3">Client</label>
-          <select class="form-control" name="Client" [(ngModel)]="selectedclient" style="width: 9rem" (change)="onclientChanges()">
-            <option *ngFor="let client of clients" [value]="client" [ngValue]="client">{{ client.ClientName }}</option>
-          </select>
+          <select class="form-control" style="width: 100%;" name="client" [(ngModel)]="selectedclient" required
+              #client="ngModel">
+              <option *ngFor="let client of clients" [value]="client">{{ client.ClientName }}</option>
+            </select>
+            <div *ngIf="client.invalid && client.touched">
+              <div *ngIf="client.errors.required" class="text-danger">Client selection is required</div>
+            </div>
         </div>
         <div class="clientemail mt-0 ml-3">
           <label for="clientEmail" class="dropdown-label">Client Email</label>
           <a href="#" class="text-decoration-none" style="margin-left: 11px; width: 9rem;"
             (click)="togglePopup($event)">Cc(2)/Bcc</a>
-          <input type="text" id="clientEmail" placeholder="Email" class="form-control ml-3" [(ngModel)]="clientEmail"
-            style="width: 9rem; height: 40px;">
+            <input type="text" name="clientEmail" id="clientEmail" placeholder="Email" class="form-control"
+            [(ngModel)]="clientEmail" style=" height: 40px;" required>
+            <div *ngIf="invoiceForm.controls.clientEmail.touched && invoiceForm.controls.clientEmail.invalid">
+              <div *ngIf="invoiceForm.controls.clientEmail.errors.required" class="text-danger">Client Email is Required
+              </div>
+            </div>
         </div>
 
         <div class="popup" *ngIf="showPopup" (clickOutside)="closePopup()">
@@ -57,21 +66,36 @@
 
         <div class="billingaddress mt-0 ml-3">
           <label for="Billingaddress" class="ml-0">Billing address</label>
-          <textarea class="form-control" id="Billingaddress" placeholder="Enter Address" rows="1"
-            [(ngModel)]="selectedBillingaddress"></textarea>
+          <textarea class="form-control" name="Billingaddress" id="Billingaddress" placeholder="Enter Address" rows="1"
+            [(ngModel)]="selectedBillingaddress" required></textarea>
+            <div *ngIf="invoiceForm.controls.Billingaddress.touched && invoiceForm.controls.Billingaddress.invalid">
+              <div *ngIf="invoiceForm.controls.Billingaddress.errors.required" class="text-danger">Billing Address is
+                Required</div>
+            </div>
         </div>
 
         <div class="invoiceDate mt-0 ml-3">
           <div class="form-group">
             <label for="InvoiceDate" class="ml-0">Invoice Date</label>
-            <input type="date" id="InvoiceDate" class="form-control ml-0" [(ngModel)]="selectedInvoiceDate">
+            <input type="date" name="selectedInvoiceDate" id="selectedInvoiceDate" class="form-control ml-0"
+            [(ngModel)]="selectedInvoiceDate" required>
+            <div
+            *ngIf="invoiceForm.controls.selectedInvoiceDate.touched && invoiceForm.controls.selectedInvoiceDate.invalid">
+            <div *ngIf="invoiceForm.controls.selectedInvoiceDate.errors.required" class="text-danger">Invoice date is
+              required</div>
+          </div>
           </div>
         </div>
 
         <div class="dueDate mt-0 ml-3">
           <div class="form-group">
             <label for="DueDate" class="ml-0">Due Date</label>
-            <input type="date" id="DueDate" class="form-control ml-0" [(ngModel)]="selectedDueDate">
+            <input type="date" class="form-control ml-0" name="selectedDueDate" id="selectedDueDate"
+            [(ngModel)]="selectedDueDate" required>
+            <div *ngIf="invoiceForm.controls.selectedDueDate.touched && invoiceForm.controls.selectedDueDate.invalid">
+              <div *ngIf="invoiceForm.controls.selectedDueDate.errors.required" class="text-danger">Due date is required
+              </div>
+            </div>
           </div>
         </div>
 
@@ -136,18 +160,25 @@
       <div class="ml-3">
         <div class="form-group">
           <label for="invoiceNo">Invoice No.</label>
-          <input type="text" id="invoiceNo" class="form-control" placeholder="Enter Invoice No" [(ngModel)]="InvoiceNo"
-            style="width: 9rem; height: 40px;">
+          <input type="text" id="invoiceNo" name="InvoiceNo" class="form-control" placeholder="Enter Invoice No"  [(ngModel)]="InvoiceNo"
+            style="width: 9rem; height: 40px;" required>
+            <div *ngIf="invoiceForm.controls.InvoiceNo.touched && invoiceForm.controls.InvoiceNo.invalid">
+              <div *ngIf="invoiceForm.controls.InvoiceNo.errors.required" class="text-danger">Invoice number is required
+              </div>
+            </div>
         </div>
       </div>
       <div class="ml-3">
         <div class="form-group">
           <label for="location">Location</label>
           <select class="form-control" name="location" [(ngModel)]="selectedState" [ngModelOptions]="{standalone: true}"
-            style="height: 40px; width: 9rem;">
+            style="height: 40px; width: 9rem;" required #location="ngModel">
             <option value="0" selected>Select Location</option>
             <option *ngFor="let state of states" [value]="state.state">{{ state.state }}</option>
           </select>
+          <div *ngIf="location.invalid && location.touched">
+            <div *ngIf="location.errors.required" class="text-danger">Location selection is required</div>
+          </div>
         </div>
       </div>
 
@@ -571,19 +602,21 @@
           <textarea class="form-control" rows="4" [(ngModel)]="messageOnStatement" name="messageOnStatement"></textarea>
         </div>
 
+
+
         <!-- File Upload -->
         <div class="mt-4 mb-2 ml-3">
           <label for="attachments">Attachments</label>
-          <form class="form" (ngSubmit)="uploadFiles()">
+          <form class="form" (ngSubmit)="uploadFiles()" #uploadForm="ngForm">
             <label class="form__container" id="upload-container" style="height: 6rem;">Choose or Drag & Drop Files
-              <input type="file" class="form__file" multiple (change)="onFilesSelected($event)" #fileInput />
-            </label>
+              <input type="file" class="form__file" multiple (change)="onFilesSelected($event)" #fileInput="ngModel" name="files" ngModel required/>
+            </label>           
+            <div *ngIf="fileInput.invalid && fileInput.errors.required" class="error-message mandatory-field">This field is mandatory!.</div>
             <div id="files-list-container">
-              <!-- Display the list of selected files -->
               <ul>
                 <li *ngFor="let file of files; let i = index">
                   {{ file.name }} | {{ (file.size / 1024).toFixed(2) }} KB
-                  <button type="button" (click)="removeFile(i)">Remove</button>
+                  <button type="button" class="remove-btn" (click)="removeFile(i)">Remove</button>
                 </li>
               </ul>
             </div>
@@ -593,6 +626,7 @@
             </div>
           </form>
         </div>
+        
       </div>
     </div>
 
@@ -609,12 +643,17 @@
           <button class="btn btn dropdown-toggle fbtn" type="button" id="saveAndNewDropdown" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">Save and New</button>
           <div class="dropdown-menu" aria-labelledby="saveAndNewDropdown">
-            <a class="dropdown-item" (click)="addinvoice()">Save and close</a>
+            <button class="save-close-btn" [ngClass]="{'disabled-style': invoiceForm.invalid}" (click)="addinvoice()" [disabled]="!invoiceForm.valid">Save and close</button><br>
+            <a class="save-close-btn" href="#">Save and send</a>
+
+            <!-- <a class="dropdown-item" (click)="addinvoice()">Save and close</a> -->
             <!-- <a class="dropdown-item" href="#">Save and send</a> -->
+
           </div>
         </div>
       </div>
     </div>
+  </form>
   </body>
 </div>
 

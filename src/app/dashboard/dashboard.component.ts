@@ -480,7 +480,13 @@ export class DashboardComponent implements OnInit {
               this.loading = false;
 
             }
-          });
+          }),
+          (error: any) => {
+            // Error callback
+            console.error('Error occurred:', error);
+            // Handle error here
+            this.loading = false; // Set loading to false on error
+          };
         });
       }
     });
