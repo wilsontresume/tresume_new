@@ -76,7 +76,7 @@ export class CreateNewJobsComponent{
   jobTypeOptions: any[];
   selectedPriority: string = '';
   priorityOptions: any[];
-  selectedJobStatus: string = '';
+  selectedJobStatus: any = '';
   jobStatusOptions: any[];  
   selectedClient: string = ''; 
   endclient:string='';
@@ -251,7 +251,7 @@ getCity() {
           BillRateTaxTermID: this.selectedcTaxTerms,
           JobTypeID: this.selectedJobType,
           LegalStatus: this.Legalstatus,
-          JobStausID: this.selectedJobStatus,
+          JobStausID: this.selectedJobStatus.JobStatusID,
           NoOfPosition: this.numberOfPositions,
           RespondDate: this.selectedRespondBy,
           ClientID: this.selectedClient,
@@ -271,7 +271,7 @@ getCity() {
           CreateBy: this.username,
           LastUpdateBy: this.username,
           MinYearsOfExpInMonths: this.selectedExperience * 12,
-          JobStatus: this.selectedJobStatus,
+          JobStatus: this.selectedJobStatus.Value,
       };
   
       console.log(Req);

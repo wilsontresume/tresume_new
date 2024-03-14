@@ -40,7 +40,6 @@ export class ApplicantDetailsComponent{
     this.TraineeID = this.cookieService.get('TraineeID');
     this.OrgID = this.cookieService.get('OrgID');
     this.isAdmin = this.cookieService.get('IsAdmin');
-    //this.JobApplicationID = this.cookieService.get('JobApplicationID');
     this.fetchjobapplicants();
   }
 
@@ -69,7 +68,7 @@ export class ApplicantDetailsComponent{
  
   acceptApplication(TraineeID: number) {
     let Req = {
-      TraineeID: TraineeID,
+      TraineeID: this.TraineeID,
       OrgID: this.OrgID,
       JobID: this.JobID,
     };
@@ -83,7 +82,7 @@ export class ApplicantDetailsComponent{
   
   rejectApplication(TraineeID: number) {
     let Req = {
-      TraineeID: TraineeID,
+      TraineeID: this.TraineeID,
       OrgID: this.OrgID,
       JobID: this.JobID,
     };

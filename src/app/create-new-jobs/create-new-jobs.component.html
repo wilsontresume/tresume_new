@@ -248,7 +248,7 @@
                     <label class="post_jobs_contant post_jobs_font_clr">Job Status *</label>
                     <select [(ngModel)]="selectedJobStatus" [ngModelOptions]="{ standalone: true }" name="JobStatus" id="JobStatus" class="form-control">
                       <option value="">Select</option>
-                      <option *ngFor="let option of jobStatusOptions" [value]="option.JobStatusID">{{ option.Value }}</option>
+                      <option *ngFor="let option of jobStatusOptions" [value]="option">{{ option.Value }}</option>
                     </select>
                   </div>
                 </div>

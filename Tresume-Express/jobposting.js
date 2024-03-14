@@ -294,13 +294,10 @@ router.post('/getjobapplicants', async (req, res) => {
 
 router.post("/acceptApplication", async function (req, res) {
   try {
-    const { TraineeID, JobID } = req.body;
-    const query = `UPDATE JobApplication SET Status = 'ACCEPTED' WHERE TraineeID = @TraineeID AND JobID = @JobID`;
+    const query = `UPDATE JobApplication SET Status = 'ACCEPTED' WHERE TraineeID = '${req.body.TraineeID}' AND JobID = '${req.body.JobID}'`;
     console.log(query);
     await sql.connect(config);
     const request = new sql.Request();
-    request.input('TraineeID', sql.Int, TraineeID);
-    request.input('JobID', sql.Int, JobID);
     const result = await request.query(query);
 
     const data = {
@@ -321,12 +318,10 @@ router.post("/acceptApplication", async function (req, res) {
 router.post("/rejectApplication", async function (req, res) {
   try {
     const { TraineeID, JobID } = req.body;
-    const query = `UPDATE JobApplication SET Status = 'REJECTED' WHERE TraineeID = @TraineeID AND JobID = @JobID`;
+    const query = `UPDATE JobApplication SET Status = 'REJECTED' WHERE TraineeID = '${req.body.TraineeID}' AND JobID = '${req.body.JobID}'`;
     console.log(query);
     await sql.connect(config);
     const request = new sql.Request();
-    request.input('TraineeID', sql.Int, TraineeID);
-    request.input('JobID', sql.Int, JobID);
     const result = await request.query(query);
 
     const data = {
