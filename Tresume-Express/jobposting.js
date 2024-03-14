@@ -163,6 +163,105 @@ router.post('/getSubmittedCandidateList', async (req, res) => {
 
 
 
+router.post('/getJobPostData', async (req, res) => {
+    try {
+        const [
+            NextJobId ,
+            statesResult,
+            currencyTypes,
+            payTypes,
+            taxTerms,
+            jobTypes,
+            priorities,
+            jobStatuses,
+            legalstatus,
+            clients,
+            admins,
+            recruiters
+        ] = await Promise.all([
+            pool.query('SELECT ISNULL(MAX(JobId), 0) + 1 AS NextJobId FROM Job;'),
+            pool.query('select distinct state from usazipcodenew order by state asc;'),
+            pool.query('select * from CurrencyType where active = 1;'),
+            pool.query('select * from paytype where active = 1;'),
+            pool.query('select * from taxterm where active = 1;'),
+            pool.query('select * from JobType where active = 1;'),
+            pool.query('select * from Priority where active = 1;'),
+            pool.query('select * from jobstatus where active = 1;'),
+            pool.query('select LegalText as name,LegalValue as value from legalstatus where active = 1;'),
+            pool.query(`select ClientID, ClientName from clients where PrimaryOwner = ${req.body.TraineeID}`),
+            pool.query(`SELECT T.TraineeID, T.FirstName, T.LastName, T.Active FROM Trainee T JOIN memberdetails M ON T.Username = M.useremail WHERE M.isAdmin = 1 AND T.Active = 1 AND M.Active = 1 AND M.PrimaryOrgID = ${req.body.OrgID}`),
+            pool.query(`SELECT T.TraineeID, T.FirstName, T.LastName, T.Active FROM Trainee T JOIN memberdetails M ON T.Username = M.useremail WHERE M.isAdmin != 1 AND T.Active = 1 AND M.Active = 1 AND M.PrimaryOrgID = ${req.body.OrgID}`)
+        ]);
+
+        const responseData = {
+            NextJobId: NextJobId.recordset[0].NextJobId || 1, // Default to 1 if no result found
+            states: statesResult.recordset,
+            currencyTypes: currencyTypes.recordset,
+            payTypes: payTypes.recordset,
+            taxTerms: taxTerms.recordset,
+            jobTypes: jobTypes.recordset,
+            priorities: priorities.recordset,
+            jobStatuses: jobStatuses.recordset,
+            legalstatus:legalstatus.recordset,
+            clients: clients.recordset,
+            admins: admins.recordset,
+            recruiters: recruiters.recordset
+        };
+
+        res.json(responseData);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.post('/PostJob', async (req, res) => {
+  try {
+    await sql.connect(config);
+    const request = new sql.Request();
+    console.log(req);
+    // Construct the SQL query with parameters
+    const query = `
+    INSERT INTO [dbo].[Job]
+    ([RecruiterID], [JobTitle], [Company], [City], [State], [Country], [ZipCode], [Address],
+    [AreaCode], [JobDescription], [JobCode], [Skills], [PayRate], [PayRateTypeID],
+    [PayRateCurrencyTypeID], [PayRateTaxTermID], [BillRate], [BillRateTypeID],
+    [BillRateCurrencyTypeID], [BillRateTaxTermID], [JobTypeID], [LegalStatus], [JobStausID],
+    [NoOfPosition], [RespondDate], [ClientID], [EndClient], [ClientJobID], [PriorityID],
+    [Duration], [InterviewMode], [SecruityClearance], [PrimaryRecruiterID], [RecruitmentManagerID],
+    [SalesManagerID], [AccountManagerID], [TaxTermID], [Comments], [Active], [CreateTime],
+    [CreateBy], [LastUpdateTime], [LastUpdateBy], [MinYearsOfExpInMonths], [JobStatus], [OrgID])
+    VALUES
+    ('${req.body.RecruiterID}', '${req.body.JobTitle}', '${req.body.Company}', '${req.body.City}',
+    '${req.body.State}', '${req.body.Country}', '${req.body.ZipCode}', '${req.body.Address}',
+    '${req.body.AreaCode}', '${req.body.JobDescription}', '${req.body.JobCode}', '${req.body.Skills}',
+    '${req.body.PayRate}', '${req.body.PayRateTypeID}', '${req.body.PayRateCurrencyTypeID}',
+    '${req.body.PayRateTaxTermID}', '${req.body.BillRate}', '${req.body.BillRateTypeID}',
+    '${req.body.BillRateCurrencyTypeID}', '${req.body.BillRateTaxTermID}', '${req.body.JobTypeID}',
+    '${req.body.LegalStatus}', '${req.body.JobStausID}', '${req.body.NoOfPosition}',
+    '${req.body.RespondDate}', '${req.body.ClientID}', '${req.body.EndClient}', '${req.body.ClientJobID}',
+    '${req.body.PriorityID}', '${req.body.Duration}', '${req.body.InterviewMode}', '${req.body.SecruityClearance}',
+    '${req.body.PrimaryRecruiterID}', '${req.body.RecruitmentManagerID}', '${req.body.SalesManagerID}',
+    '${req.body.AccountManagerID}', '${req.body.TaxTermID}', '${req.body.Comments}', '${req.body.Active}',
+    GETDATE(), '${req.body.CreateBy}', GETDATE(), '${req.body.LastUpdateBy}', '${req.body.MinYearsOfExpInMonths}',
+    '${req.body.JobStatus}', '${req.body.OrgID}')
+
+    `;
+
+    console.log(query);
+
+    // Execute the query
+    await request.query(query);
+
+    // Send success response
+    res.status(200).json({ success: true, message: 'Job inserted successfully.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'An error occurred while inserting the job.' });
+  } finally {
+    sql.close();
+  }
+});
 
 
 module.exports = router;
